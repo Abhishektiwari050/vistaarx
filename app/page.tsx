@@ -1,186 +1,187 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import Link from "next/link"
-import { TextGenerateEffect } from "@/components/ui/text-generate-effect"
-import { Spotlight } from "@/components/ui/Spotlight"
-import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards"
-import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid"
-import { StickyScroll } from "@/components/ui/sticky-scroll-reveal"
-import SplineScene from "@/components/home/SplineScene"
-import DecryptedText from "@/components/ui/decrypted-text"
-import TiltedCard from "@/components/ui/tilted-card"
-import SmoothScroll from "@/components/smooth-scroll"
-import { ScrollProgress } from "@/components/ui/scroll-progress"
-import { FadeIn, SlideUp } from "@/components/motion/MotionWrappers"
-import { testimonials, bentoItems, stickyContent } from "@/lib/constants"
+import React, { useEffect, useRef } from "react";
+import { TextRevealByWord } from "@/components/ui/text-reveal";
+import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
+import { VelocityScroll } from "@/components/ui/velocity-scroll";
+import { MagneticButton } from "@/components/ui/magnetic-button";
+import { Code2, Globe, Sparkles, Zap } from "lucide-react";
+import gsap from "gsap";
+import { ParallaxGallery } from "@/components/ui/parallax-gallery";
 
-export default function HomePage() {
+export default function Home() {
+  const heroRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // GSAP Entrance Animation (Elastic/Funky)
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline();
+
+      // Funky Staggered Entrance
+      tl.from(".hero-char", {
+        y: 150,
+        rotation: 15,
+        opacity: 0,
+        duration: 1.5,
+        stagger: 0.05,
+        ease: "elastic.out(1, 0.75)"
+      })
+        .from(".hero-tag", {
+          scale: 0,
+          rotation: -10,
+          opacity: 0,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: "back.out(1.7)"
+        }, "-=1")
+        .from(".hero-btn", {
+          y: 50,
+          opacity: 0,
+          duration: 1,
+          stagger: 0.1,
+          ease: "power3.out"
+        }, "-=0.5");
+    }, heroRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <SmoothScroll>
-      <main className="min-h-screen w-full bg-black/[0.96] antialiased bg-grid-white/[0.02] relative">
-        <ScrollProgress />
+    <main className={`w-full min-h-screen bg-white selection:bg-[#ccff00] selection:text-black font-sans`}>
 
-        {/* 0. SPLINE HERO SECTION (Sticky) */}
-        <section className="fixed top-0 left-0 w-full h-screen z-0 overflow-hidden">
-          <div className="absolute inset-0 z-0">
-            <SplineScene />
-          </div>
-          <div className="absolute top-10 left-10 z-20 flex items-center gap-4 pointer-events-none select-none">
-            <Image src="/vistaar-logo.svg" alt="Vistaar Logo" width={64} height={64} className="w-12 h-12 md:w-16 md:h-16" />
-            <h1 className="text-3xl md:text-5xl font-heading font-black text-white tracking-tighter">
-              Vistaar
-            </h1>
-          </div>
+      {/* 1. HERO SECTION (MAXIMALIST) */}
+      <section ref={heroRef} className="h-screen w-full flex flex-col justify-center px-4 md:px-20 pt-20 relative overflow-hidden bg-white">
 
-          {/* Scroll Indicator */}
-          <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20 animate-bounce">
-            <svg className="w-6 h-6 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
-          </div>
+        {/* Dynamic Background Gradients */}
+        <div className="absolute top-[-20%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-[#ccff00] blur-[120px] opacity-20 animate-pulse pointer-events-none" />
+        <div className="absolute bottom-[-20%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-[#ff0080] blur-[120px] opacity-10 pointer-events-none" />
 
-          {/* Gradient Mask */}
-          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black via-black/50 to-transparent z-10 pointer-events-none" />
-        </section>
-
-        {/* Spacer for Sticky Hero */}
-        <div className="h-screen w-full relative z-0 pointer-events-none" />
-
-        {/* CONTENT WRAPPER (Slides over Hero) */}
-        <div className="relative z-10 bg-black/[0.96] shadow-[0_-20px_50px_rgba(0,0,0,0.8)]">
-
-          {/* 1. HERO SECTION (Text Content) */}
-          <section className="relative min-h-[80vh] w-full flex md:items-center md:justify-center overflow-hidden bg-black/50 backdrop-blur-sm border-t border-white/10 rounded-t-3xl">
-            <Spotlight
-              className="-top-40 left-0 md:left-60 md:-top-20"
-              fill="white"
-            />
-
-            <div className="p-4 max-w-7xl mx-auto relative z-10 w-full pt-20 md:pt-0">
-              <div className="max-w-4xl mx-auto text-center space-y-6 md:space-y-8">
-                <FadeIn>
-                  <h1 className="text-4xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 bg-opacity-50 leading-[1.1]">
-                    <DecryptedText
-                      text="Grow Your Export Business 2-3x Faster"
-                      speed={100}
-                      maxIterations={20}
-                      className="text-4xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 bg-opacity-50 leading-[1.1]"
-                      parentClassName="block"
-                      revealDirection="center"
-                    />
-                  </h1>
-                </FadeIn>
-
-                <FadeIn delay={0.2}>
-                  <div className="max-w-2xl mx-auto">
-                    <TextGenerateEffect
-                      words="Join 200+ Indian exporters who automated sales, cut manual work 80%, and scaled with our award-winning digital solutions."
-                      className="text-base md:text-lg text-neutral-300 leading-relaxed font-normal"
-                    />
-                  </div>
-                </FadeIn>
-
-                <FadeIn delay={0.4}>
-                  <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
-                    <Link
-                      href="/contact"
-                      className="group relative inline-flex items-center justify-center px-8 py-4 text-base font-bold text-black transition-all duration-200 bg-white rounded-full hover:bg-gray-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
-                    >
-                      See How
-                      <svg className="w-5 h-5 ml-2 -mr-1 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
-                    </Link>
-
-                    <Link
-                      href="/work"
-                      className="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white transition-all duration-200 bg-white/5 border border-white/10 rounded-full hover:bg-white/10 hover:border-white/20"
-                    >
-                      View Success Stories
-                    </Link>
-                  </div>
-                </FadeIn>
-              </div>
+        <div className="max-w-[95vw] z-10 relative">
+          {/* Main Title: Mixed Fonts */}
+          <div className="flex flex-col relative leading-[0.8]">
+            <div className="flex items-baseline gap-4 md:gap-8 flex-wrap">
+              <h1 className="hero-char text-[12vw] md:text-[11vw] font-black tracking-tighter text-black mix-blend-multiply">
+                VISTAAR
+              </h1>
+              <span className="hero-tag inline-block px-4 py-1 md:px-8 md:py-2 rounded-full border-2 border-black text-lg md:text-3xl font-bold font-mono bg-[#ccff00] -rotate-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                v2.0
+              </span>
             </div>
-          </section>
 
-          {/* 2. SOCIAL PROOF (Infinite Marquee) */}
-          <section className="py-20 relative z-10">
-            <FadeIn>
-              <h2 className="text-center text-xl md:text-2xl font-bold text-white mb-10 opacity-80">
-                Trusted by Industry Leaders
-              </h2>
-              <InfiniteMovingCards
-                items={testimonials}
-                direction="right"
-                speed="slow"
-              />
-            </FadeIn>
-          </section>
-
-          {/* 3. SERVICES (Bento Grid) */}
-          <section className="py-20 px-4 relative z-10 max-w-7xl mx-auto">
-            <SlideUp>
-              <h2 className="text-3xl md:text-5xl font-bold text-white mb-12 text-center">
-                Everything you need to <span className="text-cyan-500">Dominate</span>
-              </h2>
-              <BentoGrid className="max-w-4xl mx-auto">
-                {bentoItems.map((item, i) => (
-                  <TiltedCard
-                    key={i}
-                    className={i === 3 || i === 6 ? "md:col-span-2" : ""}
-                    containerHeight="100%"
-                    containerWidth="100%"
-                    imageHeight="100%"
-                    imageWidth="100%"
-                    rotateAmplitude={12}
-                    scaleOnHover={1.02}
-                    showMobileWarning={false}
-                    showTooltip={false}
-                    displayOverlayContent={false}
-                  >
-                    <BentoGridItem
-                      title={item.title}
-                      description={item.description}
-                      header={item.header}
-                      icon={item.icon}
-                      className="h-full"
-                    />
-                  </TiltedCard>
-                ))}
-              </BentoGrid>
-            </SlideUp>
-          </section>
-
-          {/* 4. PROCESS (Sticky Scroll) */}
-          <section className="py-20 relative z-10">
-            <FadeIn>
-              <h2 className="text-3xl md:text-5xl font-bold text-white mb-12 text-center">
-                How We Scale You
-              </h2>
-              <StickyScroll content={stickyContent} />
-            </FadeIn>
-          </section>
-
-          {/* 5. FINAL CTA */}
-          <section className="py-20 relative z-10 text-center px-4 pb-40">
-            <SlideUp>
-              <div className="max-w-3xl mx-auto bg-neutral-900/50 border border-neutral-800 p-10 rounded-3xl backdrop-blur-sm">
-                <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-                  Ready to stop chasing leads?
-                </h2>
-                <p className="text-neutral-400 mb-8 text-lg">
-                  Let us build the system that brings them to you.
-                </p>
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-black bg-white rounded-full hover:bg-gray-200 hover:scale-105 transition-all duration-200"
-                >
-                  Start Your Transformation
-                </Link>
+            <div className="flex items-center gap-4 md:gap-8 -mt-2 md:-mt-6 flex-wrap">
+              <span className={`hero-char text-[10vw] md:text-[11vw] font-medium italic text-[#ff0080] font-serif`}>
+                Design
+              </span>
+              <div className="hero-tag w-16 h-16 md:w-32 md:h-32 rounded-full bg-black flex items-center justify-center text-white font-mono text-xs md:text-sm text-center p-2 rotate-12">
+                EST. <br /> 2024
               </div>
-            </SlideUp>
-          </section>
+              <h1 className="hero-char text-[12vw] md:text-[11vw] font-black tracking-tighter text-black">
+                X
+              </h1>
+            </div>
+          </div>
+
+          {/* Subtitle / Manifesto */}
+          <p className="hero-text mt-12 max-w-2xl text-xl md:text-2xl font-medium text-neutral-800 leading-relaxed font-mono">
+            <span className="bg-neutral-100 px-1">WE BUILD</span> SOFTWARE THAT FEELS <span className={`italic font-serif font-bold text-3xl`}>alive</span>.
+            NO BORING TEMPLATES. JUST PURE <span className="bg-[#ccff00] px-2 font-bold border border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">CHAOS & CODE</span>.
+          </p>
+
+
+          <div className="mt-12 flex gap-4">
+            <MagneticButton className="hero-btn px-8 py-4 rounded-full bg-[#1a73e8] text-white font-medium text-lg hover:bg-[#1557b0] transition-colors shadow-lg shadow-blue-500/20 active:scale-95 transition-transform">
+              Get Started
+            </MagneticButton>
+            <MagneticButton className="hero-btn px-8 py-4 rounded-full bg-[#F1F3F4] text-[#1a73e8] font-medium text-lg hover:bg-[#e8eaed] transition-colors active:scale-95 transition-transform">
+              Watch Film
+            </MagneticButton>
+          </div>
         </div>
 
-      </main>
-    </SmoothScroll>
-  )
+        {/* Abstract Decorative Circle (Google Style) */}
+        <div className="hero-text absolute -right-[10%] top-[20%] w-[40vw] h-[40vw] rounded-full bg-gradient-to-b from-[#e8f0fe] to-white blur-[100px] opacity-60 pointer-events-none" />
+      </section>
+
+      {/* 2. FUNKY MARQUEE */}
+      <section className="py-20 bg-black overflow-hidden transform -rotate-2 scale-105 z-20 relative border-y-4 border-[#ccff00]">
+        <VelocityScroll text="FUTURE • CHAOS • DESIGN • CODE • MOTION • POWER • " default_velocity={4} />
+      </section>
+
+      {/* 3. PARALLAX GALLERY */}
+      <section className="bg-white py-20">
+        <div className="px-6 mb-12">
+          <h2 className={`text-6xl md:text-8xl font-black text-black tracking-tighter uppercase mb-4`}>
+            Visual <span className="text-transparent stroke-text text-stroke-2">Noise</span>
+          </h2>
+        </div>
+        {/* @ts-ignore */}
+        <ParallaxGallery />
+      </section>
+
+      {/* 4. MANIFESTO (Text Reveal) */}
+      <section className="bg-[#ccff00] py-40">
+        <div className="max-w-4xl mx-auto px-6">
+          <h3 className="text-2xl font-mono mb-8 text-black font-bold tracking-widest uppercase">The Mission</h3>
+          <TextRevealByWord text="We reject the boring. We smash the grid. We build digital experiences that punch you in the face with beauty and spring back with physics." />
+        </div>
+      </section>
+
+      {/* 5. FEATURES (Bento Grid) */}
+      <section className="py-32 px-6 bg-black text-white relative">
+        <div className="max-w-7xl mx-auto mb-20">
+          <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-white mb-6">
+            THE <span className="text-[#ff0080]">STACK</span>.
+          </h2>
+          <p className="text-neutral-400 font-mono text-xl max-w-2xl border-l-4 border-[#ccff00] pl-6">
+            Everything you need to dominate the internet. <br />
+            Engineered for chaos.
+          </p>
+        </div>
+
+        <BentoGrid className="max-w-7xl mx-auto">
+          <BentoGridItem
+            title="GLOBAL EDGE"
+            description="Deploy instantly to the edge of reason."
+            header={<div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-[#111] border border-neutral-800 flex items-center justify-center"><Globe className="h-12 w-12 text-[#ccff00] animate-spin-slow" /></div>}
+            icon={<Globe className="h-6 w-6 text-[#ccff00]" />}
+            className="md:col-span-2 bg-[#111] border-neutral-800 shadow-none hover:shadow-[8px_8px_0px_0px_rgba(255,0,128,1)]"
+          />
+          <BentoGridItem
+            title="INSTANT"
+            description="Faster than thought."
+            header={<div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-[#ff0080] border border-black flex items-center justify-center"><Zap className="h-12 w-12 text-black" /></div>}
+            icon={<Zap className="h-6 w-6 text-[#ff0080]" />}
+            className="md:col-span-1 bg-[#111] border-neutral-800 shadow-none hover:shadow-[8px_8px_0px_0px_rgba(204,255,0,1)] hover:bg-[#222]"
+          />
+          <BentoGridItem
+            title="AI CORE"
+            description="Intelligence baked in."
+            header={<div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-[#ccff00] border border-black flex items-center justify-center"><Sparkles className="h-12 w-12 text-black" /></div>}
+            icon={<Sparkles className="h-6 w-6 text-[#ccff00]" />}
+            className="md:col-span-1 bg-[#111] border-neutral-800 shadow-none hover:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] hover:bg-[#222]"
+          />
+          <BentoGridItem
+            title="CLEAN CODE"
+            description="Spaghetti is for dinner, not production."
+            header={<div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-[#111] border border-neutral-800 flex items-center justify-center"><Code2 className="h-12 w-12 text-white" /></div>}
+            icon={<Code2 className="h-6 w-6 text-white" />}
+            className="md:col-span-2 bg-[#111] border-neutral-800 shadow-none hover:shadow-[8px_8px_0px_0px_rgba(0,255,255,1)]"
+          />
+        </BentoGrid>
+      </section>
+
+      {/* 6. FOOTER */}
+      <footer className="py-20 px-6 bg-[#ccff00] border-t-4 border-black">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-black">
+          <h2 className="text-4xl font-black uppercase tracking-tighter">Vistaar X</h2>
+          <div className="flex gap-8 mt-6 md:mt-0 font-bold font-mono text-lg">
+            <a href="#" className="hover:underline decoration-4 underline-offset-4 decoration-black">Privacy</a>
+            <a href="#" className="hover:underline decoration-4 underline-offset-4 decoration-black">Terms</a>
+            <a href="#" className="hover:underline decoration-4 underline-offset-4 decoration-black">Twitter</a>
+          </div>
+        </div>
+      </footer>
+
+    </main>
+  );
 }

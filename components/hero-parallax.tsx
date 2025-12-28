@@ -8,7 +8,7 @@ import {
   useSpring,
   MotionValue,
 } from "framer-motion";
-import { TextGenerateEffect } from "./ui/text-generate-effect";
+
 import { LoaderOne } from "@/components/ui/loader";
 
 export const HeroParallax = ({
@@ -113,10 +113,9 @@ export const Header = () => {
         Heavy Design, <br /> <span className="text-white/80">Light Feel</span>
       </h1>
       <div className="max-w-2xl mt-4 md:mt-8">
-        <TextGenerateEffect
-          words={words}
-          className="text-sm md:text-base lg:text-xl text-white/70"
-        />
+        <p className="text-sm md:text-base lg:text-xl text-white/70">
+          {words}
+        </p>
       </div>
     </div>
   );

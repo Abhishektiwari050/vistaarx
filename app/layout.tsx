@@ -1,25 +1,30 @@
-import type React from "react"
-import type { Metadata } from "next"
-import { Montserrat } from "next/font/google"
-import { Open_Sans } from "next/font/google"
+import type { Metadata } from "next";
+import { Inter, Playfair_Display, Space_Mono } from "next/font/google";
 import { GeistMono } from "geist/font/mono"
 import "./globals.css"
-import { FloatingNav } from "@/components/ui/floating-navbar";
+import { Navbar } from "@/components/ui/Navbar";
 import { IconHome, IconMessage, IconUser } from "@tabler/icons-react";
+import SmoothScroller from "@/components/motion/SmoothScroller";
 
-const montserrat = Montserrat({
+const inter = Inter({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-montserrat",
-  weight: ["400", "600", "700", "900"],
+  variable: "--font-inter",
+  weight: ["300", "400", "500", "600", "900"],
 })
 
-const openSans = Open_Sans({
+const playfair = Playfair_Display({
   subsets: ["latin"],
-  display: "swap",
-  variable: "--font-open-sans",
-  weight: ["400", "500", "600"],
-})
+  weight: ["400", "700", "900"],
+  style: 'italic',
+  variable: '--font-playfair'
+});
+
+const space = Space_Mono({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: '--font-space'
+});
 
 export const metadata: Metadata = {
   title: "Vistaar Agency - Next-Gen Digital Services",
@@ -33,24 +38,6 @@ export const metadata: Metadata = {
   },
 }
 
-const navItems = [
-  {
-    name: "Home",
-    link: "/",
-    icon: <IconHome className="h-4 w-4 text-neutral-500 dark:text-white" />,
-  },
-  {
-    name: "Services",
-    link: "/services",
-    icon: <IconUser className="h-4 w-4 text-neutral-500 dark:text-white" />,
-  },
-  {
-    name: "Work",
-    link: "/work",
-    icon: <IconMessage className="h-4 w-4 text-neutral-500 dark:text-white" />,
-  },
-];
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -63,8 +50,9 @@ export default function RootLayout({
         <link rel="preconnect" href="https://images.unsplash.com" />
         <link rel="dns-prefetch" href="https://images.unsplash.com" />
       </head>
-      <body className={`font-sans ${montserrat.variable} ${openSans.variable} ${GeistMono.variable} antialiased bg-black text-white`}>
-        <FloatingNav navItems={navItems} />
+      <body className={`font-sans ${inter.variable} ${playfair.variable} ${space.variable} ${GeistMono.variable} antialiased bg-white text-black selection:bg-[#ccff00] selection:text-black`}>
+        <SmoothScroller />
+        <Navbar />
         {children}
       </body>
     </html>

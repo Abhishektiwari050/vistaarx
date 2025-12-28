@@ -7,6 +7,7 @@ import { FadeIn, SlideUp } from "@/components/motion/MotionWrappers"
 import { Button } from "@/components/ui/button"
 import { BackgroundBeams } from "@/components/ui/background-beams"
 import { Spotlight } from "@/components/ui/Spotlight"
+import { TypewriterEffect } from "@/components/ui/typewriter-effect"
 
 export default function ContactPage() {
   const [formState, setFormState] = useState({
@@ -37,9 +38,16 @@ export default function ContactPage() {
 
           {/* Left Column: Context & Trust */}
           <FadeIn>
-            <h1 className="text-4xl md:text-6xl font-heading font-bold text-white mb-6 tracking-tight">
-              Let&apos;s <span className="text-cyan-500">Scale</span> Your Business
-            </h1>
+            <TypewriterEffect
+              words={[
+                { text: "Let's", className: "text-white dark:text-white" },
+                { text: "Scale", className: "text-cyan-500 dark:text-cyan-500" },
+                { text: "Your", className: "text-white dark:text-white" },
+                { text: "Business", className: "text-white dark:text-white" },
+              ]}
+              className="mb-6 text-left"
+              cursorClassName="bg-cyan-500"
+            />
             <p className="text-xl text-neutral-400 mb-12 leading-relaxed max-w-lg">
               Ready to automate your sales and dominate the international market?
               Fill out the form, and our team will get back to you within 2 hours.

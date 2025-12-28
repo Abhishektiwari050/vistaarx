@@ -24,51 +24,55 @@ export const InfiniteMovingCards = ({
     const scrollerRef = React.useRef<HTMLUListElement>(null);
 
     useEffect(() => {
-        addAnimation();
-    }, []);
-    const [start, setStart] = useState(false);
-    function addAnimation() {
-        if (containerRef.current && scrollerRef.current) {
-            const scrollerContent = Array.from(scrollerRef.current.children);
-
-            scrollerContent.forEach((item) => {
-                const duplicatedItem = item.cloneNode(true);
-                if (scrollerRef.current) {
-                    scrollerRef.current.appendChild(duplicatedItem);
+        const getDirection = () => {
+            if (containerRef.current) {
+                if (direction === "left") {
+                    containerRef.current.style.setProperty(
+                        "--animation-direction",
+                        "forwards"
+                    );
+                } else {
+                    containerRef.current.style.setProperty(
+                        "--animation-direction",
+                        "reverse"
+                    );
                 }
-            });
+            }
+        };
 
-            getDirection();
-            getSpeed();
-            setStart(true);
-        }
-    }
-    const getDirection = () => {
-        if (containerRef.current) {
-            if (direction === "left") {
-                containerRef.current.style.setProperty(
-                    "--animation-direction",
-                    "forwards"
-                );
-            } else {
-                containerRef.current.style.setProperty(
-                    "--animation-direction",
-                    "reverse"
-                );
+        const getSpeed = () => {
+            if (containerRef.current) {
+                if (speed === "fast") {
+                    containerRef.current.style.setProperty("--animation-duration", "20s");
+                } else if (speed === "normal") {
+                    containerRef.current.style.setProperty("--animation-duration", "40s");
+                } else {
+                    containerRef.current.style.setProperty("--animation-duration", "80s");
+                }
             }
-        }
-    };
-    const getSpeed = () => {
-        if (containerRef.current) {
-            if (speed === "fast") {
-                containerRef.current.style.setProperty("--animation-duration", "20s");
-            } else if (speed === "normal") {
-                containerRef.current.style.setProperty("--animation-duration", "40s");
-            } else {
-                containerRef.current.style.setProperty("--animation-duration", "80s");
+        };
+
+        const addAnimation = () => {
+            if (containerRef.current && scrollerRef.current) {
+                const scrollerContent = Array.from(scrollerRef.current.children);
+
+                scrollerContent.forEach((item) => {
+                    const duplicatedItem = item.cloneNode(true);
+                    if (scrollerRef.current) {
+                        scrollerRef.current.appendChild(duplicatedItem);
+                    }
+                });
+
+                getDirection();
+                getSpeed();
+                setStart(true);
             }
-        }
-    };
+        };
+
+        addAnimation();
+    }, [direction, speed]);
+
+    const [start, setStart] = useState(false);
     return (
         <div
             ref={containerRef}
@@ -85,9 +89,9 @@ export const InfiniteMovingCards = ({
                     pauseOnHover && "hover:[animation-play-state:paused]"
                 )}
             >
-                {items.map((item, idx) => (
+                {items.map((item) => (
                     <li
-                        className="w-[350px] max-w-full relative rounded-2xl border border-b-0 flex-shrink-0 border-slate-700 px-8 py-6 md:w-[450px] bg-gradient-to-b from-slate-800 to-slate-900"
+                        className="w-[350px] max-w-full relative rounded-2xl border-2 flex-shrink-0 border-black px-8 py-6 md:w-[450px] bg-white shadow-[8px_8px_0px_0px_rgba(204,255,0,1)] hover:shadow-[12px_12px_0px_0px_rgba(255,0,128,1)] transition-all duration-300"
                         key={item.name}
                     >
                         <blockquote>
@@ -95,15 +99,15 @@ export const InfiniteMovingCards = ({
                                 aria-hidden="true"
                                 className="user-select-none -z-1 pointer-events-none absolute -left-0.5 -top-0.5 h-[calc(100%_+_4px)] w-[calc(100%_+_4px)]"
                             ></div>
-                            <span className=" relative z-20 text-sm leading-[1.6] text-gray-100 font-normal">
-                                {item.quote}
+                            <span className=" relative z-20 text-sm leading-[1.6] text-neutral-800 font-normal italic font-mono">
+                                "{item.quote}"
                             </span>
                             <div className="relative z-20 mt-6 flex flex-row items-center">
                                 <span className="flex flex-col gap-1">
-                                    <span className=" text-sm leading-[1.6] text-gray-400 font-normal">
+                                    <span className=" text-lg leading-[1.6] text-black font-bold font-sans">
                                         {item.name}
                                     </span>
-                                    <span className=" text-sm leading-[1.6] text-gray-400 font-normal">
+                                    <span className=" text-sm leading-[1.6] text-neutral-500 font-normal">
                                         {item.title}
                                     </span>
                                 </span>
@@ -111,7 +115,8 @@ export const InfiniteMovingCards = ({
                         </blockquote>
                     </li>
                 ))}
-            </ul>
+
+            </ul >
         </div >
     );
 };
