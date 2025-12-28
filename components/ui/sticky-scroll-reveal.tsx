@@ -38,9 +38,9 @@ export const StickyScroll = ({
     });
 
     const backgroundColors = [
-        "var(--black)",
-        "var(--neutral-900)",
-        "var(--black)",
+        "#ffffff",
+        "#f8f9fa",
+        "#ffffff",
     ];
 
     return (
@@ -48,7 +48,7 @@ export const StickyScroll = ({
             animate={{
                 backgroundColor: backgroundColors[activeCard % backgroundColors.length],
             }}
-            className="min-h-screen relative rounded-md py-20"
+            className="min-h-screen relative rounded-md py-20 border-t-2 border-b-2 border-black"
             ref={ref}
         >
             <div className="max-w-7xl mx-auto px-4 md:px-10 flex flex-col lg:flex-row items-start justify-center relative">
@@ -60,14 +60,14 @@ export const StickyScroll = ({
                             <motion.h2
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: activeCard === index ? 1 : 0.3 }}
-                                className="text-3xl md:text-5xl font-bold text-slate-100 mb-6"
+                                className="text-3xl md:text-5xl font-black text-black mb-6 uppercase tracking-tighter"
                             >
                                 {item.title}
                             </motion.h2>
                             <motion.p
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: activeCard === index ? 1 : 0.3 }}
-                                className="text-lg md:text-xl text-slate-300 max-w-lg leading-relaxed"
+                                className="text-lg md:text-xl text-neutral-600 max-w-lg leading-relaxed font-mono"
                             >
                                 {item.description}
                             </motion.p>

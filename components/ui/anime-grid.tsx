@@ -32,6 +32,7 @@ export const AnimeGrid = () => {
 
     return (
         <div className="absolute inset-0 z-0 overflow-hidden flex flex-wrap justify-center items-center pointer-events-none">
+            {/* eslint-disable-next-line react-dom/no-unsafe-styles */}
             <div
                 className="w-full h-full grid"
                 style={gridStyles}
