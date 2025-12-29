@@ -85,7 +85,7 @@ export const StickyScroll = ({
                 </div>
 
                 {/* Desktop Sticky Content (Hidden on mobile) */}
-                <div className="hidden lg:block w-1/2 sticky top-0 h-screen flex items-center justify-center">
+                <div className="hidden lg:block w-1/2 sticky top-20 h-[calc(100vh-5rem)] flex items-center justify-center">
                     <motion.div
                         key={activeCard}
                         initial={{ opacity: 0, scale: 0.8 }}
