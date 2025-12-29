@@ -2,8 +2,10 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 export const Navbar = () => {
+  const pathname = usePathname();
   const navItems = [
     { name: "Home", link: "/" },
     { name: "Services", link: "/services" },
@@ -30,15 +32,21 @@ export const Navbar = () => {
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center space-x-8">
-          {navItems.map((item) => (
-            <Link
-              key={item.name}
-              href={item.link}
-              className="text-lg font-bold text-black uppercase tracking-wide hover:underline decoration-4 underline-offset-4 decoration-[#ccff00] transition-all"
-            >
-              {item.name}
-            </Link>
-          ))}
+          {navItems.map((item) => {
+            const isActive = pathname === item.link;
+            return (
+              <Link
+                key={item.name}
+                href={item.link}
+                className={`text-lg font-bold text-black uppercase tracking-wide transition-all ${isActive
+                  ? "underline decoration-4 underline-offset-4 decoration-[#ccff00]"
+                  : "hover:underline hover:decoration-4 hover:underline-offset-4 hover:decoration-[#ccff00]"
+                  }`}
+              >
+                {item.name}
+              </Link>
+            );
+          })}
           <Link
             href="/contact"
             className="px-6 py-3 bg-black text-white text-lg font-bold uppercase tracking-widest hover:bg-[#ccff00] hover:text-black border-2 border-transparent hover:border-black transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,0)] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"

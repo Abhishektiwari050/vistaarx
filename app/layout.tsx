@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { Inter, Playfair_Display, Space_Mono, Great_Vibes } from "next/font/google";
 import { GeistMono } from "geist/font/mono"
 import "./globals.css"
-import { Navbar } from "@/components/ui/Navbar";
+import { Navbar } from "@/components/ui/navbar";
 import { IconHome, IconMessage, IconUser } from "@tabler/icons-react";
 import SmoothScroller from "@/components/motion/SmoothScroller";
+import { Footer } from "@/components/ui/footer";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -60,6 +61,7 @@ export default function RootLayout({
         <SmoothScroller />
         <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   )

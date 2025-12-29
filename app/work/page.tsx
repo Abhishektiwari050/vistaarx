@@ -3,6 +3,7 @@
 import { ContainerScroll } from "@/components/ui/container-scroll-animation"
 import { FocusCards } from "@/components/ui/focus-cards"
 import Image from "next/image"
+import { FadeIn } from "@/components/motion/MotionWrappers"
 
 const products = [
   {
@@ -65,7 +66,7 @@ const products = [
     title: "EduTech Pro",
     src: "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2070&auto=format&fit=crop",
   }
-]
+];
 
 export default function WorkPage() {
   return (
@@ -99,6 +100,23 @@ export default function WorkPage() {
         </h2>
         <FocusCards cards={products} />
       </div>
+
+      <FadeIn className="bg-black py-20 border-t-4 border-[#ccff00] text-center relative overflow-hidden group">
+        <div className="relative z-10 container mx-auto px-6">
+          <h2 className="text-4xl md:text-6xl font-black text-white mb-8 tracking-tighter">
+            SEEN ENOUGH? <br />
+            <span className="italic text-[#ccff00] font-serif">LET'S BUILD.</span>
+          </h2>
+          <a
+            href="/contact"
+            className="inline-flex items-center justify-center px-10 py-5 text-lg font-bold text-black transition-all duration-300 bg-[#ccff00] hover:bg-white rounded-none border-2 border-black shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:shadow-[4px_4px_0px_0px_rgba(204,255,0,1)] hover:-translate-y-1 uppercase tracking-widest"
+          >
+            Start Project
+          </a>
+        </div>
+        {/* Decor */}
+        <div className="absolute top-[-50%] left-[-10%] w-[50vh] h-[50vh] rounded-full bg-[#ff0080] blur-[150px] opacity-20 pointer-events-none group-hover:opacity-40 transition-opacity" />
+      </FadeIn>
     </main>
   )
 }

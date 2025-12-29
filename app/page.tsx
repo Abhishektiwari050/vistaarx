@@ -3,10 +3,12 @@
 import { useScroll, useTransform, motion } from "framer-motion";
 import React, { useEffect, useRef } from "react";
 import { TextRevealByWord, FunkyTextReveal } from "@/components/ui/text-reveal";
+import { FadeIn } from "@/components/motion/MotionWrappers";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import { InfiniteMarquee } from "@/components/ui/infinite-marquee";
 // import { VelocityScroll } from "@/components/ui/velocity-scroll";
 import { MagneticButton } from "@/components/ui/magnetic-button";
+import { FAQ } from "@/components/ui/faq";
 import { Code2, Globe as GlobeIcon, Sparkles, Zap } from "lucide-react";
 import { Globe } from "@/components/ui/globe";
 import gsap from "gsap";
@@ -77,9 +79,10 @@ export default function Home() {
       <section ref={heroRef} className="h-[250vh] w-full relative bg-white">
         <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center px-4 md:px-20 pt-20">
 
-          {/* Dynamic Background Gradients */}
-          <div className="absolute top-[-20%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-[#ccff00] blur-[120px] opacity-20 animate-pulse pointer-events-none" />
-          <div className="absolute bottom-[-20%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-[#ff0080] blur-[120px] opacity-10 pointer-events-none" />
+          {/* Dynamic Background Gradients - Refined per Audit */}
+          <div className="absolute top-[-20%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-[#ccff00] blur-[120px] opacity-10 animate-pulse pointer-events-none mix-blend-multiply" />
+          <div className="absolute bottom-[-20%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-[#ff0080] blur-[120px] opacity-10 pointer-events-none mix-blend-multiply" />
+          <div className="absolute top-[40%] left-[30%] w-[40vw] h-[40vw] rounded-full bg-[#1a73e8] blur-[120px] opacity-10 pointer-events-none mix-blend-multiply" />
 
           <div className="w-full h-full relative flex items-center">
 
@@ -106,15 +109,15 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <p className="hero-text mt-8 md:mt-12 max-w-2xl text-lg md:text-2xl font-medium text-neutral-800 leading-relaxed font-mono text-center md:text-left mx-auto md:mx-0">
+              <p className="hero-text mt-8 md:mt-12 max-w-2xl type-body font-medium text-neutral-800 leading-relaxed font-mono text-center md:text-left mx-auto md:mx-0">
                 <span className="bg-neutral-100 px-1 border-b-2 border-black">WE BUILD</span> SOFTWARE THAT FEELS <span className={`font-calligraphy font-bold text-4xl md:text-5xl text-[#1a73e8]`}>alive</span>.
                 NO BORING TEMPLATES. JUST PURE <motion.span animate={{ scale: [1, 1.05, 1], rotate: [0, 2, 0, -2, 0] }} transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 2 }} className="bg-[#ccff00] px-2 font-bold border border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] inline-block">CHAOS & CODE</motion.span>.
               </p>
               <div className="mt-8 md:mt-12 flex gap-4 pointer-events-auto justify-center md:justify-start">
-                <MagneticButton className="hero-btn px-6 py-3 md:px-8 md:py-4 rounded-full bg-[#1a73e8] text-white font-medium text-base md:text-lg hover:bg-[#1557b0] transition-colors shadow-lg shadow-blue-500/20 active:scale-95 transition-transform">
+                <MagneticButton className="hero-btn px-6 py-3 md:px-8 md:py-4 rounded-full bg-[#1a73e8] text-white font-medium type-h3 !text-lg hover:bg-[#1557b0] transition-all shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 active:scale-95">
                   Get Started
                 </MagneticButton>
-                <MagneticButton className="hero-btn px-6 py-3 md:px-8 md:py-4 rounded-full bg-[#F1F3F4] text-[#1a73e8] font-medium text-base md:text-lg hover:bg-[#e8eaed] transition-colors active:scale-95 transition-transform flex items-center gap-2">
+                <MagneticButton className="hero-btn px-6 py-3 md:px-8 md:py-4 rounded-full bg-[#F1F3F4] text-[#1a73e8] font-medium type-h3 !text-lg hover:bg-[#e8eaed] transition-colors active:scale-95 transition-transform flex items-center gap-2 border-2 border-transparent hover:border-[#1a73e8]">
                   <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" /> Watch Film
                 </MagneticButton>
               </div>
@@ -141,18 +144,18 @@ export default function Home() {
                   GROWTH
                 </h1>
               </div>
-              <p className="mt-8 md:mt-12 max-w-xl text-lg md:text-2xl font-medium text-neutral-800 leading-relaxed font-mono text-right ml-auto">
+              <p className="mt-8 md:mt-12 max-w-xl type-body font-medium text-neutral-800 leading-relaxed font-mono text-right ml-auto">
                 SCALING BRANDS WITH <span className="bg-black text-white px-2 italic">PURE MATH</span> <br />
                 AND <span className="font-calligraphy font-bold text-5xl text-[#ff0080] decoration-wavy underline decoration-[#ccff00]">artistic chaos</span>.
               </p>
               <div className="mt-8 flex gap-4 justify-end">
-                <div className="p-4 border-2 border-black bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] max-w-[200px] text-left transform rotate-2">
-                  <p className="font-bold text-xs uppercase text-neutral-500">Revenue Impact</p>
-                  <p className="font-black text-3xl text-black">+240%</p>
+                <div className="p-4 border-2 border-black bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] max-w-[200px] text-left transform rotate-2 hover:rotate-0 transition-transform duration-300">
+                  <p className="type-caption text-neutral-500">Revenue Impact</p>
+                  <p className="type-h3 !text-3xl text-black">+240%</p>
                 </div>
-                <div className="p-4 border-2 border-black bg-[#ccff00] shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] max-w-[200px] text-left transform -rotate-2">
-                  <p className="font-bold text-xs uppercase text-black/60">Speed</p>
-                  <p className="font-black text-3xl text-black">0.1s</p>
+                <div className="p-4 border-2 border-black bg-[#ccff00] shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] max-w-[200px] text-left transform -rotate-2 hover:rotate-0 transition-transform duration-300">
+                  <p className="type-caption text-black/60">Speed</p>
+                  <p className="type-h3 !text-3xl text-black">0.1s</p>
                 </div>
               </div>
             </motion.div>
@@ -191,7 +194,7 @@ export default function Home() {
       {/* 3. PARALLAX GALLERY */}
       <section className="bg-white py-20">
         <div className="px-6 mb-12">
-          <h2 className={`text-6xl md:text-8xl font-black text-black tracking-tighter uppercase mb-4`}>
+          <h2 className={`type-h2 text-black tracking-tighter uppercase mb-4`}>
             Visual <span className="text-transparent stroke-text text-stroke-2">Noise</span>
           </h2>
         </div>
@@ -202,7 +205,7 @@ export default function Home() {
       {/* 4. MANIFESTO (Funky Text Reveal) */}
       <section className="bg-black py-40 border-y-4 border-[#ccff00]">
         <div className="max-w-6xl mx-auto px-6">
-          <h3 className="text-2xl font-mono mb-20 text-neutral-500 font-bold tracking-widest uppercase border-l-4 border-[#ccff00] pl-6">The Mission</h3>
+          <h3 className="type-caption !text-lg mb-20 text-neutral-500 tracking-widest uppercase border-l-4 border-[#ccff00] pl-6">The Mission</h3>
           <FunkyTextReveal
             content={[
               { text: "We", className: "text-white" },
@@ -231,7 +234,7 @@ export default function Home() {
       {/* 5. FEATURES (Bento Grid) */}
       <section className="py-32 px-6 bg-white text-black relative">
         <div className="max-w-7xl mx-auto mb-20">
-          <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-black mb-6">
+          <h2 className="type-h2 text-black mb-6">
             THE <span className="text-[#ff0080]">STACK</span>.
           </h2>
           <p className="text-neutral-500 font-mono text-xl max-w-2xl border-l-4 border-[#ccff00] pl-6">
@@ -240,49 +243,64 @@ export default function Home() {
           </p>
         </div>
 
-        <BentoGrid className="max-w-7xl mx-auto">
-          <BentoGridItem
-            title="GLOBAL EDGE"
-            description="Deploy instantly to the edge of reason."
-            header={<div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-neutral-100 border border-black flex items-center justify-center"><GlobeIcon className="h-12 w-12 text-black animate-spin-slow" /></div>}
-            icon={<GlobeIcon className="h-6 w-6 text-black" />}
-            className="md:col-span-2 bg-white border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(255,0,128,1)]"
-          />
-          <BentoGridItem
-            title="INSTANT"
-            description="Faster than thought."
-            header={<div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-[#ff0080] border border-black flex items-center justify-center"><Zap className="h-12 w-12 text-black" /></div>}
-            icon={<Zap className="h-6 w-6 text-[#ff0080]" />}
-            className="md:col-span-1 bg-white border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(204,255,0,1)] hover:bg-neutral-50"
-          />
-          <BentoGridItem
-            title="AI CORE"
-            description="Intelligence baked in."
-            header={<div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-[#ccff00] border border-black flex items-center justify-center"><Sparkles className="h-12 w-12 text-black" /></div>}
-            icon={<Sparkles className="h-6 w-6 text-[#ccff00]" />}
-            className="md:col-span-1 bg-white border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(25,25,25,1)] hover:bg-neutral-50"
-          />
-          <BentoGridItem
-            title="CLEAN CODE"
-            description="Spaghetti is for dinner, not production."
-            header={<div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-neutral-100 border border-black flex items-center justify-center"><Code2 className="h-12 w-12 text-black" /></div>}
-            icon={<Code2 className="h-6 w-6 text-black" />}
-            className="md:col-span-2 bg-white border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,255,255,1)]"
-          />
-        </BentoGrid>
+        <FadeIn>
+          <BentoGrid className="max-w-7xl mx-auto">
+            <BentoGridItem
+              title="GLOBAL EDGE"
+              description="Deploy instantly to the edge of reason."
+              header={<div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-neutral-100 border border-black flex items-center justify-center"><GlobeIcon className="h-12 w-12 text-black animate-spin-slow" /></div>}
+              icon={<GlobeIcon className="h-6 w-6 text-black" />}
+              className="md:col-span-2 bg-white border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(255,0,128,1)]"
+            />
+            <BentoGridItem
+              title="INSTANT"
+              description="Faster than thought."
+              header={<div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-[#ff0080] border border-black flex items-center justify-center"><Zap className="h-12 w-12 text-black" /></div>}
+              icon={<Zap className="h-6 w-6 text-[#ff0080]" />}
+              className="md:col-span-1 bg-white border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(204,255,0,1)] hover:bg-neutral-50"
+            />
+            <BentoGridItem
+              title="AI CORE"
+              description="Intelligence baked in."
+              header={<div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-[#ccff00] border border-black flex items-center justify-center"><Sparkles className="h-12 w-12 text-black" /></div>}
+              icon={<Sparkles className="h-6 w-6 text-[#ccff00]" />}
+              className="md:col-span-1 bg-white border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(25,25,25,1)] hover:bg-neutral-50"
+            />
+            <BentoGridItem
+              title="CLEAN CODE"
+              description="Spaghetti is for dinner, not production."
+              header={<div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-neutral-100 border border-black flex items-center justify-center"><Code2 className="h-12 w-12 text-black" /></div>}
+              icon={<Code2 className="h-6 w-6 text-black" />}
+              className="md:col-span-2 bg-white border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,255,255,1)]"
+            />
+          </BentoGrid>
+        </FadeIn>
       </section>
 
-      {/* 6. FOOTER */}
-      <footer className="py-20 px-6 bg-[#ccff00] border-t-4 border-black">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-black">
-          <h2 className="text-4xl font-black uppercase tracking-tighter">Vistaar</h2>
-          <div className="flex gap-8 mt-6 md:mt-0 font-bold font-mono text-lg">
-            <a href="#" className="hover:underline decoration-4 underline-offset-4 decoration-black">Privacy</a>
-            <a href="#" className="hover:underline decoration-4 underline-offset-4 decoration-black">Terms</a>
-            <a href="#" className="hover:underline decoration-4 underline-offset-4 decoration-black">Twitter</a>
+      {/* 5.5 TRUST STATS STRIP */}
+      <section className="py-20 bg-[#f8f8f8] border-y-4 border-black">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+          <div className="space-y-2">
+            <h3 className="type-h2 !text-6xl text-[#1a73e8]">$10M+</h3>
+            <p className="font-mono font-bold uppercase tracking-widest text-black">Client Revenue Generated</p>
+          </div>
+          <div className="space-y-2">
+            <h3 className="type-h2 !text-6xl text-[#ccff00] text-stroke-2">50+</h3>
+            <p className="font-mono font-bold uppercase tracking-widest text-black">Exporters Transformed</p>
+          </div>
+          <div className="space-y-2">
+            <h3 className="type-h2 !text-6xl text-[#ff0080]">300%</h3>
+            <p className="font-mono font-bold uppercase tracking-widest text-black">Average Growth YoY</p>
           </div>
         </div>
-      </footer>
+      </section>
+
+      {/* 6. FAQ Section */}
+      <section className="py-32 bg-white">
+        <FAQ />
+      </section>
+
+
 
     </main>
   );
