@@ -24,7 +24,7 @@ export const Navbar = () => {
             />
           </div>
           <span className="text-black font-black text-2xl tracking-tighter uppercase italic group-hover:text-stroke-2 group-hover:text-transparent transition-all">
-            Vistaar <span className="text-[#ff0080]">X</span>
+            Vistaar
           </span>
         </Link>
 

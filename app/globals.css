@@ -40,6 +40,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.font-calligraphy {
+  font-family: var(--font-great-vibes), cursive;
+}
+
 /* Custom Utilities */
 .text-balance {
 
@@ -61,4 +65,20 @@ body {
 ::-webkit-scrollbar {
   width: 0px;
   background: transparent;
+}
+
+/* Infinite Marquee Animation */
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(calc(-50% - 0.5rem));
+  }
+}
+
+.animate-scroll {
+  animation: marquee-scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite;
+  will-change: transform;
 }

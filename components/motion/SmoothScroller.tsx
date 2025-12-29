@@ -11,6 +11,7 @@ export default function SmoothScroller() {
             gestureOrientation: 'vertical',
             smoothWheel: true,
             touchMultiplier: 2,
+            wheelMultiplier: 1,
         });
 
         function raf(time: number) {
