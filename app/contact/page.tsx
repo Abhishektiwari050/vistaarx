@@ -103,24 +103,24 @@ export default function ContactPage() {
 
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label htmlFor="name" className="text-sm font-bold text-black uppercase tracking-wider ml-1">Name</label>
+                      <label htmlFor="name" className="text-[13px] font-semibold text-black uppercase tracking-wider ml-1 mb-2 block">Name</label>
                       <input
                         id="name"
                         type="text"
                         required
-                        className="w-full bg-neutral-50 border-2 border-black px-4 py-3 text-black focus:bg-[#ccff00]/20 focus:ring-0 outline-none transition-all placeholder:text-neutral-400 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,0)] focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
+                        className="w-full bg-neutral-50 border-2 border-black px-4 py-3 text-black focus:bg-[#ccff00]/20 focus:ring-0 outline-none transition-all placeholder:text-neutral-400 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,0)] focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded-none"
                         placeholder="John Doe"
                         value={formState.name}
                         onChange={e => setFormState({ ...formState, name: e.target.value })}
                       />
                     </div>
                     <div className="space-y-2">
-                      <label htmlFor="company" className="text-sm font-bold text-black uppercase tracking-wider ml-1">Company</label>
+                      <label htmlFor="company" className="text-[13px] font-semibold text-black uppercase tracking-wider ml-1 mb-2 block">Company</label>
                       <input
                         id="company"
                         type="text"
                         required
-                        className="w-full bg-neutral-50 border-2 border-black px-4 py-3 text-black focus:bg-[#ccff00]/20 focus:ring-0 outline-none transition-all placeholder:text-neutral-400 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,0)] focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
+                        className="w-full bg-neutral-50 border-2 border-black px-4 py-3 text-black focus:bg-[#ccff00]/20 focus:ring-0 outline-none transition-all placeholder:text-neutral-400 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,0)] focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded-none"
                         placeholder="Global Exports Ltd"
                         value={formState.company}
                         onChange={e => setFormState({ ...formState, company: e.target.value })}
@@ -129,12 +129,12 @@ export default function ContactPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <label htmlFor="email" className="text-sm font-bold text-black uppercase tracking-wider ml-1">Work Email</label>
+                    <label htmlFor="email" className="text-[13px] font-semibold text-black uppercase tracking-wider ml-1 mb-2 block">Work Email</label>
                     <input
                       id="email"
                       type="email"
                       required
-                      className="w-full bg-neutral-50 border-2 border-black px-4 py-3 text-black focus:bg-[#ccff00]/20 focus:ring-0 outline-none transition-all placeholder:text-neutral-400 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,0)] focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
+                      className="w-full bg-neutral-50 border-2 border-black px-4 py-3 text-black focus:bg-[#ccff00]/20 focus:ring-0 outline-none transition-all placeholder:text-neutral-400 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,0)] focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded-none"
                       placeholder="john@company.com"
                       value={formState.email}
                       onChange={e => setFormState({ ...formState, email: e.target.value })}
@@ -142,11 +142,11 @@ export default function ContactPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <label htmlFor="goal" className="text-sm font-bold text-black uppercase tracking-wider ml-1">Primary Goal</label>
+                    <label htmlFor="goal" className="text-[13px] font-semibold text-black uppercase tracking-wider ml-1 mb-2 block">Primary Goal</label>
                     <div className="relative">
                       <select
                         id="goal"
-                        className="w-full bg-neutral-50 border-2 border-black px-4 py-3 text-black focus:bg-[#ccff00]/20 focus:ring-0 outline-none transition-all appearance-none cursor-pointer font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,0)] focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
+                        className="w-full bg-neutral-50 border-2 border-black px-4 py-3 text-black focus:bg-[#ccff00]/20 focus:ring-0 outline-none transition-all appearance-none cursor-pointer font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,0)] focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded-none"
                         value={formState.goal}
                         onChange={e => setFormState({ ...formState, goal: e.target.value })}
                       >
@@ -162,7 +162,7 @@ export default function ContactPage() {
                   </div>
 
                   <MagneticButton
-                    className="w-full mt-6 bg-[#1a73e8] text-white text-lg font-bold py-4 border-2 border-black transition-all duration-200 active:scale-[0.98] shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 uppercase tracking-widest"
+                    className="w-full mt-6 bg-[#1a73e8] text-white text-lg font-bold py-4 border-2 border-black transition-all duration-200 active:scale-[0.98] shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 uppercase tracking-widest rounded-[4px]"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? (

@@ -28,7 +28,8 @@ export const Card = React.memo(
                 onMouseLeave={() => setHovered(null)}
                 className={cn(
                     "rounded-lg relative bg-gray-100 dark:bg-neutral-900 overflow-hidden h-60 md:h-96 w-full transition-all duration-300 ease-out cursor-pointer",
-                    hovered !== null && hovered !== index && "blur-sm scale-[0.98]"
+                    hovered !== null && hovered !== index && "blur-sm scale-[0.98]",
+                    hovered === index && "scale-[1.02] shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] z-10 border-2 border-[#ccff00]"
                 )}
             >
                 <Image

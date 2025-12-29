@@ -91,19 +91,19 @@ export default function Home() {
               style={{ opacity: text1Opacity, x: text1X, display: text1Display }}
               className="absolute left-0 z-20 flex flex-col justify-center w-full md:w-auto"
             >
-              <div className="flex flex-col relative leading-[0.8]">
+              <div className="flex flex-col relative leading-[1.2]">
                 <div className="flex items-baseline gap-2 md:gap-8 flex-wrap justify-center md:justify-start">
-                  <h1 className="hero-char text-[15vw] md:text-[11vw] font-black tracking-tighter text-black mix-blend-multiply">
+                  <h1 className="hero-char text-[15vw] md:text-[6rem] font-[800] tracking-[-0.025em] text-black mix-blend-multiply">
                     VISTAAR
                   </h1>
                   <span className="hero-tag inline-block px-3 py-1 md:px-6 md:py-2 rounded-full border-2 border-black text-sm md:text-2xl font-bold font-mono bg-[#ccff00] -rotate-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:rotate-0 transition-transform cursor-crosshair">
                     v2.0
                   </span>
                 </div>
-                <div className="flex items-center gap-2 md:gap-8 -mt-2 md:-mt-6 flex-wrap justify-center md:justify-start">
-                  <h1 className="hero-char text-[12vw] md:text-[11vw] font-medium text-[#ff0080] font-calligraphy">
+                <div className="flex items-center gap-2 md:gap-8 -mt-2 md:-mt-4 flex-wrap justify-center md:justify-start">
+                  <h2 className="hero-char text-[8vw] md:text-[3rem] font-[600] text-[#ff0080] tracking-[-0.015em]">
                     Services
-                  </h1>
+                  </h2>
                   <div className="hero-tag w-12 h-12 md:w-24 md:h-24 rounded-full bg-black flex items-center justify-center text-white font-mono text-[8px] md:text-xs text-center p-1 md:p-2 rotate-12 hover:-rotate-12 transition-transform">
                     EST. <br /> 2024
                   </div>
