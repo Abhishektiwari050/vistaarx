@@ -26,15 +26,12 @@ export const AnimeGrid = () => {
     const gridStyles = {
         "--columns": gridSize.columns,
         "--rows": gridSize.rows,
-        gridTemplateColumns: "repeat(var(--columns), 1fr)",
-        gridTemplateRows: "repeat(var(--rows), 1fr)",
     } as React.CSSProperties;
 
     return (
         <div className="absolute inset-0 z-0 overflow-hidden flex flex-wrap justify-center items-center pointer-events-none">
-            {/* eslint-disable-next-line react-dom/no-unsafe-styles */}
             <div
-                className="w-full h-full grid"
+                className="w-full h-full grid grid-cols-[repeat(var(--columns),1fr)] grid-rows-[repeat(var(--rows),1fr)]"
                 style={gridStyles}
             >
                 {[...Array(gridSize.columns * gridSize.rows)].map((_, i) => (
