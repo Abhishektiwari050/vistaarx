@@ -77,12 +77,12 @@ export default function Home() {
 
       {/* 1. HERO SECTION (AnimeJS Style Sticky Scroll) */}
       <section ref={heroRef} className="h-[250vh] w-full relative bg-white">
-        <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center px-4 md:px-20 pt-20">
+        <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center px-4 md:px-20 pt-12 md:pt-16">
 
-          {/* Dynamic Background Gradients - Refined per Audit */}
-          <div className="absolute top-[-20%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-[#ccff00] blur-[120px] opacity-10 animate-pulse pointer-events-none mix-blend-multiply" />
-          <div className="absolute bottom-[-20%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-[#ff0080] blur-[120px] opacity-10 pointer-events-none mix-blend-multiply" />
-          <div className="absolute top-[40%] left-[30%] w-[40vw] h-[40vw] rounded-full bg-[#1a73e8] blur-[120px] opacity-10 pointer-events-none mix-blend-multiply" />
+          {/* Dynamic Background Gradients - Refined 3-Step */}
+          <div className="absolute top-[-20%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-[#C6FF00] blur-[120px] opacity-20 animate-pulse pointer-events-none mix-blend-multiply" />
+          <div className="absolute bottom-[-20%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-[#E91E63] blur-[120px] opacity-15 pointer-events-none mix-blend-multiply" />
+          <div className="absolute top-[40%] left-[30%] w-[40vw] h-[40vw] rounded-full bg-[#FF4081] blur-[120px] opacity-15 pointer-events-none mix-blend-multiply" />
 
           <div className="w-full h-full relative flex items-center">
 
@@ -148,22 +148,24 @@ export default function Home() {
                 SCALING BRANDS WITH <span className="bg-black text-white px-2 italic">PURE MATH</span> <br />
                 AND <span className="font-calligraphy font-bold text-5xl text-[#ff0080] decoration-wavy underline decoration-[#ccff00]">artistic chaos</span>.
               </p>
-              <div className="mt-8 flex gap-4 justify-end">
-                <div className="p-4 border-2 border-black bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] max-w-[200px] text-left transform rotate-2 hover:rotate-0 transition-transform duration-300">
+
+              {/* Fix: Grid Layout for Stats Alignment */}
+              <div className="mt-8 grid grid-cols-2 gap-6 justify-end w-full md:w-auto">
+                <div className="p-4 border-2 border-black bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] text-left transform rotate-2 hover:rotate-0 transition-transform duration-300 min-w-[160px]">
                   <p className="type-caption text-neutral-500">Revenue Impact</p>
                   <p className="type-h3 !text-3xl text-black">+240%</p>
                 </div>
-                <div className="p-4 border-2 border-black bg-[#ccff00] shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] max-w-[200px] text-left transform -rotate-2 hover:rotate-0 transition-transform duration-300">
+                <div className="p-4 border-2 border-black bg-[#ccff00] shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] text-left transform -rotate-2 hover:rotate-0 transition-transform duration-300 min-w-[160px]">
                   <p className="type-caption text-black/60">Speed</p>
                   <p className="type-h3 !text-3xl text-black">0.1s</p>
                 </div>
               </div>
             </motion.div>
 
-            {/* 3D GLOBE (Moves Left) */}
+            {/* 3D GLOBE (Hidden on mobile) */}
             <motion.div
               style={{ x: globeX, scale: globeScale, right: globeRight }}
-              className="absolute top-[10%] w-[60vw] h-[60vw] md:w-[45vw] md:h-[45vw] z-10"
+              className="absolute top-[10%] w-[60vw] h-[60vw] md:w-[45vw] md:h-[45vw] z-10 hidden md:block"
             >
               <Globe />
             </motion.div>
