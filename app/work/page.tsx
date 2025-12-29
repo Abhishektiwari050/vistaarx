@@ -8,62 +8,77 @@ import { FadeIn } from "@/components/motion/MotionWrappers"
 const products = [
   {
     title: "Global Exports Ltd",
+    slug: "global-exports-ltd",
     src: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=2070&auto=format&fit=crop",
   },
   {
     title: "TechTrade India",
+    slug: "techtrade-india",
     src: "https://images.unsplash.com/photo-1661956602116-aa6865609028?q=80&w=2064&auto=format&fit=crop",
   },
   {
     title: "Patel Spices",
+    slug: "patel-spices",
     src: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=80&w=2070&auto=format&fit=crop",
   },
   {
     title: "EuroFoods Logistics",
+    slug: "eurofoods-logistics",
     src: "https://images.unsplash.com/photo-1580674684081-7617fbf3d745?q=80&w=2070&auto=format&fit=crop",
   },
   {
     title: "Asian Textiles",
+    slug: "asian-textiles",
     src: "https://images.unsplash.com/photo-1534452203293-494d7ddbf7e0?q=80&w=2072&auto=format&fit=crop",
   },
   {
     title: "Future Tech",
+    slug: "future-tech",
     src: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop",
   },
   {
     title: "Smart Logistics",
+    slug: "smart-logistics",
     src: "https://images.unsplash.com/photo-1494412574643-35d324698420?q=80&w=2064&auto=format&fit=crop",
   },
   {
     title: "Eco Packaging",
+    slug: "eco-packaging",
     src: "https://images.unsplash.com/photo-1530541930197-ff16ac917b0e?q=80&w=2070&auto=format&fit=crop",
   },
   {
     title: "Urban Fashion",
+    slug: "urban-fashion",
     src: "https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=2070&auto=format&fit=crop",
   },
   {
     title: "NextGen Auto",
+    slug: "nextgen-auto",
     src: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=2047&auto=format&fit=crop",
   },
   {
     title: "Green Energy",
+    slug: "green-energy",
     src: "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?q=80&w=2070&auto=format&fit=crop",
   },
   {
     title: "Cloud Systems",
+    slug: "cloud-systems",
     src: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop",
   },
   {
     title: "Agri Exports",
+    slug: "agri-exports",
     src: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=2070&auto=format&fit=crop",
   },
   {
     title: "MediCare Global",
+    slug: "medicare-global",
     src: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2070&auto=format&fit=crop",
   },
   {
     title: "EduTech Pro",
+    slug: "edutech-pro",
     src: "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2070&auto=format&fit=crop",
   }
 ];

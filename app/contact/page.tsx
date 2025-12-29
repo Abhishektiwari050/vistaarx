@@ -1,11 +1,13 @@
 "use client"
-import Image from "next/image";
-import { useState } from "react"
+import React, { useState } from "react"
+import { useRouter } from "next/navigation"
+import Image from "next/image"
 import { motion } from "framer-motion"
 import { FadeIn, SlideUp } from "@/components/motion/MotionWrappers"
 import { MagneticButton } from "@/components/ui/magnetic-button"
 
 export default function ContactPage() {
+  const router = useRouter()
   const [formState, setFormState] = useState({
     name: "",
     email: "",
@@ -21,7 +23,7 @@ export default function ContactPage() {
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1500))
     setIsSubmitting(false)
-    setIsSuccess(true)
+    router.push('/thank-you')
   }
 
   return (
@@ -168,7 +170,9 @@ export default function ContactPage() {
                         <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
                         Sending...
                       </span>
-                    ) : "Book Strategy Session"}
+                    ) : (
+                      "Book Strategy Session"
+                    )}
                   </MagneticButton>
 
                   <p className="text-center text-xs font-mono font-bold text-neutral-500 mt-4 uppercase">
