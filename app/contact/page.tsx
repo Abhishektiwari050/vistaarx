@@ -49,15 +49,15 @@ export default function ContactPage() {
               </motion.div>
 
               <h1 className="text-6xl md:text-8xl font-black tracking-tighter text-black mb-6 leading-[0.9]">
-                LET'S <br />
+                LET&apos;S <br />
                 <span className="text-transparent stroke-text text-stroke-2">SCALE</span> <br />
                 <span className="text-[#ccff00] bg-black px-2">YOUR</span> <br />
                 BUSINESS.
               </h1>
 
-              <p className="text-xl md:text-2xl font-medium text-neutral-800 mb-12 leading-relaxed max-w-lg font-mono border-l-4 border-[#ff0080] pl-6">
-                Stop playing small. Automate operations, crush competitors, and 10x your growth.
-              </p>
+                <p className="text-xl md:text-2xl font-medium text-neutral-800 mb-12 leading-relaxed max-w-lg font-mono border-l-4 border-[#ff0080] pl-6">
+                  Stop playing small. Automate operations, crush competitors, and 10x your growth.
+                </p>
 
               <div className="p-8 bg-neutral-100 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative transform rotate-1 hover:rotate-0 transition-transform duration-300">
                 <div className="absolute -top-6 -right-6 w-16 h-16 bg-[#ccff00] rounded-full border-2 border-black flex items-center justify-center font-bold text-xs text-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] animate-bounce">
@@ -73,7 +73,7 @@ export default function ContactPage() {
                   </div>
                 </div>
                 <p className="text-black font-medium italic leading-relaxed">
-                  "We only work with exporters who are serious about dominating their niche. If that's you, let's talk."
+                  &ldquo;We only work with exporters who are serious about dominating their niche. If that&apos;s you, let&apos;s talk.&rdquo;
                 </p>
               </div>
             </div>
@@ -95,7 +95,7 @@ export default function ContactPage() {
                     <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"></path></svg>
                   </div>
                   <h3 className="text-4xl font-black text-black mb-4 uppercase tracking-tighter">Received!</h3>
-                  <p className="text-neutral-600 text-lg font-mono">We'll be in touch shortly.</p>
+                  <p className="text-neutral-600 text-lg font-mono">We&apos;ll be in touch shortly.</p>
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6 relative z-10">

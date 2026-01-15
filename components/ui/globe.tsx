@@ -72,7 +72,7 @@ export const Globe = () => {
             globe.destroy()
             window.removeEventListener('resize', onResize)
         }
-    }, [])
+    }, [r])
 
     return (
         <div className="w-full max-w-[600px] aspect-square mx-auto relative">
