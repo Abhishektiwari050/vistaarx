@@ -56,10 +56,10 @@ export const ParallaxCard = ({
   }, []);
 
   return (
-    <div ref={cardRef} className={`perspective-1000 ${className}`}>
+    <div ref={cardRef} className={className} style={{ perspective: "1000px" }}>
       <div
         ref={innerRef}
-        className="transform-style-3d transition-transform"
+        className="transition-transform"
         style={{ transformStyle: "preserve-3d" }}
       >
         {children}

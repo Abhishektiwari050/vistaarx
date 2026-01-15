@@ -110,7 +110,7 @@ export default function ComponentsShowcase() {
               <p className="text-xl text-white mb-8 max-w-2xl mx-auto">
                 Animated particles floating across the screen create depth and visual interest.
               </p>
-              <ShinyButton onClick={() => alert("Button clicked!")}>
+              <ShinyButton onClick={() => console.log("Button clicked!")}>
                 Shiny Button Demo
               </ShinyButton>
             </div>
@@ -164,7 +164,7 @@ export default function ComponentsShowcase() {
           <h2 className="text-5xl font-black text-black mb-6">
             Ready to use these components?
           </h2>
-          <ShinyButton onClick={() => alert("Let&apos;s build!")}>
+          <ShinyButton onClick={() => console.log("Let's build clicked!")}>
             LET&apos;S BUILD
           </ShinyButton>
         </div>
