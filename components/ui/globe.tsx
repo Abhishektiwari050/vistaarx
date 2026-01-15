@@ -3,8 +3,9 @@
 import { useEffect, useRef } from "react";
 import createGlobe from "cobe";
 import { useSpring } from '@react-spring/web';
+import { cn } from "@/lib/utils";
 
-export const Globe = () => {
+export const Globe = ({ className }: { className?: string }) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const pointerInteracting = useRef<number | null>(null);
     const pointerInteractionMovement = useRef(0);
@@ -75,7 +76,7 @@ export const Globe = () => {
     }, [r])
 
     return (
-        <div className="w-full max-w-[600px] aspect-square mx-auto relative">
+        <div className={cn("w-full max-w-[600px] aspect-square mx-auto relative", className)}>
             <canvas
                 ref={canvasRef}
                 onPointerDown={(e) => {
