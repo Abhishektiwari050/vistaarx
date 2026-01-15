@@ -6,16 +6,20 @@ import { TextRevealByWord, FunkyTextReveal } from "@/components/ui/text-reveal";
 import { FadeIn } from "@/components/motion/MotionWrappers";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import { InfiniteMarquee } from "@/components/ui/infinite-marquee";
-// import { VelocityScroll } from "@/components/ui/velocity-scroll";
+// import { VelocityScroll } from "@/components/ui/scroll-progress-velocity-scroll";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { FAQ } from "@/components/ui/faq";
 import { Code2, Globe as GlobeIcon, Sparkles, Zap } from "lucide-react";
 import { Globe } from "@/components/ui/globe";
 import gsap from "gsap";
 import { ParallaxGallery } from "@/components/ui/parallax-gallery";
+import { LazyLoad } from "@/components/ui/lazy-load";
+import { AdvancedCardHover } from "@/components/ui/advanced-card-hover";
+import { useToast } from "@/components/ui/toast-notification";
 
 export default function Home() {
   const heroRef = useRef<HTMLDivElement>(null);
+  const { showToast } = useToast();
 
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -114,7 +118,9 @@ export default function Home() {
                 NO BORING TEMPLATES. JUST PURE <motion.span animate={{ scale: [1, 1.05, 1], rotate: [0, 2, 0, -2, 0] }} transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 2 }} className="bg-[#ccff00] px-2 font-bold border border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] inline-block">CHAOS & CODE</motion.span>.
               </p>
               <div className="mt-8 md:mt-12 flex gap-4 pointer-events-auto justify-center md:justify-start">
-                <MagneticButton className="hero-btn px-6 py-3 md:px-8 md:py-4 rounded-full bg-[#1a73e8] text-white font-medium type-h3 !text-lg hover:bg-[#1557b0] transition-all shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 active:scale-95">
+                <MagneticButton 
+                  onClick={() => showToast('Welcome to Vistaar! 🚀', 'success')}
+                  className="hero-btn px-6 py-3 md:px-8 md:py-4 rounded-full bg-[#1a73e8] text-white font-medium type-h3 !text-lg hover:bg-[#1557b0] transition-all shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 active:scale-95">
                   Get Started
                 </MagneticButton>
                 <MagneticButton className="hero-btn px-6 py-3 md:px-8 md:py-4 rounded-full bg-[#F1F3F4] text-[#1a73e8] font-medium type-h3 !text-lg hover:bg-[#e8eaed] transition-colors active:scale-95 transition-transform flex items-center gap-2 border-2 border-transparent hover:border-[#1a73e8]">
@@ -233,7 +239,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. FEATURES (Bento Grid) */}
+      {/* 5. FEATURES (Bento Grid with Advanced Card Hover) */}
       <section className="py-32 px-6 bg-white text-black relative">
         <div className="max-w-7xl mx-auto mb-20">
           <h2 className="type-h2 text-black mb-6">
@@ -245,38 +251,41 @@ export default function Home() {
           </p>
         </div>
 
-        <FadeIn>
-          <BentoGrid className="max-w-7xl mx-auto">
-            <BentoGridItem
-              title="GLOBAL EDGE"
-              description="Deploy instantly to the edge of reason."
-              header={<div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-neutral-100 border border-black flex items-center justify-center"><GlobeIcon className="h-12 w-12 text-black animate-spin-slow" /></div>}
-              icon={<GlobeIcon className="h-6 w-6 text-black" />}
-              className="md:col-span-2 bg-white border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(255,0,128,1)]"
-            />
-            <BentoGridItem
-              title="INSTANT"
-              description="Faster than thought."
-              header={<div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-[#ff0080] border border-black flex items-center justify-center"><Zap className="h-12 w-12 text-black" /></div>}
-              icon={<Zap className="h-6 w-6 text-[#ff0080]" />}
-              className="md:col-span-1 bg-white border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(204,255,0,1)] hover:bg-neutral-50"
-            />
-            <BentoGridItem
-              title="AI CORE"
-              description="Intelligence baked in."
-              header={<div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-[#ccff00] border border-black flex items-center justify-center"><Sparkles className="h-12 w-12 text-black" /></div>}
-              icon={<Sparkles className="h-6 w-6 text-[#ccff00]" />}
-              className="md:col-span-1 bg-white border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(25,25,25,1)] hover:bg-neutral-50"
-            />
-            <BentoGridItem
-              title="CLEAN CODE"
-              description="Spaghetti is for dinner, not production."
-              header={<div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-neutral-100 border border-black flex items-center justify-center"><Code2 className="h-12 w-12 text-black" /></div>}
-              icon={<Code2 className="h-6 w-6 text-black" />}
-              className="md:col-span-2 bg-white border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,255,255,1)]"
-            />
-          </BentoGrid>
-        </FadeIn>
+        <LazyLoad>
+          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <AdvancedCardHover variant="tilt" className="p-8">
+              <div className="flex flex-col items-center justify-center h-full">
+                <GlobeIcon className="h-12 w-12 text-black mb-4" />
+                <h3 className="text-2xl font-black mb-2">GLOBAL EDGE</h3>
+                <p className="text-neutral-600 text-center">Deploy instantly to the edge of reason.</p>
+              </div>
+            </AdvancedCardHover>
+            
+            <AdvancedCardHover variant="glow" className="p-8">
+              <div className="flex flex-col items-center justify-center h-full">
+                <Zap className="h-12 w-12 text-[#ff0080] mb-4" />
+                <h3 className="text-2xl font-black mb-2">INSTANT</h3>
+                <p className="text-neutral-600 text-center">Faster than thought.</p>
+              </div>
+            </AdvancedCardHover>
+            
+            <AdvancedCardHover variant="lift" className="p-8">
+              <div className="flex flex-col items-center justify-center h-full">
+                <Sparkles className="h-12 w-12 text-[#ccff00] mb-4" />
+                <h3 className="text-2xl font-black mb-2">AI CORE</h3>
+                <p className="text-neutral-600 text-center">Intelligence baked in.</p>
+              </div>
+            </AdvancedCardHover>
+            
+            <AdvancedCardHover variant="tilt" className="p-8">
+              <div className="flex flex-col items-center justify-center h-full">
+                <Code2 className="h-12 w-12 text-black mb-4" />
+                <h3 className="text-2xl font-black mb-2">CLEAN CODE</h3>
+                <p className="text-neutral-600 text-center">Spaghetti is for dinner.</p>
+              </div>
+            </AdvancedCardHover>
+          </div>
+        </LazyLoad>
       </section>
 
       {/* 5.5 TRUST STATS STRIP */}
