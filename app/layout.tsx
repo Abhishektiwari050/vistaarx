@@ -10,7 +10,7 @@ import { AnimatedCursor } from "@/components/ui/animated-cursor";
 import { PageTransition } from "@/components/ui/page-transition";
 import { ScrollProgressBar } from "@/components/ui/scroll-progress-bar";
 import { ToastProvider } from "@/components/ui/toast-notification";
-import { BackgroundPattern } from "@/components/ui/background-patterns";
+import { BackgroundPattern } from "@/components/ui/background-pattern";
 
 const inter = Inter({
   subsets: ["latin"],
