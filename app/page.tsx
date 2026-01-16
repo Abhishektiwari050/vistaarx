@@ -13,7 +13,7 @@ import { Code2, Globe as GlobeIcon, Sparkles, Zap } from "lucide-react";
 import { Globe } from "@/components/ui/globe";
 import gsap from "gsap";
 import { ParallaxGallery } from "@/components/ui/parallax-gallery";
-import { LazyLoad } from "@/components/ui/lazy-load";
+import { LazyLoad } from "@/components/ui/lazy-load-animation";
 import { AdvancedCardHover } from "@/components/ui/advanced-card-hover";
 import { useToast } from "@/components/ui/toast-notification";
 
