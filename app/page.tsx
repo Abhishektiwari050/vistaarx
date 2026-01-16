@@ -13,7 +13,7 @@ import { Code2, Globe as GlobeIcon, Sparkles, Zap } from "lucide-react";
 import { Globe } from "@/components/ui/globe";
 import gsap from "gsap";
 import { ParallaxGallery } from "@/components/ui/parallax-gallery";
-import { LazyLoad } from "@/components/ui/lazy-load-animation";
+import { LazyLoadAnimation } from "@/components/ui/lazy-load-animation";
 import { AdvancedCardHover } from "@/components/ui/advanced-card-hover";
 import { useToast } from "@/components/ui/toast-notification";
 
@@ -251,7 +251,7 @@ export default function Home() {
           </p>
         </div>
 
-        <LazyLoad>
+        <LazyLoadAnimation>
           <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <AdvancedCardHover variant="tilt" className="p-8">
               <div className="flex flex-col items-center justify-center h-full">
@@ -285,7 +285,7 @@ export default function Home() {
               </div>
             </AdvancedCardHover>
           </div>
-        </LazyLoad>
+        </LazyLoadAnimation>
       </section>
 
       {/* 5.5 TRUST STATS STRIP */}
