@@ -39,16 +39,16 @@ export default function AboutPage() {
                         </h2>
                         <div className="space-y-6 text-lg font-medium text-neutral-800 leading-relaxed font-mono">
                             <p>
-                                Most agencies play it safe. They give you a generic template, a "safe" color palette, and a website that looks exactly like your competitor's.
+                                Most agencies play it safe. They give you a generic template, a &ldquo;safe&rdquo; color palette, and a website that looks exactly like your competitor&apos;s.
                             </p>
                             <p>
-                                <span className="bg-black text-[#ccff00] px-2 font-bold">WE DON'T DO SAFE.</span>
+                                <span className="bg-black text-[#ccff00] px-2 font-bold">WE DON&apos;T DO SAFE.</span>
                             </p>
                             <p>
                                 We believe that to win in the global market, you need to disrupt the pattern. You need speed, aggression, and technology that feels like magic.
                             </p>
                             <p>
-                                Vistaar works exclusively with exporters and brands ready to scale. If you're happy with 10% growth, go elsewhere. If you want to dominate, you're home.
+                                Vistaar works exclusively with exporters and brands ready to scale. If you&apos;re happy with 10% growth, go elsewhere. If you want to dominate, you&apos;re home.
                             </p>
                         </div>
                     </SlideUp>

@@ -120,7 +120,7 @@ export default function WorkPage() {
         <div className="relative z-10 container mx-auto px-6">
           <h2 className="text-4xl md:text-6xl font-black text-white mb-8 tracking-tighter">
             SEEN ENOUGH? <br />
-            <span className="italic text-[#ccff00] font-serif">LET'S BUILD.</span>
+            <span className="italic text-[#ccff00] font-serif">LET&apos;S BUILD.</span>
           </h2>
           <a
             href="/contact"

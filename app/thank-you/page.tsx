@@ -23,7 +23,7 @@ export default function ThankYouPage() {
                     Message <span className="text-transparent stroke-text text-stroke-2">Received</span>.
                 </h1>
                 <p className="type-body text-neutral-600 max-w-2xl mx-auto mb-12 font-mono">
-                    You've just taken the first step towards domination. Our team is already reviewing your details and will be in touch within 24 hours.
+                    You&apos;ve just taken the first step towards domination. Our team is already reviewing your details and will be in touch within 24 hours.
                 </p>
 
                 {/* WHAT HAPPENS NEXT */}

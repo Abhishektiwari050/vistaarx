@@ -6,6 +6,11 @@ import { Navbar } from "@/components/ui/navbar";
 import { IconHome, IconMessage, IconUser } from "@tabler/icons-react";
 import SmoothScroller from "@/components/motion/SmoothScroller";
 import { Footer } from "@/components/ui/footer";
+import { AnimatedCursor } from "@/components/ui/animated-cursor";
+import { PageTransition } from "@/components/ui/page-transition";
+import { ScrollProgressBar } from "@/components/ui/scroll-progress-bar";
+import { ToastProvider } from "@/components/ui/toast-notification";
+import { BackgroundPattern } from "@/components/ui/background-pattern";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -58,10 +63,17 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://images.unsplash.com" />
       </head>
       <body className={`font-sans ${inter.variable} ${playfair.variable} ${space.variable} ${greatVibes.variable} ${GeistMono.variable} antialiased bg-white text-black selection:bg-[#ccff00] selection:text-black`}>
-        <SmoothScroller />
-        <Navbar />
-        {children}
-        <Footer />
+        <ToastProvider>
+          <AnimatedCursor />
+          <ScrollProgressBar />
+          <BackgroundPattern variant="dots" />
+          <SmoothScroller />
+          <Navbar />
+          <PageTransition>
+            {children}
+          </PageTransition>
+          <Footer />
+        </ToastProvider>
       </body>
     </html>
   )
