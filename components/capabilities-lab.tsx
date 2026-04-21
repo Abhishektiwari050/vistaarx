@@ -21,85 +21,85 @@ import { Button } from "@/components/ui/button"
 
 const capabilities = [
   {
-    id: "branding",
-    title: "Brand Identity Design",
-    description: "Complete visual identity systems that capture your brand essence. We don't just design logos; we craft the soul of your business.",
-    icon: Palette,
-    color: "from-pink-500/20 to-rose-500/20",
-    borderColor: "border-pink-500/30",
-    iconColor: "text-pink-500",
-    demo: "Interactive logo animation",
-    tags: ["Logo Design", "Color Systems", "Typography"],
-  },
-  {
-    id: "development",
-    title: "Advanced Web Development",
-    description: "Cutting-edge websites with smooth animations and interactions. Built on the latest tech stack including Next.js and React Server Components.",
-    icon: Code,
-    color: "from-blue-500/20 to-indigo-500/20",
+    id: "architecture",
+    title: "NEURAL ARCHITECTURE",
+    description: "Engineering massive-scale distributed backends that serve as the foundation for modern AI. We architect for high-availability, multi-region dominance, and absolute consistency.",
+    icon: Layers,
+    color: "from-blue-500/20 to-cyan-500/20",
     borderColor: "border-blue-500/30",
     iconColor: "text-blue-500",
-    demo: "3D CSS animations",
-    tags: ["React", "Next.js", "TypeScript"],
+    demo: "Distributed neural network visualization",
+    tags: ["Kubernetes", "gRPC", "Vector-Sync"],
   },
   {
-    id: "mobile",
-    title: "Mobile-First Design",
-    description: "Responsive experiences that work flawlessly across all devices. We ensure your site looks stunning on everything from a watch to an 8K display.",
-    icon: Smartphone,
-    color: "from-green-500/20 to-emerald-500/20",
-    borderColor: "border-green-500/30",
-    iconColor: "text-green-500",
-    demo: "Device mockup showcase",
-    tags: ["Responsive", "PWA", "Mobile UX"],
+    id: "ai-layer",
+    title: "AI INTELLIGENCE LAYER",
+    description: "Deploying high-fidelity LLM operations natively into production environments. From complex RAG pipelines to autonomous agents capable of independent reasoning and execution.",
+    icon: Sparkles,
+    color: "from-[#ccff00]/20 to-green-500/20",
+    borderColor: "border-[#ccff00]/30",
+    iconColor: "text-[#ccff00]",
+    demo: "AI Reasoning dashboard",
+    tags: ["LangChain", "LLMOps", "Vector DBs"],
+  },
+  {
+    id: "sdlc",
+    title: "AI-ENABLED SDLC",
+    description: "Re-engineering the delivery pipeline. We build internal tools that leverage AI to automate code reviews, security scanning, and deployment at terminal velocity.",
+    icon: Code,
+    color: "from-[#ff0080]/20 to-purple-500/20",
+    borderColor: "border-[#ff0080]/30",
+    iconColor: "text-[#ff0080]",
+    demo: "Autonomous SDLC Simulation",
+    tags: ["Auto-Review", "IaC", "Edge-CI"],
   },
   {
     id: "analytics",
-    title: "Data Visualization",
-    description: "Transform complex data into beautiful, actionable insights. We turn boring spreadsheets into interactive, engaging dashboards.",
+    title: "Predictive Analytics",
+    description: "Transforming raw telemetry into strategic clarity. We build real-time dashboards that use ML to forecast scaling needs and detect anomalies before they crash.",
     icon: BarChart3,
-    color: "from-purple-500/20 to-violet-500/20",
-    borderColor: "border-purple-500/30",
-    iconColor: "text-purple-500",
-    demo: "Interactive charts",
-    tags: ["D3.js", "Charts", "Dashboards"],
-  },
-  {
-    id: "performance",
-    title: "Performance Optimization",
-    description: "Lightning-fast loading times and seamless user experiences. We obsess over every millisecond to ensure optimal conversion rates.",
-    icon: Zap,
     color: "from-yellow-500/20 to-orange-500/20",
     borderColor: "border-yellow-500/30",
     iconColor: "text-yellow-500",
-    demo: "Speed test results",
-    tags: ["Core Web Vitals", "SEO", "Optimization"],
+    demo: "Anomalies detection chart",
+    tags: ["Data Engineering", "MLOps", "Grafana"],
   },
   {
-    id: "ui-systems",
-    title: "Design Systems",
-    description: "Scalable component libraries for consistent user experiences. Future-proof your product with a robust, documented design language.",
-    icon: Layers,
-    color: "from-cyan-500/20 to-teal-500/20",
+    id: "performance",
+    title: "Deterministic Performance",
+    description: "Zero-bloat engineering. We optimize every layer of the stack—from DB queries to edge caching—to ensure sub-100ms response times globally.",
+    icon: Zap,
+    color: "from-red-500/20 to-[#ff0080]/20",
+    borderColor: "border-red-500/30",
+    iconColor: "text-red-500",
+    demo: "Edge performance map",
+    tags: ["Edge Computing", "DB Optimization", "Rust/Go"],
+  },
+  {
+    id: "interface",
+    title: "Technical Interfaces",
+    description: "Engineering internal tools and command centers for high-stakes environments. We build dense, data-rich UIs that maintain absolute clarity.",
+    icon: MousePointer,
+    color: "from-cyan-500/20 to-blue-500/20",
     borderColor: "border-cyan-500/30",
     iconColor: "text-cyan-500",
-    demo: "Component showcase",
-    tags: ["Figma", "Storybook", "Components"],
+    demo: "Command center GUI",
+    tags: ["Next.js", "Zustand", "Type-Safe UI"],
   },
 ]
 
 const showcaseItems = [
   {
-    title: "Interactive 3D Product Showcase",
-    description: "Immersive product experiences with WebGL",
+    title: "Vector-Native Search Engine",
+    description: "Proprietary RAG architecture for sub-second retrieval from millions of technical documents.",
     image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&auto=format&fit=crop",
-    tech: ["Three.js", "WebGL", "GSAP"],
+    tech: ["Pinecone", "OpenAI", "Next.js"],
   },
   {
-    title: "AI-Powered Content Generator",
-    description: "Smart content creation with machine learning",
+    title: "Autonomous Repo-Guardian",
+    description: "AI-driven SDLC agent that performs automated code reviews and security audits in real-time.",
     image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&auto=format&fit=crop",
-    tech: ["OpenAI", "React", "Python"],
+    tech: ["GitHub Apps", "Python", "Llama 3"],
   },
 ];
 
@@ -107,22 +107,21 @@ export function CapabilitiesLab() {
   const [activeShowcase, setActiveShowcase] = useState<number | null>(null);
 
   return (
-    <section id="capabilities" className="py-24 bg-black relative w-full overflow-hidden">
+    <section id="capabilities" className="py-24 bg-black relative w-full overflow-hidden border-t-4 border-[#ff0080]">
       <TracingBeam className="px-6">
         <div className="max-w-2xl mx-auto antialiased pt-4 relative">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center px-4 py-2 bg-accent/10 rounded-full border border-accent/20 mb-6">
-              <Sparkles className="w-4 h-4 text-accent mr-2" />
-              <span className="text-accent font-medium text-sm">Capabilities Lab</span>
+            <div className="inline-flex items-center px-4 py-2 bg-[#ccff00]/10 rounded-full border border-[#ccff00]/20 mb-6">
+              <Sparkles className="w-4 h-4 text-[#ccff00] mr-2" />
+              <span className="text-[#ccff00] font-medium text-sm font-mono tracking-widest uppercase">The Engine Room</span>
             </div>
-            <h2 className="text-4xl sm:text-5xl font-heading font-black text-white mb-6 text-balance">
-              Where Ideas Become
-              <br />
-              <span className="text-accent">Digital Reality</span>
+            <h2 className="text-4xl sm:text-5xl font-heading font-black text-white mb-6 text-balance uppercase tracking-tighter">
+              Engineering <br />
+              <span className="text-transparent stroke-text text-stroke-2">The Intelligence</span> <br />
+              Layer
             </h2>
-            <p className="text-xl text-neutral-400 max-w-3xl mx-auto leading-relaxed text-pretty">
-              Our creative playground where we push the boundaries of what&apos;s possible. Every project is an opportunity to
-              innovate and exceed expectations.
+            <p className="text-xl text-neutral-400 max-w-3xl mx-auto leading-relaxed border-l-4 border-[#ccff00] pl-6 text-left">
+              We don't follow industry trends; we engineer the standard. Vistar is where complex legacy overhead is replaced by streamlined, AI-Native intelligence layers.
             </p>
           </div>
 
@@ -140,13 +139,13 @@ export function CapabilitiesLab() {
                     <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${capability.color} flex items-center justify-center mb-4 border ${capability.borderColor}`}>
                       <IconComponent className={`w-6 h-6 ${capability.iconColor}`} />
                     </div>
-                    <h3 className="text-2xl font-bold text-white">{capability.title}</h3>
-                    <p className="text-neutral-400 text-lg leading-relaxed">
+                    <h3 className="text-2xl font-bold text-white uppercase tracking-tight">{capability.title}</h3>
+                    <p className="text-neutral-400 text-lg leading-relaxed font-mono">
                       {capability.description}
                     </p>
                     <div className="flex flex-wrap gap-2 pt-2">
                       {capability.tags.map((tag) => (
-                        <Badge key={tag} variant="outline" className="border-white/10 text-neutral-300">
+                        <Badge key={tag} variant="outline" className="border-[#ccff00]/20 text-[#ccff00] font-mono">
                           {tag}
                         </Badge>
                       ))}
@@ -160,10 +159,9 @@ export function CapabilitiesLab() {
           {/* Showcase Gallery Section */}
           <div className="mt-32">
             <div className="text-center mb-12">
-              <h3 className="text-3xl font-heading font-black text-white mb-4">Featured Innovations</h3>
-              <p className="text-neutral-400 max-w-2xl mx-auto">
-                A glimpse into our most ambitious projects that showcase the cutting edge of digital creativity and
-                technical excellence.
+              <h3 className="text-3xl font-heading font-black text-white mb-4 uppercase tracking-widest">High-Frequency Deployments</h3>
+              <p className="text-neutral-400 max-w-2xl mx-auto border-b border-white/10 pb-6 font-mono">
+                Real systems engineered for high-stakes environments. No fluff.
               </p>
             </div>
 

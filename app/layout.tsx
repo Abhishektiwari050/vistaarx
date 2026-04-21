@@ -34,13 +34,13 @@ const greatVibes = Great_Vibes({
 });
 
 export const metadata: Metadata = {
-  title: "Vistaar Agency - Next-Gen Digital Services",
-  description: "Premium digital agency offering SEO, social media management, web design, and growth strategy services",
-  keywords: ["digital agency", "web design", "SEO", "social media", "growth strategy"],
-  authors: [{ name: "Vistaar Agency" }],
+  title: "Vistar Studio // AI Powered SDLC",
+  description: "Complete AI Powered software development life cycle studio. High-fidelity engineering for the modern internet.",
+  keywords: ["AI SDLC", "Software Studio", "AI Engineering", "Vistar", "Vistar Studio"],
+  authors: [{ name: "Vistar Studio" }],
   openGraph: {
-    title: "Vistaar Agency - Next-Gen Digital Services",
-    description: "Premium digital agency offering SEO, social media management, web design, and growth strategy services",
+    title: "Vistar Studio // AI Powered SDLC",
+    description: "Complete AI Powered software development cycle studio. High-fidelity engineering for the modern internet.",
     type: "website",
   },
 }
@@ -53,7 +53,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/vistaar-logo.svg" type="image/svg+xml" />
+        <link rel="icon" href="/vistar-logo.svg" type="image/svg+xml" />
         <link rel="preconnect" href="https://images.unsplash.com" />
         <link rel="dns-prefetch" href="https://images.unsplash.com" />
       </head>

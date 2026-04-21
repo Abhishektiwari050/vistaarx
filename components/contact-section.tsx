@@ -16,8 +16,8 @@ const contactMethods = [
     icon: Mail,
     title: "Email Us",
     description: "Get a response within 2 hours",
-    value: "services.vistaar@gmail.com",
-    action: "mailto:services.vistaar@gmail.com",
+    value: "hello@vistar.studio",
+    action: "mailto:hello@vistar.studio",
     color: "text-blue-500",
     bgColor: "bg-blue-500/10",
   },
@@ -42,14 +42,14 @@ const contactMethods = [
 ]
 
 const projectTypes = [
-  "Website Design & Development",
-  "SEO & Digital Marketing",
-  "Social Media Management",
-  "Brand Identity & Design",
-  "E-commerce Solutions",
-  "Mobile App Development",
-  "Growth Strategy Consulting",
-  "Other",
+  "Custom AI System Architecture",
+  "Autonomous SDLC Agents",
+  "High-Performance Cloud Infrastructure",
+  "LLM Operationalization (RAG/Fine-tuning)",
+  "Technical Interface Design (GUI/CLI)",
+  "Deterministic Engineering Audit",
+  "Scale-to-Millions Architecture",
+  "Other High-Stakes Engineering",
 ]
 
 export function ContactSection() {
@@ -99,7 +99,7 @@ export function ContactSection() {
       if (process.env.NODE_ENV === 'development') {
         console.error('Form submission error:', error)
       }
-      alert('Failed to submit form. Please try again or contact us directly at services.vistaar@gmail.com')
+      alert('Failed to submit form. Please try again or contact us directly at hello@vistar.studio')
     } finally {
       setIsSubmitting(false)
     }
@@ -109,19 +109,18 @@ export function ContactSection() {
     return (
       <section id="contact" className="py-24 bg-background">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 border border-green-500/20 rounded-2xl p-12 animate-fade-in">
-            <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-6 animate-bounce" />
-            <h2 className="text-3xl font-heading font-black text-primary mb-4">Message Sent Successfully!</h2>
-            <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-              Thank you for reaching out! We&apos;ve received your message and will get back to you within 2 hours during
-              business hours.
+          <div className="bg-gradient-to-br from-[#ccff00]/10 to-emerald-500/10 border border-[#ccff00]/20 rounded-2xl p-12 animate-fade-in">
+            <CheckCircle className="w-16 h-16 text-[#ccff00] mx-auto mb-6 animate-bounce" />
+            <h2 className="text-3xl font-heading font-black text-primary mb-4">Signal Received.</h2>
+            <p className="text-muted-foreground mb-6 max-w-2xl mx-auto font-mono">
+              The architecture team has been notified. We will review your requirements and get back to you within 2 hours.
             </p>
             <Button
               onClick={() => setIsSubmitted(false)}
               variant="outline"
-              className="border-green-500/30 text-green-600 hover:bg-green-500/10 magnetic-button"
+              className="border-[#ccff00]/30 text-[#ccff00] hover:bg-[#ccff00]/10 magnetic-button"
             >
-              Send Another Message
+              Send Another Signal
             </Button>
           </div>
         </div>
@@ -130,22 +129,20 @@ export function ContactSection() {
   }
 
   return (
-    <section id="contact" className="py-12 md:py-24 bg-background">
+    <section id="contact" className="py-12 md:py-24 bg-background border-t-4 border-[#ccff00]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-8 md:mb-16">
-          <div className="inline-flex items-center px-4 py-2 bg-accent/10 rounded-full border border-accent/20 mb-6">
-            <Rocket className="w-4 h-4 text-accent mr-2" />
-            <span className="text-accent font-medium text-sm">Let&apos;s Build Together</span>
+          <div className="inline-flex items-center px-4 py-2 bg-[#ccff00]/10 rounded-full border border-[#ccff00]/20 mb-6">
+            <Rocket className="w-4 h-4 text-[#ccff00] mr-2" />
+            <span className="text-[#ccff00] font-medium text-sm font-mono uppercase tracking-widest">Initialization</span>
           </div>
-          <h2 className="text-4xl sm:text-5xl font-heading font-black text-primary mb-6 text-balance">
-            Ready to Transform
-            <br />
-            <span className="text-accent">Your Digital Presence?</span>
+          <h2 className="text-4xl sm:text-5xl font-heading font-black text-primary mb-6 text-balance uppercase tracking-tighter">
+            INITIALIZE <br />
+            <span className="text-transparent stroke-text text-stroke-2">THE PARTNERSHIP</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed text-pretty">
-            Every great project starts with a conversation. Tell us about your vision, and let&apos;s create something
-            extraordinary together.
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed text-pretty font-mono border-l-4 border-[#ff0080] pl-6 text-left">
+            We don't do "briefs." We do technical specifications. Define your parameters and let's deploy the next generation of your software infrastructure.
           </p>
         </div>
 
@@ -154,9 +151,9 @@ export function ContactSection() {
           <div className="lg:col-span-1">
             <div className="space-y-6">
               <div>
-                <h3 className="text-2xl font-heading font-black text-primary mb-4">Get in Touch</h3>
-                <p className="text-muted-foreground mb-6">
-                  Choose your preferred way to connect with us. We&apos;re here to help bring your ideas to life.
+                <h3 className="text-2xl font-heading font-black text-primary mb-4 uppercase tracking-tighter">Transmission</h3>
+                <p className="text-muted-foreground mb-6 font-mono">
+                  Select your channel. We prioritize high-bandwidth technical discussions.
                 </p>
               </div>
 
@@ -165,7 +162,7 @@ export function ContactSection() {
                 return (
                   <Card
                     key={index}
-                    className="group hover:shadow-lg transition-all duration-300 cursor-pointer hover-lift"
+                    className="group hover:shadow-lg transition-all duration-300 cursor-pointer hover-lift border-white/5 bg-black/40"
                   >
                     <CardContent className="p-6">
                       <div className="flex items-start space-x-4">
@@ -175,13 +172,13 @@ export function ContactSection() {
                           <IconComponent className={`w-6 h-6 ${method.color}`} />
                         </div>
                         <div className="flex-1">
-                          <h4 className="font-semibold text-primary mb-1 group-hover:text-accent transition-colors duration-300">
+                          <h4 className="font-semibold text-primary mb-1 group-hover:text-accent transition-colors duration-300 font-mono uppercase">
                             {method.title}
                           </h4>
-                          <p className="text-sm text-muted-foreground mb-2">{method.description}</p>
+                          <p className="text-sm text-muted-foreground mb-2 font-mono">{method.description}</p>
                           <a
                             href={method.action}
-                            className={`font-medium ${method.color} hover:underline transition-colors duration-200`}
+                            className={`font-medium ${method.color} hover:underline transition-colors duration-200 font-mono`}
                           >
                             {method.value}
                           </a>
@@ -193,20 +190,20 @@ export function ContactSection() {
               })}
 
               {/* Quick Stats */}
-              <div className="bg-muted/50 rounded-xl p-6 mt-8 hover-lift">
-                <h4 className="font-semibold text-primary mb-4">Why Choose Vistaar?</h4>
-                <div className="space-y-3">
+              <div className="bg-muted/50 rounded-xl p-6 mt-8 hover-lift border border-white/5">
+                <h4 className="font-semibold text-primary mb-4 font-mono uppercase tracking-widest text-[#ccff00]">Why Choose Vistar?</h4>
+                <div className="space-y-4">
                   <div className="flex items-center group">
-                    <Clock className="w-4 h-4 text-accent mr-3 transition-transform duration-300 group-hover:scale-125" />
-                    <span className="text-sm text-muted-foreground">2-hour response time</span>
+                    <Clock className="w-4 h-4 text-[#ccff00] mr-3 transition-transform duration-300 group-hover:scale-125" />
+                    <span className="text-sm text-muted-foreground font-mono">2-hour engineering response</span>
                   </div>
                   <div className="flex items-center group">
-                    <Users className="w-4 h-4 text-accent mr-3 transition-transform duration-300 group-hover:scale-125" />
-                    <span className="text-sm text-muted-foreground">200+ successful projects</span>
+                    <Users className="w-4 h-4 text-[#ff0080] mr-3 transition-transform duration-300 group-hover:scale-125" />
+                    <span className="text-sm text-muted-foreground font-mono">100% in-house core team</span>
                   </div>
                   <div className="flex items-center group">
-                    <CheckCircle className="w-4 h-4 text-accent mr-3 transition-transform duration-300 group-hover:scale-125" />
-                    <span className="text-sm text-muted-foreground">98% client satisfaction</span>
+                    <CheckCircle className="w-4 h-4 text-[#ccff00] mr-3 transition-transform duration-300 group-hover:scale-125" />
+                    <span className="text-sm text-muted-foreground font-mono">99.9% uptime architecture guarantee</span>
                   </div>
                 </div>
               </div>
@@ -220,7 +217,7 @@ export function ContactSection() {
                 <div className="mb-6">
                   <h3 className="text-2xl font-heading font-black text-primary mb-2">Start Your Project</h3>
                   <p className="text-muted-foreground">
-                    Fill out the form below and we&apos;ll get back to you with a detailed proposal within 24 hours.
+                    Transmission protocol: Outline your technical requirements below. Our lead architects review every submission within 24 hours.
                   </p>
                 </div>
 
@@ -391,7 +388,7 @@ export function ContactSection() {
           <div className="bg-gradient-to-br from-accent/5 to-secondary/5 border border-accent/20 rounded-2xl p-8 max-w-4xl mx-auto hover-lift">
             <div className="flex items-center justify-center mb-4">
               <Calendar className="w-8 h-8 text-accent mr-3" />
-              <h3 className="text-2xl font-heading font-black text-primary">Prefer to Schedule a Call?</h3>
+              <h3 className="text-2xl font-heading font-black text-primary uppercase">Direct Access</h3>
             </div>
             <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
               Book a free 30-minute strategy session to discuss your project in detail and get expert recommendations.

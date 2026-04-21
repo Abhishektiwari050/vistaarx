@@ -48,8 +48,10 @@ export default function MobileNav() {
                     >
                         <div className="flex items-center justify-between p-4 border-b border-white/10">
                             <Link href="/" onClick={() => setIsOpen(false)} className="flex items-center gap-2">
-                                <Image src="/vistaar-logo.svg" alt="Vistaar" width={32} height={32} className="w-8 h-8" />
-                                <span className="text-xl font-heading font-bold text-white">Vistaar</span>
+                                <div className="p-1 bg-[#ccff00] rounded-md border border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                                    <Image src="/vistar-logo.svg" alt="Vistar" width={32} height={32} className="w-8 h-8" />
+                                </div>
+                                <span className="text-xl font-heading font-bold text-white uppercase tracking-tighter">Vistar</span>
                             </Link>
                             <button
                                 onClick={() => setIsOpen(false)}
@@ -97,7 +99,7 @@ export default function MobileNav() {
                         </div>
 
                         <div className="p-8 border-t border-white/10">
-                            <p className="text-gray-500 text-sm">© 2025 Vistaar Agency</p>
+                            <p className="text-gray-500 text-sm">© 2025 Vistar Studio</p>
                         </div>
                     </motion.div>
                 )}

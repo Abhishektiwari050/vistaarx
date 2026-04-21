@@ -15,9 +15,9 @@ export async function POST(request: Request) {
 
     // Email notification (you can integrate with services like SendGrid, Resend, etc.)
     const emailData = {
-      to: 'services.vistaar@gmail.com',
+      to: 'hello@vistar.studio',
       from: email,
-      subject: `New Contact Form Submission from ${name}`,
+      subject: `[VISTAR SIGNAL] New Submission from ${name}`,
       text: `
         Name: ${name}
         Email: ${email}

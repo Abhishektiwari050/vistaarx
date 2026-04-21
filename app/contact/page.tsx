@@ -65,7 +65,7 @@ export default function ContactPage() {
                 </div>
                 <div className="flex items-center gap-4 mb-4">
                   <div className="w-12 h-12 rounded-full border-2 border-black overflow-hidden bg-white">
-                    <Image src="/vistaar-logo.svg" alt="Vistaar Logo" width={48} height={48} className="object-cover w-full h-full" />
+                    <Image src="/vistar-logo.svg" alt="Vistar Logo" width={48} height={48} className="object-cover w-full h-full" />
                   </div>
                   <div>
                     <p className="text-black font-black text-lg uppercase">Founder Direct</p>

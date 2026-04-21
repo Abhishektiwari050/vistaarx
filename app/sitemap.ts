@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = 'https://vistaar.agency' // Replace with actual domain if known, or use localhost for now
+    const baseUrl = 'https://vistar.studio' // Vistar Studio Production Environment
 
     return [
         {

@@ -7,23 +7,23 @@ import { Star, Quote } from "lucide-react"
 const testimonials = [
     {
         id: 1,
-        content: "Vistaar transformed our manual export process into a fully automated sales machine. We've seen a 3x increase in leads within 3 months.",
-        author: "Rajesh Kumar",
-        role: "Director, Global Exports Ltd",
+        content: "Vistar didn't just build an app; they architected an autonomous system that eliminated 40% of our manual QA cycle. True engineering excellence.",
+        author: "Marcus Chen",
+        role: "CTO, Arca Dynamics",
         rating: 5
     },
     {
         id: 2,
-        content: "The team's understanding of the Alibaba ecosystem is unmatched. They didn't just design a website; they built a business asset.",
-        author: "Sarah Jenkins",
-        role: "CEO, TechTrade India",
+        content: "The transition to their AI-powered SDLC layer was seamless. Our deployment velocity increased by 200% within the first two sprints. High-fidelity work.",
+        author: "Elena Rodriguez",
+        role: "Head of Engineering, Flux Systems",
         rating: 5
     },
     {
         id: 3,
-        content: "Professional, responsive, and results-driven. The new UI/UX has significantly improved our brand perception in international markets.",
-        author: "Amit Patel",
-        role: "Founder, Patel Spices",
+        content: "Deterministic, scalable, and visually stunning. Vistar is our go-to studio for building mission-critical intelligence layers and technical interfaces.",
+        author: "David Vance",
+        role: "Founder, Neovoid Infrastructure",
         rating: 5
     }
 ]

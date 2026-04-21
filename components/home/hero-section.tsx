@@ -58,7 +58,7 @@ export const HeroSection = () => {
                     {/* TEXT CONTENT */}
                     <div className="w-full md:w-1/2 z-10 flex flex-col justify-center">
                         <h2 className="text-cyan-400 font-bold tracking-[0.2em] text-sm md:text-base mb-6 uppercase animate-fade-in-up">
-                            Vistaar Agency
+
                         </h2>
                         <h1 className="text-5xl md:text-8xl font-black text-foreground leading-[0.95] mb-8 tracking-tighter">
                             BUILD <br />

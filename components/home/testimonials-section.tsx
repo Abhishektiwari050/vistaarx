@@ -7,31 +7,31 @@ import { InfiniteMovingCards } from "../ui/infinite-moving-cards";
 
 const testimonials = [
     {
-        quote: "Vistaar transformed our Alibaba presence. We went from 2 inquiries a month to 50 qualified leads.",
-        name: "Rajesh Kumar",
-        title: "Director, Global Exports",
-        company: "Kumar Textiles",
+        quote: "Vistar architected our core intelligence layer. Their deterministic approach to AI eliminated all hallucination edge cases in our production environment.",
+        name: "Marcus Chen",
+        title: "CTO, Arca Dynamics",
+        company: "Arca Dynamics",
         image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=3087&auto=format&fit=crop"
     },
     {
-        quote: "The automation tools saved us 20 hours a week. Incredible ROI within the first month.",
-        name: "Sarah Jenkins",
-        title: "CEO, TechTrade",
-        company: "TechTrade Solutions",
+        quote: "The autonomous SDLC agents they built for us handle 80% of our ticket triaging and code generation. True force multipliers for our senior engineers.",
+        name: "Elena Rodriguez",
+        title: "Head of Engineering, Flux Systems",
+        company: "Flux Systems",
         image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2070&auto=format&fit=crop"
     },
     {
-        quote: "Best digital agency for exporters. Period. They understand the international market like no one else.",
-        name: "Amit Patel",
-        title: "Founder, Patel Spices",
-        company: "Patel Spices Ltd.",
+        quote: "High-fidelity interfaces and rock-solid architecture. Vistar is the only studio we trust with our mission-critical technical infrastructure.",
+        name: "David Vance",
+        title: "Founder, Neovoid Infrastructure",
+        company: "Neovoid",
         image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=2070&auto=format&fit=crop"
     },
     {
-        quote: "Their design team is world-class. Our new site looks amazing and converts like crazy.",
+        quote: "They don't just write code; they engineer systems. Their predictive analytics implementation saved us millions in cloud optimization.",
         name: "John Smith",
-        title: "MD, Smith & Co.",
-        company: "Smith Constructions",
+        title: "Principal Architect, Arca Corp",
+        company: "Arca Corp",
         image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=3000&auto=format&fit=crop"
     }
 ];

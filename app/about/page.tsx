@@ -16,62 +16,62 @@ export default function AboutPage() {
                 <div className="max-w-6xl mx-auto relative z-10">
                     <FadeIn>
                         <div className="inline-block px-4 py-1 border-2 border-[#ccff00] text-[#ccff00] font-mono font-bold uppercase tracking-widest mb-8 rotate-[-2deg]">
-                            Established 2024
+                            Makers Studio
                         </div>
                         <h1 className="text-6xl md:text-9xl font-black uppercase tracking-tighter leading-[0.9] mb-12">
-                            Startups <br />
-                            <span className="text-transparent stroke-text text-stroke-2">Die In</span> <br />
-                            Silence.
+                            ENGINEERING <br />
+                            <span className="text-transparent stroke-text text-stroke-2">THE</span> <br />
+                            INTELLIGENCE.
                         </h1>
                         <p className="text-xl md:text-3xl font-mono text-neutral-400 max-w-4xl leading-relaxed border-l-4 border-[#ff0080] pl-8">
-                            We built Vistaar to be the <span className="text-white font-bold">LOUDEST</span> force in the room. We reject boring B2B templates. We build digital engines that print money and demand attention.
+                            Vistar was founded to bridge the gap between experimental AI and production-grade software. We are an <span className="text-white font-bold">AI ENABLED</span> software studio building deterministic architectures for high-velocity teams.
                         </p>
                     </FadeIn>
                 </div>
             </section>
 
             {/* 2. THE PHILOSOPHY */}
-            <section className="py-32 px-6 bg-white text-black">
+            <section className="py-32 px-6 bg-[#f8f8f8] text-black">
                 <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-20 items-center">
                     <SlideUp>
                         <h2 className="type-h2 mb-8">
-                            Chaos <span className="text-[#ff0080]">&</span> Code.
+                            Logic <span className="text-[#ff0080]">&</span> Velocity.
                         </h2>
                         <div className="space-y-6 text-lg font-medium text-neutral-800 leading-relaxed font-mono">
                             <p>
-                                Most agencies play it safe. They give you a generic template, a "safe" color palette, and a website that looks exactly like your competitor's.
+                                Performance is not a feature; it's a requirement. Most software is built to be "functional." We build to be definitive.
                             </p>
                             <p>
-                                <span className="bg-black text-[#ccff00] px-2 font-bold">WE DON'T DO SAFE.</span>
+                                <span className="bg-black text-[#ccff00] px-2 font-bold">WE ELIMINATE FRICTION.</span>
                             </p>
                             <p>
-                                We believe that to win in the global market, you need to disrupt the pattern. You need speed, aggression, and technology that feels like magic.
+                                We believe that for systems to survive the modern agent-driven internet, they must be natively intelligent from the first line of code.
                             </p>
                             <p>
-                                Vistaar works exclusively with exporters and brands ready to scale. If you're happy with 10% growth, go elsewhere. If you want to dominate, you're home.
+                                Vistar works with founders and engineering teams ready to skip the noise. If you want a basic website, go elsewhere. If you want a digital infrastructure that wins, you&apos;re home.
                             </p>
                         </div>
                     </SlideUp>
                     <div className="relative">
                         <div className="absolute inset-0 bg-[#ccff00] translate-x-4 translate-y-4 border-4 border-black" />
-                        <div className="relative border-4 border-black bg-neutral-100 p-8 md:p-12 aspect-square flex flex-col justify-center">
+                        <div className="relative border-4 border-black bg-white p-8 md:p-12 aspect-square flex flex-col justify-center">
                             <h3 className="text-4xl font-black uppercase mb-4">The Standard</h3>
                             <ul className="space-y-4 font-mono font-bold text-lg">
                                 <li className="flex items-center gap-4">
                                     <span className="w-6 h-6 bg-[#ff0080] rounded-full border-2 border-black" />
-                                    No Templates
-                                </li>
-                                <li className="flex items-center gap-4">
-                                    <span className="w-6 h-6 bg-[#1a73e8] rounded-full border-2 border-black" />
-                                    Speed Obsessed (0.1s Load)
-                                </li>
-                                <li className="flex items-center gap-4">
-                                    <span className="w-6 h-6 bg-[#ccff00] rounded-full border-2 border-black" />
-                                    ROI or Die
+                                    Zero-Friction SDLC
                                 </li>
                                 <li className="flex items-center gap-4">
                                     <span className="w-6 h-6 bg-black rounded-full border-2 border-black" />
-                                    Full Transparency
+                                    AI-Native Core
+                                </li>
+                                <li className="flex items-center gap-4">
+                                    <span className="w-6 h-6 bg-[#ccff00] rounded-full border-2 border-black" />
+                                    High-Frequency Deploy
+                                </li>
+                                <li className="flex items-center gap-4">
+                                    <span className="w-6 h-6 bg-neutral-200 rounded-full border-2 border-black" />
+                                    Immutable Arch
                                 </li>
                             </ul>
                         </div>
@@ -83,11 +83,11 @@ export default function AboutPage() {
             <section className="py-32 px-6 bg-[#ccff00] text-black border-t-4 border-black text-center relative overflow-hidden">
                 <div className="max-w-4xl mx-auto relative z-10">
                     <h2 className="text-5xl md:text-8xl font-black uppercase tracking-tighter mb-12">
-                        Join the <br /> Revolution
+                        Build the <br /> Future
                     </h2>
                     <Link href="/contact">
-                        <MagneticButton className="px-12 py-6 bg-black text-white text-xl font-bold uppercase tracking-widest border-4 border-transparent hover:bg-white hover:text-black hover:border-black transition-all shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-[12px_12px_0px_0px_rgba(255,0,128,1)] hover:-translate-y-1">
-                            Book Strategy Call
+                        <MagneticButton className="px-12 py-6 bg-black text-white text-xl font-bold uppercase tracking-widest border-4 border-transparent hover:bg-neutral-800 transition-all shadow-[8px_8px_0px_0px_rgba(255,0,128,1)] hover:shadow-[12px_12px_0px_0px_rgba(255,255,255,1)] hover:-translate-y-1">
+                            Book Architecture Audit
                         </MagneticButton>
                     </Link>
                 </div>

@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
             allow: '/',
             disallow: '/private/',
         },
-        sitemap: 'https://vistaar.agency/sitemap.xml',
+        sitemap: 'https://vistar.studio/sitemap.xml',
     }
 }

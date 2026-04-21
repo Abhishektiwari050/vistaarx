@@ -9,29 +9,24 @@ import {
 
 export const testimonials = [
     {
-        quote: "Vistaar transformed our Alibaba presence. We went from 2 inquiries a month to 50 qualified leads.",
-        name: "Rajesh Kumar",
-        title: "Director, Global Exports",
+        quote: "Vistar engineered our entire intelligence layer. They didn't just build a tool; they transformed our SDLC into a self-healing engine.",
+        name: "Marcus Chen",
+        title: "CTO @ Flux Systems",
     },
     {
-        quote: "The automation tools saved us 20 hours a week. Incredible ROI within the first month.",
+        quote: "The architecture Vistar delivered is battle-hardened. We scaled to 1M requests per second without a single frame drop. Pure technical excellence.",
         name: "Sarah Jenkins",
-        title: "CEO, TechTrade",
+        title: "Lead Architect @ Arca Corp",
     },
     {
-        quote: "Best digital agency for exporters. Period. They understand the international market like no one else.",
-        name: "Amit Patel",
-        title: "Founder, Patel Spices",
+        quote: "They speak the language of engineering. Vistar is the first studio we've worked with that understands deterministic performance and LLM operationalization.",
+        name: "David Vark",
+        title: "VP Engineering @ QuantEdge",
     },
     {
-        quote: "Their design team is world-class. Our new site looks amazing and converts like crazy.",
-        name: "John Smith",
-        title: "MD, Smith & Co.",
-    },
-    {
-        quote: "We scaled to 3 new countries in 6 months thanks to their SEO strategy.",
-        name: "Elena Rodriguez",
-        title: "CMO, EuroFoods",
+        quote: "High-fidelity execution. Their automation of our build-to-deploy pipeline reduced our release cycle by 80%.",
+        name: "James Thorne",
+        title: "Founder @ NeoStack",
     },
 ];
 
@@ -41,8 +36,8 @@ const Skeleton = () => (
 
 export const bentoItems = [
     {
-        title: "AI-Driven Automation",
-        description: "Auto-reply to RFQs 24/7 with intelligent, personalized messages that nurture leads while you sleep.",
+        title: "LLM Operationalization",
+        description: "Moving AI from experiments to production. Robust RAG pipelines and autonomous agent swarms engineered for reliability.",
         header: (
             <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl overflow-hidden">
                 <Image
@@ -57,8 +52,8 @@ export const bentoItems = [
         icon: <IconClipboardCopy className="h-4 w-4 text-neutral-500" />,
     },
     {
-        title: "Global SEO Dominance",
-        description: "Rank #1 for high-intent buyer keywords in target markets like USA, UK, and UAE.",
+        title: "Systemic Architecture",
+        description: "Engineered for atomic scaling. High-frequency systems that maintain 99.999% availability under extreme load.",
         header: (
             <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl overflow-hidden">
                 <Image
@@ -73,8 +68,8 @@ export const bentoItems = [
         icon: <IconFileBroken className="h-4 w-4 text-neutral-500" />,
     },
     {
-        title: "Conversion-Focused Design",
-        description: "Premium, trust-building web design that turns visitors into serious inquiries.",
+        title: "High-Fidelity Codebase",
+        description: "Clean, type-safe, and deterministic. We build codebases that are assets, not liabilities.",
         header: (
             <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl overflow-hidden">
                 <Image
@@ -89,8 +84,8 @@ export const bentoItems = [
         icon: <IconSignature className="h-4 w-4 text-neutral-500" />,
     },
     {
-        title: "Centralized CRM",
-        description: "Track every interaction, deal stage, and follow-up in one unified dashboard.",
+        title: "Automated SDLC",
+        description: "Zero-friction deployment engines. We automate the boring stuff so you can focus on building what matters.",
         header: (
             <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl overflow-hidden">
                 <Image
@@ -108,9 +103,9 @@ export const bentoItems = [
 
 export const stickyContent = [
     {
-        title: "1. Audit & Strategy",
+        title: "1. Architecture Audit",
         description:
-            "We start by deep-diving into your current export setup. We analyze your Alibaba account, website, and sales process to identify the biggest gaps and opportunities. No guesswork, just data-driven strategy.",
+            "We dissect your existing stack to find the bottlenecks. From DB latency to CI/CD friction, we map out a high-fidelity roadmap for technical dominance.",
         content: (
             <div className="h-full w-full flex items-center justify-center text-white">
                 <Image
@@ -124,9 +119,9 @@ export const stickyContent = [
         ),
     },
     {
-        title: "2. Build & Automate",
+        title: "2. Engineering Phase",
         description:
-            "We deploy our proprietary automation systems. We set up your AI auto-responders, build your premium website, and configure your CRM. This is where the heavy lifting happens, transforming your manual processes into a streamlined machine.",
+            "This is where the build happens. We implement the core intelligence layer, automate your SDLC, and harden your architecture. Speed is our primary metric.",
         content: (
             <div className="h-full w-full flex items-center justify-center text-white">
                 <Image
@@ -140,9 +135,9 @@ export const stickyContent = [
         ),
     },
     {
-        title: "3. Scale & Optimize",
+        title: "3. Scale & Harden",
         description:
-            "Once the system is live, we drive traffic. We launch SEO campaigns and paid ads. Then, we obsessively monitor data to tweak and optimize for maximum ROI, ensuring your export business scales sustainably.",
+            "Deployment is just the start. We scale your systems to handle global load while maintaining deterministic performance and absolute security.",
         content: (
             <div className="h-full w-full flex items-center justify-center text-white">
                 <Image

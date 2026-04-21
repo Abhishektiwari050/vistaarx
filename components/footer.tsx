@@ -23,7 +23,7 @@ export function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <div className="mb-6">
-              <h3 className="text-2xl font-heading font-black text-primary mb-2">Vistaar</h3>
+              <h3 className="text-2xl font-heading font-black text-primary mb-2">Vistar</h3>
               <p className="text-muted-foreground leading-relaxed max-w-md">
                 Next-gen digital agency creating premium, futuristic experiences that drive real business growth. Heavy
                 design, light feel.
@@ -34,7 +34,7 @@ export function Footer() {
             <div className="space-y-3 mb-6">
               <div className="flex items-center text-sm text-muted-foreground">
                 <Mail className="w-4 h-4 mr-3 text-accent" />
-                services.vistaar@gmail.com
+                hello@vistar.studio
               </div>
               <div className="flex items-center text-sm text-muted-foreground">
                 <Phone className="w-4 h-4 mr-3 text-accent" />
@@ -87,7 +87,7 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-border mt-12 pt-8 flex flex-col md:flex-row items-center justify-between">
           <div className="flex items-center space-x-4 mb-4 md:mb-0">
-            <p className="text-sm text-muted-foreground">© 2024 Vistaar Agency. All rights reserved.</p>
+            <p className="text-sm text-muted-foreground">© 2024 Vistar Studio. All rights reserved.</p>
           </div>
           <div className="flex items-center space-x-6">
             <a href="#" className="text-sm text-muted-foreground hover:text-accent transition-colors duration-200">

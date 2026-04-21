@@ -23,14 +23,14 @@ export const Navbar = () => {
           <Link href="/" className="flex items-center gap-2 group relative z-50">
             <div className="relative w-10 h-10 border-2 border-black bg-[#ccff00] p-1 rounded-none shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-transform group-hover:-rotate-12">
               <Image
-                src="/vistaar-logo.svg"
-                alt="Vistaar"
+                src="/vistar-logo.svg"
+                alt="Vistar Logo"
                 fill
-                className="object-contain"
+                className="object-contain p-1"
               />
             </div>
             <span className="text-black font-black text-2xl tracking-tighter uppercase italic group-hover:text-stroke-2 group-hover:text-transparent transition-all">
-              Vistaar
+              Vistar
             </span>
           </Link>
 

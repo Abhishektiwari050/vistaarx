@@ -24,7 +24,7 @@ export default function HomePage() {
         {/* 1.5. LOGO MARQUEE */}
         <LogoMarquee />
 
-        {/* 2. SERVICES SECTION (The Vistaar Advantage) */}
+        {/* 2. SERVICES SECTION (The Vistar Advantage) */}
         <ServicesSection />
 
         {/* 3. CUSTOMER PATHS (Export / Online / Scale) */}

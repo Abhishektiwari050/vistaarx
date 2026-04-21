@@ -52,7 +52,7 @@ export const NavbarLogo = ({ className }: { className?: string }) => {
   return (
     <div className={cn("cursor-pointer group", className)} onClick={scrollToTop}>
       <h1 className="text-xl font-heading font-black text-white transition-all duration-300 group-hover:text-white/80">
-        Vistaar
+        Vistar
       </h1>
     </div>
   );
@@ -113,6 +113,7 @@ export const MobileNavToggle = ({
   return (
     <button
       onClick={onClick}
+      aria-label="Toggle Menu"
       className={cn("text-white hover:text-white/80 transition-all duration-300", className)}
     >
       <div className="relative w-5 h-5">

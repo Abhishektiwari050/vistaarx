@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
-import { useScroll, useTransform, motion } from "framer-motion";
+import { useScroll, useTransform, motion, useSpring } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 interface TextRevealByWordProps {
@@ -18,6 +18,13 @@ export const TextRevealByWord = ({
     const { scrollYProgress } = useScroll({
         target: targetRef,
         offset: ["start end", "end start"],
+    });
+
+    // Add spring for smooth "delay" effect as we scroll
+    const smoothProgress = useSpring(scrollYProgress, {
+        stiffness: 100,
+        damping: 30,
+        restDelta: 0.001
     });
 
     const words = text.split(" ");
@@ -39,7 +46,7 @@ export const TextRevealByWord = ({
                         const start = i / words.length;
                         const end = start + 1 / words.length;
                         return (
-                            <Word key={i} progress={scrollYProgress} range={[start, end]}>
+                            <Word key={i} progress={smoothProgress} range={[start, end]}>
                                 {word}
                             </Word>
                         );
@@ -84,13 +91,24 @@ export const FunkyTextReveal = ({
         offset: ["start 0.8", "start 0.2"],
     });
 
+    // Applying spring for the requested delay/lag effect
+    const smoothProgress = useSpring(scrollYProgress, {
+        stiffness: 70,
+        damping: 40,
+    });
+
     return (
         <div ref={targetRef} className={cn("relative z-0 min-h-[150vh]", className)}>
             <div className="sticky top-0 mx-auto flex h-[50%] max-w-5xl items-center bg-transparent px-[1rem] py-[5rem]">
                 <div className="flex flex-wrap p-5 text-2xl font-bold text-white/20 md:text-4xl lg:text-5xl xl:text-7xl leading-[1.1]">
                     {content.map((item, i) => {
                         return (
-                            <FunkyWord key={i} progress={scrollYProgress} range={[i / content.length, (i + 1) / content.length]} className={item.className}>
+                            <FunkyWord 
+                                key={i} 
+                                progress={smoothProgress} 
+                                range={[i / content.length, (i + 1) / content.length]} 
+                                className={item.className}
+                            >
                                 {item.text}
                             </FunkyWord>
                         );
@@ -105,12 +123,10 @@ const FunkyWord = ({ children, progress, range, className }: { children: React.R
     const opacity = useTransform(progress, range, [0, 1]);
     const y = useTransform(progress, range, [20, 0]);
 
-    // Check if it's the "Grid" item or has background to apply special handling
     const hasBackground = className?.includes("bg-");
 
     return (
         <span className={cn("relative mx-2 lg:mx-4 inline-block", !hasBackground && className)}>
-            {/* If it has background, move className to inner spans to avoid empty box */}
             <span className={cn("absolute opacity-[0.1] grayscale", hasBackground && className)}>{children}</span>
             <motion.span
                 style={{ opacity: opacity, y: y }}

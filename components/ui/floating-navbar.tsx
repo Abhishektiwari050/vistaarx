@@ -47,14 +47,15 @@ export const FloatingNav = ({
                     )}
                 >
                     {/* Replaced placeholder with actual logo */}
-                    <Image
-                        src="/vistaar-logo.svg"
-                        alt="VISTAAR"
-                        width={32}
-                        height={32}
-                        className="h-8 w-auto"
-                    />
-                    <span className="text-white font-bold text-xl tracking-tight">VISTAAR</span>
+                    <div className="w-10 h-10 bg-[#ccff00] flex items-center justify-center p-2 rounded-none border border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                        <Image
+                            src="/vistar-logo.svg"
+                            alt="Vistar"
+                            width={24}
+                            height={24}
+                        />
+                    </div>
+                    <span className="text-white font-black text-2xl tracking-tighter uppercase">Vistar</span>
                 </Link>
 
                 {/* Right Side: Nav + CTA */}
