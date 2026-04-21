@@ -34,12 +34,12 @@ const greatVibes = Great_Vibes({
 });
 
 export const metadata: Metadata = {
-  title: "Vistar Studio // AI Powered SDLC",
+  title: "Vistar - AI Powered Software Studio",
   description: "Complete AI Powered software development life cycle studio. High-fidelity engineering for the modern internet.",
-  keywords: ["AI SDLC", "Software Studio", "AI Engineering", "Vistar", "Vistar Studio"],
+  keywords: ["AI Software", "Software Studio", "AI Engineering", "Vistar", "Vistar Studio"],
   authors: [{ name: "Vistar Studio" }],
   openGraph: {
-    title: "Vistar Studio // AI Powered SDLC",
+    title: "Vistar - AI Powered Software Studio",
     description: "Complete AI Powered software development cycle studio. High-fidelity engineering for the modern internet.",
     type: "website",
   },
@@ -57,7 +57,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://images.unsplash.com" />
         <link rel="dns-prefetch" href="https://images.unsplash.com" />
       </head>
-      <body className={`font-sans ${inter.variable} ${playfair.variable} ${space.variable} ${greatVibes.variable} ${GeistMono.variable} antialiased bg-white text-black selection:bg-[#ccff00] selection:text-black`}>
+      <body suppressHydrationWarning className={`font-sans ${inter.variable} ${playfair.variable} ${space.variable} ${greatVibes.variable} ${GeistMono.variable} antialiased bg-white text-black selection:bg-[#ccff00] selection:text-black`}>
         <SmoothScroller />
         <Navbar />
         {children}

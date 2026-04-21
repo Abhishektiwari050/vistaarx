@@ -190,7 +190,7 @@ export default function Home() {
                   </h1>
                 </div>
                 <div className="flex items-center gap-2 md:gap-8 -mt-2 md:-mt-6 flex-wrap justify-center md:justify-start">
-                  <h1 className="hero-char text-[12vw] md:text-[11vw] font-medium text-[#ff0080] font-calligraphy">
+                  <h1 className="hero-char will-change-transform text-[12vw] md:text-[11vw] font-medium text-[#ff0080] font-calligraphy">
                     Software Studio
                   </h1>
                 </div>

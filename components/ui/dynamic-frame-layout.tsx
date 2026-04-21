@@ -78,7 +78,7 @@ function FrameComponent({
 
   return (
     <div
-      className={cn("relative transition-[width,height] duration-300 ease-in-out bg-black overflow-hidden", className)}
+      className={cn("relative transition-[width,height] duration-300 ease-in-out bg-black overflow-hidden will-change-transform", className)}
       style={outerStyle}
     >
       <div className="relative w-full h-full overflow-hidden bg-black flex items-center justify-center">
@@ -201,7 +201,7 @@ export function DynamicFrameLayout({
         return (
           <motion.div
             key={frame.id}
-            className="relative [transform-origin:var(--t-origin)] transition-all duration-500 ease-in-out bg-black border border-white/5"
+            className="relative [transform-origin:var(--t-origin)] transition-all duration-500 ease-in-out bg-black border border-white/5 will-change-[grid-area,transform]"
             style={itemStyle}
             onMouseEnter={() => setHovered({ row, col })}
             onMouseLeave={() => setHovered(null)}

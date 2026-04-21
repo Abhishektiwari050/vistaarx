@@ -43,6 +43,7 @@ export default function FounderSection() {
               src="/vistar-founder.png" 
               alt="Founder" 
               fill 
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover"
             />
             
