@@ -1,6 +1,7 @@
 "use client"
-import { Globe, BarChart3, ShoppingCart, Zap, Users, Layout, Database, TrendingUp, Truck, ShieldCheck } from "lucide-react"
+import { Globe, BarChart3, ShoppingCart, Zap, Users, Layout, Database, TrendingUp, Truck, ShieldCheck, Bot, Code, Cpu, Terminal, Rocket, Layers } from "lucide-react"
 import TestimonialCarousel from "@/components/ui/TestimonialCarousel"
+import { motion } from "framer-motion"
 import { FadeIn } from "@/components/motion/MotionWrappers"
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid"
 import { StickyScroll } from "@/components/ui/sticky-scroll-reveal"
@@ -9,45 +10,45 @@ import ScrollExpandMedia from "@/components/ui/scroll-expansion-hero"
 
 const services = [
   {
-    title: "Alibaba Automation",
-    description: "Automate product posting, inquiries, and analytics. Save 80% of manual work hours and respond to leads instantly.",
-    header: <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-[#ccff00] border-2 border-black flex items-center justify-center"><Globe className="w-16 h-16 text-black" /></div>,
-    icon: <Globe className="w-8 h-8 text-black" />,
+    title: "AI Agent Workflows",
+    description: "Autonomous agents that handle complex business logic, lead qualification, and multi-step operations 24/7.",
+    header: <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-[#ccff00] border-2 border-black flex items-center justify-center"><Bot className="w-16 h-16 text-black" /></div>,
+    icon: <Bot className="w-8 h-8 text-black" />,
     className: "md:col-span-1",
   },
   {
-    title: "Export CRM",
-    description: "Custom CRM solutions tailored for exporters. Track every lead from inquiry to shipment without missing a beat.",
-    header: <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-black border-2 border-black flex items-center justify-center"><Users className="w-16 h-16 text-[#ccff00]" /></div>,
-    icon: <Users className="w-8 h-8 text-black" />,
+    title: "Custom SDLC & Software",
+    description: "End-to-end software development lifecycle management. From architecture design to production-scale engineering.",
+    header: <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-black border-2 border-black flex items-center justify-center"><Code className="w-16 h-16 text-[#ccff00]" /></div>,
+    icon: <Code className="w-8 h-8 text-black" />,
     className: "md:col-span-1",
   },
   {
-    title: "High-Performance Websites",
-    description: "Awwwards-tier websites designed for trust and conversion. Fast, secure, and optimized for international SEO.",
-    header: <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-[#ff0080] border-2 border-black flex items-center justify-center"><Layout className="w-16 h-16 text-white" /></div>,
-    icon: <Layout className="w-8 h-8 text-black" />,
+    title: "High-Performance Platforms",
+    description: "Enterprise-grade web systems optimized for 60fps performance and global scale. Beyond simple websites.",
+    header: <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-[#ff0080] border-2 border-black flex items-center justify-center"><Cpu className="w-16 h-16 text-white" /></div>,
+    icon: <Cpu className="w-8 h-8 text-black" />,
     className: "md:col-span-1",
   },
   {
-    title: "Digital Marketing",
-    description: "Targeted B2B campaigns on LinkedIn and Google. Reach international buyers with precision and lower CPA.",
+    title: "Intelligence & Analytics",
+    description: "Bespoke data engineering and real-time visualization dashboards. Turn raw data into decisive strategic advantages.",
     header: <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-white border-2 border-black flex items-center justify-center"><BarChart3 className="w-16 h-16 text-black" /></div>,
     icon: <BarChart3 className="w-8 h-8 text-black" />,
-    className: "md:col-span-1", // Modified for balance
-  },
-  {
-    title: "E-commerce Solutions",
-    description: "Direct-to-consumer or B2B e-commerce platforms. Seamless payment gateways and logistics integration.",
-    header: <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-neutral-100 border-2 border-black flex items-center justify-center"><ShoppingCart className="w-16 h-16 text-black" /></div>,
-    icon: <ShoppingCart className="w-8 h-8 text-black" />,
     className: "md:col-span-1",
   },
   {
-    title: "Data Intelligence",
-    description: "Scrape competitor data and market trends to stay ahead. Make decisions backed by terabytes of export data.",
-    header: <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-[#ccff00] border-2 border-black flex items-center justify-center"><Database className="w-16 h-16 text-black" /></div>,
-    icon: <Database className="w-8 h-8 text-black" />,
+    title: "Infrastructure & DevOps",
+    description: "Robust cloud architecture and automated CI/CD pipelines. Ensuring zero-downtime and rapid iteration cycles.",
+    header: <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-neutral-100 border-2 border-black flex items-center justify-center"><Layers className="w-16 h-16 text-black" /></div>,
+    icon: <Layers className="w-8 h-8 text-black" />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "Product Strategy",
+    description: "Deep technical auditing and product roadmap consulting for high-growth tech startups and enterprises.",
+    header: <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-[#ccff00] border-2 border-black flex items-center justify-center"><Rocket className="w-16 h-16 text-black" /></div>,
+    icon: <Rocket className="w-8 h-8 text-black" />,
     className: "md:col-span-1"
   }
 ]
@@ -56,46 +57,46 @@ const services = [
 
 const scrollContent = [
   {
-    title: "Automated Lead Gen",
+    title: "AI Agent Orchestration",
     description:
-      "Stop chasing leads manually. Our systems scrape, qualify, and reach out to potential buyers 24/7. We integrate with major B2B platforms to ensure your pipeline is always full.",
+      "We build and deploy autonomous agents that can browse the web, handle customer support, and execute complex workflows across your entire software stack without human intervention.",
     content: (
       <div className="h-full w-full bg-[#ccff00] flex items-center justify-center text-black border-2 border-black">
-        <Globe className="w-20 h-20" />
+        <Bot className="w-20 h-20" />
       </div>
     ),
   },
   {
-    title: "Real-time Analytics",
+    title: "Full-Stack SDLC",
     description:
-      "Know exactly what's working. Our custom dashboards provide real-time insights into your export performance, from inquiry rates to conversion metrics.",
+      "From planning and architecture to testing and deployment. We handle the entire SDLC with a focus on code quality, security, and scalability for modern software ventures.",
     content: (
       <div className="h-full w-full flex items-center justify-center bg-white border-2 border-black">
-        <TrendingUp className="w-20 h-20 text-black" />
+        <Code className="w-20 h-20 text-black" />
       </div>
     ),
   },
   {
-    title: "Smart Logistics",
+    title: "High-Load Infrastructure",
     description:
-      "Optimize your supply chain with AI-driven logistics planning. Predict delays, calculate costs instantly, and manage documentation automatically.",
+      "Scaling to millions of users? We design cloud-native infrastructures on AWS/GCP that auto-scale based on load, ensuring your software is always performant and cost-effective.",
     content: (
       <div className="h-full w-full bg-[#ff0080] flex items-center justify-center text-white border-2 border-black">
-        <Truck className="w-20 h-20" />
+        <Layers className="w-20 h-20" />
       </div>
     ),
   },
   {
-    title: "Global Compliance",
+    title: "Tech Audit & Recovery",
     description:
-      "Navigate international trade regulations with ease. Our systems automatically check compliance requirements for different markets, reducing risk and delays.",
+      "Inherited a legacy codebase? We perform deep technical audits to identify bottlenecks, security vulnerabilities, and technical debt, then execute a precision roadmap to recovery.",
     content: (
       <div className="h-full w-full bg-black flex items-center justify-center text-white border-2 border-black">
-        <ShieldCheck className="w-20 h-20" />
+        <Terminal className="w-20 h-20" />
       </div>
     ),
   },
-];
+]
 
 export default function ServicesPage() {
   return (
@@ -109,37 +110,25 @@ export default function ServicesPage() {
         scrollToExpand="Scroll to Explore"
         textBlend
       >
-        <div className="container mx-auto px-4 md:px-6 relative z-10 pt-20">
-          <BentoGrid className="max-w-7xl mx-auto mb-32 grid-cols-1 md:grid-cols-3 auto-rows-[auto]">
-            {services.map((item, i) => (
-              <BentoGridItem
-                key={i}
-                title={item.title}
-                description={item.description}
-                header={item.header}
-                icon={item.icon}
-                className={item.className + " group shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] border-2 border-black hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 transition-all duration-300 bg-white"}
-              />
-            ))}
-          </BentoGrid>
+        <div className="container mx-auto px-4 md:px-6 relative z-10 pt-40 pb-20 text-center max-w-4xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <span className="px-3 py-1 bg-[#ccff00] text-black text-xs font-black uppercase tracking-widest mb-6 inline-block">Studio Protocol</span>
+            <h2 className="text-5xl md:text-7xl font-black text-black mb-8 uppercase tracking-tighter leading-[0.9]">
+              PREMIUM <br/>
+              <span className="text-transparent stroke-text text-stroke-2">ARCHITECTURES.</span>
+            </h2>
+            <p className="text-xl md:text-2xl text-neutral-600 font-medium leading-relaxed">
+              We don&apos;t just build websites. We engineer autonomous AI workflows and high-performance software systems that dominate their markets.
+            </p>
+          </motion.div>
         </div>
       </ScrollExpandMedia>
 
-      <div className="container mx-auto px-4 md:px-6 relative z-10 mb-32 mt-[-10dvh]">
-
-        {/* Services Grid - 3 Columns */}
-        <BentoGrid className="max-w-7xl mx-auto mb-32 grid-cols-1 md:grid-cols-3 auto-rows-[auto]">
-          {services.map((item, i) => (
-            <BentoGridItem
-              key={i}
-              title={item.title}
-              description={item.description}
-              header={item.header}
-              icon={item.icon}
-              className={item.className + " group shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] border-2 border-black hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 transition-all duration-300 bg-white"}
-            />
-          ))}
-        </BentoGrid>
+      <div className="container mx-auto px-4 md:px-6 relative z-10 mb-32">
 
         <section className="mb-32">
           <h2 className="text-4xl md:text-6xl font-black text-black mb-12 text-center uppercase tracking-tight">
@@ -166,7 +155,7 @@ export default function ServicesPage() {
               READY TO <span className="text-[#ff0080]">GROW?</span>
             </h2>
             <p className="text-2xl text-neutral-300 mb-10 max-w-2xl mx-auto font-mono">
-              Book a free strategy session with our export technology experts.
+              Book a free strategy session with our AI-first software engineering studio.
             </p>
             <a
               href="/contact"

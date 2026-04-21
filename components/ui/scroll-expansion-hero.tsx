@@ -186,6 +186,7 @@ const ScrollExpandMedia = ({
               alt='Background'
               width={1920}
               height={1080}
+              sizes="100vw"
               className='w-screen h-screen'
               style={{
                 objectFit: 'cover',
@@ -198,20 +199,21 @@ const ScrollExpandMedia = ({
 
           <div className='container mx-auto flex flex-col items-center justify-start relative z-10'>
             <div className='flex flex-col items-center justify-center w-full h-[100dvh] relative'>
-              <div
-                className='absolute z-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-none rounded-2xl'
-                style={{
-                  width: `${mediaWidth}px`,
-                  height: `${mediaHeight}px`,
-                  maxWidth: '95vw',
-                  maxHeight: '85vh',
-                  boxShadow: '0px 0px 50px rgba(0, 0, 0, 0.3)',
-                }}
-              >
+                <div
+                  className={`absolute z-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ${scrollProgress >= 1 ? 'rounded-none' : 'rounded-2xl'}`}
+                  style={{
+                    width: `${mediaWidth}px`,
+                    height: `${mediaHeight}px`,
+                    maxWidth: '100vw',
+                    maxHeight: '100vh',
+                    boxShadow: scrollProgress >= 1 ? 'none' : '0px 0px 50px rgba(0, 0, 0, 0.3)',
+                  }}
+                >
                 {mediaType === 'video' ? (
                   mediaSrc.includes('youtube.com') ? (
                     <div className='relative w-full h-full pointer-events-none'>
                       <iframe
+                        title="VistaarX Studio Showcase"
                         width='100%'
                         height='100%'
                         src={
@@ -223,8 +225,7 @@ const ScrollExpandMedia = ({
                               '?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&rel=0&disablekb=1&modestbranding=1&playlist=' +
                               mediaSrc.split('v=')[1]
                         }
-                        className='w-full h-full rounded-xl'
-                        frameBorder='0'
+                        className={`w-full h-full border-none transition-all duration-300 ${scrollProgress >= 1 ? 'rounded-none' : 'rounded-xl'}`}
                         allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
                         allowFullScreen
                       />
@@ -250,7 +251,7 @@ const ScrollExpandMedia = ({
                         loop
                         playsInline
                         preload='auto'
-                        className='w-full h-full object-cover rounded-xl'
+                        className={`w-full h-full object-cover transition-all duration-300 ${scrollProgress >= 1 ? 'rounded-none' : 'rounded-xl'}`}
                         controls={false}
                         disablePictureInPicture
                         disableRemotePlayback

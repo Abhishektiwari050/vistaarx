@@ -5,6 +5,7 @@ import Image from "next/image"
 import { motion } from "framer-motion"
 import { FadeIn, SlideUp } from "@/components/motion/MotionWrappers"
 import { MagneticButton } from "@/components/ui/magnetic-button"
+import { createClient } from "@/lib/supabase"
 
 export default function ContactPage() {
   const router = useRouter()
@@ -12,7 +13,10 @@ export default function ContactPage() {
     name: "",
     email: "",
     company: "",
-    goal: "automation"
+    goal: "ai-agents",
+    budget: "",
+    timeline: "",
+    category: ""
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
@@ -20,10 +24,26 @@ export default function ContactPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500))
-    setIsSubmitting(false)
-    router.push('/thank-you')
+    
+    try {
+      const supabase = createClient()
+      const { error } = await supabase
+        .from('contact_inquiries')
+        .insert([formState])
+
+      if (error) throw error
+      
+      setIsSuccess(true)
+      // Small delay before redirect to show success state
+      setTimeout(() => {
+        router.push('/thank-you')
+      }, 2000)
+    } catch (error) {
+      console.error('Error submitting form:', error)
+      alert('Something went wrong. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -64,16 +84,16 @@ export default function ContactPage() {
                   100% <br /> FREE
                 </div>
                 <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 rounded-full border-2 border-black overflow-hidden bg-white">
-                    <Image src="/vistar-logo.svg" alt="Vistar Logo" width={48} height={48} className="object-cover w-full h-full" />
+                  <div className="w-16 h-16 border-2 border-black rotate-3 overflow-hidden bg-white shadow-sm">
+                    <Image src="/vistar-founder.png" alt="Founder" width={64} height={64} className="object-cover w-full h-full grayscale" />
                   </div>
                   <div>
-                    <p className="text-black font-black text-lg uppercase">Founder Direct</p>
-                    <p className="text-sm text-neutral-600 font-mono">No middle-men.</p>
+                    <p className="text-black font-black text-lg uppercase leading-none">Founder Direct</p>
+                    <p className="text-[10px] text-neutral-500 font-mono mt-1">VISTAR-ID: 0x921A</p>
                   </div>
                 </div>
-                <p className="text-black font-medium italic leading-relaxed">
-                  "We only work with exporters who are serious about dominating their niche. If that's you, let's talk."
+                <p className="text-black font-medium italic leading-relaxed text-sm">
+                  "We only work with tech leaders who are serious about engineering real velocity. If that's you, let's talk."
                 </p>
               </div>
             </div>
@@ -121,7 +141,7 @@ export default function ContactPage() {
                         type="text"
                         required
                         className="w-full bg-neutral-50 border-2 border-black px-4 py-3 text-black focus:bg-[#ccff00]/20 focus:ring-0 outline-none transition-all placeholder:text-neutral-400 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,0)] focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded-none"
-                        placeholder="Global Exports Ltd"
+                        placeholder="Tech Solutions Inc"
                         value={formState.company}
                         onChange={e => setFormState({ ...formState, company: e.target.value })}
                       />
@@ -141,28 +161,99 @@ export default function ContactPage() {
                     />
                   </div>
 
-                  <div className="space-y-2">
-                    <label htmlFor="goal" className="text-[13px] font-semibold text-black uppercase tracking-wider ml-1 mb-2 block">Primary Goal</label>
-                    <div className="relative">
-                      <select
-                        id="goal"
-                        className="w-full bg-neutral-50 border-2 border-black px-4 py-3 text-black focus:bg-[#ccff00]/20 focus:ring-0 outline-none transition-all appearance-none cursor-pointer font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,0)] focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded-none"
-                        value={formState.goal}
-                        onChange={e => setFormState({ ...formState, goal: e.target.value })}
-                      >
-                        <option value="automation">Alibaba Automation</option>
-                        <option value="website">New Website / Re-design</option>
-                        <option value="marketing">Digital Marketing</option>
-                        <option value="crm">CRM Implementation</option>
-                      </select>
-                      <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-black">
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M19 9l-7 7-7-7"></path></svg>
+                   <div className="grid md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label htmlFor="category" className="text-[13px] font-semibold text-black uppercase tracking-wider ml-1 mb-2 block">Project Category</label>
+                      <div className="relative">
+                        <select
+                          id="category"
+                          required
+                          className="w-full bg-neutral-50 border-2 border-black px-4 py-3 text-black focus:bg-[#ccff00]/20 focus:ring-0 outline-none transition-all font-bold rounded-none appearance-none cursor-pointer shadow-[4px_4px_0px_0px_rgba(0,0,0,0)] focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
+                          value={formState.category}
+                          onChange={e => setFormState({ ...formState, category: e.target.value })}
+                        >
+                          <option value="">Select Category</option>
+                          <option value="ai-agents">AI Agents & Automation</option>
+                          <option value="full-stack">Full-Stack Software</option>
+                          <option value="high-perf-web">High-Performance Platforms</option>
+                          <option value="infra-devops">Infra & DevOps</option>
+                        </select>
+                        <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-black">
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <label htmlFor="budget" className="text-[13px] font-semibold text-black uppercase tracking-wider ml-1 mb-2 block">Est. Budget</label>
+                      <div className="relative">
+                        <select
+                          id="budget"
+                          required
+                          className="w-full bg-neutral-50 border-2 border-black px-4 py-3 text-black focus:bg-[#ccff00]/20 focus:ring-0 outline-none transition-all font-bold rounded-none appearance-none cursor-pointer shadow-[4px_4px_0px_0px_rgba(0,0,0,0)] focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
+                          value={formState.budget}
+                          onChange={e => setFormState({ ...formState, budget: e.target.value })}
+                        >
+                          <option value="">Select Budget</option>
+                          <option value="5-15k">$5,000 - $15,000</option>
+                          <option value="15-50k">$15,000 - $50,000</option>
+                          <option value="50k+">$50,000+</option>
+                          <option value="hourly">Hourly/Retainer</option>
+                        </select>
+                        <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-black">
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label htmlFor="timeline" className="text-[13px] font-semibold text-black uppercase tracking-wider ml-1 mb-2 block">Desired Timeline</label>
+                      <div className="relative">
+                        <select
+                          id="timeline"
+                          required
+                          className="w-full bg-neutral-50 border-2 border-black px-4 py-3 text-black focus:bg-[#ccff00]/20 focus:ring-0 outline-none transition-all font-bold rounded-none appearance-none cursor-pointer shadow-[4px_4px_0px_0px_rgba(0,0,0,0)] focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
+                          value={formState.timeline}
+                          onChange={e => setFormState({ ...formState, timeline: e.target.value })}
+                        >
+                          <option value="">Select Timeline</option>
+                          <option value="immediate">&lt; 1 Month (Urgent)</option>
+                          <option value="1-3-months">1 - 3 Months</option>
+                          <option value="3-6-months">3 - 6 Months</option>
+                          <option value="long-term">6+ Months / Long-term</option>
+                        </select>
+                        <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-black">
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <label htmlFor="goal" className="text-[13px] font-semibold text-black uppercase tracking-wider ml-1 mb-2 block">Primary Goal</label>
+                      <div className="relative">
+                        <select
+                          id="goal"
+                          required
+                          className="w-full bg-neutral-50 border-2 border-black px-4 py-3 text-black focus:bg-[#ccff00]/20 focus:ring-0 outline-none transition-all font-bold rounded-none appearance-none cursor-pointer shadow-[4px_4px_0px_0px_rgba(0,0,0,0)] focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
+                          value={formState.goal}
+                          onChange={e => setFormState({ ...formState, goal: e.target.value })}
+                        >
+                          <option value="automation">Scale with AI</option>
+                          <option value="efficiency">Efficiency Audit</option>
+                          <option value="new-software">Build New Product</option>
+                          <option value="modernization">Modernize Legacy Stack</option>
+                        </select>
+                        <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-black">
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
                       </div>
                     </div>
                   </div>
 
                   <MagneticButton
-                    className="w-full mt-6 bg-[#1a73e8] text-white text-lg font-bold py-4 border-2 border-black transition-all duration-200 active:scale-[0.98] shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 uppercase tracking-widest rounded-[4px]"
+                    className="w-full mt-6 bg-[#ff0080] text-white text-lg font-bold py-4 border-2 border-black transition-all duration-200 active:scale-[0.98] shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 uppercase tracking-widest rounded-none"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? (

@@ -80,7 +80,9 @@ export const HeroSection = () => {
                     {/* 3D CONTENT */}
                     <div className="w-full md:w-1/2 h-[50vh] md:h-full z-0 relative flex items-center justify-center">
                         <div className="absolute inset-0 w-full h-full scale-125 md:scale-100 translate-y-10 md:translate-y-0 flex items-center justify-center overflow-visible">
-                            <Globe className="scale-150 relative top-20" />
+                            <div className="scale-150 relative top-20">
+                                <Globe />
+                            </div>
                         </div>
                     </div>
 

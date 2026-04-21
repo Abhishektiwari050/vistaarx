@@ -30,41 +30,57 @@ export default function FounderSection() {
     <section ref={containerRef} className="py-40 bg-[#f8f8f8] overflow-hidden relative border-y-4 border-black z-10">
       <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center gap-12 md:gap-24">
         
-        {/* Left: Glitch Portrait */}
+        {/* Left: Technical Cutout Portrait */}
         <motion.div 
           style={{ y: imageY }}
-          className="relative w-full md:w-1/2 aspect-[4/5] bg-black border-4 border-black shadow-[20px_20px_0px_0px_rgba(0,0,0,1)] group"
+          className="relative w-full md:w-1/2 aspect-[4/5] group"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          {/* Main Image (B&W) */}
-          <div className="relative w-full h-full overflow-hidden grayscale contrast-125">
-             <Image 
-              src="/vistar-founder.png" 
-              alt="Founder" 
-              fill 
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="object-cover"
-            />
+          {/* Main Cutout Container */}
+          <div className="relative w-full h-full overflow-visible">
+            {/* Sticker Shadow */}
+            <div className="absolute inset-0 bg-black/20 blur-3xl rounded-full scale-75 group-hover:bg-[#ccff00]/10 transition-colors duration-500" />
             
-            {/* Pink Glitch Layer */}
+            {/* The Cutout Image Wrapper */}
             <motion.div 
-              animate={isHovered ? { x: [-2, 2, -1, 3, 0], opacity: [0.5, 0.8, 0.4, 0.9, 0.6] } : { opacity: 0 }}
-              transition={{ repeat: Infinity, duration: 0.2 }}
-              className="absolute inset-0 mix-blend-screen opacity-0 pointer-events-none bg-[#ff0080]/30 translate-x-[2px]"
-            />
-            
-            {/* Lime Glitch Layer */}
-            <motion.div 
-              animate={isHovered ? { x: [2, -2, 1, -3, 0], opacity: [0.5, 0.8, 0.4, 0.9, 0.6] } : { opacity: 0 }}
-              transition={{ repeat: Infinity, duration: 0.2, delay: 0.1 }}
-              className="absolute inset-0 mix-blend-screen opacity-0 pointer-events-none bg-[#ccff00]/30 -translate-x-[2px]"
-            />
-          </div>
+              className="relative w-full h-full grayscale contrast-125 border-8 border-white shadow-[15px_15px_30px_rgba(0,0,0,0.3)] rotate-2 group-hover:rotate-0 transition-all duration-500 overflow-hidden"
+              whileHover={{ scale: 1.02 }}
+            >
+               <Image 
+                src="/vistar-founder.png" 
+                alt="Founder" 
+                fill 
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="object-cover"
+              />
+              
+              {/* Scanline Effect */}
+              <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.1)_50%)] bg-[length:100%_4px] pointer-events-none opacity-20" />
+              
+              {/* Pink Glitch Layer */}
+              <motion.div 
+                animate={isHovered ? { x: [-2, 2, -1, 3, 0], opacity: [0.5, 0.8, 0.4, 0.9, 0.6] } : { opacity: 0 }}
+                transition={{ repeat: Infinity, duration: 0.2 }}
+                className="absolute inset-0 mix-blend-screen opacity-0 pointer-events-none bg-[#ff0080]/30 translate-x-[2px]"
+              />
+              
+              {/* Lime Glitch Layer */}
+              <motion.div 
+                animate={isHovered ? { x: [2, -2, 1, -3, 0], opacity: [0.5, 0.8, 0.4, 0.9, 0.6] } : { opacity: 0 }}
+                transition={{ repeat: Infinity, duration: 0.2, delay: 0.1 }}
+                className="absolute inset-0 mix-blend-screen opacity-0 pointer-events-none bg-[#ccff00]/30 -translate-x-[2px]"
+              />
+            </motion.div>
 
-          {/* Overlapping Brutalist Frames */}
-          <div className="absolute -top-4 -left-4 w-12 h-12 border-t-4 border-l-4 border-[#ccff00]" />
-          <div className="absolute -bottom-4 -right-4 w-12 h-12 border-b-4 border-r-4 border-[#ff0080]" />
+            {/* Technical Labels (Sticker Style) */}
+            <div className="absolute -top-6 -right-6 px-4 py-2 bg-[#ccff00] text-black font-black text-xs rotate-12 shadow-md z-20">
+              STATUS: SYNCED
+            </div>
+            <div className="absolute -bottom-4 -left-4 px-4 py-2 bg-black text-white font-mono text-[10px] -rotate-6 shadow-md z-20">
+              VISTAR-ID: 0x921A
+            </div>
+          </div>
         </motion.div>
 
         {/* Right: Technical Copy */}

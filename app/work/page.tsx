@@ -39,7 +39,7 @@ const products = [
   {
     title: "Smart Logistics",
     slug: "smart-logistics",
-    src: "https://images.unsplash.com/photo-1494412574643-35d324698420?q=80&w=2064&auto=format&fit=crop",
+    src: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=2070&auto=format&fit=crop",
   },
   {
     title: "Eco Packaging",
