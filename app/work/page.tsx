@@ -1,9 +1,9 @@
 "use client"
 
-import { ContainerScroll } from "@/components/ui/container-scroll-animation"
 import { FocusCards } from "@/components/ui/focus-cards"
 import Image from "next/image"
 import { FadeIn } from "@/components/motion/MotionWrappers"
+import ScrollExpandMedia from "@/components/ui/scroll-expansion-hero"
 
 const products = [
   {
@@ -85,35 +85,24 @@ const products = [
 
 export default function WorkPage() {
   return (
-    <main className="min-h-screen bg-white overflow-hidden pt-24">
-      <div className="flex flex-col overflow-hidden">
-        <ContainerScroll
-          titleComponent={
-            <>
-              <h1 className="text-4xl md:text-[6rem] font-black text-black uppercase tracking-tighter mb-8 leading-none">
-                Unleash <br />
-                <span className="text-[#ccff00] stroke-text-black text-stroke-2">World-Class</span> <br />
-                <span className="md:text-[8rem] text-transparent stroke-text text-stroke-2 hover:text-[#ff0080] transition-colors">Products</span>
-              </h1>
-            </>
-          }
+    <main className="min-h-screen bg-white">
+      <div className="flex flex-col">
+        <ScrollExpandMedia
+          mediaType="video"
+          mediaSrc="https://me7aitdbxq.ufs.sh/f/2wsMIGDMQRdYuZ5R8ahEEZ4aQK56LizRdfBSqeDMsmUIrJN1"
+          bgImageSrc="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1920&auto=format&fit=crop"
+          title="World Class Products"
+          date="Portfolio 2024"
+          scrollToExpand="Scroll to Explore"
+          textBlend
         >
-          <Image
-            src={`https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1974&auto=format&fit=crop`}
-            alt="hero"
-            height={720}
-            width={1400}
-            className="mx-auto rounded-none border-4 border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] object-cover h-full object-left-top draggable-false"
-            draggable={false}
-          />
-        </ContainerScroll>
-      </div>
-
-      <div className="container mx-auto px-4 md:px-8 pb-32">
-        <h2 className="text-4xl md:text-8xl font-black text-black mb-12 text-center uppercase tracking-tighter">
-          Selected <span className="italic font-serif text-[#ff0080]">Works</span>
-        </h2>
-        <FocusCards cards={products} />
+          <div className="max-w-4xl mx-auto py-20">
+            <h2 className="text-4xl md:text-8xl font-black text-black mb-12 text-center uppercase tracking-tighter shadow-sm">
+              Selected <span className="italic font-serif text-[#ff0080]">Works</span>
+            </h2>
+            <FocusCards cards={products} />
+          </div>
+        </ScrollExpandMedia>
       </div>
 
       <FadeIn className="bg-black py-20 border-t-4 border-[#ccff00] text-center relative overflow-hidden group">

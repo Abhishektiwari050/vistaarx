@@ -1,114 +1,127 @@
-"use client"
+'use client';
 
-import { DynamicFrameLayout } from "@/components/ui/dynamic-frame-layout"
+import { useState, useEffect } from 'react';
+import ScrollExpandMedia from '@/components/ui/scroll-expansion-hero';
 
-// Frame assets from Unsplash (Metallic/Gold texture)
-const FRAME_ASSETS = {
-  corner: "https://images.unsplash.com/photo-1579541814924-49fef17c5be5?q=80&w=200&h=200&auto=format&fit=crop",
-  edgeHorizontal: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=400&h=64&auto=format&fit=crop",
-  edgeVertical: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=64&h=400&auto=format&fit=crop",
+interface MediaAbout {
+  overview: string;
+  conclusion: string;
 }
 
-const demoFrames = [
-  {
-    id: 1,
-    video: "https://static.cdn-luma.com/files/981e483f71aa764b/Company%20Thing%20Exported.mp4",
-    defaultPos: { x: 0, y: 0, w: 4, h: 4 },
-    mediaSize: 1,
-    ...FRAME_ASSETS,
-    borderThickness: 8,
-    borderSize: 92,
+interface MediaContent {
+  src: string;
+  poster?: string;
+  background: string;
+  title: string;
+  date: string;
+  scrollToExpand: string;
+  about: MediaAbout;
+}
+
+interface MediaContentCollection {
+  [key: string]: MediaContent;
+}
+
+const sampleMediaContent: MediaContentCollection = {
+  video: {
+    src: 'https://me7aitdbxq.ufs.sh/f/2wsMIGDMQRdYuZ5R8ahEEZ4aQK56LizRdfBSqeDMsmUIrJN1',
+    poster:
+      'https://images.pexels.com/videos/5752729/space-earth-universe-cosmos-5752729.jpeg',
+    background:
+      'https://me7aitdbxq.ufs.sh/f/2wsMIGDMQRdYMNjMlBUYHaeYpxduXPVNwf8mnFA61L7rkcoS',
+    title: 'Immersive Video Experience',
+    date: 'Cosmic Journey',
+    scrollToExpand: 'Scroll to Expand Demo',
+    about: {
+      overview:
+        'This is a demonstration of the ScrollExpandMedia component with a video. As you scroll, the video expands to fill more of the screen, creating an immersive experience. This component is perfect for showcasing video content in a modern, interactive way.',
+      conclusion:
+        'The ScrollExpandMedia component provides a unique way to engage users with your content through interactive scrolling. Try switching between video and image modes to see different implementations.',
+    },
   },
-  {
-    id: 2,
-    video: "https://static.cdn-luma.com/files/58ab7363888153e3/WebGL%20Exported%20(1).mp4",
-    defaultPos: { x: 4, y: 0, w: 4, h: 4 },
-    mediaSize: 1,
-    ...FRAME_ASSETS,
-    borderThickness: 8,
-    borderSize: 92,
+  image: {
+    src: 'https://images.unsplash.com/photo-1682687982501-1e58ab814714?q=80&w=1280&auto=format&fit=crop',
+    background:
+      'https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1920&auto=format&fit=crop',
+    title: 'Dynamic Image Showcase',
+    date: 'Underwater Adventure',
+    scrollToExpand: 'Scroll to Expand Demo',
+    about: {
+      overview:
+        'This is a demonstration of the ScrollExpandMedia component with an image. The same smooth expansion effect works beautifully with static images, allowing you to create engaging visual experiences without video content.',
+      conclusion:
+        'The ScrollExpandMedia component works equally well with images and videos. This flexibility allows you to choose the media type that best suits your content while maintaining the same engaging user experience.',
+    },
   },
-  {
-    id: 3,
-    video: "https://static.cdn-luma.com/files/58ab7363888153e3/Jitter%20Exported%20Poster.mp4",
-    defaultPos: { x: 8, y: 0, w: 4, h: 4 },
-    mediaSize: 1,
-    ...FRAME_ASSETS,
-    borderThickness: 8,
-    borderSize: 92,
-  },
-  {
-    id: 4,
-    video: "https://static.cdn-luma.com/files/58ab7363888153e3/Exported%20Web%20Video.mp4",
-    defaultPos: { x: 0, y: 4, w: 4, h: 4 },
-    mediaSize: 1,
-    ...FRAME_ASSETS,
-    borderThickness: 8,
-    borderSize: 92,
-  },
-  {
-    id: 5,
-    video: "https://static.cdn-luma.com/files/58ab7363888153e3/Logo%20Exported.mp4",
-    defaultPos: { x: 4, y: 4, w: 4, h: 4 },
-    mediaSize: 1,
-    ...FRAME_ASSETS,
-    borderThickness: 8,
-    borderSize: 92,
-  },
-  {
-    id: 6,
-    video: "https://static.cdn-luma.com/files/58ab7363888153e3/Animation%20Exported%20(4).mp4",
-    defaultPos: { x: 8, y: 4, w: 4, h: 4 },
-    mediaSize: 1,
-    ...FRAME_ASSETS,
-    borderThickness: 8,
-    borderSize: 92,
-  },
-  {
-    id: 7,
-    video: "https://static.cdn-luma.com/files/58ab7363888153e3/Illustration%20Exported%20(1).mp4",
-    defaultPos: { x: 0, y: 8, w: 4, h: 4 },
-    mediaSize: 1,
-    ...FRAME_ASSETS,
-    borderThickness: 8,
-    borderSize: 92,
-  },
-  {
-    id: 8,
-    video: "https://static.cdn-luma.com/files/58ab7363888153e3/Art%20Direction%20Exported.mp4",
-    defaultPos: { x: 4, y: 8, w: 4, h: 4 },
-    mediaSize: 1,
-    ...FRAME_ASSETS,
-    borderThickness: 8,
-    borderSize: 92,
-  },
-  {
-    id: 9,
-    video: "https://static.cdn-luma.com/files/58ab7363888153e3/Product%20Video.mp4",
-    defaultPos: { x: 8, y: 8, w: 4, h: 4 },
-    mediaSize: 1,
-    ...FRAME_ASSETS,
-    borderThickness: 8,
-    borderSize: 92,
-  },
-]
+};
+
+const MediaContent = ({ mediaType }: { mediaType: 'video' | 'image' }) => {
+  const currentMedia = sampleMediaContent[mediaType];
+
+  return (
+    <div className='max-w-4xl mx-auto'>
+      <h2 className='text-3xl font-bold mb-6 text-black dark:text-white'>
+        About This Component
+      </h2>
+      <p className='text-lg mb-8 text-black dark:text-white'>
+        {currentMedia.about.overview}
+      </p>
+
+      <p className='text-lg mb-8 text-black dark:text-white'>
+        {currentMedia.about.conclusion}
+      </p>
+    </div>
+  );
+};
 
 export default function DemoPage() {
+  const [mediaType, setMediaType] = useState<'video' | 'image'>('video');
+  const currentMedia = sampleMediaContent[mediaType];
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+
+    const resetEvent = new Event('resetSection');
+    window.dispatchEvent(resetEvent);
+  }, [mediaType]);
+
   return (
-    <main className="h-screen w-full bg-zinc-950 overflow-hidden flex flex-col pt-20 px-8 pb-8">
-      <div className="mb-8 text-center">
-        <h1 className="text-4xl font-bold text-white mb-2">Vistar Production Gallery</h1>
-        <p className="text-zinc-400">Hover over any frame to expand the view and start playback.</p>
+    <div className='min-h-screen'>
+      <div className='fixed top-24 right-4 z-50 flex gap-2'>
+        <button
+          onClick={() => setMediaType('video')}
+          className={`px-4 py-2 rounded-lg transition-all ${
+            mediaType === 'video'
+              ? 'bg-blue-600 text-white shadow-lg scale-105'
+              : 'bg-black/50 text-white border border-white/30 hover:bg-black/70'
+          }`}
+        >
+          Video
+        </button>
+
+        <button
+          onClick={() => setMediaType('image')}
+          className={`px-4 py-2 rounded-lg transition-all ${
+            mediaType === 'image'
+              ? 'bg-blue-600 text-white shadow-lg scale-105'
+              : 'bg-black/50 text-white border border-white/30 hover:bg-black/70'
+          }`}
+        >
+          Image
+        </button>
       </div>
-      <div className="flex-1 min-h-0 border border-zinc-800 rounded-2xl p-4 bg-zinc-900/50 backdrop-blur-sm">
-        <DynamicFrameLayout 
-          frames={demoFrames} 
-          className="w-full h-full" 
-          hoverSize={6}
-          gapSize={12}
-          showFrames={true}
-        />
-      </div>
-    </main>
-  )
+
+      <ScrollExpandMedia
+        mediaType={mediaType}
+        mediaSrc={currentMedia.src}
+        posterSrc={mediaType === 'video' ? currentMedia.poster : undefined}
+        bgImageSrc={currentMedia.background}
+        title={currentMedia.title}
+        date={currentMedia.date}
+        scrollToExpand={currentMedia.scrollToExpand}
+      >
+        <MediaContent mediaType={mediaType} />
+      </ScrollExpandMedia>
+    </div>
+  );
 }

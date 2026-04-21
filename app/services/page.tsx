@@ -5,6 +5,7 @@ import { FadeIn } from "@/components/motion/MotionWrappers"
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid"
 import { StickyScroll } from "@/components/ui/sticky-scroll-reveal"
 import Image from "next/image"
+import ScrollExpandMedia from "@/components/ui/scroll-expansion-hero"
 
 const services = [
   {
@@ -98,20 +99,33 @@ const scrollContent = [
 
 export default function ServicesPage() {
   return (
-    <main className="min-h-screen bg-white relative pt-24 font-sans selection:bg-[#ff0080] selection:text-white">
-      {/* Header */}
-      <div className="px-6 py-20 text-center relative overflow-hidden">
-        <h1 className="text-6xl md:text-8xl font-black text-black tracking-tighter uppercase mb-4 z-10 relative leading-[0.9]">
-          SOLUTIONS <br /> <span className="text-[#ff0080] drop-shadow-[4px_4px_0px_rgba(0,0,0,1)]">THAT SCALE</span>
-        </h1>
-        <p className="text-xl md:text-[22px] font-medium font-mono text-neutral-800 max-w-3xl mx-auto z-10 relative mt-8 leading-relaxed">
-          We build digital ecosystems designed to <span className="text-black bg-[#ccff00] px-2 font-bold border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transform -rotate-1 inline-block">DOMINATE</span> international markets.
-        </p>
-        {/* Decor */}
-        {/* <div className="absolute top-[20%] left-[10%] w-[30vh] h-[30vh] rounded-full bg-[#ccff00] blur-[100px] opacity-20 pointer-events-none" /> */}
-      </div>
+    <main className="min-h-screen bg-white relative font-sans selection:bg-[#ff0080] selection:text-white">
+      <ScrollExpandMedia
+        mediaType="video"
+        mediaSrc="https://me7aitdbxq.ufs.sh/f/2wsMIGDMQRdYuZ5R8ahEEZ4aQK56LizRdfBSqeDMsmUIrJN1"
+        bgImageSrc="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1920&auto=format&fit=crop"
+        title="Solutions That Scale"
+        date="Engineering Excellence"
+        scrollToExpand="Scroll to Explore"
+        textBlend
+      >
+        <div className="container mx-auto px-4 md:px-6 relative z-10 pt-20">
+          <BentoGrid className="max-w-7xl mx-auto mb-32 grid-cols-1 md:grid-cols-3 auto-rows-[auto]">
+            {services.map((item, i) => (
+              <BentoGridItem
+                key={i}
+                title={item.title}
+                description={item.description}
+                header={item.header}
+                icon={item.icon}
+                className={item.className + " group shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] border-2 border-black hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 transition-all duration-300 bg-white"}
+              />
+            ))}
+          </BentoGrid>
+        </div>
+      </ScrollExpandMedia>
 
-      <div className="container mx-auto px-4 md:px-6 relative z-10 mb-32">
+      <div className="container mx-auto px-4 md:px-6 relative z-10 mb-32 mt-[-10dvh]">
 
         {/* Services Grid - 3 Columns */}
         <BentoGrid className="max-w-7xl mx-auto mb-32 grid-cols-1 md:grid-cols-3 auto-rows-[auto]">
@@ -139,9 +153,9 @@ export default function ServicesPage() {
         <section className="mb-32 relative">
           <div className="text-center mb-16 relative z-10">
             <h2 className="text-4xl md:text-6xl font-black text-black mb-6 uppercase tracking-tight">
-              Proven <span className="text-[#ccff00] bg-black px-2 text-stroke-2">Results</span>
+              Proven <span className="text-white bg-black px-2">Results</span>
             </h2>
-            <p className="text-neutral-600 text-lg font-mono font-bold">Don&apos;t just take our word for it.</p>
+            <p className="text-neutral-600 text-lg font-mono font-bold italic">Don&apos;t just take our word for it.</p>
           </div>
           <TestimonialCarousel />
         </section>
