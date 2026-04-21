@@ -79,19 +79,24 @@ function FrameComponent({
   return (
     <div
       className={cn("relative transition-[width,height] duration-300 ease-in-out bg-black overflow-hidden will-change-transform", className)}
-      style={outerStyle}
     >
       <div className="relative w-full h-full overflow-hidden bg-black flex items-center justify-center">
         <div
           className={cn(
             "absolute flex items-center justify-center transition-all duration-500 ease-in-out z-[1] bg-black",
-            "p-[var(--inner-padding)] w-[var(--inner-size)] h-[var(--inner-size)] left-[var(--inner-offset)] top-[var(--inner-offset)]"
+            !(showFrame && isHovered) && "p-0 w-full h-full left-0 top-0"
           )}
-          style={innerStyle}
+          style={showFrame && isHovered ? {
+            padding: `${borderThickness}px`,
+            width: `${borderSize}%`,
+            height: `${borderSize}%`,
+            left: `${(100 - borderSize) / 2}%`,
+            top: `${(100 - borderSize) / 2}%`,
+          } : {}}
         >
           <div
-            className="w-full h-full overflow-hidden bg-black transition-transform duration-500 ease-in-out origin-center [transform:scale(var(--media-scale))]"
-            style={scaleStyle}
+            className="w-full h-full overflow-hidden bg-black transition-transform duration-500 ease-in-out origin-center"
+            style={{ transform: `scale(${isHovered ? mediaSize * 1.02 : mediaSize})` }}
           >
             <video
               className={cn(
@@ -119,16 +124,16 @@ function FrameComponent({
             )}
           >
             {/* Corners */}
-            <div className="absolute top-0 left-0 w-16 h-16 bg-contain bg-no-repeat [background-image:var(--corner-url)]" style={cornerStyle} />
-            <div className="absolute top-0 right-0 w-16 h-16 bg-contain bg-no-repeat scale-x-[-1] [background-image:var(--corner-url)]" style={cornerStyle} />
-            <div className="absolute bottom-0 left-0 w-16 h-16 bg-contain bg-no-repeat scale-y-[-1] [background-image:var(--corner-url)]" style={cornerStyle} />
-            <div className="absolute bottom-0 right-0 w-16 h-16 bg-contain bg-no-repeat scale-[-1] [background-image:var(--corner-url)]" style={cornerStyle} />
+            <div className="absolute top-0 left-0 w-16 h-16 bg-contain bg-no-repeat" style={{ backgroundImage: `url(${corner})` }} />
+            <div className="absolute top-0 right-0 w-16 h-16 bg-contain bg-no-repeat scale-x-[-1]" style={{ backgroundImage: `url(${corner})` }} />
+            <div className="absolute bottom-0 left-0 w-16 h-16 bg-contain bg-no-repeat scale-y-[-1]" style={{ backgroundImage: `url(${corner})` }} />
+            <div className="absolute bottom-0 right-0 w-16 h-16 bg-contain bg-no-repeat scale-[-1]" style={{ backgroundImage: `url(${corner})` }} />
 
             {/* Edges */}
-            <div className="absolute top-0 left-16 right-16 h-16 bg-repeat-x [background-image:var(--edge-url)] [background-size:auto_64px]" style={edgeHStyle} />
-            <div className="absolute bottom-0 left-16 right-16 h-16 bg-repeat-x rotate-180 [background-image:var(--edge-url)] [background-size:auto_64px]" style={edgeHStyle} />
-            <div className="absolute left-0 top-16 bottom-16 w-16 bg-repeat-y [background-image:var(--edge-url)] [background-size:64px_auto]" style={edgeVStyle} />
-            <div className="absolute right-0 top-16 bottom-16 w-16 bg-repeat-y scale-x-[-1] [background-image:var(--edge-url)] [background-size:64px_auto]" style={edgeVStyle} />
+            <div className="absolute top-0 left-16 right-16 h-16 bg-repeat-x [background-size:auto_64px]" style={{ backgroundImage: `url(${edgeHorizontal})` }} />
+            <div className="absolute bottom-0 left-16 right-16 h-16 bg-repeat-x rotate-180 [background-size:auto_64px]" style={{ backgroundImage: `url(${edgeHorizontal})` }} />
+            <div className="absolute left-0 top-16 bottom-16 w-16 bg-repeat-y [background-size:64px_auto]" style={{ backgroundImage: `url(${edgeVertical})` }} />
+            <div className="absolute right-0 top-16 bottom-16 w-16 bg-repeat-y scale-x-[-1] [background-size:64px_auto]" style={{ backgroundImage: `url(${edgeVertical})` }} />
           </div>
         )}
       </div>
@@ -184,10 +189,13 @@ export function DynamicFrameLayout({
     <div
       className={cn(
         "relative w-full h-full grid transition-[grid-template-rows,grid-template-columns] duration-500 ease-in-out bg-black",
-        "[grid-template-rows:var(--row-sizes)] [grid-template-columns:var(--col-sizes)] [gap:var(--gap-size)]",
         className
       )}
-      style={containerStyle}
+      style={{
+        gridTemplateRows: getRowSizes(),
+        gridTemplateColumns: getColSizes(),
+        gap: `${gapSize}px`,
+      }}
     >
       {initialFrames.map((frame) => {
         const row = Math.floor(frame.defaultPos.y / 4)
@@ -201,8 +209,8 @@ export function DynamicFrameLayout({
         return (
           <motion.div
             key={frame.id}
-            className="relative [transform-origin:var(--t-origin)] transition-all duration-500 ease-in-out bg-black border border-white/5 will-change-[grid-area,transform]"
-            style={itemStyle}
+            className="relative transition-all duration-500 ease-in-out bg-black border border-white/5 will-change-[grid-area,transform]"
+            style={{ transformOrigin: transformOrigin }}
             onMouseEnter={() => setHovered({ row, col })}
             onMouseLeave={() => setHovered(null)}
           >

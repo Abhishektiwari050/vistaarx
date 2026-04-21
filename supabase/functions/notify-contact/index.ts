@@ -27,6 +27,7 @@ serve(async (req) => {
               <p><strong>Name:</strong> ${name}</p>
               <p><strong>Email:</strong> ${email}</p>
               <p><strong>Company:</strong> ${company || 'N/A'}</p>
+              <p><strong>Category:</strong> ${record.category || 'N/A'}</p>
               <p><strong>Goal:</strong> ${goal}</p>
               <hr style="border: 1px solid black;" />
               <p style="font-size: 12px; color: #666;">Sent via VistaarX Studio Automated Notification System</p>

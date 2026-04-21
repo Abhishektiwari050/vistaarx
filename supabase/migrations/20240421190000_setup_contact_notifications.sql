@@ -9,15 +9,14 @@ create table if not exists public.contact_inquiries (
   email text not null,
   company text,
   category text,
-  budget text,
-  timeline text,
   goal text
 );
 
 -- Enable RLS
 alter table public.contact_inquiries enable row level security;
 
--- Allow anonymous inserts (adjust if you have specific auth requirements)
+-- Allow anonymous inserts
+drop policy if exists "Allow anonymous inserts" on public.contact_inquiries;
 create policy "Allow anonymous inserts" on public.contact_inquiries for insert with check (true);
 
 -- Create the function to invoke the edge function

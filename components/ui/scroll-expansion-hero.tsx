@@ -10,6 +10,7 @@ import {
 } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { cn } from "@/lib/utils";
 
 interface ScrollExpandMediaProps {
   mediaType?: 'video' | 'image';
@@ -187,11 +188,7 @@ const ScrollExpandMedia = ({
               width={1920}
               height={1080}
               sizes="100vw"
-              className='w-screen h-screen'
-              style={{
-                objectFit: 'cover',
-                objectPosition: 'center',
-              }}
+              className='w-screen h-screen object-cover object-center'
               priority
             />
             <div className='absolute inset-0 bg-black/10' />
@@ -200,13 +197,15 @@ const ScrollExpandMedia = ({
           <div className='container mx-auto flex flex-col items-center justify-start relative z-10'>
             <div className='flex flex-col items-center justify-center w-full h-[100dvh] relative'>
                 <div
-                  className={`absolute z-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ${scrollProgress >= 1 ? 'rounded-none' : 'rounded-2xl'}`}
+                  className={cn(
+                    "absolute z-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300",
+                    scrollProgress >= 1 ? "rounded-none shadow-none" : "rounded-2xl shadow-[0px_0px_50px_rgba(0,0,0,0.3)]"
+                  )}
                   style={{
                     width: `${mediaWidth}px`,
                     height: `${mediaHeight}px`,
                     maxWidth: '100vw',
                     maxHeight: '100vh',
-                    boxShadow: scrollProgress >= 1 ? 'none' : '0px 0px 50px rgba(0, 0, 0, 0.3)',
                   }}
                 >
                 {mediaType === 'video' ? (
@@ -229,10 +228,7 @@ const ScrollExpandMedia = ({
                         allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
                         allowFullScreen
                       />
-                      <div
-                        className='absolute inset-0 z-10'
-                        style={{ pointerEvents: 'none' }}
-                      ></div>
+                      <div className='absolute inset-0 z-10 pointer-events-none'></div>
 
                       <motion.div
                         className='absolute inset-0 bg-black/30 rounded-xl'
@@ -256,10 +252,7 @@ const ScrollExpandMedia = ({
                         disablePictureInPicture
                         disableRemotePlayback
                       />
-                      <div
-                        className='absolute inset-0 z-10'
-                        style={{ pointerEvents: 'none' }}
-                      ></div>
+                      <div className='absolute inset-0 z-10 pointer-events-none'></div>
 
                       <motion.div
                         className='absolute inset-0 bg-black/30 rounded-xl'
@@ -290,16 +283,16 @@ const ScrollExpandMedia = ({
 
                 <div className='flex flex-col items-center text-center relative z-10 mt-4 transition-none'>
                   {date && (
-                    <p
-                      className='text-2xl text-blue-200'
+                    <p 
+                      className="text-2xl text-blue-200"
                       style={{ transform: `translateX(-${textTranslateX}vw)` }}
                     >
                       {date}
                     </p>
                   )}
                   {scrollToExpand && (
-                    <p
-                      className='text-blue-200 font-medium text-center'
+                    <p 
+                      className="text-blue-200 font-medium text-center"
                       style={{ transform: `translateX(${textTranslateX}vw)` }}
                     >
                       {scrollToExpand}
@@ -314,13 +307,13 @@ const ScrollExpandMedia = ({
                 }`}
               >
                 <motion.h2
-                  className='text-4xl md:text-5xl lg:text-6xl font-bold text-blue-200 transition-none'
+                  className="text-4xl md:text-5xl lg:text-6xl font-bold text-blue-200 transition-none"
                   style={{ transform: `translateX(-${textTranslateX}vw)` }}
                 >
                   {firstWord}
                 </motion.h2>
                 <motion.h2
-                  className='text-4xl md:text-5xl lg:text-6xl font-bold text-center text-blue-200 transition-none'
+                  className="text-4xl md:text-5xl lg:text-6xl font-bold text-center text-blue-200 transition-none"
                   style={{ transform: `translateX(${textTranslateX}vw)` }}
                 >
                   {restOfTitle}

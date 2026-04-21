@@ -13,9 +13,7 @@ export default function ContactPage() {
     name: "",
     email: "",
     company: "",
-    goal: "ai-agents",
-    budget: "",
-    timeline: "",
+    goal: "automation",
     category: ""
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -177,52 +175,6 @@ export default function ContactPage() {
                           <option value="full-stack">Full-Stack Software</option>
                           <option value="high-perf-web">High-Performance Platforms</option>
                           <option value="infra-devops">Infra & DevOps</option>
-                        </select>
-                        <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-black">
-                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M19 9l-7 7-7-7"></path></svg>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="space-y-2">
-                      <label htmlFor="budget" className="text-[13px] font-semibold text-black uppercase tracking-wider ml-1 mb-2 block">Est. Budget</label>
-                      <div className="relative">
-                        <select
-                          id="budget"
-                          required
-                          className="w-full bg-neutral-50 border-2 border-black px-4 py-3 text-black focus:bg-[#ccff00]/20 focus:ring-0 outline-none transition-all font-bold rounded-none appearance-none cursor-pointer shadow-[4px_4px_0px_0px_rgba(0,0,0,0)] focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
-                          value={formState.budget}
-                          onChange={e => setFormState({ ...formState, budget: e.target.value })}
-                        >
-                          <option value="">Select Budget</option>
-                          <option value="5-15k">$5,000 - $15,000</option>
-                          <option value="15-50k">$15,000 - $50,000</option>
-                          <option value="50k+">$50,000+</option>
-                          <option value="hourly">Hourly/Retainer</option>
-                        </select>
-                        <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-black">
-                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M19 9l-7 7-7-7"></path></svg>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <label htmlFor="timeline" className="text-[13px] font-semibold text-black uppercase tracking-wider ml-1 mb-2 block">Desired Timeline</label>
-                      <div className="relative">
-                        <select
-                          id="timeline"
-                          required
-                          className="w-full bg-neutral-50 border-2 border-black px-4 py-3 text-black focus:bg-[#ccff00]/20 focus:ring-0 outline-none transition-all font-bold rounded-none appearance-none cursor-pointer shadow-[4px_4px_0px_0px_rgba(0,0,0,0)] focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
-                          value={formState.timeline}
-                          onChange={e => setFormState({ ...formState, timeline: e.target.value })}
-                        >
-                          <option value="">Select Timeline</option>
-                          <option value="immediate">&lt; 1 Month (Urgent)</option>
-                          <option value="1-3-months">1 - 3 Months</option>
-                          <option value="3-6-months">3 - 6 Months</option>
-                          <option value="long-term">6+ Months / Long-term</option>
                         </select>
                         <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-black">
                           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M19 9l-7 7-7-7"></path></svg>
