@@ -63,10 +63,10 @@ const ScrollExpandMedia = ({
         );
         setScrollProgress(newProgress);
 
-        if (newProgress >= 1) {
+        if (newProgress >= 0.98) {
           setMediaFullyExpanded(true);
           setShowContent(true);
-        } else if (newProgress < 0.75) {
+        } else if (newProgress < 0.7) {
           setShowContent(false);
         }
       }
@@ -96,10 +96,10 @@ const ScrollExpandMedia = ({
         );
         setScrollProgress(newProgress);
 
-        if (newProgress >= 1) {
+        if (newProgress >= 0.98) {
           setMediaFullyExpanded(true);
           setShowContent(true);
-        } else if (newProgress < 0.75) {
+        } else if (newProgress < 0.7) {
           setShowContent(false);
         }
 
@@ -164,7 +164,7 @@ const ScrollExpandMedia = ({
 
   const mediaWidth = 300 + scrollProgress * (isMobileState ? 650 : 1250);
   const mediaHeight = 400 + scrollProgress * (isMobileState ? 200 : 400);
-  const textTranslateX = scrollProgress * (isMobileState ? 180 : 150);
+  const textTranslateX = scrollProgress * (isMobileState ? 100 : 80);
 
   const firstWord = title ? title.split(' ')[0] : '';
   const restOfTitle = title ? title.split(' ').slice(1).join(' ') : '';
@@ -302,18 +302,18 @@ const ScrollExpandMedia = ({
               </div>
 
               <div
-                className={`flex items-center justify-center text-center gap-4 w-full relative z-10 transition-none flex-col ${
+                className={`absolute inset-0 flex items-center justify-center text-center gap-4 w-full z-20 transition-none flex-col ${
                   textBlend ? 'mix-blend-difference' : 'mix-blend-normal'
                 }`}
               >
                 <motion.h2
-                  className="text-4xl md:text-5xl lg:text-6xl font-bold text-blue-200 transition-none"
+                  className="text-4xl md:text-5xl lg:text-7xl font-bold text-blue-200 transition-none leading-tight"
                   style={{ transform: `translateX(-${textTranslateX}vw)` }}
                 >
                   {firstWord}
                 </motion.h2>
                 <motion.h2
-                  className="text-4xl md:text-5xl lg:text-6xl font-bold text-center text-blue-200 transition-none"
+                  className="text-4xl md:text-5xl lg:text-7xl font-bold text-center text-blue-200 transition-none leading-tight"
                   style={{ transform: `translateX(${textTranslateX}vw)` }}
                 >
                   {restOfTitle}

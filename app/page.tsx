@@ -114,14 +114,24 @@ export default function Home() {
     offset: ["start start", "end end"]
   });
 
-  // SCENE 1: EXIT
-  const text1Opacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
-  const text1X = useTransform(scrollYProgress, [0, 0.3], [0, -100]);
-  const text1Display = useTransform(scrollYProgress, (pos) => pos > 0.4 ? "none" : "flex");
+  // Scence 1: VISTAR Software Studio
+  const text1Opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+  const text1Scale = useTransform(scrollYProgress, [0, 0.6], [1, 0.9]);
+  const text1X = useTransform(scrollYProgress, [0, 0.6], [0, -100]);
+  const text1Y = useTransform(scrollYProgress, [0, 0.6], [0, -40]);
+  const text1Display = useTransform(
+    scrollYProgress,
+    (pos) => (pos >= 0.65 ? "none" : "flex")
+  );
 
-  // SCENE 2: ENTRY
-  const text2Opacity = useTransform(scrollYProgress, [0.4, 0.8], [0, 1]);
-  const text2X = useTransform(scrollYProgress, [0.4, 0.8], [100, 0]);
+  // Scene 2: SYSTEMIC ENGINEERING
+  const text2Opacity = useTransform(scrollYProgress, [0.1, 0.5], [0, 1]);
+  const text2Scale = useTransform(scrollYProgress, [0.1, 0.5], [0.8, 1]);
+  const text2X = useTransform(scrollYProgress, [0.1, 0.5], [80, 0]);
+  const text2Display = useTransform(
+    scrollYProgress,
+    (pos) => (pos < 0.05 ? "none" : "flex")
+  );
 
   // GLOBE MOVEMENT (Fast Shift Left)
   // Initial: right-[-20%] (far right). Target: Left edge (half visible).
@@ -180,7 +190,7 @@ export default function Home() {
 
             {/* SCENE 1: VISTAR CORE IDENTITY */}
             <motion.div
-              style={{ opacity: text1Opacity, x: text1X, display: text1Display }}
+              style={{ opacity: text1Opacity, x: text1X, y: text1Y, scale: text1Scale, display: text1Display }}
               className="absolute left-0 z-20 flex flex-col justify-center w-full md:w-auto"
             >
               <div className="flex flex-col relative leading-[0.8]">
@@ -215,7 +225,7 @@ export default function Home() {
 
             {/* SCENE 2: SYSTEMIC SCALE (Fades In) */}
             <motion.div
-              style={{ opacity: text2Opacity, x: text2X }}
+              style={{ opacity: text2Opacity, x: text2X, scale: text2Scale, display: text2Display }}
               className="absolute right-0 text-right z-20 flex flex-col items-end justify-center pointer-events-none w-full"
             >
               <div className="flex flex-col relative leading-[0.8] items-end">
@@ -227,14 +237,14 @@ export default function Home() {
                     AI-FIRST
                   </span>
                 </div>
-                <h1 className="text-[10vw] md:text-[8vw] font-black tracking-tighter text-black mix-blend-multiply">
+                <h1 className="text-[10vw] md:text-[8vw] font-black tracking-tighter text-neutral-900">
                   SYSTEMIC
                 </h1>
                 <h1 className="text-[10vw] md:text-[8vw] font-black tracking-tighter text-[#ccff00] min-w-max stroke-black text-stroke-2 drop-shadow-[5px_5px_0px_rgba(0,0,0,1)]">
                   ENGINEERING
                 </h1>
               </div>
-              <p className="mt-8 md:mt-12 max-w-xl type-body font-medium text-neutral-800 leading-relaxed font-mono text-right ml-auto">
+              <p className="mt-8 md:mt-12 max-w-xl type-body font-bold text-neutral-900 leading-relaxed font-mono text-right ml-auto">
                 WE ELIMINATE FRICTION AT EVERY LAYER. <br />
                 ARCHITECTURE BUILT ON <span className="bg-black text-white px-2 italic">HIGH-FIDELITY LOGIC</span> <br />
                 AND <span className="font-calligraphy font-bold text-5xl text-[#ff0080] decoration-wavy underline decoration-[#ccff00]">kinetic velocity</span>.
