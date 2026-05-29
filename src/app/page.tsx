@@ -54,10 +54,10 @@ function DoubleMarquees() {
       >
         <div className="flex w-[200%] gap-4 animate-[marquee-reverse_15s_linear_infinite] will-change-transform font-mono text-3xl md:text-5xl font-black uppercase tracking-tighter">
           <span className="flex items-center gap-8 whitespace-nowrap">
-            // CHAOS // ABSOLUTE // WEBGL // FRONTIER // LATENCY_ZERO // OVERRIDE //
+            {"// CHAOS // ABSOLUTE // WEBGL // FRONTIER // LATENCY_ZERO // OVERRIDE //"}
           </span>
           <span className="flex items-center gap-8 whitespace-nowrap">
-            // CHAOS // ABSOLUTE // WEBGL // FRONTIER // LATENCY_ZERO // OVERRIDE //
+            {"// CHAOS // ABSOLUTE // WEBGL // FRONTIER // LATENCY_ZERO // OVERRIDE //"}
           </span>
         </div>
       </div>
@@ -90,7 +90,7 @@ export default function Home() {
   let btnClass = "bg-[#ff0080] text-white border-4 border-black hover:-translate-y-2 hover:translate-x-2 transition-transform duration-150 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-none";
   let strokeText = "text-transparent mix-blend-difference opacity-80";
   let stickerColor = "bg-[#00ffff] text-black border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]";
-  let basePanelClass = "absolute inset-0 w-full h-full flex items-center justify-center transition-all duration-300 ease-out";
+  const basePanelClass = "absolute inset-0 w-full h-full flex items-center justify-center transition-all duration-300 ease-out";
   
   if (theme === "cyber-dark") {
     textPrimary = "text-white";
@@ -414,7 +414,7 @@ export default function Home() {
             {/* Logo tumbles at high speed in the viewport center, surrounded by text and card */}
             <div className="my-auto w-full flex justify-between items-center md:flex-row flex-col gap-6 pointer-events-auto">
               <div className={`p-5 max-w-xs font-mono text-[11px] font-black uppercase border-4 border-black bg-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] ${theme === 'cyber-dark' ? 'bg-black text-[#ccff00] border-[#ccff00] shadow-[6px_6px_0px_0px_#ccff00]' : ''} md:text-left text-center md:rotate-[-4deg]`}>
-                // DEPLOYED INSTANCE //
+                {"// DEPLOYED INSTANCE //"}
                 <br/> HIGH-SPEED ALGORITHMIC WEBGL TRADING ARCHITECTURE. 0.1MS RESOLUTION compile target.
               </div>
 

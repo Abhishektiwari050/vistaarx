@@ -118,7 +118,7 @@ export default function WorkPage() {
                   <span className="font-black">99.99% UPTIME</span>
                 </div>
                 <p className="pt-4 text-[11px] italic font-semibold leading-relaxed">
-                  "Every visual particle is bound to direct numeric coordinates. Architecture is clean code operating with beautiful mathematical orders."
+                  &quot;Every visual particle is bound to direct numeric coordinates. Architecture is clean code operating with beautiful mathematical orders.&quot;
                 </p>
               </div>
             </TiltCard>

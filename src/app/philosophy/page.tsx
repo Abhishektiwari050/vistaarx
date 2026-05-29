@@ -10,7 +10,6 @@ export default function PhilosophyPage() {
   let textPrimary = "text-black";
   let textSecondary = "text-neutral-800 font-bold";
   let accentTag = "bg-[#ff0080] text-white border-2 border-black";
-  let borderClass = "border-black";
   
   if (theme === "cyber-dark") {
     cardClass = "bg-[#ccff00] border-4 border-black text-black shadow-[12px_12px_0px_0px_#ff0080] hover:shadow-none hover:-translate-y-2 hover:translate-x-2 transition-all";
@@ -22,7 +21,6 @@ export default function PhilosophyPage() {
     textPrimary = "text-white";
     textSecondary = "text-neutral-300 font-bold";
     accentTag = "bg-white text-black border-2 border-white";
-    borderClass = "border-white";
   } else if (theme === "solar") {
     cardClass = "bg-[#ff5500] border-4 border-black text-black shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:-translate-y-2 hover:translate-x-2 transition-all";
     textPrimary = "text-black";

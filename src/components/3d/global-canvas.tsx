@@ -96,7 +96,7 @@ class CanvasErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBound
     return { hasError: true };
   }
 
-  componentDidCatch(error: any, errorInfo: any) {
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     console.warn("R3F / WebGL crashed. Activating SvgFallbackLogo:", error, errorInfo);
   }
 
