@@ -369,9 +369,14 @@ export function GlobalCanvas() {
     try {
       const canvas = document.createElement("canvas");
       const gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
-      setWebglSupported(!!gl);
-    } catch (e) {
-      setWebglSupported(false);
+      const supported = !!gl;
+      Promise.resolve().then(() => {
+        setWebglSupported(supported);
+      });
+    } catch {
+      Promise.resolve().then(() => {
+        setWebglSupported(false);
+      });
     }
   }, []);
 

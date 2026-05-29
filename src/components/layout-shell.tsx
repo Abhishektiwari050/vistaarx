@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { useScrollStore } from "@/lib/stores/scroll-store";
+import { useScrollStore, ThemeType } from "@/lib/stores/scroll-store";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -130,7 +130,7 @@ function ThemeSwitcher() {
       {themes.map((t) => (
         <button
           key={t.id}
-          onClick={() => setTheme(t.id as any)}
+          onClick={() => setTheme(t.id as ThemeType)}
           className={`px-4 py-2 border-2 transition-all duration-150 cursor-pointer interactive ${
             theme === t.id ? t.activeClasses : t.inactiveClasses
           }`}
@@ -222,7 +222,9 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
   useEffect(() => {
-    setMounted(true);
+    Promise.resolve().then(() => {
+      setMounted(true);
+    });
   }, []);
 
   let themeSelection = "selection:bg-[#ccff00] selection:text-black";
