@@ -1,12 +1,42 @@
 import type { Metadata } from "next";
+import { Outfit, Space_Mono } from "next/font/google";
 import { ClientCanvas } from "@/components/3d/client-canvas";
 import { LayoutShell } from "@/components/layout-shell";
 import "./globals.css";
 
+// Configure optimized Google Fonts with size adjust and swap
+const outfit = Outfit({
+  subsets: ["latin"],
+  variable: "--font-outfit",
+  weight: ["300", "400", "600", "800", "900"],
+  display: "swap",
+});
+
+const spaceMono = Space_Mono({
+  subsets: ["latin"],
+  variable: "--font-space-mono",
+  weight: ["400", "700"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
-  title: "Vistar - Premium Interactive Software Studio",
-  description: "High-fidelity digital engineering for the modern internet.",
-  keywords: ["AI Software", "Software Studio", "3D Design Studio", "Vistar"],
+  title: "Vistar Studio // Premium Immersive WebGL & Software Engineering",
+  description: "Vistar Studio is an elite digital engineering & design laboratory. We build high-performance WebGL websites and custom software systems for forward-thinking brands.",
+  keywords: ["Design Studio", "Software Studio", "WebGL Agency", "3D Interactive Websites", "Next.js Developer", "Brutalist Web Design"],
+  authors: [{ name: "Vistar Studio HQ" }],
+  openGraph: {
+    title: "Vistar Studio // Immersive WebGL & Software Engineering",
+    description: "Elite digital engineering and cinematic 3D experiences for forward-thinking brands who want to dominate the modern internet.",
+    type: "website",
+    locale: "en_US",
+    url: "https://www.vistar.tech",
+    siteName: "Vistar Studio",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Vistar Studio // Immersive WebGL & Software Engineering",
+    description: "Elite digital engineering and cinematic 3D experiences for forward-thinking brands who want to dominate the modern internet.",
+  },
 };
 
 export default function RootLayout({
@@ -15,16 +45,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased bg-[#f5f5f7]" suppressHydrationWarning>
+    <html 
+      lang="en" 
+      className={`${outfit.variable} ${spaceMono.variable} h-full antialiased bg-[#f5f5f7]`} 
+      suppressHydrationWarning
+    >
       <head>
         <link rel="icon" href="/favicon.ico" />
-        {/* Dynamic client-side Google Fonts for Outfit and Space Mono */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Space+Mono:wght@400;700&display=swap"
-          rel="stylesheet"
-        />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+        <meta name="theme-color" content="#f5f5f7" />
       </head>
       <body 
         className="h-full bg-transparent text-[#1d1d1f] selection:bg-black selection:text-[#ccff00] antialiased overflow-x-hidden font-sans"

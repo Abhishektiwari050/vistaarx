@@ -1,5 +1,4 @@
 "use client";
-
 import { create } from "zustand";
 
 export type ThemeType = "cyber-light" | "cyber-dark" | "mono" | "solar";
@@ -24,6 +23,9 @@ interface ScrollStore {
   showerTrigger: number;
   /** Application loading state */
   isLoaded: boolean;
+  
+  /** Accessibility: respects system motion preferences */
+  prefersReducedMotion: boolean;
 
   // Actions
   setScrollProgress: (progress: number) => void;
@@ -34,6 +36,7 @@ interface ScrollStore {
   setActiveRoute: (route: string) => void;
   triggerShower: () => void;
   setLoaded: (val: boolean) => void;
+  setReducedMotion: (val: boolean) => void;
 }
 
 export const useScrollStore = create<ScrollStore>((set) => ({
@@ -46,6 +49,7 @@ export const useScrollStore = create<ScrollStore>((set) => ({
   activeRoute: "/",
   showerTrigger: 0,
   isLoaded: false,
+  prefersReducedMotion: false,
 
   setScrollProgress: (progress) => set({ scrollProgress: progress }),
   setScrollY: (y) => set({ scrollY: y }),
@@ -55,6 +59,7 @@ export const useScrollStore = create<ScrollStore>((set) => ({
   setActiveRoute: (route) => set({ activeRoute: route }),
   triggerShower: () => set((state) => ({ showerTrigger: state.showerTrigger + 1 })),
   setLoaded: (val) => set({ isLoaded: val }),
+  setReducedMotion: (val) => set({ prefersReducedMotion: val }),
 }));
 
 /**
@@ -65,6 +70,7 @@ export const getScrollProgress = () => useScrollStore.getState().scrollProgress;
 export const getScrollY = () => useScrollStore.getState().scrollY;
 export const getScrollVelocity = () => useScrollStore.getState().scrollVelocity;
 export const getTheme = () => useScrollStore.getState().theme;
+export const getPrefersReducedMotion = () => useScrollStore.getState().prefersReducedMotion;
 
 export const getThemeColors = () => {
   const theme = useScrollStore.getState().theme;

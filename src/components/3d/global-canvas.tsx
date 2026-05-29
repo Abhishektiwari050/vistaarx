@@ -367,6 +367,24 @@ export function GlobalCanvas() {
 
   useEffect(() => {
     try {
+      // 1. Progressive Enhancement Hardware Check
+      // We check hardware concurrency (CPU cores) and device memory (RAM in GB)
+      // Low-end mobile devices usually have <= 4 cores or <= 4GB RAM.
+      // WebGL runs poorly on them and stalls initial loading.
+      const isLowEnd = 
+        (typeof navigator !== "undefined" && 
+          ((navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4) ||
+           // @ts-expect-error - deviceMemory is experimental but standard in Chrome/Android
+           (navigator.deviceMemory && navigator.deviceMemory < 4)));
+
+      if (isLowEnd) {
+        console.warn("Low-end hardware detected. Enforcing lightweight SVG 2D layout fallback to secure fast page loads.");
+        Promise.resolve().then(() => {
+          setWebglSupported(false);
+        });
+        return;
+      }
+
       const canvas = document.createElement("canvas");
       const gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
       const supported = !!gl;

@@ -15,7 +15,7 @@ export default function VectorsPage() {
 
   let cardClass = "bg-white/40 border-white/40 text-neutral-900 shadow-[0_8px_30px_rgb(0,0,0,0.04)] backdrop-blur-2xl ring-1 ring-black/5";
   let textPrimary = "text-neutral-900";
-  let textSecondary = "text-neutral-500";
+  let textSecondary = "text-neutral-600";
   let highlightBg = "bg-black text-white rounded-full px-3 py-1 text-xs font-medium";
   let borderAccentPrimary = "border-black/10";
   let borderAccentSecondary = "border-black/5";
@@ -23,21 +23,21 @@ export default function VectorsPage() {
   if (theme === "cyber-dark") {
     cardClass = "bg-black/40 border-white/10 text-white shadow-[0_8px_30px_rgb(0,0,0,0.12)] backdrop-blur-2xl ring-1 ring-white/10";
     textPrimary = "text-white";
-    textSecondary = "text-neutral-400";
+    textSecondary = "text-neutral-300";
     highlightBg = "bg-white/10 text-white rounded-full px-3 py-1 text-xs font-medium border border-white/20";
     borderAccentPrimary = "border-white/20";
     borderAccentSecondary = "border-white/10";
   } else if (theme === "mono") {
     cardClass = "bg-white/60 border-neutral-200 text-neutral-900 shadow-[0_8px_30px_rgb(0,0,0,0.06)] backdrop-blur-xl rounded-2xl";
     textPrimary = "text-neutral-900";
-    textSecondary = "text-neutral-500";
+    textSecondary = "text-neutral-600";
     highlightBg = "bg-neutral-100 text-neutral-800 rounded-full px-3 py-1 text-xs font-medium border border-neutral-200";
     borderAccentPrimary = "border-neutral-200";
     borderAccentSecondary = "border-neutral-100";
   } else if (theme === "solar") {
     cardClass = "bg-[#1a0f0a]/60 border-[#ff5500]/20 text-[#fff5eb] shadow-[0_8px_30px_rgba(255,85,0,0.1)] backdrop-blur-2xl ring-1 ring-[#ff5500]/20 rounded-2xl";
     textPrimary = "text-[#fff5eb]";
-    textSecondary = "text-[#ff8844]";
+    textSecondary = "text-[#ffaa77]";
     highlightBg = "bg-[#ff5500]/20 text-[#ffcc00] rounded-full px-3 py-1 text-xs font-medium border border-[#ff5500]/30";
     borderAccentPrimary = "border-[#ff5500]/30";
     borderAccentSecondary = "border-[#ff5500]/10";
@@ -45,6 +45,10 @@ export default function VectorsPage() {
 
   return (
     <div className="w-full h-[400vh] relative z-20">
+      {/* Native dynamic React 19 document title */}
+      <title>Technology Deep-Dive // Vistar Studio</title>
+      <meta name="description" content="Explore the deep-dive technical engineering layers of Vistar Studio, focusing on architectural cores, atomic scale paradigms, and custom cryptography." />
+
       <div className="sticky top-0 h-screen w-full flex items-center px-6 md:px-12 pointer-events-none">
         <div className="w-full max-w-6xl mx-auto relative h-[420px] md:h-[460px] flex items-center justify-center">
           
@@ -64,10 +68,10 @@ export default function VectorsPage() {
               </span>
               <span className="font-mono text-[10px] text-zinc-500 font-medium">VECTOR 01</span>
             </div>
-            <h3 className={`text-4xl font-semibold tracking-tight leading-[1.1] ${textPrimary}`}>
+            <h3 className={`text-3xl md:text-4xl font-semibold tracking-tight leading-[1.1] ${textPrimary}`}>
               Core Digital<br/>Engine
             </h3>
-            <p className={`font-sans text-sm ${textSecondary} leading-relaxed font-light`}>
+            <p className={`font-sans text-xs md:text-sm ${textSecondary} leading-relaxed font-light`}>
               Represents our architectural core: high-fidelity code bases, secure backend compilers, and zero-friction execution trees. We lay down software foundations built for absolute high transaction speeds.
             </p>
             <div className="flex gap-3 font-mono text-[9px] font-medium opacity-60 text-current pt-2">
@@ -93,10 +97,10 @@ export default function VectorsPage() {
               </span>
               <span className="font-mono text-[10px] text-zinc-500 font-medium">VECTOR 02</span>
             </div>
-            <h3 className={`text-4xl font-semibold tracking-tight leading-[1.1] ${textPrimary}`}>
+            <h3 className={`text-3xl md:text-4xl font-semibold tracking-tight leading-[1.1] ${textPrimary}`}>
               Atomic Scale<br/>Paradigm
             </h3>
-            <p className={`font-sans text-sm ${textSecondary} leading-relaxed font-light`}>
+            <p className={`font-sans text-xs md:text-sm ${textSecondary} leading-relaxed font-light`}>
               Denotes massive international scaling structures. Automated cloud routers, edge cluster distributions, and dynamic database read-replicas that automatically adapt to high-traffic demands.
             </p>
             <div className="flex gap-3 font-mono text-[9px] font-medium opacity-60 text-current pt-2">
@@ -122,10 +126,10 @@ export default function VectorsPage() {
               </span>
               <span className="font-mono text-[10px] text-zinc-500 font-medium">VECTOR 03</span>
             </div>
-            <h3 className={`text-4xl font-semibold tracking-tight leading-[1.1] ${textPrimary}`}>
+            <h3 className={`text-3xl md:text-4xl font-semibold tracking-tight leading-[1.1] ${textPrimary}`}>
               Dynamic Flow<br/>Network
             </h3>
-            <p className={`font-sans text-sm ${textSecondary} leading-relaxed font-light`}>
+            <p className={`font-sans text-xs md:text-sm ${textSecondary} leading-relaxed font-light`}>
               Represents systemic routing optimization. Direct memory caching, specialized packet transport protocols, and real-time analytical compilation to avoid bottlenecks at every architectural layer.
             </p>
             <div className="flex gap-3 font-mono text-[9px] font-medium opacity-60 text-current pt-2">
@@ -151,10 +155,10 @@ export default function VectorsPage() {
               </span>
               <span className="font-mono text-[10px] text-zinc-500 font-medium">VECTOR 04</span>
             </div>
-            <h3 className={`text-4xl font-semibold tracking-tight leading-[1.1] ${textPrimary}`}>
+            <h3 className={`text-3xl md:text-4xl font-semibold tracking-tight leading-[1.1] ${textPrimary}`}>
               Cryptographic<br/>Security
             </h3>
-            <p className={`font-sans text-sm ${textSecondary} leading-relaxed font-light`}>
+            <p className={`font-sans text-xs md:text-sm ${textSecondary} leading-relaxed font-light`}>
               Stands for absolute security assurance. Sandboxed runtime nodes, strict compliance parameters, continuous security audits, and multi-signature authorization pathways preventing any potential vulnerability.
             </p>
             <div className="flex gap-3 font-mono text-[9px] font-medium opacity-60 text-current pt-2">

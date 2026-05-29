@@ -3,7 +3,7 @@
 import { useRef, useMemo, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
-import { getScrollProgress, getCursor, getThemeColors, getActiveRoute } from "@/lib/stores/scroll-store";
+import { getScrollProgress, getCursor, getThemeColors, getActiveRoute, getPrefersReducedMotion } from "@/lib/stores/scroll-store";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Custom GLSL Shader Material for the dark carbon core, neon gradient & highlights
@@ -486,6 +486,7 @@ export function Logo3D() {
     // Smooth Lerping (Floaty, Liquid Damping)
     // ─────────────────────────────────────────────────────────────────────────
     const LERP_FACTOR = 0.038;
+    const prefersReducedMotion = getPrefersReducedMotion();
 
     smoothedX.current = THREE.MathUtils.lerp(smoothedX.current, targetX, LERP_FACTOR);
     smoothedY.current = THREE.MathUtils.lerp(smoothedY.current, targetY, LERP_FACTOR);
@@ -496,34 +497,40 @@ export function Logo3D() {
       groupRef.current.position.x = smoothedX.current;
 
       // Subtle dynamic float bobbing added on top of target Y for organic feel (except contact or vectors deep snaps)
-      const bobMultiplier = (route === "/vectors" || route === "/contact") ? 0.02 : 0.12;
+      // Completely skipped if prefersReducedMotion is active to maintain zero dynamic animation load
+      const bobMultiplier = (route === "/vectors" || route === "/contact" || prefersReducedMotion) ? 0.0 : 0.12;
       const bobbing = Math.sin(state.clock.getElapsedTime() * 1.2) * bobMultiplier;
       groupRef.current.position.y = smoothedY.current + bobbing;
 
       groupRef.current.scale.setScalar(smoothedScale.current);
 
-      // Cursor Parallax rotation
-      smoothedRotX.current = THREE.MathUtils.lerp(smoothedRotX.current, targetRotX, 0.05);
-      smoothedRotY.current = THREE.MathUtils.lerp(smoothedRotY.current, targetRotY, 0.05);
-
-      groupRef.current.rotation.x = smoothedRotX.current;
-      groupRef.current.rotation.y = smoothedRotY.current;
-
-      // Monotonic Scroll-to-Rotation Choreography
-      if (isDeepDive) {
-        const targetRotZ = getLogoRotationZ(deepDiveProgress);
-        if (targetRotZ >= 0) {
-          // Continuous monotonic transition
-          smoothedZ.current = THREE.MathUtils.lerp(smoothedZ.current, targetRotZ, 0.08);
-        }
-        groupRef.current.rotation.z = smoothedZ.current;
-      } else if (isHomepage) {
-        smoothedZ.current = THREE.MathUtils.lerp(smoothedZ.current, targetRotZ, 0.08);
-        groupRef.current.rotation.z = smoothedZ.current;
+      if (prefersReducedMotion) {
+        // Locked flat front-facing profile
+        groupRef.current.rotation.set(0, 0, 0);
       } else {
-        // Continuous slow idle spin elsewhere
-        groupRef.current.rotation.z += 0.003;
-        smoothedZ.current = groupRef.current.rotation.z; // keep Z sync
+        // Cursor Parallax rotation
+        smoothedRotX.current = THREE.MathUtils.lerp(smoothedRotX.current, targetRotX, 0.05);
+        smoothedRotY.current = THREE.MathUtils.lerp(smoothedRotY.current, targetRotY, 0.05);
+
+        groupRef.current.rotation.x = smoothedRotX.current;
+        groupRef.current.rotation.y = smoothedRotY.current;
+
+        // Monotonic Scroll-to-Rotation Choreography
+        if (isDeepDive) {
+          const targetRotZ = getLogoRotationZ(deepDiveProgress);
+          if (targetRotZ >= 0) {
+            // Continuous monotonic transition
+            smoothedZ.current = THREE.MathUtils.lerp(smoothedZ.current, targetRotZ, 0.08);
+          }
+          groupRef.current.rotation.z = smoothedZ.current;
+        } else if (isHomepage) {
+          smoothedZ.current = THREE.MathUtils.lerp(smoothedZ.current, targetRotZ, 0.08);
+          groupRef.current.rotation.z = smoothedZ.current;
+        } else {
+          // Continuous slow idle spin elsewhere
+          groupRef.current.rotation.z += 0.003;
+          smoothedZ.current = groupRef.current.rotation.z; // keep Z sync
+        }
       }
     }
 
