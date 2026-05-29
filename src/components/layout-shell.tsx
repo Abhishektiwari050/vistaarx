@@ -173,10 +173,14 @@ function TelemetryHUD() {
   let accentColor = "text-[#ccff00]";
   let bgClass = "bg-black border-2 border-[#ccff00] shadow-[6px_6px_0px_0px_#ccff00]";
 
-  if (theme === "cyber-light" || theme === "mono") {
+  if (theme === "cyber-light") {
     textColor = "text-neutral-500";
     accentColor = "text-black";
     bgClass = "bg-[#ccff00] border-2 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]";
+  } else if (theme === "mono") {
+    textColor = "text-neutral-500";
+    accentColor = "text-black";
+    bgClass = "bg-white border-2 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]";
   } else if (theme === "solar") {
     textColor = "text-[#ff8844]";
     accentColor = "text-white";

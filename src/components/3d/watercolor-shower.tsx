@@ -87,7 +87,7 @@ export function WatercolorShower() {
   
   // Track shower state
   const showerTrigger = useScrollStore(state => state.showerTrigger);
-  const showerStartTime = useRef(0);
+  const showerStartTime = useRef(-1);
   const isShowering = useRef(false);
   
   // Reusable colors
@@ -98,7 +98,7 @@ export function WatercolorShower() {
   useEffect(() => {
     if (showerTrigger > 0) {
       isShowering.current = true;
-      showerStartTime.current = performance.now() / 1000;
+      showerStartTime.current = -1; // Flag to capture on next frame inside R3F clock space
     }
   }, [showerTrigger]);
 
@@ -118,6 +118,9 @@ export function WatercolorShower() {
     
     if (isShowering.current) {
       const now = state.clock.getElapsedTime();
+      if (showerStartTime.current === -1) {
+        showerStartTime.current = now; // Capture R3F elapsedTime safely
+      }
       const elapsed = now - showerStartTime.current;
       
       // The shower takes 1.8 seconds to complete
