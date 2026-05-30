@@ -242,10 +242,10 @@ function ThemeSwitcher({ isMobile = false, onThemeSelect }: ThemeSwitcherProps) 
   const setTheme = useScrollStore((s) => s.setTheme);
 
   const themes = [
-    { id: "cyber-light", label: "LIGHT", activeClasses: "bg-[#ccff00] text-black border-black shadow-[2px_2px_0px_#000] font-black", inactiveClasses: "bg-transparent text-neutral-500 border-transparent hover:text-black" },
-    { id: "cyber-dark", label: "DARK", activeClasses: "bg-[#ff0080] text-white border-[#ff0080] shadow-[2px_2px_0px_#ff0080] font-black", inactiveClasses: "bg-transparent text-neutral-450 border-transparent hover:text-[#ff0080]" },
-    { id: "mono", label: "MONO", activeClasses: "bg-black text-white border-black shadow-[2px_2px_0px_#000] font-black", inactiveClasses: "bg-transparent text-neutral-500 border-transparent hover:text-black" },
-    { id: "solar", label: "SOLAR", activeClasses: "bg-[#ff5500] text-black border-black shadow-[2px_2px_0px_#ff5500] font-black", inactiveClasses: "bg-transparent text-neutral-600 border-transparent hover:text-[#ff5500]" },
+    { id: "cyber-light", label: "CYBER LIGHT", activeClasses: "bg-[#ccff00] text-black border-black shadow-[2px_2px_0px_#000] font-black", inactiveClasses: "bg-transparent text-neutral-500 border-transparent hover:text-black" },
+    { id: "cyber-dark", label: "CYBER DARK", activeClasses: "bg-[#ff0080] text-white border-[#ff0080] shadow-[2px_2px_0px_#ff0080] font-black", inactiveClasses: "bg-transparent text-neutral-450 border-transparent hover:text-[#ff0080]" },
+    { id: "mono", label: "MONOCHROME", activeClasses: "bg-black text-white border-black shadow-[2px_2px_0px_#000] font-black", inactiveClasses: "bg-transparent text-neutral-500 border-transparent hover:text-black" },
+    { id: "solar", label: "SOLAR FLARE", activeClasses: "bg-[#ff5500] text-black border-black shadow-[2px_2px_0px_#ff5500] font-black", inactiveClasses: "bg-transparent text-neutral-600 border-transparent hover:text-[#ff5500]" },
   ];
 
   const handleSelect = (themeId: ThemeType) => {
@@ -521,22 +521,22 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
 
         {/* Navigation Header Bar */}
         <header className={`fixed top-0 left-0 w-full z-45 flex justify-between items-center px-6 md:px-12 py-4 select-none transition-all duration-300 ${headerBg}`}>
-          <Link href="/" id="nav-brand-logo" className={`font-mono font-black tracking-widest text-base ${textPrimary} flex items-center gap-2.5 interactive uppercase`}>
-            <span className={`w-3.5 h-3.5 ${logoDot} animate-pulse`} />
-            <span>Vistar_Studio</span>
+          <Link href="/" id="nav-brand-logo" className={`font-mono font-black tracking-widest text-sm ${textPrimary} flex items-center gap-2 interactive uppercase`}>
+            <span className={`w-3 h-3 ${logoDot} rounded-full shrink-0 animate-pulse`} />
+            <span>Vistar // Studio</span>
           </Link>
           
           {/* Integrated Desktop Nav + Socials & Theme Switcher */}
           <div className="hidden md:flex items-center gap-10">
-            <nav className={`flex gap-8 font-mono text-xs font-black uppercase tracking-wider ${textSecondary}`}>
+            <nav className={`flex gap-6 font-mono text-[10px] font-black uppercase tracking-wider ${textSecondary}`}>
               {navLinks.map((link, idx) => (
                 <Link 
                   key={link.href} 
                   href={link.href} 
                   id={`nav-link-${idx}`}
-                  className={`transition-all py-1 interactive ${pathname === link.href ? highlightText : `hover:${highlightText}`}`}
+                  className={`transition-all py-1 interactive whitespace-nowrap ${pathname === link.href ? highlightText : `hover:${highlightText}`}`}
                 >
-                  {link.label}
+                  [ {link.label} ]
                 </Link>
               ))}
             </nav>

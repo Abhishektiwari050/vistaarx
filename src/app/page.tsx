@@ -46,6 +46,7 @@ function SingleMarquee() {
 // ─────────────────────────────────────────────────────────────────────────────
 export default function Home() {
   const scrollProgress = useScrollStore((s) => s.scrollProgress);
+  const scrollVelocity = useScrollStore((s) => s.scrollVelocity);
   
   const {
     theme,
@@ -175,17 +176,48 @@ export default function Home() {
                 <span className={tagLabel}>Digital Engineering</span>
                 <span className={tagLabel}>Creative Laboratory</span>
               </div>
+            </div>
 
+            <div className="w-full flex flex-col items-center justify-center my-auto space-y-8 z-10">
               {/* Huge elegant H1 heading */}
               <TiltCard className="text-center w-full z-10 pt-4" intensity={10}>
                 <h1 
                   id="hero-heading"
-                  className={`text-[3.8rem] sm:text-[6.5rem] md:text-[8rem] lg:text-[9.5rem] font-black tracking-tighter leading-[0.8] uppercase`}
+                  className={`text-[3.2rem] sm:text-[5.5rem] md:text-[6.8rem] lg:text-[8rem] font-black tracking-tighter leading-none uppercase flex flex-wrap justify-center items-center gap-x-6`}
                 >
-                  <span className={theme === 'cyber-dark' ? 'text-[#ff0080]' : 'text-black'} style={{ WebkitTextStroke: theme === 'cyber-dark' ? '3px #ff0080' : '3.5px #000' }}>Vistar</span> <br /> 
+                  <span className={theme === 'cyber-dark' ? 'text-[#ff0080]' : 'text-black'}>Vistar</span>
                   <span className="text-transparent" style={{ WebkitTextStroke: theme === 'cyber-dark' ? '3px #ff0080' : '3.5px #000' }}>Studio</span>
                 </h1>
+                <p className="font-mono text-[9px] sm:text-[10px] tracking-[0.25em] text-neutral-400 font-bold uppercase mt-4 select-none">
+                  Interactive Software & Architectural Graphics Laboratory
+                </p>
               </TiltCard>
+
+              {/* Centered clean tagline, initialize button and comic badge */}
+              <div className="max-w-xl mx-auto text-center space-y-6 pt-4 relative select-none">
+                {/* Floating comic speech bubble */}
+                <div className={`absolute -top-12 left-1/2 -translate-x-1/2 z-30 bg-[#ccff00] text-black border-[3px] border-black font-mono text-[8px] sm:text-[9px] font-black px-3.5 py-1.5 rounded-xl shadow-[3px_3px_0px_#000] rotate-[-3deg] uppercase tracking-wider animate-bounce select-none ${theme === 'cyber-dark' ? 'bg-[#ff0080] text-white shadow-[3px_3px_0px_#000]' : ''}`}>
+                  "ENGINEERING EXCELLENCE ACTIVE!"
+                </div>
+                
+                <p className={`font-sans text-xs md:text-sm font-light leading-relaxed max-w-md mx-auto text-center pt-2 ${textSecondary}`}>
+                  A premium digital architecture laboratory. We design and build high-fidelity interactive software ecosystems that remove transactional friction at absolute international scale.
+                </p>
+                <div className="pt-2 select-none pointer-events-auto interactive flex justify-center gap-4">
+                  <button
+                    onClick={() => {
+                      if (typeof window !== "undefined") {
+                        const target = window.innerHeight * 0.95;
+                        window.scrollTo({ top: target, behavior: "smooth" });
+                      }
+                    }}
+                    className="px-8 py-3.5 font-mono text-[10px] font-black uppercase tracking-[0.15em] bg-black text-white hover:bg-[#ccff00] hover:text-black border-2 border-black rounded-lg shadow-[4px_4px_0px_#000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer inline-flex items-center gap-2 select-none pointer-events-auto"
+                  >
+                    <span>Initialize Deck</span>
+                    <span>↓</span>
+                  </button>
+                </div>
+              </div>
             </div>
 
             <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-center pointer-events-none z-0">
@@ -200,53 +232,34 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Premium, business-focused value deck */}
-            <div className="relative w-full max-w-xl mx-auto z-10">
-              {/* Floating comic speech bubble */}
-              <div className={`absolute -top-6 -left-4 z-30 bg-[#ccff00] text-black border-[3px] border-black font-mono text-[8px] sm:text-[9px] font-black px-3.5 py-1.5 rounded-xl shadow-[3px_3px_0px_#000] rotate-[-4deg] uppercase tracking-wider animate-bounce select-none ${theme === 'cyber-dark' ? 'bg-[#ff0080] text-white shadow-[3px_3px_0px_#000]' : ''}`}>
-                "ENGINEERING EXCELLENCE ACTIVE!"
-              </div>
-              
-              <TiltCard intensity={5} className={`${panelCard} w-full transform-gpu`}>
-              <div className={`${innerCore} space-y-6 items-center flex flex-col justify-between`}>
-                <p className={`font-sans text-xs md:text-sm font-light text-center max-w-lg leading-relaxed ${textSecondary}`}>
-                  We build high-performance WebGL websites and custom software systems for forward-thinking brands who want to dominate the modern internet. No placeholders. Just elite speed, premium typography, and bulletproof engineering.
-                </p>
-                <div className="flex gap-4 w-full">
-                  <Link 
-                    href="/contact"
-                    id="hero-cta-primary"
-                    className={`${btnPrimary} flex-grow`}
-                  >
-                    <span>Book Strategy Call</span>
-                    <span className="w-5 h-5 rounded-full bg-current/15 flex items-center justify-center font-bold text-xs shrink-0 transform-gpu transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-[1.5px] ease-[cubic-bezier(0.16,1,0.3,1)]">↗</span>
-                  </Link>
-                  <button 
-                    onClick={() => {
-                      if (typeof window !== "undefined") {
-                        const target = window.innerHeight * 1.5;
-                        window.scrollTo({ top: target, behavior: "smooth" });
-                      }
-                    }}
-                    id="hero-cta-secondary"
-                    className={`${outlineBtn} flex items-center justify-between gap-3 group px-7 py-3 text-[10px] font-bold`}
-                  >
-                    <span>See Work</span>
-                    <span className="w-5 h-5 rounded-full bg-current/10 flex items-center justify-center font-bold text-xs shrink-0 transform-gpu transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-[1.5px] ease-[cubic-bezier(0.16,1,0.3,1)]">↗</span>
-                  </button>
+            {/* Symmetrical System Telemetry Card - Bottom Left */}
+            <div className="absolute bottom-6 left-6 z-35 hidden md:block">
+              <div className={`p-4 border-[3px] border-black bg-[#fdfbf7] dark:bg-black font-mono text-[9px] w-64 rounded-xl shadow-[4px_4px_0px_#000] transition-colors duration-300 ${theme === 'cyber-dark' ? 'border-[#ff0080] shadow-[4px_4px_0px_#ff0080]' : ''}`}>
+                <div className="flex justify-between items-center border-b-2 border-current pb-1.5 mb-2 font-black select-none">
+                  <span className="text-[#ff0080]">SYSTEM TELEMETRY</span>
+                  <span className="animate-pulse flex items-center gap-1 text-current">● LIVE</span>
                 </div>
+                <div className="space-y-1.5 font-bold uppercase text-neutral-400">
+                  <div className="flex justify-between">
+                    <span>SCROLL PROGRESS:</span>
+                    <span className="text-black dark:text-white bg-[#ccff00] dark:bg-[#ff0080]/20 px-1 py-0.5 rounded text-[8px]">{(scrollProgress * 100).toFixed(1)}%</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>SCROLL VELOCITY:</span>
+                    <span className="text-black dark:text-white bg-[#ccff00] dark:bg-[#ff0080]/20 px-1 py-0.5 rounded text-[8px]">{scrollVelocity.toFixed(0)} PX/S</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>ENGINE FPS:</span>
+                    <span className="text-black dark:text-white bg-neutral-100 dark:bg-zinc-800 px-1 py-0.5 rounded text-[8px]">60.0 FPS</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>THEME PROFILE:</span>
+                    <span className="text-black dark:text-white bg-neutral-100 dark:bg-zinc-800 px-1 py-0.5 rounded text-[8px]">{theme.toUpperCase()}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-                {/* Elegant, clean horizontal trust coordinates */}
-                <div className="flex justify-center items-center gap-6 w-full pt-2 font-mono text-[9px] font-bold text-center uppercase select-none tracking-wider text-neutral-400">
-                  <span>High Performance</span>
-                  <span className="opacity-30">•</span>
-                  <span>Proven Results</span>
-                  <span className="opacity-30">•</span>
-                  <span>Design Laboratory</span>
-                </div>
-              </div>
-            </TiltCard>
-          </div>
           </div>
         </div>
 
