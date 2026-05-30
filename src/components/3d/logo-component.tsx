@@ -99,6 +99,26 @@ const customShader = {
 
       vec3 litColor = finalColor * intensity;
 
+      // ─────────────────────────────────────────────────────────────────
+      // Colored Manga/Manhwa Screen-Space Halftone Dots Shadow Overlay
+      // ─────────────────────────────────────────────────────────────────
+      vec2 halftoneCoord = gl_FragCoord.xy;
+      float angle = 0.7854; // 45 degrees in radians for standard manga print dots
+      vec2 rotatedCoord = vec2(
+        halftoneCoord.x * cos(angle) - halftoneCoord.y * sin(angle),
+        halftoneCoord.x * sin(angle) + halftoneCoord.y * cos(angle)
+      );
+      
+      // Darker shading levels get larger dots, creating smooth halftone shading
+      float dotSize = 0.72 - (intensity * 0.65);
+      float gridPattern = sin(rotatedCoord.x * 0.45) * sin(rotatedCoord.y * 0.45);
+      float halftoneDot = smoothstep(dotSize - 0.1, dotSize + 0.1, gridPattern);
+      
+      // Apply halftone shading overlay strictly in shadows
+      if (intensity <= 0.48) {
+        litColor = mix(litColor * 0.35, litColor, halftoneDot);
+      }
+
       // Emissive neon boost inside custom shader when highlighted
       vec3 emissiveGlow = uColorPrimary * max(uHighlight - 1.0, 0.0) * 1.5;
       vec3 brightenedColor = litColor * min(uHighlight, 1.2) + emissiveGlow;
@@ -107,6 +127,46 @@ const customShader = {
       float opacity = smoothstep(0.0, 0.5, uHighlight) * 0.88 + 0.12;
 
       gl_FragColor = vec4(brightenedColor, opacity);
+    }
+  `
+};
+
+// Custom GLSL Shader for the Anime Summoning energy portal aura ring
+const auraShader = {
+  vertexShader: /* glsl */ `
+    varying vec2 vUv;
+    varying vec3 vNormal;
+    varying vec3 vLocalPosition;
+
+    void main() {
+      vUv = uv;
+      vNormal = normalize(normalMatrix * normal);
+      vLocalPosition = position;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+  `,
+  fragmentShader: /* glsl */ `
+    varying vec2 vUv;
+    varying vec3 vLocalPosition;
+    varying vec3 vNormal;
+    
+    uniform float uTime;
+    uniform vec3 uColorAura;
+
+    void main() {
+      // Create a dynamic, wrapping anime energy flame pattern using sine waves
+      float wave1 = sin(vUv.x * 20.0 + uTime * 6.0) * cos(vUv.y * 20.0 - uTime * 4.0);
+      float wave2 = cos(vLocalPosition.y * 3.0 + uTime * 4.0) * sin(vLocalPosition.x * 3.0 - uTime * 3.0);
+      float noise = smoothstep(-0.2, 0.6, wave1 * 0.5 + wave2 * 0.5);
+      
+      // Create a glowing neon edge fade
+      float edgeGlow = 1.0 - dot(vNormal, vec3(0.0, 0.0, 1.0));
+      edgeGlow = pow(edgeGlow, 2.5);
+      
+      vec3 finalColor = uColorAura * (noise * 0.6 + 0.4 + edgeGlow * 1.5);
+      float opacity = (noise * 0.5 + edgeGlow * 0.8) * 0.45;
+      
+      gl_FragColor = vec4(finalColor, opacity);
     }
   `
 };
@@ -301,6 +361,13 @@ export function Logo3D() {
   const arrowLeft = useRef<THREE.Mesh>(null);
   const arrowDown = useRef<THREE.Mesh>(null);
   const arrowRight = useRef<THREE.Mesh>(null);
+
+  // Ref and uniforms for the Anime summoning portal aura ring mesh
+  const auraRef = useRef<THREE.Mesh>(null);
+  const auraUniforms = useMemo(() => ({
+    uTime: { value: 0 },
+    uColorAura: { value: new THREE.Color("#ff0080") }
+  }), []);
 
   // Refs for route-specific premium geometries
   const octahedronRef = useRef<THREE.Mesh>(null);
@@ -616,6 +683,15 @@ export function Logo3D() {
       mat.uniforms.uColorPrimary.value = primaryColor.current;
       mat.uniforms.uColorSecondary.value = secondaryColor.current;
     }
+
+    // Rotate and animate the dynamic anime energy aura portal
+    if (auraRef.current) {
+      auraRef.current.rotation.z = -state.clock.getElapsedTime() * 0.25;
+      auraRef.current.scale.setScalar(targetScale * 1.08); // slightly larger than the arrows
+      auraUniforms.uTime.value = state.clock.getElapsedTime();
+      auraUniforms.uColorAura.value.set(colors.primary);
+      auraRef.current.visible = isArrowRoute;
+    }
   });
 
   // Clean up materials on unmount
@@ -628,6 +704,19 @@ export function Logo3D() {
   return (
     <group ref={groupRef}>
       
+      {/* Anime Summoning Portal / Energy Aura Field Ring */}
+      <mesh ref={auraRef} position={[0, 0, -0.15]} frustumCulled>
+        <torusGeometry args={[2.05, 0.08, 16, 100]} />
+        <shaderMaterial
+          vertexShader={auraShader.vertexShader}
+          fragmentShader={auraShader.fragmentShader}
+          uniforms={auraUniforms}
+          transparent
+          depthWrite={false}
+          blending={THREE.AdditiveBlending}
+        />
+      </mesh>
+
       {/* Up Arrow (Z = 0) */}
       <group rotation={[0, 0, 0]}>
         <mesh ref={arrowUp} material={materials[0]} frustumCulled>
