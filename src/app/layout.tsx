@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Outfit, Space_Mono } from "next/font/google";
+import { Outfit, Space_Mono, Lora } from "next/font/google";
 import { ClientCanvas } from "@/components/3d/client-canvas";
 import { LayoutShell } from "@/components/layout-shell";
 import "./globals.css";
@@ -16,6 +16,13 @@ const spaceMono = Space_Mono({
   subsets: ["latin"],
   variable: "--font-space-mono",
   weight: ["400", "700"],
+  display: "swap",
+});
+
+const lora = Lora({
+  subsets: ["latin"],
+  variable: "--font-serif",
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -47,7 +54,7 @@ export default function RootLayout({
   return (
     <html 
       lang="en" 
-      className={`${outfit.variable} ${spaceMono.variable} h-full antialiased bg-[#f5f5f7]`} 
+      className={`${outfit.variable} ${spaceMono.variable} ${lora.variable} h-full antialiased bg-[#f5f5f7]`} 
       suppressHydrationWarning
     >
       <head>
@@ -56,7 +63,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#f5f5f7" />
       </head>
       <body 
-        className="h-full bg-transparent text-[#1d1d1f] selection:bg-black selection:text-[#ccff00] antialiased overflow-x-hidden font-sans"
+        className="h-full bg-transparent text-[#1d1d1f] selection:bg-[#ff0080] selection:text-white antialiased overflow-x-hidden font-sans"
         suppressHydrationWarning
       >
         {/* Fixed background WebGL simulation */}

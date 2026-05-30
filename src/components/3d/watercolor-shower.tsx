@@ -105,6 +105,12 @@ export function WatercolorShower() {
   useFrame((state) => {
     if (!materialRef.current) return;
     
+    const prefersReducedMotion = useScrollStore.getState().prefersReducedMotion;
+    if (prefersReducedMotion) {
+      materialRef.current.uniforms.uShowerTime.value = 0;
+      return;
+    }
+    
     const colors = getThemeColors();
     primaryColor.current.set(colors.primary);
     secondaryColor.current.set(colors.secondary);

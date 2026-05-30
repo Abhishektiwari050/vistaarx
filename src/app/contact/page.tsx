@@ -1,248 +1,415 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useScrollStore } from "@/lib/stores/scroll-store";
+import { useThemeStyles } from "@/lib/hooks/use-theme-styles";
 import { TiltCard } from "@/components/3d/tilt-card";
+import { ThemeOverlay } from "@/components/theme-overlay";
+
+// ── Dynamic date generation (next 5 weekdays from today) ────────────
+function getUpcomingDates(): { day: number; label: string; month: string; status: "OPEN" | "LOCKED" }[] {
+  const result: { day: number; label: string; month: string; status: "OPEN" | "LOCKED" }[] = [];
+  const now = new Date();
+  const cursor = new Date(now);
+  cursor.setDate(cursor.getDate() + 2); // Start from day-after-tomorrow
+
+  const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+  const sessions = ["Strategy Sync", "Architecture Audit", "Technical Review", "Director Brief", "Node Review"];
+
+  let count = 0;
+  while (result.length < 5) {
+    const dayOfWeek = cursor.getDay();
+    if (dayOfWeek !== 0 && dayOfWeek !== 6) {
+      const monthStr = months[cursor.getMonth()];
+      const dayNum = cursor.getDate();
+      result.push({
+        day: dayNum,
+        label: `${monthStr} ${dayNum} (${sessions[count % sessions.length]})`,
+        month: monthStr,
+        status: count === 3 ? "LOCKED" : "OPEN",
+      });
+      count++;
+    }
+    cursor.setDate(cursor.getDate() + 1);
+  }
+  return result;
+}
 
 export default function ContactPage() {
-  const theme = useScrollStore((s) => s.theme);
-  
-  // Console inputs state
+  const { theme, glassCard: cardClass } = useThemeStyles();
+
+  // ── Intake brief steps ──────────────────────────────────────────
+  const [step, setStep] = useState(1);
   const [clientName, setClientName] = useState("");
   const [clientEmail, setClientEmail] = useState("");
   const [missionSpecs, setMissionSpecs] = useState("");
   const [targetBudget, setTargetBudget] = useState("$15,000 – $25,000 (Creative WebGL Landing)");
   const [activeDate, setActiveDate] = useState<number | null>(null);
-  const [statusText, setStatusText] = useState("AWAITING OPERATOR INPUT...");
+  const [selectedTimezone, setSelectedTimezone] = useState("EST (UTC-5)");
+  const [statusText, setStatusText] = useState("AWAITING OPERATOR CONNECTION...");
   const [isLocked, setIsLocked] = useState(false);
 
-  const dates = [
-    { day: 28, label: "MAY 28 (AP-SOUTH edge check)", status: "OPEN" },
-    { day: 29, label: "MAY 29 (US-EAST node audit)", status: "OPEN" },
-    { day: 30, label: "MAY 30 (EU-WEST cluster compile)", status: "OPEN" },
-    { day: 31, label: "MAY 31 (System maintenance)", status: "LOCKED" },
-    { day: 1, label: "JUN 01 (Direct director sync)", status: "OPEN" },
-  ];
+  const dates = useMemo(() => getUpcomingDates(), []);
 
-  let cardClass = "bg-white/40 border-black/10 text-neutral-900 shadow-[0_8px_30px_rgb(0,0,0,0.04)] backdrop-blur-2xl ring-1 ring-black/5";
-  let textPrimary = "text-neutral-900";
-  let textSecondary = "text-neutral-600";
-  let subBorderColor = "border-black/10";
-  let strokeText = "opacity-40 text-black";
-  let inputClass = "w-full p-3 font-mono text-xs border-2 border-black bg-white text-black focus:outline-none focus:bg-neutral-50 focus:shadow-[2px_2px_0px_0px_#ff0080] transition-all";
-  let activeSlotClass = "border-black bg-[#ccff00] text-black shadow-[2px_2px_0px_rgba(255,0,128,1)]";
-  let hoverSlotClass = "border-neutral-300 bg-white hover:border-black hover:bg-neutral-50 text-neutral-800";
-  let lockedSlotClass = "border-neutral-200 bg-neutral-100/50 text-neutral-400 cursor-not-allowed";
-  let lockBtnClass = "bg-black text-white hover:bg-[#ff0080] shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer";
+  // ── Theme-specific styles ─────────────────────────────────────
+  const textPrimary = {
+    "cyber-light": "text-neutral-900",
+    "cyber-dark": "text-white",
+    mono: "text-neutral-900",
+    solar: "text-[#fff5eb]",
+  }[theme];
 
-  if (theme === "cyber-dark") {
-    cardClass = "bg-black/40 border-white/10 text-white shadow-[0_8px_30px_rgb(0,0,0,0.12)] backdrop-blur-2xl ring-1 ring-white/10";
-    textPrimary = "text-white";
-    textSecondary = "text-neutral-300";
-    subBorderColor = "border-white/10";
-    strokeText = "opacity-20 text-white";
-    inputClass = "w-full p-3 font-mono text-xs border-2 border-[#ccff00] bg-black text-white focus:outline-none focus:bg-neutral-900 focus:shadow-[2px_2px_0px_0px_#ff0080] transition-all";
-    activeSlotClass = "border-[#ccff00] bg-neutral-900 text-[#ccff00] shadow-[2px_2px_0px_rgba(204,255,0,1)]";
-    hoverSlotClass = "border-zinc-700 bg-neutral-900 hover:border-white hover:bg-neutral-800 text-white";
-    lockedSlotClass = "border-zinc-800 bg-neutral-900/40 text-zinc-600 cursor-not-allowed";
-    lockBtnClass = "bg-[#ccff00] text-black hover:border-white hover:bg-white shadow-[4px_4px_0px_0px_#ff0080] hover:shadow-none hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer";
-  } else if (theme === "mono") {
-    cardClass = "bg-white/60 border-neutral-200 text-neutral-900 shadow-[0_8px_30px_rgb(0,0,0,0.06)] backdrop-blur-xl rounded-2xl";
-    textPrimary = "text-neutral-900";
-    textSecondary = "text-neutral-600";
-    subBorderColor = "border-neutral-100";
-    strokeText = "opacity-20 text-black";
-    inputClass = "w-full p-3 font-mono text-xs border-2 border-black bg-white text-black focus:outline-none focus:bg-neutral-50 transition-all";
-    activeSlotClass = "border-black bg-neutral-900 text-white shadow-[2px_2px_0px_rgba(0,0,0,1)]";
-    hoverSlotClass = "border-neutral-300 bg-white hover:border-black hover:bg-neutral-50 text-neutral-800";
-    lockedSlotClass = "border-neutral-200 bg-neutral-50 text-neutral-300 cursor-not-allowed";
-    lockBtnClass = "bg-black text-white hover:bg-neutral-800 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer";
-  } else if (theme === "solar") {
-    cardClass = "bg-[#1a0f0a]/60 border-[#ff5500]/20 text-[#fff5eb] shadow-[0_8px_30px_rgba(255,85,0,0.1)] backdrop-blur-2xl ring-1 ring-[#ff5500]/20 rounded-2xl";
-    textPrimary = "text-[#fff5eb]";
-    textSecondary = "text-[#ffaa77]";
-    subBorderColor = "border-[#ff5500]/20";
-    strokeText = "opacity-30 text-[#ff5500]";
-    inputClass = "w-full p-3 font-mono text-xs border-2 border-[#ff5500] bg-black text-[#fff5eb] focus:outline-none focus:bg-[#1f1207] focus:shadow-[2px_2px_0px_0px_#ffcc00] transition-all";
-    activeSlotClass = "border-[#ffcc00] bg-black text-[#ffcc00] shadow-[2px_2px_0px_rgba(255,204,0,1)]";
-    hoverSlotClass = "border-[#ff5500]/30 bg-[#1f1207] hover:border-white hover:bg-neutral-900 text-orange-100";
-    lockedSlotClass = "border-neutral-800 bg-neutral-900/20 text-orange-900 cursor-not-allowed";
-    lockBtnClass = "bg-white text-black hover:border-[#ffcc00] hover:bg-[#ffcc00] shadow-[4px_4px_0px_0px_#ff5500] hover:shadow-none hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer";
-  }
+  const textSecondary = {
+    "cyber-light": "text-neutral-600",
+    "cyber-dark": "text-neutral-400",
+    mono: "text-neutral-600",
+    solar: "text-[#ffaa77]",
+  }[theme];
 
-  const handleLockSession = (e: React.FormEvent) => {
+  const inputClass = {
+    "cyber-light": "w-full p-4 font-mono text-xs border-[3px] border-black bg-white text-black focus:outline-none focus:bg-neutral-50 focus:shadow-[4px_4px_0px_0px_#ff0080] transition-all rounded-xl",
+    "cyber-dark": "w-full p-4 font-mono text-xs border-[3px] border-black bg-black text-white focus:outline-none focus:bg-neutral-950 focus:shadow-[4px_4px_0px_0px_#ff0080] transition-all rounded-xl",
+    mono: "w-full p-4 font-mono text-xs border-[3px] border-black bg-white text-black focus:outline-none focus:bg-neutral-50 focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all rounded-xl",
+    solar: "w-full p-4 font-mono text-xs border-[3px] border-[#100501] bg-white text-black focus:outline-none focus:bg-[#fbf5e6] focus:shadow-[4px_4px_0px_0px_#ff5500] transition-all rounded-xl",
+  }[theme];
+
+  const activeSlotClass = {
+    "cyber-light": "border-[3px] border-black bg-[#ccff00] text-black shadow-[3px_3px_0px_#000] rounded-xl",
+    "cyber-dark": "border-[3px] border-[#ff0080] bg-[#ff0080] text-white shadow-[3px_3px_0px_#ff0080] rounded-xl",
+    mono: "border-[3px] border-black bg-black text-white shadow-[3px_3px_0px_#000] rounded-xl",
+    solar: "border-[3px] border-[#100501] bg-[#ffcc00] text-black shadow-[3px_3px_0px_#ff5500] rounded-xl",
+  }[theme];
+
+  const hoverSlotClass = {
+    "cyber-light": "border-[3px] border-black bg-white text-neutral-800 shadow-[3px_3px_0px_#000] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0px_#000] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all rounded-xl cursor-pointer",
+    "cyber-dark": "border-[3px] border-black bg-black text-white shadow-[3px_3px_0px_#ff0080] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0px_#ff0080] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all rounded-xl cursor-pointer",
+    mono: "border-[3px] border-black bg-white text-neutral-800 shadow-[3px_3px_0px_#000] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0px_#000] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all rounded-xl cursor-pointer",
+    solar: "border-[3px] border-[#100501] bg-white text-[#100501] shadow-[3px_3px_0px_#ff5500] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0px_#ff5500] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all rounded-xl cursor-pointer",
+  }[theme];
+
+  const lockedSlotClass = {
+    "cyber-light": "border-neutral-200 bg-neutral-100/50 text-neutral-400 cursor-not-allowed",
+    "cyber-dark": "border-zinc-800 bg-neutral-900/40 text-zinc-600 cursor-not-allowed",
+    mono: "border-neutral-200 bg-neutral-50 text-neutral-300 cursor-not-allowed",
+    solar: "border-neutral-800 bg-neutral-900/20 text-orange-900 cursor-not-allowed",
+  }[theme];
+
+  const lockBtnClass = {
+    "cyber-light": "bg-black text-white hover:bg-[#ff0080] shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer",
+    "cyber-dark": "bg-[#ff0080] text-white hover:bg-white hover:text-black shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:shadow-none hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer",
+    mono: "bg-black text-white hover:bg-neutral-800 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer",
+    solar: "bg-white text-black hover:border-[#ffcc00] hover:bg-[#ffcc00] shadow-[4px_4px_0px_0px_#ff5500] hover:shadow-none hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer",
+  }[theme];
+
+  const stepActiveClass = theme === "cyber-dark"
+    ? "border-[#ff0080] text-[#ff0080] bg-black"
+    : "border-black bg-black text-white";
+
+  // ── Form submission ───────────────────────────────────────────
+  const handleLockSession = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!clientName || !clientEmail || !activeDate) return;
     setIsLocked(true);
-    setStatusText("TRANSMITTING COORDINATES TO VISTAR_HQ...");
-    
-    // Simulate high-end compiler log transitions
-    setTimeout(() => {
-      setStatusText("✔ STAGE 1: PACKET COMPILING COMPLETE.");
-    }, 850);
-    setTimeout(() => {
-      setStatusText("✔ STAGE 2: EDGE CLUSTERS ROUTED.");
-    }, 1700);
-    setTimeout(() => {
-      setStatusText("🚀 SECURE DISPATCH COMPLETED. HELLO@VISTAR.TECH NOTIFIED.");
-    }, 2500);
+    setStatusText("TRANSMITTING COORDINATES TO VISTAR LABS...");
+
+    try {
+      const selectedDate = dates.find((d) => d.day === activeDate);
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: clientName,
+          email: clientEmail,
+          brief: missionSpecs,
+          budget: targetBudget,
+          date: selectedDate?.label ?? "Not selected",
+          timezone: selectedTimezone,
+        }),
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        setStatusText("✔ STAGE 1: SYSTEM PARAMETERS COMPILED.");
+        setTimeout(() => {
+          setStatusText(`✔ STAGE 2: SESSION INTAKE RESERVED FOR ${selectedTimezone}.`);
+        }, 800);
+        setTimeout(() => {
+          setStatusText("🚀 SUCCESS! STRATEGY CALL BOOKED. hello@vistar.tech DESPATCHED.");
+        }, 1600);
+      } else {
+        setStatusText(`⚠ ${data.errors?.[0] ?? "SUBMISSION FAILED. TRY AGAIN."}`);
+        setIsLocked(false);
+      }
+    } catch {
+      setStatusText("⚠ NETWORK ERROR. PLEASE TRY AGAIN.");
+      setIsLocked(false);
+    }
+  };
+
+  const handleNextStep = () => {
+    if (step === 1 && (!clientName || !clientEmail)) {
+      setStatusText("⚠ FIELD VERIFICATION FAILURE: PROVIDE IDENTITY PARAMETERS.");
+      return;
+    }
+    if (step === 2 && !missionSpecs) {
+      setStatusText("⚠ FIELD VERIFICATION FAILURE: DEFINE PROJECT SPECIFICATIONS.");
+      return;
+    }
+    setStep((prev) => prev + 1);
+    if (step === 1) setStatusText("OPERATOR CONNECTED // DEFINE WORK SCOPE");
+    else if (step === 2) setStatusText("COORDINATES VERIFIED // ASSIGN STRATEGY CALL SLOT");
   };
 
   return (
-    <div className="min-h-[calc(100vh-80px)] w-full relative flex flex-col justify-between px-6 md:px-12 pt-12 pb-8 z-20 max-w-7xl mx-auto">
-      {/* Native dynamic React 19 document title */}
-      <title>Connect // Vistar Studio</title>
+    <div className="min-h-[calc(100vh-80px)] w-full relative flex flex-col justify-center px-6 md:px-12 pt-12 pb-16 z-20 max-w-7xl mx-auto">
+      <title>Connect HQ // Vistar Studio</title>
       <meta name="description" content="Inquire about custom high-performance WebGL design and backend architecture project coordinates at Vistar Studio." />
 
-      <div className="hidden md:block" />
+      <ThemeOverlay />
 
-      <form 
-        onSubmit={handleLockSession} 
-        className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch w-full my-auto z-10 pt-8"
-      >
-        
-        {/* COL 1: DECK COORDINATES (Inputs) - 6 Columns */}
-        <div className="lg:col-span-6 flex">
-          <TiltCard intensity={5} className={`p-8 md:p-10 border ${cardClass} flex flex-col justify-between w-full h-full`}>
-            <div className="space-y-6 w-full">
-              <span className={`font-mono text-[9px] font-black uppercase tracking-widest ${theme === 'mono' ? 'text-black' : theme === 'solar' ? 'text-[#ff5500]' : 'text-current opacity-70'}`}>
-                05 // PROJECT INITIALIZATION
-              </span>
-              <h2 className={`text-4xl md:text-5xl font-black tracking-tighter leading-[0.9] uppercase ${textPrimary}`}>
-                DECK <br/>
-                <span className={strokeText}>COORDINATES</span>
-              </h2>
-              
-              <div className="space-y-4 pt-4">
-                <div className="space-y-1.5">
-                  <label className="font-mono text-[9px] font-black uppercase text-neutral-400">CLIENT_NAME_ID</label>
-                  <input 
-                    type="text" 
-                    required
-                    disabled={isLocked}
-                    value={clientName} 
-                    onChange={(e) => setClientName(e.target.value)} 
-                    placeholder="E.G. MARCUS VANCE..." 
-                    className={inputClass}
-                  />
-                </div>
-                
-                <div className="space-y-1.5">
-                  <label className="font-mono text-[9px] font-black uppercase text-neutral-400">CLIENT_SECURE_COORDINATES</label>
-                  <input 
-                    type="email" 
-                    required
-                    disabled={isLocked}
-                    value={clientEmail} 
-                    onChange={(e) => setClientEmail(e.target.value)} 
-                    placeholder="E.G. MARCUS@QUANTUM.COM..." 
-                    className={inputClass}
-                  />
-                </div>
+      <div className="w-full my-auto z-10 pt-8 flex flex-col space-y-8">
 
-                <div className="space-y-1.5">
-                  <label className="font-mono text-[9px] font-black uppercase text-neutral-400">MISSION_SPECS_BRIEF</label>
-                  <textarea 
-                    rows={3}
-                    disabled={isLocked}
-                    value={missionSpecs} 
-                    onChange={(e) => setMissionSpecs(e.target.value)} 
-                    placeholder="DESCRIBE YOUR PROJECT GOALS..." 
-                    className={`${inputClass} resize-none`}
-                  />
-                </div>
-
-                <div className="space-y-1.5">
-                  <label className="font-mono text-[9px] font-black uppercase text-neutral-400">TARGET BUDGET RANGE</label>
-                  <select 
-                    disabled={isLocked}
-                    value={targetBudget}
-                    onChange={(e) => setTargetBudget(e.target.value)}
-                    className={inputClass}
-                  >
-                    <option>$15,000 – $25,000 (Creative WebGL Landing)</option>
-                    <option>$25,000 – $50,000 (Cinematic App + Core Stack)</option>
-                    <option>$50,000+ (Full-Scale Custom Systems)</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </TiltCard>
+        {/* Step progress indicator */}
+        <div className="w-full grid grid-cols-3 gap-2 font-mono text-[9px] font-bold uppercase text-center max-w-2xl mx-auto select-none">
+          <button
+            type="button"
+            disabled={isLocked}
+            onClick={() => { setStep(1); setStatusText("Identity Section Active"); }}
+            className={`py-3.5 border rounded-lg transition-all ${step >= 1 ? stepActiveClass : "border-zinc-200 text-zinc-400"}`}
+          >
+            01 / Profile {step > 1 && "✔"}
+          </button>
+          <button
+            type="button"
+            disabled={step < 2 || isLocked}
+            onClick={() => { setStep(2); setStatusText("Project Scope Active"); }}
+            className={`py-3.5 border rounded-lg transition-all ${step >= 2 ? stepActiveClass : "border-zinc-200 text-zinc-400"}`}
+          >
+            02 / Scope {step > 2 && "✔"}
+          </button>
+          <button
+            type="button"
+            disabled={step < 3 || isLocked}
+            onClick={() => { setStep(3); setStatusText("Assign strategy session coordinate slot"); }}
+            className={`py-3.5 border rounded-lg transition-all ${step >= 3 ? stepActiveClass : "border-zinc-200 text-zinc-400"}`}
+          >
+            03 / Schedule {step > 3 && "✔"}
+          </button>
         </div>
 
-        {/* COL 2: AUDIT SCHEDULER & TELEMETRY LOG - 6 Columns */}
-        <div className="lg:col-span-6 flex">
-          <TiltCard intensity={5} className={`p-8 md:p-10 border ${cardClass} flex flex-col justify-between w-full h-full`}>
-            <div className="space-y-6 w-full flex-grow">
-              <div className="flex justify-between items-center border-b border-neutral-800/10 dark:border-white/10 pb-3 font-mono text-xs">
-                <span className={`font-black ${theme === 'cyber-dark' ? 'text-[#ccff00]' : 'text-black'}`}>DECK://QUALIFY_HUD</span>
-                <span className="text-zinc-500">24HR response SLA</span>
-              </div>
-              
-              <div className="font-mono text-[10px] uppercase font-bold text-center border-2 border-dashed border-neutral-300 dark:border-zinc-700 py-3 bg-white/5 relative crt-effect">
-                <span className={theme === 'solar' ? 'text-[#ff5500]' : theme === 'cyber-dark' ? 'text-[#ff0080]' : 'text-black font-black'}>
-                  {statusText}
+        <form
+          onSubmit={handleLockSession}
+          className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch w-full max-w-5xl mx-auto"
+        >
+          {/* LEFT PANEL: Multi-step intake brief */}
+          <div className="lg:col-span-7 flex">
+            <TiltCard intensity={3} className={`p-8 md:p-10 border ${cardClass} flex flex-col justify-between w-full h-full`}>
+              <div className="space-y-6 w-full">
+                <span className="font-mono text-[8px] font-bold uppercase tracking-[0.15em] text-[#ff0080]">
+                  Inquiry / Step 0{step} of 03
                 </span>
+
+                {step === 1 && (
+                  <div className="space-y-6 animate-fade-in">
+                    <div className="space-y-2">
+                      <h3 className={`text-3xl font-black uppercase tracking-tight ${textPrimary}`}>Profile Details</h3>
+                      <p className="font-sans text-[11px] opacity-80 font-light">Introduce yourself. Sincere professional communication pipelines start with names.</p>
+                    </div>
+                    <div className="space-y-4">
+                      <div className="space-y-1.5">
+                        <label htmlFor="contact-name" className="font-mono text-[8px] font-bold uppercase text-neutral-400 tracking-wider">Your Full Name</label>
+                        <input
+                          id="contact-name"
+                          type="text"
+                          required
+                          disabled={isLocked}
+                          value={clientName}
+                          onChange={(e) => setClientName(e.target.value)}
+                          placeholder="e.g. Abhishek Tiwari"
+                          className={inputClass}
+                        />
+                      </div>
+                      <div className="space-y-1.5">
+                        <label htmlFor="contact-email" className="font-mono text-[8px] font-bold uppercase text-neutral-400 tracking-wider">Your Secure Email</label>
+                        <input
+                          id="contact-email"
+                          type="email"
+                          required
+                          disabled={isLocked}
+                          value={clientEmail}
+                          onChange={(e) => setClientEmail(e.target.value)}
+                          placeholder="e.g. hello@vistar.tech"
+                          className={inputClass}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {step === 2 && (
+                  <div className="space-y-6 animate-fade-in">
+                    <div className="space-y-2">
+                      <h3 className={`text-3xl font-black uppercase tracking-tight ${textPrimary}`}>Mission Specs</h3>
+                      <p className="font-sans text-[11px] opacity-80">Define what we are building. Specify core visual and architectural targets.</p>
+                    </div>
+                    <div className="space-y-4">
+                      <div className="space-y-1.5">
+                        <label htmlFor="contact-brief" className="font-mono text-[9px] font-black uppercase text-neutral-400">Project Brief & Details</label>
+                        <textarea
+                          id="contact-brief"
+                          rows={4}
+                          required
+                          disabled={isLocked}
+                          value={missionSpecs}
+                          onChange={(e) => setMissionSpecs(e.target.value)}
+                          placeholder="What high-performance interactive interfaces do you want us to construct?"
+                          className={`${inputClass} resize-none`}
+                        />
+                      </div>
+                      <div className="space-y-1.5">
+                        <label htmlFor="contact-budget" className="font-mono text-[9px] font-black uppercase text-neutral-400">Target Budget Range</label>
+                        <select
+                          id="contact-budget"
+                          disabled={isLocked}
+                          value={targetBudget}
+                          onChange={(e) => setTargetBudget(e.target.value)}
+                          className={inputClass}
+                        >
+                          <option>$15,000 – $25,000 (Creative WebGL Landing)</option>
+                          <option>$25,000 – $50,000 (Cinematic App + Core Stack)</option>
+                          <option>$50,000+ (Full-Scale Custom Systems)</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {step === 3 && (
+                  <div className="space-y-6 animate-fade-in">
+                    <div className="space-y-2">
+                      <h3 className={`text-3xl font-black uppercase tracking-tight ${textPrimary}`}>Direct Calendar Sync</h3>
+                      <p className="font-sans text-[11px] opacity-80">Select a secure session sync date coordinate on the scheduler to finalize.</p>
+                    </div>
+                    <div className="space-y-4">
+                      <div className="space-y-1.5">
+                        <label htmlFor="contact-timezone" className="font-mono text-[9px] font-black uppercase text-neutral-400">Timezone Operator</label>
+                        <select
+                          id="contact-timezone"
+                          disabled={isLocked}
+                          value={selectedTimezone}
+                          onChange={(e) => setSelectedTimezone(e.target.value)}
+                          className={inputClass}
+                        >
+                          <option>EST (UTC-5)</option>
+                          <option>IST (UTC+5.5)</option>
+                          <option>GMT (UTC+0)</option>
+                          <option>PST (UTC-8)</option>
+                          <option>AEST (UTC+10)</option>
+                        </select>
+                      </div>
+                      <div className={`pt-2 p-4 border border-dashed ${theme === "cyber-dark" ? "border-zinc-700" : "border-neutral-300"} bg-neutral-500/5 font-mono text-[10px] space-y-1.5`}>
+                        <p className="font-bold text-[#ff0080]">★ SYNC DETAILS CONSOLE:</p>
+                        <p className={textSecondary}>Operator: Abhishek Tiwari (Founder & Chief Architect)</p>
+                        <p className={textSecondary}>Intake: Strategy Audit & Low-latency Project Framing</p>
+                        <p className={textSecondary}>Sync Platform: Google Meet secure channel</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
 
-              <div className="space-y-4">
-                <label className="font-mono text-[9px] font-black uppercase text-neutral-400">SELECT STRATEGY SLOT</label>
-                <div className="grid grid-cols-5 gap-2">
-                  {dates.map((d, idx) => (
-                    <button
-                      key={idx}
-                      type="button"
-                      disabled={d.status === "LOCKED" || isLocked}
-                      onClick={() => {
-                        setActiveDate(d.day);
-                        setStatusText(`✔ REQUEST SLOT: ${d.label} CHOSEN.`);
-                      }}
-                      className={`py-3.5 border-2 font-mono text-xs font-black transition-all cursor-pointer interactive text-center ${
-                        d.status === "LOCKED"
-                          ? lockedSlotClass
-                          : activeDate === d.day
-                          ? activeSlotClass
-                          : hoverSlotClass
-                      }`}
-                    >
-                      {d.day}
-                    </button>
-                  ))}
+              {/* Step navigation */}
+              <div className="pt-8 flex gap-4 w-full select-none pointer-events-auto interactive">
+                {step > 1 && (
+                  <button
+                    type="button"
+                    disabled={isLocked}
+                    onClick={() => setStep((prev) => prev - 1)}
+                    className={`px-5 py-4 border-2 font-mono text-xs uppercase font-black cursor-pointer hover:bg-neutral-50 ${
+                      theme === "cyber-dark" ? "border-[#ff0080] text-white hover:bg-neutral-900" : "border-black text-black"
+                    }`}
+                  >
+                    ← Back
+                  </button>
+                )}
+                {step < 3 ? (
+                  <button
+                    type="button"
+                    onClick={handleNextStep}
+                    className={`flex-grow py-4 text-center cursor-pointer border-2 font-mono text-xs uppercase font-black bg-black text-white hover:bg-[#ff0080] transition-colors ${
+                      theme === "cyber-dark" ? "border-[#ff0080] bg-[#ff0080] hover:bg-white hover:text-black" : "border-black"
+                    }`}
+                  >
+                    Continue to Scope →
+                  </button>
+                ) : (
+                  <button
+                    type="submit"
+                    disabled={!activeDate || !clientName || !clientEmail || isLocked}
+                    className={`flex-grow py-4 font-mono text-xs font-black uppercase tracking-widest border-2 disabled:opacity-30 disabled:cursor-not-allowed ${lockBtnClass}`}
+                  >
+                    Book Strategy Call →
+                  </button>
+                )}
+              </div>
+            </TiltCard>
+          </div>
+
+          {/* RIGHT PANEL: Scheduler & Telemetry */}
+          <div className="lg:col-span-5 flex">
+            <TiltCard intensity={3} className={`p-8 md:p-10 border ${cardClass} flex flex-col justify-between w-full h-full`}>
+              <div className="space-y-6 w-full flex-grow">
+                <div className={`flex justify-between items-center border-b ${theme === "cyber-dark" ? "border-white/5" : "border-neutral-200/50"} pb-3 font-mono text-[10px]`}>
+                  <span className={`font-bold ${theme === "cyber-dark" ? "text-[#ff0080]" : "text-black"}`}>SCHEDULE COORDINATES</span>
+                  <span className="text-zinc-500 font-mono text-[9px]">GMT+5:30</span>
+                </div>
+
+                <div className={`font-mono text-[9px] uppercase font-bold text-center border border-dashed ${theme === "cyber-dark" ? "border-zinc-800" : "border-neutral-200"} py-3 bg-neutral-500/5 rounded-lg`}>
+                  <span className="text-[#ff0080] font-bold">{statusText}</span>
+                </div>
+
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center">
+                    <label className="font-mono text-[8px] font-bold uppercase text-neutral-400 tracking-wider">Available Sync Dates</label>
+                    <span className="font-mono text-[8px] opacity-60">{selectedTimezone} Active</span>
+                  </div>
+                  <div className="grid grid-cols-5 gap-2 select-none pointer-events-auto interactive">
+                    {dates.map((d, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        disabled={d.status === "LOCKED" || isLocked || step < 3}
+                        onClick={() => {
+                          setActiveDate(d.day);
+                          setStatusText(`Selected Sync Date: ${d.label} in ${selectedTimezone}`);
+                        }}
+                        className={`py-3.5 border font-mono text-xs font-bold transition-all cursor-pointer text-center rounded-md ${
+                          d.status === "LOCKED"
+                            ? lockedSlotClass
+                            : activeDate === d.day
+                            ? activeSlotClass
+                            : hoverSlotClass
+                        }`}
+                      >
+                        {d.day}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Direct contact channels */}
+                <div className={`pt-6 border-t ${theme === "cyber-dark" ? "border-zinc-900" : "border-neutral-200"} space-y-3 font-sans text-xs`}>
+                  <p className="font-mono text-[8px] font-bold uppercase text-neutral-400 tracking-wider">Direct Channel</p>
+                  <p className={`font-light leading-relaxed ${textSecondary}`}>
+                    Bypass scheduling buffers and dispatch a direct brief to our team:{" "}
+                    <a href="mailto:hello@vistar.tech" className="font-mono font-bold underline text-[#ff0080] interactive">hello@vistar.tech</a>
+                  </p>
                 </div>
               </div>
-
-              {/* Direct human communication trust details */}
-              <div className="pt-6 space-y-2 font-sans text-xs">
-                <p className="font-mono text-[9px] font-black uppercase text-neutral-400">DIRECT HQ DETAILS:</p>
-                <p className={textSecondary}>
-                  Prefer a direct email? Shoot our architects your project coordinates at: <a href="mailto:hello@vistar.tech" className="font-mono font-bold underline text-black dark:text-white interactive">hello@vistar.tech</a>.
-                </p>
-                <p className={`${textSecondary} text-[11px]`}>
-                  Location: Remote / Worldwide. All operations compiled globally.
-                </p>
-              </div>
-            </div>
-
-            <div className="pt-8 w-full">
-              <button
-                type="submit"
-                disabled={!activeDate || !clientName || !clientEmail || isLocked}
-                className={`w-full py-4 font-mono text-xs font-black uppercase tracking-widest border-2 border-transparent disabled:opacity-30 disabled:cursor-not-allowed ${lockBtnClass}`}
-              >
-                Lock Session & Inquire Now
-              </button>
-            </div>
-          </TiltCard>
-        </div>
-
-      </form>
-
-      {/* Footer information */}
-      <div className={`flex flex-col md:flex-row justify-between items-center border-t ${subBorderColor} pt-6 mt-8 font-sans text-[9px] uppercase tracking-wider text-neutral-500 gap-4 select-none`}>
-        <p>© 2026 Vistar Studio. All rights reserved.</p>
-        <p>Design: System V3 // Matte Carbon // Theme: {theme.toUpperCase()}</p>
+            </TiltCard>
+          </div>
+        </form>
       </div>
-
     </div>
   );
 }

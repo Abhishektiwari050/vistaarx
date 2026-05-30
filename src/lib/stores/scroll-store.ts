@@ -55,7 +55,12 @@ export const useScrollStore = create<ScrollStore>((set) => ({
   setScrollY: (y) => set({ scrollY: y }),
   setScrollVelocity: (velocity) => set({ scrollVelocity: velocity }),
   setCursor: (x, y) => set({ cursorX: x, cursorY: y }),
-  setTheme: (theme) => set({ theme }),
+  setTheme: (theme) => {
+    set({ theme });
+    if (typeof window !== "undefined") {
+      localStorage.setItem("vistar-theme", theme);
+    }
+  },
   setActiveRoute: (route) => set({ activeRoute: route }),
   triggerShower: () => set((state) => ({ showerTrigger: state.showerTrigger + 1 })),
   setLoaded: (val) => set({ isLoaded: val }),
@@ -84,10 +89,10 @@ export const getThemeColors = () => {
   }
   if (theme === "cyber-light") {
     // Premium satin off-white marble body for light theme with vibrant neon accents
-    return { primary: "#ff0080", secondary: "#ccff00", base: "#e2e2e8" };
+    return { primary: "#ff0080", secondary: "#18181b", base: "#e2e2e8" };
   }
-  // Cyber Dark (Neon Pink & Lime on deep charcoal black)
-  return { primary: "#ff0080", secondary: "#ccff00", base: "#08080a" };
+  // Cyber Dark (Neon Pink & neutral white on deep charcoal black)
+  return { primary: "#ff0080", secondary: "#ffffff", base: "#08080a" };
 };
 
 export const getCursor = () => {

@@ -11,16 +11,14 @@
   "dependencies": {
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.6.1",
-    "@react-three/postprocessing": "^3.0.4",
-    "lucide-react": "^1.16.0",
     "next": "16.2.6",
-    "postprocessing": "^6.39.1",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "three": "^0.184.0",
     "zustand": "^5.0.13"
   },
   "devDependencies": {
+    "@browserbasehq/stagehand": "^3.4.0",
     "@playwright/test": "^1.60.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
@@ -31,6 +29,7 @@
     "eslint-config-next": "16.2.6",
     "playwright": "^1.60.0",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "zod": "^4.4.3"
   }
 }

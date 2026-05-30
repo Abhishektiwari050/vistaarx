@@ -4,6 +4,7 @@ import { useRef, useMemo, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { getScrollProgress, getCursor, getThemeColors, getActiveRoute, getPrefersReducedMotion } from "@/lib/stores/scroll-store";
+import { getLogoRotationZ, getArrowActivation } from "@/lib/utils/scroll-utils";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Custom GLSL Shader Material for the dark carbon core, neon gradient & highlights
@@ -38,6 +39,17 @@ const customShader = {
     uniform vec3 uColorSecondary;
 
     void main() {
+      vec3 normal = normalize(vNormal);
+      vec3 viewDir = normalize(vViewPosition);
+
+      // Symmetrical Silhouette Comic Ink Outline
+      // Force fragment to solid black ink when looking at the edge silhouettes
+      float edge = dot(normal, viewDir);
+      if (edge < 0.28) {
+        gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
+        return;
+      }
+
       // Dynamic base color based on active theme
       vec3 baseColor = uColorBase;
 
@@ -47,49 +59,49 @@ const customShader = {
       // ─────────────────────────────────────────────────────────────────
       // Premium Watercolor / Fluid Domain Warping
       // ─────────────────────────────────────────────────────────────────
-      // We use time AND scroll to animate the fluid. 
-      // Scrolling causes a rush of fluid dynamics.
       vec2 uv = vLocalPosition.xy * 2.5; 
       float t = uTime * 0.6 + uScroll * 12.0;
       
-      // First warp layer
       vec2 q = vec2(0.0);
       q.x = sin(uv.y * 1.5 + t) + cos(uv.x * 1.1 - t * 0.8);
       q.y = cos(uv.x * 1.6 - t) + sin(uv.y * 1.3 + t * 0.7);
       
-      // Second warp layer (adds complexity and organic fluid feel)
       vec2 r = vec2(0.0);
       r.x = sin(uv.y * 2.2 + q.y * 2.5 + t * 1.1);
       r.y = cos(uv.x * 2.1 + q.x * 2.4 - t * 1.2);
       
-      // Final fluid intensity map
       float fluid = sin(uv.x * 1.2 + r.x * 2.0) * cos(uv.y * 1.2 + r.y * 2.0);
-      // Remap from [-1, 1] to [0, 1] with a soft watercolor fade
       fluid = smoothstep(-0.6, 0.6, fluid);
 
-      // Blend the palette colors organically based on the fluid warping
-      // This creates a multi-tonal watercolor pooling effect
       vec3 watercolor = mix(uColorPrimary, uColorSecondary, fluid);
-      // Add a third color mixing layer based on the secondary warp for depth
       float depthMix = sin(r.x * 1.5 + r.y * 1.5 + t * 0.5) * 0.5 + 0.5;
-      watercolor = mix(watercolor, vec3(1.0, 1.0, 1.0), depthMix * 0.15); // subtle highlights
+      watercolor = mix(watercolor, vec3(1.0, 1.0, 1.0), depthMix * 0.15);
 
-      // Blend dark body into the flowing watercolor at the tip
       vec3 finalColor = mix(baseColor, watercolor, heightFactor * 0.9);
 
       // ─────────────────────────────────────────────────────────────────
-      // 3D Lighting & Fresnel Edge Highlights
+      // Toon Cel Shading — Simulated directional key light from top-right
       // ─────────────────────────────────────────────────────────────────
-      vec3 normal = normalize(vNormal);
-      vec3 viewDir = normalize(vViewPosition);
-      float fresnel = pow(1.0 - max(dot(normal, viewDir), 0.0), 3.0);
+      vec3 lightDir = normalize(vec3(1.0, 1.0, 0.8));
+      float NdotL = dot(normal, lightDir);
       
-      // Highlight the borders with glowing primary color
-      finalColor = mix(finalColor, uColorPrimary, fresnel * 0.75);
+      // Quantize diffuse lighting into 4 clean comic shading bands
+      float intensity = 0.25;
+      if (NdotL > 0.8) {
+        intensity = 1.0;
+      } else if (NdotL > 0.45) {
+        intensity = 0.72;
+      } else if (NdotL > 0.05) {
+        intensity = 0.48;
+      } else {
+        intensity = 0.25;
+      }
+
+      vec3 litColor = finalColor * intensity;
 
       // Emissive neon boost inside custom shader when highlighted
       vec3 emissiveGlow = uColorPrimary * max(uHighlight - 1.0, 0.0) * 1.5;
-      vec3 brightenedColor = finalColor * min(uHighlight, 1.2) + emissiveGlow;
+      vec3 brightenedColor = litColor * min(uHighlight, 1.2) + emissiveGlow;
 
       // Opacity scales smoothly so inactive arrowheads fade down on GPU
       float opacity = smoothstep(0.0, 0.5, uHighlight) * 0.88 + 0.12;
@@ -98,77 +110,6 @@ const customShader = {
     }
   `
 };
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Monotonic Scroll-to-Rotation mathematical function
-// Snaps: Step 1: 0.50-0.58 (UP), Step 2: 0.58-0.68 (RIGHT), Step 3: 0.68-0.78 (DOWN), Step 4: 0.78-0.88 (LEFT)
-// ─────────────────────────────────────────────────────────────────────────────
-
-function getLogoRotationZ(progress: number): number {
-  if (progress < 0) return -1;
-  if (progress > 1.0) return -1;
-
-  // Snaps and transitions (contiguous, monotonic inside [0, 1])
-  if (progress <= 0.05) return 0;
-  if (progress > 0.05 && progress < 0.22) {
-    const t = (progress - 0.05) / (0.22 - 0.05);
-    const ease = t * t * (3 - 2 * t);
-    return ease * 2.5 * Math.PI; // Spins 360° + quarter turn (2.5 PI) to face Right Arrow
-  }
-  if (progress >= 0.22 && progress <= 0.30) return 2.5 * Math.PI; // snapped at Right
-  if (progress > 0.30 && progress < 0.47) {
-    const t = (progress - 0.30) / (0.47 - 0.30);
-    const ease = t * t * (3 - 2 * t);
-    return 2.5 * Math.PI + ease * 2.5 * Math.PI; // Spins 360° + quarter turn to face Down Arrow
-  }
-  if (progress >= 0.47 && progress <= 0.55) return 5.0 * Math.PI; // snapped at Down
-  if (progress > 0.55 && progress < 0.72) {
-    const t = (progress - 0.55) / (0.72 - 0.55);
-    const ease = t * t * (3 - 2 * t);
-    return 5.0 * Math.PI + ease * 2.5 * Math.PI; // Spins 360° + quarter turn to face Left Arrow
-  }
-  if (progress >= 0.72 && progress <= 0.80) return 7.5 * Math.PI; // snapped at Left
-  if (progress > 0.80 && progress <= 0.95) {
-    const t = (progress - 0.80) / (0.95 - 0.80);
-    const ease = t * t * (3 - 2 * t);
-    return 7.5 * Math.PI + ease * 2.5 * Math.PI; // Spins 360° + quarter turn to face Up Arrow again
-  }
-  return 10.0 * Math.PI;
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Smooth activation mapping for independent arrow heads
-// ─────────────────────────────────────────────────────────────────────────────
-
-function getArrowActivation(idx: number, progress: number): number {
-  if (idx === 0) { // UP
-    if (progress <= 0.08) return 1.0;
-    if (progress > 0.08 && progress < 0.15) return 1.0 - (progress - 0.08) / 0.07;
-    return 0;
-  }
-  if (idx === 3) { // RIGHT
-    if (progress <= 0.15) return 0;
-    if (progress > 0.15 && progress < 0.22) return (progress - 0.15) / 0.07;
-    if (progress >= 0.22 && progress <= 0.33) return 1.0;
-    if (progress > 0.33 && progress < 0.40) return 1.0 - (progress - 0.33) / 0.07;
-    return 0;
-  }
-  if (idx === 2) { // DOWN
-    if (progress <= 0.40) return 0;
-    if (progress > 0.40 && progress < 0.47) return (progress - 0.40) / 0.07;
-    if (progress >= 0.47 && progress <= 0.58) return 1.0;
-    if (progress > 0.58 && progress < 0.65) return 1.0 - (progress - 0.58) / 0.07;
-    return 0;
-  }
-  if (idx === 1) { // LEFT
-    if (progress <= 0.65) return 0;
-    if (progress > 0.65 && progress < 0.72) return (progress - 0.65) / 0.07;
-    if (progress >= 0.72 && progress <= 0.83) return 1.0;
-    if (progress > 0.83 && progress < 0.90) return 1.0 - (progress - 0.83) / 0.07;
-    return 0;
-  }
-  return 0;
-}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Master 3D Logo Component — Symmetrical Bevel Arrows with Rotational Showcase
@@ -213,7 +154,11 @@ function getHomepageLogoProperties(scroll: number): HomepageProperties {
     highlight = 2.0;
     rotX = 0;
     rotY = 0;
-    rotZ = s * 2.0 * Math.PI; // slow scroll-linked Z roll
+    rotZ = 0; // points UP cleanly
+    
+    // Up Arrow (index 0) active
+    arrowHighlights = [3.0, 0.4, 0.4, 0.4];
+    arrowScales = [1.3, 0.8, 0.8, 0.8];
   } else if (s > 0.10 && s <= 0.20) {
     // Stage 1 -> Stage 2: Glides Right, Scales Down
     const t = (s - 0.10) / 0.10;
@@ -226,7 +171,7 @@ function getHomepageLogoProperties(scroll: number): HomepageProperties {
     highlight = THREE.MathUtils.lerp(2.0, 1.0, ease);
     rotX = 0;
     rotY = 0;
-    rotZ = 0.2 * Math.PI + ease * 2.3 * Math.PI; // spins 360° + quarter
+    rotZ = -ease * 0.5 * Math.PI; // elegant single 90 degree CW turn
   } else if (s > 0.20 && s <= 0.30) {
     // Stage 2: Manifesto Settled Right
     x = 2.2;
@@ -237,7 +182,11 @@ function getHomepageLogoProperties(scroll: number): HomepageProperties {
     highlight = 1.0;
     rotX = -0.1; // slight tilt to face left DOM text
     rotY = -0.3;
-    rotZ = 2.5 * Math.PI;
+    rotZ = -0.5 * Math.PI; // snapped at Right
+    
+    // Right Arrow (index 3) active
+    arrowHighlights = [0.4, 0.4, 0.4, 3.0];
+    arrowScales = [0.8, 0.8, 0.8, 1.3];
   } else if (s > 0.30 && s <= 0.40) {
     // Stage 2 -> Stage 3: Glides to Left, expands arrows
     const t = (s - 0.30) / 0.10;
@@ -250,7 +199,7 @@ function getHomepageLogoProperties(scroll: number): HomepageProperties {
     highlight = THREE.MathUtils.lerp(1.0, 2.5, ease);
     rotX = THREE.MathUtils.lerp(-0.1, 0.0, ease);
     rotY = THREE.MathUtils.lerp(-0.3, 0.3, ease);
-    rotZ = 2.5 * Math.PI + ease * 2.5 * Math.PI; // spin to Left layout
+    rotZ = -0.5 * Math.PI - ease * 0.5 * Math.PI; // elegant single 90 degree CW turn to point DOWN
   } else if (s > 0.40 && s <= 0.50) {
     // Stage 3 Part A: Capabilities Left, UP Arrow Active
     x = -2.2;
@@ -261,7 +210,7 @@ function getHomepageLogoProperties(scroll: number): HomepageProperties {
     highlight = 2.5;
     rotX = 0;
     rotY = 0.3; // faces right Capabilities cards
-    rotZ = 5.0 * Math.PI;
+    rotZ = -Math.PI; // snapped at DOWN
     
     // Up Arrow (index 0) active
     arrowHighlights = [3.0, 0.2, 0.2, 0.2];
@@ -276,7 +225,7 @@ function getHomepageLogoProperties(scroll: number): HomepageProperties {
     highlight = 2.5;
     rotX = 0;
     rotY = 0.3;
-    rotZ = 5.0 * Math.PI;
+    rotZ = -Math.PI; // snapped at DOWN
 
     // Down Arrow (index 2) active
     arrowHighlights = [0.2, 0.2, 3.0, 0.2];
@@ -293,9 +242,9 @@ function getHomepageLogoProperties(scroll: number): HomepageProperties {
     highlight = THREE.MathUtils.lerp(2.5, 1.5, ease);
     rotX = THREE.MathUtils.lerp(0.0, 0.4, ease); // tilts deep
     rotY = THREE.MathUtils.lerp(0.3, 0.0, ease);
-    rotZ = 5.0 * Math.PI + ease * 2.5 * Math.PI;
+    rotZ = -Math.PI - ease * 0.5 * Math.PI; // elegant single 90 degree CW turn to point LEFT
   } else if (s > 0.70 && s <= 0.80) {
-    // Stage 4: Neural Operator Center (Hyper speed rotation)
+    // Stage 4: Case Studies centered
     x = 0;
     y = 0;
     z = 0;
@@ -304,10 +253,11 @@ function getHomepageLogoProperties(scroll: number): HomepageProperties {
     highlight = 3.5;
     rotX = 0.4;
     rotY = 0.0;
+    rotZ = -1.5 * Math.PI; // point LEFT cleanly, no hyper speed spin!
     
-    // Extreme high speed spinning linked to scroll within this range
-    const rollFactor = (s - 0.70) / 0.10;
-    rotZ = 7.5 * Math.PI + rollFactor * 25.0 * Math.PI;
+    // Left Arrow (index 1) active
+    arrowHighlights = [0.2, 3.0, 0.2, 0.2];
+    arrowScales = [0.75, 1.4, 0.75, 0.75];
   } else if (s > 0.80 && s <= 0.90) {
     // Stage 4 -> Stage 5: Ascends to Header Center, scales down
     const t = (s - 0.80) / 0.10;
@@ -320,7 +270,7 @@ function getHomepageLogoProperties(scroll: number): HomepageProperties {
     highlight = THREE.MathUtils.lerp(3.5, 2.0, ease);
     rotX = THREE.MathUtils.lerp(0.4, 0.0, ease);
     rotY = 0;
-    rotZ = 32.5 * Math.PI + ease * 3.5 * Math.PI;
+    rotZ = -1.5 * Math.PI - ease * 0.5 * Math.PI; // elegant 90 degree CW turn to point UP again
   } else {
     // Stage 5: Contact Gateway Crown (Pulsing glowing beacon)
     x = 0;
@@ -331,7 +281,11 @@ function getHomepageLogoProperties(scroll: number): HomepageProperties {
     highlight = 2.0 + Math.sin(s * 50.0) * 0.3; // subtle neon pulse
     rotX = 0;
     rotY = 0;
-    rotZ = 36.0 * Math.PI + (s - 0.90) * 2.0 * Math.PI;
+    rotZ = -2.0 * Math.PI + (s - 0.90) * 0.2 * Math.PI; // extremely subtle organic sway, not high speed!
+    
+    // UP Arrow (index 0) active
+    arrowHighlights = [3.0, 0.4, 0.4, 0.4];
+    arrowScales = [1.3, 0.8, 0.8, 0.8];
   }
 
   return {
@@ -348,19 +302,24 @@ export function Logo3D() {
   const arrowDown = useRef<THREE.Mesh>(null);
   const arrowRight = useRef<THREE.Mesh>(null);
 
+  // Refs for route-specific premium geometries
+  const octahedronRef = useRef<THREE.Mesh>(null);
+  const icosahedronRef = useRef<THREE.Mesh>(null);
+  const torusKnotRef = useRef<THREE.Mesh>(null);
+
   // Reusable colors inside useFrame loop (prevents allocation spikes)
   const primaryColor = useRef(new THREE.Color());
   const secondaryColor = useRef(new THREE.Color());
   const baseColor = useRef(new THREE.Color());
 
-  // Extrude settings for high-quality bevel highlights
+  // Extrude settings for chunky Neo-Brutalist geometry
   const extrudeSettings = useMemo(() => ({
-    depth: 0.28,
+    depth: 0.38,
     bevelEnabled: true,
-    bevelSegments: 6,
+    bevelSegments: 2,
     steps: 1,
-    bevelSize: 0.03,
-    bevelThickness: 0.03,
+    bevelSize: 0.04,
+    bevelThickness: 0.04,
   }), []);
 
   // 2D Arrowhead Shape (triangle pointing UP)
@@ -518,10 +477,7 @@ export function Logo3D() {
         // Monotonic Scroll-to-Rotation Choreography
         if (isDeepDive) {
           const targetRotZ = getLogoRotationZ(deepDiveProgress);
-          if (targetRotZ >= 0) {
-            // Continuous monotonic transition
-            smoothedZ.current = THREE.MathUtils.lerp(smoothedZ.current, targetRotZ, 0.08);
-          }
+          smoothedZ.current = THREE.MathUtils.lerp(smoothedZ.current, targetRotZ, 0.08);
           groupRef.current.rotation.z = smoothedZ.current;
         } else if (isHomepage) {
           smoothedZ.current = THREE.MathUtils.lerp(smoothedZ.current, targetRotZ, 0.08);
@@ -607,6 +563,59 @@ export function Logo3D() {
       mat.uniforms.uColorPrimary.value = primaryColor.current;
       mat.uniforms.uColorSecondary.value = secondaryColor.current;
     });
+
+    // Sincere Awwwards route-specific mesh toggles, dynamic animations & highlights
+    const isArrowRoute = route === "/" || route === "/vectors";
+    if (arrowUp.current) arrowUp.current.visible = isArrowRoute;
+    if (arrowLeft.current) arrowLeft.current.visible = isArrowRoute;
+    if (arrowDown.current) arrowDown.current.visible = isArrowRoute;
+    if (arrowRight.current) arrowRight.current.visible = isArrowRoute;
+
+    if (octahedronRef.current) {
+      octahedronRef.current.visible = (route === "/philosophy");
+      if (route === "/philosophy") {
+        // Elegant slow double-axis tumble for the octahedron
+        octahedronRef.current.rotation.x = state.clock.getElapsedTime() * 0.15 + cursor.y * 0.25;
+        octahedronRef.current.rotation.y = state.clock.getElapsedTime() * 0.22 + cursor.x * 0.25;
+        // Subtle scroll-driven compression
+        const targetScale = 1.0 - scroll * 0.25;
+        octahedronRef.current.scale.setScalar(targetScale);
+      }
+    }
+
+    if (icosahedronRef.current) {
+      icosahedronRef.current.visible = (route === "/work");
+      if (route === "/work") {
+        // Majestic multi-axis spin for the icosahedron
+        icosahedronRef.current.rotation.x = state.clock.getElapsedTime() * 0.18 + cursor.y * 0.2;
+        icosahedronRef.current.rotation.y = -state.clock.getElapsedTime() * 0.25 + cursor.x * 0.2;
+        // Drift slightly based on scroll to follow the Case Studies timeline
+        icosahedronRef.current.position.y = 0.45 - scroll * 1.5;
+      }
+    }
+
+    if (torusKnotRef.current) {
+      torusKnotRef.current.visible = (route === "/contact");
+      if (route === "/contact") {
+        // Fluid mathematical rotation for the complex torus knot
+        torusKnotRef.current.rotation.x = state.clock.getElapsedTime() * 0.25 + cursor.y * 0.5;
+        torusKnotRef.current.rotation.y = state.clock.getElapsedTime() * 0.35 + cursor.x * 0.5;
+        torusKnotRef.current.rotation.z = state.clock.getElapsedTime() * 0.1;
+        // Pulse scale matching the subtle beacon pulse
+        const pulse = 1.0 + Math.sin(state.clock.getElapsedTime() * 1.5) * 0.08;
+        torusKnotRef.current.scale.setScalar(pulse);
+      }
+    }
+
+    if (!isArrowRoute) {
+      const mat = materials[0];
+      mat.uniforms.uTime.value = state.clock.getElapsedTime();
+      mat.uniforms.uScroll.value = scroll;
+      mat.uniforms.uHighlight.value = route === "/contact" ? 2.5 : 2.0;
+      mat.uniforms.uColorBase.value = baseColor.current;
+      mat.uniforms.uColorPrimary.value = primaryColor.current;
+      mat.uniforms.uColorSecondary.value = secondaryColor.current;
+    }
   });
 
   // Clean up materials on unmount
@@ -646,6 +655,17 @@ export function Logo3D() {
           <extrudeGeometry args={[arrowShape, extrudeSettings]} />
         </mesh>
       </group>
+
+      {/* Awwwards-Level Route-Specific Geometries */}
+      <mesh ref={octahedronRef} material={materials[0]} visible={false} frustumCulled>
+        <octahedronGeometry args={[1.5, 0]} />
+      </mesh>
+      <mesh ref={icosahedronRef} material={materials[0]} visible={false} frustumCulled>
+        <icosahedronGeometry args={[1.4, 0]} />
+      </mesh>
+      <mesh ref={torusKnotRef} material={materials[0]} visible={false} frustumCulled>
+        <torusKnotGeometry args={[0.8, 0.28, 100, 16]} />
+      </mesh>
 
     </group>
   );

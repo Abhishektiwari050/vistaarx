@@ -6,72 +6,7 @@ import { usePathname } from "next/navigation";
 import { useScrollStore, getThemeColors } from "@/lib/stores/scroll-store";
 import { Logo3D } from "./logo-component";
 import { WatercolorShower } from "./watercolor-shower";
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Monotonic snap-rotation math selectors (identical to logo-component)
-// ─────────────────────────────────────────────────────────────────────────────
-
-function getLogoRotationZ(progress: number): number {
-  if (progress < 0) return -1;
-  if (progress > 1.0) return -1;
-
-  // Snaps and transitions (contiguous, monotonic inside [0, 1])
-  if (progress <= 0.05) return 0;
-  if (progress > 0.05 && progress < 0.22) {
-    const t = (progress - 0.05) / (0.22 - 0.05);
-    const ease = t * t * (3 - 2 * t);
-    return ease * 2.5 * Math.PI; // Spins 360° + quarter turn (2.5 PI) to face Right Arrow
-  }
-  if (progress >= 0.22 && progress <= 0.30) return 2.5 * Math.PI; // snapped at Right
-  if (progress > 0.30 && progress < 0.47) {
-    const t = (progress - 0.30) / (0.47 - 0.30);
-    const ease = t * t * (3 - 2 * t);
-    return 2.5 * Math.PI + ease * 2.5 * Math.PI; // Spins 360° + quarter turn to face Down Arrow
-  }
-  if (progress >= 0.47 && progress <= 0.55) return 5.0 * Math.PI; // snapped at Down
-  if (progress > 0.55 && progress < 0.72) {
-    const t = (progress - 0.55) / (0.72 - 0.55);
-    const ease = t * t * (3 - 2 * t);
-    return 5.0 * Math.PI + ease * 2.5 * Math.PI; // Spins 360° + quarter turn to face Left Arrow
-  }
-  if (progress >= 0.72 && progress <= 0.80) return 7.5 * Math.PI; // snapped at Left
-  if (progress > 0.80 && progress <= 0.95) {
-    const t = (progress - 0.80) / (0.95 - 0.80);
-    const ease = t * t * (3 - 2 * t);
-    return 7.5 * Math.PI + ease * 2.5 * Math.PI; // Spins 360° + quarter turn to face Up Arrow again
-  }
-  return 10.0 * Math.PI;
-}
-
-function getArrowActivation(idx: number, progress: number): number {
-  if (idx === 0) { // UP
-    if (progress <= 0.08) return 1.0;
-    if (progress > 0.08 && progress < 0.15) return 1.0 - (progress - 0.08) / 0.07;
-    return 0;
-  }
-  if (idx === 3) { // RIGHT
-    if (progress <= 0.15) return 0;
-    if (progress > 0.15 && progress < 0.22) return (progress - 0.15) / 0.07;
-    if (progress >= 0.22 && progress <= 0.33) return 1.0;
-    if (progress > 0.33 && progress < 0.40) return 1.0 - (progress - 0.33) / 0.07;
-    return 0;
-  }
-  if (idx === 2) { // DOWN
-    if (progress <= 0.40) return 0;
-    if (progress > 0.40 && progress < 0.47) return (progress - 0.40) / 0.07;
-    if (progress >= 0.47 && progress <= 0.58) return 1.0;
-    if (progress > 0.58 && progress < 0.65) return 1.0 - (progress - 0.58) / 0.07;
-    return 0;
-  }
-  if (idx === 1) { // LEFT
-    if (progress <= 0.65) return 0;
-    if (progress > 0.65 && progress < 0.72) return (progress - 0.65) / 0.07;
-    if (progress >= 0.72 && progress <= 0.83) return 1.0;
-    if (progress > 0.83 && progress < 0.90) return 1.0 - (progress - 0.83) / 0.07;
-    return 0;
-  }
-  return 0;
-}
+import { getLogoRotationZ, getArrowActivation } from "@/lib/utils/scroll-utils";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // CanvasErrorBoundary — Catches three.js shader or initialization crashes
@@ -116,44 +51,91 @@ function SvgFallbackLogo() {
   const scroll = useScrollStore((s) => s.scrollProgress);
   const cursorX = useScrollStore((s) => s.cursorX);
   const cursorY = useScrollStore((s) => s.cursorY);
+  const route = useScrollStore((s) => s.activeRoute);
+  const theme = useScrollStore((s) => s.theme);
   const colors = getThemeColors();
 
-  const isDeepDive = scroll >= 0.50 && scroll <= 0.88;
-  const deepDiveProgress = isDeepDive ? (scroll - 0.50) / 0.38 : 0;
+  const isHomepage = route === "/";
+  const isVectors = route === "/vectors";
   
   let targetX = 0;
-  let showcaseFactor = 0;
+  let targetY = 0;
+  let targetScale = 1.0;
 
-  if (scroll <= 0.15) {
-    targetX = 0;
-  } else if (scroll > 0.15 && scroll <= 0.35) {
-    targetX = 140; // Shift right
-  } else if (scroll > 0.35 && scroll <= 0.50) {
-    targetX = -140; // Shift left
-  } else if (isDeepDive) {
-    targetX = 0;
-  }
-
-  if (isDeepDive) {
-    showcaseFactor = 1.0;
-  } else if (scroll > 0.47 && scroll < 0.50) {
-    showcaseFactor = (scroll - 0.47) / 0.03;
-  } else if (scroll > 0.88 && scroll <= 0.91) {
-    showcaseFactor = 1.0 - (scroll - 0.88) / 0.03;
-  }
-
-  // Calculate snap rotation
-  let rotationZ = scroll * 240; // slow idle spin
-  if (isDeepDive) {
-    const rotRad = getLogoRotationZ(deepDiveProgress);
-    if (rotRad >= 0) {
-      rotationZ = (rotRad * 180) / Math.PI;
+  // Replicate the exact homepage glide & scale transitions of the 3D Logo
+  if (isHomepage) {
+    if (scroll <= 0.10) {
+      targetX = 0;
+      targetY = 0;
+      targetScale = 1.6;
+    } else if (scroll > 0.10 && scroll <= 0.20) {
+      const t = (scroll - 0.10) / 0.10;
+      const ease = t * t * (3 - 2 * t);
+      // Remap 3D positions to 2D screen coordinate pixels (approx 65px per units)
+      targetX = ease * 143; 
+      targetY = ease * 32.5;
+      targetScale = 1.6 - ease * 0.85;
+    } else if (scroll > 0.20 && scroll <= 0.30) {
+      targetX = 143;
+      targetY = 32.5;
+      targetScale = 0.75;
+    } else if (scroll > 0.30 && scroll <= 0.40) {
+      const t = (scroll - 0.30) / 0.10;
+      const ease = t * t * (3 - 2 * t);
+      targetX = 143 - ease * 286;
+      targetY = 32.5 - ease * 65;
+      targetScale = 0.75 + ease * 0.10;
+    } else if (scroll > 0.40 && scroll <= 0.60) {
+      targetX = -143;
+      targetY = -32.5;
+      targetScale = 0.85;
+    } else if (scroll > 0.60 && scroll <= 0.70) {
+      const t = (scroll - 0.60) / 0.10;
+      const ease = t * t * (3 - 2 * t);
+      targetX = -143 + ease * 143;
+      targetY = -32.5 + ease * 32.5;
+      targetScale = 0.85 + ease * 0.35;
+    } else if (scroll > 0.70 && scroll <= 0.80) {
+      targetX = 0;
+      targetY = 0;
+      targetScale = 1.2;
+    } else if (scroll > 0.80 && scroll <= 0.90) {
+      const t = (scroll - 0.80) / 0.10;
+      const ease = t * t * (3 - 2 * t);
+      targetX = 0;
+      targetY = ease * 156;
+      targetScale = 1.2 - ease * 0.65;
+    } else {
+      targetX = 0;
+      targetY = 156;
+      targetScale = 0.55;
     }
+  } else if (route === "/philosophy") {
+    targetX = 136;
+    targetY = -scroll * 78;
+    targetScale = 0.85;
+  } else if (route === "/work") {
+    targetX = -136;
+    targetY = 26;
+    targetScale = 0.85;
+  } else if (route === "/contact") {
+    targetX = 0;
+    targetY = 0;
+    targetScale = 1.1;
   }
 
-  // Luxury CSS Parallax tilt
-  const tiltX = cursorY * 18;
-  const tiltY = cursorX * 18;
+  // Unified snapped rotation in degrees
+  const rotRad = getLogoRotationZ(scroll);
+  let rotationZ = (rotRad * 180) / Math.PI;
+
+  if (!isHomepage && !isVectors) {
+    // Elegant slow idle Z spin elsewhere
+    rotationZ = scroll * 120;
+  }
+
+  // Symmetrical CSS Parallax tilt
+  const tiltX = cursorY * 12;
+  const tiltY = cursorX * 12;
 
   const arrowIndices = [0, 1, 2, 3]; // Up, Left, Down, Right
 
@@ -171,9 +153,9 @@ function SvgFallbackLogo() {
     >
       <div
         style={{
-          transform: `translate3d(${targetX}px, 0, 0) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`,
+          transform: `translate3d(${targetX}px, ${targetY}px, 0) scale(${targetScale}) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`,
           transformStyle: "preserve-3d",
-          transition: "transform 0.4s cubic-bezier(0.1, 0.8, 0.2, 1.0)",
+          transition: "transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -187,7 +169,7 @@ function SvgFallbackLogo() {
           height="100%"
           style={{
             transform: `rotate(${rotationZ}deg)`,
-            transition: isDeepDive ? "transform 0.5s cubic-bezier(0.1, 0.8, 0.2, 1.0)" : "none",
+            transition: "transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
             overflow: "visible",
             filter: "drop-shadow(0 15px 30px rgba(0,0,0,0.15))"
           }}
@@ -208,21 +190,41 @@ function SvgFallbackLogo() {
           </defs>
 
           {arrowIndices.map((idx) => {
-            const act = isDeepDive ? getArrowActivation(idx, deepDiveProgress) : 0;
+            const act = getArrowActivation(idx, scroll);
             
-            const standardDist = scroll > 0.35 && scroll <= 0.50 ? 25 : 0;
-            const showcaseDist = act * 42 + (1.0 - act) * 8;
-            const finalDist = standardDist * (1 - showcaseFactor) + showcaseDist * showcaseFactor;
+            // Replicate standard expansion vs deep-dive snaps
+            let finalDist = 0;
+            let finalScale = 1.0;
+            let finalOpacity = 1.0;
 
-            const standardScale = 1.0;
-            const showcaseScale = act * 1.35 + (1.0 - act) * 0.75;
-            const finalScale = standardScale * (1 - showcaseFactor) + showcaseScale * showcaseFactor;
+            if (isHomepage) {
+              const isUpArrowAtHero = (idx === 0 && scroll <= 0.10);
+              const isUpArrowAtContact = (idx === 0 && scroll >= 0.90);
+              const isRightArrowAtManifesto = (idx === 3 && scroll > 0.20 && scroll <= 0.30);
+              const isDownArrowAtServices = (idx === 2 && scroll > 0.40 && scroll <= 0.60);
+              const isLeftArrowAtCaseStudies = (idx === 1 && scroll > 0.70 && scroll <= 0.80);
 
-            const standardOpacity = 1.0;
-            const showcaseOpacity = act * 1.0 + (1.0 - act) * 0.25;
-            const finalOpacity = standardOpacity * (1 - showcaseFactor) + showcaseOpacity * showcaseFactor;
+              const isHighlighted = isUpArrowAtHero || isUpArrowAtContact || isRightArrowAtManifesto || isDownArrowAtServices || isLeftArrowAtCaseStudies;
 
-            const isActive = isDeepDive && act > 0.5;
+              finalDist = isHighlighted ? 35 : (scroll > 0.30 && scroll <= 0.60 ? 20 : 0);
+              finalScale = isHighlighted ? 1.25 : (scroll > 0.30 && scroll <= 0.60 ? 0.75 : 1.0);
+              finalOpacity = isHighlighted ? 1.0 : (scroll > 0.30 && scroll <= 0.60 ? 0.25 : 0.8);
+            } else if (isVectors) {
+              const standardDist = 25;
+              const showcaseDist = act * 42 + (1.0 - act) * 8;
+              const showcaseFactor = 1.0; // Locked in vectors showcase
+              finalDist = standardDist * (1 - showcaseFactor) + showcaseDist * showcaseFactor;
+
+              const standardScale = 1.0;
+              const showcaseScale = act * 1.35 + (1.0 - act) * 0.75;
+              finalScale = standardScale * (1 - showcaseFactor) + showcaseScale * showcaseFactor;
+
+              const standardOpacity = 1.0;
+              const showcaseOpacity = act * 1.0 + (1.0 - act) * 0.25;
+              finalOpacity = standardOpacity * (1 - showcaseFactor) + showcaseOpacity * showcaseFactor;
+            }
+
+            const isActive = act > 0.5 || (isHomepage && finalOpacity > 0.9);
             const angle = idx === 0 ? 0 : idx === 1 ? 90 : idx === 2 ? 180 : 270;
 
             return (
@@ -230,19 +232,23 @@ function SvgFallbackLogo() {
                 key={idx}
                 transform={`rotate(${angle}) translate(0, ${-finalDist}) scale(${finalScale})`}
                 style={{
-                  transition: "transform 0.45s cubic-bezier(0.1, 0.8, 0.2, 1.0)",
+                  transition: "transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1)",
                   opacity: finalOpacity,
                 }}
               >
+                {/* Offset flat 2D shadow */}
+                <path
+                  d="M -22 15 L 22 15 L 0 -22 Z"
+                  fill={theme === 'cyber-dark' ? '#ff0080' : theme === 'solar' ? '#ff5500' : '#000000'}
+                  transform="translate(4, 4)"
+                  style={{ opacity: isActive ? 1.0 : 0.4 }}
+                />
+                {/* Main comic arrowhead with thick black border */}
                 <path
                   d="M -22 15 L 22 15 L 0 -22 Z"
                   fill="url(#arrow-grad-fallback)"
-                  stroke={colors.primary}
-                  strokeWidth={isActive ? "2.5" : "1"}
-                  filter={isActive ? "url(#glow-fallback)" : "none"}
-                  style={{
-                    transition: "fill 0.3s, stroke 0.3s, stroke-width 0.3s",
-                  }}
+                  stroke={theme === 'solar' ? '#100501' : '#000000'}
+                  strokeWidth="3"
                 />
               </g>
             );
@@ -364,6 +370,18 @@ function ScrollTracker() {
 export function GlobalCanvas() {
   const [webglSupported, setWebglSupported] = useState<boolean | null>(null);
   const theme = useScrollStore((s) => s.theme);
+  const showerTrigger = useScrollStore((s) => s.showerTrigger);
+  const [canvasZIndex, setCanvasZIndex] = useState(-5);
+
+  useEffect(() => {
+    if (showerTrigger > 0) {
+      setCanvasZIndex(998);
+      const timer = setTimeout(() => {
+        setCanvasZIndex(-5);
+      }, 1800);
+      return () => clearTimeout(timer);
+    }
+  }, [showerTrigger]);
 
   useEffect(() => {
     try {
@@ -402,15 +420,15 @@ export function GlobalCanvas() {
     return null; // Prevents Next.js dynamic hydration mismatch
   }
 
-  let themeBg = "bg-[#050507] text-white";
+  let themeBg = "bg-[#08080c] halftone-dots-white text-white";
   if (theme === "cyber-light") {
-    themeBg = "bg-[#f5f5f7] text-[#1d1d1f]";
+    themeBg = "bg-[#fdfbf7] halftone-dots text-neutral-900";
   } else if (theme === "cyber-dark") {
-    themeBg = "bg-[#050507] text-white";
+    themeBg = "bg-[#08080c] halftone-dots-white text-white";
   } else if (theme === "mono") {
-    themeBg = "bg-[#f9f9f9] text-neutral-900";
+    themeBg = "bg-white halftone-dots text-neutral-900";
   } else if (theme === "solar") {
-    themeBg = "bg-[#0b0603] text-orange-50";
+    themeBg = "bg-[#fcf6e8] halftone-dots text-[#100501]";
   }
 
   // Gracefully fallback to 2D SVG if WebGL is disabled or unsupported
@@ -452,7 +470,7 @@ export function GlobalCanvas() {
           style={{
             position: "fixed",
             inset: 0,
-            zIndex: -5,
+            zIndex: canvasZIndex,
             pointerEvents: "none",
             backgroundColor: "transparent",
           }}
@@ -474,7 +492,7 @@ export function GlobalCanvas() {
             {/* Key lights casting highlights */}
             <directionalLight position={[5, 5, 5]} intensity={1.3} />
             <directionalLight position={[-5, -5, 2]} intensity={0.6} color="#ff0080" />
-            <directionalLight position={[0, 5, -2]} intensity={0.8} color="#ccff00" />
+            <directionalLight position={[0, 5, -2]} intensity={0.8} color="#ff0080" />
 
             <Suspense fallback={null}>
               <WatercolorShower />
