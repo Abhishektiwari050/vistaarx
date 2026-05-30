@@ -60,6 +60,13 @@ export default function Home() {
     strokeColor,
   } = useThemeStyles();
 
+  const fillColor = {
+    "cyber-light": "text-[#ccff00]",
+    "cyber-dark": "text-[#ff0080]",
+    mono: "text-white",
+    solar: "text-[#ffcc00]"
+  }[theme];
+
   const basePanelClass = "absolute inset-0 w-full h-full flex items-center justify-center transition-all duration-300 ease-out";
 
   // ───────────────────────────────────────────────────────────────────────────
@@ -157,6 +164,8 @@ export default function Home() {
 
       {/* Sticky Screen Locked container */}
       <div className="sticky top-0 h-screen w-full overflow-hidden select-none pointer-events-none z-20">
+        {/* Dynamic Manga Speed lines overlay */}
+        <div className={`absolute inset-0 z-0 opacity-25 transition-colors duration-500 ${theme === 'cyber-dark' ? 'manga-action-lines-white' : 'manga-action-lines'}`} />
         
         {/* ─────────────────────────────────────────────────────────────────────
             PANEL 1: HERO VIEWPORT
@@ -178,15 +187,45 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="w-full flex flex-col items-center justify-center my-auto space-y-8 z-10">
+            <div className="w-full flex flex-col items-center justify-center my-auto space-y-8 z-10 relative">
+              {/* Vibrant comic-book colored sound-effect starburst sticker */}
+              <div className="absolute right-[5%] sm:right-[12%] top-[-10%] z-30 select-none pointer-events-none manhwa-sfx-starburst">
+                <div className="relative flex items-center justify-center">
+                  <svg className="w-24 h-24 drop-shadow-[5px_5px_0px_rgba(0,0,0,1)] text-[#ffcc00] dark:text-[#00ffff] transition-colors duration-300" style={{
+                    color: theme === 'cyber-light' ? '#ffd200' : theme === 'cyber-dark' ? '#00ffff' : theme === 'solar' ? '#ffaa00' : '#ffffff'
+                  }} viewBox="0 0 100 100">
+                    <polygon
+                      points="50,5 60,30 85,20 70,45 95,50 70,55 85,80 60,70 50,95 40,70 15,80 30,55 5,50 30,45 15,20 40,30"
+                      fill="currentColor"
+                      stroke="black"
+                      strokeWidth="3.5"
+                      strokeLinejoin="miter"
+                    />
+                  </svg>
+                  <span className="absolute font-mono text-[9px] sm:text-[10px] font-black uppercase text-black rotate-[-12deg] tracking-widest">
+                    SWOSH!
+                  </span>
+                </div>
+              </div>
+
               {/* Huge elegant H1 heading */}
               <TiltCard className="text-center w-full z-10 pt-4" intensity={10}>
                 <h1 
                   id="hero-heading"
-                  className={`text-[3.2rem] sm:text-[5.5rem] md:text-[6.8rem] lg:text-[8rem] font-black tracking-tighter leading-none uppercase flex flex-wrap justify-center items-center gap-x-6`}
+                  className={`text-[3.2rem] sm:text-[5.5rem] md:text-[6.8rem] lg:text-[8rem] font-black tracking-tighter leading-none uppercase flex flex-wrap justify-center items-center gap-x-6 select-none`}
                 >
-                  <span className={theme === 'cyber-dark' ? 'text-[#ff0080]' : 'text-black'}>Vistar</span>
-                  <span className="text-transparent" style={{ WebkitTextStroke: theme === 'cyber-dark' ? '3px #ff0080' : '3.5px #000' }}>Studio</span>
+                  <span 
+                    className={`font-black drop-shadow-[5px_5px_0px_rgba(0,0,0,1)] ${fillColor}`}
+                    style={{ WebkitTextStroke: "3.5px #000" }}
+                  >
+                    Vistar
+                  </span>
+                  <span 
+                    className="text-transparent font-black drop-shadow-[5px_5px_0px_rgba(0,0,0,1)]"
+                    style={{ WebkitTextStroke: "3.5px #000" }}
+                  >
+                    Studio
+                  </span>
                 </h1>
                 <p className="font-mono text-[9px] sm:text-[10px] tracking-[0.25em] text-neutral-400 font-bold uppercase mt-4 select-none">
                   Interactive Software & Architectural Graphics Laboratory
@@ -195,9 +234,13 @@ export default function Home() {
 
               {/* Centered clean tagline, initialize button and comic badge */}
               <div className="max-w-xl mx-auto text-center space-y-6 pt-4 relative select-none">
-                {/* Floating comic speech bubble */}
-                <div className={`absolute -top-12 left-1/2 -translate-x-1/2 z-30 bg-[#ccff00] text-black border-[3px] border-black font-mono text-[8px] sm:text-[9px] font-black px-3.5 py-1.5 rounded-xl shadow-[3px_3px_0px_#000] rotate-[-3deg] uppercase tracking-wider animate-bounce select-none ${theme === 'cyber-dark' ? 'bg-[#ff0080] text-white shadow-[3px_3px_0px_#000]' : ''}`}>
+                {/* Floating comic speech bubble with true outlined pointer tail */}
+                <div className={`absolute -top-16 left-1/2 -translate-x-1/2 z-30 bg-[#ccff00] text-black border-[3.5px] border-black font-mono text-[8px] sm:text-[10px] font-black px-5 py-2.5 rounded-2xl shadow-[4px_4px_0px_#000] rotate-[-3deg] uppercase tracking-wider animate-bounce select-none ${theme === 'cyber-dark' ? 'bg-[#ff0080] text-white shadow-[4px_4px_0px_#000]' : ''}`}>
                   "ENGINEERING EXCELLENCE ACTIVE!"
+                  {/* True comic speech bubble pointer tail */}
+                  <svg className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-8 h-4 text-[#ccff00] fill-current filter drop-shadow-[0px_3.5px_0px_rgba(0,0,0,1)]" style={{ color: theme === 'cyber-dark' ? '#ff0080' : theme === 'solar' ? '#ffcc00' : theme === 'cyber-light' ? '#ccff00' : '#ffffff' }} viewBox="0 0 40 20">
+                    <path d="M 10,0 L 20,15 L 30,0 Z" stroke="black" strokeWidth="3.5" strokeLinejoin="round" />
+                  </svg>
                 </div>
                 
                 <p className={`font-sans text-xs md:text-sm font-light leading-relaxed max-w-md mx-auto text-center pt-2 ${textSecondary}`}>
@@ -346,6 +389,26 @@ export default function Home() {
           }}
         >
           <div className="w-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col justify-between h-full py-16 relative">
+            {/* Slanted services manga sticker */}
+            <div className="absolute left-[4%] top-[24%] z-30 hidden lg:block select-none pointer-events-none manhwa-sfx-starburst-left">
+              <div className="relative flex items-center justify-center">
+                <svg className="w-24 h-24 drop-shadow-[5px_5px_0px_rgba(0,0,0,1)] text-[#ff0080] dark:text-[#ccff00] transition-colors duration-300" style={{
+                  color: theme === 'cyber-light' ? '#ff0080' : theme === 'cyber-dark' ? '#ccff00' : theme === 'solar' ? '#ff5500' : '#ffffff'
+                }} viewBox="0 0 100 100">
+                  <polygon
+                    points="50,5 60,30 85,20 70,45 95,50 70,55 85,80 60,70 50,95 40,70 15,80 30,55 5,50 30,45 15,20 40,30"
+                    fill="currentColor"
+                    stroke="black"
+                    strokeWidth="3.5"
+                    strokeLinejoin="miter"
+                  />
+                </svg>
+                <span className="absolute font-mono text-[10px] font-black uppercase text-black rotate-[-10deg] tracking-widest">
+                  BAM!
+                </span>
+              </div>
+            </div>
+
             <div className="pt-10 flex justify-between items-end">
               <h2 className={`font-sans text-[2rem] md:text-[3.2rem] font-black uppercase tracking-tighter leading-none ${textPrimary}`}>
                 Services & <br/> <span className="font-mono text-[#ff0080]" style={{ color: theme === 'solar' ? '#ff5500' : theme === 'cyber-dark' ? '#ff0080' : '' }}>Capabilities</span>
@@ -433,6 +496,26 @@ export default function Home() {
           }}
         >
           <div className="w-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col justify-between h-full py-16 relative">
+            {/* Slanted case studies manga sticker */}
+            <div className="absolute right-[8%] top-[20%] z-30 hidden lg:block select-none pointer-events-none manhwa-sfx-starburst">
+              <div className="relative flex items-center justify-center">
+                <svg className="w-24 h-24 drop-shadow-[5px_5px_0px_rgba(0,0,0,1)] text-[#ccff00] dark:text-[#ff0080] transition-colors duration-300" style={{
+                  color: theme === 'cyber-light' ? '#ccff00' : theme === 'cyber-dark' ? '#ff0080' : theme === 'solar' ? '#ffcc00' : '#ffffff'
+                }} viewBox="0 0 100 100">
+                  <polygon
+                    points="50,5 60,30 85,20 70,45 95,50 70,55 85,80 60,70 50,95 40,70 15,80 30,55 5,50 30,45 15,20 40,30"
+                    fill="currentColor"
+                    stroke="black"
+                    strokeWidth="3.5"
+                    strokeLinejoin="miter"
+                  />
+                </svg>
+                <span className="absolute font-mono text-[10px] font-black uppercase text-black rotate-[-12deg] tracking-widest">
+                  BOOM!
+                </span>
+              </div>
+            </div>
+
             <div className="pt-10 flex flex-col items-center text-center">
               <span className={tagLabel}>
                 Case Study / Quantum Exchange

@@ -52,48 +52,48 @@ export function getThemeStyles(theme: ThemeType) {
       "border-[3px] border-[#100501] px-7 py-3.5 bg-[#ffcc00] text-black font-mono text-[10px] uppercase font-black tracking-[0.15em] flex items-center justify-between gap-3 shadow-[4px_4px_0px_0px_#ff5500] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_#ff5500] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all cursor-pointer group rounded-xl",
   }[theme];
 
-  // ── Brutalist Comic Card Outer Shell (3px black border & offset shadows) ──
+  // ── Brutalist Comic Card Outer Shell (3.5px black border & heavy comic offset shadows) ──
   const brutalistCard = {
     "cyber-light":
-      "bg-[#fdfbf7] border-[3px] border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] rounded-2xl p-1 transition-transform",
+      "bg-gradient-to-br from-[#ffd500] via-[#ffa100] to-[#ff0080] border-[3.5px] border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] rounded-2xl p-1 transition-transform",
     "cyber-dark":
-      "bg-[#0a0a0f] border-[3px] border-black shadow-[6px_6px_0px_0px_#ff0080] rounded-2xl p-1 transition-transform",
-    mono: "bg-white border-[3px] border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] rounded-2xl p-1.5 transition-transform",
+      "bg-gradient-to-br from-[#1e073c] via-[#090117] to-[#04000b] border-[3.5px] border-black shadow-[6px_6px_0px_0px_#ff0080] rounded-2xl p-1 transition-transform",
+    mono: "bg-white border-[3.5px] border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] rounded-2xl p-1.5 transition-transform",
     solar:
-      "bg-[#fcf6e8] border-[3px] border-[#100501] shadow-[6px_6px_0px_0px_#ff5500] rounded-2xl p-1 transition-transform",
+      "bg-gradient-to-br from-[#ffe5a3] via-[#ff8c3a] to-[#ff5500] border-[3.5px] border-[#100501] shadow-[6px_6px_0px_0px_#ff5500] rounded-2xl p-1 transition-transform",
   }[theme];
 
-  // ── Concentric Inner Core Styles (Simplified layout) ─────────────────
+  // ── Concentric Inner Core Styles (Simplified layout - transparent inside to let panels shine) ─────────────────
   const innerCore = {
     "cyber-light":
-      "h-full p-8 md:p-9 bg-[#fdfbf7] border-t-2 border-black/5 rounded-xl flex flex-col justify-between",
+      "h-full p-8 md:p-9 bg-[#fdfbf7]/90 text-black border-t-2 border-black/5 rounded-xl flex flex-col justify-between",
     "cyber-dark":
-      "h-full p-8 md:p-9 bg-[#0a0a0f] border-t-2 border-white/5 rounded-xl flex flex-col justify-between",
-    mono: "h-full p-8 md:p-9 bg-white border-t-2 border-black/5 rounded-xl flex flex-col justify-between",
+      "h-full p-8 md:p-9 bg-black/60 text-white border-t-2 border-white/5 rounded-xl flex flex-col justify-between",
+    mono: "h-full p-8 md:p-9 bg-white text-black border-t-2 border-black/5 rounded-xl flex flex-col justify-between",
     solar:
-      "h-full p-8 md:p-9 bg-[#fcf6e8] border-t-2 border-[#100501]/5 rounded-xl flex flex-col justify-between",
+      "h-full p-8 md:p-9 bg-[#fcf6e8]/90 text-black border-t-2 border-[#100501]/5 rounded-xl flex flex-col justify-between",
   }[theme];
 
-  // ── Glass card (Styled as solid card for brutalist comic book) ───────
+  // ── Glass card (Styled as solid colored card for brutalist comic book) ───────
   const glassCard = {
     "cyber-light":
-      "bg-[#fdfbf7] border-[3px] border-black text-neutral-900 shadow-[6px_6px_0px_0px_#000] p-8 rounded-2xl transition-transform",
+      "bg-gradient-to-br from-[#ffd500] via-[#ffa100] to-[#ff0080] border-[3.5px] border-black text-neutral-900 shadow-[6px_6px_0px_0px_#000] p-8 rounded-2xl transition-transform",
     "cyber-dark":
-      "bg-[#0a0a0f] border-[3px] border-black text-white shadow-[6px_6px_0px_0px_#ff0080] p-8 rounded-2xl transition-transform",
-    mono: "bg-white border-[3px] border-black text-neutral-900 shadow-[6px_6px_0px_0px_#000] rounded-2xl p-8 transition-transform",
+      "bg-gradient-to-br from-[#1e073c] via-[#090117] to-[#04000b] border-[3.5px] border-black text-white shadow-[6px_6px_0px_0px_#ff0080] p-8 rounded-2xl transition-transform",
+    mono: "bg-white border-[3.5px] border-black text-neutral-900 shadow-[6px_6px_0px_0px_#000] rounded-2xl p-8 transition-transform",
     solar:
-      "bg-[#fcf6e8] border-[3px] border-[#100501] text-[#100501] shadow-[6px_6px_0px_0px_#ff5500] rounded-2xl p-8 transition-transform",
+      "bg-gradient-to-br from-[#ffe5a3] via-[#ff8c3a] to-[#ff5500] border-[3.5px] border-[#100501] text-[#100501] shadow-[6px_6px_0px_0px_#ff5500] rounded-2xl p-8 transition-transform",
   }[theme];
 
   // ── Manifesto panel card (homepage panels) ────────────────────────
   const panelCard = {
     "cyber-light":
-      "bg-[#fdfbf7] border-[3px] border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] rounded-2xl p-1 transition-transform",
+      "bg-gradient-to-br from-[#ffd500] via-[#ffa100] to-[#ff0080] border-[3.5px] border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] rounded-2xl p-1 transition-transform",
     "cyber-dark":
-      "bg-[#0a0a0f] border-[3px] border-black shadow-[6px_6px_0px_0px_#ff0080] rounded-2xl p-1 transition-transform",
-    mono: "bg-white border-[3px] border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] rounded-2xl p-1.5 transition-transform",
+      "bg-gradient-to-br from-[#1e073c] via-[#090117] to-[#04000b] border-[3.5px] border-black shadow-[6px_6px_0px_0px_#ff0080] rounded-2xl p-1 transition-transform",
+    mono: "bg-white border-[3.5px] border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] rounded-2xl p-1.5 transition-transform",
     solar:
-      "bg-[#fcf6e8] border-[3px] border-[#100501] shadow-[6px_6px_0px_0px_#ff5500] rounded-2xl p-1 transition-transform",
+      "bg-gradient-to-br from-[#ffe5a3] via-[#ff8c3a] to-[#ff5500] border-[3.5px] border-[#100501] shadow-[6px_6px_0px_0px_#ff5500] rounded-2xl p-1 transition-transform",
   }[theme];
 
   // ── Accent tag for case studies / section markers ─────────────────

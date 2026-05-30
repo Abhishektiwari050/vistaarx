@@ -85,7 +85,18 @@ export default function AboutPage() {
                     </svg>
                     <span className={`absolute bottom-1 right-1 font-mono text-[7px] font-bold tracking-wider px-1 py-0.5 rounded ${theme === 'mono' ? 'bg-white text-black' : 'bg-black text-white'}`}>HQ</span>
                   </div>
-                  <div className="space-y-1">
+                  <div className="space-y-1 w-full">
+                    {/* Character Dialogue Speech Bubble pointing to the avatar */}
+                    <div className="relative mb-4 mt-1 select-none pointer-events-none">
+                      <div className={`inline-block bg-[#ccff00] text-black border-[3px] border-black font-mono text-[9px] font-black px-4 py-2 rounded-xl shadow-[3px_3px_0px_#000] rotate-[-2deg] uppercase tracking-wider relative ${theme === 'cyber-dark' ? 'bg-[#ff0080] text-white shadow-[3px_3px_0px_#000]' : ''}`}>
+                        "WE BUILD VISUAL SYSTEMS DIRECTLY ON THE GPU!"
+                        {/* Outlined SVG comic bubble pointer tail */}
+                        <svg className="absolute -bottom-3 left-4 w-6 h-3 text-[#ccff00] fill-current filter drop-shadow-[0px_3px_0px_rgba(0,0,0,1)]" style={{ color: theme === 'cyber-dark' ? '#ff0080' : theme === 'solar' ? '#ffcc00' : theme === 'cyber-light' ? '#ccff00' : '#ffffff' }} viewBox="0 0 40 20">
+                          <path d="M 10,0 L 20,15 L 30,0 Z" stroke="black" strokeWidth="3" strokeLinejoin="round" />
+                        </svg>
+                      </div>
+                    </div>
+
                     <h4 className={`font-mono text-base font-black uppercase tracking-tight ${textPrimary}`}>Abhishek Tiwari</h4>
                     <p className="font-mono text-[8px] text-[#ff0080] font-bold uppercase tracking-[0.15em]">Founder & Chief Architect</p>
                     <p className={`mt-2 ${textSecondary} leading-relaxed text-[11px] font-light`}>

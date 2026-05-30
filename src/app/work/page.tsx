@@ -64,6 +64,23 @@ export default function WorkPage() {
                     <span>Alpha Ledger Matrix</span>
                     <span className="text-[#ff0080] font-black">● Node secure</span>
                   </div>
+                  {/* Floating manhwa sound effect */}
+                  <div className="absolute right-4 top-8 z-30 select-none pointer-events-none manhwa-sfx-starburst">
+                    <div className="relative flex items-center justify-center">
+                      <svg className="w-16 h-16 drop-shadow-[3px_3px_0px_rgba(0,0,0,1)] text-[#ccff00] transition-colors duration-300" viewBox="0 0 100 100">
+                        <polygon
+                          points="50,5 60,30 85,20 70,45 95,50 70,55 85,80 60,70 50,95 40,70 15,80 30,55 5,50 30,45 15,20 40,30"
+                          fill="currentColor"
+                          stroke="black"
+                          strokeWidth="4"
+                          strokeLinejoin="miter"
+                        />
+                      </svg>
+                      <span className="absolute font-mono text-[6px] font-black uppercase text-black rotate-[-12deg] tracking-wider">
+                        CASH!
+                      </span>
+                    </div>
+                  </div>
                   <svg className="w-full h-28 opacity-90" viewBox="0 0 300 100" aria-hidden="true">
                     <line x1="0" y1="50" x2="300" y2="50" stroke="black" strokeWidth="2" strokeDasharray="4,4" />
                     <path d="M10,65 L40,45 L70,80 L100,30 L130,55 L160,25 L190,65 L220,35 L250,75 L280,25" fill="none" stroke="black" strokeWidth="3.5" />
@@ -106,6 +123,23 @@ export default function WorkPage() {
                   <div className="flex justify-between border-b-2 border-black pb-1.5 mb-2 font-bold uppercase tracking-wider">
                     <span>Beta Media Edge Router</span>
                     <span className="text-[#ff0080] font-black">Active</span>
+                  </div>
+                  {/* Floating manhwa sound effect */}
+                  <div className="absolute right-2 top-8 z-30 select-none pointer-events-none manhwa-sfx-starburst-left">
+                    <div className="relative flex items-center justify-center">
+                      <svg className="w-16 h-16 drop-shadow-[3px_3px_0px_rgba(0,0,0,1)] text-[#ff0080] transition-colors duration-300" viewBox="0 0 100 100">
+                        <polygon
+                          points="50,5 60,30 85,20 70,45 95,50 70,55 85,80 60,70 50,95 40,70 15,80 30,55 5,50 30,45 15,20 40,30"
+                          fill="currentColor"
+                          stroke="black"
+                          strokeWidth="4"
+                          strokeLinejoin="miter"
+                        />
+                      </svg>
+                      <span className="absolute font-mono text-[6px] font-black uppercase text-white rotate-[10deg] tracking-wider">
+                        ZOOM!
+                      </span>
+                    </div>
                   </div>
                   <div className="grid grid-cols-3 gap-3 mt-4">
                     <div className="border-2 border-black p-2.5 rounded-lg bg-white shadow-[2px_2px_0px_#000] text-black">
@@ -187,6 +221,25 @@ export default function WorkPage() {
                   <div className="flex justify-between border-b-2 border-black pb-1.5 mb-2 font-bold uppercase tracking-wider">
                     <span>Gamma Spatial Computed Node</span>
                     <span className="text-[#ff0080] font-black">GPU_ACTIVE</span>
+                  </div>
+                  {/* Floating manhwa sound effect */}
+                  <div className="absolute right-4 top-8 z-30 select-none pointer-events-none manhwa-sfx-starburst">
+                    <div className="relative flex items-center justify-center">
+                      <svg className="w-16 h-16 drop-shadow-[3px_3px_0px_rgba(0,0,0,1)] text-[#ccff00] transition-colors duration-300" style={{
+                        color: theme === 'cyber-light' ? '#ccff00' : theme === 'cyber-dark' ? '#00ffff' : theme === 'solar' ? '#ffaa00' : '#ffffff'
+                      }} viewBox="0 0 100 100">
+                        <polygon
+                          points="50,5 60,30 85,20 70,45 95,50 70,55 85,80 60,70 50,95 40,70 15,80 30,55 5,50 30,45 15,20 40,30"
+                          fill="currentColor"
+                          stroke="black"
+                          strokeWidth="4"
+                          strokeLinejoin="miter"
+                        />
+                      </svg>
+                      <span className="absolute font-mono text-[6px] font-black uppercase text-black rotate-[-12deg] tracking-wider">
+                        GLOW!
+                      </span>
+                    </div>
                   </div>
                   <svg className="w-full h-28 mx-auto text-black dark:text-white opacity-90" viewBox="0 0 100 100" aria-hidden="true">
                     <line x1="50" y1="10" x2="50" y2="90" stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.1" />

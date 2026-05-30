@@ -106,12 +106,12 @@ p {
 
 /* Halftone comic dot textures */
 .halftone-dots {
-  background-image: radial-gradient(rgba(0, 0, 0, 0.08) 12%, transparent 12%);
-  background-size: 16px 16px;
+  background-image: radial-gradient(rgba(0, 0, 0, 0.15) 15%, transparent 15%);
+  background-size: 20px 20px;
 }
 .halftone-dots-white {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 12%, transparent 12%);
-  background-size: 16px 16px;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.15) 15%, transparent 15%);
+  background-size: 20px 20px;
 }
 
 /* Custom heavy cartoon text outlines */
@@ -121,5 +121,143 @@ p {
 .text-stroke-brutalist-pink {
   -webkit-text-stroke: 2px #ff0080;
 }
+
+/* Manga/Manhwa Radial Conic Action Speed Lines (True Centered Burst) */
+.manga-action-lines {
+  background: conic-gradient(
+    from 0deg,
+    rgba(0, 0, 0, 0.12) 0deg 2deg,
+    transparent 2deg 15deg,
+    rgba(0, 0, 0, 0.12) 15deg 18deg,
+    transparent 18deg 35deg,
+    rgba(0, 0, 0, 0.12) 35deg 36deg,
+    transparent 36deg 55deg,
+    rgba(0, 0, 0, 0.12) 55deg 59deg,
+    transparent 59deg 75deg,
+    rgba(0, 0, 0, 0.12) 75deg 77deg,
+    transparent 77deg 95deg,
+    rgba(0, 0, 0, 0.12) 95deg 97deg,
+    transparent 97deg 120deg,
+    rgba(0, 0, 0, 0.12) 120deg 124deg,
+    transparent 124deg 145deg,
+    rgba(0, 0, 0, 0.12) 145deg 147deg,
+    transparent 147deg 165deg,
+    rgba(0, 0, 0, 0.12) 165deg 168deg,
+    transparent 168deg 190deg,
+    rgba(0, 0, 0, 0.12) 190deg 192deg,
+    transparent 192deg 215deg,
+    rgba(0, 0, 0, 0.12) 215deg 218deg,
+    transparent 218deg 235deg,
+    rgba(0, 0, 0, 0.12) 235deg 237deg,
+    transparent 237deg 260deg,
+    rgba(0, 0, 0, 0.12) 260deg 264deg,
+    transparent 264deg 285deg,
+    rgba(0, 0, 0, 0.12) 285deg 287deg,
+    transparent 287deg 305deg,
+    rgba(0, 0, 0, 0.12) 305deg 308deg,
+    transparent 308deg 330deg,
+    rgba(0, 0, 0, 0.12) 330deg 332deg,
+    transparent 332deg 350deg,
+    rgba(0, 0, 0, 0.12) 350deg 352deg,
+    transparent 352deg 360deg
+  );
+  mask-image: radial-gradient(circle, transparent 20%, black 80%);
+  pointer-events: none;
+  animation: rotate-speed-lines 40s linear infinite;
+  transform-origin: center;
+}
+
+.manga-action-lines-white {
+  background: conic-gradient(
+    from 0deg,
+    rgba(255, 255, 255, 0.12) 0deg 2deg,
+    transparent 2deg 15deg,
+    rgba(255, 255, 255, 0.12) 15deg 18deg,
+    transparent 18deg 35deg,
+    rgba(255, 255, 255, 0.12) 35deg 36deg,
+    transparent 36deg 55deg,
+    rgba(255, 255, 255, 0.12) 55deg 59deg,
+    transparent 59deg 75deg,
+    rgba(255, 255, 255, 0.12) 75deg 77deg,
+    transparent 77deg 95deg,
+    rgba(255, 255, 255, 0.12) 95deg 97deg,
+    transparent 97deg 120deg,
+    rgba(255, 255, 255, 0.12) 120deg 124deg,
+    transparent 124deg 145deg,
+    rgba(255, 255, 255, 0.12) 145deg 147deg,
+    transparent 147deg 165deg,
+    rgba(255, 255, 255, 0.12) 165deg 168deg,
+    transparent 168deg 190deg,
+    rgba(255, 255, 255, 0.12) 190deg 192deg,
+    transparent 192deg 215deg,
+    rgba(255, 255, 255, 0.12) 215deg 218deg,
+    transparent 218deg 235deg,
+    rgba(255, 255, 255, 0.12) 235deg 237deg,
+    transparent 237deg 260deg,
+    rgba(255, 255, 255, 0.12) 260deg 264deg,
+    transparent 264deg 285deg,
+    rgba(255, 255, 255, 0.12) 285deg 287deg,
+    transparent 287deg 305deg,
+    rgba(255, 255, 255, 0.12) 305deg 308deg,
+    transparent 308deg 330deg,
+    rgba(255, 255, 255, 0.12) 330deg 332deg,
+    transparent 332deg 350deg,
+    rgba(255, 255, 255, 0.12) 350deg 352deg,
+    transparent 352deg 360deg
+  );
+  mask-image: radial-gradient(circle, transparent 20%, black 80%);
+  pointer-events: none;
+  animation: rotate-speed-lines 45s linear infinite;
+  transform-origin: center;
+}
+
+@keyframes rotate-speed-lines {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Comic hand-lettered pop shadow effect */
+.comic-text-pop {
+  text-shadow: 4px 4px 0px #000;
+}
+
+/* Vibrant manga narration box banner styled like Webtoon boxes */
+.manga-narration-banner {
+  border: 3.5px solid #000000;
+  box-shadow: 4px 4px 0px #000000;
+  transform: rotate(-1.5deg);
+  background-color: #ffd200;
+  color: #000000;
+}
+
+/* Comic hand-lettered slanted sticker */
+.manhwa-sfx-starburst {
+  animation: starburst-bounce 2s infinite ease-in-out;
+  filter: drop-shadow(4px 4px 0px #000000);
+}
+
+@keyframes starburst-bounce {
+  0%, 100% {
+    transform: scale(1) rotate(12deg);
+  }
+  50% {
+    transform: scale(1.1) rotate(6deg);
+  }
+}
+
+.manhwa-sfx-starburst-left {
+  animation: starburst-bounce-left 2.2s infinite ease-in-out;
+  filter: drop-shadow(4px 4px 0px #000000);
+}
+
+@keyframes starburst-bounce-left {
+  0%, 100% {
+    transform: scale(1) rotate(-10deg);
+  }
+  50% {
+    transform: scale(1.1) rotate(-5deg);
+  }
+}
+
 
 
