@@ -25,10 +25,10 @@ export function ManhwaSpeechBubble({
 
   // Determine speech bubble background color
   const bubbleBg = {
-    lime: "bg-[#ccff00] text-black",
-    pink: "bg-[#ff0080] text-white",
-    yellow: "bg-[#ffd200] text-black",
-    white: "bg-white text-black",
+    lime: "bg-[#ccff00] text-black border-black shadow-[4px_4px_0px_#000000]",
+    pink: "bg-[#ff0080] text-white border-black shadow-[4px_4px_0px_#000000]",
+    yellow: "bg-[#ffd200] text-black border-black shadow-[4px_4px_0px_#000000]",
+    white: "bg-white text-black border-black shadow-[4px_4px_0px_#000000]",
   }[themeType];
 
   // Tail color must match the background color of the bubble
@@ -54,7 +54,7 @@ export function ManhwaSpeechBubble({
   }[pointerPosition];
 
   return (
-    <div className={`relative inline-block z-30 font-mono text-[9px] sm:text-[10px] font-black px-5 py-3 rounded-2xl border-[3.5px] border-black shadow-[4px_4px_0px_rgba(0,0,0,1)] uppercase tracking-wider animate-bounce select-none ${bubbleBg} ${slantClass} ${className}`}>
+    <div className={`relative inline-block z-30 font-comic text-xs sm:text-sm font-extrabold px-5 py-3.5 rounded-2xl border-[3.5px] uppercase tracking-wide animate-bounce select-none ${bubbleBg} ${slantClass} ${className}`}>
       {text}
       
       {/* Outlined SVG comic bubble pointer tail */}
@@ -141,8 +141,8 @@ export function ManhwaPanel({
       
       {/* 1. Optional Overlapping Narration Box */}
       {narration && (
-        <div className="absolute -top-5 left-8 z-30 select-none pointer-events-none manga-narration-banner px-4 py-2 font-mono text-[9px] sm:text-[10px] font-black uppercase tracking-widest rounded-lg">
-          NARRATION: {narration}
+        <div className="absolute -top-5 left-8 z-30 select-none pointer-events-none border-[3.5px] border-black shadow-[4px_4px_0px_#000000] rotate-[-1.5deg] bg-[#ffd200] text-black px-4 py-1.5 font-bangers text-sm sm:text-base uppercase tracking-wider rounded-lg">
+          {narration}
         </div>
       )}
 
@@ -159,7 +159,10 @@ export function ManhwaPanel({
                 strokeLinejoin="miter"
               />
             </svg>
-            <span className={`absolute font-mono text-[9px] sm:text-[10px] font-black uppercase rotate-[-12deg] tracking-widest ${sfxText}`}>
+            <span 
+              className={`absolute font-bangers text-2xl sm:text-3xl font-normal rotate-[-10deg] tracking-wider drop-shadow-[2px_2px_0px_rgba(0,0,0,1)] ${sfxText}`}
+              style={{ WebkitTextStroke: "1px #000" }}
+            >
               {sfx}
             </span>
           </div>
@@ -168,7 +171,7 @@ export function ManhwaPanel({
 
       {/* 3. Panel Content Container */}
       <div className="h-full rounded-2xl overflow-hidden relative">
-        {/* Subtle halter dot overlay inside panel */}
+        {/* Subtle halftone dot overlay inside panel */}
         <div className="absolute inset-0 halftone-dots opacity-5 pointer-events-none z-0" />
         
         {/* Content Wrapper */}
@@ -176,6 +179,155 @@ export function ManhwaPanel({
           {children}
         </div>
       </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 3. ManhwaStarburst Component — Standalone Action Starburst Highlight Sticker
+// ─────────────────────────────────────────────────────────────────────────────
+interface ManhwaStarburstProps {
+  text: string;
+  themeType?: "lime" | "pink" | "yellow" | "cyan" | "orange";
+  size?: "sm" | "md" | "lg";
+  tilt?: "left" | "right" | "none";
+  className?: string;
+}
+
+export function ManhwaStarburst({
+  text,
+  themeType = "lime",
+  size = "md",
+  tilt = "none",
+  className = "",
+}: ManhwaStarburstProps) {
+  const bgColors = {
+    lime: "text-[#ccff00]",
+    pink: "text-[#ff0080]",
+    yellow: "text-[#ffd200]",
+    cyan: "text-[#00f0ff]",
+    orange: "text-[#ff5500]",
+  }[themeType];
+
+  const textColors = {
+    lime: "text-black",
+    pink: "text-white",
+    yellow: "text-black",
+    cyan: "text-black",
+    orange: "text-white",
+  }[themeType];
+
+  const sizeClasses = {
+    sm: "w-20 h-20 text-[13px] sm:text-[15px]",
+    md: "w-32 h-32 text-[18px] sm:text-[22px]",
+    lg: "w-44 h-44 text-[24px] sm:text-[30px]",
+  }[size];
+
+  const slantClass = {
+    left: "manhwa-sfx-starburst-left",
+    right: "manhwa-sfx-starburst",
+    none: "",
+  }[tilt];
+
+  return (
+    <div className={`relative inline-flex items-center justify-center select-none cursor-pointer hover:scale-110 active:scale-95 transition-transform duration-200 ${slantClass} ${className}`}>
+      <svg 
+        className={`${sizeClasses.split(" ")[0]} ${sizeClasses.split(" ")[1]} drop-shadow-[6px_6px_0px_rgba(0,0,0,1)] ${bgColors}`} 
+        viewBox="0 0 100 100"
+      >
+        <polygon
+          points="50,5 61,26 84,17 73,39 96,44 74,53 87,75 64,68 50,91 36,68 13,75 26,53 4,44 27,39 16,17 39,26"
+          fill="currentColor"
+          stroke="black"
+          strokeWidth="4"
+          strokeLinejoin="round"
+        />
+      </svg>
+      <span 
+        className={`absolute font-bangers uppercase tracking-normal select-none pointer-events-none rotate-[-8deg] ${textColors} ${sizeClasses.split(" ")[2]}`}
+        style={{ WebkitTextStroke: themeType === "pink" || themeType === "orange" ? "1.2px #000" : "1.8px #000" }}
+      >
+        {text}
+      </span>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 4. ManhwaNarrationBanner Component — Chapter Cover-Style Narrative Caption Block
+// ─────────────────────────────────────────────────────────────────────────────
+interface ManhwaNarrationBannerProps {
+  title: string;
+  subtitle?: string;
+  themeType?: "yellow" | "lime" | "pink" | "cyan" | "purple";
+  className?: string;
+}
+
+export function ManhwaNarrationBanner({
+  title,
+  subtitle,
+  themeType = "yellow",
+  className = "",
+}: ManhwaNarrationBannerProps) {
+  const bgStyles = {
+    yellow: "bg-gradient-to-r from-[#ffd200] to-[#ffa100] border-black text-black shadow-[6px_6px_0px_#000000]",
+    lime: "bg-gradient-to-r from-[#ccff00] to-[#99cc00] border-black text-black shadow-[6px_6px_0px_#000000]",
+    pink: "bg-gradient-to-r from-[#ff0080] to-[#cc0066] border-black text-white shadow-[6px_6px_0px_#000000]",
+    cyan: "bg-gradient-to-r from-[#00f0ff] to-[#00a2ff] border-black text-black shadow-[6px_6px_0px_#000000]",
+    purple: "bg-gradient-to-r from-[#8a2be2] to-[#4b0082] border-black text-white shadow-[6px_6px_0px_#ff0080]",
+  }[themeType];
+
+  return (
+    <div className={`relative px-8 py-5 border-[4px] rounded-2xl transform rotate-[-1deg] text-left select-none inline-block max-w-xl ${bgStyles} ${className}`}>
+      {/* Mini tag header */}
+      <span className="font-mono text-[8px] font-black uppercase tracking-[0.25em] opacity-60 block mb-1">
+        ◆ TRANSMITTING CORE SYSTEM DATA
+      </span>
+      
+      {/* Loud Bangers Header */}
+      <h2 
+        className="font-bangers text-[2rem] sm:text-[2.6rem] uppercase leading-none tracking-wide select-none"
+        style={{ WebkitTextStroke: themeType === "pink" || themeType === "purple" ? "1px #000" : "1.8px #000" }}
+      >
+        {title}
+      </h2>
+      
+      {/* Dialog Description */}
+      {subtitle && (
+        <p className="font-comic text-xs sm:text-sm font-bold mt-2 uppercase tracking-wide opacity-90 leading-tight">
+          &quot;{subtitle}&quot;
+        </p>
+      )}
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 5. ManhwaGutterDivider Component — Jagged Hand-Drawn Comic Gutter Slash
+// ─────────────────────────────────────────────────────────────────────────────
+interface ManhwaGutterDividerProps {
+  themeType?: "lime" | "pink" | "yellow" | "black";
+  className?: string;
+}
+
+export function ManhwaGutterDivider({
+  themeType = "lime",
+  className = "",
+}: ManhwaGutterDividerProps) {
+  const stripeColor = {
+    lime: "bg-[#ccff00]",
+    pink: "bg-[#ff0080]",
+    yellow: "bg-[#ffd200]",
+    black: "bg-black",
+  }[themeType];
+
+  return (
+    <div className={`relative w-full h-8 overflow-hidden select-none pointer-events-none py-1.5 ${className}`}>
+      {/* Solid Black Backing bar */}
+      <div className="absolute inset-x-0 h-4 bg-black top-2 transform skew-y-[-1.5deg]" />
+      
+      {/* Bright Action strip slitted diagonally */}
+      <div className={`absolute inset-x-0 h-2 top-3 transform skew-y-[-1.5deg] ${stripeColor}`} />
     </div>
   );
 }

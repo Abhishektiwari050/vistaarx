@@ -5,7 +5,13 @@ import { TiltCard } from "@/components/3d/tilt-card";
 import Link from "next/link";
 import Image from "next/image";
 import { useThemeStyles } from "@/lib/hooks/use-theme-styles";
-import { ManhwaPanel, ManhwaSpeechBubble } from "@/components/manhwa/manhwa-panel";
+import { 
+  ManhwaPanel, 
+  ManhwaSpeechBubble, 
+  ManhwaStarburst, 
+  ManhwaNarrationBanner, 
+  ManhwaGutterDivider 
+} from "@/components/manhwa/manhwa-panel";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Sleek Horizontal Luxury Ticker (Custom Manhwa styled)
@@ -25,7 +31,7 @@ function SingleMarquee() {
 
   return (
     <div className={`relative py-5 overflow-hidden select-none w-full transition-all duration-300 transform-gpu ${marqueeBg}`}>
-      <div className="flex w-[200%] gap-4 animate-[marquee_25s_linear_infinite] will-change-transform font-mono text-xs font-black uppercase tracking-[0.2em]">
+      <div className="flex w-[200%] gap-4 animate-[marquee_25s_linear_infinite] will-change-transform font-bangers text-lg tracking-[0.1em]">
         <span className="flex items-center gap-12 whitespace-nowrap">
           Vistar Studio • Digital Engineering • Premium 3D Shaders • High-Performance React • Design Laboratory • Enterprise Speed • Sincere Solutions
         </span>
@@ -47,8 +53,7 @@ function SingleMarquee() {
 // Master Home Page (Portal) - Continuous Scrolling Staggered Webtoon Strip
 // ─────────────────────────────────────────────────────────────────────────────
 export default function Home() {
-  const scrollProgress = useScrollStore((s) => s.scrollProgress);
-  const scrollVelocity = useScrollStore((s) => s.scrollVelocity);
+  const scrollProgress = useScrollStore((s) => s.theme);
   
   const {
     theme,
@@ -56,9 +61,7 @@ export default function Home() {
     textSecondary,
     tagLabel,
     btnPrimary,
-    panelCard,
     innerCore,
-    outlineBtn,
     strokeColor,
   } = useThemeStyles();
 
@@ -94,7 +97,7 @@ export default function Home() {
             ───────────────────────────────────────────────────────────────────── */}
         <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pt-8 md:pt-16 relative">
           
-          <div className="lg:col-span-6 flex flex-col space-y-8 text-left z-20">
+          <div className="lg:col-span-6 flex flex-col space-y-6 text-left z-20">
             <div className="flex gap-3 select-none">
               <span className={tagLabel}>Digital Engineering</span>
               <span className={tagLabel}>Creative Laboratory</span>
@@ -103,7 +106,7 @@ export default function Home() {
             <div className="relative">
               {/* Floating Monologue bubble with outlined pointer tail */}
               <ManhwaSpeechBubble 
-                text="ENGINEERING EXCELLENCE ACTIVE!" 
+                text="INCOMING TRANSMISSION: COMPILATION RUNNING!" 
                 themeType="lime"
                 pointerPosition="left"
                 tilt="left"
@@ -113,16 +116,16 @@ export default function Home() {
               <TiltCard className="text-left w-full pt-2" intensity={6}>
                 <h1 
                   id="hero-heading"
-                  className="text-[3.2rem] sm:text-[5.5rem] md:text-[6.8rem] lg:text-[7.2rem] font-black tracking-tighter leading-none uppercase flex flex-wrap gap-x-4 select-none"
+                  className="font-bangers text-[3.8rem] sm:text-[6rem] md:text-[7.2rem] lg:text-[7.8rem] tracking-wide leading-none uppercase flex flex-wrap gap-x-4 select-none drop-shadow-[5px_5px_0px_rgba(0,0,0,1)]"
                 >
                   <span 
-                    className={`font-black drop-shadow-[5px_5px_0px_rgba(0,0,0,1)] ${fillColor}`}
+                    className={`${fillColor}`}
                     style={{ WebkitTextStroke: "3.5px #000" }}
                   >
                     Vistar
                   </span>
                   <span 
-                    className="text-transparent font-black drop-shadow-[5px_5px_0px_rgba(0,0,0,1)]"
+                    className="text-transparent"
                     style={{ WebkitTextStroke: "3.5px #000" }}
                   >
                     Studio
@@ -134,7 +137,7 @@ export default function Home() {
               </TiltCard>
             </div>
 
-            <p className={`font-sans text-xs md:text-sm font-light leading-relaxed max-w-md ${textSecondary}`}>
+            <p className={`font-comic text-sm sm:text-base font-extrabold leading-relaxed max-w-md ${textSecondary}`}>
               A premium digital architecture laboratory. We design and build high-fidelity interactive software ecosystems that remove transactional friction at absolute international scale.
             </p>
 
@@ -145,7 +148,7 @@ export default function Home() {
                     window.scrollTo({ top: window.innerHeight * 0.9, behavior: "smooth" });
                   }
                 }}
-                className="px-8 py-3.5 font-mono text-[10px] font-black uppercase tracking-[0.15em] bg-black text-white hover:bg-[#ccff00] hover:text-black border-2 border-black rounded-lg shadow-[4px_4px_0px_#000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer inline-flex items-center gap-2 select-none"
+                className="px-8 py-3.5 font-bangers text-base font-normal uppercase tracking-wider bg-black text-white hover:bg-[#ccff00] hover:text-black border-[3px] border-black rounded-xl shadow-[5px_5px_0px_#000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer inline-flex items-center gap-3 select-none"
               >
                 <span>Scroll Comic</span>
                 <span>↓</span>
@@ -154,12 +157,19 @@ export default function Home() {
           </div>
 
           {/* Right Side: High-Fidelity Cover Panel illustration */}
-          <div className="lg:col-span-6 flex justify-center">
+          <div className="lg:col-span-6 flex justify-center relative">
+            {/* Action starburst popping behind cover */}
+            <ManhwaStarburst 
+              text="SWOSH!" 
+              themeType="pink" 
+              size="md" 
+              tilt="left" 
+              className="absolute -top-12 -left-12 z-30"
+            />
+
             <ManhwaPanel 
               panelTheme="cyan"
               tilt="right"
-              sfx="SWOSH!"
-              sfxPosition="top-right"
               className="w-full max-w-lg aspect-[4/3] rounded-3xl"
             >
               <div className="relative w-full h-full min-h-[320px] overflow-hidden bg-neutral-900">
@@ -189,22 +199,31 @@ export default function Home() {
             <SingleMarquee />
           </div>
 
+          <div className="flex flex-col items-start mb-12">
+            <ManhwaNarrationBanner 
+              title="CHAPTER I: THE DIGITAL MANIFESTO" 
+              subtitle="Where aesthetic impact meets low-latency performance systems." 
+              themeType="yellow"
+              className="z-20 mb-6"
+            />
+          </div>
+
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch -mt-6">
             
             {/* Left Column Panel: Approach */}
             <div className="lg:col-span-6 flex">
               <ManhwaPanel 
-                panelTheme="yellow"
+                panelTheme="cyan"
                 tilt="left"
-                narration="01 / APPROACH"
+                narration="01 // THE APPROACH"
                 className="w-full"
               >
                 <div className={`${innerCore} h-full space-y-6 flex flex-col justify-between`}>
                   <div className="space-y-4">
-                    <h2 className={`text-3xl md:text-4xl font-black uppercase tracking-tighter leading-none ${textPrimary}`}>
-                      Elite Visual <br/>Experiences
+                    <h2 className="font-bangers text-[2.2rem] md:text-[2.8rem] uppercase tracking-wide leading-none text-black dark:text-white" style={{ WebkitTextStroke: "1px #000" }}>
+                      Elite Visual Experiences
                     </h2>
-                    <p className={`font-sans text-xs leading-relaxed font-light ${textSecondary}`}>
+                    <p className={`font-comic text-xs sm:text-sm font-extrabold leading-relaxed ${textSecondary}`}>
                       A website is your strongest sales representative. We merge bespoke 3D geometry with ultra-fast web frameworks to create immersive experiences that attract high-ticket clients, validate pricing power, and command trust.
                     </p>
                   </div>
@@ -224,15 +243,24 @@ export default function Home() {
             </div>
             
             {/* Right Column Panel: Testimonial Outcome */}
-            <div className="lg:col-span-6 flex">
+            <div className="lg:col-span-6 flex relative">
+              {/* Starburst badge popping near testimonial */}
+              <ManhwaStarburst 
+                text="144Hz!" 
+                themeType="lime" 
+                size="sm" 
+                tilt="right" 
+                className="absolute -top-6 -right-6 z-30"
+              />
+
               <ManhwaPanel 
                 panelTheme="pink"
                 tilt="right"
-                narration="02 / OUTCOME"
+                narration="02 // THE OUTCOME"
                 className="w-full"
               >
                 <div className={`${innerCore} h-full space-y-6 flex flex-col justify-between`}>
-                  <div className={`font-serif text-sm md:text-base italic leading-relaxed font-normal ${textPrimary} pt-4`}>
+                  <div className={`font-comic text-sm md:text-base font-extrabold italic leading-relaxed ${textPrimary} pt-4`}>
                     &quot;Vistar delivered clean, premium architectures operating with perfect technical precision. Their engineering and design decisions directly impacted our bottom-line conversion goals — a 38% increase in organic sign-ups.&quot;
                   </div>
                   
@@ -259,10 +287,10 @@ export default function Home() {
           <div className="hidden lg:block lg:col-span-4" />
 
           {/* Staggered Right Panel Box: Capabilities list */}
-          <div className="lg:col-span-8 flex flex-col space-y-6 w-full">
+          <div className="lg:col-span-8 flex flex-col space-y-6 w-full relative">
             <div className="flex justify-between items-end mb-4">
-              <h2 className={`font-sans text-[2rem] md:text-[3.2rem] font-black uppercase tracking-tighter leading-none ${textPrimary}`}>
-                Services & <br/> <span className="font-mono text-[#ff0080]" style={{ color: theme === 'solar' ? '#ff5500' : theme === 'cyber-dark' ? '#ff0080' : '' }}>Capabilities</span>
+              <h2 className="font-bangers text-[2.8rem] md:text-[4rem] uppercase tracking-wide leading-none text-black dark:text-white" style={{ WebkitTextStroke: "1.5px #000" }}>
+                Services & <span className="text-[#ff0080]" style={{ color: theme === 'solar' ? '#ff5500' : theme === 'cyber-dark' ? '#ff0080' : '' }}>Capabilities</span>
               </h2>
               <span className="font-mono text-[9px] font-bold text-neutral-400 tracking-wider hidden sm:inline-block">ENGAGEMENTS FROM $15K</span>
             </div>
@@ -276,29 +304,29 @@ export default function Home() {
             >
               <div className="p-6 sm:p-8 grid grid-cols-1 md:grid-cols-2 gap-6 select-text text-left">
                 <div className="space-y-2 border-b md:border-b-0 md:border-r border-dashed border-white/10 pb-4 md:pb-0 md:pr-6">
-                  <h3 className="text-xs md:text-sm font-bold uppercase text-[#ff0080] dark:text-[#ccff00] tracking-wider">★ 3D WebGL Experiences</h3>
-                  <p className="font-sans text-[11px] font-light leading-relaxed text-neutral-300">
+                  <h3 className="font-bangers text-lg text-[#ff0080] dark:text-[#ccff00] tracking-wide">★ 3D WebGL Experiences</h3>
+                  <p className="font-comic text-[12px] font-bold leading-relaxed text-neutral-300">
                     Custom shader architectures, fluid simulations, and responsive 3D bevel models deployed directly to the browser for cinematic interactive storytelling. High-end visual impact that commands user attention.
                   </p>
                 </div>
                 
                 <div className="space-y-2 pb-4 md:pb-0 md:pl-2">
-                  <h3 className="text-xs md:text-sm font-bold uppercase text-[#ff0080] dark:text-[#ccff00] tracking-wider">★ High-Performance Frontends</h3>
-                  <p className="font-sans text-[11px] font-light leading-relaxed text-neutral-300">
+                  <h3 className="font-bangers text-lg text-[#ff0080] dark:text-[#ccff00] tracking-wide">★ High-Performance Frontends</h3>
+                  <p className="font-comic text-[12px] font-bold leading-relaxed text-neutral-300">
                     Pixel-perfect React and Next.js applications engineered with extreme performance. Locked at 144Hz, optimized for sub-second page loads, excellent SEO parameters, and pristine responsive visual hierarchies.
                   </p>
                 </div>
 
                 <div className="space-y-2 border-t border-dashed border-white/10 pt-4 md:border-r md:pr-6">
-                  <h3 className="text-xs md:text-sm font-bold uppercase text-[#ff0080] dark:text-[#ccff00] tracking-wider">★ Custom Digital Architecture</h3>
-                  <p className="font-sans text-[11px] font-light leading-relaxed text-neutral-300">
+                  <h3 className="font-bangers text-lg text-[#ff0080] dark:text-[#ccff00] tracking-wide">★ Custom Digital Architecture</h3>
+                  <p className="font-comic text-[12px] font-bold leading-relaxed text-neutral-300">
                     Heavy-duty, secure backend compilers, scalable cloud databases, API routers, and parameter checks built for massive data scaling. Zero latency execution trees optimized for bulletproof enterprise stability.
                   </p>
                 </div>
 
                 <div className="space-y-2 border-t border-dashed border-white/10 pt-4 md:pl-2">
-                  <h3 className="text-xs md:text-sm font-bold uppercase text-[#ff0080] dark:text-[#ccff00] tracking-wider">★ Technical Strategy & Branding</h3>
-                  <p className="font-sans text-[11px] font-light leading-relaxed text-neutral-300">
+                  <h3 className="font-bangers text-lg text-[#ff0080] dark:text-[#ccff00] tracking-wide">★ Technical Strategy & Branding</h3>
+                  <p className="font-comic text-[12px] font-bold leading-relaxed text-neutral-300">
                     We advise businesses on engineering choices, audit stacks for bottlenecks, and establish radical brutalist designs that break out of generic SaaS landing page patterns to maximize conversions.
                   </p>
                 </div>
@@ -308,13 +336,25 @@ export default function Home() {
 
         </section>
 
+        {/* Jagged Panel Gutter divider between section */}
+        <ManhwaGutterDivider themeType="lime" className="my-16" />
+
         {/* ─────────────────────────────────────────────────────────────────────
             PANEL 4: Case Study & Proof (Staggered Left + Dynamic starburst)
             ───────────────────────────────────────────────────────────────────── */}
         <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative">
           
           {/* Left Side: Dynamic Ledger Illustration */}
-          <div className="lg:col-span-6 flex justify-center">
+          <div className="lg:col-span-6 flex justify-center relative">
+            {/* Giant starburst showing actual verified telemetry metric */}
+            <ManhwaStarburst 
+              text="+38% BOOST" 
+              themeType="cyan" 
+              size="md" 
+              tilt="right" 
+              className="absolute -top-10 -right-10 z-30"
+            />
+
             <ManhwaPanel 
               panelTheme="orange"
               tilt="left"
@@ -344,7 +384,7 @@ export default function Home() {
               <span className={tagLabel}>
                 Case Study / Quantum Exchange
               </span>
-              <h2 className={`text-3xl sm:text-[3.5rem] font-black uppercase tracking-tighter leading-none ${textPrimary} mt-3`}>
+              <h2 className="font-bangers text-[2.8rem] sm:text-[3.8rem] uppercase leading-none tracking-wide text-black dark:text-white mt-3" style={{ WebkitTextStroke: "1.5px #000" }}>
                 38% CONVERSION BOOST
               </h2>
             </div>
@@ -352,8 +392,8 @@ export default function Home() {
             <ManhwaPanel panelTheme="yellow" className="w-full">
               <div className={`${innerCore} h-full text-left space-y-3`}>
                 <p className="font-mono text-[8px] font-bold uppercase tracking-wider mb-1 text-neutral-400">Verified Deliverable Metric</p>
-                <h3 className={`font-sans text-sm font-bold uppercase ${textPrimary}`}>High-Performance Shader Trading</h3>
-                <p className={`font-sans text-[11px] font-light leading-relaxed ${textSecondary}`}>
+                <h3 className="font-bangers text-lg text-black dark:text-white">High-Performance Shader Trading</h3>
+                <p className={`font-comic text-xs sm:text-sm font-extrabold leading-relaxed ${textSecondary}`}>
                   Custom WebGL platform displaying sub-millisecond real-time ledger metrics. Optimized rendering threads straight to the GPU, increasing user session times by 140% and completely eliminating transaction lag.
                 </p>
               </div>
@@ -365,13 +405,16 @@ export default function Home() {
                 id="homepage-view-archive-link"
                 className={btnPrimary}
               >
-                <span>Explore Case Studies</span>
+                <span className="font-bangers text-base tracking-wider font-normal">Explore Case Studies</span>
                 <span className="w-5 h-5 rounded-full bg-current/15 flex items-center justify-center font-bold text-xs shrink-0 transform-gpu transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-[1.5px] ease-[cubic-bezier(0.16,1,0.3,1)]">↗</span>
               </Link>
             </div>
           </div>
 
         </section>
+
+        {/* Jagged Panel Gutter divider between section */}
+        <ManhwaGutterDivider themeType="pink" className="my-16" />
 
         {/* ─────────────────────────────────────────────────────────────────────
             PANEL 5: CONTACT GATEWAY & SYSTEMIC ENDING
@@ -386,17 +429,20 @@ export default function Home() {
                 themeType="yellow"
                 pointerPosition="center"
                 tilt="right"
-                className="mb-2"
+                className="mb-2 animate-bounce"
               />
               
               <TiltCard intensity={10} className="pt-4">
-                <h2 className={`text-[3.2rem] sm:text-[4.2rem] md:text-[5rem] font-black uppercase tracking-tighter leading-[0.8] ${textPrimary}`} style={{ WebkitTextStroke: theme === 'solar' ? '1.5px #ff5500' : 'none' }}>
-                  Start Your <br/>Project
+                <h2 
+                  className="font-bangers text-[3.8rem] sm:text-[5.5rem] md:text-[6.5rem] uppercase tracking-wide leading-none text-black dark:text-white"
+                  style={{ WebkitTextStroke: theme === 'solar' ? '1.5px #ff5500' : '2px #000' }}
+                >
+                  Start Your Project
                 </h2>
               </TiltCard>
             </div>
             
-            <p className={`font-sans text-xs md:text-sm font-light max-w-lg leading-relaxed ${textSecondary}`}>
+            <p className={`font-comic text-xs sm:text-sm font-extrabold max-w-lg leading-relaxed ${textSecondary}`}>
               Ready to deploy an elite digital experience? Inquire today. Typical project engagements start from $15,000. All direct compiles are covered by our 24-hour response SLA.
             </p>
 
@@ -406,7 +452,7 @@ export default function Home() {
                 id="homepage-connect-button"
                 className={`${btnPrimary} px-10 py-4`}
               >
-                <span>Inquire Coordinates</span>
+                <span className="font-bangers text-lg tracking-wider font-normal">Inquire Coordinates</span>
                 <span className="w-6 h-6 rounded-full bg-current/15 flex items-center justify-center font-bold text-xs shrink-0 transform-gpu transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-[1.5px] ease-[cubic-bezier(0.16,1,0.3,1)]">↗</span>
               </Link>
             </div>

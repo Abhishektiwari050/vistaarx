@@ -521,14 +521,14 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
 
         {/* Navigation Header Bar */}
         <header className={`fixed top-0 left-0 w-full z-45 flex justify-between items-center px-6 md:px-12 py-4 select-none transition-all duration-300 ${headerBg}`}>
-          <Link href="/" id="nav-brand-logo" className={`font-mono font-black tracking-widest text-sm ${textPrimary} flex items-center gap-2 interactive uppercase`}>
+          <Link href="/" id="nav-brand-logo" className={`font-bangers text-lg md:text-2xl tracking-wider ${textPrimary} flex items-center gap-2 interactive uppercase`} style={{ WebkitTextStroke: "1px #000" }}>
             <span className={`w-3 h-3 ${logoDot} rounded-full shrink-0 animate-pulse`} />
-            <span>Vistar // Studio</span>
+            <span>Vistar Studio</span>
           </Link>
           
           {/* Integrated Desktop Nav + Socials & Theme Switcher */}
           <div className="hidden md:flex items-center gap-10">
-            <nav className={`flex gap-6 font-mono text-[10px] font-black uppercase tracking-wider ${textSecondary}`}>
+            <nav className={`flex gap-6 font-bangers text-sm md:text-base font-normal uppercase tracking-wider ${textSecondary}`}>
               {navLinks.map((link, idx) => (
                 <Link 
                   key={link.href} 
@@ -536,12 +536,12 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
                   id={`nav-link-${idx}`}
                   className={`transition-all py-1 interactive whitespace-nowrap ${pathname === link.href ? highlightText : `hover:${highlightText}`}`}
                 >
-                  [ {link.label} ]
+                  {link.label}
                 </Link>
               ))}
             </nav>
             <div className="h-5 w-[1px] bg-neutral-200" />
-            <div className="flex gap-4 font-mono text-[9px] font-bold uppercase tracking-wider text-neutral-400">
+            <div className="flex gap-4 font-bangers text-xs font-normal uppercase tracking-wider text-neutral-400">
               <a href="https://linkedin.com/in/abhishektiwari050" target="_blank" rel="noopener noreferrer" className="hover:text-[#ff0080] transition-colors interactive">LINKEDIN</a>
               <a href="https://github.com/Abhishektiwari050/vistaarx" target="_blank" rel="noopener noreferrer" className="hover:text-[#ff0080] transition-colors interactive">GITHUB</a>
             </div>

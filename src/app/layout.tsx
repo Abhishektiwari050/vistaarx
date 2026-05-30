@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Outfit, Space_Mono, Lora } from "next/font/google";
+import { Outfit, Space_Mono, Bangers, Comic_Neue } from "next/font/google";
 import { ClientCanvas } from "@/components/3d/client-canvas";
 import { LayoutShell } from "@/components/layout-shell";
 import "./globals.css";
@@ -19,10 +19,17 @@ const spaceMono = Space_Mono({
   display: "swap",
 });
 
-const lora = Lora({
+const bangers = Bangers({
   subsets: ["latin"],
-  variable: "--font-serif",
-  weight: ["400", "500", "600", "700"],
+  variable: "--font-bangers",
+  weight: "400",
+  display: "swap",
+});
+
+const comicNeue = Comic_Neue({
+  subsets: ["latin"],
+  variable: "--font-comic-neue",
+  weight: ["300", "400", "700"],
   display: "swap",
 });
 
@@ -54,7 +61,7 @@ export default function RootLayout({
   return (
     <html 
       lang="en" 
-      className={`${outfit.variable} ${spaceMono.variable} ${lora.variable} h-full antialiased bg-[#f5f5f7]`} 
+      className={`${outfit.variable} ${spaceMono.variable} ${bangers.variable} ${comicNeue.variable} h-full antialiased bg-[#f5f5f7]`} 
       suppressHydrationWarning
     >
       <head>

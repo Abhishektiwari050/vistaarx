@@ -6,15 +6,20 @@ import Link from "next/link";
 import Image from "next/image";
 import { ThemeOverlay } from "@/components/theme-overlay";
 import { useThemeStyles } from "@/lib/hooks/use-theme-styles";
-import { ManhwaPanel, ManhwaSpeechBubble } from "@/components/manhwa/manhwa-panel";
+import { 
+  ManhwaPanel, 
+  ManhwaSpeechBubble, 
+  ManhwaStarburst, 
+  ManhwaGutterDivider 
+} from "@/components/manhwa/manhwa-panel";
 
 export default function AboutPage() {
-  const { theme, textPrimary, brutalistCard: cardClass, innerCore, accentTag } = useThemeStyles();
+  const { theme, textPrimary, innerCore } = useThemeStyles();
   const textSecondary = {
-    "cyber-light": "text-neutral-700 font-medium",
-    "cyber-dark": "text-neutral-300 font-medium",
-    mono: "text-neutral-650 font-medium",
-    solar: "text-neutral-900 font-medium",
+    "cyber-light": "text-neutral-800 font-extrabold",
+    "cyber-dark": "text-neutral-300 font-extrabold",
+    mono: "text-neutral-700 font-extrabold",
+    solar: "text-neutral-900 font-extrabold",
   }[theme];
 
   return (
@@ -31,10 +36,13 @@ export default function AboutPage() {
 
       {/* Page Heading styled like a loud Webtoon Chapter Cover */}
       <div className="mb-10 mt-10 relative z-10 text-left">
-        <h1 className={`font-mono text-[3.5rem] md:text-[5rem] font-black uppercase tracking-tighter leading-none ${textPrimary}`}>
+        <h1 
+          className="font-bangers text-[3.8rem] md:text-[5.5rem] uppercase leading-none select-none text-black dark:text-white"
+          style={{ WebkitTextStroke: "1.8px #000" }}
+        >
           STUDIO <br/> ARCHITECTS
         </h1>
-        <p className="font-sans text-xs md:text-sm text-neutral-400 mt-4 max-w-md font-light">
+        <p className="font-comic text-xs sm:text-sm text-neutral-400 mt-4 max-w-md font-bold uppercase tracking-wider">
           Behind the vectors and shaders: mathematical software engineers building absolute conversions at scale.
         </p>
       </div>
@@ -45,18 +53,21 @@ export default function AboutPage() {
           <ManhwaPanel 
             panelTheme="cyan"
             tilt="left"
-            narration="01 / IDENTITY"
+            narration="01 // THE ARCHITECTS IDENTITY"
             className="w-full"
           >
             <div className={`${innerCore} space-y-6 h-full flex flex-col justify-between`}>
               <div className="space-y-4">
-                <h3 className={`text-3xl md:text-4xl font-black tracking-tighter leading-[0.9] uppercase ${textPrimary}`}>
-                  MEET THE <br/>ARCHITECTS
+                <h3 
+                  className="font-bangers text-[2.2rem] md:text-[2.8rem] uppercase leading-none text-black dark:text-white"
+                  style={{ WebkitTextStroke: "1px #000" }}
+                >
+                  MEET THE ARCHITECTS
                 </h3>
-                <p className={`font-sans text-xs md:text-sm font-light ${textSecondary} leading-relaxed`}>
+                <p className={`font-comic text-xs md:text-sm font-extrabold ${textSecondary} leading-relaxed`}>
                   Vistar Studio is an elite boutique digital engineering laboratory. We are not a bloated generalist agency. We are a tightly knit team of senior developers and visual artists who believe in engineering excellence, mathematical precision, and commercial impact.
                 </p>
-                <p className={`font-sans text-xs md:text-sm font-light ${textSecondary} leading-relaxed`}>
+                <p className={`font-comic text-xs md:text-sm font-extrabold ${textSecondary} leading-relaxed`}>
                   Founded by industry veterans who have built <strong>40+ bespoke digital platforms across 12 distinct sectors</strong>—including algorithmic trading dashboards, high-speed 3D graphics interfaces, and secure enterprise cloud databases. We construct systems that perform, convert, and scale.
                 </p>
               </div>
@@ -68,6 +79,9 @@ export default function AboutPage() {
         <div className="hidden lg:block lg:col-span-5 h-full" />
       </section>
 
+      {/* Jagged Panel Gutter divider between section */}
+      <ManhwaGutterDivider themeType="lime" className="my-10" />
+
       {/* Section 2: Founder Profiles & Biography card (Right Aligned) */}
       <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 w-full items-center relative z-10">
         <div className="hidden lg:block lg:col-span-4 h-full" />
@@ -76,7 +90,7 @@ export default function AboutPage() {
           <ManhwaPanel 
             panelTheme="orange"
             tilt="right"
-            narration="02 / FOUNDATION"
+            narration="02 // THE CHIEF FOUNDATION"
             className="w-full"
           >
             <div className={`${innerCore} space-y-6 h-full flex flex-col justify-between`}>
@@ -111,10 +125,15 @@ export default function AboutPage() {
                   />
 
                   <div className="space-y-1">
-                    <h4 className={`font-mono text-lg font-black uppercase tracking-tight ${textPrimary}`}>Abhishek Tiwari</h4>
+                    <h4 
+                      className="font-bangers text-[2rem] uppercase leading-none text-black dark:text-white"
+                      style={{ WebkitTextStroke: "1px #000" }}
+                    >
+                      Abhishek Tiwari
+                    </h4>
                     <p className="font-mono text-[8px] text-[#ff0080] font-black uppercase tracking-[0.15em]">Founder & Chief Architect</p>
                   </div>
-                  <p className={`font-sans text-xs font-light ${textSecondary} leading-relaxed`}>
+                  <p className={`font-comic text-xs font-extrabold ${textSecondary} leading-relaxed`}>
                     Over 8 years of enterprise full-stack experience compiling low-latency codebases. Abhishek started Vistar Studio to bridge advanced WebGL interactive layers with high-performance edge architectures, delivering flawless visual platforms that scale infinitely.
                   </p>
                   
@@ -131,7 +150,7 @@ export default function AboutPage() {
 
               </div>
 
-              <p className={`font-sans text-xs md:text-sm font-light ${textSecondary} leading-relaxed pt-2 border-t border-dashed border-black/15 dark:border-white/15`}>
+              <p className={`font-comic text-xs md:text-sm font-extrabold ${textSecondary} leading-relaxed pt-4 border-t border-dashed border-black/15 dark:border-white/15`}>
                 We pride ourselves on direct transparency: the engineers who write the architectures are the ones you deal with directly. No account managers, no jargon buffers. Just direct results and genuine alignment.
               </p>
             </div>
@@ -139,31 +158,47 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Jagged Panel Gutter divider between section */}
+      <ManhwaGutterDivider themeType="pink" className="my-10" />
+
       {/* Section 3: Core Methodology (Left Aligned) */}
       <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 w-full items-center relative z-10 pb-16">
-        <div className="lg:col-span-7">
+        <div className="lg:col-span-7 relative">
+          
+          {/* Action starburst showing 99.9% Uptime badge */}
+          <ManhwaStarburst 
+            text="99.9% UP!" 
+            themeType="pink" 
+            size="md" 
+            tilt="left" 
+            className="absolute -top-12 -right-12 z-30"
+          />
+
           <ManhwaPanel 
             panelTheme="yellow"
             tilt="left"
-            narration="03 / METHODOLOGY"
+            narration="03 // THE METHODOLOGY PROTOCOL"
             className="w-full"
           >
             <div className={`${innerCore} space-y-6 h-full flex flex-col justify-between`}>
               <div className="space-y-4">
-                <h3 className={`text-3xl md:text-4xl font-black tracking-tighter leading-[0.9] uppercase ${textPrimary}`}>
-                  OUR SYSTEMIC <br/>METHOD
+                <h3 
+                  className="font-bangers text-[2.2rem] md:text-[2.8rem] uppercase leading-none text-black dark:text-white"
+                  style={{ WebkitTextStroke: "1.2px #000" }}
+                >
+                  OUR SYSTEMIC METHOD
                 </h3>
-                <p className={`font-sans text-xs md:text-sm font-light ${textSecondary} leading-relaxed`}>
+                <p className={`font-comic text-xs md:text-sm font-extrabold ${textSecondary} leading-relaxed`}>
                   We treat digital architecture as physical infrastructure. Layout structures are locked to mathematically clean proportions. Visual calculations bypass legacy browser layouts, processing straight to the GPU.
                 </p>
-                <p className={`font-sans text-xs md:text-sm font-light ${textSecondary} leading-relaxed`}>
+                <p className={`font-comic text-xs md:text-sm font-extrabold ${textSecondary} leading-relaxed`}>
                   This rigorous methodology guarantees that your website will load instantly, react to fluid gestures at peak speed, and operate with absolute zero downtime.
                 </p>
               </div>
               <div className="pt-2 flex items-center gap-4 pointer-events-auto interactive select-none">
                 <Link 
                   href="/contact"
-                  className={`px-8 py-3.5 font-mono text-[10px] font-black uppercase tracking-[0.15em] rounded-xl transition-all border-[3px] border-black shadow-[4px_4px_0px_#000] hover:translate-x-[1.5px] hover:translate-y-[1.5px] hover:shadow-[2px_2px_0px_#000] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none ${
+                  className={`px-8 py-3.5 font-bangers text-base tracking-wider font-normal rounded-xl transition-all border-[3px] border-black shadow-[4px_4px_0px_#000] hover:translate-x-[1.5px] hover:translate-y-[1.5px] hover:shadow-[2px_2px_0px_#000] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none ${
                     theme === 'mono' 
                       ? 'bg-black text-white hover:bg-neutral-900' 
                       : theme === 'cyber-dark'

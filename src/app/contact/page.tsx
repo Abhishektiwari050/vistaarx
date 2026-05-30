@@ -5,6 +5,12 @@ import { useScrollStore } from "@/lib/stores/scroll-store";
 import { useThemeStyles } from "@/lib/hooks/use-theme-styles";
 import { TiltCard } from "@/components/3d/tilt-card";
 import { ThemeOverlay } from "@/components/theme-overlay";
+import { 
+  ManhwaPanel, 
+  ManhwaSpeechBubble, 
+  ManhwaNarrationBanner, 
+  ManhwaGutterDivider 
+} from "@/components/manhwa/manhwa-panel";
 
 // ── Dynamic date generation (next 5 weekdays from today) ────────────
 function getUpcomingDates(): { day: number; label: string; month: string; status: "OPEN" | "LOCKED" }[] {
@@ -60,17 +66,17 @@ export default function ContactPage() {
   }[theme];
 
   const textSecondary = {
-    "cyber-light": "text-neutral-600",
-    "cyber-dark": "text-neutral-400",
-    mono: "text-neutral-600",
-    solar: "text-[#ffaa77]",
+    "cyber-light": "text-[#ff0080] font-extrabold",
+    "cyber-dark": "text-neutral-300 font-extrabold",
+    mono: "text-neutral-600 font-extrabold",
+    solar: "text-[#ffaa77] font-extrabold",
   }[theme];
 
   const inputClass = {
-    "cyber-light": "w-full p-4 font-mono text-xs border-[3px] border-black bg-white text-black focus:outline-none focus:bg-neutral-50 focus:shadow-[4px_4px_0px_0px_#ff0080] transition-all rounded-xl",
-    "cyber-dark": "w-full p-4 font-mono text-xs border-[3px] border-black bg-black text-white focus:outline-none focus:bg-neutral-950 focus:shadow-[4px_4px_0px_0px_#ff0080] transition-all rounded-xl",
-    mono: "w-full p-4 font-mono text-xs border-[3px] border-black bg-white text-black focus:outline-none focus:bg-neutral-50 focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all rounded-xl",
-    solar: "w-full p-4 font-mono text-xs border-[3px] border-[#100501] bg-white text-black focus:outline-none focus:bg-[#fbf5e6] focus:shadow-[4px_4px_0px_0px_#ff5500] transition-all rounded-xl",
+    "cyber-light": "w-full p-4 font-comic font-bold text-xs border-[3px] border-black bg-white text-black focus:outline-none focus:bg-neutral-50 focus:shadow-[4px_4px_0px_0px_#ff0080] transition-all rounded-xl",
+    "cyber-dark": "w-full p-4 font-comic font-bold text-xs border-[3px] border-black bg-black text-white focus:outline-none focus:bg-neutral-950 focus:shadow-[4px_4px_0px_0px_#ff0080] transition-all rounded-xl",
+    mono: "w-full p-4 font-comic font-bold text-xs border-[3px] border-black bg-white text-black focus:outline-none focus:bg-neutral-50 focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all rounded-xl",
+    solar: "w-full p-4 font-comic font-bold text-xs border-[3px] border-[#100501] bg-white text-black focus:outline-none focus:bg-[#fbf5e6] focus:shadow-[4px_4px_0px_0px_#ff5500] transition-all rounded-xl",
   }[theme];
 
   const activeSlotClass = {
@@ -102,8 +108,8 @@ export default function ContactPage() {
   }[theme];
 
   const stepActiveClass = theme === "cyber-dark"
-    ? "border-[#ff0080] text-[#ff0080] bg-black"
-    : "border-black bg-black text-white";
+    ? "border-[#ff0080] text-[#ff0080] bg-black font-bangers tracking-wider text-base"
+    : "border-black bg-black text-white font-bangers tracking-wider text-base";
 
   // ── Form submission ───────────────────────────────────────────
   const handleLockSession = async (e: React.FormEvent) => {
@@ -161,21 +167,41 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-[calc(100vh-80px)] w-full relative flex flex-col justify-center px-6 md:px-12 pt-12 pb-16 z-20 max-w-7xl mx-auto">
+    <div className="min-h-[calc(100vh-80px)] w-full relative flex flex-col justify-center px-6 md:px-12 pt-12 pb-16 z-20 max-w-7xl mx-auto space-y-12">
       <title>Connect HQ // Vistar Studio</title>
       <meta name="description" content="Inquire about custom high-performance WebGL design and backend architecture project coordinates at Vistar Studio." />
 
       <ThemeOverlay />
 
-      <div className="w-full my-auto z-10 pt-8 flex flex-col space-y-8">
+      {/* Chapter header styled for calendar brief */}
+      <div className="mb-2 mt-8 relative z-10 text-left select-none">
+        <ManhwaSpeechBubble 
+          text="HQ INTEL INBOUND! COMPILE INTENSE SPECIFICATIONS!" 
+          themeType="lime"
+          pointerPosition="left"
+          tilt="left"
+          className="mb-4"
+        />
+        <h1 
+          className="font-bangers text-[3.8rem] md:text-[5.5rem] uppercase leading-none select-none text-black dark:text-white"
+          style={{ WebkitTextStroke: "1.8px #000" }}
+        >
+          CONNECT HQ
+        </h1>
+        <p className="font-comic text-xs sm:text-sm text-neutral-400 mt-4 max-w-md font-bold uppercase tracking-wider">
+          Transmit your project coordinates below. Our system operator will respond within 24-hours SLA.
+        </p>
+      </div>
+
+      <div className="w-full my-auto z-10 flex flex-col space-y-8">
 
         {/* Step progress indicator */}
-        <div className="w-full grid grid-cols-3 gap-2 font-mono text-[9px] font-bold uppercase text-center max-w-2xl mx-auto select-none">
+        <div className="w-full grid grid-cols-3 gap-2 font-bangers text-sm sm:text-base uppercase text-center max-w-2xl mx-auto select-none">
           <button
             type="button"
             disabled={isLocked}
             onClick={() => { setStep(1); setStatusText("Identity Section Active"); }}
-            className={`py-3.5 border rounded-lg transition-all ${step >= 1 ? stepActiveClass : "border-zinc-200 text-zinc-400"}`}
+            className={`py-3.5 border rounded-lg transition-all ${step >= 1 ? stepActiveClass : "border-zinc-200 text-zinc-400 bg-white/5"}`}
           >
             01 / Profile {step > 1 && "✔"}
           </button>
@@ -183,7 +209,7 @@ export default function ContactPage() {
             type="button"
             disabled={step < 2 || isLocked}
             onClick={() => { setStep(2); setStatusText("Project Scope Active"); }}
-            className={`py-3.5 border rounded-lg transition-all ${step >= 2 ? stepActiveClass : "border-zinc-200 text-zinc-400"}`}
+            className={`py-3.5 border rounded-lg transition-all ${step >= 2 ? stepActiveClass : "border-zinc-200 text-zinc-400 bg-white/5"}`}
           >
             02 / Scope {step > 2 && "✔"}
           </button>
@@ -191,7 +217,7 @@ export default function ContactPage() {
             type="button"
             disabled={step < 3 || isLocked}
             onClick={() => { setStep(3); setStatusText("Assign strategy session coordinate slot"); }}
-            className={`py-3.5 border rounded-lg transition-all ${step >= 3 ? stepActiveClass : "border-zinc-200 text-zinc-400"}`}
+            className={`py-3.5 border rounded-lg transition-all ${step >= 3 ? stepActiveClass : "border-zinc-200 text-zinc-400 bg-white/5"}`}
           >
             03 / Schedule {step > 3 && "✔"}
           </button>
@@ -204,7 +230,7 @@ export default function ContactPage() {
           {/* LEFT PANEL: Multi-step intake brief */}
           <div className="lg:col-span-7 flex">
             <TiltCard intensity={3} className={`p-8 md:p-10 border ${cardClass} flex flex-col justify-between w-full h-full`}>
-              <div className="space-y-6 w-full">
+              <div className="space-y-6 w-full text-left">
                 <span className="font-mono text-[8px] font-bold uppercase tracking-[0.15em] text-[#ff0080]">
                   Inquiry / Step 0{step} of 03
                 </span>
@@ -212,8 +238,8 @@ export default function ContactPage() {
                 {step === 1 && (
                   <div className="space-y-6 animate-fade-in">
                     <div className="space-y-2">
-                      <h3 className={`text-3xl font-black uppercase tracking-tight ${textPrimary}`}>Profile Details</h3>
-                      <p className="font-sans text-[11px] opacity-80 font-light">Introduce yourself. Sincere professional communication pipelines start with names.</p>
+                      <h3 className={`font-bangers text-2xl uppercase tracking-wide ${textPrimary}`}>Profile Details</h3>
+                      <p className="font-comic text-xs font-bold text-neutral-400 uppercase tracking-wide">Introduce yourself. Sincere communication pipelines start with identity.</p>
                     </div>
                     <div className="space-y-4">
                       <div className="space-y-1.5">
@@ -249,8 +275,8 @@ export default function ContactPage() {
                 {step === 2 && (
                   <div className="space-y-6 animate-fade-in">
                     <div className="space-y-2">
-                      <h3 className={`text-3xl font-black uppercase tracking-tight ${textPrimary}`}>Mission Specs</h3>
-                      <p className="font-sans text-[11px] opacity-80">Define what we are building. Specify core visual and architectural targets.</p>
+                      <h3 className={`font-bangers text-2xl uppercase tracking-wide ${textPrimary}`}>Mission Specs</h3>
+                      <p className="font-comic text-xs font-bold text-neutral-400 uppercase tracking-wide">Define what we are building. Specify core visual and architectural targets.</p>
                     </div>
                     <div className="space-y-4">
                       <div className="space-y-1.5">
@@ -287,8 +313,8 @@ export default function ContactPage() {
                 {step === 3 && (
                   <div className="space-y-6 animate-fade-in">
                     <div className="space-y-2">
-                      <h3 className={`text-3xl font-black uppercase tracking-tight ${textPrimary}`}>Direct Calendar Sync</h3>
-                      <p className="font-sans text-[11px] opacity-80">Select a secure session sync date coordinate on the scheduler to finalize.</p>
+                      <h3 className={`font-bangers text-2xl uppercase tracking-wide ${textPrimary}`}>Direct Calendar Sync</h3>
+                      <p className="font-comic text-xs font-bold text-neutral-400 uppercase tracking-wide">Select a secure session sync date coordinate on the scheduler to finalize.</p>
                     </div>
                     <div className="space-y-4">
                       <div className="space-y-1.5">
@@ -325,7 +351,7 @@ export default function ContactPage() {
                     type="button"
                     disabled={isLocked}
                     onClick={() => setStep((prev) => prev - 1)}
-                    className={`px-5 py-4 border-2 font-mono text-xs uppercase font-black cursor-pointer hover:bg-neutral-50 ${
+                    className={`px-5 py-4 border-2 font-bangers text-sm uppercase font-normal cursor-pointer hover:bg-neutral-50 ${
                       theme === "cyber-dark" ? "border-[#ff0080] text-white hover:bg-neutral-900" : "border-black text-black"
                     }`}
                   >
@@ -336,7 +362,7 @@ export default function ContactPage() {
                   <button
                     type="button"
                     onClick={handleNextStep}
-                    className={`flex-grow py-4 text-center cursor-pointer border-2 font-mono text-xs uppercase font-black bg-black text-white hover:bg-[#ff0080] transition-colors ${
+                    className={`flex-grow py-4 text-center cursor-pointer border-2 font-bangers text-sm uppercase font-normal bg-black text-white hover:bg-[#ff0080] transition-colors ${
                       theme === "cyber-dark" ? "border-[#ff0080] bg-[#ff0080] hover:bg-white hover:text-black" : "border-black"
                     }`}
                   >
@@ -346,7 +372,7 @@ export default function ContactPage() {
                   <button
                     type="submit"
                     disabled={!activeDate || !clientName || !clientEmail || isLocked}
-                    className={`flex-grow py-4 font-mono text-xs font-black uppercase tracking-widest border-2 disabled:opacity-30 disabled:cursor-not-allowed ${lockBtnClass}`}
+                    className={`flex-grow py-4 font-bangers text-sm font-normal uppercase tracking-widest border-2 disabled:opacity-30 disabled:cursor-not-allowed ${lockBtnClass}`}
                   >
                     Book Strategy Call →
                   </button>
@@ -358,7 +384,7 @@ export default function ContactPage() {
           {/* RIGHT PANEL: Scheduler & Telemetry */}
           <div className="lg:col-span-5 flex">
             <TiltCard intensity={3} className={`p-8 md:p-10 border ${cardClass} flex flex-col justify-between w-full h-full`}>
-              <div className="space-y-6 w-full flex-grow">
+              <div className="space-y-6 w-full flex-grow text-left">
                 <div className={`flex justify-between items-center border-b ${theme === "cyber-dark" ? "border-white/5" : "border-neutral-200/50"} pb-3 font-mono text-[10px]`}>
                   <span className={`font-bold ${theme === "cyber-dark" ? "text-[#ff0080]" : "text-black"}`}>SCHEDULE COORDINATES</span>
                   <span className="text-zinc-500 font-mono text-[9px]">GMT+5:30</span>
@@ -400,7 +426,7 @@ export default function ContactPage() {
                 {/* Direct contact channels */}
                 <div className={`pt-6 border-t ${theme === "cyber-dark" ? "border-zinc-900" : "border-neutral-200"} space-y-3 font-sans text-xs`}>
                   <p className="font-mono text-[8px] font-bold uppercase text-neutral-400 tracking-wider">Direct Channel</p>
-                  <p className={`font-light leading-relaxed ${textSecondary}`}>
+                  <p className={`font-comic text-xs font-extrabold leading-relaxed ${textSecondary}`}>
                     Bypass scheduling buffers and dispatch a direct brief to our team:{" "}
                     <a href="mailto:hello@vistar.tech" className="font-mono font-bold underline text-[#ff0080] interactive">hello@vistar.tech</a>
                   </p>

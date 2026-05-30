@@ -5,15 +5,20 @@ import { TiltCard } from "@/components/3d/tilt-card";
 import Image from "next/image";
 import { ThemeOverlay } from "@/components/theme-overlay";
 import { useThemeStyles } from "@/lib/hooks/use-theme-styles";
-import { ManhwaPanel } from "@/components/manhwa/manhwa-panel";
+import { 
+  ManhwaPanel, 
+  ManhwaSpeechBubble, 
+  ManhwaStarburst, 
+  ManhwaGutterDivider 
+} from "@/components/manhwa/manhwa-panel";
 
 export default function WorkPage() {
   const { theme, textPrimary, workTag: tagClass, outlineBtn: outlineBtnClass } = useThemeStyles();
   const textSecondary = {
-    "cyber-light": "text-neutral-800 font-medium",
-    "cyber-dark": "text-neutral-300 font-medium",
-    mono: "text-neutral-750 font-medium",
-    solar: "text-neutral-900 font-medium",
+    "cyber-light": "text-neutral-800 font-extrabold",
+    "cyber-dark": "text-neutral-300 font-extrabold",
+    mono: "text-neutral-750 font-extrabold",
+    solar: "text-neutral-900 font-extrabold",
   }[theme];
 
   return (
@@ -30,10 +35,13 @@ export default function WorkPage() {
 
       {/* Title block styled like a loud Manga Chapter Cover */}
       <div className="mb-20 mt-10 relative z-10 text-left">
-        <h1 className={`font-mono text-[3.5rem] md:text-[5rem] font-black uppercase tracking-tighter leading-none ${textPrimary}`}>
+        <h1 
+          className="font-bangers text-[3.8rem] md:text-[5.5rem] uppercase leading-none select-none text-black dark:text-white"
+          style={{ WebkitTextStroke: "1.8px #000" }}
+        >
           FEATURED <br/> CASE STUDIES
         </h1>
-        <p className="font-sans text-xs md:text-sm text-neutral-400 mt-4 max-w-md font-light">
+        <p className="font-comic text-xs sm:text-sm text-neutral-400 mt-4 max-w-md font-bold uppercase tracking-wider">
           Explore our client results. Sincere engineering solutions solving real business conversion bottlenecks.
         </p>
       </div>
@@ -46,11 +54,20 @@ export default function WorkPage() {
         <div className="lg:col-span-7 flex flex-col gap-24 md:gap-32">
           
           {/* Project 1: FinTech Algorithmic Ledger */}
-          <section className="space-y-6">
+          <section className="space-y-6 relative">
+            {/* Action starburst highlighting Ledger Conversions */}
+            <ManhwaStarburst 
+              text="+38% UP!" 
+              themeType="cyan" 
+              size="md" 
+              tilt="right" 
+              className="absolute -top-12 -right-12 z-30"
+            />
+
             <ManhwaPanel 
               panelTheme="orange"
               tilt="left"
-              narration="01 / FINTECH LEDGER"
+              narration="01 // FINTECH LEDGER ENGINE"
               sfx="CASH!"
               sfxPosition="top-right"
               className="w-full"
@@ -71,32 +88,49 @@ export default function WorkPage() {
                   </div>
                 </div>
 
-                <div className="flex flex-wrap gap-2 mb-4">
+                <div className="flex flex-wrap gap-2 mb-4 font-bangers text-[11px] sm:text-xs">
                   <span className={tagClass}>+38% Signups</span>
                   <span className={tagClass}>140% Session Boost</span>
                   <span className={tagClass}>Sub-ms Metrics</span>
                 </div>
                 
-                <div className="space-y-3">
-                  <h3 className={`text-2xl md:text-3xl font-black uppercase tracking-tight ${textPrimary}`}>01 / FinTech Algorithmic Ledger</h3>
-                  <p className={`font-sans text-xs md:text-sm font-light leading-relaxed ${textSecondary}`}>
+                <div className="space-y-3 text-left">
+                  <h3 
+                    className="font-bangers text-2xl md:text-3xl uppercase tracking-wide text-black dark:text-white"
+                    style={{ WebkitTextStroke: "1px #000" }}
+                  >
+                    01 // FinTech Algorithmic Ledger
+                  </h3>
+                  <p className={`font-comic text-xs md:text-sm font-extrabold leading-relaxed ${textSecondary}`}>
                     A high-performance algorithmic trading interface for digital asset dealers, delivered under strict compliance. We built a custom WebGL shader pipeline displaying sub-millisecond real-time ledger metrics. This high-fidelity interface increased average user session times by 140% and generated a 38% boost in signup conversions.
                   </p>
                 </div>
                 
-                <div className="pt-4 flex gap-4 w-full select-none">
-                  <span className={outlineBtnClass + " opacity-50 cursor-default"}>NDA Protected</span>
+                <div className="pt-4 flex gap-4 w-full select-none justify-start">
+                  <span className={`${outlineBtnClass} opacity-50 cursor-default font-bangers text-sm`}>NDA Protected</span>
                 </div>
               </div>
             </ManhwaPanel>
           </section>
 
+          {/* Jagged Panel Gutter divider between case studies */}
+          <ManhwaGutterDivider themeType="pink" className="my-6" />
+
           {/* Project 2: Scalable Media Distribution */}
-          <section className="space-y-6">
+          <section className="space-y-6 relative">
+            {/* Action starburst highlighting speed multiplier */}
+            <ManhwaStarburst 
+              text="2.4x FAST!" 
+              themeType="lime" 
+              size="md" 
+              tilt="left" 
+              className="absolute -top-12 -left-12 z-30"
+            />
+
             <ManhwaPanel 
               panelTheme="pink"
               tilt="right"
-              narration="02 / ROUTER SCALING"
+              narration="02 // ROUTER SCALING COMPILER"
               sfx="ZOOM!"
               sfxPosition="top-right"
               className="w-full"
@@ -127,25 +161,33 @@ export default function WorkPage() {
                   </div>
                 </div>
 
-                <div className="flex flex-wrap gap-2 mb-4">
+                <div className="flex flex-wrap gap-2 mb-4 font-bangers text-[11px] sm:text-xs">
                   <span className={tagClass}>2.4x Speedup</span>
                   <span className={tagClass}>+62% Clickthroughs</span>
                   <span className={tagClass}>Next.js Core</span>
                 </div>
                 
-                <div className="space-y-3">
-                  <h3 className={`text-2xl md:text-3xl font-black uppercase tracking-tight ${textPrimary}`}>02 / Scalable Media Network</h3>
-                  <p className={`font-sans text-xs md:text-sm font-light leading-relaxed ${textSecondary}`}>
+                <div className="space-y-3 text-left">
+                  <h3 
+                    className="font-bangers text-2xl md:text-3xl uppercase tracking-wide text-black dark:text-white"
+                    style={{ WebkitTextStroke: "1px #000" }}
+                  >
+                    02 // Scalable Media Network
+                  </h3>
+                  <p className={`font-comic text-xs md:text-sm font-extrabold leading-relaxed ${textSecondary}`}>
                     Complete platform architectural overhaul and brand systems deployment for an enterprise media distribution network under NDA. By implementing Next.js native routes and removing rendering bottlenecks, we boosted load speeds by 240% and improved search engine visibility click-throughs by 62%.
                   </p>
                 </div>
 
-                <div className="pt-4 flex gap-4 w-full select-none">
-                  <span className={outlineBtnClass + " opacity-50 cursor-default"}>NDA Protected</span>
+                <div className="pt-4 flex gap-4 w-full select-none justify-start">
+                  <span className={`${outlineBtnClass} opacity-50 cursor-default font-bangers text-sm`}>NDA Protected</span>
                 </div>
               </div>
             </ManhwaPanel>
           </section>
+
+          {/* Jagged Panel Gutter divider between case studies */}
+          <ManhwaGutterDivider themeType="lime" className="my-6" />
 
           {/* Project 3: Verified Client Metrics Log */}
           <section className="space-y-6">
@@ -156,7 +198,7 @@ export default function WorkPage() {
               className="w-full"
             >
               <div className="p-8 space-y-4 font-mono text-xs text-white">
-                <div className="font-mono text-[9px] font-black uppercase border-b border-white/10 pb-2.5 mb-4 tracking-[0.2em] text-[#ff0080]">
+                <div className="font-bangers text-xl uppercase border-b border-white/10 pb-2.5 mb-4 tracking-wide text-[#ff0080]" style={{ WebkitTextStroke: "0.5px #000" }}>
                   STUDIO METRIC VERIFICATION
                 </div>
                 <div className="flex justify-between items-center border-b border-white/5 pb-2">
@@ -171,19 +213,31 @@ export default function WorkPage() {
                   <span>SYSTEM OPERATION RUNTIME</span>
                   <span className="font-bold text-[#ccff00] font-black">99.99% UPTIME</span>
                 </div>
-                <p className="pt-4 text-xs italic font-sans font-normal leading-relaxed text-neutral-300">
+                <p className="pt-4 text-xs sm:text-sm italic font-comic font-bold leading-relaxed text-neutral-300">
                   &quot;Vistar delivered clean, premium architectures operating with perfect technical precision. Their engineering and design decisions directly impacted our bottom-line conversion goals.&quot;
                 </p>
               </div>
             </ManhwaPanel>
           </section>
 
+          {/* Jagged Panel Gutter divider between case studies */}
+          <ManhwaGutterDivider themeType="yellow" className="my-6" />
+
           {/* Project 4: Spatial Bio-Modeling Platform */}
-          <section className="space-y-6">
+          <section className="space-y-6 relative">
+            {/* Action starburst highlighting GPU rendering */}
+            <ManhwaStarburst 
+              text="NO LAG!" 
+              themeType="orange" 
+              size="md" 
+              tilt="right" 
+              className="absolute -bottom-10 -left-10 z-30"
+            />
+
             <ManhwaPanel 
               panelTheme="cyan"
               tilt="right"
-              narration="03 / BIO-MODELING Platform"
+              narration="03 // BIO-MODELING ENGINE"
               sfx="GLOW!"
               sfxPosition="top-right"
               className="w-full"
@@ -206,21 +260,26 @@ export default function WorkPage() {
                   </svg>
                 </div>
 
-                <div className="flex flex-wrap gap-2 mb-4">
+                <div className="flex flex-wrap gap-2 mb-4 font-bangers text-[11px] sm:text-xs">
                   <span className={tagClass}>1.2M Sessions</span>
                   <span className={tagClass}>Zero Jitter</span>
                   <span className={tagClass}>WebGL 3D Core</span>
                 </div>
                 
-                <div className="space-y-3">
-                  <h3 className={`text-2xl md:text-3xl font-black uppercase tracking-tight ${textPrimary}`}>03 / Spatial Bio-Modeling Platform</h3>
-                  <p className={`font-sans text-xs md:text-sm font-light leading-relaxed ${textSecondary}`}>
+                <div className="space-y-3 text-left">
+                  <h3 
+                    className="font-bangers text-2xl md:text-3xl uppercase tracking-wide text-black dark:text-white"
+                    style={{ WebkitTextStroke: "1px #000" }}
+                  >
+                    03 // Spatial Bio-Modeling Platform
+                  </h3>
+                  <p className={`font-comic text-xs md:text-sm font-extrabold leading-relaxed ${textSecondary}`}>
                     Immersive spatial computed environments built directly inside the web browser under strict NDA. We designed and coded custom GLSL fluid matrices, handling over 1.2M daily active user sessions without a single stutter in frame rate. Absolute speed matched with stunning aesthetic clarity.
                   </p>
                 </div>
 
-                <div className="pt-4 flex gap-4 w-full select-none">
-                  <span className={outlineBtnClass + " opacity-50 cursor-default"}>NDA Protected</span>
+                <div className="pt-4 flex gap-4 w-full select-none justify-start">
+                  <span className={`${outlineBtnClass} opacity-50 cursor-default font-bangers text-sm`}>NDA Protected</span>
                 </div>
               </div>
             </ManhwaPanel>
