@@ -2,7 +2,6 @@
 
 import { useScrollStore } from "@/lib/stores/scroll-store";
 import { ThemeOverlay } from "@/components/theme-overlay";
-import { ManhwaSpeechBubble } from "@/components/manhwa/manhwa-panel";
 
 export default function VectorsPage() {
   const scrollProgress = useScrollStore((s) => s.scrollProgress);
@@ -21,13 +20,6 @@ export default function VectorsPage() {
     mono: "bg-white border-black shadow-[6px_6px_0px_rgba(0,0,0,1)] border-[3.5px]",
     solar: "bg-[#fcf6e8]/90 border-[#ff5500] shadow-[6px_6px_0px_#ff5500] border-[3.5px]",
   }[theme];
-  
-  const textPrimary = {
-    "cyber-light": "text-neutral-900",
-    "cyber-dark": "text-white",
-    mono: "text-neutral-900",
-    solar: "text-[#100501]",
-  }[theme];
 
   const textSecondary = {
     "cyber-light": "text-neutral-800 font-extrabold",
@@ -38,10 +30,6 @@ export default function VectorsPage() {
 
   return (
     <div className="w-full h-[400vh] relative z-20">
-      {/* Native dynamic React 19 document title */}
-      <title>Our Process // Vistar Studio</title>
-      <meta name="description" content="Discover how we work at Vistar Studio: a high-precision 4-step delivery workflow bridging cinematic design with bulletproof digital architectures." />
-
       <ThemeOverlay />
 
       <div className="sticky top-0 h-screen w-full flex items-center px-6 md:px-12 pointer-events-none">

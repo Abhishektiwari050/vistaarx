@@ -1,15 +1,12 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { useScrollStore } from "@/lib/stores/scroll-store";
 import { useThemeStyles } from "@/lib/hooks/use-theme-styles";
 import { TiltCard } from "@/components/3d/tilt-card";
 import { ThemeOverlay } from "@/components/theme-overlay";
 import { 
-  ManhwaPanel, 
-  ManhwaSpeechBubble, 
-  ManhwaNarrationBanner, 
-  ManhwaGutterDivider 
+  ManhwaNarrationBanner as ManhwaCaptionBox, 
+  ComicMaskReveal
 } from "@/components/manhwa/manhwa-panel";
 
 // ── Dynamic date generation (next 5 weekdays from today) ────────────
@@ -168,29 +165,30 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-[calc(100vh-80px)] w-full relative flex flex-col justify-center px-6 md:px-12 pt-12 pb-16 z-20 max-w-7xl mx-auto space-y-12">
-      <title>Connect HQ // Vistar Studio</title>
-      <meta name="description" content="Inquire about custom high-performance WebGL design and backend architecture project coordinates at Vistar Studio." />
-
       <ThemeOverlay />
 
       {/* Chapter header styled for calendar brief */}
       <div className="mb-2 mt-8 relative z-10 text-left select-none">
-        <ManhwaSpeechBubble 
-          text="HQ INTEL INBOUND! COMPILE INTENSE SPECIFICATIONS!" 
-          themeType="lime"
-          pointerPosition="left"
-          tilt="left"
-          className="mb-4"
-        />
-        <h1 
-          className="font-bangers text-[3.8rem] md:text-[5.5rem] uppercase leading-none select-none text-black dark:text-white"
-          style={{ WebkitTextStroke: "1.8px #000" }}
-        >
-          CONNECT HQ
-        </h1>
-        <p className="font-comic text-xs sm:text-sm text-neutral-400 mt-4 max-w-md font-bold uppercase tracking-wider">
-          Transmit your project coordinates below. Our system operator will respond within 24-hours SLA.
-        </p>
+        <ComicMaskReveal delay={0.1} direction="bottom">
+          <ManhwaCaptionBox 
+            title="HQ INTEL INBOUND! COMPILE INTENSE SPECIFICATIONS!" 
+            themeType="cyan"
+            className="mb-4"
+          />
+        </ComicMaskReveal>
+        <ComicMaskReveal delay={0.2} direction="bottom">
+          <h1 
+            className="font-bangers text-[3.8rem] md:text-[5.5rem] uppercase leading-none select-none text-black dark:text-white"
+            style={{ WebkitTextStroke: "1.8px #000" }}
+          >
+            CONNECT HQ
+          </h1>
+        </ComicMaskReveal>
+        <ComicMaskReveal delay={0.4} direction="right">
+          <p className="font-comic text-xs sm:text-sm text-neutral-400 mt-4 max-w-md font-bold uppercase tracking-wider">
+            Transmit your project coordinates below. Our system operator will respond within 24-hours SLA.
+          </p>
+        </ComicMaskReveal>
       </div>
 
       <div className="w-full my-auto z-10 flex flex-col space-y-8">

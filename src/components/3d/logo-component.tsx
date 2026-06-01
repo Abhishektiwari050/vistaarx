@@ -15,11 +15,15 @@ const customShader = {
     varying vec3 vNormal;
     varying vec3 vViewPosition;
     varying vec3 vLocalPosition;
+    varying vec2 vUv;
 
     void main() {
       vNormal = normalize(normalMatrix * normal);
       vLocalPosition = position;
       
+      // We pass through UVs to help with halftone mapping if needed
+      vUv = uv;
+
       vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
       vViewPosition = -mvPosition.xyz;
       
@@ -30,6 +34,7 @@ const customShader = {
     varying vec3 vNormal;
     varying vec3 vViewPosition;
     varying vec3 vLocalPosition;
+    varying vec2 vUv;
 
     uniform float uTime;
     uniform float uScroll;
@@ -42,89 +47,66 @@ const customShader = {
       vec3 normal = normalize(vNormal);
       vec3 viewDir = normalize(vViewPosition);
 
-      // Symmetrical Silhouette Comic Ink Outline
-      // Force fragment to solid black ink when looking at the edge silhouettes
+      // 1. THICK ANIME OUTLINE (Fresnel Edge Detection)
+      // We make the edge completely black and crisp
       float edge = dot(normal, viewDir);
-      if (edge < 0.28) {
+      if (edge < 0.35) {
         gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
-        return;
+        return; // Pure black outline
       }
 
-      // Dynamic base color based on active theme
-      vec3 baseColor = uColorBase;
-
-      // The triangle geometry local Y ranges from 0.5 (base) to 1.5 (tip).
-      float heightFactor = smoothstep(0.4, 1.5, vLocalPosition.y);
-
-      // ─────────────────────────────────────────────────────────────────
-      // Premium Watercolor / Fluid Domain Warping
-      // ─────────────────────────────────────────────────────────────────
-      vec2 uv = vLocalPosition.xy * 2.5; 
-      float t = uTime * 0.6 + uScroll * 12.0;
-      
-      vec2 q = vec2(0.0);
-      q.x = sin(uv.y * 1.5 + t) + cos(uv.x * 1.1 - t * 0.8);
-      q.y = cos(uv.x * 1.6 - t) + sin(uv.y * 1.3 + t * 0.7);
-      
-      vec2 r = vec2(0.0);
-      r.x = sin(uv.y * 2.2 + q.y * 2.5 + t * 1.1);
-      r.y = cos(uv.x * 2.1 + q.x * 2.4 - t * 1.2);
-      
-      float fluid = sin(uv.x * 1.2 + r.x * 2.0) * cos(uv.y * 1.2 + r.y * 2.0);
-      fluid = smoothstep(-0.6, 0.6, fluid);
-
-      vec3 watercolor = mix(uColorPrimary, uColorSecondary, fluid);
-      float depthMix = sin(r.x * 1.5 + r.y * 1.5 + t * 0.5) * 0.5 + 0.5;
-      watercolor = mix(watercolor, vec3(1.0, 1.0, 1.0), depthMix * 0.15);
-
-      vec3 finalColor = mix(baseColor, watercolor, heightFactor * 0.9);
-
-      // ─────────────────────────────────────────────────────────────────
-      // Toon Cel Shading — Simulated directional key light from top-right
-      // ─────────────────────────────────────────────────────────────────
-      vec3 lightDir = normalize(vec3(1.0, 1.0, 0.8));
+      // 2. STARK CEL SHADING (Directional Light)
+      vec3 lightDir = normalize(vec3(1.0, 1.5, 0.8));
       float NdotL = dot(normal, lightDir);
       
-      // Quantize diffuse lighting into 4 clean comic shading bands
-      float intensity = 0.25;
-      if (NdotL > 0.8) {
-        intensity = 1.0;
-      } else if (NdotL > 0.45) {
-        intensity = 0.72;
-      } else if (NdotL > 0.05) {
-        intensity = 0.48;
+      // Quantize diffuse lighting into stark comic shading bands
+      float intensity;
+      if (NdotL > 0.6) {
+        intensity = 1.0;     // Highlight
+      } else if (NdotL > 0.0) {
+        intensity = 0.5;     // Midtone
       } else {
-        intensity = 0.25;
+        intensity = 0.15;    // Shadow
+      }
+
+      // 3. COLOR GRADIENT (Vibrant anime coloring)
+      // The triangle geometry local Y ranges from 0.5 (base) to 1.5 (tip).
+      float heightFactor = smoothstep(0.4, 1.5, vLocalPosition.y);
+      vec3 finalColor = mix(uColorBase, uColorPrimary, heightFactor * 0.9);
+      
+      // Add a splash of secondary color (fluid/energy feel)
+      float t = uTime * 2.0;
+      float energy = sin(vLocalPosition.x * 5.0 + t) * cos(vLocalPosition.y * 5.0 - t);
+      if (energy > 0.7 && NdotL > 0.0) {
+        finalColor = mix(finalColor, uColorSecondary, 0.8);
       }
 
       vec3 litColor = finalColor * intensity;
 
-      // ─────────────────────────────────────────────────────────────────
-      // Colored Manga/Manhwa Screen-Space Halftone Dots Shadow Overlay
-      // ─────────────────────────────────────────────────────────────────
+      // 4. DRAMATIC HALFTONE DOTS IN SHADOWS
       vec2 halftoneCoord = gl_FragCoord.xy;
-      float angle = 0.7854; // 45 degrees in radians for standard manga print dots
+      float cosAngle = 0.70710678; // cos(45 deg)
+      float sinAngle = 0.70710678; // sin(45 deg)
       vec2 rotatedCoord = vec2(
-        halftoneCoord.x * cos(angle) - halftoneCoord.y * sin(angle),
-        halftoneCoord.x * sin(angle) + halftoneCoord.y * cos(angle)
+        halftoneCoord.x * cosAngle - halftoneCoord.y * sinAngle,
+        halftoneCoord.x * sinAngle + halftoneCoord.y * cosAngle
       );
       
-      // Darker shading levels get larger dots, creating smooth halftone shading
-      float dotSize = 0.72 - (intensity * 0.65);
-      float gridPattern = sin(rotatedCoord.x * 0.45) * sin(rotatedCoord.y * 0.45);
+      float dotSize = 0.6; // Size of the halftone dots
+      float gridPattern = sin(rotatedCoord.x * 0.6) * sin(rotatedCoord.y * 0.6);
       float halftoneDot = smoothstep(dotSize - 0.1, dotSize + 0.1, gridPattern);
       
-      // Apply halftone shading overlay strictly in shadows
-      if (intensity <= 0.48) {
-        litColor = mix(litColor * 0.35, litColor, halftoneDot);
+      // Apply halftone dots heavily in the midtones and shadows
+      if (intensity <= 0.5) {
+        litColor = mix(litColor * 0.2, litColor, halftoneDot);
       }
-
+      
       // Emissive neon boost inside custom shader when highlighted
       vec3 emissiveGlow = uColorPrimary * max(uHighlight - 1.0, 0.0) * 1.5;
       vec3 brightenedColor = litColor * min(uHighlight, 1.2) + emissiveGlow;
 
-      // Opacity scales smoothly so inactive arrowheads fade down on GPU
-      float opacity = smoothstep(0.0, 0.5, uHighlight) * 0.88 + 0.12;
+      // Opacity scales smoothly
+      float opacity = smoothstep(0.0, 0.5, uHighlight) * 0.9 + 0.1;
 
       gl_FragColor = vec4(brightenedColor, opacity);
     }
@@ -171,6 +153,104 @@ const auraShader = {
   `
 };
 
+// Custom GLSL Shader for the Awwwards Particle Vortex Point Cloud
+const particleShader = {
+  vertexShader: /* glsl */ `
+    uniform float uTime;
+    uniform float uScroll;
+    uniform vec2 uCursor;
+    uniform float uMorphPhilosophy;
+    uniform float uMorphContact;
+    
+    attribute vec3 randoms;
+    
+    varying vec3 vPosition;
+    varying float vRandom;
+
+    void main() {
+      // 1. Base mathematical shapes
+      // Shape A: Sphere
+      float theta = randoms.x * 2.0 * 3.14159;
+      float phi = acos(2.0 * randoms.y - 1.0);
+      float r = 2.0 + randoms.z * 0.4;
+      vec3 spherePos = vec3(
+        r * sin(phi) * cos(theta),
+        r * sin(phi) * sin(theta),
+        r * cos(phi)
+      );
+
+      // Shape B: Vertical cylinder / speed vortex
+      float cyAngle = randoms.x * 2.0 * 3.14159 * 6.0 + uTime * 0.5;
+      float cyRadius = 1.0 + randoms.y * 1.5;
+      vec3 cylinderPos = vec3(
+        cos(cyAngle) * cyRadius,
+        (randoms.z - 0.5) * 6.0,
+        sin(cyAngle) * cyRadius
+      );
+
+      // Shape C: Torus Knot
+      float t_knot = randoms.x * 2.0 * 3.14159 * 2.0 + uTime * 0.1;
+      float r_knot = 1.6 + 0.5 * sin(5.0 * t_knot);
+      vec3 knotPos = vec3(
+        r_knot * cos(2.0 * t_knot),
+        r_knot * sin(3.0 * t_knot),
+        0.5 * cos(4.0 * t_knot)
+      );
+
+      // 2. Morph blending
+      vec3 morphedPos = mix(spherePos, cylinderPos, uMorphPhilosophy);
+      morphedPos = mix(morphedPos, knotPos, uMorphContact);
+
+      // 3. Dynamic spiral rotational motion
+      float rotSpeed = 0.4 + randoms.x * 0.8;
+      float rotAngle = uTime * rotSpeed + uScroll * 3.0;
+      float c = cos(rotAngle);
+      float s = sin(rotAngle);
+      vec2 rotXZ = vec2(morphedPos.x * c - morphedPos.z * s, morphedPos.x * s + morphedPos.z * c);
+      morphedPos.x = rotXZ.x;
+      morphedPos.z = rotXZ.y;
+
+      // 4. Cursor gravity pull (attractor)
+      vec3 cursorTarget = vec3(uCursor.x * 4.0, uCursor.y * 2.5, 0.0);
+      float dist = distance(morphedPos, cursorTarget);
+      float pullForce = smoothstep(5.0, 0.0, dist) * 0.45;
+      morphedPos = mix(morphedPos, cursorTarget, pullForce);
+
+      // 5. Scroll depth transformations
+      morphedPos.y *= (1.0 - uScroll * 0.3);
+      morphedPos.xz *= (1.0 + uScroll * 0.5);
+
+      vec4 mvPosition = modelViewMatrix * vec4(morphedPos, 1.0);
+      gl_Position = projectionMatrix * mvPosition;
+
+      // Size attenuation based on distance from camera
+      gl_PointSize = (18.0 + randoms.z * 12.0) / -mvPosition.z;
+
+      vPosition = morphedPos;
+      vRandom = randoms.y;
+    }
+  `,
+  fragmentShader: /* glsl */ `
+    uniform vec3 uColorPrimary;
+    uniform vec3 uColorSecondary;
+    varying vec3 vPosition;
+    varying float vRandom;
+
+    void main() {
+      // Discard pixels outside perfect circles
+      vec2 circCoord = gl_PointCoord - vec2(0.5);
+      if (dot(circCoord, circCoord) > 0.25) {
+        discard;
+      }
+
+      vec3 color = mix(uColorPrimary, uColorSecondary, smoothstep(-3.0, 3.0, vPosition.y) * 0.7 + vRandom * 0.3);
+      float alpha = 1.0 - smoothstep(0.0, 0.5, length(circCoord));
+      
+      gl_FragColor = vec4(color, alpha * 0.9);
+    }
+  `
+};
+
 // ─────────────────────────────────────────────────────────────────────────────
 // Master 3D Logo Component — Symmetrical Bevel Arrows with Rotational Showcase
 // ─────────────────────────────────────────────────────────────────────────────
@@ -205,15 +285,15 @@ function getHomepageLogoProperties(scroll: number): HomepageProperties {
   let arrowScales = [1.0, 1.0, 1.0, 1.0];
 
   if (s <= 0.10) {
-    // Stage 1: Hero Centered Active
-    x = 0;
-    y = 0;
+    // Stage 1: Hero Centered Active (Awwwards Immersive Center Backdrop)
+    x = 0.0;
+    y = 0.0;
     z = 0;
     scale = 1.6;
     arrowOffset = 0.0;
     highlight = 2.0;
-    rotX = 0;
-    rotY = 0;
+    rotX = 0.1;
+    rotY = -0.2;
     rotZ = 0; // points UP cleanly
     
     // Up Arrow (index 0) active
@@ -374,6 +454,35 @@ export function Logo3D() {
   const icosahedronRef = useRef<THREE.Mesh>(null);
   const torusKnotRef = useRef<THREE.Mesh>(null);
 
+  // Awwwards Point Cloud Vortex Particle declarations
+  const particleRef = useRef<THREE.Points>(null);
+  const particleCount = 5000;
+  
+  const [positions, randoms] = useMemo(() => {
+    const pos = new Float32Array(particleCount * 3);
+    const rand = new Float32Array(particleCount * 3);
+    for (let i = 0; i < particleCount; i++) {
+      pos[i * 3] = (Math.random() - 0.5) * 5.0;
+      pos[i * 3 + 1] = (Math.random() - 0.5) * 5.0;
+      pos[i * 3 + 2] = (Math.random() - 0.5) * 5.0;
+      
+      rand[i * 3] = Math.random();
+      rand[i * 3 + 1] = Math.random();
+      rand[i * 3 + 2] = Math.random();
+    }
+    return [pos, rand];
+  }, []);
+
+  const particleUniforms = useMemo(() => ({
+    uTime: { value: 0 },
+    uScroll: { value: 0 },
+    uCursor: { value: new THREE.Vector2(0, 0) },
+    uMorphPhilosophy: { value: 0 },
+    uMorphContact: { value: 0 },
+    uColorPrimary: { value: new THREE.Color("#ff0080") },
+    uColorSecondary: { value: new THREE.Color("#ccff00") }
+  }), []);
+
   // Reusable colors inside useFrame loop (prevents allocation spikes)
   const primaryColor = useRef(new THREE.Color());
   const secondaryColor = useRef(new THREE.Color());
@@ -435,6 +544,7 @@ export function Logo3D() {
     { y: 0, scale: 1, highlight: 1 }
   ]);
 
+  /* eslint-disable react-hooks/immutability */
   useFrame((state) => {
     const scroll = getScrollProgress();
     const cursor = getCursor();
@@ -684,6 +794,26 @@ export function Logo3D() {
       mat.uniforms.uColorSecondary.value = secondaryColor.current;
     }
 
+    // Direct uniform dispatch to particle point cloud
+    const targetMorphPhilosophy = route === "/philosophy" ? 1.0 : 0.0;
+    const targetMorphContact = (route === "/work" || route === "/contact") ? 1.0 : 0.0;
+
+    particleUniforms.uTime.value = state.clock.getElapsedTime();
+    particleUniforms.uScroll.value = scroll;
+    particleUniforms.uCursor.value.set(cursor.x, cursor.y);
+    particleUniforms.uMorphPhilosophy.value = THREE.MathUtils.lerp(
+      particleUniforms.uMorphPhilosophy.value,
+      targetMorphPhilosophy,
+      0.05
+    );
+    particleUniforms.uMorphContact.value = THREE.MathUtils.lerp(
+      particleUniforms.uMorphContact.value,
+      targetMorphContact,
+      0.05
+    );
+    particleUniforms.uColorPrimary.value.set(colors.primary);
+    particleUniforms.uColorSecondary.value.set(colors.secondary);
+
     // Rotate and animate the dynamic anime energy aura portal
     if (auraRef.current) {
       auraRef.current.rotation.z = -state.clock.getElapsedTime() * 0.25;
@@ -693,6 +823,7 @@ export function Logo3D() {
       auraRef.current.visible = isArrowRoute;
     }
   });
+  /* eslint-enable react-hooks/immutability */
 
   // Clean up materials on unmount
   useEffect(() => {
@@ -745,16 +876,34 @@ export function Logo3D() {
         </mesh>
       </group>
 
-      {/* Awwwards-Level Route-Specific Geometries */}
-      <mesh ref={octahedronRef} material={materials[0]} visible={false} frustumCulled>
-        <octahedronGeometry args={[1.5, 0]} />
-      </mesh>
-      <mesh ref={icosahedronRef} material={materials[0]} visible={false} frustumCulled>
-        <icosahedronGeometry args={[1.4, 0]} />
-      </mesh>
-      <mesh ref={torusKnotRef} material={materials[0]} visible={false} frustumCulled>
-        <torusKnotGeometry args={[0.8, 0.28, 100, 16]} />
-      </mesh>
+      {/* Awwwards Particle Vortex Point Cloud */}
+      <points ref={particleRef}>
+        <bufferGeometry attach="geometry">
+          <bufferAttribute
+            attach="attributes-position"
+            args={[positions, 3]}
+            count={positions.length / 3}
+            array={positions}
+            itemSize={3}
+          />
+          <bufferAttribute
+            attach="attributes-randoms"
+            args={[randoms, 3]}
+            count={randoms.length / 3}
+            array={randoms}
+            itemSize={3}
+          />
+        </bufferGeometry>
+        <shaderMaterial
+          attach="material"
+          vertexShader={particleShader.vertexShader}
+          fragmentShader={particleShader.fragmentShader}
+          uniforms={particleUniforms}
+          transparent
+          depthWrite={false}
+          blending={THREE.AdditiveBlending}
+        />
+      </points>
 
     </group>
   );

@@ -1,19 +1,17 @@
 "use client";
 
-import { useScrollStore } from "@/lib/stores/scroll-store";
-import { TiltCard } from "@/components/3d/tilt-card";
 import Image from "next/image";
 import { ThemeOverlay } from "@/components/theme-overlay";
 import { useThemeStyles } from "@/lib/hooks/use-theme-styles";
 import { 
   ManhwaPanel, 
-  ManhwaSpeechBubble, 
-  ManhwaStarburst, 
-  ManhwaGutterDivider 
+  ManhwaStarburst as ManhwaActionText, 
+  ManhwaGutterDivider,
+  ComicMaskReveal
 } from "@/components/manhwa/manhwa-panel";
 
 export default function WorkPage() {
-  const { theme, textPrimary, workTag: tagClass, outlineBtn: outlineBtnClass } = useThemeStyles();
+  const { theme, workTag: tagClass, outlineBtn: outlineBtnClass } = useThemeStyles();
   const textSecondary = {
     "cyber-light": "text-neutral-800 font-extrabold",
     "cyber-dark": "text-neutral-300 font-extrabold",
@@ -23,10 +21,6 @@ export default function WorkPage() {
 
   return (
     <div className="w-full min-h-[220vh] py-20 px-6 md:px-12 z-25 relative pointer-events-auto max-w-7xl mx-auto">
-      {/* Native dynamic React 19 document title */}
-      <title>Case Studies // Vistar Studio</title>
-      <meta name="description" content="Explore verified case studies from Vistar Studio, detailing dynamic 3D WebGL interfaces, enterprise performance optimizations, and metrics-driven designs." />
-
       {/* Symmetrical, highly restrained theme-adaptive CSS glass backdrop overlay for readability */}
       <ThemeOverlay />
 
@@ -35,15 +29,19 @@ export default function WorkPage() {
 
       {/* Title block styled like a loud Manga Chapter Cover */}
       <div className="mb-20 mt-10 relative z-10 text-left">
-        <h1 
-          className="font-bangers text-[3.8rem] md:text-[5.5rem] uppercase leading-none select-none text-black dark:text-white"
-          style={{ WebkitTextStroke: "1.8px #000" }}
-        >
-          FEATURED <br/> CASE STUDIES
-        </h1>
-        <p className="font-comic text-xs sm:text-sm text-neutral-400 mt-4 max-w-md font-bold uppercase tracking-wider">
-          Explore our client results. Sincere engineering solutions solving real business conversion bottlenecks.
-        </p>
+        <ComicMaskReveal delay={0.1} direction="bottom">
+          <h1 
+            className="font-bangers text-[3.8rem] md:text-[5.5rem] uppercase leading-none select-none text-black dark:text-white"
+            style={{ WebkitTextStroke: "1.8px #000" }}
+          >
+            FEATURED <br/> CASE STUDIES
+          </h1>
+        </ComicMaskReveal>
+        <ComicMaskReveal delay={0.3} direction="right">
+          <p className="font-comic text-xs sm:text-sm text-neutral-400 mt-4 max-w-md font-bold uppercase tracking-wider">
+            Explore our client results. Sincere engineering solutions solving real business conversion bottlenecks.
+          </p>
+        </ComicMaskReveal>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 w-full relative z-10">
@@ -56,7 +54,7 @@ export default function WorkPage() {
           {/* Project 1: FinTech Algorithmic Ledger */}
           <section className="space-y-6 relative">
             {/* Action starburst highlighting Ledger Conversions */}
-            <ManhwaStarburst 
+            <ManhwaActionText 
               text="+38% UP!" 
               themeType="cyan" 
               size="md" 
@@ -95,15 +93,19 @@ export default function WorkPage() {
                 </div>
                 
                 <div className="space-y-3 text-left">
-                  <h3 
-                    className="font-bangers text-2xl md:text-3xl uppercase tracking-wide text-black dark:text-white"
-                    style={{ WebkitTextStroke: "1px #000" }}
-                  >
-                    01 // FinTech Algorithmic Ledger
-                  </h3>
-                  <p className={`font-comic text-xs md:text-sm font-extrabold leading-relaxed ${textSecondary}`}>
-                    A high-performance algorithmic trading interface for digital asset dealers, delivered under strict compliance. We built a custom WebGL shader pipeline displaying sub-millisecond real-time ledger metrics. This high-fidelity interface increased average user session times by 140% and generated a 38% boost in signup conversions.
-                  </p>
+                  <ComicMaskReveal delay={0.2} direction="bottom">
+                    <h3 
+                      className="font-bangers text-2xl md:text-3xl uppercase tracking-wide text-black dark:text-white"
+                      style={{ WebkitTextStroke: "1px #000" }}
+                    >
+                      01 // FinTech Algorithmic Ledger
+                    </h3>
+                  </ComicMaskReveal>
+                  <ComicMaskReveal delay={0.4} direction="left">
+                    <p className={`font-comic text-xs md:text-sm font-extrabold leading-relaxed ${textSecondary}`}>
+                      A high-performance algorithmic trading interface for digital asset dealers, delivered under strict compliance. We built a custom WebGL shader pipeline displaying sub-millisecond real-time ledger metrics. This high-fidelity interface increased average user session times by 140% and generated a 38% boost in signup conversions.
+                    </p>
+                  </ComicMaskReveal>
                 </div>
                 
                 <div className="pt-4 flex gap-4 w-full select-none justify-start">
@@ -119,9 +121,9 @@ export default function WorkPage() {
           {/* Project 2: Scalable Media Distribution */}
           <section className="space-y-6 relative">
             {/* Action starburst highlighting speed multiplier */}
-            <ManhwaStarburst 
+            <ManhwaActionText 
               text="2.4x FAST!" 
-              themeType="lime" 
+              themeType="gold" 
               size="md" 
               tilt="left" 
               className="absolute -top-12 -left-12 z-30"
@@ -221,14 +223,14 @@ export default function WorkPage() {
           </section>
 
           {/* Jagged Panel Gutter divider between case studies */}
-          <ManhwaGutterDivider themeType="yellow" className="my-6" />
+          <ManhwaGutterDivider themeType="gold" className="my-6" />
 
           {/* Project 4: Spatial Bio-Modeling Platform */}
           <section className="space-y-6 relative">
             {/* Action starburst highlighting GPU rendering */}
-            <ManhwaStarburst 
+            <ManhwaActionText 
               text="NO LAG!" 
-              themeType="orange" 
+              themeType="crimson" 
               size="md" 
               tilt="right" 
               className="absolute -bottom-10 -left-10 z-30"

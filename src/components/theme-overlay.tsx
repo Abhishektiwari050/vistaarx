@@ -11,9 +11,9 @@ export function ThemeOverlay() {
 
   const bgColor = {
     "cyber-light": "rgba(245, 245, 247, 0.88)",
-    "cyber-dark": "rgba(8, 8, 10, 0.85)",
+    "cyber-dark": "rgba(252, 252, 255, 0.90)",
     mono: "rgba(255, 255, 255, 0.92)",
-    solar: "rgba(12, 5, 2, 0.85)",
+    solar: "rgba(252, 248, 237, 0.90)",
   }[theme];
 
   return (

@@ -61,7 +61,7 @@ export default function RootLayout({
   return (
     <html 
       lang="en" 
-      className={`${outfit.variable} ${spaceMono.variable} ${bangers.variable} ${comicNeue.variable} h-full antialiased bg-[#f5f5f7]`} 
+      className={`${outfit.variable} ${spaceMono.variable} ${bangers.variable} ${comicNeue.variable} min-h-screen antialiased bg-[#f5f5f7]`} 
       suppressHydrationWarning
     >
       <head>
@@ -70,7 +70,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#f5f5f7" />
       </head>
       <body 
-        className="h-full bg-transparent text-[#1d1d1f] selection:bg-[#ff0080] selection:text-white antialiased overflow-x-hidden font-sans"
+        className="min-h-screen bg-transparent text-[#1d1d1f] selection:bg-[#ff0080] selection:text-white antialiased overflow-x-hidden font-sans"
         suppressHydrationWarning
       >
         {/* Fixed background WebGL simulation */}

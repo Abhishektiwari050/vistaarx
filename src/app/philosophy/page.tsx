@@ -1,20 +1,19 @@
 "use client";
 
-import { useScrollStore } from "@/lib/stores/scroll-store";
-import { TiltCard } from "@/components/3d/tilt-card";
 import Link from "next/link";
 import Image from "next/image";
 import { ThemeOverlay } from "@/components/theme-overlay";
 import { useThemeStyles } from "@/lib/hooks/use-theme-styles";
 import { 
   ManhwaPanel, 
-  ManhwaSpeechBubble, 
-  ManhwaStarburst, 
-  ManhwaGutterDivider 
+  ManhwaNarrationBanner as ManhwaCaptionBox, 
+  ManhwaStarburst as ManhwaActionText, 
+  ManhwaGutterDivider,
+  ComicMaskReveal
 } from "@/components/manhwa/manhwa-panel";
 
 export default function AboutPage() {
-  const { theme, textPrimary, innerCore } = useThemeStyles();
+  const { theme, innerCore } = useThemeStyles();
   const textSecondary = {
     "cyber-light": "text-neutral-800 font-extrabold",
     "cyber-dark": "text-neutral-300 font-extrabold",
@@ -24,10 +23,6 @@ export default function AboutPage() {
 
   return (
     <div className="w-full min-h-[180vh] flex flex-col px-6 md:px-12 py-20 z-20 relative pointer-events-auto max-w-7xl mx-auto space-y-24 md:space-y-36">
-      {/* Native dynamic React 19 document title */}
-      <title>About Us // Vistar Studio</title>
-      <meta name="description" content="Meet Abhishek Tiwari and the elite software engineers and designers behind Vistar Studio, building high-performance 3D visual architectures." />
-
       {/* Symmetrical, highly restrained theme-adaptive CSS glass backdrop overlay for readability */}
       <ThemeOverlay />
 
@@ -36,15 +31,19 @@ export default function AboutPage() {
 
       {/* Page Heading styled like a loud Webtoon Chapter Cover */}
       <div className="mb-10 mt-10 relative z-10 text-left">
-        <h1 
-          className="font-bangers text-[3.8rem] md:text-[5.5rem] uppercase leading-none select-none text-black dark:text-white"
-          style={{ WebkitTextStroke: "1.8px #000" }}
-        >
-          STUDIO <br/> ARCHITECTS
-        </h1>
-        <p className="font-comic text-xs sm:text-sm text-neutral-400 mt-4 max-w-md font-bold uppercase tracking-wider">
-          Behind the vectors and shaders: mathematical software engineers building absolute conversions at scale.
-        </p>
+        <ComicMaskReveal delay={0.1} direction="bottom">
+          <h1 
+            className="font-bangers text-[3.8rem] md:text-[5.5rem] uppercase leading-none select-none text-black dark:text-white"
+            style={{ WebkitTextStroke: "1.8px #000" }}
+          >
+            STUDIO <br/> ARCHITECTS
+          </h1>
+        </ComicMaskReveal>
+        <ComicMaskReveal delay={0.3} direction="right">
+          <p className="font-comic text-xs sm:text-sm text-neutral-400 mt-4 max-w-md font-bold uppercase tracking-wider">
+            Behind the vectors and shaders: mathematical software engineers building absolute conversions at scale.
+          </p>
+        </ComicMaskReveal>
       </div>
 
       {/* Section 1: Team Story (Left Aligned, Logo on Right) */}
@@ -58,18 +57,24 @@ export default function AboutPage() {
           >
             <div className={`${innerCore} space-y-6 h-full flex flex-col justify-between`}>
               <div className="space-y-4">
-                <h3 
-                  className="font-bangers text-[2.2rem] md:text-[2.8rem] uppercase leading-none text-black dark:text-white"
-                  style={{ WebkitTextStroke: "1px #000" }}
-                >
-                  MEET THE ARCHITECTS
-                </h3>
-                <p className={`font-comic text-xs md:text-sm font-extrabold ${textSecondary} leading-relaxed`}>
-                  Vistar Studio is an elite boutique digital engineering laboratory. We are not a bloated generalist agency. We are a tightly knit team of senior developers and visual artists who believe in engineering excellence, mathematical precision, and commercial impact.
-                </p>
-                <p className={`font-comic text-xs md:text-sm font-extrabold ${textSecondary} leading-relaxed`}>
-                  Founded by industry veterans who have built <strong>40+ bespoke digital platforms across 12 distinct sectors</strong>—including algorithmic trading dashboards, high-speed 3D graphics interfaces, and secure enterprise cloud databases. We construct systems that perform, convert, and scale.
-                </p>
+                <ComicMaskReveal delay={0.2} direction="left">
+                  <h3 
+                    className="font-bangers text-[2.2rem] md:text-[2.8rem] uppercase leading-none text-black dark:text-white"
+                    style={{ WebkitTextStroke: "1px #000" }}
+                  >
+                    MEET THE ARCHITECTS
+                  </h3>
+                </ComicMaskReveal>
+                <ComicMaskReveal delay={0.4} direction="bottom">
+                  <p className={`font-comic text-xs md:text-sm font-extrabold ${textSecondary} leading-relaxed`}>
+                    Vistar Studio is an elite boutique digital engineering laboratory. We are not a bloated generalist agency. We are a tightly knit team of senior developers and visual artists who believe in engineering excellence, mathematical precision, and commercial impact.
+                  </p>
+                </ComicMaskReveal>
+                <ComicMaskReveal delay={0.6} direction="bottom">
+                  <p className={`font-comic text-xs md:text-sm font-extrabold ${textSecondary} leading-relaxed`}>
+                    Founded by industry veterans who have built <strong>40+ bespoke digital platforms across 12 distinct sectors</strong>—including algorithmic trading dashboards, high-speed 3D graphics interfaces, and secure enterprise cloud databases. We construct systems that perform, convert, and scale.
+                  </p>
+                </ComicMaskReveal>
               </div>
             </div>
           </ManhwaPanel>
@@ -116,11 +121,9 @@ export default function AboutPage() {
                 <div className="md:col-span-8 space-y-4">
                   
                   {/* Floating bubble pointing to biography details */}
-                  <ManhwaSpeechBubble 
-                    text="WE RE-BUILT DIGITAL ARCHITECTURE FROM SCRATCH!"
-                    themeType="lime"
-                    pointerPosition="left"
-                    tilt="left"
+                  <ManhwaCaptionBox 
+                    title="WE RE-BUILT DIGITAL ARCHITECTURE FROM SCRATCH!"
+                    themeType="cyan"
                     className="mb-1"
                   />
 
@@ -166,16 +169,16 @@ export default function AboutPage() {
         <div className="lg:col-span-7 relative">
           
           {/* Action starburst showing 99.9% Uptime badge */}
-          <ManhwaStarburst 
+          <ManhwaActionText 
             text="99.9% UP!" 
-            themeType="pink" 
+            themeType="purple" 
             size="md" 
             tilt="left" 
             className="absolute -top-12 -right-12 z-30"
           />
 
           <ManhwaPanel 
-            panelTheme="yellow"
+            panelTheme="gold"
             tilt="left"
             narration="03 // THE METHODOLOGY PROTOCOL"
             className="w-full"

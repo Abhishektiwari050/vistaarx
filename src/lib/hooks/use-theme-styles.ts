@@ -18,14 +18,14 @@ export function getThemeStyles(theme: ThemeType) {
   // ── Base text colors ──────────────────────────────────────────────
   const textPrimary = {
     "cyber-light": "text-neutral-900 font-extrabold",
-    "cyber-dark": "text-white font-extrabold",
+    "cyber-dark": "text-neutral-900 font-extrabold",
     mono: "text-neutral-900 font-extrabold",
     solar: "text-[#100501] font-extrabold",
   }[theme];
 
   const textSecondary = {
     "cyber-light": "text-neutral-800 font-semibold",
-    "cyber-dark": "text-neutral-300 font-semibold",
+    "cyber-dark": "text-neutral-750 font-semibold",
     mono: "text-neutral-700 font-semibold",
     solar: "text-[#ff5500] font-semibold",
   }[theme];
@@ -35,7 +35,7 @@ export function getThemeStyles(theme: ThemeType) {
     "cyber-light":
       "text-black bg-[#ff0080]/10 border-2 border-black font-mono font-black uppercase px-2.5 py-1 rounded text-[8px] tracking-[0.1em] shadow-[2px_2px_0px_#000] inline-block",
     "cyber-dark":
-      "text-[#ff0080] bg-black border-2 border-[#ff0080] font-mono font-black uppercase px-2.5 py-1 rounded text-[8px] tracking-[0.1em] shadow-[2px_2px_0px_#ff0080] inline-block",
+      "text-[#ff0080] bg-white border-2 border-black font-mono font-black uppercase px-2.5 py-1 rounded text-[8px] tracking-[0.1em] shadow-[2px_2px_0px_#ff0080] inline-block",
     mono: "text-white bg-black border-2 border-black font-mono font-black uppercase px-2.5 py-1 rounded text-[8px] tracking-[0.1em] shadow-[2px_2px_0px_#000] inline-block",
     solar:
       "text-[#ffcc00] bg-[#100501] border-2 border-[#ff5500] font-mono font-black uppercase px-2.5 py-1 rounded text-[8px] tracking-[0.1em] shadow-[2px_2px_0px_#ff5500] inline-block",
@@ -46,29 +46,29 @@ export function getThemeStyles(theme: ThemeType) {
     "cyber-light":
       "border-[3px] border-black px-7 py-3.5 bg-[#ccff00] text-black font-mono text-[10px] uppercase font-black tracking-[0.15em] flex items-center justify-between gap-3 shadow-[4px_4px_0px_0px_#000] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_#000] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all cursor-pointer group rounded-xl",
     "cyber-dark":
-      "border-[3px] border-[#ff0080] px-7 py-3.5 bg-[#ff0080] text-white font-mono text-[10px] uppercase font-black tracking-[0.15em] flex items-center justify-between gap-3 shadow-[4px_4px_0px_0px_#000] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_#000] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all cursor-pointer group rounded-xl",
+      "border-[3px] border-black px-7 py-3.5 bg-[#ff0080] text-white font-mono text-[10px] uppercase font-black tracking-[0.15em] flex items-center justify-between gap-3 shadow-[4px_4px_0px_0px_#ff0080] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_#ff0080] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all cursor-pointer group rounded-xl",
     mono: "border-[3px] border-black px-7 py-3.5 bg-black text-white hover:bg-neutral-900 font-mono text-[10px] uppercase font-black tracking-[0.15em] flex items-center justify-between gap-3 shadow-[4px_4px_0px_0px_#000] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_#000] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all cursor-pointer group rounded-xl",
     solar:
       "border-[3px] border-[#100501] px-7 py-3.5 bg-[#ffcc00] text-black font-mono text-[10px] uppercase font-black tracking-[0.15em] flex items-center justify-between gap-3 shadow-[4px_4px_0px_0px_#ff5500] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_#ff5500] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all cursor-pointer group rounded-xl",
   }[theme];
 
-  // ── Brutalist Comic Card Outer Shell (3.5px black border & heavy comic offset shadows) ──
+  // ── Brutalist Comic Outer Shell ──
   const brutalistCard = {
     "cyber-light":
       "bg-gradient-to-br from-[#ffd500] via-[#ffa100] to-[#ff0080] border-[3.5px] border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] rounded-2xl p-1 transition-transform",
     "cyber-dark":
-      "bg-gradient-to-br from-[#1e073c] via-[#090117] to-[#04000b] border-[3.5px] border-black shadow-[6px_6px_0px_0px_#ff0080] rounded-2xl p-1 transition-transform",
+      "bg-gradient-to-br from-[#ff0080] to-[#ffd500] border-[3.5px] border-black shadow-[6px_6px_0px_0px_#ff0080] rounded-2xl p-1 transition-transform",
     mono: "bg-white border-[3.5px] border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] rounded-2xl p-1.5 transition-transform",
     solar:
       "bg-gradient-to-br from-[#ffe5a3] via-[#ff8c3a] to-[#ff5500] border-[3.5px] border-[#100501] shadow-[6px_6px_0px_0px_#ff5500] rounded-2xl p-1 transition-transform",
   }[theme];
 
-  // ── Concentric Inner Core Styles (Simplified layout - transparent inside to let panels shine) ─────────────────
+  // ── Concentric Inner Core Styles (Simplified layout) ─────────────────
   const innerCore = {
     "cyber-light":
       "h-full p-8 md:p-9 bg-[#fdfbf7]/90 text-black border-t-2 border-black/5 rounded-xl flex flex-col justify-between",
     "cyber-dark":
-      "h-full p-8 md:p-9 bg-black/60 text-white border-t-2 border-white/5 rounded-xl flex flex-col justify-between",
+      "h-full p-8 md:p-9 bg-white text-black border-t-2 border-black/5 rounded-xl flex flex-col justify-between",
     mono: "h-full p-8 md:p-9 bg-white text-black border-t-2 border-black/5 rounded-xl flex flex-col justify-between",
     solar:
       "h-full p-8 md:p-9 bg-[#fcf6e8]/90 text-black border-t-2 border-[#100501]/5 rounded-xl flex flex-col justify-between",
@@ -79,7 +79,7 @@ export function getThemeStyles(theme: ThemeType) {
     "cyber-light":
       "bg-gradient-to-br from-[#ffd500] via-[#ffa100] to-[#ff0080] border-[3.5px] border-black text-neutral-900 shadow-[6px_6px_0px_0px_#000] p-8 rounded-2xl transition-transform",
     "cyber-dark":
-      "bg-gradient-to-br from-[#1e073c] via-[#090117] to-[#04000b] border-[3.5px] border-black text-white shadow-[6px_6px_0px_0px_#ff0080] p-8 rounded-2xl transition-transform",
+      "bg-white border-[3.5px] border-black text-neutral-900 shadow-[6px_6px_0px_0px_#ff0080] p-8 rounded-2xl transition-transform",
     mono: "bg-white border-[3.5px] border-black text-neutral-900 shadow-[6px_6px_0px_0px_#000] rounded-2xl p-8 transition-transform",
     solar:
       "bg-gradient-to-br from-[#ffe5a3] via-[#ff8c3a] to-[#ff5500] border-[3.5px] border-[#100501] text-[#100501] shadow-[6px_6px_0px_0px_#ff5500] rounded-2xl p-8 transition-transform",

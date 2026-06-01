@@ -65,9 +65,9 @@ function SvgFallbackLogo() {
   // Replicate the exact homepage glide & scale transitions of the 3D Logo
   if (isHomepage) {
     if (scroll <= 0.10) {
-      targetX = 0;
-      targetY = 0;
-      targetScale = 1.6;
+      targetX = 78; // Approx 1.2 * 65
+      targetY = 32.5; // Approx 0.5 * 65
+      targetScale = 1.2;
     } else if (scroll > 0.10 && scroll <= 0.20) {
       const t = (scroll - 0.10) / 0.10;
       const ease = t * t * (3 - 2 * t);
@@ -375,7 +375,7 @@ export function GlobalCanvas() {
 
   useEffect(() => {
     if (showerTrigger > 0) {
-      setCanvasZIndex(998);
+      setTimeout(() => setCanvasZIndex(998), 0);
       const timer = setTimeout(() => {
         setCanvasZIndex(-5);
       }, 1800);
@@ -420,11 +420,11 @@ export function GlobalCanvas() {
     return null; // Prevents Next.js dynamic hydration mismatch
   }
 
-  let themeBg = "bg-[#08080c] halftone-dots-white text-white";
+  let themeBg = "bg-[#fdfbf7] halftone-dots text-neutral-900";
   if (theme === "cyber-light") {
     themeBg = "bg-[#fdfbf7] halftone-dots text-neutral-900";
   } else if (theme === "cyber-dark") {
-    themeBg = "bg-[#08080c] halftone-dots-white text-white";
+    themeBg = "bg-[#fcfcff] halftone-dots text-neutral-900";
   } else if (theme === "mono") {
     themeBg = "bg-white halftone-dots text-neutral-900";
   } else if (theme === "solar") {

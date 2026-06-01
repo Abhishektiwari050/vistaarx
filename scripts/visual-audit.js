@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/no-require-imports, @typescript-eslint/no-unused-vars */
 const { Stagehand } = require("@browserbasehq/stagehand");
-
 async function run() {
   console.log("🚀 Initializing Stagehand agentic browser...");
   
