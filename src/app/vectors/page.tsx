@@ -1,67 +1,109 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { useScrollStore } from "@/lib/stores/scroll-store";
 import { ThemeOverlay } from "@/components/theme-overlay";
 
 export default function VectorsPage() {
-  const scrollProgress = useScrollStore((s) => s.scrollProgress);
-  const theme = useScrollStore((s) => s.theme);
-  
-  const deepDiveProgress = scrollProgress; // Maps 0 to 1 over this whole page
+  const ref1 = useRef<HTMLDivElement>(null);
+  const ref2 = useRef<HTMLDivElement>(null);
+  const ref3 = useRef<HTMLDivElement>(null);
+  const ref4 = useRef<HTMLDivElement>(null);
 
-  const isUpActive = deepDiveProgress <= 0.22;
-  const isRightActive = deepDiveProgress > 0.22 && deepDiveProgress <= 0.48;
-  const isDownActive = deepDiveProgress > 0.48 && deepDiveProgress <= 0.74;
-  const isLeftActive = deepDiveProgress > 0.74;
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [showIndicator, setShowIndicator] = useState(true);
 
-  const cardClass = {
-    "cyber-light": "bg-white/90 border-black shadow-[6px_6px_0px_rgba(0,0,0,1)] border-[3.5px]",
-    "cyber-dark": "bg-black/90 border-[#ff0080] shadow-[6px_6px_0px_#ff0080] border-[3.5px]",
-    mono: "bg-white border-black shadow-[6px_6px_0px_rgba(0,0,0,1)] border-[3.5px]",
-    solar: "bg-[#fcf6e8]/90 border-[#ff5500] shadow-[6px_6px_0px_#ff5500] border-[3.5px]",
-  }[theme];
+  useEffect(() => {
+    const updateStyles = (progress: number) => {
+      // 1. Calculate and update inline style variables via refs
+      // Card 1
+      const op1 = progress <= 0.15 ? 1 : progress > 0.22 ? 0 : 1 - (progress - 0.15) / 0.07;
+      const tr1 = progress > 0.22 ? -30 : 0;
+      if (ref1.current) {
+        ref1.current.style.setProperty("--card-opacity", String(op1));
+        ref1.current.style.setProperty("--card-transform", `translate3d(0, ${tr1}px, 0)`);
+      }
 
-  const textSecondary = {
-    "cyber-light": "text-neutral-800 font-extrabold",
-    "cyber-dark": "text-zinc-200 font-extrabold",
-    mono: "text-neutral-700 font-extrabold",
-    solar: "text-[#ff5500] font-extrabold",
-  }[theme];
+      // Card 2
+      const op2 = (progress < 0.22 || progress > 0.48) ? 0 : (progress >= 0.29 && progress <= 0.41) ? 1 : progress < 0.29 ? (progress - 0.22) / 0.07 : 1 - (progress - 0.41) / 0.07;
+      const tr2 = progress < 0.22 ? 30 : progress > 0.48 ? -30 : 0;
+      if (ref2.current) {
+        ref2.current.style.setProperty("--card-opacity", String(op2));
+        ref2.current.style.setProperty("--card-transform", `translate3d(0, ${tr2}px, 0)`);
+      }
+
+      // Card 3
+      const op3 = (progress < 0.48 || progress > 0.74) ? 0 : (progress >= 0.55 && progress <= 0.67) ? 1 : progress < 0.55 ? (progress - 0.48) / 0.07 : 1 - (progress - 0.67) / 0.07;
+      const tr3 = progress < 0.48 ? 30 : progress > 0.74 ? -30 : 0;
+      if (ref3.current) {
+        ref3.current.style.setProperty("--card-opacity", String(op3));
+        ref3.current.style.setProperty("--card-transform", `translate3d(0, ${tr3}px, 0)`);
+      }
+
+      // Card 4
+      const op4 = progress < 0.74 ? 0 : (progress >= 0.81 && progress <= 0.95) ? 1 : progress < 0.81 ? (progress - 0.74) / 0.07 : 1 - (progress - 0.95) / 0.05;
+      const tr4 = progress < 0.74 ? 30 : progress > 0.95 ? -30 : 0;
+      if (ref4.current) {
+        ref4.current.style.setProperty("--card-opacity", String(op4));
+        ref4.current.style.setProperty("--card-transform", `translate3d(0, ${tr4}px, 0)`);
+      }
+
+      // 2. Set active phase index for display toggle
+      let activeIdx = 0;
+      if (progress <= 0.22) activeIdx = 0;
+      else if (progress <= 0.48) activeIdx = 1;
+      else if (progress <= 0.74) activeIdx = 2;
+      else activeIdx = 3;
+      setActiveIndex(activeIdx);
+
+      // 3. Set visibility for scroll indicator
+      setShowIndicator(progress <= 0.95);
+    };
+
+    // Initialize values immediately on mount
+    updateStyles(useScrollStore.getState().scrollProgress);
+
+    // Subscribe to global scroll changes
+    const unsubscribe = useScrollStore.subscribe((state) => {
+      updateStyles(state.scrollProgress);
+    });
+
+    return unsubscribe;
+  }, []);
+
+  const cardClass = "bg-white border border-zinc-200 shadow-[3px_3px_0px_rgba(12,12,14,0.06)] rounded";
 
   return (
     <div className="w-full h-[400vh] relative z-20">
       <ThemeOverlay />
+
+      {/* Background Grid */}
+      <div className="fixed inset-0 z-[-1] opacity-5 pointer-events-none system-grid" />
 
       <div className="sticky top-0 h-screen w-full flex items-center px-6 md:px-12 pointer-events-none">
         <div className="w-full max-w-6xl mx-auto relative h-[420px] md:h-[460px] flex items-center justify-center">
           
           {/* Step 1: 01 / SYSTEMIC DISCOVERY (0.0 – 0.22) */}
           <div 
-            style={{
-              opacity: deepDiveProgress <= 0.15 ? 1 : deepDiveProgress > 0.22 ? 0 : 1 - (deepDiveProgress - 0.15) / 0.07,
-              transform: `translate3d(0, ${deepDiveProgress > 0.22 ? -30 : 0}px, 0)`,
-              transition: "opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)",
-              pointerEvents: deepDiveProgress <= 0.22 ? "auto" : "none"
-            }}
-            className={`space-y-4 p-8 md:p-10 border rounded-2xl w-full absolute left-0 top-1/2 -translate-y-1/2 md:w-[42%] md:left-0 md:right-auto md:translate-x-0 ${cardClass} ${isUpActive ? 'block' : 'hidden md:block'}`}
+            ref={ref1}
+            className={`space-y-4 p-8 md:p-10 border w-full absolute left-0 top-1/2 -translate-y-1/2 md:w-[42%] md:left-0 md:right-auto md:translate-x-0 vectors-card-dynamic ${
+              activeIndex === 0 ? "pointer-events-auto" : "pointer-events-none"
+            } ${cardClass} ${activeIndex === 0 ? "block" : "hidden md:block"}`}
           >
             <div className="flex justify-between items-center text-left">
-              <span className="font-mono text-[8px] font-bold uppercase tracking-[0.15em] text-neutral-400">
+              <span className="font-mono text-[9px] font-bold uppercase tracking-widest text-[#ff1e90]">
                 Phase 01
               </span>
-              <span className="font-mono text-[8px] text-zinc-500 font-bold uppercase tracking-wider">Discovery</span>
+              <span className="font-mono text-[9px] text-zinc-400 font-bold uppercase tracking-wider">Discovery</span>
             </div>
-            <h3 
-              className="font-bangers text-[2.2rem] md:text-[2.8rem] uppercase leading-none tracking-wide text-left text-black dark:text-white"
-              style={{ WebkitTextStroke: "1px #000" }}
-            >
+            <h3 className="font-display text-2xl md:text-3xl uppercase font-semibold text-left text-black">
               Systemic Discovery
             </h3>
-            <p className={`font-comic text-xs md:text-sm text-left ${textSecondary} leading-relaxed`}>
-              We map your business goals to visual conversion strategies. No templates, no generic layouts. We outline the precise visual parameters, user flows, and backend capabilities needed to captivate your specific high-ticket audience.
+            <p className="font-sans text-xs md:text-sm text-left text-zinc-650 leading-relaxed">
+              We map your commercial targets to visual conversion strategies. We outline the precise parameter variables, user session flows, and data architecture scopes needed to capture high-ticket clients.
             </p>
-            <div className="flex gap-3 font-mono text-[9px] font-medium opacity-60 text-current pt-2 justify-start">
-              <span>PHASE: STRATEGY MAP</span>
+            <div className="flex gap-3 font-mono text-[8px] font-bold text-zinc-400 pt-2 justify-start uppercase">
+              <span>OUTPUT: STRATEGY MATRIX</span>
               <span>/</span>
               <span>TIME: WEEK 1</span>
             </div>
@@ -69,31 +111,25 @@ export default function VectorsPage() {
 
           {/* Step 2: 02 / CINEMATIC PROTOTYPING (0.22 – 0.48) */}
           <div 
-            style={{
-              opacity: (deepDiveProgress < 0.22 || deepDiveProgress > 0.48) ? 0 : (deepDiveProgress >= 0.29 && deepDiveProgress <= 0.41) ? 1 : deepDiveProgress < 0.29 ? (deepDiveProgress - 0.22) / 0.07 : 1 - (deepDiveProgress - 0.41) / 0.07,
-              transform: `translate3d(0, ${deepDiveProgress < 0.22 ? 30 : deepDiveProgress > 0.48 ? -30 : 0}px, 0)`,
-              transition: "opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)",
-              pointerEvents: (deepDiveProgress >= 0.22 && deepDiveProgress <= 0.48) ? "auto" : "none"
-            }}
-            className={`space-y-4 p-8 md:p-10 border rounded-2xl w-full absolute left-0 md:left-auto md:right-0 top-1/2 -translate-y-1/2 md:w-[42%] ${cardClass} ${isRightActive ? 'block' : 'hidden md:block'}`}
+            ref={ref2}
+            className={`space-y-4 p-8 md:p-10 border w-full absolute left-0 md:left-auto md:right-0 top-1/2 -translate-y-1/2 md:w-[42%] vectors-card-dynamic ${
+              activeIndex === 1 ? "pointer-events-auto" : "pointer-events-none"
+            } ${cardClass} ${activeIndex === 1 ? "block" : "hidden md:block"}`}
           >
             <div className="flex justify-between items-center text-left">
-              <span className="font-mono text-[8px] font-bold uppercase tracking-[0.15em] text-neutral-400">
+              <span className="font-mono text-[9px] font-bold uppercase tracking-widest text-[#ff1e90]">
                 Phase 02
               </span>
-              <span className="font-mono text-[8px] text-zinc-500 font-bold uppercase tracking-wider">Design</span>
+              <span className="font-mono text-[9px] text-zinc-400 font-bold uppercase tracking-wider">Design</span>
             </div>
-            <h3 
-              className="font-bangers text-[2.2rem] md:text-[2.8rem] uppercase leading-none tracking-wide text-left text-black dark:text-white"
-              style={{ WebkitTextStroke: "1px #000" }}
-            >
+            <h3 className="font-display text-2xl md:text-3xl uppercase font-semibold text-left text-black">
               Cinematic Prototyping
             </h3>
-            <p className={`font-comic text-xs md:text-sm text-left ${textSecondary} leading-relaxed`}>
-              We craft high-fidelity, interactive 3D concepts and bespoke design proposals. By rendering wireframes and custom WebGL models early on, you see, interact with, and approve the actual premium user experience before we write a single line of backend compiler code.
+            <p className="font-sans text-xs md:text-sm text-left text-zinc-650 leading-relaxed">
+              We construct high-fidelity interactive 3D concepts and web layouts. By rendering responsive wireframes and custom WebGL models early on, you interact with the actual user interface experience before development starts.
             </p>
-            <div className="flex gap-3 font-mono text-[9px] font-medium opacity-60 text-current pt-2 justify-start">
-              <span>OUTPUT: 3D MODELS</span>
+            <div className="flex gap-3 font-mono text-[8px] font-bold text-zinc-400 pt-2 justify-start uppercase">
+              <span>OUTPUT: 3D WIREFRAMES</span>
               <span>/</span>
               <span>TIME: WEEKS 2-3</span>
             </div>
@@ -101,30 +137,24 @@ export default function VectorsPage() {
 
           {/* Step 3: 03 / HIGH-FIDELITY DEPLOYMENT (0.48 – 0.74) */}
           <div 
-            style={{
-              opacity: (deepDiveProgress < 0.48 || deepDiveProgress > 0.74) ? 0 : (deepDiveProgress >= 0.55 && deepDiveProgress <= 0.67) ? 1 : deepDiveProgress < 0.55 ? (deepDiveProgress - 0.48) / 0.07 : 1 - (deepDiveProgress - 0.67) / 0.07,
-              transform: `translate3d(0, ${deepDiveProgress < 0.48 ? 30 : deepDiveProgress > 0.74 ? -30 : 0}px, 0)`,
-              transition: "opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)",
-              pointerEvents: (deepDiveProgress >= 0.48 && deepDiveProgress <= 0.74) ? "auto" : "none"
-            }}
-            className={`space-y-4 p-8 md:p-10 border rounded-2xl w-full absolute left-0 top-1/2 -translate-y-1/2 md:w-[42%] md:left-0 md:right-auto md:translate-x-0 ${cardClass} ${isDownActive ? 'block' : 'hidden md:block'}`}
+            ref={ref3}
+            className={`space-y-4 p-8 md:p-10 border w-full absolute left-0 top-1/2 -translate-y-1/2 md:w-[42%] md:left-0 md:right-auto md:translate-x-0 vectors-card-dynamic ${
+              activeIndex === 2 ? "pointer-events-auto" : "pointer-events-none"
+            } ${cardClass} ${activeIndex === 2 ? "block" : "hidden md:block"}`}
           >
             <div className="flex justify-between items-center text-left">
-              <span className="font-mono text-[8px] font-bold uppercase tracking-[0.15em] text-neutral-400">
+              <span className="font-mono text-[9px] font-bold uppercase tracking-widest text-[#ff1e90]">
                 Phase 03
               </span>
-              <span className="font-mono text-[8px] text-zinc-500 font-bold uppercase tracking-wider">Build</span>
+              <span className="font-mono text-[9px] text-zinc-400 font-bold uppercase tracking-wider">Build</span>
             </div>
-            <h3 
-              className="font-bangers text-[2.2rem] md:text-[2.8rem] uppercase leading-none tracking-wide text-left text-black dark:text-white"
-              style={{ WebkitTextStroke: "1px #000" }}
-            >
-              High-Fidelity Deployment
+            <h3 className="font-display text-2xl md:text-3xl uppercase font-semibold text-left text-black">
+              High-Fidelity Build
             </h3>
-            <p className={`font-comic text-xs md:text-sm text-left ${textSecondary} leading-relaxed`}>
-              Our architects write production-ready, bulletproof Next.js code structures. All assets are compiled straight to the edge for lightning-fast page loading speeds, locked visual transitions, flawless keyboard accessibility, and absolute runtime stability.
+            <p className="font-sans text-xs md:text-sm text-left text-zinc-650 leading-relaxed">
+              Our engineering team builds modular, production-ready React structures. All styles and assets are compiled straight to the edge for rapid loading, locked animations, and flawless keyboard accessibility.
             </p>
-            <div className="flex gap-3 font-mono text-[9px] font-medium opacity-60 text-current pt-2 justify-start">
+            <div className="flex gap-3 font-mono text-[8px] font-bold text-zinc-400 pt-2 justify-start uppercase">
               <span>COMPILER: NEXT.js EDGE</span>
               <span>/</span>
               <span>TIME: WEEKS 4-6</span>
@@ -133,31 +163,25 @@ export default function VectorsPage() {
 
           {/* Step 4: 04 / LATENCY OPTIMIZATION (0.74 – 1.0) */}
           <div 
-            style={{
-              opacity: deepDiveProgress < 0.74 ? 0 : (deepDiveProgress >= 0.81 && deepDiveProgress <= 0.95) ? 1 : deepDiveProgress < 0.81 ? (deepDiveProgress - 0.74) / 0.07 : 1 - (deepDiveProgress - 0.95) / 0.05,
-              transform: `translate3d(0, ${deepDiveProgress < 0.74 ? 30 : deepDiveProgress > 0.95 ? -30 : 0}px, 0)`,
-              transition: "opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)",
-              pointerEvents: deepDiveProgress >= 0.74 ? "auto" : "none"
-            }}
-            className={`space-y-4 p-8 md:p-10 border rounded-2xl w-full absolute left-0 md:left-auto md:right-0 top-1/2 -translate-y-1/2 md:w-[42%] ${cardClass} ${isLeftActive ? 'block' : 'hidden md:block'}`}
+            ref={ref4}
+            className={`space-y-4 p-8 md:p-10 border w-full absolute left-0 md:left-auto md:right-0 top-1/2 -translate-y-1/2 md:w-[42%] vectors-card-dynamic ${
+              activeIndex === 3 ? "pointer-events-auto" : "pointer-events-none"
+            } ${cardClass} ${activeIndex === 3 ? "block" : "hidden md:block"}`}
           >
             <div className="flex justify-between items-center text-left">
-              <span className="font-mono text-[8px] font-bold uppercase tracking-[0.15em] text-neutral-400">
+              <span className="font-mono text-[9px] font-bold uppercase tracking-widest text-[#ff1e90]">
                 Phase 04
               </span>
-              <span className="font-mono text-[8px] text-zinc-500 font-bold uppercase tracking-wider">Optimize</span>
+              <span className="font-mono text-[9px] text-zinc-400 font-bold uppercase tracking-wider">Optimize</span>
             </div>
-            <h3 
-              className="font-bangers text-[2.2rem] md:text-[2.8rem] uppercase leading-none tracking-wide text-left text-black dark:text-white"
-              style={{ WebkitTextStroke: "1px #000" }}
-            >
+            <h3 className="font-display text-2xl md:text-3xl uppercase font-semibold text-left text-black">
               Latency Optimization
             </h3>
-            <p className={`font-comic text-xs md:text-sm text-left ${textSecondary} leading-relaxed`}>
-              We run extensive conversion checks, speed diagnostics, and layout diagnostics. We fine-tune hardware integrations and direct memory caching, delivering a seamless experience that performs at peak speed and secures top conversions.
+            <p className="font-sans text-xs md:text-sm text-left text-zinc-650 leading-relaxed">
+              We run speed audits and security testing. We fine-tune CDN caching and code execution threads, ensuring a highly performant application that delivers flawless conversions.
             </p>
-            <div className="flex gap-3 font-mono text-[9px] font-medium opacity-60 text-current pt-2 justify-start">
-              <span>SLA: 24HR READY</span>
+            <div className="flex gap-3 font-mono text-[8px] font-bold text-zinc-400 pt-2 justify-start uppercase">
+              <span>SLA: 24HR RESPONSE</span>
               <span>/</span>
               <span>TIME: WEEK 7</span>
             </div>
@@ -167,11 +191,11 @@ export default function VectorsPage() {
       </div>
       
       {/* Scroll indicator prompt */}
-      <div className="fixed bottom-24 left-1/2 -translate-x-1/2 text-center pointer-events-none z-10 transition-opacity duration-300" style={{ opacity: deepDiveProgress > 0.95 ? 0 : 1 }}>
-        <div className="font-bangers text-lg uppercase tracking-wide text-neutral-500 animate-bounce select-none">
+      <div className={`fixed bottom-24 left-1/2 -translate-x-1/2 text-center pointer-events-none z-10 transition-opacity duration-300 ${showIndicator ? "opacity-100" : "opacity-0"}`}>
+        <div className="font-display text-xs font-semibold uppercase tracking-widest text-zinc-400 animate-bounce select-none">
           Scroll to explore our workflow
         </div>
-        <div className="w-[1.5px] h-6 bg-neutral-500/50 mx-auto mt-1" />
+        <div className="w-[1px] h-6 bg-zinc-300 mx-auto mt-2" />
       </div>
     </div>
   );

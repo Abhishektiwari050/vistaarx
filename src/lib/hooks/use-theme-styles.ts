@@ -17,6 +17,7 @@ export function useThemeStyles() {
 export function getThemeStyles(theme: ThemeType) {
   // ── Base text colors ──────────────────────────────────────────────
   const textPrimary = {
+    "neon-flyer": "text-[#0a0a0a] font-extrabold",
     "cyber-light": "text-neutral-900 font-extrabold",
     "cyber-dark": "text-neutral-900 font-extrabold",
     mono: "text-neutral-900 font-extrabold",
@@ -24,6 +25,7 @@ export function getThemeStyles(theme: ThemeType) {
   }[theme];
 
   const textSecondary = {
+    "neon-flyer": "text-zinc-500 font-semibold",
     "cyber-light": "text-neutral-800 font-semibold",
     "cyber-dark": "text-neutral-750 font-semibold",
     mono: "text-neutral-700 font-semibold",
@@ -32,6 +34,8 @@ export function getThemeStyles(theme: ThemeType) {
 
   // ── Accent / tag labels (Chunky Brutalist Badge) ───────────────────
   const tagLabel = {
+    "neon-flyer":
+      "text-black bg-[#ff1e90]/10 border-2 border-black font-mono font-black uppercase px-2.5 py-1 rounded text-[8px] tracking-[0.1em] shadow-[2px_2px_0px_#000] inline-block",
     "cyber-light":
       "text-black bg-[#ff0080]/10 border-2 border-black font-mono font-black uppercase px-2.5 py-1 rounded text-[8px] tracking-[0.1em] shadow-[2px_2px_0px_#000] inline-block",
     "cyber-dark":
@@ -43,6 +47,8 @@ export function getThemeStyles(theme: ThemeType) {
 
   // ── Primary CTA button (Tactile Brutalist Button click mechanism) ───
   const btnPrimary = {
+    "neon-flyer":
+      "border-[3px] border-black px-7 py-3.5 bg-[#d8ff42] text-black font-mono text-[10px] uppercase font-black tracking-[0.15em] flex items-center justify-between gap-3 shadow-[4px_4px_0px_0px_#000] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_#000] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all cursor-pointer group rounded-xl",
     "cyber-light":
       "border-[3px] border-black px-7 py-3.5 bg-[#ccff00] text-black font-mono text-[10px] uppercase font-black tracking-[0.15em] flex items-center justify-between gap-3 shadow-[4px_4px_0px_0px_#000] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_#000] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all cursor-pointer group rounded-xl",
     "cyber-dark":
@@ -54,6 +60,8 @@ export function getThemeStyles(theme: ThemeType) {
 
   // ── Brutalist Comic Outer Shell ──
   const brutalistCard = {
+    "neon-flyer":
+      "bg-gradient-to-br from-[#d8ff42] via-[#ffa100] to-[#ff1e90] border-[3.5px] border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] rounded-2xl p-1 transition-transform",
     "cyber-light":
       "bg-gradient-to-br from-[#ffd500] via-[#ffa100] to-[#ff0080] border-[3.5px] border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] rounded-2xl p-1 transition-transform",
     "cyber-dark":
@@ -65,6 +73,8 @@ export function getThemeStyles(theme: ThemeType) {
 
   // ── Concentric Inner Core Styles (Simplified layout) ─────────────────
   const innerCore = {
+    "neon-flyer":
+      "h-full p-8 md:p-9 bg-[#faf9f5]/90 text-black border-t-2 border-black/5 rounded-xl flex flex-col justify-between",
     "cyber-light":
       "h-full p-8 md:p-9 bg-[#fdfbf7]/90 text-black border-t-2 border-black/5 rounded-xl flex flex-col justify-between",
     "cyber-dark":
@@ -76,6 +86,8 @@ export function getThemeStyles(theme: ThemeType) {
 
   // ── Glass card (Styled as solid colored card for brutalist comic book) ───────
   const glassCard = {
+    "neon-flyer":
+      "bg-white border-[3.5px] border-black text-neutral-900 shadow-[6px_6px_0px_0px_#000] p-8 rounded-2xl transition-transform",
     "cyber-light":
       "bg-gradient-to-br from-[#ffd500] via-[#ffa100] to-[#ff0080] border-[3.5px] border-black text-neutral-900 shadow-[6px_6px_0px_0px_#000] p-8 rounded-2xl transition-transform",
     "cyber-dark":
@@ -87,6 +99,8 @@ export function getThemeStyles(theme: ThemeType) {
 
   // ── Manifesto panel card (homepage panels) ────────────────────────
   const panelCard = {
+    "neon-flyer":
+      "bg-gradient-to-br from-[#d8ff42] via-[#ffa100] to-[#ff1e90] border-[3.5px] border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] rounded-2xl p-1 transition-transform",
     "cyber-light":
       "bg-gradient-to-br from-[#ffd500] via-[#ffa100] to-[#ff0080] border-[3.5px] border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] rounded-2xl p-1 transition-transform",
     "cyber-dark":
@@ -98,6 +112,7 @@ export function getThemeStyles(theme: ThemeType) {
 
   // ── Accent tag for case studies / section markers ─────────────────
   const accentTag = {
+    "neon-flyer": "bg-black text-[#d8ff42] border-2 border-black shadow-[2px_2px_0px_#000] rounded-md font-mono font-bold",
     "cyber-light": "bg-black text-[#ccff00] border-2 border-black shadow-[2px_2px_0px_#000] rounded-md font-mono font-bold",
     "cyber-dark": "bg-black text-[#ff0080] border-2 border-[#ff0080] shadow-[2px_2px_0px_#ff0080] rounded-md font-mono font-bold",
     mono: "bg-black text-white border-2 border-black shadow-[2px_2px_0px_#000] rounded-md font-mono font-bold",
@@ -106,6 +121,7 @@ export function getThemeStyles(theme: ThemeType) {
 
   // ── Stroke text color for hero heading ────────────────────────────
   const strokeColor = {
+    "neon-flyer": "#000000",
     "cyber-light": "#000000",
     "cyber-dark": "#ff0080",
     mono: "#000000",
@@ -114,6 +130,7 @@ export function getThemeStyles(theme: ThemeType) {
 
   // ── Backdrop overlay for sub-pages (slightly opaque warm tint) ──────
   const overlayBg = {
+    "neon-flyer": "rgba(250, 249, 246, 0.88)",
     "cyber-light": "rgba(253, 251, 247, 0.94)",
     "cyber-dark": "rgba(10, 10, 15, 0.94)",
     mono: "rgba(255, 255, 255, 0.96)",
@@ -122,6 +139,7 @@ export function getThemeStyles(theme: ThemeType) {
 
   // ── Progress / accent indicator color ─────────────────────────────
   const accentColor = {
+    "neon-flyer": "#ff1e90",
     "cyber-light": "#ff0080",
     "cyber-dark": "#ff0080",
     mono: "#000000",
@@ -130,6 +148,8 @@ export function getThemeStyles(theme: ThemeType) {
 
   // ── Work page tag class ───────────────────────────────────────────
   const workTag = {
+    "neon-flyer":
+      "text-black bg-[#ff1e90]/10 border-2 border-black font-mono font-black uppercase px-2.5 py-1 rounded text-[8px] tracking-[0.1em] shadow-[2px_2px_0px_#000]",
     "cyber-light":
       "text-black bg-[#ff0080]/10 border-2 border-black font-mono font-black uppercase px-2.5 py-1 rounded text-[8px] tracking-[0.1em] shadow-[2px_2px_0px_#000]",
     "cyber-dark":
@@ -141,6 +161,8 @@ export function getThemeStyles(theme: ThemeType) {
 
   // ── Outline button (Tactile Brutalist click) ──────────────────────
   const outlineBtn = {
+    "neon-flyer":
+      "border-[3px] border-black text-black bg-white rounded-xl font-mono text-[9px] font-black uppercase tracking-[0.15em] py-3 px-6 shadow-[3px_3px_0px_#000] hover:translate-x-[1.5px] hover:translate-y-[1.5px] hover:shadow-[1.5px_1.5px_0px_#000] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all cursor-pointer",
     "cyber-light":
       "border-[3px] border-black text-black bg-white rounded-xl font-mono text-[9px] font-black uppercase tracking-[0.15em] py-3 px-6 shadow-[3px_3px_0px_#000] hover:translate-x-[1.5px] hover:translate-y-[1.5px] hover:shadow-[1.5px_1.5px_0px_#000] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all cursor-pointer",
     "cyber-dark":

@@ -1,9 +1,9 @@
 "use client";
 import { create } from "zustand";
 
-export type ThemeType = "cyber-light" | "cyber-dark" | "mono" | "solar";
+export type ThemeType = "neon-flyer" | "cyber-light" | "cyber-dark" | "mono" | "solar";
 
-interface ScrollStore {
+export interface ScrollStore {
   /** Normalized scroll progress from 0.0 (top) to 1.0 (bottom) */
   scrollProgress: number;
   /** Raw scroll Y position in pixels */
@@ -39,32 +39,32 @@ interface ScrollStore {
   setReducedMotion: (val: boolean) => void;
 }
 
-export const useScrollStore = create<ScrollStore>((set) => ({
+export const useScrollStore = create<ScrollStore>()((set: any) => ({
   scrollProgress: 0,
   scrollY: 0,
   scrollVelocity: 0,
   cursorX: 0,
   cursorY: 0,
-  theme: "cyber-light",
+  theme: "neon-flyer",
   activeRoute: "/",
   showerTrigger: 0,
   isLoaded: false,
   prefersReducedMotion: false,
 
-  setScrollProgress: (progress) => set({ scrollProgress: progress }),
-  setScrollY: (y) => set({ scrollY: y }),
-  setScrollVelocity: (velocity) => set({ scrollVelocity: velocity }),
-  setCursor: (x, y) => set({ cursorX: x, cursorY: y }),
-  setTheme: (theme) => {
+  setScrollProgress: (progress: number) => set({ scrollProgress: progress }),
+  setScrollY: (y: number) => set({ scrollY: y }),
+  setScrollVelocity: (velocity: number) => set({ scrollVelocity: velocity }),
+  setCursor: (x: number, y: number) => set({ cursorX: x, cursorY: y }),
+  setTheme: (theme: ThemeType) => {
     set({ theme });
     if (typeof window !== "undefined") {
       localStorage.setItem("vistar-theme", theme);
     }
   },
-  setActiveRoute: (route) => set({ activeRoute: route }),
-  triggerShower: () => set((state) => ({ showerTrigger: state.showerTrigger + 1 })),
-  setLoaded: (val) => set({ isLoaded: val }),
-  setReducedMotion: (val) => set({ prefersReducedMotion: val }),
+  setActiveRoute: (route: string) => set({ activeRoute: route }),
+  triggerShower: () => set((state: ScrollStore) => ({ showerTrigger: state.showerTrigger + 1 })),
+  setLoaded: (val: boolean) => set({ isLoaded: val }),
+  setReducedMotion: (val: boolean) => set({ prefersReducedMotion: val }),
 }));
 
 /**
@@ -79,6 +79,10 @@ export const getPrefersReducedMotion = () => useScrollStore.getState().prefersRe
 
 export const getThemeColors = () => {
   const theme = useScrollStore.getState().theme;
+  if (theme === "neon-flyer") {
+    // Subtle neon green & pink flyer palette
+    return { primary: "#d8ff42", secondary: "#ff1e90", base: "#faf9f6" };
+  }
   if (theme === "mono") {
     // Elegant pure black and subtle gray for high-end monochrome aesthetic
     return { primary: "#000000", secondary: "#737373", base: "#111111" };

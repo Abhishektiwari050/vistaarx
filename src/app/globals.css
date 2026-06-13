@@ -1,597 +1,233 @@
+/* ─── Google Fonts must come before @import "tailwindcss" ──────────────────── */
+/* PostCSS expands Tailwind inline (~2800 lines), which would push url() imports */
+/* past the allowed CSS position. External url() imports are left as-is by PostCSS. */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,500&display=swap');
+
 @import "tailwindcss";
 
+/* ─── Design Tokens ────────────────────────────────────────────────────────── */
 :root {
-  /* Cinematic Dark Manhwa Palette */
-  --background: #050608;
-  --foreground: #e2e8f0;
-  
-  --neon-cyan: #00f0ff;
-  --neon-purple: #9d00ff;
-  --neon-gold: #ffbe0b;
-  --neon-crimson: #ff003c;
-  --panel-bg: rgba(10, 12, 18, 0.7);
-  --panel-border: rgba(0, 240, 255, 0.3);
+  --background: #faf9f5;
+  --foreground: #0a0a0a;
+  --card:        #ffffff;
+  --card-dark:   #111111;
+
+  --color-primary:   #d8ff42; /* Neon green  */
+  --color-secondary: #ff1e90; /* Neon pink   */
+  --color-silver:    #f1f5f9;
+  --color-zinc-dark: #18181b;
+  --border-color:    #0a0a0a;
 }
 
 :focus-visible {
-  outline: 2px solid var(--neon-cyan) !important;
+  outline: 2px solid var(--color-primary) !important;
   outline-offset: 3px;
 }
 
+/* ─── Tailwind Theme Mapping ───────────────────────────────────────────────── */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-outfit);
-  --font-mono: var(--font-space-mono);
-  
-  --color-cyan: var(--neon-cyan);
-  --color-purple: var(--neon-purple);
-  --color-gold: var(--neon-gold);
+  --font-sans:        var(--font-plus-jakarta-sans);
+  --font-display:     var(--font-space-grotesk);
+  --font-mono:        ui-monospace, "SF Mono", Menlo, monospace;
+  --font-serif:       var(--font-playfair);
+  --color-primary:    var(--color-primary);
+  --color-secondary:  var(--color-secondary);
+  --color-silver:     var(--color-silver);
+  --color-zinc-dark:  var(--color-zinc-dark);
 }
 
+/* ─── Base ─────────────────────────────────────────────────────────────────── */
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-outfit);
+  font-family: var(--font-sans), sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* System Notifications and general text use sleek modern sans */
 p {
-  font-family: var(--font-outfit), sans-serif;
-  font-weight: 300;
-  letter-spacing: 0.02em;
+  font-family: var(--font-sans), sans-serif;
+  letter-spacing: 0.01em;
 }
 
-/* Custom premium scrollbars */
-::-webkit-scrollbar {
-  width: 4px;
-  background: transparent;
+/* Serif italic utility */
+.font-serif {
+  font-family: var(--font-playfair), "Playfair Display", Georgia, serif;
+  font-style: italic;
 }
-::-webkit-scrollbar-thumb {
-  background: rgba(0, 240, 255, 0.3);
-  border-radius: 2px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 240, 255, 0.8);
-}
+
+/* ─── Scrollbars ───────────────────────────────────────────────────────────── */
+::-webkit-scrollbar         { width: 4px; background: transparent; }
+::-webkit-scrollbar-thumb   { background: rgba(216, 255, 66, 0.25); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(216, 255, 66, 0.6); }
 
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
 .no-scrollbar {
   -ms-overflow-style: none;
-  scrollbar-width: none;
+}
+@supports (scrollbar-width: none) {
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
 }
 
-.interactive {
-  pointer-events: auto !important;
-}
-
-/* Sleek Glowing Text Utilities */
-.text-glow-cyan {
-  text-shadow: 0 0 10px rgba(0, 240, 255, 0.5), 0 0 20px rgba(0, 240, 255, 0.3);
-}
-.text-glow-purple {
-  text-shadow: 0 0 10px rgba(157, 0, 255, 0.5), 0 0 20px rgba(157, 0, 255, 0.3);
-}
-.text-glow-gold {
-  text-shadow: 0 0 10px rgba(255, 190, 11, 0.5), 0 0 20px rgba(255, 190, 11, 0.3);
-}
-
-/* System HUD CRT scanlines */
-.crt-effect {
-  position: relative;
-  overflow: hidden;
-}
-.crt-effect::after {
-  content: " ";
-  display: block;
-  position: absolute;
-  top: 0; left: 0; bottom: 0; right: 0;
-  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 240, 255, 0.05) 50%);
-  z-index: 10;
-  background-size: 100% 4px;
-  pointer-events: none;
-}
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   MANHWA SCROLL-REVEAL ANIMATION SYSTEM
-   Panels slide in with cinematic gravity
-   ═══════════════════════════════════════════════════════════════════════════ */
-
-.manhwa-reveal {
-  opacity: 0;
-  transform: translateY(40px) scale(0.98);
-  filter: blur(10px);
-  transition: opacity 1.2s cubic-bezier(0.19, 1, 0.22, 1),
-              transform 1.2s cubic-bezier(0.19, 1, 0.22, 1),
-              filter 1.2s cubic-bezier(0.19, 1, 0.22, 1);
-  will-change: opacity, transform, filter;
-}
-.manhwa-reveal.visible {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  filter: blur(0px);
-}
-
-.manhwa-reveal-left {
-  opacity: 0;
-  transform: translateX(-60px);
-  filter: blur(8px);
-  transition: opacity 1.2s cubic-bezier(0.19, 1, 0.22, 1),
-              transform 1.2s cubic-bezier(0.19, 1, 0.22, 1),
-              filter 1.2s cubic-bezier(0.19, 1, 0.22, 1);
-  will-change: opacity, transform, filter;
-}
-.manhwa-reveal-left.visible {
-  opacity: 1;
-  transform: translateX(0);
-  filter: blur(0px);
-}
-
-.manhwa-reveal-right {
-  opacity: 0;
-  transform: translateX(60px);
-  filter: blur(8px);
-  transition: opacity 1.2s cubic-bezier(0.19, 1, 0.22, 1),
-              transform 1.2s cubic-bezier(0.19, 1, 0.22, 1),
-              filter 1.2s cubic-bezier(0.19, 1, 0.22, 1);
-  will-change: opacity, transform, filter;
-}
-.manhwa-reveal-right.visible {
-  opacity: 1;
-  transform: translateX(0);
-  filter: blur(0px);
-}
-
-.manhwa-reveal-scale {
-  opacity: 0;
-  transform: scale(0.9);
-  transition: opacity 1.2s cubic-bezier(0.19, 1, 0.22, 1),
-              transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
-  will-change: opacity, transform;
-}
-.manhwa-reveal-scale.visible {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.delay-100 { transition-delay: 100ms; }
-.delay-200 { transition-delay: 200ms; }
-.delay-300 { transition-delay: 300ms; }
-.delay-400 { transition-delay: 400ms; }
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   MANHWA SYSTEM GLOW EFFECTS (Replaces thick brutalist shadows)
-   ═══════════════════════════════════════════════════════════════════════════ */
-
-.manhwa-glow-cyan {
-  box-shadow: 0 0 20px rgba(0, 240, 255, 0.2), inset 0 0 15px rgba(0, 240, 255, 0.1);
-  border: 1px solid rgba(0, 240, 255, 0.4);
-}
-
-.manhwa-glow-purple {
-  box-shadow: 0 0 20px rgba(157, 0, 255, 0.2), inset 0 0 15px rgba(157, 0, 255, 0.1);
-  border: 1px solid rgba(157, 0, 255, 0.4);
-}
-
-.manhwa-glow-gold {
-  box-shadow: 0 0 20px rgba(255, 190, 11, 0.2), inset 0 0 15px rgba(255, 190, 11, 0.1);
-  border: 1px solid rgba(255, 190, 11, 0.4);
-}
-
-.manhwa-pulse-glow {
-  animation: pulse-glow-system 3s ease-in-out infinite;
-}
-
-@keyframes pulse-glow-system {
-  0%, 100% { box-shadow: 0 0 15px rgba(0, 240, 255, 0.15), inset 0 0 10px rgba(0, 240, 255, 0.05); border-color: rgba(0, 240, 255, 0.3); }
-  50% { box-shadow: 0 0 35px rgba(0, 240, 255, 0.4), inset 0 0 20px rgba(0, 240, 255, 0.2); border-color: rgba(0, 240, 255, 0.8); }
-}
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   SYSTEM WINDOW GRID OVERLAY
-   ═══════════════════════════════════════════════════════════════════════════ */
-
-.system-grid {
-  background-image: 
-    linear-gradient(rgba(0, 240, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
-  background-size: 20px 20px;
-}
-.system-grid-fine {
-  background-image: 
-    linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
-  background-size: 10px 10px;
-}
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   MAGICAL / SPEED LINES (Cinematic action background)
-   ═══════════════════════════════════════════════════════════════════════════ */
-
-.manga-action-lines {
-  background: conic-gradient(
-    from 0deg,
-    rgba(255, 255, 255, 0.05) 0deg 1deg,
-    transparent 1deg 15deg,
-    rgba(255, 255, 255, 0.05) 15deg 16deg,
-    transparent 16deg 35deg,
-    rgba(255, 255, 255, 0.08) 35deg 35.5deg,
-    transparent 35.5deg 55deg,
-    rgba(255, 255, 255, 0.03) 55deg 56deg,
-    transparent 56deg 75deg,
-    rgba(255, 255, 255, 0.05) 75deg 76deg,
-    transparent 76deg 95deg,
-    rgba(255, 255, 255, 0.06) 95deg 95.5deg,
-    transparent 95.5deg 120deg,
-    rgba(255, 255, 255, 0.04) 120deg 121deg,
-    transparent 121deg 145deg,
-    rgba(255, 255, 255, 0.07) 145deg 146deg,
-    transparent 146deg 165deg,
-    rgba(255, 255, 255, 0.05) 165deg 166deg,
-    transparent 166deg 190deg,
-    rgba(255, 255, 255, 0.08) 190deg 191deg,
-    transparent 191deg 215deg,
-    rgba(255, 255, 255, 0.03) 215deg 216deg,
-    transparent 218deg 235deg,
-    rgba(0, 0, 0, 0.12) 235deg 237deg,
-    transparent 237deg 260deg,
-    rgba(0, 0, 0, 0.12) 260deg 264deg,
-    transparent 264deg 285deg,
-    rgba(0, 0, 0, 0.12) 285deg 287deg,
-    transparent 287deg 305deg,
-    rgba(0, 0, 0, 0.12) 305deg 308deg,
-    transparent 308deg 330deg,
-    rgba(0, 0, 0, 0.12) 330deg 332deg,
-    transparent 332deg 350deg,
-    rgba(0, 0, 0, 0.12) 350deg 352deg,
-    transparent 352deg 360deg
-  );
-  mask-image: radial-gradient(circle, transparent 20%, black 80%);
-  pointer-events: none;
-  animation: rotate-speed-lines 40s linear infinite;
-  transform-origin: center;
-}
-
-.manga-action-lines-white {
-  background: conic-gradient(
-    from 0deg,
-    rgba(255, 255, 255, 0.12) 0deg 2deg,
-    transparent 2deg 15deg,
-    rgba(255, 255, 255, 0.12) 15deg 18deg,
-    transparent 18deg 35deg,
-    rgba(255, 255, 255, 0.12) 35deg 36deg,
-    transparent 36deg 55deg,
-    rgba(255, 255, 255, 0.12) 55deg 59deg,
-    transparent 59deg 75deg,
-    rgba(255, 255, 255, 0.12) 75deg 77deg,
-    transparent 77deg 95deg,
-    rgba(255, 255, 255, 0.12) 95deg 97deg,
-    transparent 97deg 120deg,
-    rgba(255, 255, 255, 0.12) 120deg 124deg,
-    transparent 124deg 145deg,
-    rgba(255, 255, 255, 0.12) 145deg 147deg,
-    transparent 147deg 165deg,
-    rgba(255, 255, 255, 0.12) 165deg 168deg,
-    transparent 168deg 190deg,
-    rgba(255, 255, 255, 0.12) 190deg 192deg,
-    transparent 192deg 215deg,
-    rgba(255, 255, 255, 0.12) 215deg 218deg,
-    transparent 218deg 235deg,
-    rgba(255, 255, 255, 0.12) 235deg 237deg,
-    transparent 237deg 260deg,
-    rgba(255, 255, 255, 0.12) 260deg 264deg,
-    transparent 264deg 285deg,
-    rgba(255, 255, 255, 0.12) 285deg 287deg,
-    transparent 287deg 305deg,
-    rgba(255, 255, 255, 0.12) 305deg 308deg,
-    transparent 308deg 330deg,
-    rgba(255, 255, 255, 0.12) 330deg 332deg,
-    transparent 332deg 350deg,
-    rgba(255, 255, 255, 0.12) 350deg 352deg,
-    transparent 352deg 360deg
-  );
-  mask-image: radial-gradient(circle, transparent 20%, black 80%);
-  pointer-events: none;
-  animation: rotate-speed-lines 45s linear infinite;
-  transform-origin: center;
-}
-
-@keyframes rotate-speed-lines {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   COMIC TEXT EFFECTS
-   ═══════════════════════════════════════════════════════════════════════════ */
-
-.comic-text-pop {
-  text-shadow: 4px 4px 0px #000;
-}
-
-/* Custom heavy cartoon text outlines */
-.text-stroke-brutalist {
-  -webkit-text-stroke: 2.5px #000000;
-}
-.text-stroke-brutalist-pink {
-  -webkit-text-stroke: 2px #ff0080;
-}
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   MANHWA PANEL FRAME EFFECTS
-   ═══════════════════════════════════════════════════════════════════════════ */
-
-/* Inner panel gradient overlay — gives depth like colored manhwa panel */
-.manhwa-panel-inner-glow::before {
-  content: "";
-  position: absolute;
+/* ─── Noise Texture Overlay ────────────────────────────────────────────────── */
+/* Applied as a fixed pseudo-layer on the html element */
+.noise-overlay {
+  position: fixed;
   inset: 0;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, transparent 50%, rgba(0, 0, 0, 0.15) 100%);
+  z-index: 9999;
   pointer-events: none;
-  z-index: 1;
-  border-radius: inherit;
+  opacity: 0.028;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
 }
 
-/* Dramatic vignette overlay */
-.manhwa-vignette::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.3) 100%);
-  pointer-events: none;
-  z-index: 1;
+/* ─── Floating Atmospheric Orbs ────────────────────────────────────────────── */
+@keyframes float-orb-left {
+  0%, 100% { transform: translateY(0px) translateX(0px) scale(1); }
+  33%       { transform: translateY(-28px) translateX(14px) scale(1.04); }
+  66%       { transform: translateY(12px) translateX(-8px) scale(0.97); }
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   MANHWA SFX STARBURST ANIMATIONS
-   ═══════════════════════════════════════════════════════════════════════════ */
-
-.manhwa-sfx-starburst {
-  animation: starburst-bounce 2s infinite ease-in-out;
-  filter: drop-shadow(4px 4px 0px #000000);
+@keyframes float-orb-right {
+  0%, 100% { transform: translateY(0px) translateX(0px) scale(1); }
+  33%       { transform: translateY(22px) translateX(-12px) scale(0.96); }
+  66%       { transform: translateY(-16px) translateX(10px) scale(1.03); }
 }
 
-@keyframes starburst-bounce {
-  0%, 100% {
-    transform: scale(1) rotate(12deg);
-  }
-  50% {
-    transform: scale(1.1) rotate(6deg);
-  }
-}
+.animate-float-left  { animation: float-orb-left  14s ease-in-out infinite; }
+.animate-float-right { animation: float-orb-right 18s ease-in-out infinite; }
 
-.manhwa-sfx-starburst-left {
-  animation: starburst-bounce-left 2.2s infinite ease-in-out;
-  filter: drop-shadow(4px 4px 0px #000000);
-}
-
-@keyframes starburst-bounce-left {
-  0%, 100% {
-    transform: scale(1) rotate(-10deg);
-  }
-  50% {
-    transform: scale(1.1) rotate(-5deg);
-  }
-}
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   AMBIENT FLOATING PARTICLES
-   ═══════════════════════════════════════════════════════════════════════════ */
-
-.floating-particle {
-  animation: float-drift 6s ease-in-out infinite;
-}
-
-@keyframes float-drift {
-  0%, 100% { transform: translateY(0) translateX(0); }
-  33% { transform: translateY(-15px) translateX(8px); }
-  66% { transform: translateY(8px) translateX(-5px); }
-}
-
-.floating-particle-slow {
-  animation: float-drift-slow 10s ease-in-out infinite;
-}
-
-@keyframes float-drift-slow {
-  0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
-  25% { transform: translateY(-20px) translateX(12px) rotate(3deg); }
-  50% { transform: translateY(-5px) translateX(-8px) rotate(-2deg); }
-  75% { transform: translateY(10px) translateX(6px) rotate(1deg); }
-}
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   MARQUEE / TICKER ANIMATIONS
-   ═══════════════════════════════════════════════════════════════════════════ */
-
+/* ─── Marquee / Ticker ─────────────────────────────────────────────────────── */
 @keyframes marquee {
-  0% { transform: translate3d(0, 0, 0); }
+  0%   { transform: translate3d(0, 0, 0); }
   100% { transform: translate3d(-50%, 0, 0); }
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   MANHWA CHAPTER TITLE UNDERLINE
-   ═══════════════════════════════════════════════════════════════════════════ */
-
-.manhwa-chapter-underline {
-  position: relative;
-  display: inline-block;
-}
-.manhwa-chapter-underline::after {
-  content: "";
-  position: absolute;
-  bottom: -6px;
-  left: 0;
-  width: 100%;
-  height: 5px;
-  background: linear-gradient(90deg, #ff0080, #ccff00, #00f0ff);
-  transform: skewX(-12deg);
-  border-radius: 2px;
+.animate-marquee {
+  display: inline-flex;
+  animation: marquee 30s linear infinite;
+  will-change: transform;
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   FADE-IN BASE ANIMATION
-   ═══════════════════════════════════════════════════════════════════════════ */
+/* ─── Scroll Reveal (CSS fallback, Framer Motion handles the JS side) ──────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
 
+/* ─── Parallax Card CSS Vars (set via JS) ──────────────────────────────────── */
+.parallax-up   { transform: translateY(var(--parallax-up,   0px)); }
+.parallax-down { transform: translateY(var(--parallax-down, 0px)); }
+
+/* ─── Utility: pointer events ──────────────────────────────────────────────── */
+.interactive { pointer-events: auto !important; }
+
+/* ─── Custom Card Shadows & Neon Brutalist Glows ───────────────────────────── */
+.card-shadow-green { box-shadow: 0 20px 60px rgba(216, 255,  66, 0.18); }
+.card-shadow-pink  { box-shadow: 0 20px 60px rgba(255,  30, 144, 0.14); }
+
+.brutalist-glow-pink {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.brutalist-glow-pink:hover {
+  border-color: rgba(255, 30, 144, 0.24) !important;
+  box-shadow: 5px 5px 0px rgba(255, 30, 144, 0.08) !important;
+  transform: translate3d(-2px, -2px, 0);
+}
+
+.brutalist-glow-green {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.brutalist-glow-green:hover {
+  border-color: rgba(216, 255, 66, 0.35) !important;
+  box-shadow: 5px 5px 0px rgba(216, 255, 66, 0.1) !important;
+  transform: translate3d(-2px, -2px, 0);
+}
+
+/* ─── Hazard Stripe (used in contact divider) ──────────────────────────────── */
+.stripe-divider {
+  height: 12px;
+  background: repeating-linear-gradient(
+    -45deg,
+    #0a0a0a 0px, #0a0a0a 8px,
+    var(--color-primary) 8px, var(--color-primary) 16px
+  );
+}
+
+/* ─── Fade-in base animation ───────────────────────────────────────────────── */
 @keyframes fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
-.animate-fade-in {
-  animation: fade-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+.animate-fade-in { animation: fade-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+/* ─── System Grid (used on vectors page) ───────────────────────────────────── */
+.system-grid {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   MANHWA ENERGY AURA — Pulsing ring around key elements
-   ═══════════════════════════════════════════════════════════════════════════ */
+/* ─── Fluid Typography ─────────────────────────────────────────────────────── */
+/* Replaces inline style={{ fontSize: "clamp(...)" }} on every heading         */
+.text-fluid-hero    { font-size: clamp(52px, 9vw,   120px); }
+.text-fluid-display { font-size: clamp(32px, 6vw,    80px); }
+.text-fluid-title   { font-size: clamp(28px, 5vw,    64px); }
+.text-fluid-section { font-size: clamp(24px, 4vw,    54px); }
+.text-fluid-card    { font-size: clamp(28px, 4vw,    48px); }
+.text-fluid-feature { font-size: clamp(22px, 3.5vw,  44px); }
+.text-fluid-sub     { font-size: clamp(28px, 4vw,    52px); }
+.text-fluid-footer  { font-size: clamp(60px, 14vw,  180px); }
 
-.manhwa-energy-ring {
-  position: relative;
+/* ─── Blend Mode Utilities ─────────────────────────────────────────────────── */
+.blend-multiply { mix-blend-mode: multiply; }
+.blend-screen   { mix-blend-mode: screen;   }
+.blend-overlay  { mix-blend-mode: overlay;  }
+
+/* ─── Theme Overlay Styles ─────────────────────────────────────────────────── */
+.theme-overlay {
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
 }
-.manhwa-energy-ring::before {
-  content: "";
-  position: absolute;
-  inset: -12px;
-  border: 2px solid rgba(255, 0, 128, 0.3);
-  border-radius: inherit;
-  animation: energy-pulse 2.5s ease-in-out infinite;
-  pointer-events: none;
+.theme-overlay-neon-flyer { background-color: rgba(250, 249, 246, 0.88); }
+
+/* ─── Custom Pattern Grids ─────────────────────────────────────────────────── */
+.bg-dot-pattern {
+  background-image: radial-gradient(circle, #0a0a0a 1px, transparent 1px);
+  background-size: 32px 32px;
 }
-
-@keyframes energy-pulse {
-  0%, 100% { 
-    opacity: 0.3;
-    transform: scale(1);
-  }
-  50% { 
-    opacity: 0.8;
-    transform: scale(1.02);
-  }
+.bg-green-grid {
+  background-image:
+    linear-gradient(rgba(216, 255, 66, 1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(216, 255, 66, 1) 1px, transparent 1px);
+  background-size: 40px 40px;
 }
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   DIAGONAL STRIPE PATTERNS (for section backgrounds)
-   ═══════════════════════════════════════════════════════════════════════════ */
-
-.diagonal-stripes {
-  background-image: repeating-linear-gradient(
-    -45deg,
-    transparent,
-    transparent 10px,
-    rgba(0, 0, 0, 0.03) 10px,
-    rgba(0, 0, 0, 0.03) 20px
-  );
+.text-fluid-powerup {
+  font-size: clamp(28px, 5vw, 56px);
 }
 
-.diagonal-stripes-dark {
-  background-image: repeating-linear-gradient(
-    -45deg,
-    transparent,
-    transparent 10px,
-    rgba(255, 255, 255, 0.03) 10px,
-    rgba(255, 255, 255, 0.03) 20px
-  );
-}
 
-/* ==========================================================================
-   PREMIUM OVERPOWERED TACTILE VISUAL UPGRADES
-   ========================================================================== */
 
-/* 1. Missing Halftone Dot Matrix Textures (Light & Dark) */
-.halftone-dots {
-  background-image: radial-gradient(rgba(0, 0, 0, 0.15) 15%, transparent 16%),
-                    radial-gradient(rgba(0, 0, 0, 0.15) 15%, transparent 16%) !important;
-  background-size: 20px 20px !important;
-  background-position: 0 0, 10px 10px !important;
+/* ─── Vectors Page Dynamic Card Styles ──────────────────────────────────────── */
+.vectors-card-dynamic {
+  opacity: var(--card-opacity, 1);
+  transform: var(--card-transform, translate3d(0, 0, 0));
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
-
-.halftone-dots-fine {
-  background-image: radial-gradient(rgba(0, 0, 0, 0.08) 12%, transparent 13%),
-                    radial-gradient(rgba(0, 0, 0, 0.08) 12%, transparent 13%) !important;
-  background-size: 10px 10px !important;
-  background-position: 0 0, 5px 5px !important;
-}
-
-.dark .halftone-dots {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.12) 15%, transparent 16%),
-                    radial-gradient(rgba(255, 255, 255, 0.12) 15%, transparent 16%) !important;
-}
-
-.dark .halftone-dots-fine {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.06) 12%, transparent 13%),
-                    radial-gradient(rgba(255, 255, 255, 0.06) 12%, transparent 13%) !important;
-}
-
-/* 2. Hand-Drawn Skew Borders (Comic Sheet Aesthetic) */
-.hand-drawn-border {
-  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px !important;
-}
-
-.hand-drawn-border-deep {
-  border-radius: 125px 25px 225px 35px / 25px 225px 35px 125px !important;
-}
-
-/* 3. Brutalist Tactile Button Classes */
-.tactile-pop-pink {
-  transition: transform 0.12s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.12s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
-}
-.tactile-pop-pink:hover {
-  transform: translate(-6px, -6px) rotate(-1deg) !important;
-  box-shadow: 10px 10px 0px #ccff00 !important;
-  background-color: #ff0080 !important;
-  color: #ffffff !important;
-}
-.tactile-pop-pink:active {
-  transform: translate(2px, 2px) rotate(0deg) !important;
-  box-shadow: 1px 1px 0px #ccff00 !important;
-}
-
-.tactile-pop-lime {
-  transition: transform 0.12s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.12s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
-}
-.tactile-pop-lime:hover {
-  transform: translate(-6px, -6px) rotate(1deg) !important;
-  box-shadow: 10px 10px 0px #ff0080 !important;
-  background-color: #ccff00 !important;
-  color: #000000 !important;
-}
-.tactile-pop-lime:active {
-  transform: translate(2px, 2px) rotate(0deg) !important;
-  box-shadow: 1px 1px 0px #ff0080 !important;
-}
-
-.tactile-pop-black {
-  transition: transform 0.12s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.12s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
-}
-.tactile-pop-black:hover {
-  transform: translate(-6px, -6px) rotate(-0.5deg) !important;
-  box-shadow: 10px 10px 0px #000000 !important;
-}
-.tactile-pop-black:active {
-  transform: translate(2px, 2px) rotate(0deg) !important;
-  box-shadow: 1px 1px 0px #000000 !important;
-}
-
-/* 4. High-Octane Action Starburst Shake */
-@keyframes micro-shake-burst {
-  0%, 100% { transform: rotate(10deg) scale(1) translate(0, 0); }
-  25% { transform: rotate(12deg) scale(1.05) translate(-1px, 1px); }
-  50% { transform: rotate(8deg) scale(1.02) translate(1px, -1px); }
-  75% { transform: rotate(11deg) scale(1.04) translate(-1px, -1px); }
-}
-
-.hover-shake-burst:hover {
-  animation: micro-shake-burst 0.15s linear infinite !important;
-}
-
 
 

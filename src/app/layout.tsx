@@ -1,55 +1,66 @@
-import type { Metadata } from "next";
-import { Outfit, Space_Mono, Bangers, Comic_Neue } from "next/font/google";
-import { ClientCanvas } from "@/components/3d/client-canvas";
+import type { Metadata, Viewport } from "next";
+import { Plus_Jakarta_Sans, Space_Grotesk, Playfair_Display } from "next/font/google";
 import { LayoutShell } from "@/components/layout-shell";
+import { ClientCanvas } from "@/components/3d/client-canvas";
+import { LenisProvider } from "@/components/lenis-provider";
 import "./globals.css";
 
-// Configure optimized Google Fonts with size adjust and swap
-const outfit = Outfit({
+const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  variable: "--font-outfit",
-  weight: ["300", "400", "600", "800", "900"],
+  variable: "--font-plus-jakarta-sans",
+  weight: ["400", "500", "600", "700", "800"],
   display: "swap",
 });
 
-const spaceMono = Space_Mono({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  variable: "--font-space-mono",
-  weight: ["400", "700"],
+  variable: "--font-space-grotesk",
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
-const bangers = Bangers({
+const playfairDisplay = Playfair_Display({
   subsets: ["latin"],
-  variable: "--font-bangers",
-  weight: "400",
+  variable: "--font-playfair",
+  style: ["italic"],
+  weight: ["400", "500"],
   display: "swap",
 });
 
-const comicNeue = Comic_Neue({
-  subsets: ["latin"],
-  variable: "--font-comic-neue",
-  weight: ["300", "400", "700"],
-  display: "swap",
-});
+export const viewport: Viewport = {
+  themeColor: "#faf9f5",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
 
 export const metadata: Metadata = {
-  title: "Vistar Studio // Premium Immersive WebGL & Software Engineering",
-  description: "Vistar Studio is an elite digital engineering & design laboratory. We build high-performance WebGL websites and custom software systems for forward-thinking brands.",
-  keywords: ["Design Studio", "Software Studio", "WebGL Agency", "3D Interactive Websites", "Next.js Developer", "Brutalist Web Design"],
-  authors: [{ name: "Vistar Studio HQ" }],
+  title: "Vistar — Web Systems // Custom Architected Platforms",
+  description:
+    "Vistar Web Systems engineers fully custom-architected, search-optimized digital platforms. Sub-second page loads, zero bloated plugins, complete codebase ownership.",
+  keywords: [
+    "Custom Website Design",
+    "Web Application Development",
+    "AI Automation Agency",
+    "Next.js Developer India",
+    "Performance Engineering",
+    "SEO Architecture",
+  ],
+  authors: [{ name: "Vistar Web Systems" }],
   openGraph: {
-    title: "Vistar Studio // Immersive WebGL & Software Engineering",
-    description: "Elite digital engineering and cinematic 3D experiences for forward-thinking brands who want to dominate the modern internet.",
+    title: "Vistar — Web Systems // Custom Architected Platforms",
+    description:
+      "Elite digital engineering for brands that demand excellence. Bespoke websites, high-performance web apps, and AI automation systems.",
     type: "website",
-    locale: "en_US",
+    locale: "en_IN",
     url: "https://www.vistar.tech",
-    siteName: "Vistar Studio",
+    siteName: "Vistar Web Systems",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Vistar Studio // Immersive WebGL & Software Engineering",
-    description: "Elite digital engineering and cinematic 3D experiences for forward-thinking brands who want to dominate the modern internet.",
+    title: "Vistar — Web Systems // Custom Architected Platforms",
+    description:
+      "Elite digital engineering for brands that demand excellence. Bespoke websites, high-performance web apps, and AI automation systems.",
   },
 };
 
@@ -59,26 +70,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html 
-      lang="en" 
-      className={`${outfit.variable} ${spaceMono.variable} ${bangers.variable} ${comicNeue.variable} min-h-screen antialiased bg-[#f5f5f7]`} 
+    <html
+      lang="en"
+      className={`${plusJakartaSans.variable} ${spaceGrotesk.variable} ${playfairDisplay.variable} min-h-screen antialiased`}
       suppressHydrationWarning
     >
       <head>
         <link rel="icon" href="/favicon.ico" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-        <meta name="theme-color" content="#f5f5f7" />
       </head>
-      <body 
-        className="min-h-screen bg-transparent text-[#1d1d1f] selection:bg-[#ff0080] selection:text-white antialiased overflow-x-hidden font-sans"
+      <body
+        className="min-h-screen bg-[#faf9f5] text-[#0a0a0a] selection:bg-[#d8ff42] selection:text-black antialiased overflow-x-hidden font-sans"
         suppressHydrationWarning
       >
         {/* Fixed background WebGL simulation */}
         <ClientCanvas />
-        
-        {/* Scrolling content layer in front */}
+
+        {/* Scrolling content */}
         <div className="relative w-full min-h-screen">
-          <LayoutShell>{children}</LayoutShell>
+          <LenisProvider>
+            <LayoutShell>{children}</LayoutShell>
+          </LenisProvider>
         </div>
       </body>
     </html>
