@@ -104,6 +104,7 @@ export function VistarHero() {
               <MagneticButton>
                 <button
                   type="button"
+                  suppressHydrationWarning
                   onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
                   className="bg-[#0a0a0a] text-[#d8ff42] text-[10px] font-bold tracking-widest uppercase px-6 py-4 rounded-full hover:bg-black/90 transition-all cursor-pointer shadow-[0_4px_20px_rgba(216,255,66,0.15)] active:scale-95"
                 >

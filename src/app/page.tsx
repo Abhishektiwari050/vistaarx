@@ -675,6 +675,7 @@ export default function Home() {
                     <MagneticButton>
                       <button
                         type="submit"
+                        suppressHydrationWarning
                         className="w-full py-4 rounded-xl bg-[#0a0a0a] text-[#d8ff42] text-sm font-bold tracking-widest uppercase
                                    shadow-[0_4px_24px_rgba(216,255,66,0.15)] hover:shadow-[0_6px_32px_rgba(216,255,66,0.25)] transition-shadow cursor-pointer"
                       >
