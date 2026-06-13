@@ -65,16 +65,16 @@ function SvgFallbackLogo() {
   // Replicate the exact homepage glide & scale transitions of the 3D Logo
   if (isHomepage) {
     if (scroll <= 0.10) {
-      targetX = 78; // Approx 1.2 * 65
-      targetY = 32.5; // Approx 0.5 * 65
-      targetScale = 1.2;
+      targetX = -143; // -2.2 * 65
+      targetY = 52; // 0.8 * 65
+      targetScale = 1.0;
     } else if (scroll > 0.10 && scroll <= 0.20) {
       const t = (scroll - 0.10) / 0.10;
       const ease = t * t * (3 - 2 * t);
       // Remap 3D positions to 2D screen coordinate pixels (approx 65px per units)
-      targetX = ease * 143; 
-      targetY = ease * 32.5;
-      targetScale = 1.6 - ease * 0.85;
+      targetX = -143 + ease * 286; 
+      targetY = 52 - ease * 19.5;
+      targetScale = 1.0 - ease * 0.25;
     } else if (scroll > 0.20 && scroll <= 0.30) {
       targetX = 143;
       targetY = 32.5;
@@ -197,6 +197,7 @@ function SvgFallbackLogo() {
             let finalScale = 1.0;
             let finalOpacity = 1.0;
 
+            let isHighlighted = false;
             if (isHomepage) {
               const isUpArrowAtHero = (idx === 0 && scroll <= 0.10);
               const isUpArrowAtContact = (idx === 0 && scroll >= 0.90);
@@ -204,11 +205,18 @@ function SvgFallbackLogo() {
               const isDownArrowAtServices = (idx === 2 && scroll > 0.40 && scroll <= 0.60);
               const isLeftArrowAtCaseStudies = (idx === 1 && scroll > 0.70 && scroll <= 0.80);
 
-              const isHighlighted = isUpArrowAtHero || isUpArrowAtContact || isRightArrowAtManifesto || isDownArrowAtServices || isLeftArrowAtCaseStudies;
+              isHighlighted = isUpArrowAtHero || isUpArrowAtContact || isRightArrowAtManifesto || isDownArrowAtServices || isLeftArrowAtCaseStudies;
 
               finalDist = isHighlighted ? 35 : (scroll > 0.30 && scroll <= 0.60 ? 20 : 0);
               finalScale = isHighlighted ? 1.25 : (scroll > 0.30 && scroll <= 0.60 ? 0.75 : 1.0);
-              finalOpacity = isHighlighted ? 1.0 : (scroll > 0.30 && scroll <= 0.60 ? 0.25 : 0.8);
+              
+              // Scale the opacity using route-specific values for watermark integration
+              const isHero = scroll <= 0.10;
+              const isContact = scroll >= 0.90;
+              const routeOpacityScale = isHero ? 0.2 : (isContact ? 0.65 : 0.16);
+              
+              const baseOpacity = isHighlighted ? 1.0 : (scroll > 0.30 && scroll <= 0.60 ? 0.25 : 0.8);
+              finalOpacity = baseOpacity * routeOpacityScale;
             } else if (isVectors) {
               const standardDist = 25;
               const showcaseDist = act * 42 + (1.0 - act) * 8;
@@ -221,10 +229,10 @@ function SvgFallbackLogo() {
 
               const standardOpacity = 1.0;
               const showcaseOpacity = act * 1.0 + (1.0 - act) * 0.25;
-              finalOpacity = standardOpacity * (1 - showcaseFactor) + showcaseOpacity * showcaseFactor;
+              finalOpacity = (standardOpacity * (1 - showcaseFactor) + showcaseOpacity * showcaseFactor) * 0.85;
             }
 
-            const isActive = act > 0.5 || (isHomepage && finalOpacity > 0.9);
+            const isActive = act > 0.5 || (isHomepage && isHighlighted);
             const angle = idx === 0 ? 0 : idx === 1 ? 90 : idx === 2 ? 180 : 270;
 
             return (

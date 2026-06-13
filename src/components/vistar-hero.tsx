@@ -27,13 +27,13 @@ export function VistarHero() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="max-w-[290px] space-y-3"
+            className="max-w-[320px] space-y-3 bg-white/40 backdrop-blur-md border border-zinc-200/50 p-6 rounded-2xl shadow-[6px_6px_20px_rgba(0,0,0,0.015)]"
           >
-            <div className="inline-flex items-center gap-2 border border-black/10 bg-white/70 backdrop-blur-sm px-3.5 py-1.5 rounded-full text-[9px] font-bold tracking-[2px] uppercase text-zinc-500">
+            <div className="inline-flex items-center gap-2 border border-black/10 bg-white/80 backdrop-blur-sm px-3.5 py-1.5 rounded-full text-[9px] font-bold tracking-[2px] uppercase text-zinc-500">
               <span className="w-1.5 h-1.5 rounded-full bg-[#ff1e90] animate-pulse" />
               Open for Projects · 2026
             </div>
-            <p className="text-[12px] text-zinc-500 leading-relaxed font-light">
+            <p className="text-[12px] text-zinc-600 leading-relaxed font-normal">
               We engineer fully bespoke digital platforms and workflow systems. Zero templates. Just clean, optimized code.
             </p>
           </motion.div>
@@ -95,9 +95,9 @@ export function VistarHero() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="max-w-[320px] flex flex-col gap-5"
+            className="max-w-[360px] flex flex-col gap-5 bg-white/40 backdrop-blur-md border border-zinc-200/50 p-6 rounded-2xl shadow-[6px_6px_20px_rgba(0,0,0,0.015)]"
           >
-            <p className="text-[12px] text-zinc-500 leading-relaxed font-light">
+            <p className="text-[12px] text-zinc-600 leading-relaxed font-normal">
               We compile light-speed pages, custom backend integrations, and search sitemaps. Complete source code handover from day one.
             </p>
             <div className="flex gap-3">
@@ -114,7 +114,7 @@ export function VistarHero() {
               <MagneticButton>
                 <a
                   href="#services"
-                  className="border border-black/10 bg-white/60 backdrop-blur-sm text-zinc-600 text-[10px] font-bold tracking-widest uppercase px-5 py-4 rounded-full hover:bg-white hover:text-black transition-all cursor-pointer active:scale-95 inline-block"
+                  className="border border-black/10 bg-white/80 backdrop-blur-sm text-zinc-600 text-[10px] font-bold tracking-widest uppercase px-5 py-4 rounded-full hover:bg-white hover:text-black transition-all cursor-pointer active:scale-95 inline-block"
                 >
                   Services →
                 </a>

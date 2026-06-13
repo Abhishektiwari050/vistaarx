@@ -39,6 +39,7 @@ const customShader = {
     uniform float uTime;
     uniform float uScroll;
     uniform float uHighlight;
+    uniform float uOpacityScale; // Dynamic route-specific opacity scale
     uniform vec3 uColorBase;
     uniform vec3 uColorPrimary;
     uniform vec3 uColorSecondary;
@@ -47,12 +48,12 @@ const customShader = {
       vec3 normal = normalize(vNormal);
       vec3 viewDir = normalize(vViewPosition);
 
-      // 1. THICK ANIME OUTLINE (Fresnel Edge Detection)
-      // We make the edge completely black and crisp
+      // 1. STYLED SUBTLE OUTLINE (Fresnel Edge Detection)
+      // Soften outlines and make them translucent to prevent clashing with typography
       float edge = dot(normal, viewDir);
-      if (edge < 0.35) {
-        gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
-        return; // Pure black outline
+      if (edge < 0.28) {
+        gl_FragColor = vec4(0.02, 0.02, 0.03, 0.35 * uOpacityScale);
+        return; 
       }
 
       // 2. STARK CEL SHADING (Directional Light)
@@ -105,8 +106,8 @@ const customShader = {
       vec3 emissiveGlow = uColorPrimary * max(uHighlight - 1.0, 0.0) * 1.5;
       vec3 brightenedColor = litColor * min(uHighlight, 1.2) + emissiveGlow;
 
-      // Opacity scales smoothly
-      float opacity = smoothstep(0.0, 0.5, uHighlight) * 0.9 + 0.1;
+      // Opacity scales smoothly to act as a watermark style background element
+      float opacity = (smoothstep(0.0, 0.5, uHighlight) * 0.9 + 0.1) * uOpacityScale;
 
       gl_FragColor = vec4(brightenedColor, opacity);
     }
@@ -146,7 +147,7 @@ const auraShader = {
       edgeGlow = pow(edgeGlow, 2.5);
       
       vec3 finalColor = uColorAura * (noise * 0.6 + 0.4 + edgeGlow * 1.5);
-      float opacity = (noise * 0.5 + edgeGlow * 0.8) * 0.45;
+      float opacity = (noise * 0.5 + edgeGlow * 0.8) * 0.15;
       
       gl_FragColor = vec4(finalColor, opacity);
     }
@@ -286,10 +287,10 @@ function getHomepageLogoProperties(scroll: number): HomepageProperties {
 
   if (s <= 0.10) {
     // Stage 1: Hero Centered Active (Awwwards Immersive Center Backdrop)
-    x = 0.0;
-    y = 0.0;
+    x = -2.2;
+    y = 0.8;
     z = 0;
-    scale = 1.6;
+    scale = 1.0;
     arrowOffset = 0.0;
     highlight = 2.0;
     rotX = 0.1;
@@ -303,14 +304,14 @@ function getHomepageLogoProperties(scroll: number): HomepageProperties {
     // Stage 1 -> Stage 2: Glides Right, Scales Down
     const t = (s - 0.10) / 0.10;
     const ease = t * t * (3 - 2 * t);
-    x = THREE.MathUtils.lerp(0.0, 2.2, ease);
-    y = THREE.MathUtils.lerp(0.0, 0.5, ease);
+    x = THREE.MathUtils.lerp(-2.2, 2.2, ease);
+    y = THREE.MathUtils.lerp(0.8, 0.5, ease);
     z = 0;
-    scale = THREE.MathUtils.lerp(1.6, 0.75, ease);
+    scale = THREE.MathUtils.lerp(1.0, 0.75, ease);
     arrowOffset = 0.0;
     highlight = THREE.MathUtils.lerp(2.0, 1.0, ease);
-    rotX = 0;
-    rotY = 0;
+    rotX = THREE.MathUtils.lerp(0.1, 0, ease);
+    rotY = THREE.MathUtils.lerp(-0.2, 0, ease);
     rotZ = -ease * 0.5 * Math.PI; // elegant single 90 degree CW turn
   } else if (s > 0.20 && s <= 0.30) {
     // Stage 2: Manifesto Settled Right
@@ -518,6 +519,7 @@ export function Logo3D() {
           uTime: { value: 0 },
           uScroll: { value: 0 },
           uHighlight: { value: 1.0 },
+          uOpacityScale: { value: 0.2 },
           uColorBase: { value: new THREE.Color("#08080a") },
           uColorPrimary: { value: new THREE.Color("#ff0080") },
           uColorSecondary: { value: new THREE.Color("#ccff00") }
@@ -731,11 +733,24 @@ export function Logo3D() {
       ref.current.position.y = s.y;
       ref.current.scale.setScalar(s.scale);
 
+      // Compute route-specific opacity scale dynamically to ensure optimal contrast and readability
+      let routeOpacityScale = 0.2;
+      if (route === "/vectors") {
+        routeOpacityScale = 0.85; // highly visible for technology deep-dive
+      } else if (route === "/contact") {
+        routeOpacityScale = 0.65; // medium visible for contact crown
+      } else if (route === "/philosophy") {
+        routeOpacityScale = 0.12; // extra subtle watermark
+      } else if (route === "/work") {
+        routeOpacityScale = 0.16; // subtle watermark
+      }
+
       // Direct uniform dispatch to prevent React updates (maintains locks at 60 FPS)
       const mat = materials[idx];
       mat.uniforms.uTime.value = state.clock.getElapsedTime();
       mat.uniforms.uScroll.value = scroll;
       mat.uniforms.uHighlight.value = s.highlight;
+      mat.uniforms.uOpacityScale.value = routeOpacityScale;
       mat.uniforms.uColorBase.value = baseColor.current;
       mat.uniforms.uColorPrimary.value = primaryColor.current;
       mat.uniforms.uColorSecondary.value = secondaryColor.current;
@@ -786,9 +801,19 @@ export function Logo3D() {
 
     if (!isArrowRoute) {
       const mat = materials[0];
+      let routeOpacityScale = 0.2;
+      if (route === "/contact") {
+        routeOpacityScale = 0.65;
+      } else if (route === "/philosophy") {
+        routeOpacityScale = 0.12;
+      } else if (route === "/work") {
+        routeOpacityScale = 0.16;
+      }
+
       mat.uniforms.uTime.value = state.clock.getElapsedTime();
       mat.uniforms.uScroll.value = scroll;
       mat.uniforms.uHighlight.value = route === "/contact" ? 2.5 : 2.0;
+      mat.uniforms.uOpacityScale.value = routeOpacityScale;
       mat.uniforms.uColorBase.value = baseColor.current;
       mat.uniforms.uColorPrimary.value = primaryColor.current;
       mat.uniforms.uColorSecondary.value = secondaryColor.current;
