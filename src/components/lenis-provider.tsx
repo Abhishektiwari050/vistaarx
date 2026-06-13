@@ -16,7 +16,7 @@ export function LenisProvider({ children }: { children: React.ReactNode }) {
       gestureOrientation: "vertical",
       wheelMultiplier: 1,
       touchMultiplier: 2,
-    } as any);
+    });
 
     let rafId: number;
     function raf(time: number) {

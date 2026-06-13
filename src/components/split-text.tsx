@@ -23,7 +23,7 @@ export function SplitText({ text, className = "", delay = 0 }: { text: string; c
       opacity: 1,
       y: 0,
       rotateZ: 0,
-      transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] as any },
+      transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
     },
   };
 

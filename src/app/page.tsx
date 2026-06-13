@@ -1,14 +1,12 @@
 "use client";
 
-import React, { useRef, useEffect, useState, useCallback } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import {
   motion,
   useScroll,
   useTransform,
   useInView,
   AnimatePresence,
-  useMotionValue,
-  useSpring,
 } from "framer-motion";
 import { VistarBentoFeatures } from "@/components/bento-grid";
 import { VistarHero } from "@/components/vistar-hero";
@@ -42,13 +40,12 @@ function AnimatedCounter({ to, suffix = "" }: { to: number; suffix?: string }) {
 // Scroll Reveal
 // ─────────────────────────────────────────────────────────────────────────────
 function Reveal({
-  children, delay = 0, className = "", as = "div",
+  children, delay = 0, className = "",
 }: {
-  children: React.ReactNode; delay?: number; className?: string; as?: "div" | "section" | "article";
+  children: React.ReactNode; delay?: number; className?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-60px" });
-  const Tag = as as React.ElementType;
   return (
     <motion.div
       ref={ref}
@@ -108,8 +105,12 @@ function AiFlowchart() {
   useEffect(() => {
     if (timerRef.current) clearInterval(timerRef.current);
     let step = 0;
-    setNodeIdx(-1);
-    setLogs(["[0.00s] Initializing pipeline…"]);
+    
+    const initTimeout = setTimeout(() => {
+      setNodeIdx(-1);
+      setLogs(["[0.00s] Initializing pipeline…"]);
+    }, 0);
+
     timerRef.current = setInterval(() => {
       const nodes = WORKFLOWS[active].nodes;
       if (step < nodes.length && nodes[step]) {
@@ -123,7 +124,11 @@ function AiFlowchart() {
         setLogs((p) => [...p, `[SUCCESS] Finished in ${(step * 0.18).toFixed(2)}s`]);
       }
     }, 1200);
-    return () => { if (timerRef.current) clearInterval(timerRef.current); };
+
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+      clearTimeout(initTimeout);
+    };
   }, [active]);
 
   const nodes = WORKFLOWS[active].nodes;
@@ -588,7 +593,7 @@ export default function Home() {
                 <br /><span className="font-serif text-zinc-400">Outgrow?</span>
               </h2>
               <p className="text-sm text-zinc-400 max-w-sm leading-relaxed mb-8 font-light">
-                Tell us what you're building. Typical custom studio engagements start at ₹15,000. We reply within 24 hours.
+                Tell us what you&apos;re building. Typical custom studio engagements start at ₹15,000. We reply within 24 hours.
               </p>
               <div className="space-y-4">
                 {[

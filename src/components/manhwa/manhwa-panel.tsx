@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ReactNode, useMemo, useEffect } from "react";
+import React, { ReactNode, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useScrollReveal } from "@/lib/hooks/use-scroll-reveal";
 
@@ -463,32 +463,30 @@ export function ComicMaskReveal({
 // ─────────────────────────────────────────────────────────────────────────────
 // ManhwaTerminal — Interactive Neo-Brutalist Compiling Terminal
 // ─────────────────────────────────────────────────────────────────────────────
-export function ManhwaTerminal({ className = "" }: { className?: string }) {
-  const [logs, setLogs] = React.useState<string[]>([]);
-  const [syncStatus, setSyncStatus] = React.useState("AWAITING SYNC...");
+const MOCK_TERMINAL_LINES = [
+  "★ INITIATING VECTOR NODE HANDSHAKE...",
+  "✔ GPU RASTERIZER DISPATCH: OK [144Hz LOCKED]",
+  "★ RESOLVING IMMERSIVE SHADER PIPELINE...",
+  "✔ COMPILING PARTICLE SHADER: SUCCESS [0.03ms]",
+  "✔ GENERATING 5,000 PARTICLE POINTS...",
+  "★ CONNECTING TO SUPABASE LEDGER POOL...",
+  "✔ LEDGER TRANSACTION LOG: SYNCHRONIZED",
+  "★ CALCULATING MATHEMATICAL SCROLL VECTORS...",
+  "✔ DYNAMIC PARALLAX SWEEP BUFFER: STABLE",
+  "★ INJECTING TACTILE MICRO-INTERACTIONS...",
+  "✔ PIPELINE SYNC COMPLETE. VISTAR WEB CORE ONLINE!"
+];
 
-  const mockLines = useMemo(() => [
-    "★ INITIATING VECTOR NODE HANDSHAKE...",
-    "✔ GPU RASTERIZER DISPATCH: OK [144Hz LOCKED]",
-    "★ RESOLVING IMMERSIVE SHADER PIPELINE...",
-    "✔ COMPILING PARTICLE SHADER: SUCCESS [0.03ms]",
-    "✔ GENERATING 5,000 PARTICLE POINTS...",
-    "★ CONNECTING TO SUPABASE LEDGER POOL...",
-    "✔ LEDGER TRANSACTION LOG: SYNCHRONIZED",
-    "★ CALCULATING MATHEMATICAL SCROLL VECTORS...",
-    "✔ DYNAMIC PARALLAX SWEEP BUFFER: STABLE",
-    "★ INJECTING TACTILE MICRO-INTERACTIONS...",
-    "✔ PIPELINE SYNC COMPLETE. VISTAR WEB CORE ONLINE!"
-  ], []);
+export function ManhwaTerminal({ className = "" }: { className?: string }) {
+  const [logs, setLogs] = React.useState<string[]>([MOCK_TERMINAL_LINES[0]]);
+  const [syncStatus, setSyncStatus] = React.useState("AWAITING SYNC...");
 
   useEffect(() => {
     let index = 0;
-    setLogs([mockLines[0]]);
-    
     const interval = setInterval(() => {
       index++;
-      if (index < mockLines.length) {
-        setLogs(prev => [...prev, mockLines[index]]);
+      if (index < MOCK_TERMINAL_LINES.length) {
+        setLogs(prev => [...prev, MOCK_TERMINAL_LINES[index]]);
       } else {
         setSyncStatus("SYSTEM SYNCED ★ STABLE");
         clearInterval(interval);
@@ -496,7 +494,7 @@ export function ManhwaTerminal({ className = "" }: { className?: string }) {
     }, 1800);
 
     return () => clearInterval(interval);
-  }, [mockLines]);
+  }, []);
 
   return (
     <div className={`border-[4px] border-black bg-black rounded-xl overflow-hidden shadow-[6px_6px_0px_#000] font-mono text-xs text-lime-400 select-none ${className}`}>
@@ -524,7 +522,7 @@ export function ManhwaTerminal({ className = "" }: { className?: string }) {
             {log}
           </motion.div>
         ))}
-        {logs.length < mockLines.length && (
+        {logs.length < MOCK_TERMINAL_LINES.length && (
           <span className="inline-block w-2 h-4 bg-[#ccff00] animate-pulse" />
         )}
       </div>

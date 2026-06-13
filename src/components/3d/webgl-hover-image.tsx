@@ -1,9 +1,16 @@
 "use client";
 
-import React, { useRef, useState, useMemo } from "react";
-import { Canvas, extend, useFrame, useLoader } from "@react-three/fiber";
+import React, { useRef, useState } from "react";
+import { Canvas, extend, useFrame, useLoader, ThreeEvent } from "@react-three/fiber";
 import { shaderMaterial } from "@react-three/drei";
 import * as THREE from "three";
+
+interface LiquidMaterial extends THREE.ShaderMaterial {
+  uHover: number;
+  uTime: number;
+  uMouse: THREE.Vector2;
+  uTexture: THREE.Texture;
+}
 
 // Custom liquid displacement shader material
 const LiquidDistortionMaterial = shaderMaterial(
@@ -54,7 +61,7 @@ extend({ LiquidDistortionMaterial });
 
 function ImagePlane({ imgUrl }: { imgUrl: string }) {
   const meshRef = useRef<THREE.Mesh>(null);
-  const materialRef = useRef<any>(null);
+  const materialRef = useRef<LiquidMaterial>(null);
   const [hovered, setHovered] = useState(false);
   const mouseRef = useRef(new THREE.Vector2(0.5, 0.5));
   const texture = useLoader(THREE.TextureLoader, imgUrl);
@@ -76,12 +83,12 @@ function ImagePlane({ imgUrl }: { imgUrl: string }) {
       ref={meshRef}
       onPointerOver={() => setHovered(true)}
       onPointerOut={() => setHovered(false)}
-      onPointerMove={(e: any) => {
+      onPointerMove={(e: ThreeEvent<PointerEvent>) => {
         if (e.uv) mouseRef.current.copy(e.uv);
       }}
     >
       <planeGeometry args={[3.2, 4.2, 32, 32]} />
-      {/* @ts-ignore */}
+      {/* @ts-expect-error - liquidDistortionMaterial is extend registered */}
       <liquidDistortionMaterial 
         ref={materialRef} 
         uTexture={texture} 

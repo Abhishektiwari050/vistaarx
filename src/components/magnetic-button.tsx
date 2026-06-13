@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 
 interface MagneticProps {
@@ -10,7 +10,6 @@ interface MagneticProps {
 
 export function MagneticButton({ children, range = 50 }: MagneticProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);

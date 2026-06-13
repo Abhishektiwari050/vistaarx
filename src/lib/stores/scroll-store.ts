@@ -39,7 +39,7 @@ export interface ScrollStore {
   setReducedMotion: (val: boolean) => void;
 }
 
-export const useScrollStore = create<ScrollStore>()((set: any) => ({
+export const useScrollStore = create<ScrollStore>()((set) => ({
   scrollProgress: 0,
   scrollY: 0,
   scrollVelocity: 0,

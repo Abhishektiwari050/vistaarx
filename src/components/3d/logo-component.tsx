@@ -430,9 +430,36 @@ function getHomepageLogoProperties(scroll: number): HomepageProperties {
   }
 
   return {
-    x, y, z, scale, rotX, rotY, rotZ, arrowOffset, highlight, arrowHighlights, arrowScales
+    x,
+    y,
+    z,
+    scale,
+    rotX,
+    rotY,
+    rotZ,
+    arrowOffset,
+    highlight,
+    arrowHighlights,
+    arrowScales
   };
 }
+
+const PARTICLE_COUNT = 5000;
+const generateGlobalParticles = (count: number) => {
+  const pos = new Float32Array(count * 3);
+  const rand = new Float32Array(count * 3);
+  for (let i = 0; i < count; i++) {
+    pos[i * 3] = (Math.random() - 0.5) * 5.0;
+    pos[i * 3 + 1] = (Math.random() - 0.5) * 5.0;
+    pos[i * 3 + 2] = (Math.random() - 0.5) * 5.0;
+    
+    rand[i * 3] = Math.random();
+    rand[i * 3 + 1] = Math.random();
+    rand[i * 3 + 2] = Math.random();
+  }
+  return [pos, rand] as const;
+};
+const [particlePositions, particleRandoms] = generateGlobalParticles(PARTICLE_COUNT);
 
 export function Logo3D() {
   const groupRef = useRef<THREE.Group>(null);
@@ -457,22 +484,8 @@ export function Logo3D() {
 
   // Awwwards Point Cloud Vortex Particle declarations
   const particleRef = useRef<THREE.Points>(null);
-  const particleCount = 5000;
-  
-  const [positions, randoms] = useMemo(() => {
-    const pos = new Float32Array(particleCount * 3);
-    const rand = new Float32Array(particleCount * 3);
-    for (let i = 0; i < particleCount; i++) {
-      pos[i * 3] = (Math.random() - 0.5) * 5.0;
-      pos[i * 3 + 1] = (Math.random() - 0.5) * 5.0;
-      pos[i * 3 + 2] = (Math.random() - 0.5) * 5.0;
-      
-      rand[i * 3] = Math.random();
-      rand[i * 3 + 1] = Math.random();
-      rand[i * 3 + 2] = Math.random();
-    }
-    return [pos, rand];
-  }, []);
+  const positions = particlePositions;
+  const randoms = particleRandoms;
 
   const particleUniforms = useMemo(() => ({
     uTime: { value: 0 },
@@ -900,6 +913,22 @@ export function Logo3D() {
           <extrudeGeometry args={[arrowShape, extrudeSettings]} />
         </mesh>
       </group>
+
+      {/* Route-Specific Premium Geometries */}
+      <mesh ref={octahedronRef} visible={false}>
+        <octahedronGeometry args={[1.2, 0]} />
+        <meshBasicMaterial wireframe color="#ff1e90" transparent opacity={0.12} />
+      </mesh>
+
+      <mesh ref={icosahedronRef} visible={false}>
+        <icosahedronGeometry args={[1.2, 0]} />
+        <meshBasicMaterial wireframe color="#ff1e90" transparent opacity={0.12} />
+      </mesh>
+
+      <mesh ref={torusKnotRef} visible={false}>
+        <torusKnotGeometry args={[0.8, 0.25, 100, 16]} />
+        <meshBasicMaterial wireframe color="#ff1e90" transparent opacity={0.12} />
+      </mesh>
 
       {/* Awwwards Particle Vortex Point Cloud */}
       <points ref={particleRef}>
