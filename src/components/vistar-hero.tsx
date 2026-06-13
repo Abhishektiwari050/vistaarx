@@ -4,12 +4,13 @@ import React from "react";
 import { motion } from "framer-motion";
 import { SplitText } from "@/components/split-text";
 import { MagneticButton } from "@/components/magnetic-button";
+import { InteractiveGrid } from "@/components/interactive-grid";
 
 export function VistarHero() {
   return (
     <section className="relative min-h-screen flex flex-col justify-between overflow-hidden pt-32 pb-16 px-6 sm:px-12">
-      {/* Editorial Dot Grid Texture */}
-      <div className="absolute inset-0 pointer-events-none opacity-[0.06] bg-[radial-gradient(circle,_#d3d1cb_1.5px,_transparent_1.5px)] [background-size:24px_24px]" />
+      {/* Dynamic Interactive Grid Background */}
+      <InteractiveGrid className="absolute inset-0 opacity-[0.06] z-0 pointer-events-auto" />
 
       {/* Decorative Editorial Lines */}
       <div className="absolute top-12 right-12 pointer-events-none opacity-20 hidden md:block">

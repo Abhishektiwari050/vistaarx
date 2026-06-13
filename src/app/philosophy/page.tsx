@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { ThemeOverlay } from "@/components/theme-overlay";
+import { BlurText } from "@/components/blur-text";
 
 export default function PhilosophyPage() {
   return (
@@ -18,8 +19,11 @@ export default function PhilosophyPage() {
           Studio Identity
         </span>
         <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold uppercase tracking-tight text-black leading-none">
-          Creative Chemists /<br />
-          <span className="text-[#ff1e90]">Software Architects</span>
+          <BlurText text="Creative Chemists /" />
+          <br />
+          <span className="text-[#ff1e90]">
+            <BlurText text="Software Architects" delay={0.25} />
+          </span>
         </h1>
         <p className="font-sans text-xs sm:text-sm text-zinc-500 leading-relaxed max-w-md">
           Behind the vectors and shaders: senior software engineers building high-performance web systems that drive conversion.
