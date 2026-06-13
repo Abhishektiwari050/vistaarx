@@ -3,6 +3,7 @@
 import React from "react";
 import { ThemeOverlay } from "@/components/theme-overlay";
 import { WebGLHoverImage } from "@/components/3d/webgl-hover-image";
+import { SpotlightCard } from "@/components/spotlight-card";
 
 export default function WorkPage() {
   const projects = [
@@ -83,9 +84,11 @@ export default function WorkPage() {
         {/* Scrollable Right Column (7 cols) */}
         <div className="lg:col-span-7 space-y-16">
           {projects.map((p) => (
-            <section
+            <SpotlightCard
               key={p.id}
-              className="bg-white border border-zinc-200 rounded p-8 hover:border-zinc-400 transition-colors shadow-sm space-y-6"
+              glowColor="rgba(255, 30, 144, 0.05)"
+              borderColor="rgba(255, 30, 144, 0.2)"
+              className="bg-white border border-zinc-200 p-8 shadow-sm space-y-6 flex flex-col justify-between"
             >
               <div className="flex justify-between items-start flex-wrap gap-4 border-b border-zinc-100 pb-4">
                 <div className="space-y-1">
@@ -103,7 +106,10 @@ export default function WorkPage() {
               </p>
 
               {/* WebGL Hover Image container */}
-              <div className="aspect-[16/10] w-full rounded-lg overflow-hidden bg-zinc-50 border border-zinc-100 relative">
+              <div 
+                data-cursor-text="VIEW"
+                className="aspect-[16/10] w-full rounded-lg overflow-hidden bg-zinc-50 border border-zinc-100 relative cursor-pointer"
+              >
                 <WebGLHoverImage imgUrl={p.id === "01" ? "/trading_ledger.png" : p.id === "02" ? "/hero_cover.png" : "/architect_char.png"} />
               </div>
 
@@ -118,7 +124,7 @@ export default function WorkPage() {
                   {p.status}
                 </span>
               </div>
-            </section>
+            </SpotlightCard>
           ))}
         </div>
 

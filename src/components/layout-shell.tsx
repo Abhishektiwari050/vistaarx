@@ -5,6 +5,7 @@ import { useScrollStore, ScrollStore } from "@/lib/stores/scroll-store";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAudioFeedback } from "@/lib/hooks/use-audio-feedback";
+import { CustomCursor } from "@/components/custom-cursor";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Unified Premium Footer Component
@@ -184,7 +185,7 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="w-full min-h-screen bg-transparent text-black transition-colors duration-500 ease-in-out selection:bg-[#ff0080] selection:text-white">
-
+      <CustomCursor />
       <div className="transition-opacity duration-1000 ease-in-out opacity-100 pointer-events-auto">
         
         {/* Skip-to-content accessibility link */}

@@ -1,7 +1,6 @@
-"use client";
-
 import React from "react";
 import { motion } from "framer-motion";
+import { SpotlightCard } from "@/components/spotlight-card";
 
 interface BentoCardProps {
   eyebrow: string;
@@ -20,37 +19,48 @@ export function BentoCard({
   children,
   glowStyle = "pink",
 }: BentoCardProps) {
-  const glowClass = glowStyle === "green" ? "brutalist-glow-green" : "brutalist-glow-pink";
+  const isGreen = glowStyle === "green";
+  const glowColor = isGreen ? "rgba(216, 255, 66, 0.08)" : "rgba(255, 30, 144, 0.06)";
+  const borderColor = isGreen ? "rgba(216, 255, 66, 0.3)" : "rgba(255, 30, 144, 0.2)";
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-      className={`group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-black/8 bg-white p-7 sm:p-9 transition-all duration-300 ${glowClass} ${className}`}
+      className={`flex flex-col justify-between overflow-hidden rounded-3xl ${className}`}
     >
-      {/* Visual Graphic Wrapper */}
-      {children && (
-        <div className="relative h-48 w-full rounded-2xl bg-[#faf9f5] border border-black/5 overflow-hidden mb-6 flex items-center justify-center">
-          {children}
-        </div>
-      )}
+      <SpotlightCard
+        glowColor={glowColor}
+        borderColor={borderColor}
+        className="w-full h-full p-7 sm:p-9 flex flex-col justify-between border border-zinc-200/50 bg-white"
+      >
+        <div>
+          {/* Visual Graphic Wrapper */}
+          {children && (
+            <div className="relative h-48 w-full rounded-2xl bg-[#faf9f5] border border-black/5 overflow-hidden mb-6 flex items-center justify-center">
+              {children}
+            </div>
+          )}
 
-      {/* Card Content */}
-      <div className="relative z-10 flex flex-col gap-2">
-        <div className="flex items-center justify-between">
-          <span className="font-mono text-[9px] font-bold tracking-[2.2px] uppercase text-zinc-400">
-            {eyebrow}
-          </span>
-          <span className="w-1.5 h-1.5 rounded-full bg-black/10 group-hover:bg-[#ff1e90] transition-colors" />
+          {/* Card Content */}
+          <div className="relative z-10 flex flex-col gap-2">
+            <div className="flex items-center justify-between">
+              <span className="font-mono text-[9px] font-bold tracking-[2.2px] uppercase text-zinc-400">
+                {eyebrow}
+              </span>
+              <span className="w-1.5 h-1.5 rounded-full bg-black/10 group-hover:bg-[#ff1e90] transition-colors" />
+            </div>
+            <h3 className="font-display text-xl font-bold tracking-tight text-[#0a0a0a] leading-tight group-hover:text-[#ff1e90] transition-colors">
+              {title}
+            </h3>
+            <p className="text-zinc-500 text-xs sm:text-sm leading-relaxed font-light">
+              {description}
+            </p>
+          </div>
         </div>
-        <h3 className="font-display text-xl font-bold tracking-tight text-[#0a0a0a] leading-tight group-hover:text-[#ff1e90] transition-colors">
-          {title}
-        </h3>
-        <p className="text-zinc-500 text-xs sm:text-sm leading-relaxed font-light">
-          {description}
-        </p>
-      </div>
+      </SpotlightCard>
     </motion.div>
   );
 }

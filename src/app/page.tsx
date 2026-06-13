@@ -12,6 +12,8 @@ import { VistarBentoFeatures } from "@/components/bento-grid";
 import { VistarHero } from "@/components/vistar-hero";
 import { SplitText } from "@/components/split-text";
 import { MagneticButton } from "@/components/magnetic-button";
+import { SpotlightCard } from "@/components/spotlight-card";
+import { ScrollVelocity } from "@/components/scroll-velocity";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Animated Counter
@@ -346,6 +348,13 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Dynamic Scroll Velocity Typography Marquee */}
+      <div className="py-6 bg-[#faf9f5] border-t border-b border-black/5 relative z-20 overflow-hidden">
+        <ScrollVelocity baseVelocity={1.5}>
+          ELITE PERFORMANCE · CLEAN CODE · FULL OWNERSHIP · ZERO TEMPLATES · SEARCH OPTIMIZED ·
+        </ScrollVelocity>
+      </div>
+
       {/* ════════════════════════════════════════════════════════════════════
           STATS BAR — dark
           ════════════════════════════════════════════════════════════════════ */}
@@ -398,9 +407,10 @@ export default function Home() {
             {/* Card 1 — Custom Websites — neon green */}
             <motion.div style={{ y: card1Y }} className="group cursor-pointer">
               <Reveal>
-                <div
-                  className="bg-[#d8ff42] rounded-3xl p-8 md:p-12 aspect-[4/5] flex flex-col justify-between
-                             transition-all duration-500 hover:shadow-[0_24px_60px_rgba(216,255,66,0.25)]"
+                <SpotlightCard
+                  glowColor="rgba(255, 255, 255, 0.2)"
+                  borderColor="rgba(0, 0, 0, 0.15)"
+                  className="bg-[#d8ff42] border border-black/10 rounded-3xl p-8 md:p-12 aspect-[4/5] flex flex-col justify-between"
                 >
                   <div className="flex justify-between items-start">
                     <div className="w-12 h-12 rounded-full bg-black/10 flex items-center justify-center
@@ -418,16 +428,17 @@ export default function Home() {
                     </p>
                   </div>
                   <div className="w-full h-px bg-black/10 mt-8" />
-                </div>
+                </SpotlightCard>
               </Reveal>
             </motion.div>
 
             {/* Card 2 — Web Applications — dark, offset down */}
             <motion.div style={{ y: card2Y }} className="md:mt-24 group cursor-pointer">
               <Reveal delay={0.15}>
-                <div
-                  className="bg-[#111] border border-white/5 rounded-3xl p-8 md:p-12 aspect-[4/5] flex flex-col justify-between
-                             transition-all duration-500 hover:border-[#d8ff42]/30 hover:shadow-[0_24px_60px_rgba(255,30,144,0.1)] brutalist-glow-pink"
+                <SpotlightCard
+                  glowColor="rgba(255, 30, 144, 0.08)"
+                  borderColor="rgba(255, 30, 144, 0.35)"
+                  className="bg-[#111] border border-white/5 rounded-3xl p-8 md:p-12 aspect-[4/5] flex flex-col justify-between"
                 >
                   <div className="flex justify-between items-start">
                     <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center
@@ -445,17 +456,17 @@ export default function Home() {
                     </p>
                   </div>
                   <div className="w-full h-px bg-white/5 mt-8" />
-                </div>
+                </SpotlightCard>
               </Reveal>
             </motion.div>
           </div>
 
           {/* Card 3 — AI Automations — full width banner */}
           <Reveal delay={0.1}>
-            <div
-              className="relative rounded-3xl overflow-hidden border border-black/5 bg-white
-                         p-8 md:p-12 flex flex-col md:flex-row items-center gap-8
-                         hover:shadow-[0_20px_60px_rgba(255,30,144,0.1)] transition-all duration-500 group cursor-pointer"
+            <SpotlightCard
+              glowColor="rgba(255, 30, 144, 0.05)"
+              borderColor="rgba(255, 30, 144, 0.18)"
+              className="relative rounded-3xl overflow-hidden border border-black/5 bg-white p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 group cursor-pointer"
             >
               {/* Pink orb inside card */}
               <div
@@ -485,7 +496,7 @@ export default function Home() {
                   </span>
                 ))}
               </div>
-            </div>
+            </SpotlightCard>
           </Reveal>
         </div>
       </section>
