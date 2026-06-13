@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { useScrollStore, ScrollStore } from "@/lib/stores/scroll-store";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useAudioFeedback } from "@/lib/hooks/use-audio-feedback";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Unified Premium Footer Component
@@ -88,6 +89,9 @@ function Footer() {
 export function LayoutShell({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  
+  // Enable global Awwwards-grade tactile audio feedback
+  useAudioFeedback();
   const pathname = usePathname();
   const [headerVisible, setHeaderVisible] = useState(true);
   const lastScrollY = useRef(0);

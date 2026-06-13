@@ -18,7 +18,7 @@ import { MagneticButton } from "@/components/magnetic-button";
 // ─────────────────────────────────────────────────────────────────────────────
 function AnimatedCounter({ to, suffix = "" }: { to: number; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-60px" });
+  const isInView = useInView(ref, { once: true, margin: "0px" });
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -45,7 +45,7 @@ function Reveal({
   children: React.ReactNode; delay?: number; className?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-60px" });
+  const isInView = useInView(ref, { once: true, margin: "0px" });
   return (
     <motion.div
       ref={ref}

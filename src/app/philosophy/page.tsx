@@ -13,7 +13,7 @@ export default function PhilosophyPage() {
       <div className="fixed inset-0 z-[-1] opacity-5 pointer-events-none system-grid" />
 
       {/* Page Heading (Asymmetric Cover Style) */}
-      <div className="mb-16 mt-10 relative z-10 text-left space-y-4">
+      <div className="mb-16 mt-10 relative z-10 text-left space-y-4 bg-white/70 backdrop-blur-md border border-zinc-200/50 p-8 rounded-2xl max-w-2xl shadow-[6px_6px_20px_rgba(0,0,0,0.015)]">
         <span className="font-display text-[9px] font-bold tracking-widest text-[#ff1e90] uppercase border border-[#ff1e90]/20 px-3 py-1 bg-[#ff1e90]/5 rounded inline-block">
           Studio Identity
         </span>
@@ -28,7 +28,7 @@ export default function PhilosophyPage() {
 
       {/* Section 1: The Identity (Left Aligned, Text Focus) */}
       <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 w-full items-start relative z-10">
-        <div className="lg:col-span-7 space-y-6 bg-white border border-zinc-200 rounded p-8 shadow-sm">
+        <div className="lg:col-span-7 space-y-6 bg-white/70 backdrop-blur-md border border-zinc-200 rounded-2xl p-8 shadow-sm">
           <span className="font-mono text-[9px] text-zinc-400 font-bold uppercase tracking-wider">01 // The Studio Philosophy</span>
           <h2 className="font-display text-xl font-semibold uppercase tracking-wide text-black">
             Boutique Craftsmanship over bloated agency management
@@ -54,7 +54,7 @@ export default function PhilosophyPage() {
       <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 w-full items-start relative z-10">
         <div className="hidden lg:block lg:col-span-4" />
 
-        <div className="lg:col-span-8 bg-white border border-zinc-200 rounded p-8 shadow-sm space-y-6">
+        <div className="lg:col-span-8 bg-white/70 backdrop-blur-md border border-zinc-200 rounded-2xl p-8 shadow-sm space-y-6">
           <span className="font-mono text-[9px] text-[#ff1e90] font-bold uppercase tracking-wider">02 // The Principal Architect</span>
           
           <div className="flex flex-col sm:flex-row gap-6 items-start">
@@ -81,7 +81,7 @@ export default function PhilosophyPage() {
 
       {/* Section 3: Engineering Standards (Left Shifted Grid) */}
       <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 w-full items-start relative z-10 pb-12">
-        <div className="lg:col-span-7 bg-white border border-zinc-200 rounded p-8 shadow-sm space-y-6">
+        <div className="lg:col-span-7 bg-white/70 backdrop-blur-md border border-zinc-200 rounded-2xl p-8 shadow-sm space-y-6">
           <span className="font-mono text-[9px] text-zinc-400 font-bold uppercase tracking-wider">03 // Studio Standards</span>
           <h2 className="font-display text-xl font-semibold uppercase tracking-wide text-black">
             Our Systemic Methodology
