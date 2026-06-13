@@ -7,7 +7,7 @@ import { MagneticButton } from "@/components/magnetic-button";
 
 export function VistarHero() {
   return (
-    <section className="relative min-h-screen bg-[#faf9f5] flex flex-col justify-between overflow-hidden pt-32 pb-16 px-6 sm:px-12">
+    <section className="relative min-h-screen flex flex-col justify-between overflow-hidden pt-32 pb-16 px-6 sm:px-12">
       {/* Editorial Dot Grid Texture */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.06] bg-[radial-gradient(circle,_#d3d1cb_1.5px,_transparent_1.5px)] [background-size:24px_24px]" />
 

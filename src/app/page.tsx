@@ -295,7 +295,7 @@ export default function Home() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#faf9f5] text-[#0a0a0a] overflow-x-hidden">
+    <div className="relative min-h-screen text-[#0a0a0a] overflow-x-hidden">
 
       {/* ── Global noise texture ─────────────────────────────────────────── */}
       <div className="noise-overlay" aria-hidden="true" />
@@ -527,7 +527,7 @@ export default function Home() {
       {/* ════════════════════════════════════════════════════════════════════
           PRICING ADD-ONS
           ════════════════════════════════════════════════════════════════════ */}
-      <section className="py-24 px-6 sm:px-12 md:px-16 bg-[#faf9f5]">
+      <section className="py-24 px-6 sm:px-12 md:px-16">
         <div className="max-w-[1100px] mx-auto">
           <Reveal className="mb-14">
             <h2 className="font-display font-bold tracking-tight text-[#0a0a0a] text-center text-fluid-powerup">
@@ -567,7 +567,7 @@ export default function Home() {
       {/* ════════════════════════════════════════════════════════════════════
           CONTACT
           ════════════════════════════════════════════════════════════════════ */}
-      <section id="contact" className="py-24 px-6 sm:px-12 md:px-16 bg-[#faf9f5] relative overflow-hidden">
+      <section id="contact" className="py-24 px-6 sm:px-12 md:px-16 relative overflow-hidden">
         <div
           aria-hidden="true"
           className="absolute bottom-[-20%] left-[-10%] w-[500px] h-[500px] rounded-full
@@ -711,7 +711,7 @@ export default function Home() {
       {/* ════════════════════════════════════════════════════════════════════
           FOOTER — large text à la Superdesign
           ════════════════════════════════════════════════════════════════════ */}
-      <footer className="border-t border-black/5 bg-[#faf9f5] relative overflow-hidden pt-16 pb-10 px-6 sm:px-12">
+      <footer className="border-t border-black/5 relative overflow-hidden pt-16 pb-10 px-6 sm:px-12">
         {/* Big watermark text */}
         <div
           aria-hidden="true"
