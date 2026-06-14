@@ -8,6 +8,8 @@ import { BlurText } from "@/components/blur-text";
 export default function PhilosophyPage() {
   return (
     <div className="w-full min-h-screen py-20 px-6 md:px-12 z-20 relative max-w-7xl mx-auto space-y-24">
+      <title>Philosophy &amp; Team // Vistar Web Systems</title>
+      <meta name="description" content="Discover Vistar Web Systems' custom design-engineering philosophy: hand-crafted code, zero templates, complete codebase transfer, and sub-second load times." />
       <ThemeOverlay />
       
       {/* Background Grid */}

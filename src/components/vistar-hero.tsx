@@ -5,12 +5,15 @@ import { motion } from "framer-motion";
 import { SplitText } from "@/components/split-text";
 import { MagneticButton } from "@/components/magnetic-button";
 import { InteractiveGrid } from "@/components/interactive-grid";
+import { Particles } from "@/components/particles";
+import { ShimmerButton } from "@/components/shimmer-button";
 
 export function VistarHero() {
   return (
     <section className="relative min-h-screen flex flex-col justify-between overflow-hidden pt-32 pb-16 px-6 sm:px-12">
-      {/* Dynamic Interactive Grid Background */}
-      <InteractiveGrid className="absolute inset-0 opacity-[0.06] z-0 pointer-events-auto" />
+      {/* Dynamic Interactive Grid & Canvas Particles Background */}
+      <InteractiveGrid className="absolute inset-0 opacity-[0.05] z-0 pointer-events-auto" />
+      <Particles quantity={100} staticity={35} color="#ff1e90" className="opacity-35" />
 
       {/* Decorative Editorial Lines */}
       <div className="absolute top-12 right-12 pointer-events-none opacity-20 hidden md:block">
@@ -103,14 +106,13 @@ export function VistarHero() {
             </p>
             <div className="flex gap-3">
               <MagneticButton>
-                <button
+                <ShimmerButton
                   type="button"
-                  suppressHydrationWarning
                   onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-                  className="bg-[#0a0a0a] text-[#d8ff42] text-[10px] font-bold tracking-widest uppercase px-6 py-4 rounded-full hover:bg-black/90 transition-all cursor-pointer shadow-[0_4px_20px_rgba(216,255,66,0.15)] active:scale-95"
+                  className="px-6 py-4 text-[10px]"
                 >
                   Start Project ⚡
-                </button>
+                </ShimmerButton>
               </MagneticButton>
               <MagneticButton>
                 <a
@@ -137,3 +139,4 @@ export function VistarHero() {
     </section>
   );
 }
+

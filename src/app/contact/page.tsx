@@ -44,6 +44,8 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-[calc(100vh-80px)] w-full relative flex flex-col justify-center px-6 md:px-12 pt-12 pb-16 z-20 max-w-7xl mx-auto space-y-8">
+      <title>Contact HQ // Vistar Web Systems</title>
+      <meta name="description" content="Connect with Vistar Web Systems. Transmit your project requirements, coordinate timelines, and initiate custom high-performance web platform engineering." />
       <ThemeOverlay />
 
       {/* Background Grid */}

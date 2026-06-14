@@ -1,6 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { SpotlightCard } from "@/components/spotlight-card";
+import { BorderBeam } from "@/components/border-beam";
+import { Meteors } from "@/components/meteors";
 
 interface BentoCardProps {
   eyebrow: string;
@@ -34,9 +36,21 @@ export function BentoCard({
       <SpotlightCard
         glowColor={glowColor}
         borderColor={borderColor}
-        className="w-full h-full p-7 sm:p-9 flex flex-col justify-between border border-zinc-200/50 bg-white"
+        className="w-full h-full p-7 sm:p-9 flex flex-col justify-between border border-zinc-200/50 bg-white relative group overflow-hidden"
       >
-        <div>
+        {/* Dynamic laser border glow on hover */}
+        <BorderBeam
+          duration={8}
+          size={140}
+          colorFrom={isGreen ? "#d8ff42" : "#ff1e90"}
+          colorTo="transparent"
+          className="opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        />
+
+        {/* Ambient background meteors */}
+        <Meteors number={6} color={isGreen ? "green" : "pink"} className="opacity-[0.08]" />
+
+        <div className="relative z-10">
           {/* Visual Graphic Wrapper */}
           {children && (
             <div className="relative h-48 w-full rounded-2xl bg-[#faf9f5] border border-black/5 overflow-hidden mb-6 flex items-center justify-center">

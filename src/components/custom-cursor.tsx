@@ -49,14 +49,16 @@ export function CustomCursor() {
         target = target.parentElement;
       }
 
-      if (foundInteractive) {
-        setHoveredEl({
-          text: cursorText || undefined,
-          type: cursorText ? "text" : "link",
-        });
-      } else {
-        setHoveredEl(null);
-      }
+      const newType = foundInteractive ? (cursorText ? "text" : "link") : null;
+
+      setHoveredEl((prev) => {
+        const prevType = prev?.type || null;
+        const prevText = prev?.text || "";
+        if (prevType === newType && prevText === cursorText) {
+          return prev;
+        }
+        return newType ? { text: cursorText || undefined, type: newType } : null;
+      });
     };
 
     window.addEventListener("mousemove", moveCursor, { passive: true });

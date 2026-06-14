@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+  <style>
+    path { fill: #0a0a0a; }
+    @media (prefers-color-scheme: dark) {
+      path { fill: #faf9f5; }
+    }
+  </style>
+  <path d="M12,2 L14.5,9.5 L22,12 L14.5,14.5 L12,22 L9.5,14.5 L2,12 L9.5,9.5 Z" />
+  <circle cx="12" cy="12" r="2.5" fill="#ff1e90" />
+</svg>

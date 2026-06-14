@@ -4,6 +4,7 @@ import React from "react";
 import { ThemeOverlay } from "@/components/theme-overlay";
 import { WebGLHoverImage } from "@/components/3d/webgl-hover-image";
 import { SpotlightCard } from "@/components/spotlight-card";
+import { BorderBeam } from "@/components/border-beam";
 
 export default function WorkPage() {
   const projects = [
@@ -38,6 +39,8 @@ export default function WorkPage() {
 
   return (
     <div className="w-full relative py-20 px-6 md:px-12 z-20 max-w-7xl mx-auto min-h-screen">
+      <title>Case Studies // Vistar Web Systems</title>
+      <meta name="description" content="Deep-dives into Vistar Web Systems' engineered products: high-performance algorithmic ledgers, edge routing compilers, and bio-modeling rendering systems." />
       <ThemeOverlay />
       
       {/* Background Grid */}
@@ -88,9 +91,16 @@ export default function WorkPage() {
               key={p.id}
               glowColor="rgba(255, 30, 144, 0.05)"
               borderColor="rgba(255, 30, 144, 0.2)"
-              className="bg-white border border-zinc-200 p-8 shadow-sm space-y-6 flex flex-col justify-between"
+              className="bg-white border border-zinc-200 p-8 shadow-sm space-y-6 flex flex-col justify-between relative group overflow-hidden"
             >
-              <div className="flex justify-between items-start flex-wrap gap-4 border-b border-zinc-100 pb-4">
+              <BorderBeam
+                duration={10}
+                size={160}
+                colorFrom="#ff1e90"
+                colorTo="transparent"
+                className="opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              />
+              <div className="flex justify-between items-start flex-wrap gap-4 border-b border-zinc-100 pb-4 relative z-10">
                 <div className="space-y-1">
                   <span className="font-mono text-[9px] text-[#ff1e90] font-semibold">{p.id} {"//"} CASE STUDY</span>
                   <h2 className="font-display text-xl font-semibold tracking-wide text-black uppercase">{p.title}</h2>

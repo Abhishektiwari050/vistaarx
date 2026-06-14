@@ -14,6 +14,9 @@ import { SplitText } from "@/components/split-text";
 import { MagneticButton } from "@/components/magnetic-button";
 import { SpotlightCard } from "@/components/spotlight-card";
 import { ScrollVelocity } from "@/components/scroll-velocity";
+import { RetroGrid } from "@/components/retro-grid";
+import { BorderBeam } from "@/components/border-beam";
+import { ShimmerButton } from "@/components/shimmer-button";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Animated Counter
@@ -505,11 +508,12 @@ export default function Home() {
           AI INTERACTIVE DEMOS — dark section
           ════════════════════════════════════════════════════════════════════ */}
       <section className="bg-[#0a0a0a] py-24 px-6 sm:px-12 md:px-16 relative overflow-hidden">
-        {/* Subtle green grid */}
+        {/* Subtle green grid & 3D RetroGrid background */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 pointer-events-none opacity-[0.03] bg-green-grid"
+          className="absolute inset-0 pointer-events-none opacity-[0.02] bg-green-grid"
         />
+        <RetroGrid angle={45} color="rgba(216, 255, 66, 0.06)" className="opacity-70" />
 
         <div className="max-w-[1100px] mx-auto relative z-10">
           <Reveal>
@@ -637,8 +641,15 @@ export default function Home() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -16 }}
                     onSubmit={handleSubmit}
-                    className="bg-white rounded-3xl border border-black/6 p-8 space-y-5 shadow-[0_8px_40px_rgba(0,0,0,0.06)] brutalist-glow-pink"
+                    className="bg-white rounded-3xl border border-black/6 p-8 space-y-5 shadow-[0_8px_40px_rgba(0,0,0,0.06)] brutalist-glow-pink relative group overflow-hidden"
                   >
+                    <BorderBeam
+                      duration={12}
+                      size={160}
+                      colorFrom="#ff1e90"
+                      colorTo="transparent"
+                      className="opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    />
                     {[
                       { id: "form-name",  label: "Your Name",     type: "text",  ph: "Alexander Vance",      key: "name" as const },
                       { id: "form-email", label: "Email Address",  type: "email", ph: "alex@company.com",     key: "email" as const },
@@ -689,14 +700,13 @@ export default function Home() {
                     </div>
 
                     <MagneticButton>
-                      <button
+                      <ShimmerButton
                         type="submit"
-                        suppressHydrationWarning
-                        className="w-full py-4 rounded-xl bg-[#0a0a0a] text-[#d8ff42] text-sm font-bold tracking-widest uppercase
-                                   shadow-[0_4px_24px_rgba(216,255,66,0.15)] hover:shadow-[0_6px_32px_rgba(216,255,66,0.25)] transition-shadow cursor-pointer"
+                        borderRadius="12px"
+                        className="w-full py-4 text-sm font-bold"
                       >
                         Submit Brief ⚡
-                      </button>
+                      </ShimmerButton>
                     </MagneticButton>
                   </motion.form>
                 ) : (

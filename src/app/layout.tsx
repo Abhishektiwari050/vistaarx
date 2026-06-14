@@ -62,6 +62,9 @@ export const metadata: Metadata = {
     description:
       "Elite digital engineering for brands that demand excellence. Bespoke websites, high-performance web apps, and AI automation systems.",
   },
+  icons: {
+    icon: "/icon.svg",
+  },
 };
 
 export default function RootLayout({
@@ -75,9 +78,6 @@ export default function RootLayout({
       className={`${plusJakartaSans.variable} ${spaceGrotesk.variable} ${playfairDisplay.variable} min-h-screen antialiased`}
       suppressHydrationWarning
     >
-      <head>
-        <link rel="icon" href="/favicon.ico" />
-      </head>
       <body
         className="min-h-screen bg-[#faf9f5] text-[#0a0a0a] selection:bg-[#d8ff42] selection:text-black antialiased overflow-x-hidden font-sans"
         suppressHydrationWarning

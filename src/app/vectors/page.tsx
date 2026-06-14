@@ -75,6 +75,8 @@ export default function VectorsPage() {
 
   return (
     <div className="w-full h-[400vh] relative z-20">
+      <title>Performance Vectors // Vistar Web Systems</title>
+      <meta name="description" content="Explore our performance vectors: Core Web Vitals, Edge Distribution, secure sandboxing, and autonomous AI automation pipelines." />
       <ThemeOverlay />
 
       {/* Background Grid */}

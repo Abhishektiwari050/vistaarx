@@ -1,57 +1,125 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 
-function GridCell() {
-  const [active, setActive] = useState(false);
-
-  useEffect(() => {
-    if (active) {
-      const timer = setTimeout(() => setActive(false), 800);
-      return () => clearTimeout(timer);
-    }
-  }, [active]);
-
-  return (
-    <div
-      onMouseEnter={() => setActive(true)}
-      className="aspect-square border-[0.5px] border-zinc-200/5 transition-all duration-700 ease-out"
-      style={{
-        backgroundColor: active ? "rgba(216, 255, 66, 0.25)" : "transparent",
-        boxShadow: active ? "0 0 10px rgba(216, 255, 66, 0.15)" : "none",
-      }}
-    />
-  );
+interface InteractiveGridProps {
+  className?: string;
+  cellSize?: number;
+  gridColor?: string;
+  glowColor?: string;
 }
 
-export function InteractiveGrid({ className = "" }: { className?: string }) {
-  const [cellCount, setCellCount] = useState(0);
+export function InteractiveGrid({
+  className = "",
+  cellSize = 40,
+  gridColor = "rgba(10, 10, 10, 0.03)",
+  glowColor = "rgba(216, 255, 66, 0.25)",
+}: InteractiveGridProps) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const cellsRef = useRef<{ [key: string]: number }>({});
+  const mouseRef = useRef<{ x: number; y: number }>({ x: -1000, y: -1000 });
 
   useEffect(() => {
-    const handleResize = () => {
-      const w = window.innerWidth;
-      const h = window.innerHeight;
-      // Calculate how many cells we need to fill the screen
-      const cols = Math.ceil(w / 40);
-      const rows = Math.ceil(h / 40);
-      setCellCount(cols * rows);
+    const canvas = canvasRef.current;
+    const container = containerRef.current;
+    if (!canvas || !container) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let animationFrameId: number;
+    const dpr = typeof window !== "undefined" ? window.devicePixelRatio || 1 : 1;
+
+    const resize = () => {
+      const w = container.offsetWidth;
+      const h = container.offsetHeight;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      canvas.style.width = `${w}px`;
+      canvas.style.height = `${h}px`;
+      ctx.scale(dpr, dpr);
     };
 
-    handleResize();
-    window.addEventListener("resize", handleResize, { passive: true });
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+    resize();
+    window.addEventListener("resize", resize, { passive: true });
+
+    const onMouseMove = (e: MouseEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      mouseRef.current.x = e.clientX - rect.left;
+      mouseRef.current.y = e.clientY - rect.top;
+    };
+
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
+
+    // Parse the glowColor string to extract rgb numbers for interpolation
+    let rgbGlow = "216, 255, 66";
+    const rgbMatch = glowColor.match(/\d+,\s*\d+,\s*\d+/);
+    if (rgbMatch) {
+      rgbGlow = rgbMatch[0];
+    }
+
+    const draw = () => {
+      const w = canvas.width / dpr;
+      const h = canvas.height / dpr;
+      ctx.clearRect(0, 0, w, h);
+
+      const cols = Math.ceil(w / cellSize);
+      const rows = Math.ceil(h / cellSize);
+
+      // Determine active cell under cursor
+      const mouseCol = Math.floor(mouseRef.current.x / cellSize);
+      const mouseRow = Math.floor(mouseRef.current.y / cellSize);
+
+      if (mouseCol >= 0 && mouseCol < cols && mouseRow >= 0 && mouseRow < rows) {
+        const key = `${mouseCol},${mouseRow}`;
+        cellsRef.current[key] = 1.0; // max opacity
+      }
+
+      ctx.strokeStyle = gridColor;
+      ctx.lineWidth = 0.5;
+
+      for (let c = 0; c < cols; c++) {
+        for (let r = 0; r < rows; r++) {
+          const key = `${c},${r}`;
+          const opacity = cellsRef.current[key] || 0;
+
+          if (opacity > 0) {
+            // Draw glowing active cell
+            ctx.fillStyle = `rgba(${rgbGlow}, ${opacity * 0.25})`;
+            ctx.fillRect(c * cellSize, r * cellSize, cellSize, cellSize);
+
+            // Decay cell illumination smoothly (~800ms)
+            cellsRef.current[key] = opacity - 0.02;
+          }
+
+          // Draw wireframe grid lines
+          ctx.strokeRect(c * cellSize, r * cellSize, cellSize, cellSize);
+        }
+      }
+
+      // Evict expired grid states
+      Object.keys(cellsRef.current).forEach((key) => {
+        if (cellsRef.current[key] <= 0) {
+          delete cellsRef.current[key];
+        }
+      });
+
+      animationFrameId = requestAnimationFrame(draw);
+    };
+
+    draw();
+
+    return () => {
+      window.removeEventListener("resize", resize);
+      window.removeEventListener("mousemove", onMouseMove);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [cellSize, gridColor, glowColor]);
 
   return (
-    <div
-      className={`grid w-full h-full pointer-events-auto select-none ${className}`}
-      style={{
-        gridTemplateColumns: "repeat(auto-fill, minmax(40px, 1fr))",
-      }}
-    >
-      {Array.from({ length: cellCount }).map((_, i) => (
-        <GridCell key={i} />
-      ))}
+    <div ref={containerRef} className={`absolute inset-0 pointer-events-none ${className}`}>
+      <canvas ref={canvasRef} className="block" />
     </div>
   );
 }
