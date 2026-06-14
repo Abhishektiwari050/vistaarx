@@ -6,6 +6,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAudioFeedback } from "@/lib/hooks/use-audio-feedback";
 import { CustomCursor } from "@/components/custom-cursor";
+import { motion, AnimatePresence } from "framer-motion";
+import { Preloader } from "@/components/preloader";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Unified Premium Footer Component
@@ -22,14 +24,30 @@ function Footer() {
   ];
 
   return (
-    <footer className="bg-[#faf9f5] border-t border-zinc-200 py-16 px-6 md:px-12 select-none relative z-30 font-sans text-zinc-800">
+    <footer className="bg-[#faf9f5] border-t border-zinc-200 py-16 px-6 md:px-12 select-none relative z-30 font-sans text-zinc-800 overflow-hidden">
       <div className="absolute inset-0 halftone-dots-fine opacity-[0.015] pointer-events-none z-0" />
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 items-start relative z-10">
+      
+      {/* Big watermark text */}
+      <div
+        aria-hidden="true"
+        className="absolute bottom-0 left-0 right-0 pointer-events-none select-none leading-none overflow-hidden z-0"
+      >
+        <span
+          className="font-display font-bold tracking-tighter text-[#0a0a0a]/5 text-fluid-footer leading-[0.85] block"
+        >
+          VISTAR.
+        </span>
+      </div>
+
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 items-start relative z-10">
         
         {/* Col 1: Brand & Socials (5 Columns) */}
         <div className="md:col-span-5 space-y-5">
-          <Link href="/" className="font-display text-2xl font-bold tracking-wider flex items-center gap-2 uppercase text-black">
-            <span className="w-2 h-2 bg-[#ff1e90] rounded-full shrink-0" />
+          <Link href="/" className="font-display text-2xl font-bold tracking-wider flex items-center gap-2.5 uppercase text-black">
+            <span className="relative flex h-2.5 w-2.5 shrink-0 select-none">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ff1e90] opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#ff1e90]"></span>
+            </span>
             <span>Vistar Studio</span>
           </Link>
           <p className="text-sm max-w-xs text-zinc-500 font-sans leading-relaxed">
@@ -70,7 +88,7 @@ function Footer() {
       </div>
 
       {/* Footer Bottom Bar */}
-      <div className="max-w-7xl mx-auto border-t border-dashed border-zinc-200 mt-12 pt-8 flex flex-col sm:flex-row justify-between items-center text-xs font-display tracking-widest text-zinc-400 gap-4 relative z-10">
+      <div className="max-w-6xl mx-auto border-t border-dashed border-zinc-200 mt-12 pt-8 flex flex-col sm:flex-row justify-between items-center text-xs font-display tracking-widest text-zinc-400 gap-4 relative z-10">
         <p>© {year} VISTAR STUDIO. ALL OPERATIONS ONLINE.</p>
         <div className="flex gap-4">
           <a href="#" className="hover:text-[#ff1e90] transition-colors interactive">PRIVACY_POLICY</a>
@@ -185,13 +203,35 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="w-full min-h-screen bg-transparent text-black transition-colors duration-500 ease-in-out selection:bg-[#ff0080] selection:text-white">
+      <Preloader />
       <CustomCursor />
+      
+      {/* Dynamic Route Wipe Curtain Transition */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={pathname}
+          initial={{ scaleY: 1 }}
+          animate={{ scaleY: 0 }}
+          transition={{ duration: 0.65, ease: [0.76, 0, 0.24, 1] }}
+          style={{ originY: 0 }}
+          className="fixed inset-0 z-[999] bg-[#ff1e90] pointer-events-none flex flex-col items-center justify-center"
+        >
+          <div className="font-mono text-[#faf9f5] text-[10px] tracking-widest uppercase flex flex-col gap-2.5 items-center">
+            <div className="flex items-center gap-2 bg-black/10 px-4 py-2 border border-white/10 rounded-lg">
+              <span className="w-2 h-2 rounded-full bg-[#d8ff42] animate-ping" />
+              <span>Compiling Route: {pathname || "/"}...</span>
+            </div>
+            <span className="text-[#faf9f5]/40 text-[8px] tracking-[3px]">Precision Web Architecture · Vistar HQ</span>
+          </div>
+        </motion.div>
+      </AnimatePresence>
+
       <div className="transition-opacity duration-1000 ease-in-out opacity-100 pointer-events-auto">
         
         {/* Skip-to-content accessibility link */}
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-[#ff0080] focus:text-white focus:px-4 focus:py-2 font-bangers text-xl uppercase border-[3px] border-black shadow-[4px_4px_0px_#000]"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-[#ff0080] focus:text-white focus:px-4 focus:py-2 font-display text-xl uppercase border-[3px] border-black shadow-[4px_4px_0px_#000]"
         >
           Skip to content
         </a>
@@ -202,8 +242,11 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
             headerVisible ? "translate-y-0" : "-translate-y-[180%]"
           }`}
         >
-          <Link href="/" id="nav-brand-logo" className="font-display text-base font-bold tracking-widest text-black flex items-center gap-2 interactive uppercase">
-            <span className="w-2 h-2 bg-[#ff1e90] rounded-full shrink-0" />
+          <Link href="/" id="nav-brand-logo" className="font-display text-base font-bold tracking-widest text-black flex items-center gap-2.5 interactive uppercase">
+            <span className="relative flex h-2.5 w-2.5 shrink-0 select-none">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ff1e90] opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#ff1e90]"></span>
+            </span>
             <span>Vistar Studio</span>
           </Link>
           

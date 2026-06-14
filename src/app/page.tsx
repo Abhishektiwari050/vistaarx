@@ -8,7 +8,6 @@ import {
   useInView,
   AnimatePresence,
 } from "framer-motion";
-import { VistarBentoFeatures } from "@/components/bento-grid";
 import { VistarHero } from "@/components/vistar-hero";
 import { SplitText } from "@/components/split-text";
 import { MagneticButton } from "@/components/magnetic-button";
@@ -23,22 +22,42 @@ import { ShimmerButton } from "@/components/shimmer-button";
 // ─────────────────────────────────────────────────────────────────────────────
 function AnimatedCounter({ to, suffix = "" }: { to: number; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "0px" });
+  const isInView = useInView(ref, { once: true, margin: "-10%" });
   const [count, setCount] = useState(0);
 
   useEffect(() => {
     if (!isInView) return;
-    let current = 0;
-    const step = to / 60;
-    const timer = setInterval(() => {
-      current += step;
-      if (current >= to) { setCount(to); clearInterval(timer); }
-      else setCount(Math.floor(current));
-    }, 16);
-    return () => clearInterval(timer);
+    const duration = 1200; // 1.2 seconds animation duration
+    const startTime = performance.now();
+    
+    const animate = (now: number) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // Quadratic ease out
+      const ease = progress * (2 - progress);
+      setCount(Math.floor(ease * to));
+      
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        setCount(to);
+      }
+    };
+    
+    requestAnimationFrame(animate);
   }, [isInView, to]);
 
-  return <span ref={ref}>{count}{suffix}</span>;
+  return (
+    <motion.span
+      ref={ref}
+      initial={{ filter: "blur(12px)", opacity: 0 }}
+      animate={isInView ? { filter: "blur(0px)", opacity: 1 } : {}}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      className="inline-block"
+    >
+      {count}{suffix}
+    </motion.span>
+  );
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -66,199 +85,96 @@ function Reveal({
 
 
 
-// ─────────────────────────────────────────────────────────────────────────────
-// AI Flowchart
-// ─────────────────────────────────────────────────────────────────────────────
-const WORKFLOWS = {
-  leads: {
-    title: "Lead Qualification & Ingestion Pipeline",
-    nodes: [
-      { id: "1", label: "Email / Webhook",       desc: "Triggered on new incoming inquiry" },
-      { id: "2", label: "Gemini Parsing Agent",  desc: "Extracts intent, budget, tech stack" },
-      { id: "3", label: "Clearbit Enrichment",   desc: "Retrieves company size and funding" },
-      { id: "4", label: "CRM Routing & Alert",   desc: "Pushes score, schedules calendar link" },
-    ],
+
+
+const CASE_STUDIES = [
+  {
+    id: "01",
+    title: "Apex Algorithmic Ledger",
+    client: "FinTech Trade Labs",
+    metric: "+38% Signups",
+    desc: "A high-performance algorithmic trading interface for digital asset dealers utilizing WebGL and Next.js. Increased user session times by 140% and signup conversions by 38%.",
+    tags: ["WebGL", "Framer Motion", "Real-Time Telemetry"],
   },
-  content: {
-    title: "Automated Content Translator & Distributor",
-    nodes: [
-      { id: "1", label: "Source Asset (CMS)",    desc: "Listens for code push or article publish" },
-      { id: "2", label: "LLM Translation",       desc: "Localises text with cultural context" },
-      { id: "3", label: "SEO Metatag Gen",       desc: "Generates optimal JSON-LD structure" },
-      { id: "4", label: "Platform Dispatch",     desc: "Pushes to CMS and social APIs" },
-    ],
+  {
+    id: "02",
+    title: "Router Scaling Compiler",
+    client: "Enterprise Media Cloud",
+    metric: "2.4x Speedup",
+    desc: "An architectural overhaul for a global media distribution network using Next.js SSR and Edge Functions. Achieved a 2.4x speedup in load times and a 62% increase in search CTR.",
+    tags: ["Next.js SSR", "Edge Functions", "API Routing"],
   },
-  support: {
-    title: "Autonomous Customer Support Assistant",
-    nodes: [
-      { id: "1", label: "Inbound Ticket",        desc: "Receives user request from widget" },
-      { id: "2", label: "Vector DB Search",      desc: "Searches docs and past responses" },
-      { id: "3", label: "Response Draft",        desc: "Builds answer with sandbox tests" },
-      { id: "4", label: "Auto-Reply / Escalate", desc: "Responds <15s or routes to human" },
-    ],
+  {
+    id: "03",
+    title: "Spatial Bio-Modeling Engine",
+    client: "Helix Research Corp",
+    metric: "Zero Latency",
+    desc: "An immersive browser-based bio-modeling environment using Three.js and GLSL. Handles 1.2M daily active user sessions with zero latency in render frame rates.",
+    tags: ["Three.js", "GLSL Shaders", "Bio-Computing UI"],
   },
-} as const;
+];
 
-type WFKey = keyof typeof WORKFLOWS;
+function HorizontalCaseStudies() {
+  const targetRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+  });
 
-function AiFlowchart() {
-  const [active, setActive] = useState<WFKey>("leads");
-  const [nodeIdx, setNodeIdx] = useState(-1);
-  const [logs, setLogs] = useState(["[0.00s] Initializing pipeline…"]);
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
-  useEffect(() => {
-    if (timerRef.current) clearInterval(timerRef.current);
-    let step = 0;
-    
-    const initTimeout = setTimeout(() => {
-      setNodeIdx(-1);
-      setLogs(["[0.00s] Initializing pipeline…"]);
-    }, 0);
-
-    timerRef.current = setInterval(() => {
-      const nodes = WORKFLOWS[active].nodes;
-      if (step < nodes.length && nodes[step]) {
-        setNodeIdx(step);
-        const ts = ((step + 1) * 0.18 + Math.random() * 0.04).toFixed(2);
-        const label = nodes[step].label;
-        setLogs((p) => [...p, `[${ts}s] ${label}: ✓ OK`]);
-        step++;
-      } else {
-        if (timerRef.current) clearInterval(timerRef.current);
-        setLogs((p) => [...p, `[SUCCESS] Finished in ${(step * 0.18).toFixed(2)}s`]);
-      }
-    }, 1200);
-
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
-      clearTimeout(initTimeout);
-    };
-  }, [active]);
-
-  const nodes = WORKFLOWS[active].nodes;
+  // Translate scroll progress to horizontal movement
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-40%"]);
 
   return (
-    <div className="bg-[#111] rounded-2xl p-6 md:p-8 flex flex-col md:grid md:grid-cols-12 gap-6 select-none border border-white/5">
-      {/* Pipeline selector */}
-      <div className="md:col-span-4 flex flex-col gap-2">
-        <p className="font-mono text-[9px] tracking-widest uppercase text-white/30 mb-2">Select Pipeline</p>
-        {(Object.keys(WORKFLOWS) as WFKey[]).map((key) => (
-          <button
-            key={key}
-            onClick={() => setActive(key)}
-            suppressHydrationWarning
-            className={`text-left px-4 py-2.5 rounded-lg text-[10px] font-display font-bold tracking-widest uppercase transition-all ${
-              active === key
-                ? "bg-[#d8ff42] text-black"
-                : "bg-white/5 text-white/40 hover:bg-white/10 hover:text-white/70"
-            }`}
-          >
-            {key === "leads" ? "Lead Pipeline" : key === "content" ? "Content AI" : "Support Bot"}
-          </button>
-        ))}
-      </div>
+    <section ref={targetRef} className="relative h-[130vh] bg-[#0a0a0a] border-t border-b border-black/10 z-20">
+      <div className="sticky top-0 h-screen flex items-center overflow-hidden">
+        <div className="flex w-full items-center relative max-w-6xl mx-auto px-6 sm:px-12 md:px-16">
+          
+          {/* Static Title Panel */}
+          <div className="w-[280px] sm:w-[320px] shrink-0 pr-8 z-10 flex flex-col gap-4 select-none">
+            <span className="font-mono text-[9px] font-bold tracking-[3px] text-[#ff1e90] uppercase bg-[#ff1e90]/10 border border-[#ff1e90]/20 px-3 py-1 rounded-full self-start">
+              Featured Work
+            </span>
+            <h2 className="font-display font-bold uppercase text-3xl sm:text-4xl md:text-5xl text-[#faf9f5] leading-none">
+              Elite<br />
+              <span className="text-[#d8ff42]">Case Studies</span>
+            </h2>
+            <p className="text-[11px] text-[#faf9f5]/40 leading-relaxed font-sans max-w-[220px]">
+              Deploying production-ready edge compilers and real-time WebGL graphics interfaces.
+            </p>
+          </div>
 
-      {/* Flow canvas */}
-      <div className="md:col-span-8 flex flex-col gap-6">
-        <p className="font-display text-[10px] font-bold tracking-widest uppercase text-white/50">
-          {WORKFLOWS[active].title}
-        </p>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-          {nodes.map((node, i) => {
-            const isActive = i === nodeIdx;
-            const isPast = i < nodeIdx;
-            return (
-              <motion.div
-                key={node.id}
-                className="flex flex-col items-center text-center"
-                animate={isActive ? { scale: [1, 1.06, 1] } : {}}
-                transition={{ duration: 0.4 }}
+          {/* Scrolling Horizontal Track */}
+          <motion.div style={{ x }} className="flex gap-6 pl-4 pr-12">
+            {CASE_STUDIES.map((p) => (
+              <div
+                key={p.id}
+                className="w-[320px] sm:w-[380px] shrink-0 bg-[#111] border border-white/5 rounded-3xl p-6.5 flex flex-col justify-between aspect-[16/11] relative overflow-hidden group brutalist-glow-pink"
               >
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center font-mono text-xs font-bold border transition-all duration-300 ${
-                  isActive ? "bg-[#d8ff42] text-black border-[#d8ff42]"
-                  : isPast ? "bg-white text-black border-white"
-                  : "bg-transparent text-white/20 border-white/10"
-                }`}>
-                  {isPast ? "✓" : `0${i + 1}`}
+                <div className="flex justify-between items-start border-b border-white/5 pb-4">
+                  <div className="space-y-1">
+                    <span className="font-mono text-[8px] text-[#ff1e90] font-semibold">{p.id} {"//"} SHOWCASE</span>
+                    <h3 className="font-display text-base font-bold tracking-wide text-white uppercase">{p.title}</h3>
+                    <p className="font-sans text-[9px] text-white/30 font-medium">Client: {p.client}</p>
+                  </div>
+                  <span className="font-display text-[9px] font-bold tracking-widest uppercase text-[#ff1e90] bg-[#ff1e90]/10 border border-[#ff1e90]/20 px-2 py-0.5 rounded shrink-0">
+                    {p.metric}
+                  </span>
                 </div>
-                <p className={`text-[9px] font-bold tracking-wider uppercase mt-2 transition-colors ${isActive ? "text-[#d8ff42]" : "text-white/30"}`}>
-                  {node.label}
+
+                <p className="font-sans text-[11px] text-white/50 leading-relaxed my-3">
+                  {p.desc}
                 </p>
-                <p className="text-[8px] text-white/20 mt-0.5 leading-normal max-w-[100px]">{node.desc}</p>
-              </motion.div>
-            );
-          })}
-        </div>
 
-        {/* Log terminal */}
-        <div className="bg-black/60 rounded-lg p-4 font-mono text-[9px] leading-relaxed h-28 overflow-y-auto no-scrollbar flex flex-col justify-end border border-white/5">
-          <div className="flex justify-between text-[8px] text-white/20 uppercase tracking-wider border-b border-white/5 pb-1 mb-1.5">
-            <span>Console</span>
-            <span className="text-[#d8ff42] animate-pulse">● LIVE</span>
-          </div>
-          {logs.map((log, i) => (
-            <p key={i} className={log.startsWith("[SUCCESS]") ? "text-[#d8ff42]" : "text-white/40"}>{log}</p>
-          ))}
+                <div className="flex flex-wrap gap-2 pt-3 border-t border-white/5">
+                  {p.tags.map((t, i) => (
+                    <span key={i} className="font-mono text-[8px] text-white/40 bg-white/5 px-2 py-0.5 rounded border border-white/10">{t}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </motion.div>
         </div>
       </div>
-    </div>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// ROI Calculator
-// ─────────────────────────────────────────────────────────────────────────────
-function RoiCalculator() {
-  const [hours, setHours] = useState(25);
-  const [rate, setRate] = useState(45);
-  const saved = Math.round(hours * 4 * 0.85);
-  const monthly = saved * rate;
-  const yearly = monthly * 12;
-
-  return (
-    <div className="bg-[#111] rounded-2xl p-6 md:p-8 border border-white/5">
-      <p className="font-mono text-[9px] tracking-widest uppercase text-white/30 mb-6">
-        Automation ROI Estimator
-      </p>
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-        <div className="md:col-span-7 space-y-6">
-          <div className="space-y-2">
-            <div className="flex justify-between font-display text-[10px] font-bold uppercase tracking-wider text-white/50">
-              <span>Manual Hours / Week</span><span className="text-white">{hours} hrs</span>
-            </div>
-            <input type="range" min="5" max="100" value={hours}
-              onChange={(e) => setHours(Number(e.target.value))}
-              aria-label="Manual hours per week"
-              className="w-full accent-[#d8ff42] cursor-pointer h-1 rounded-full bg-white/10" />
-            <p className="text-[9px] text-white/25">Data entry, support routing, status updates, follow-ups</p>
-          </div>
-          <div className="space-y-2">
-            <div className="flex justify-between font-display text-[10px] font-bold uppercase tracking-wider text-white/50">
-              <span>Hourly Cost</span><span className="text-white">${rate}/hr</span>
-            </div>
-            <input type="range" min="15" max="150" value={rate}
-              onChange={(e) => setRate(Number(e.target.value))}
-              aria-label="Hourly resource cost"
-              className="w-full accent-[#d8ff42] cursor-pointer h-1 rounded-full bg-white/10" />
-            <p className="text-[9px] text-white/25">Avg. blended contractor / employee rate</p>
-          </div>
-        </div>
-        <div className="md:col-span-5 bg-white/5 rounded-xl p-5 space-y-4 text-center border border-white/5">
-          <div>
-            <span className="text-[9px] font-bold tracking-widest uppercase text-white/30">Time Recovered</span>
-            <p className="font-display text-2xl font-bold text-white mt-1">{saved} <span className="text-sm text-white/30 font-sans">hrs / mo</span></p>
-          </div>
-          <div>
-            <span className="text-[9px] font-bold tracking-widest uppercase text-white/30">Monthly Yield</span>
-            <p className="font-display text-3xl font-bold text-[#d8ff42] mt-1">${monthly.toLocaleString()}</p>
-          </div>
-          <div className="pt-2 border-t border-white/10 flex justify-between text-[10px] font-bold tracking-wide uppercase text-white/30">
-            <span>Yearly</span><span className="text-white">${yearly.toLocaleString()}</span>
-          </div>
-        </div>
-      </div>
-    </div>
+    </section>
   );
 }
 
@@ -269,11 +185,7 @@ export default function Home() {
   const [form, setForm] = useState({ name: "", email: "", type: "Custom Website", msg: "" });
   const [submitted, setSubmitted] = useState(false);
 
-  // Parallax for service cards (opposite directions)
-  const cardsRef = useRef<HTMLElement>(null);
-  const { scrollYProgress: cardsScroll } = useScroll({ target: cardsRef, offset: ["start end", "end start"] });
-  const card1Y = useTransform(cardsScroll, [0, 1], ["-30px", "30px"]);
-  const card2Y = useTransform(cardsScroll, [0, 1], ["30px", "-30px"]);
+  // Service section refs/animations are no longer needed for the static grid layout
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -315,41 +227,7 @@ export default function Home() {
           ════════════════════════════════════════════════════════════════════ */}
       <VistarHero />
 
-      {/* ════════════════════════════════════════════════════════════════════
-          MISSION STATEMENT
-          ════════════════════════════════════════════════════════════════════ */}
-      <section className="py-28 px-6 sm:px-12 border-t border-black/5">
-        <div className="max-w-4xl mx-auto text-center">
-          <Reveal>
-            <h2
-              className="font-display font-bold tracking-tight leading-tight text-[#0a0a0a] mb-8 text-fluid-section"
-            >
-              <SplitText text="We build the digital infrastructure " />
-              <br className="sm:hidden" />
-              <SplitText text="where your brand dominates." className="font-serif text-zinc-400" />
-            </h2>
-          </Reveal>
-          <Reveal delay={0.15}>
-            <p className="text-lg text-zinc-400 leading-relaxed font-light max-w-2xl mx-auto">
-              No bloated templates. No lock-in. Just precision-engineered platforms with
-              sub-second load times, structured for both Google and AI discovery engines —
-              and 100% yours from day one.
-            </p>
-          </Reveal>
-
-          {/* Client trust strip */}
-          <Reveal delay={0.3}>
-            <div className="mt-16 flex flex-wrap items-center justify-center gap-x-10 gap-y-4
-                            opacity-30 hover:opacity-60 transition-opacity duration-500 grayscale">
-              {["E-Commerce", "SaaS", "Legal", "Healthcare", "Education", "Real Estate"].map((s) => (
-                <span key={s} className="font-display text-xs font-bold tracking-[3px] uppercase text-black">
-                  {s}
-                </span>
-              ))}
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      {/* Redundant Mission Statement removed to shorten the page flow */}
 
       {/* Dynamic Scroll Velocity Typography Marquee */}
       <div className="py-6 bg-[#faf9f5] border-t border-b border-black/5 relative z-20 overflow-hidden">
@@ -362,7 +240,7 @@ export default function Home() {
           STATS BAR — dark
           ════════════════════════════════════════════════════════════════════ */}
       <section className="bg-[#0a0a0a] py-16 px-6 sm:px-12">
-        <div className="max-w-[1100px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-10">
+        <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-10">
           {[
             { n: 60,  s: "+", label: "Projects Delivered" },
             { n: 3,   s: "×", label: "Faster Than Average" },
@@ -384,8 +262,7 @@ export default function Home() {
           ════════════════════════════════════════════════════════════════════ */}
       <section
         id="services"
-        ref={cardsRef}
-        className="py-32 px-6 sm:px-12 md:px-16 relative overflow-hidden"
+        className="py-24 px-6 sm:px-12 md:px-16 relative overflow-hidden"
       >
         {/* Dot pattern bg */}
         <div
@@ -393,8 +270,8 @@ export default function Home() {
           className="absolute inset-0 pointer-events-none opacity-[0.04] bg-dot-pattern"
         />
 
-        <div className="max-w-[1100px] mx-auto relative z-10">
-          <Reveal className="mb-24 text-center">
+        <div className="max-w-6xl mx-auto relative z-10">
+          <Reveal className="mb-16 text-center">
             <h2
               className="font-display font-bold tracking-tight text-[#0a0a0a] leading-none text-fluid-display"
             >
@@ -404,182 +281,107 @@ export default function Home() {
             </h2>
           </Reveal>
 
-          {/* Card pair — staggered like Superdesign */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[900px] mx-auto mb-6">
+          {/* Cards container — compact 3-column grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
 
             {/* Card 1 — Custom Websites — neon green */}
-            <motion.div style={{ y: card1Y }} className="group cursor-pointer">
+            <div className="group cursor-pointer">
               <Reveal>
                 <SpotlightCard
                   glowColor="rgba(255, 255, 255, 0.2)"
                   borderColor="rgba(0, 0, 0, 0.15)"
-                  className="bg-[#d8ff42] border border-black/10 rounded-3xl p-8 md:p-12 aspect-[4/5] flex flex-col justify-between"
+                  className="bg-[#d8ff42] border border-black/10 rounded-3xl p-6 md:p-8 aspect-auto min-h-[380px] flex flex-col justify-between"
                 >
                   <div className="flex justify-between items-start">
-                    <div className="w-12 h-12 rounded-full bg-black/10 flex items-center justify-center
-                                    group-hover:rotate-45 transition-transform duration-500 text-black text-xl">
+                    <div className="w-10 h-10 rounded-full bg-black/10 flex items-center justify-center
+                                    group-hover:rotate-45 transition-transform duration-500 text-black text-lg">
                       ✦
                     </div>
-                    <span className="text-black/50 text-sm font-bold border border-black/15 px-3 py-1 rounded-full font-mono">01</span>
+                    <span className="text-black/50 text-xs font-bold border border-black/15 px-2.5 py-0.5 rounded-full font-mono">01</span>
                   </div>
-                  <div>
-                    <h3 className="font-display font-bold tracking-tight text-black leading-none mb-4 text-fluid-card">
+                  <div className="mt-8">
+                    <h3 className="font-display font-bold tracking-tight text-black leading-none mb-3 text-2xl">
                       Custom<br />Websites
                     </h3>
-                    <p className="text-black/60 text-base leading-relaxed">
+                    <p className="text-black/60 text-xs leading-relaxed">
                       High-conversion, fully custom-designed platforms. Shipped in 7–21 days with sub-second performance, SEO architecture, and complete ownership transfer.
                     </p>
                   </div>
-                  <div className="w-full h-px bg-black/10 mt-8" />
+                  <div className="w-full h-px bg-black/10 mt-6" />
                 </SpotlightCard>
               </Reveal>
-            </motion.div>
+            </div>
 
-            {/* Card 2 — Web Applications — dark, offset down */}
-            <motion.div style={{ y: card2Y }} className="md:mt-24 group cursor-pointer">
-              <Reveal delay={0.15}>
+            {/* Card 2 — Web Applications — dark */}
+            <div className="group cursor-pointer">
+              <Reveal delay={0.1}>
                 <SpotlightCard
                   glowColor="rgba(255, 30, 144, 0.08)"
                   borderColor="rgba(255, 30, 144, 0.35)"
-                  className="bg-[#111] border border-white/5 rounded-3xl p-8 md:p-12 aspect-[4/5] flex flex-col justify-between"
+                  className="bg-[#111] border border-white/5 rounded-3xl p-6 md:p-8 aspect-auto min-h-[380px] flex flex-col justify-between"
                 >
                   <div className="flex justify-between items-start">
-                    <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center
-                                    group-hover:scale-110 transition-transform duration-500 text-white text-xl">
+                    <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center
+                                    group-hover:scale-110 transition-transform duration-500 text-white text-lg">
                       →
                     </div>
-                    <span className="text-white/30 text-sm font-bold border border-white/10 px-3 py-1 rounded-full font-mono">02</span>
+                    <span className="text-white/30 text-xs font-bold border border-white/10 px-2.5 py-0.5 rounded-full font-mono">02</span>
                   </div>
-                  <div>
-                    <h3 className="font-display font-bold tracking-tight text-white leading-none mb-4 text-fluid-card">
+                  <div className="mt-8">
+                    <h3 className="font-display font-bold tracking-tight text-white leading-none mb-3 text-2xl">
                       Web<br />Applications
                     </h3>
-                    <p className="text-white/40 text-base leading-relaxed">
+                    <p className="text-white/40 text-xs leading-relaxed">
                       Full-stack SaaS platforms, dashboards, and client portals. Next.js 15 + PostgreSQL with real-time data, secure auth, and CI/CD from day one.
                     </p>
                   </div>
-                  <div className="w-full h-px bg-white/5 mt-8" />
+                  <div className="w-full h-px bg-white/5 mt-6" />
                 </SpotlightCard>
               </Reveal>
-            </motion.div>
-          </div>
-
-          {/* Card 3 — AI Automations — full width banner */}
-          <Reveal delay={0.1}>
-            <SpotlightCard
-              glowColor="rgba(255, 30, 144, 0.05)"
-              borderColor="rgba(255, 30, 144, 0.18)"
-              className="relative rounded-3xl overflow-hidden border border-black/5 bg-white p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 group cursor-pointer"
-            >
-              {/* Pink orb inside card */}
-              <div
-                aria-hidden="true"
-                className="absolute right-0 top-0 w-[400px] h-[400px] rounded-full
-                           bg-[#ff1e90] opacity-[0.06] blur-[80px] pointer-events-none"
-              />
-              <div className="flex-1 relative z-10">
-                <span className="inline-flex items-center gap-2 bg-[#ff1e90]/8 text-[#ff1e90] text-[10px]
-                                 font-bold tracking-widest uppercase px-3 py-1.5 rounded-full mb-4 border border-[#ff1e90]/15">
-                  <span className="animate-pulse">●</span> 03
-                </span>
-                <h3 className="font-display font-bold tracking-tight text-[#0a0a0a] leading-none mb-4 text-fluid-sub">
-                  AI Automations
-                </h3>
-                <p className="text-zinc-400 text-base leading-relaxed max-w-lg">
-                  Intelligent workflow systems that replace manual, repetitive operations. Lead pipelines, content distributors, autonomous support bots — engineered on n8n, Zapier, and custom agents.
-                </p>
-              </div>
-              <div className="grid grid-cols-2 gap-3 shrink-0 relative z-10 w-full md:w-auto">
-                {["Lead Pipelines", "Content AI", "Support Bots", "Custom Agents"].map((tag) => (
-                  <span key={tag}
-                    className="border border-black/10 rounded-full px-4 py-2 text-[10px] font-bold
-                               tracking-widest uppercase text-zinc-500 text-center whitespace-nowrap
-                               group-hover:border-[#ff1e90]/30 transition-colors">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </SpotlightCard>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ════════════════════════════════════════════════════════════════════
-          AI INTERACTIVE DEMOS — dark section
-          ════════════════════════════════════════════════════════════════════ */}
-      <section className="bg-[#0a0a0a] py-24 px-6 sm:px-12 md:px-16 relative overflow-hidden">
-        {/* Subtle green grid & 3D RetroGrid background */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 pointer-events-none opacity-[0.02] bg-green-grid"
-        />
-        <RetroGrid angle={45} color="rgba(216, 255, 66, 0.06)" className="opacity-70" />
-
-        <div className="max-w-[1100px] mx-auto relative z-10">
-          <Reveal>
-            <div className="flex items-center gap-4 mb-3">
-              <div className="w-8 h-px bg-[#ff1e90]" />
-              <span className="font-mono text-[10px] tracking-[3px] uppercase text-white/30">Live Demos</span>
             </div>
-            <h2
-              className="font-display font-bold tracking-tight text-white leading-none mb-4 text-fluid-title"
-            >
-              Operational{" "}
-              <span className="font-serif text-white/30">Engines</span>
-            </h2>
-            <p className="text-sm text-white/30 max-w-md leading-relaxed mb-12 font-light">
-              Interactive simulations of real AI automation pipelines. Click a workflow to watch it execute in real-time.
-            </p>
-          </Reveal>
 
-          <div className="space-y-6">
-            <Reveal delay={0.1}><AiFlowchart /></Reveal>
-            <Reveal delay={0.2}><RoiCalculator /></Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* ════════════════════════════════════════════════════════════════════
-          THE VISTAR STANDARD — Bento Grid Features
-          ════════════════════════════════════════════════════════════════════ */}
-      <VistarBentoFeatures />
-
-      {/* ════════════════════════════════════════════════════════════════════
-          PRICING ADD-ONS
-          ════════════════════════════════════════════════════════════════════ */}
-      <section className="py-24 px-6 sm:px-12 md:px-16">
-        <div className="max-w-[1100px] mx-auto">
-          <Reveal className="mb-14">
-            <h2 className="font-display font-bold tracking-tight text-[#0a0a0a] text-center text-fluid-powerup">
-              Power-Up <span className="font-serif text-zinc-400">Add-ons</span>
-            </h2>
-          </Reveal>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {[
-              { name: "Dynamic Blog Panel",         desc: "CMS dashboard to publish articles and updates directly to your platform.",                               price: "₹4,999" },
-              { name: "SEO Blog Architecture",      desc: "Auto-generated XML sitemaps, article schema, and AI search optimization modules.",                      price: "₹6,999" },
-              { name: "Smart Chatbot Integration",  desc: "Lead-routing bot for WhatsApp Business or on-site chat — logs queries instantly.",                      price: "₹3,499" },
-              { name: "Lighthouse Audit & Fix",     desc: "Systematic performance tuning guaranteeing 90+ mobile speed score.",                                    price: "₹2,999" },
-            ].map((a, i) => (
-              <Reveal key={i} delay={i * 0.08}>
-                <div
-                  className="flex justify-between items-center gap-5 bg-white rounded-2xl border border-black/6
-                             p-6 group brutalist-glow-pink cursor-pointer"
+            {/* Card 3 — AI Automations — white/pink-blur */}
+            <div className="group cursor-pointer">
+              <Reveal delay={0.2}>
+                <SpotlightCard
+                  glowColor="rgba(255, 30, 144, 0.05)"
+                  borderColor="rgba(255, 30, 144, 0.18)"
+                  className="bg-white border border-black/5 rounded-3xl p-6 md:p-8 aspect-auto min-h-[380px] flex flex-col justify-between relative overflow-hidden"
                 >
-                  <div className="flex-1">
-                    <div className="font-display text-sm font-bold text-[#0a0a0a] mb-1">{a.name}</div>
-                    <p className="text-[11px] text-zinc-400 leading-normal">{a.desc}</p>
+                  <div
+                    aria-hidden="true"
+                    className="absolute right-0 top-0 w-48 h-48 rounded-full
+                               bg-[#ff1e90] opacity-[0.06] blur-[50px] pointer-events-none"
+                  />
+                  <div className="flex justify-between items-start relative z-10">
+                    <div className="w-10 h-10 rounded-full bg-[#ff1e90]/10 flex items-center justify-center
+                                    group-hover:scale-110 transition-transform duration-500 text-[#ff1e90] text-lg">
+                      ●
+                    </div>
+                    <span className="text-[#ff1e90] text-xs font-bold border border-[#ff1e90]/15 px-2.5 py-0.5 rounded-full font-mono">03</span>
                   </div>
-                  <div className="bg-[#0a0a0a] text-[#d8ff42] text-xs font-bold px-4 py-2 rounded-full shrink-0
-                                  group-hover:bg-[#d8ff42] group-hover:text-black transition-colors font-mono">
-                    {a.price}
+                  <div className="mt-8 relative z-10">
+                    <h3 className="font-display font-bold tracking-tight text-[#0a0a0a] leading-none mb-3 text-2xl">
+                      AI<br />Automations
+                    </h3>
+                    <p className="text-zinc-400 text-xs leading-relaxed">
+                      Intelligent workflow systems that replace manual, repetitive operations. Lead pipelines, content AI, and autonomous support agents.
+                    </p>
                   </div>
-                </div>
+                  <div className="w-full h-px bg-black/5 mt-6 relative z-10" />
+                </SpotlightCard>
               </Reveal>
-            ))}
+            </div>
           </div>
         </div>
       </section>
+
+
+
+      {/* Featured Horizontal Case Studies */}
+      <HorizontalCaseStudies />
+
+      {/* Low-ticket pricing add-ons removed to keep brand positioning focused on custom engineering */}
 
       {/* Hazard divider */}
       <div className="stripe-divider" aria-hidden="true" />
@@ -593,7 +395,7 @@ export default function Home() {
           className="absolute bottom-[-20%] left-[-10%] w-[500px] h-[500px] rounded-full
                      bg-[#ff1e90] opacity-[0.05] blur-[100px] pointer-events-none animate-float-left blend-multiply"
         />
-        <div className="max-w-[1100px] mx-auto relative z-10">
+        <div className="max-w-6xl mx-auto relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
 
             {/* Left: copy */}
@@ -608,7 +410,7 @@ export default function Home() {
                 <br /><span className="font-serif text-zinc-400">Outgrow?</span>
               </h2>
               <p className="text-sm text-zinc-400 max-w-sm leading-relaxed mb-8 font-light">
-                Tell us what you&apos;re building. Typical custom studio engagements start at ₹15,000. We reply within 24 hours.
+                Tell us what you&apos;re building. Typical custom studio engagements start at $15,000. We reply within 24 hours.
               </p>
               <div className="space-y-4">
                 {[
@@ -734,54 +536,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ════════════════════════════════════════════════════════════════════
-          FOOTER — large text à la Superdesign
-          ════════════════════════════════════════════════════════════════════ */}
-      <footer className="border-t border-black/5 relative overflow-hidden pt-16 pb-10 px-6 sm:px-12">
-        {/* Big watermark text */}
-        <div
-          aria-hidden="true"
-          className="absolute bottom-0 left-0 right-0 pointer-events-none select-none leading-none overflow-hidden"
-        >
-          <span
-            className="font-display font-bold tracking-tighter text-[#0a0a0a]/5 text-fluid-footer leading-[0.85]"
-          >
-            VISTAR.
-          </span>
-        </div>
-
-        <div className="max-w-[1100px] mx-auto relative z-10">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10 mb-12">
-            <div>
-              <div className="font-display text-3xl font-bold tracking-tighter text-[#0a0a0a] mb-1">VISTAR</div>
-              <div className="text-[10px] font-bold tracking-[3px] uppercase text-zinc-400 font-mono">
-                Web Systems · New Delhi, India
-              </div>
-            </div>
-            <nav className="flex flex-col md:items-end gap-3">
-              {[
-                { label: "Instagram", href: "#" },
-                { label: "LinkedIn",  href: "#" },
-                { label: "Twitter",   href: "#" },
-              ].map((l) => (
-                <a key={l.label} href={l.href}
-                   className="text-sm text-zinc-400 hover:text-[#0a0a0a] transition-colors">
-                  {l.label}
-                </a>
-              ))}
-            </nav>
-          </div>
-
-          <div className="border-t border-black/5 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3">
-            <p className="text-[11px] text-zinc-400 font-mono">
-              © 2026 Vistar Web Systems · services.vistaar@gmail.com
-            </p>
-            <p className="text-[11px] text-zinc-400 font-mono">
-              Precision engineered · Zero templates · 100% yours
-            </p>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

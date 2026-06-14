@@ -15,8 +15,8 @@ async function run() {
     await stagehand.init();
     const page = stagehand.page;
     
-    console.log("🌐 Navigating to Vistar Studio at http://localhost:3005...");
-    await page.goto("http://localhost:3005");
+    console.log("🌐 Navigating to Vistar Studio at http://localhost:3000...");
+    await page.goto("http://localhost:3000");
     
     // Wait for the custom 3D shaders and preloader to settle
     console.log("⏳ Waiting for preloader and 3D watercolor canvas to compile...");
@@ -40,7 +40,7 @@ async function run() {
     const context = await browser.newContext();
     const page = await context.newPage();
     
-    await page.goto("http://localhost:3005");
+    await page.goto("http://localhost:3000");
     await new Promise(resolve => setTimeout(resolve, 12000));
     await page.screenshot({ path: "stagehand-audit-report.png" });
     

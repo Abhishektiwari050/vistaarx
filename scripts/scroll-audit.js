@@ -34,7 +34,7 @@ async function runAudit() {
     console.log(`\n🌐 Navigating to ${url}...`);
     
     try {
-      await page.goto(url, { waitUntil: "networkidle", timeout: 30000 });
+      await page.goto(url, { waitUntil: "load", timeout: 30000 });
       
       // Wait for the custom 3D shader and animations to settle
       console.log("⏳ Waiting 12 seconds for 3D shaders and layout hydration to settle...");
