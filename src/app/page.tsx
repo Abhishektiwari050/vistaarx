@@ -179,6 +179,91 @@ function HorizontalCaseStudies() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// Perspectives Parallax Card Grid (integrated from Superdesign HTML)
+// ─────────────────────────────────────────────────────────────────────────────
+function PerspectivesGrid() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  // Card 1: Parallax down (positive translate)
+  const cardDownY = useTransform(scrollYProgress, [0, 1], ["-40px", "40px"]);
+  // Card 2: Parallax up (negative translate)
+  const cardUpY = useTransform(scrollYProgress, [0, 1], ["40px", "-40px"]);
+
+  return (
+    <div ref={containerRef} className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-4xl mx-auto">
+      {/* Card 1 - Emerging Talent - Vistar Lime Green */}
+      <motion.div style={{ y: cardDownY }} className="group cursor-pointer">
+        <Reveal>
+          <SpotlightCard
+            glowColor="rgba(0, 0, 0, 0.05)"
+            borderColor="rgba(0, 0, 0, 0.15)"
+            className="bg-[#d8ff42] border-[3px] border-black rounded-3xl p-8 md:p-12 aspect-[4/5] flex flex-col justify-between shadow-[6px_6px_0px_#000] hover:shadow-[10px_10px_0px_#000] transition-all duration-500"
+          >
+            <div className="flex justify-between items-start">
+              <div className="w-12 h-12 rounded-full bg-black/10 flex items-center justify-center group-hover:rotate-45 transition-transform duration-500 text-black">
+                {/* SVG Star Icon */}
+                <svg viewBox="0 0 24 24" className="w-6 h-6 stroke-current fill-none" strokeWidth="2">
+                  <path d="M12,2 L15.09,8.26 L22,9.27 L17,14.14 L18.18,21.02 L12,17.77 L5.82,21.02 L7,14.14 L2,9.27 L8.91,8.26 Z" />
+                </svg>
+              </div>
+              <span className="text-black font-mono font-bold text-xs border-2 border-black px-3 py-1 rounded-full bg-white shadow-[2px_2px_0px_#000]">01</span>
+            </div>
+
+            <div>
+              <h3 className="font-display font-bold uppercase text-3xl md:text-4xl text-black mb-4 leading-none tracking-tight">
+                Emerging <br />Talent
+              </h3>
+              <p className="text-black/70 text-xs md:text-sm leading-relaxed font-sans">
+                You have the spark. We provide the architecture, sub-second performance, and clean code for your vision to ignite into a blazing market reality.
+              </p>
+            </div>
+
+            <div className="w-full h-[2px] bg-black/10 mt-8" />
+          </SpotlightCard>
+        </Reveal>
+      </motion.div>
+
+      {/* Card 2 - Evolving Legacy - Vistar Dark with Pink Glow */}
+      <motion.div style={{ y: cardUpY }} className="md:mt-12 group cursor-pointer">
+        <Reveal delay={0.15}>
+          <SpotlightCard
+            glowColor="rgba(255, 30, 144, 0.1)"
+            borderColor="rgba(255, 255, 255, 0.1)"
+            className="bg-[#111] border-[3px] border-black rounded-3xl p-8 md:p-12 aspect-[4/5] flex flex-col justify-between shadow-[6px_6px_0px_#ff1e90] hover:shadow-[10px_10px_0px_#ff1e90] transition-all duration-500"
+          >
+            <div className="flex justify-between items-start">
+              <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:scale-115 transition-all duration-500 text-white">
+                {/* SVG Arrow Diagonal Icon */}
+                <svg viewBox="0 0 24 24" className="w-6 h-6 stroke-current fill-none -rotate-45" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </div>
+              <span className="text-white/50 font-mono font-bold text-xs border border-white/10 px-3 py-1 rounded-full bg-white/5">02</span>
+            </div>
+
+            <div>
+              <h3 className="font-display font-bold uppercase text-3xl md:text-4xl text-white mb-4 leading-none tracking-tight">
+                Evolving <br />Legacy
+              </h3>
+              <p className="text-white/40 text-xs md:text-sm leading-relaxed font-sans">
+                You&apos;ve arrived. Now let&apos;s make sure you dominate search and AI engines. Premium performance and custom workflow engineering are our craft.
+              </p>
+            </div>
+
+            <div className="w-full h-px bg-white/10 mt-8" />
+          </SpotlightCard>
+        </Reveal>
+      </motion.div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // Main Page
 // ─────────────────────────────────────────────────────────────────────────────
 export default function Home() {
@@ -227,7 +312,35 @@ export default function Home() {
           ════════════════════════════════════════════════════════════════════ */}
       <VistarHero />
 
-      {/* Redundant Mission Statement removed to shorten the page flow */}
+      {/* ════════════════════════════════════════════════════════════════════
+          MISSION STATEMENT & BRUTALIST BRAND STAMP COLLAGE (Superdesign Integration)
+          ════════════════════════════════════════════════════════════════════ */}
+      <section id="expertise" className="py-24 px-6 sm:px-12 relative overflow-hidden">
+        <div className="max-w-4xl mx-auto text-center relative z-10 mb-20">
+          <Reveal>
+            <h2 className="font-display font-bold tracking-tight text-[#0a0a0a] leading-tight mb-8 text-fluid-section uppercase">
+              We design the <span className="font-serif italic font-normal text-zinc-400 lowercase">negative space</span> where your brand truly lives.
+            </h2>
+          </Reveal>
+          <Reveal delay={0.15}>
+            <p className="text-base sm:text-lg text-zinc-500 leading-relaxed font-sans max-w-2xl mx-auto">
+              Elegance is <span className="font-serif italic text-black">refusal</span>. We remove the noise, eliminate bloated templates, and streamline architecture so your message resonates with absolute clarity.
+            </p>
+          </Reveal>
+        </div>
+
+        {/* Brutalist Brand Stamp Grid */}
+        <div className="max-w-5xl mx-auto relative z-10 px-4">
+          <Reveal delay={0.25}>
+            <div className="grid grid-cols-2 md:grid-cols-4 border-[3px] border-black divide-x-[3px] divide-y-[3px] md:divide-y-0 divide-black bg-white shadow-[6px_6px_0px_#ff1e90] rounded-xl overflow-hidden select-none">
+              <div className="py-8 text-center font-display font-black tracking-[3px] text-black text-sm sm:text-base hover:bg-[#d8ff42] transition-colors duration-300">VOGUE</div>
+              <div className="py-8 text-center font-display font-black tracking-[3px] text-black text-sm sm:text-base hover:bg-[#ff1e90] hover:text-white transition-colors duration-300">TESLA</div>
+              <div className="py-8 text-center font-display font-black tracking-[3px] text-black text-sm sm:text-base hover:bg-[#d8ff42] transition-colors duration-300">MOOMA</div>
+              <div className="py-8 text-center font-display font-black tracking-[3px] text-black text-sm sm:text-base hover:bg-[#ff1e90] hover:text-white transition-colors duration-300">AESOP</div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
 
       {/* Dynamic Scroll Velocity Typography Marquee */}
       <div className="py-6 bg-[#faf9f5] border-t border-b border-black/5 relative z-20 overflow-hidden">
@@ -381,7 +494,22 @@ export default function Home() {
       {/* Featured Horizontal Case Studies */}
       <HorizontalCaseStudies />
 
-      {/* Low-ticket pricing add-ons removed to keep brand positioning focused on custom engineering */}
+      {/* ════════════════════════════════════════════════════════════════════
+          PERSPECTIVES — Parallax Card Grid (Superdesign integration)
+          ════════════════════════════════════════════════════════════════════ */}
+      <section id="perspectives" className="py-32 px-6 sm:px-12 md:px-16 relative overflow-hidden bg-white/40 border-t border-black/5">
+        <div className="max-w-6xl mx-auto relative z-10">
+          <Reveal className="mb-24 text-center">
+            <h2 className="font-display font-bold tracking-tight text-[#0a0a0a] leading-none text-fluid-display uppercase">
+              Selected <br />
+              <span className="font-serif italic font-normal text-zinc-400 lowercase">Perspectives</span>
+            </h2>
+          </Reveal>
+
+          {/* Cards container — 2-column grid with opposite scroll parallax */}
+          <PerspectivesGrid />
+        </div>
+      </section>
 
       {/* Hazard divider */}
       <div className="stripe-divider" aria-hidden="true" />
@@ -532,6 +660,13 @@ export default function Home() {
                 )}
               </AnimatePresence>
             </Reveal>
+          </div>
+
+          {/* Giant Brutalist Watermark Brand Signature */}
+          <div className="mt-20 border-t border-black/5 pt-12 overflow-hidden select-none pointer-events-none">
+            <h2 className="text-[12vw] leading-none font-display font-black tracking-tighter text-black/5 dark:text-white/5 uppercase text-center">
+              Vistar.
+            </h2>
           </div>
         </div>
       </section>

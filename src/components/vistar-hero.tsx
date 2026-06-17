@@ -1,6 +1,28 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
+
+function LocalClock() {
+  const [time, setTime] = useState("");
+
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      let hours = now.getHours();
+      const minutes = now.getMinutes().toString().padStart(2, "0");
+      const ampm = hours >= 12 ? "PM" : "AM";
+      hours = hours % 12;
+      hours = hours ? hours : 12;
+      setTime(`${hours}:${minutes} ${ampm}`);
+    };
+    updateTime();
+    const interval = setInterval(updateTime, 60000);
+    return () => clearInterval(interval);
+  }, []);
+
+  if (!time) return <span>00:00 AM</span>;
+  return <span>{time}</span>;
+}
 import { motion, useScroll, useTransform } from "framer-motion";
 import { SplitText } from "@/components/split-text";
 import { MagneticButton } from "@/components/magnetic-button";
@@ -29,6 +51,55 @@ export function VistarHero() {
     >
       {/* Premium Aurora & Beams Background */}
       <AuroraBackground className="absolute inset-0 z-0" />
+
+      {/* Background Atmosphere overlay from Superdesign */}
+      <div className="absolute inset-0 z-0 pointer-events-none select-none opacity-20 mix-blend-overlay">
+        <img 
+          src="https://framerusercontent.com/images/9zvwRJAavKKacVyhFCwHyXW1U.png?width=1536&height=1024" 
+          alt="Atmosphere Texture" 
+          className="w-full h-full object-cover object-center" 
+        />
+      </div>
+
+      {/* Surrealist floating hand left */}
+      <motion.div
+        animate={{ 
+          y: [-12, 12, -12], 
+          rotate: [0, 1.5, -1.5, 0] 
+        }}
+        transition={{ 
+          repeat: Infinity, 
+          duration: 12, 
+          ease: "easeInOut" 
+        }}
+        className="absolute -left-[12%] top-[-8%] md:left-[-5%] md:top-[-10%] w-[42vw] md:w-[28vw] max-w-[550px] z-10 pointer-events-none opacity-25 md:opacity-40 mix-blend-darken select-none"
+      >
+        <img 
+          src="https://framerusercontent.com/images/KNhiA5A2ykNYqNkj04Hk6BVg5A.png?width=1540&height=1320" 
+          alt="Vistar Reaching Hand" 
+          className="w-full h-auto object-contain filter drop-shadow-[0_0_25px_rgba(216,255,66,0.25)]" 
+        />
+      </motion.div>
+
+      {/* Surrealist floating hand right */}
+      <motion.div
+        animate={{ 
+          y: [12, -12, 12], 
+          rotate: [0, -1.5, 1.5, 0] 
+        }}
+        transition={{ 
+          repeat: Infinity, 
+          duration: 14, 
+          ease: "easeInOut" 
+        }}
+        className="absolute -right-[12%] bottom-[-5%] md:right-[-4%] md:bottom-[-2%] w-[38vw] md:w-[25vw] max-w-[480px] z-10 pointer-events-none opacity-25 md:opacity-40 mix-blend-darken select-none"
+      >
+        <img 
+          src="https://framerusercontent.com/images/X89VFCABCEjjZ4oLGa3PjbOmsA.png?width=1542&height=1002" 
+          alt="Vistar Receiving Hand" 
+          className="w-full h-auto object-contain filter drop-shadow-[0_0_25px_rgba(255,30,144,0.2)]" 
+        />
+      </motion.div>
 
       {/* Decorative Editorial Lines */}
       <div className="absolute top-12 right-12 pointer-events-none opacity-20 hidden md:block z-10">
@@ -145,6 +216,12 @@ export function VistarHero() {
         <span>REF: VSTR-Q2-2026</span>
         <span className="hidden sm:inline">●</span>
         <span>CORE PLATFORM ENGINEERING</span>
+        <span className="hidden sm:inline">●</span>
+        <span className="flex items-center gap-2">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#ff1e90] animate-pulse" />
+          <LocalClock />
+          <span>· NEW DELHI, INDIA</span>
+        </span>
         <span className="hidden sm:inline">●</span>
         <span>NO LOCK-IN · 100% OWNERSHIP</span>
       </div>
