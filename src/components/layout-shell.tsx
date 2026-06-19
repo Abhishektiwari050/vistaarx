@@ -5,7 +5,7 @@ import { useScrollStore, ScrollStore } from "@/lib/stores/scroll-store";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAudioFeedback } from "@/lib/hooks/use-audio-feedback";
-import { CustomCursor } from "@/components/custom-cursor";
+import { TextPressure } from "@/components/text-pressure";
 import { motion, AnimatePresence } from "framer-motion";
 import { Preloader } from "@/components/preloader";
 
@@ -48,7 +48,7 @@ function Footer() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ff1e90] opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#ff1e90]"></span>
             </span>
-            <span>Vistar Studio</span>
+            <TextPressure text="Vistar Studio" />
           </Link>
           <p className="text-sm max-w-xs text-zinc-500 font-sans leading-relaxed">
             Elite digital engineering & creative web systems studio. We construct high-performance visual frameworks.
@@ -100,7 +100,65 @@ function Footer() {
   );
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// Sleek Top-Edge Page Loading Indicator Component
+// ─────────────────────────────────────────────────────────────────────────────
+function TopLoadingBar() {
+  const pathname = usePathname();
+  const [active, setActive] = useState(false);
+  const [progress, setProgress] = useState(0);
 
+  useEffect(() => {
+    setActive(true);
+    setProgress(0);
+
+    let fadeTimer: NodeJS.Timeout;
+    const startTime = performance.now();
+    const duration = 400; // 400ms loading duration
+
+    const update = () => {
+      const elapsed = performance.now() - startTime;
+      const pct = Math.min((elapsed / duration) * 100, 100);
+      setProgress(pct);
+
+      if (pct < 100) {
+        requestAnimationFrame(update);
+      } else {
+        fadeTimer = setTimeout(() => {
+          setActive(false);
+        }, 150);
+      }
+    };
+
+    requestAnimationFrame(update);
+
+    return () => {
+      clearTimeout(fadeTimer);
+    };
+  }, [pathname]);
+
+  if (!active) return null;
+
+  return (
+    <div
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        height: "3.5px",
+        backgroundColor: "#d8ff42",
+        transform: `scaleX(${progress / 100})`,
+        transformOrigin: "left",
+        zIndex: 99999,
+        pointerEvents: "none",
+        transition: progress === 100 ? "opacity 150ms ease-out" : "none",
+        opacity: progress === 100 ? 0 : 1,
+        boxShadow: "0 0 8px #d8ff42, 0 0 4px #ff1e90",
+      }}
+    />
+  );
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Master Layout Shell Wrapper
@@ -204,27 +262,8 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="w-full min-h-screen bg-transparent text-black transition-colors duration-500 ease-in-out selection:bg-[#ff0080] selection:text-white">
       <Preloader />
-      <CustomCursor />
       
-      {/* Dynamic Route Wipe Curtain Transition */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={pathname}
-          initial={{ scaleY: 1 }}
-          animate={{ scaleY: 0 }}
-          transition={{ duration: 0.65, ease: [0.76, 0, 0.24, 1] }}
-          style={{ originY: 0 }}
-          className="fixed inset-0 z-[999] bg-[#ff1e90] pointer-events-none flex flex-col items-center justify-center"
-        >
-          <div className="font-mono text-[#faf9f5] text-[10px] tracking-widest uppercase flex flex-col gap-2.5 items-center">
-            <div className="flex items-center gap-2 bg-black/10 px-4 py-2 border border-white/10 rounded-lg">
-              <span className="w-2 h-2 rounded-full bg-[#d8ff42] animate-ping" />
-              <span>Compiling Route: {pathname || "/"}...</span>
-            </div>
-            <span className="text-[#faf9f5]/40 text-[8px] tracking-[3px]">Precision Web Architecture · Vistar HQ</span>
-          </div>
-        </motion.div>
-      </AnimatePresence>
+      <TopLoadingBar />
 
       <div className="transition-opacity duration-1000 ease-in-out opacity-100 pointer-events-auto">
         
@@ -247,7 +286,7 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ff1e90] opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#ff1e90]"></span>
             </span>
-            <span>Vistar Studio</span>
+            <TextPressure text="Vistar Studio" />
           </Link>
           
           {/* Desktop Nav */}
@@ -320,12 +359,12 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
       </div>
 
       {/* Main Content */}
-      <div className="pt-24 min-h-screen relative z-10 flex flex-col justify-between">
+      <div className={`${(pathname === "/philosophy" || pathname === "/") ? "" : "pt-24"} min-h-screen relative z-10 flex flex-col justify-between`}>
         <main id="main-content" className="flex-grow">
           {children}
         </main>
         
-        <Footer />
+        {pathname !== "/philosophy" && <Footer />}
       </div>
     </div>
   );

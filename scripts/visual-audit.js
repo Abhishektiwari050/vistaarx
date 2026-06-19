@@ -25,7 +25,8 @@ async function run() {
     console.log("📸 Capturing Stagehand design studio audit screenshot...");
     await page.screenshot({ 
       path: "stagehand-audit-report.png",
-      fullPage: false
+      fullPage: false,
+      timeout: 8000
     });
     
     console.log("✨ SUCCESS! Visual report saved in your workspace root as: stagehand-audit-report.png");
@@ -42,7 +43,7 @@ async function run() {
     
     await page.goto("http://localhost:3000");
     await new Promise(resolve => setTimeout(resolve, 12000));
-    await page.screenshot({ path: "stagehand-audit-report.png" });
+    await page.screenshot({ path: "stagehand-audit-report.png", timeout: 8000 });
     
     console.log("✨ SUCCESS! Fallback visual report saved as: stagehand-audit-report.png");
     await browser.close();

@@ -10,12 +10,12 @@ import {
 } from "framer-motion";
 import { VistarHero } from "@/components/vistar-hero";
 import { SplitText } from "@/components/split-text";
+import { UnderlineText } from "@/components/underline-text";
 import { MagneticButton } from "@/components/magnetic-button";
 import { SpotlightCard } from "@/components/spotlight-card";
 import { ScrollVelocity } from "@/components/scroll-velocity";
 import { RetroGrid } from "@/components/retro-grid";
-import { BorderBeam } from "@/components/border-beam";
-import { ShimmerButton } from "@/components/shimmer-button";
+
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Animated Counter
@@ -124,7 +124,7 @@ function HorizontalCaseStudies() {
   const x = useTransform(scrollYProgress, [0, 1], ["0%", "-40%"]);
 
   return (
-    <section ref={targetRef} className="relative h-[130vh] bg-[#0a0a0a] border-t border-b border-black/10 z-20">
+    <section ref={targetRef} className="relative h-[120vh] bg-[#0a0a0a] border-t border-b border-black/10 z-20">
       <div className="sticky top-0 h-screen flex items-center overflow-hidden">
         <div className="flex w-full items-center relative max-w-6xl mx-auto px-6 sm:px-12 md:px-16">
           
@@ -135,7 +135,9 @@ function HorizontalCaseStudies() {
             </span>
             <h2 className="font-display font-bold uppercase text-3xl sm:text-4xl md:text-5xl text-[#faf9f5] leading-none">
               Elite<br />
-              <span className="text-[#d8ff42]">Case Studies</span>
+              <UnderlineText color="#d8ff42">
+                <span className="text-[#d8ff42]">Case Studies</span>
+              </UnderlineText>
             </h2>
             <p className="text-[11px] text-[#faf9f5]/40 leading-relaxed font-sans max-w-[220px]">
               Deploying production-ready edge compilers and real-time WebGL graphics interfaces.
@@ -147,7 +149,7 @@ function HorizontalCaseStudies() {
             {CASE_STUDIES.map((p) => (
               <div
                 key={p.id}
-                className="w-[320px] sm:w-[380px] shrink-0 bg-[#111] border border-white/5 rounded-3xl p-6.5 flex flex-col justify-between aspect-[16/11] relative overflow-hidden group brutalist-glow-pink"
+                className="w-[340px] sm:w-[420px] h-[340px] sm:h-[390px] shrink-0 bg-[#111] border border-white/5 rounded-3xl p-6 md:p-8 flex flex-col justify-between relative overflow-hidden group brutalist-glow-pink"
               >
                 <div className="flex justify-between items-start border-b border-white/5 pb-4">
                   <div className="space-y-1">
@@ -201,7 +203,7 @@ function PerspectivesGrid() {
           <SpotlightCard
             glowColor="rgba(0, 0, 0, 0.05)"
             borderColor="rgba(0, 0, 0, 0.15)"
-            className="bg-[#d8ff42] border-[3px] border-black rounded-3xl p-8 md:p-12 aspect-[4/5] flex flex-col justify-between shadow-[6px_6px_0px_#000] hover:shadow-[10px_10px_0px_#000] transition-all duration-500"
+            className="bg-[#d8ff42] border-[3px] border-black rounded-3xl p-6 md:p-8 h-[340px] md:h-[380px] flex flex-col justify-between shadow-[6px_6px_0px_#000] hover:shadow-[10px_10px_0px_#000] transition-all duration-500"
           >
             <div className="flex justify-between items-start">
               <div className="w-12 h-12 rounded-full bg-black/10 flex items-center justify-center group-hover:rotate-45 transition-transform duration-500 text-black">
@@ -233,7 +235,7 @@ function PerspectivesGrid() {
           <SpotlightCard
             glowColor="rgba(255, 30, 144, 0.1)"
             borderColor="rgba(255, 255, 255, 0.1)"
-            className="bg-[#111] border-[3px] border-black rounded-3xl p-8 md:p-12 aspect-[4/5] flex flex-col justify-between shadow-[6px_6px_0px_#ff1e90] hover:shadow-[10px_10px_0px_#ff1e90] transition-all duration-500"
+            className="bg-[#111] border-[3px] border-black rounded-3xl p-6 md:p-8 h-[340px] md:h-[380px] flex flex-col justify-between shadow-[6px_6px_0px_#ff1e90] hover:shadow-[10px_10px_0px_#ff1e90] transition-all duration-500"
           >
             <div className="flex justify-between items-start">
               <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:scale-115 transition-all duration-500 text-white">
@@ -267,39 +269,7 @@ function PerspectivesGrid() {
 // Main Page
 // ─────────────────────────────────────────────────────────────────────────────
 export default function Home() {
-  const [form, setForm] = useState({ name: "", email: "", type: "Custom Website", msg: "" });
-  const [submitted, setSubmitted] = useState(false);
-
   // Service section refs/animations are no longer needed for the static grid layout
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!form.name || !form.email || !form.msg) return;
-
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: form.name,
-          email: form.email,
-          brief: form.msg,
-          budget: "Not specified",
-          date: "Not selected",
-          timezone: typeof Intl !== "undefined" ? Intl.DateTimeFormat().resolvedOptions().timeZone : "Not specified",
-        }),
-      });
-      if (res.ok) {
-        setSubmitted(true);
-        setTimeout(() => {
-          setSubmitted(false);
-          setForm({ name: "", email: "", type: "Custom Website", msg: "" });
-        }, 4000);
-      }
-    } catch (err) {
-      console.error("Failed to submit contact brief:", err);
-    }
-  };
 
   return (
     <div className="relative min-h-screen text-[#0a0a0a] overflow-x-hidden">
@@ -390,7 +360,9 @@ export default function Home() {
             >
               <SplitText text="Define your " />
               <br className="hidden sm:block" />
-              <SplitText text="digital presence." className="font-serif text-zinc-400" delay={0.1} />
+              <UnderlineText color="#ff1e90">
+                <SplitText text="digital presence." className="font-serif text-zinc-400" delay={0.1} />
+              </UnderlineText>
             </h2>
           </Reveal>
 
@@ -517,160 +489,6 @@ export default function Home() {
       {/* ════════════════════════════════════════════════════════════════════
           CONTACT
           ════════════════════════════════════════════════════════════════════ */}
-      <section id="contact" className="py-24 px-6 sm:px-12 md:px-16 relative overflow-hidden">
-        <div
-          aria-hidden="true"
-          className="absolute bottom-[-20%] left-[-10%] w-[500px] h-[500px] rounded-full
-                     bg-[#ff1e90] opacity-[0.05] blur-[100px] pointer-events-none animate-float-left blend-multiply"
-        />
-        <div className="max-w-6xl mx-auto relative z-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
-
-            {/* Left: copy */}
-            <Reveal>
-              <div className="flex items-center gap-3 mb-5">
-                <div className="w-8 h-px bg-[#ff1e90]" />
-                <span className="font-mono text-[10px] tracking-[3px] uppercase text-zinc-400">Start a Project</span>
-              </div>
-              <h2 className="font-display font-bold tracking-tight text-[#0a0a0a] leading-none mb-6 text-fluid-section">
-                Ready to
-                <br /><span className="font-serif text-[#ff1e90]">Outrank</span> &
-                <br /><span className="font-serif text-zinc-400">Outgrow?</span>
-              </h2>
-              <p className="text-sm text-zinc-400 max-w-sm leading-relaxed mb-8 font-light">
-                Tell us what you&apos;re building. Typical custom studio engagements start at $15,000. We reply within 24 hours.
-              </p>
-              <div className="space-y-4">
-                {[
-                  { icon: "✉", label: "Email",    val: "services.vistaar@gmail.com", href: "mailto:services.vistaar@gmail.com" },
-                  { icon: "🌐", label: "Web",      val: "vistar.tech · New Delhi, India", href: undefined },
-                  { icon: "⏱", label: "Response", val: "Typically within 24 hours",      href: undefined },
-                ].map((row) => (
-                  <div key={row.label} className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-[#0a0a0a] rounded-full flex items-center justify-center text-xs shrink-0">
-                      <span className="text-[#d8ff42]">{row.icon}</span>
-                    </div>
-                    <div>
-                      <div className="text-[9px] font-bold tracking-widest uppercase text-zinc-400">{row.label}</div>
-                      {row.href
-                        ? <a href={row.href} className="text-xs font-medium text-[#0a0a0a] hover:text-[#ff1e90] transition-colors">{row.val}</a>
-                        : <div className="text-xs font-medium text-[#0a0a0a]">{row.val}</div>}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </Reveal>
-
-            {/* Right: form */}
-            <Reveal delay={0.15}>
-              <AnimatePresence mode="wait">
-                {!submitted ? (
-                  <motion.form
-                    key="form"
-                    initial={{ opacity: 0, y: 16 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -16 }}
-                    onSubmit={handleSubmit}
-                    className="bg-white rounded-3xl border border-black/6 p-8 space-y-5 shadow-[0_8px_40px_rgba(0,0,0,0.06)] brutalist-glow-pink relative group overflow-hidden"
-                  >
-                    <BorderBeam
-                      duration={12}
-                      size={160}
-                      colorFrom="#ff1e90"
-                      colorTo="transparent"
-                      className="opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    />
-                    {[
-                      { id: "form-name",  label: "Your Name",     type: "text",  ph: "Alexander Vance",      key: "name" as const },
-                      { id: "form-email", label: "Email Address",  type: "email", ph: "alex@company.com",     key: "email" as const },
-                    ].map((f) => (
-                      <div key={f.id} className="space-y-1.5">
-                        <label htmlFor={f.id} className="text-[9px] font-bold tracking-widest uppercase text-zinc-400">
-                          {f.label}
-                        </label>
-                        <input
-                          type={f.type} id={f.id} required placeholder={f.ph}
-                          value={form[f.key]}
-                          onChange={(e) => setForm({ ...form, [f.key]: e.target.value })}
-                          suppressHydrationWarning
-                          className="w-full bg-[#faf9f5] border border-black/8 rounded-xl px-4 py-3 text-sm text-[#0a0a0a]
-                                     focus:outline-none focus:border-[#d8ff42] focus:ring-1 focus:ring-[#d8ff42]/30 transition-all"
-                        />
-                      </div>
-                    ))}
-
-                    <div className="space-y-1.5">
-                      <label htmlFor="form-type" className="text-[9px] font-bold tracking-widest uppercase text-zinc-400">Project Type</label>
-                      <select
-                        id="form-type"
-                        value={form.type}
-                        onChange={(e) => setForm({ ...form, type: e.target.value })}
-                        suppressHydrationWarning
-                        className="w-full bg-[#faf9f5] border border-black/8 rounded-xl px-4 py-3 text-sm text-[#0a0a0a]
-                                   focus:outline-none focus:border-[#d8ff42] transition-all"
-                      >
-                        <option>Custom Website</option>
-                        <option>Web Application</option>
-                        <option>AI Automation</option>
-                        <option>Website + Automation Bundle</option>
-                      </select>
-                    </div>
-
-                    <div className="space-y-1.5">
-                      <label htmlFor="form-msg" className="text-[9px] font-bold tracking-widest uppercase text-zinc-400">Project Brief</label>
-                      <textarea
-                        id="form-msg" required rows={4}
-                        placeholder="Describe your goal, timeline, and any technical requirements…"
-                        value={form.msg}
-                        onChange={(e) => setForm({ ...form, msg: e.target.value })}
-                        suppressHydrationWarning
-                        className="w-full bg-[#faf9f5] border border-black/8 rounded-xl px-4 py-3 text-sm text-[#0a0a0a]
-                                   focus:outline-none focus:border-[#d8ff42] focus:ring-1 focus:ring-[#d8ff42]/30 transition-all resize-none"
-                      />
-                    </div>
-
-                    <MagneticButton>
-                      <ShimmerButton
-                        type="submit"
-                        borderRadius="12px"
-                        className="w-full py-4 text-sm font-bold"
-                      >
-                        Submit Brief ⚡
-                      </ShimmerButton>
-                    </MagneticButton>
-                  </motion.form>
-                ) : (
-                  <motion.div
-                    key="success"
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="bg-white rounded-3xl border border-[#d8ff42]/30 p-12 text-center space-y-4
-                               shadow-[0_8px_40px_rgba(216,255,66,0.12)]"
-                  >
-                    <motion.span
-                      animate={{ rotate: [0, 12, -12, 0], scale: [1, 1.2, 1] }}
-                      transition={{ duration: 0.6 }}
-                      className="text-5xl block"
-                    >⚡</motion.span>
-                    <h3 className="font-display text-sm font-bold tracking-wider text-[#0a0a0a] uppercase">Brief Sent</h3>
-                    <p className="text-xs text-zinc-400 leading-relaxed max-w-xs mx-auto">
-                      Your brief has reached Vistar HQ. Our lead architect will reply within 24 hours.
-                    </p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </Reveal>
-          </div>
-
-          {/* Giant Brutalist Watermark Brand Signature */}
-          <div className="mt-20 border-t border-black/5 pt-12 overflow-hidden select-none pointer-events-none">
-            <h2 className="text-[12vw] leading-none font-display font-black tracking-tighter text-black/5 dark:text-white/5 uppercase text-center">
-              Vistar.
-            </h2>
-          </div>
-        </div>
-      </section>
-
     </div>
   );
 }

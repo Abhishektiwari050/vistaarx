@@ -39,13 +39,18 @@ export function SpotlightCard({
     setOpacity(0);
   };
 
+  const hasBg = className.includes("bg-");
+  const hasBorder = className.includes("border-") || className.includes("border[");
+  const bgClass = hasBg ? "" : "bg-white";
+  const borderClass = hasBorder ? "" : "border border-zinc-200/50";
+
   return (
     <div
       ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`relative overflow-hidden rounded-3xl border border-zinc-200/50 bg-white transition-all duration-300 ${className}`}
+      className={`relative overflow-hidden rounded-3xl ${borderClass} ${bgClass} transition-all duration-300 ${className}`}
     >
       {/* Dynamic Background Glow */}
       <div

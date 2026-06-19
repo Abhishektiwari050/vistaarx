@@ -10,8 +10,15 @@ const CobeGlobe = dynamic(() => import("@/components/3d/cobe-globe"), {
 });
 
 export default function ContactPage() {
-  const [formState, setFormState] = useState({ name: "", email: "", projectType: "Web Design", message: "" });
+  const [formState, setFormState] = useState({ name: "", email: "", projectType: "Bespoke 3D / Web Design", message: "" });
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const categories = [
+    "Bespoke 3D / Web Design",
+    "Custom Software Webapp",
+    "AI Workflow Automation",
+    "Full Digital Core"
+  ];
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,7 +41,7 @@ export default function ContactPage() {
         setIsSubmitted(true);
         setTimeout(() => {
           setIsSubmitted(false);
-          setFormState({ name: "", email: "", projectType: "Web Design", message: "" });
+          setFormState({ name: "", email: "", projectType: "Bespoke 3D / Web Design", message: "" });
         }, 4000);
       }
     } catch (err) {
@@ -43,26 +50,30 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-[calc(100vh-80px)] w-full relative flex flex-col justify-center px-6 md:px-12 pt-4 pb-16 z-20 max-w-6xl mx-auto space-y-8">
+    <div className="min-h-[calc(100vh-80px)] w-full relative flex flex-col justify-center px-6 md:px-12 pt-8 pb-16 z-20 max-w-6xl mx-auto space-y-8">
       <ThemeOverlay />
 
-      {/* Background Grid */}
-      <div className="fixed inset-0 z-[-1] opacity-5 pointer-events-none system-grid" />
+      {/* Noise overlay for premium grain */}
+      <div className="noise-overlay" aria-hidden="true" />
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center w-full my-auto relative z-10">
+      {/* Background System Grid */}
+      <div className="fixed inset-0 z-[-1] opacity-[0.03] pointer-events-none system-grid" />
+
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full my-auto relative z-10">
         
         {/* Left Column: Form & Header (7 Columns) */}
-        <div className="lg:col-span-7 space-y-6">
+        <div className="lg:col-span-7 space-y-8">
+          
           {/* Header section */}
           <div className="text-left select-none space-y-3">
-            <span className="font-display text-[9px] font-bold tracking-widest text-[#ff1e90] uppercase border border-[#ff1e90]/20 px-3 py-1 bg-[#ff1e90]/5 rounded inline-block">
+            <span className="font-mono text-[9px] font-extrabold tracking-widest text-[#ff1e90] uppercase border-2 border-black px-3 py-1 bg-[#ff1e90]/10 rounded inline-block shadow-[2px_2px_0px_#000]">
               Start Project Compile
             </span>
-            <h1 className="font-display text-4xl sm:text-5xl font-semibold uppercase tracking-tight text-black leading-none">
+            <h1 className="font-display text-4xl sm:text-5xl font-black uppercase tracking-tighter text-black leading-none">
               Connect HQ
             </h1>
-            <p className="font-sans text-xs sm:text-sm text-zinc-500 max-w-md leading-relaxed">
-              Transmit your project coordinates below. Our system operator will respond within less than 24 hours.
+            <p className="font-sans text-xs sm:text-sm text-zinc-650 max-w-md leading-relaxed">
+              Transmit your project coordinates below. Our lead systems architect will evaluate your specifications and reply in less than 24 hours.
             </p>
           </div>
 
@@ -71,15 +82,16 @@ export default function ContactPage() {
               {!isSubmitted ? (
                 <motion.form
                   key="contact-form"
-                  initial={{ opacity: 0, y: 15 }}
+                  initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -15 }}
+                  exit={{ opacity: 0, y: -20 }}
                   onSubmit={handleFormSubmit}
-                  className="bg-white/70 backdrop-blur-md border border-zinc-200 rounded-2xl p-6 md:p-8 shadow-[6px_6px_20px_rgba(0,0,0,0.015)] text-left space-y-6 brutalist-glow-pink"
+                  className="bg-white border-[2.5px] border-black rounded-2xl p-6 md:p-8 shadow-[6px_6px_0px_#ff1e90] text-left space-y-6"
                 >
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-1.5">
-                      <label htmlFor="form-name" className="font-display text-[10px] font-bold tracking-widest uppercase text-zinc-400">Your Name</label>
+                    {/* Name input */}
+                    <div className="space-y-2">
+                      <label htmlFor="form-name" className="font-display text-[9px] font-black tracking-widest uppercase text-zinc-400 block">Your Name</label>
                       <input
                         type="text"
                         id="form-name"
@@ -87,12 +99,13 @@ export default function ContactPage() {
                         placeholder="Alexander Vance"
                         value={formState.name}
                         onChange={(e) => setFormState({ ...formState, name: e.target.value })}
-                        className="w-full bg-[#faf9f5]/80 border border-zinc-200 rounded px-4 py-3 font-sans text-xs text-black focus:outline-none focus:border-zinc-800 transition-colors"
+                        className="w-full bg-[#faf9f5]/85 border-[2px] border-black rounded-lg px-4 py-3 font-sans text-xs text-black focus:outline-none focus:border-[#ff1e90] focus:ring-1 focus:ring-[#ff1e90] transition-all placeholder:text-zinc-400"
                       />
                     </div>
 
-                    <div className="space-y-1.5">
-                      <label htmlFor="form-email" className="font-display text-[10px] font-bold tracking-widest uppercase text-zinc-400">Email Address</label>
+                    {/* Email input */}
+                    <div className="space-y-2">
+                      <label htmlFor="form-email" className="font-display text-[9px] font-black tracking-widest uppercase text-zinc-400 block">Email Address</label>
                       <input
                         type="email"
                         id="form-email"
@@ -100,28 +113,38 @@ export default function ContactPage() {
                         placeholder="alex@company.com"
                         value={formState.email}
                         onChange={(e) => setFormState({ ...formState, email: e.target.value })}
-                        className="w-full bg-[#faf9f5]/80 border border-zinc-200 rounded px-4 py-3 font-sans text-xs text-black focus:outline-none focus:border-zinc-800 transition-colors"
+                        className="w-full bg-[#faf9f5]/85 border-[2px] border-black rounded-lg px-4 py-3 font-sans text-xs text-black focus:outline-none focus:border-[#ff1e90] focus:ring-1 focus:ring-[#ff1e90] transition-all placeholder:text-zinc-400"
                       />
                     </div>
                   </div>
 
-                  <div className="space-y-1.5">
-                    <label htmlFor="form-type" className="font-display text-[10px] font-bold tracking-widest uppercase text-zinc-400">Project Category</label>
-                    <select
-                      id="form-type"
-                      value={formState.projectType}
-                      onChange={(e) => setFormState({ ...formState, projectType: e.target.value })}
-                      className="w-full bg-[#faf9f5]/80 border border-zinc-200 rounded px-4 py-3 font-sans text-xs text-black focus:outline-none focus:border-zinc-800 transition-colors"
-                    >
-                      <option value="Web Design">Bespoke 3D / Web Design</option>
-                      <option value="Web Application">Custom Software Webapp</option>
-                      <option value="AI Automation">AI Workflow Automation</option>
-                      <option value="Full Stack Lab">Full Digital Core (Combined)</option>
-                    </select>
+                  {/* Project Category Interactive Badges */}
+                  <div className="space-y-3">
+                    <span className="font-display text-[9px] font-black tracking-widest uppercase text-zinc-400 block">Project Category</span>
+                    <div className="flex flex-wrap gap-2.5">
+                      {categories.map((cat) => {
+                        const isActive = formState.projectType === cat;
+                        return (
+                          <button
+                            key={cat}
+                            type="button"
+                            onClick={() => setFormState({ ...formState, projectType: cat })}
+                            className={`px-4 py-2 text-[10px] font-display font-black uppercase rounded-lg border-2 transition-all duration-200 cursor-pointer ${
+                              isActive
+                                ? "bg-[#ff1e90] text-black border-black shadow-[2px_2px_0px_#000]"
+                                : "bg-white text-zinc-600 border-zinc-200 hover:border-black/50 hover:bg-[#faf9f5]"
+                            }`}
+                          >
+                            {cat}
+                          </button>
+                        );
+                      })}
+                    </div>
                   </div>
 
-                  <div className="space-y-1.5">
-                    <label htmlFor="form-msg" className="font-display text-[10px] font-bold tracking-widest uppercase text-zinc-400">Project Brief & Specifications</label>
+                  {/* Textarea brief */}
+                  <div className="space-y-2">
+                    <label htmlFor="form-msg" className="font-display text-[9px] font-black tracking-widest uppercase text-zinc-400 block">Project Brief &amp; Specifications</label>
                     <textarea
                       id="form-msg"
                       required
@@ -129,13 +152,14 @@ export default function ContactPage() {
                       placeholder="Describe the platform goal, target launch date, and budget details..."
                       value={formState.message}
                       onChange={(e) => setFormState({ ...formState, message: e.target.value })}
-                      className="w-full bg-[#faf9f5]/80 border border-zinc-200 rounded px-4 py-3 font-sans text-xs text-black focus:outline-none focus:border-zinc-800 transition-colors resize-none"
+                      className="w-full bg-[#faf9f5]/85 border-[2px] border-black rounded-lg px-4 py-3 font-sans text-xs text-black focus:outline-none focus:border-[#ff1e90] focus:ring-1 focus:ring-[#ff1e90] transition-all resize-none placeholder:text-zinc-400"
                     />
                   </div>
 
+                  {/* Submit button */}
                   <button
                     type="submit"
-                    className="w-full py-4 border border-zinc-800 bg-[#0c0c0e] text-[#faf9f5] font-display text-xs font-bold tracking-widest uppercase transition-colors rounded hover:bg-[#ff1e90] hover:text-black cursor-pointer shadow-sm"
+                    className="w-full py-4 border-[2.5px] border-black bg-[#0a0a0a] text-white font-display text-xs font-bold tracking-widest uppercase transition-all rounded-xl hover:bg-[#ff1e90] hover:text-black cursor-pointer shadow-[3px_3px_0px_#000] hover:shadow-[4px_4px_0px_#000] active:translate-y-0.5 active:shadow-[1px_1px_0px_#000]"
                   >
                     Submit Brief to HQ ⚡
                   </button>
@@ -143,15 +167,15 @@ export default function ContactPage() {
               ) : (
                 <motion.div
                   key="contact-success"
-                  initial={{ opacity: 0, scale: 0.95 }}
+                  initial={{ opacity: 0, scale: 0.96 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  className="bg-white border border-zinc-200 rounded p-12 shadow-sm text-center space-y-4"
+                  exit={{ opacity: 0, scale: 0.96 }}
+                  className="bg-white border-[2.5px] border-black rounded-2xl p-12 shadow-[6px_6px_0px_#d8ff42] text-center space-y-5"
                 >
                   <span className="text-4xl block animate-bounce">⚡</span>
-                  <h3 className="font-display text-base font-semibold tracking-wider text-black uppercase">Brief Compiled Successfully</h3>
+                  <h3 className="font-display text-base font-black tracking-wider text-black uppercase">Brief Compiled Successfully</h3>
                   <p className="font-sans text-xs sm:text-sm text-zinc-500 leading-relaxed max-w-sm mx-auto">
-                    Your specifications have been routed to Vistar HQ. Our lead systems architect will reply within 24 hours.
+                    Your specifications have been routed to Vistar HQ. Our lead systems architect will evaluate the parameters and connect back shortly.
                   </p>
                 </motion.div>
               )}
@@ -167,9 +191,27 @@ export default function ContactPage() {
           </div>
         </div>
 
-        {/* Right Column: Interactive 3D Globe (5 Columns) */}
-        <div className="lg:col-span-5 flex items-center justify-center h-[300px] sm:h-[450px]">
-          <CobeGlobe />
+        {/* Right Column: Globe telemetry console (5 columns) */}
+        <div className="lg:col-span-5 bg-[#0a0a0a] border-[2.5px] border-black p-6 rounded-2xl shadow-[6px_6px_0px_#d8ff42] flex flex-col justify-between items-center text-white h-[450px] relative overflow-hidden select-none">
+          {/* Header readout */}
+          <div className="flex justify-between items-center w-full font-mono text-[9px] text-[#d8ff42] tracking-widest uppercase border-b border-white/10 pb-3">
+            <span>ACTIVE CORE TELEMETRY</span>
+            <span className="flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#d8ff42] animate-ping" />
+              NODE: ND-IN-01
+            </span>
+          </div>
+
+          {/* Globe space */}
+          <div className="w-full flex items-center justify-center my-auto h-[280px]">
+            <CobeGlobe />
+          </div>
+
+          {/* Footer readout */}
+          <div className="flex justify-between items-center w-full font-mono text-[8px] text-white/50 border-t border-white/10 pt-3">
+            <span>COORDS: 28.6139° N, 77.2090° E</span>
+            <span>STATUS: READY // ACTIVE</span>
+          </div>
         </div>
 
       </div>

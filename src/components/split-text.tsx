@@ -3,7 +3,17 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-export function SplitText({ text, className = "", delay = 0 }: { text: string; className?: string; delay?: number }) {
+export function SplitText({ 
+  text, 
+  className = "", 
+  delay = 0,
+  direction = "up"
+}: { 
+  text: string; 
+  className?: string; 
+  delay?: number;
+  direction?: "up" | "down";
+}) {
   // Split the text into words to preserve kerning and prevent disjointed spacing
   const words = text.split(" ");
 
@@ -18,7 +28,11 @@ export function SplitText({ text, className = "", delay = 0 }: { text: string; c
   };
 
   const childVars = {
-    hidden: { opacity: 0, y: "75%", rotateZ: 3 },
+    hidden: { 
+      opacity: 0, 
+      y: direction === "down" ? "-100%" : "75%", 
+      rotateZ: direction === "down" ? -3 : 3 
+    },
     visible: {
       opacity: 1,
       y: 0,

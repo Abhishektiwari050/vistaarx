@@ -5,7 +5,6 @@ import { Canvas } from "@react-three/fiber";
 import { usePathname } from "next/navigation";
 import { useScrollStore, getThemeColors } from "@/lib/stores/scroll-store";
 import { Logo3D } from "./logo-component";
-import { WatercolorShower } from "./watercolor-shower";
 import { getLogoRotationZ, getArrowActivation } from "@/lib/utils/scroll-utils";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -65,16 +64,16 @@ function SvgFallbackLogo() {
   // Replicate the exact homepage glide & scale transitions of the 3D Logo
   if (isHomepage) {
     if (scroll <= 0.10) {
-      targetX = -143; // -2.2 * 65
-      targetY = 52; // 0.8 * 65
-      targetScale = 1.0;
+      targetX = 0;
+      targetY = -78; // -1.2 * 65
+      targetScale = 1.9;
     } else if (scroll > 0.10 && scroll <= 0.20) {
       const t = (scroll - 0.10) / 0.10;
       const ease = t * t * (3 - 2 * t);
       // Remap 3D positions to 2D screen coordinate pixels (approx 65px per units)
-      targetX = -143 + ease * 286; 
-      targetY = 52 - ease * 19.5;
-      targetScale = 1.0 - ease * 0.25;
+      targetX = ease * 143; // goes from 0 to 2.2 * 65 = 143
+      targetY = -78 + ease * 110.5; // goes from -78 to 0.5 * 65 = 32.5 (diff is 110.5)
+      targetScale = 1.9 - ease * 1.15; // goes from 1.9 to 0.75 (diff is 1.15)
     } else if (scroll > 0.20 && scroll <= 0.30) {
       targetX = 143;
       targetY = 32.5;
@@ -110,18 +109,10 @@ function SvgFallbackLogo() {
       targetY = 156;
       targetScale = 0.55;
     }
-  } else if (route === "/philosophy") {
-    targetX = 136;
-    targetY = -scroll * 78;
-    targetScale = 0.85;
-  } else if (route === "/work") {
-    targetX = -136;
-    targetY = 26;
-    targetScale = 0.85;
-  } else if (route === "/contact") {
+  } else {
     targetX = 0;
     targetY = 0;
-    targetScale = 1.1;
+    targetScale = 0;
   }
 
   // Unified snapped rotation in degrees
@@ -213,7 +204,7 @@ function SvgFallbackLogo() {
               // Scale the opacity using route-specific values for watermark integration
               const isHero = scroll <= 0.10;
               const isContact = scroll >= 0.90;
-              const routeOpacityScale = isHero ? 0.2 : (isContact ? 0.65 : 0.16);
+              const routeOpacityScale = isHero ? 0.55 : (isContact ? 0.65 : 0.25);
               
               const baseOpacity = isHighlighted ? 1.0 : (scroll > 0.30 && scroll <= 0.60 ? 0.25 : 0.8);
               finalOpacity = baseOpacity * routeOpacityScale;
@@ -378,18 +369,7 @@ function ScrollTracker() {
 export function GlobalCanvas() {
   const [webglSupported, setWebglSupported] = useState<boolean | null>(null);
   const theme = useScrollStore((s) => s.theme);
-  const showerTrigger = useScrollStore((s) => s.showerTrigger);
-  const [canvasZIndex, setCanvasZIndex] = useState(-5);
-
-  useEffect(() => {
-    if (showerTrigger > 0) {
-      setTimeout(() => setCanvasZIndex(998), 0);
-      const timer = setTimeout(() => {
-        setCanvasZIndex(-5);
-      }, 1800);
-      return () => clearTimeout(timer);
-    }
-  }, [showerTrigger]);
+  const canvasZIndex = -5;
 
   useEffect(() => {
     try {
@@ -503,7 +483,6 @@ export function GlobalCanvas() {
             <directionalLight position={[0, 5, -2]} intensity={0.8} color="#ff0080" />
 
             <Suspense fallback={null}>
-              <WatercolorShower />
               <Logo3D />
             </Suspense>
           </Canvas>

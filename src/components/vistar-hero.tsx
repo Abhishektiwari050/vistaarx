@@ -26,7 +26,6 @@ function LocalClock() {
 import { motion, useScroll, useTransform } from "framer-motion";
 import { SplitText } from "@/components/split-text";
 import { MagneticButton } from "@/components/magnetic-button";
-import { ShimmerButton } from "@/components/shimmer-button";
 import { AuroraBackground } from "@/components/aurora-background";
 import { InteractiveHero3D } from "@/components/3d/interactive-hero-3d";
 import { TextScramble } from "@/components/text-scramble";
@@ -120,20 +119,21 @@ export function VistarHero() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="max-w-[320px] space-y-3 bg-white/40 backdrop-blur-md border border-zinc-200/50 p-6 rounded-2xl shadow-[6px_6px_20px_rgba(0,0,0,0.015)]"
+            className="max-w-[340px] space-y-4 bg-white border-[2.5px] border-black p-6 rounded-xl shadow-[4px_4px_0px_#d8ff42] transition-transform hover:-translate-y-1"
           >
-            <div className="inline-flex items-center gap-2 border border-black/10 bg-white/80 backdrop-blur-sm px-3.5 py-1.5 rounded-full text-[9px] font-bold tracking-[2px] uppercase text-zinc-500">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#ff1e90] animate-pulse" />
-              Open for Projects · 2026
+            <div className="inline-flex items-center gap-2 border-2 border-black bg-white px-3.5 py-1.5 rounded-md text-[9px] font-mono font-black tracking-[2px] uppercase text-black shadow-[2px_2px_0px_#000000]">
+              <span className="w-2 h-2 rounded-full bg-[#d8ff42] border border-black animate-pulse" />
+              STATUS: OPERATIONAL // 2026
             </div>
-            <p className="text-[12px] text-zinc-600 leading-relaxed font-normal font-sans">
-              We engineer fully bespoke digital platforms and workflow systems. Zero templates. Just clean, optimized code.
+            <p className="text-[13px] text-black leading-relaxed font-medium font-sans">
+              We engineer high-fidelity digital platforms and core workflow systems. Zero templates. Zero overhead. Pure, performance-first code.
             </p>
           </motion.div>
           
           <div className="overflow-hidden select-none">
-            <TextScramble
+            <SplitText
               text="Bespoke"
+              direction="down"
               delay={0.1}
               className="font-display font-bold uppercase text-5xl sm:text-7xl lg:text-[8rem] leading-none tracking-tighter text-[#0a0a0a]"
             />
@@ -145,11 +145,8 @@ export function VistarHero() {
           <h1
             className="font-display font-bold uppercase text-5xl sm:text-7xl lg:text-[8rem] leading-none tracking-tighter text-[#0a0a0a] flex flex-wrap items-center gap-x-4 gap-y-2"
           >
-            <SplitText text="Web" delay={0.1} />
-            <span className="inline-flex items-center justify-center relative w-16 h-16 sm:w-24 sm:h-24 select-none">
-              <InteractiveHero3D />
-            </span>
-            <SplitText text="Platforms" delay={0.15} />
+            <SplitText text="Web" direction="down" delay={0.1} />
+            <SplitText text="Platforms" direction="down" delay={0.15} />
           </h1>
         </div>
 
@@ -175,32 +172,31 @@ export function VistarHero() {
                 />
               </svg>
             </span>
-            <SplitText text="Code" delay={0.2} />
+            <SplitText text="Code" direction="down" delay={0.2} />
           </h1>
 
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="max-w-[360px] flex flex-col gap-5 bg-white/40 backdrop-blur-md border border-zinc-200/50 p-6 rounded-2xl shadow-[6px_6px_20px_rgba(0,0,0,0.015)]"
+            className="max-w-[360px] flex flex-col gap-5 bg-white border-[2.5px] border-black p-6 rounded-xl shadow-[4px_4px_0px_#ff1e90] transition-transform hover:-translate-y-1"
           >
-            <p className="text-[12px] text-zinc-600 leading-relaxed font-normal font-sans">
-              We compile light-speed pages, custom backend integrations, and search sitemaps. Complete source code handover from day one.
+            <p className="text-[13px] text-black leading-relaxed font-medium font-sans">
+              Compiling sub-second edge pages, custom API integrations, and AI-discovery architectures. Complete source handover from day one.
             </p>
             <div className="flex gap-3">
               <MagneticButton>
-                <ShimmerButton
-                  type="button"
-                  onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-                  className="px-6 py-4 text-[10px]"
+                <a
+                  href="/contact"
+                  className="bg-[#d8ff42] text-black font-sans font-black text-[10px] tracking-widest uppercase px-6 py-4 border-2 border-black rounded-xl shadow-[3px_3px_0px_#000000] hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[5px_5px_0px_#ff1e90] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#000000] transition-all cursor-pointer inline-block text-center"
                 >
                   Start Project ⚡
-                </ShimmerButton>
+                </a>
               </MagneticButton>
               <MagneticButton>
                 <a
                   href="#services"
-                  className="border border-black/10 bg-white/80 backdrop-blur-sm text-zinc-600 text-[10px] font-bold tracking-widest uppercase px-5 py-4 rounded-full hover:bg-white hover:text-black transition-all cursor-pointer active:scale-95 inline-block font-sans"
+                  className="bg-white text-black font-sans font-black text-[10px] tracking-widest uppercase px-6 py-4 border-2 border-black rounded-xl shadow-[3px_3px_0px_#000000] hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[5px_5px_0px_#ff1e90] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_#000000] transition-all cursor-pointer inline-block"
                 >
                   Services →
                 </a>

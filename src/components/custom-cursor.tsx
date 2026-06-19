@@ -97,8 +97,15 @@ export function CustomCursor() {
   const isLinkHover = hoveredEl?.type === "link";
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-50 overflow-hidden">
-      {/* Outer trailing spring circle / snapped card */}
+    <div className="pointer-events-none fixed inset-0 z-[99999] overflow-hidden">
+      {/* Dynamic injection to hide default browser cursor globally */}
+      <style dangerouslySetInnerHTML={{ __html: `
+        html, body, a, button, select, input, textarea, [role="button"], .interactive, .cursor-pointer {
+          cursor: none !important;
+        }
+      `}} />
+
+      {/* Outer trailing spring container / snapped card */}
       <motion.div
         style={{
           x: trailX,
@@ -107,27 +114,76 @@ export function CustomCursor() {
           translateY: "-50%",
         }}
         animate={{
-          width: snappedRect ? snappedRect.width + 12 : (isTextHover ? 80 : 20),
-          height: snappedRect ? snappedRect.height + 12 : (isTextHover ? 80 : 20),
+          width: snappedRect ? snappedRect.width + 12 : (isTextHover ? 80 : 44),
+          height: snappedRect ? snappedRect.height + 12 : (isTextHover ? 80 : 44),
           borderRadius: snappedRect ? "8px" : "50%",
           backgroundColor: isTextHover ? "rgba(255, 255, 255, 0.95)" : "rgba(255, 255, 255, 0)",
           border: snappedRect 
             ? "2px solid #ff1e90" 
-            : (isTextHover ? "0px solid transparent" : "1.5px solid rgba(0, 0, 0, 0.45)"),
-          mixBlendMode: (snappedRect || isTextHover) ? "normal" : "difference",
-          borderColor: snappedRect ? "#ff1e90" : (isLinkHover ? "rgba(255, 30, 144, 0.85)" : "rgba(255, 255, 255, 0.95)"),
+            : "0px solid transparent",
         }}
         transition={{ type: "spring", stiffness: 350, damping: 25, mass: 0.1 }}
         className="fixed flex items-center justify-center pointer-events-none"
       >
-        {isTextHover && hoveredEl.text && (
+        {isTextHover && hoveredEl.text ? (
           <span className="font-display text-[9px] font-black tracking-widest uppercase text-black select-none">
             {hoveredEl.text}
           </span>
+        ) : (
+          !snappedRect && (
+            <motion.svg
+              width="100%"
+              height="100%"
+              viewBox="0 0 100 100"
+              style={{
+                color: isLinkHover ? "#ff1e90" : "#000000",
+              }}
+              animate={{ rotate: isLinkHover ? 45 : 0 }}
+              transition={{ duration: 0.35, ease: "easeOut" }}
+              className="overflow-visible"
+            >
+              {/* Up Arrowhead */}
+              <motion.path
+                d="M 50 15 L 62 38 H 38 Z"
+                animate={{ y: isLinkHover ? -6 : 0 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                stroke="currentColor"
+                strokeWidth="1.8"
+                fill="none"
+              />
+              {/* Down Arrowhead */}
+              <motion.path
+                d="M 50 85 L 62 62 H 38 Z"
+                animate={{ y: isLinkHover ? 6 : 0 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                stroke="currentColor"
+                strokeWidth="1.8"
+                fill="none"
+              />
+              {/* Left Arrowhead */}
+              <motion.path
+                d="M 15 50 L 38 38 V 62 Z"
+                animate={{ x: isLinkHover ? -6 : 0 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                stroke="currentColor"
+                strokeWidth="1.8"
+                fill="none"
+              />
+              {/* Right Arrowhead */}
+              <motion.path
+                d="M 85 50 L 62 38 V 62 Z"
+                animate={{ x: isLinkHover ? 6 : 0 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                stroke="currentColor"
+                strokeWidth="1.8"
+                fill="none"
+              />
+            </motion.svg>
+          )
         )}
       </motion.div>
 
-      {/* Inner fast-tracking point */}
+      {/* Inner fast-tracking point target (crosshair center) */}
       <motion.div
         style={{
           x: rawMouseX,

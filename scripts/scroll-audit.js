@@ -34,7 +34,7 @@ async function runAudit() {
     console.log(`\n🌐 Navigating to ${url}...`);
     
     try {
-      await page.goto(url, { waitUntil: "load", timeout: 30000 });
+      await page.goto(url, { waitUntil: "load", timeout: 90000 });
       
       // Wait for the custom 3D shader and animations to settle
       console.log("⏳ Waiting 12 seconds for 3D shaders and layout hydration to settle...");
@@ -60,7 +60,7 @@ async function runAudit() {
         await page.waitForTimeout(1500);
         
         const screenshotPath = path.join(OUTPUT_DIR, `${route.name}_scroll_step_${stepIndex + 1}_y${scrollY}.png`);
-        await page.screenshot({ path: screenshotPath, fullPage: false });
+        await page.screenshot({ path: screenshotPath, fullPage: false, timeout: 8000 });
         console.log(`💾 Saved to ${screenshotPath}`);
         
         scrollY += viewportHeight;

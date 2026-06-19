@@ -286,32 +286,32 @@ function getHomepageLogoProperties(scroll: number): HomepageProperties {
   let arrowScales = [1.0, 1.0, 1.0, 1.0];
 
   if (s <= 0.10) {
-    // Stage 1: Hero Centered Active (Awwwards Immersive Center Backdrop)
-    x = -2.2;
-    y = 0.8;
+    // Stage 1: Hero Centered Majestic (Giant background brand watermark)
+    x = 0.0;
+    y = -1.2;
     z = 0;
-    scale = 1.0;
-    arrowOffset = 0.0;
-    highlight = 2.0;
-    rotX = 0.1;
-    rotY = -0.2;
-    rotZ = 0; // points UP cleanly
+    scale = 1.9;
+    arrowOffset = 0.15;
+    highlight = 3.0;
+    rotX = 0.15;
+    rotY = -0.15;
+    rotZ = 0;
     
-    // Up Arrow (index 0) active
-    arrowHighlights = [3.0, 0.4, 0.4, 0.4];
-    arrowScales = [1.3, 0.8, 0.8, 0.8];
+    // Symmetrical active highlights in Hero
+    arrowHighlights = [2.5, 2.5, 2.5, 2.5];
+    arrowScales = [1.0, 1.0, 1.0, 1.0];
   } else if (s > 0.10 && s <= 0.20) {
-    // Stage 1 -> Stage 2: Glides Right, Scales Down
+    // Stage 1 -> Stage 2: Glides Right, Scales Down to Manifesto
     const t = (s - 0.10) / 0.10;
     const ease = t * t * (3 - 2 * t);
-    x = THREE.MathUtils.lerp(-2.2, 2.2, ease);
-    y = THREE.MathUtils.lerp(0.8, 0.5, ease);
+    x = THREE.MathUtils.lerp(0.0, 2.2, ease);
+    y = THREE.MathUtils.lerp(-1.2, 0.5, ease);
     z = 0;
-    scale = THREE.MathUtils.lerp(1.0, 0.75, ease);
-    arrowOffset = 0.0;
-    highlight = THREE.MathUtils.lerp(2.0, 1.0, ease);
-    rotX = THREE.MathUtils.lerp(0.1, 0, ease);
-    rotY = THREE.MathUtils.lerp(-0.2, 0, ease);
+    scale = THREE.MathUtils.lerp(1.9, 0.75, ease);
+    arrowOffset = THREE.MathUtils.lerp(0.15, 0.0, ease);
+    highlight = THREE.MathUtils.lerp(3.0, 1.0, ease);
+    rotX = THREE.MathUtils.lerp(0.15, -0.1, ease);
+    rotY = THREE.MathUtils.lerp(-0.15, -0.3, ease);
     rotZ = -ease * 0.5 * Math.PI; // elegant single 90 degree CW turn
   } else if (s > 0.20 && s <= 0.30) {
     // Stage 2: Manifesto Settled Right
@@ -469,6 +469,7 @@ export function Logo3D() {
   const arrowLeft = useRef<THREE.Mesh>(null);
   const arrowDown = useRef<THREE.Mesh>(null);
   const arrowRight = useRef<THREE.Mesh>(null);
+  const coreRef = useRef<THREE.Mesh>(null);
 
   // Ref and uniforms for the Anime summoning portal aura ring mesh
   const auraRef = useRef<THREE.Mesh>(null);
@@ -598,39 +599,10 @@ export function Logo3D() {
       targetRotX = homepageProps.rotX + cursor.y * 0.15;
       targetRotY = homepageProps.rotY + cursor.x * 0.15;
       targetRotZ = homepageProps.rotZ;
-    } else if (route === "/philosophy") {
-      // Company Context (Shift RIGHT, Collapsed, Reacts to local scroll progress)
-      targetX = 2.1;
-      // As you scroll down philosophy page, logo drifts slightly on Y
-      targetY = -scroll * 1.2;
-      targetScale = 0.85;
-      // Add slight tumble based on scroll
-      targetRotX = cursor.y * 0.35 + scroll * 0.6;
-      targetRotY = cursor.x * 0.35 - scroll * 0.4;
-      targetRotZ = state.clock.getElapsedTime() * 0.15; // slow idle roll
-    } else if (route === "/work") {
-      // Symmetrical Overview (Shift LEFT, Expand based on project scroll)
-      targetX = -2.1;
-      targetY = 0.45; // standard expansion
-      targetScale = 0.85;
-      targetRotX = cursor.y * 0.35;
-      targetRotY = cursor.x * 0.35;
-      targetRotZ = state.clock.getElapsedTime() * 0.15;
-    } else if (route === "/vectors") {
-      // Vector Rotational Showcase (Glides Center, snaps and highlights based on local page scroll)
+    } else {
       targetX = 0.0;
       targetY = 0.0;
-      targetScale = 1.0;
-      isDeepDive = true;
-      deepDiveProgress = scroll; // Full 0.0 -> 1.0 mapping within the Vectors page
-    } else if (route === "/contact") {
-      // Contact Form (Returns Center, Collapsed, Magnet parallax)
-      targetX = 0.0;
-      targetY = 0.0;
-      targetScale = 1.1;
-      targetRotX = cursor.y * 0.75; // double standard cursor parallax
-      targetRotY = cursor.x * 0.75;
-      targetRotZ = state.clock.getElapsedTime() * 0.1;
+      targetScale = 0.0;
     }
 
     // ─────────────────────────────────────────────────────────────────────────
@@ -679,6 +651,11 @@ export function Logo3D() {
           groupRef.current.rotation.z += 0.003;
           smoothedZ.current = groupRef.current.rotation.z; // keep Z sync
         }
+      }
+      // Independent local rotation for central neon octahedron core
+      if (coreRef.current) {
+        coreRef.current.rotation.y += 0.025;
+        coreRef.current.rotation.x += 0.015;
       }
     }
 
@@ -748,7 +725,10 @@ export function Logo3D() {
 
       // Compute route-specific opacity scale dynamically to ensure optimal contrast and readability
       let routeOpacityScale = 0.2;
-      if (route === "/vectors") {
+      if (route === "/") {
+        // High visibility in Hero section, extra subtle when scrolling homepage
+        routeOpacityScale = scroll <= 0.10 ? 0.55 : 0.25;
+      } else if (route === "/vectors") {
         routeOpacityScale = 0.85; // highly visible for technology deep-dive
       } else if (route === "/contact") {
         routeOpacityScale = 0.65; // medium visible for contact crown
@@ -890,6 +870,11 @@ export function Logo3D() {
       <group rotation={[0, 0, 0]}>
         <mesh ref={arrowUp} material={materials[0]} frustumCulled>
           <extrudeGeometry args={[arrowShape, extrudeSettings]} />
+          {/* Neon Wireframe Overlay */}
+          <mesh frustumCulled>
+            <extrudeGeometry args={[arrowShape, extrudeSettings]} />
+            <meshBasicMaterial wireframe color="#ff1e90" transparent opacity={0.65} depthWrite={false} />
+          </mesh>
         </mesh>
       </group>
       
@@ -897,6 +882,11 @@ export function Logo3D() {
       <group rotation={[0, 0, Math.PI / 2]}>
         <mesh ref={arrowLeft} material={materials[1]} frustumCulled>
           <extrudeGeometry args={[arrowShape, extrudeSettings]} />
+          {/* Neon Wireframe Overlay */}
+          <mesh frustumCulled>
+            <extrudeGeometry args={[arrowShape, extrudeSettings]} />
+            <meshBasicMaterial wireframe color="#d8ff42" transparent opacity={0.65} depthWrite={false} />
+          </mesh>
         </mesh>
       </group>
       
@@ -904,6 +894,11 @@ export function Logo3D() {
       <group rotation={[0, 0, Math.PI]}>
         <mesh ref={arrowDown} material={materials[2]} frustumCulled>
           <extrudeGeometry args={[arrowShape, extrudeSettings]} />
+          {/* Neon Wireframe Overlay */}
+          <mesh frustumCulled>
+            <extrudeGeometry args={[arrowShape, extrudeSettings]} />
+            <meshBasicMaterial wireframe color="#ff1e90" transparent opacity={0.65} depthWrite={false} />
+          </mesh>
         </mesh>
       </group>
       
@@ -911,8 +906,19 @@ export function Logo3D() {
       <group rotation={[0, 0, -Math.PI / 2]}>
         <mesh ref={arrowRight} material={materials[3]} frustumCulled>
           <extrudeGeometry args={[arrowShape, extrudeSettings]} />
+          {/* Neon Wireframe Overlay */}
+          <mesh frustumCulled>
+            <extrudeGeometry args={[arrowShape, extrudeSettings]} />
+            <meshBasicMaterial wireframe color="#d8ff42" transparent opacity={0.65} depthWrite={false} />
+          </mesh>
         </mesh>
       </group>
+
+      {/* Central Rotating Core (Neon Octahedron) */}
+      <mesh ref={coreRef} position={[0, 0, 0]} frustumCulled>
+        <octahedronGeometry args={[0.35, 0]} />
+        <meshBasicMaterial wireframe color="#ff1e90" transparent opacity={0.75} depthWrite={false} />
+      </mesh>
 
       {/* Route-Specific Premium Geometries */}
       <mesh ref={octahedronRef} visible={false}>

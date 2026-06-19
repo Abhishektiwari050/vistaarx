@@ -1,201 +1,197 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { useScrollStore } from "@/lib/stores/scroll-store";
+import React from "react";
 import { ThemeOverlay } from "@/components/theme-overlay";
+import { SpotlightCard } from "@/components/spotlight-card";
+import { motion } from "framer-motion";
 
 export default function VectorsPage() {
-  const ref1 = useRef<HTMLDivElement>(null);
-  const ref2 = useRef<HTMLDivElement>(null);
-  const ref3 = useRef<HTMLDivElement>(null);
-  const ref4 = useRef<HTMLDivElement>(null);
+  const coreStats = [
+    { label: "Compile Target", val: "Next.js Edge" },
+    { label: "First Byte (TTFB)", val: "<180ms" },
+    { label: "Base Frame Rate", val: "60 FPS GL" },
+    { label: "Core Caching SLA", val: "Stale-While-Revalidate" },
+  ];
 
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [showIndicator, setShowIndicator] = useState(true);
+  const techStack = [
+    { name: "Next.js Edge", desc: "Global edge hosting with server-rendered page assets." },
+    { name: "Three.js / WebGL", desc: "Surrealist, lightweight 3D graphic systems running natively." },
+    { name: "Framer Motion", desc: "60 FPS hardware-accelerated interface choreography." },
+    { name: "Tailwind CSS", desc: "Streamlined styling compilation for zero bloated assets." },
+  ];
 
-  useEffect(() => {
-    const updateStyles = (progress: number) => {
-      // 1. Calculate and update inline style variables via refs
-      // Card 1
-      const op1 = progress <= 0.15 ? 1 : progress > 0.22 ? 0 : 1 - (progress - 0.15) / 0.07;
-      const tr1 = progress > 0.22 ? -30 : 0;
-      if (ref1.current) {
-        ref1.current.style.setProperty("--card-opacity", String(op1));
-        ref1.current.style.setProperty("--card-transform", `translate3d(0, ${tr1}px, 0)`);
-      }
-
-      // Card 2
-      const op2 = (progress < 0.22 || progress > 0.48) ? 0 : (progress >= 0.29 && progress <= 0.41) ? 1 : progress < 0.29 ? (progress - 0.22) / 0.07 : 1 - (progress - 0.41) / 0.07;
-      const tr2 = progress < 0.22 ? 30 : progress > 0.48 ? -30 : 0;
-      if (ref2.current) {
-        ref2.current.style.setProperty("--card-opacity", String(op2));
-        ref2.current.style.setProperty("--card-transform", `translate3d(0, ${tr2}px, 0)`);
-      }
-
-      // Card 3
-      const op3 = (progress < 0.48 || progress > 0.74) ? 0 : (progress >= 0.55 && progress <= 0.67) ? 1 : progress < 0.55 ? (progress - 0.48) / 0.07 : 1 - (progress - 0.67) / 0.07;
-      const tr3 = progress < 0.48 ? 30 : progress > 0.74 ? -30 : 0;
-      if (ref3.current) {
-        ref3.current.style.setProperty("--card-opacity", String(op3));
-        ref3.current.style.setProperty("--card-transform", `translate3d(0, ${tr3}px, 0)`);
-      }
-
-      // Card 4
-      const op4 = progress < 0.74 ? 0 : (progress >= 0.81 && progress <= 0.95) ? 1 : progress < 0.81 ? (progress - 0.74) / 0.07 : 1 - (progress - 0.95) / 0.05;
-      const tr4 = progress < 0.74 ? 30 : progress > 0.95 ? -30 : 0;
-      if (ref4.current) {
-        ref4.current.style.setProperty("--card-opacity", String(op4));
-        ref4.current.style.setProperty("--card-transform", `translate3d(0, ${tr4}px, 0)`);
-      }
-
-      // 2. Set active phase index for display toggle
-      let activeIdx = 0;
-      if (progress <= 0.22) activeIdx = 0;
-      else if (progress <= 0.48) activeIdx = 1;
-      else if (progress <= 0.74) activeIdx = 2;
-      else activeIdx = 3;
-      setActiveIndex(activeIdx);
-
-      // 3. Set visibility for scroll indicator
-      setShowIndicator(progress <= 0.95);
-    };
-
-    // Initialize values immediately on mount
-    updateStyles(useScrollStore.getState().scrollProgress);
-
-    // Subscribe to global scroll changes
-    const unsubscribe = useScrollStore.subscribe((state) => {
-      updateStyles(state.scrollProgress);
-    });
-
-    return unsubscribe;
-  }, []);
-
-  const cardClass = "bg-white border border-zinc-200 shadow-[3px_3px_0px_rgba(12,12,14,0.06)] rounded";
+  const phases = [
+    {
+      id: "01",
+      phase: "Phase 01",
+      title: "Systemic Discovery",
+      desc: "We map your commercial targets to visual conversion strategies. We outline the precise parameter variables, user session flows, and data architecture scopes needed to capture high-ticket clients.",
+      deliverables: ["Commercial Goal Mapping", "User Flow Topology", "Data Schema Scope"],
+      timeframe: "Week 1",
+      output: "Strategy Matrix",
+      accent: "#ff1e90"
+    },
+    {
+      id: "02",
+      phase: "Phase 02",
+      title: "Cinematic Prototyping",
+      desc: "We construct high-fidelity interactive 3D concepts and web layouts. By rendering responsive wireframes and custom WebGL models early on, you interact with the actual user interface experience before development starts.",
+      deliverables: ["Immersive 3D wireframes", "Framer interaction testbeds", "Typography scale audit"],
+      timeframe: "Weeks 2-3",
+      output: "Interactive Prototypes",
+      accent: "#d8ff42"
+    },
+    {
+      id: "03",
+      phase: "Phase 03",
+      title: "High-Fidelity Build",
+      desc: "Our engineering team builds modular, production-ready React structures. All styles and assets are compiled straight to the edge for rapid loading, locked animations, and flawless keyboard accessibility.",
+      deliverables: ["Modular React codebase", "Clean type-safe hooks", "Access boundary checks"],
+      timeframe: "Weeks 4-6",
+      output: "Production Codebase",
+      accent: "#ff1e90"
+    },
+    {
+      id: "04",
+      phase: "Phase 04",
+      title: "Latency Optimization",
+      desc: "We run speed audits and security testing. We fine-tune CDN caching and code execution threads, ensuring a highly performant application that delivers flawless conversions.",
+      deliverables: ["Lighthouse speed audit", "Global CDN cache tuning", "Direct SLA provisioning"],
+      timeframe: "Week 7",
+      output: "Deployment Ready",
+      accent: "#d8ff42"
+    }
+  ];
 
   return (
-    <div className="w-full h-[400vh] relative z-20">
+    <div className="w-full relative pt-8 pb-24 px-6 md:px-12 z-20 max-w-6xl mx-auto min-h-screen">
       <ThemeOverlay />
+      
+      {/* Noise overlay for texture */}
+      <div className="noise-overlay" aria-hidden="true" />
+      
+      {/* Background System Grid */}
+      <div className="fixed inset-0 z-[-1] opacity-[0.03] pointer-events-none system-grid" />
 
-      {/* Background Grid */}
-      <div className="fixed inset-0 z-[-1] opacity-5 pointer-events-none system-grid" />
+      {/* Page Header */}
+      <div className="text-left select-none space-y-4 max-w-2xl mb-12">
+        <span className="font-mono text-[9px] font-extrabold tracking-widest text-[#ff1e90] uppercase border-2 border-black px-3 py-1 bg-[#ff1e90]/10 rounded inline-block shadow-[2px_2px_0px_#000]">
+          Vistar Blueprint // Operations
+        </span>
+        <h1 className="font-display text-4xl sm:text-5xl font-black uppercase tracking-tighter text-black leading-none">
+          Technology &amp;<br />
+          <span className="font-serif italic font-normal text-zinc-400 lowercase">operational</span> process
+        </h1>
+        <p className="font-sans text-xs sm:text-sm text-zinc-650 leading-relaxed">
+          We combine bespoke WebGL choreography with highly optimized edge compilers to deliver premium digital systems. Explore our technical parameters and phase-by-phase build lifecycle.
+        </p>
+      </div>
 
-      <div className="sticky top-0 h-screen w-full flex items-center px-6 md:px-12 pointer-events-none">
-        <div className="w-full max-w-6xl mx-auto relative h-auto min-h-[440px] md:h-[460px] flex items-center justify-center">
-          
-          {/* Step 1: 01 / SYSTEMIC DISCOVERY (0.0 – 0.22) */}
-          <div 
-            ref={ref1}
-            className={`space-y-4 p-8 md:p-10 border w-full relative md:absolute left-0 top-0 md:top-1/2 md:-translate-y-1/2 md:w-[42%] md:left-0 md:right-auto md:translate-x-0 vectors-card-dynamic ${
-              activeIndex === 0 ? "pointer-events-auto" : "pointer-events-none"
-            } ${cardClass} ${activeIndex === 0 ? "block" : "hidden md:block"}`}
-          >
-            <div className="flex justify-between items-center text-left">
-              <span className="font-mono text-[9px] font-bold uppercase tracking-widest text-[#ff1e90]">
-                Phase 01
-              </span>
-              <span className="font-mono text-[9px] text-zinc-400 font-bold uppercase tracking-wider">Discovery</span>
-            </div>
-            <h3 className="font-display text-2xl md:text-3xl uppercase font-semibold text-left text-black">
-              Systemic Discovery
-            </h3>
-            <p className="font-sans text-xs md:text-sm text-left text-zinc-650 leading-relaxed">
-              We map your commercial targets to visual conversion strategies. We outline the precise parameter variables, user session flows, and data architecture scopes needed to capture high-ticket clients.
+      {/* Bento Grid: Core Telemetry & Stack */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16">
+        
+        {/* Card 1: Live Spec Sheet (7 columns) */}
+        <div className="lg:col-span-7 bg-white border-[2.5px] border-black p-8 rounded-2xl shadow-[6px_6px_0px_#d8ff42] flex flex-col justify-between space-y-6">
+          <div className="space-y-4">
+            <h2 className="font-display text-lg font-black uppercase tracking-wider text-black flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#d8ff42] border border-black animate-pulse" />
+              Core Architecture Standards
+            </h2>
+            <p className="font-sans text-xs text-zinc-600 leading-relaxed">
+              We compile code to run close to your client base. By building completely custom interfaces from scratch, we eliminate plug-in load bottlenecks, database connection lag, and bloated bundles.
             </p>
-            <div className="flex gap-3 font-mono text-[8px] font-bold text-zinc-400 pt-2 justify-start uppercase">
-              <span>OUTPUT: STRATEGY MATRIX</span>
-              <span>/</span>
-              <span>TIME: WEEK 1</span>
-            </div>
           </div>
 
-          {/* Step 2: 02 / CINEMATIC PROTOTYPING (0.22 – 0.48) */}
-          <div 
-            ref={ref2}
-            className={`space-y-4 p-8 md:p-10 border w-full relative md:absolute left-0 md:left-auto md:right-0 top-0 md:top-1/2 md:-translate-y-1/2 md:w-[42%] vectors-card-dynamic ${
-              activeIndex === 1 ? "pointer-events-auto" : "pointer-events-none"
-            } ${cardClass} ${activeIndex === 1 ? "block" : "hidden md:block"}`}
-          >
-            <div className="flex justify-between items-center text-left">
-              <span className="font-mono text-[9px] font-bold uppercase tracking-widest text-[#ff1e90]">
-                Phase 02
-              </span>
-              <span className="font-mono text-[9px] text-zinc-400 font-bold uppercase tracking-wider">Design</span>
-            </div>
-            <h3 className="font-display text-2xl md:text-3xl uppercase font-semibold text-left text-black">
-              Cinematic Prototyping
-            </h3>
-            <p className="font-sans text-xs md:text-sm text-left text-zinc-650 leading-relaxed">
-              We construct high-fidelity interactive 3D concepts and web layouts. By rendering responsive wireframes and custom WebGL models early on, you interact with the actual user interface experience before development starts.
-            </p>
-            <div className="flex gap-3 font-mono text-[8px] font-bold text-zinc-400 pt-2 justify-start uppercase">
-              <span>OUTPUT: 3D WIREFRAMES</span>
-              <span>/</span>
-              <span>TIME: WEEKS 2-3</span>
-            </div>
+          <div className="grid grid-cols-2 gap-4">
+            {techStack.map((tech, i) => (
+              <div key={i} className="border border-zinc-200 rounded-xl p-4 bg-[#faf9f5]/50 space-y-1">
+                <span className="font-display text-xs font-bold text-black uppercase block">{tech.name}</span>
+                <span className="font-sans text-[10px] text-zinc-500 leading-relaxed block">{tech.desc}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Card 2: Metrics Panel (5 columns) */}
+        <div className="lg:col-span-5 bg-[#0a0a0a] text-white border-[2.5px] border-black p-8 rounded-2xl shadow-[6px_6px_0px_#ff1e90] flex flex-col justify-between space-y-6">
+          <div className="space-y-2">
+            <span className="font-mono text-[9px] font-bold tracking-widest text-[#ff1e90] uppercase block">SYSTEM STATUS: READY</span>
+            <h2 className="font-display text-lg font-black uppercase tracking-wider text-white">Telemetry Targets</h2>
           </div>
 
-          {/* Step 3: 03 / HIGH-FIDELITY DEPLOYMENT (0.48 – 0.74) */}
-          <div 
-            ref={ref3}
-            className={`space-y-4 p-8 md:p-10 border w-full relative md:absolute left-0 top-0 md:top-1/2 md:-translate-y-1/2 md:w-[42%] md:left-0 md:right-auto md:translate-x-0 vectors-card-dynamic ${
-              activeIndex === 2 ? "pointer-events-auto" : "pointer-events-none"
-            } ${cardClass} ${activeIndex === 2 ? "block" : "hidden md:block"}`}
-          >
-            <div className="flex justify-between items-center text-left">
-              <span className="font-mono text-[9px] font-bold uppercase tracking-widest text-[#ff1e90]">
-                Phase 03
-              </span>
-              <span className="font-mono text-[9px] text-zinc-400 font-bold uppercase tracking-wider">Build</span>
-            </div>
-            <h3 className="font-display text-2xl md:text-3xl uppercase font-semibold text-left text-black">
-              High-Fidelity Build
-            </h3>
-            <p className="font-sans text-xs md:text-sm text-left text-zinc-650 leading-relaxed">
-              Our engineering team builds modular, production-ready React structures. All styles and assets are compiled straight to the edge for rapid loading, locked animations, and flawless keyboard accessibility.
-            </p>
-            <div className="flex gap-3 font-mono text-[8px] font-bold text-zinc-400 pt-2 justify-start uppercase">
-              <span>COMPILER: NEXT.js EDGE</span>
-              <span>/</span>
-              <span>TIME: WEEKS 4-6</span>
-            </div>
+          <div className="divide-y divide-white/10">
+            {coreStats.map((stat, i) => (
+              <div key={i} className="flex justify-between items-center py-3 font-sans text-xs">
+                <span className="text-white/60">{stat.label}</span>
+                <span className="font-mono font-bold text-[#ff1e90]">{stat.val}</span>
+              </div>
+            ))}
           </div>
 
-          {/* Step 4: 04 / LATENCY OPTIMIZATION (0.74 – 1.0) */}
-          <div 
-            ref={ref4}
-            className={`space-y-4 p-8 md:p-10 border w-full relative md:absolute left-0 md:left-auto md:right-0 top-0 md:top-1/2 md:-translate-y-1/2 md:w-[42%] vectors-card-dynamic ${
-              activeIndex === 3 ? "pointer-events-auto" : "pointer-events-none"
-            } ${cardClass} ${activeIndex === 3 ? "block" : "hidden md:block"}`}
-          >
-            <div className="flex justify-between items-center text-left">
-              <span className="font-mono text-[9px] font-bold uppercase tracking-widest text-[#ff1e90]">
-                Phase 04
-              </span>
-              <span className="font-mono text-[9px] text-zinc-400 font-bold uppercase tracking-wider">Optimize</span>
-            </div>
-            <h3 className="font-display text-2xl md:text-3xl uppercase font-semibold text-left text-black">
-              Latency Optimization
-            </h3>
-            <p className="font-sans text-xs md:text-sm text-left text-zinc-650 leading-relaxed">
-              We run speed audits and security testing. We fine-tune CDN caching and code execution threads, ensuring a highly performant application that delivers flawless conversions.
-            </p>
-            <div className="flex gap-3 font-mono text-[8px] font-bold text-zinc-400 pt-2 justify-start uppercase">
-              <span>SLA: 24HR RESPONSE</span>
-              <span>/</span>
-              <span>TIME: WEEK 7</span>
-            </div>
+          <div className="bg-white/5 border border-white/10 rounded-xl p-4 text-[10px] font-mono text-white/50 leading-relaxed select-none">
+            All code repositories are packaged with isolated unit tests and handed over completely on launch day.
           </div>
-
         </div>
       </div>
-      
-      {/* Scroll indicator prompt */}
-      <div className={`fixed bottom-24 left-1/2 -translate-x-1/2 text-center pointer-events-none z-10 transition-opacity duration-300 ${showIndicator ? "opacity-100" : "opacity-0"}`}>
-        <div className="font-display text-xs font-semibold uppercase tracking-widest text-zinc-400 animate-bounce select-none">
-          Scroll to explore our workflow
+
+      {/* Symmetrical 4-Phase Grid Timeline */}
+      <div className="space-y-6">
+        <h2 className="font-display text-xl font-black uppercase tracking-widest text-black mb-8 border-b-2 border-black pb-3 select-none flex justify-between items-center">
+          <span>Delivery Pipeline Lifecycle</span>
+          <span className="font-mono text-[9px] text-zinc-400 font-bold uppercase tracking-wider">4 Phases // 7 Weeks</span>
+        </h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {phases.map((p, idx) => (
+            <motion.div
+              key={p.id}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: idx * 0.08 }}
+            >
+              <SpotlightCard
+                glowColor={p.accent === "#ff1e90" ? "rgba(255, 30, 144, 0.03)" : "rgba(216, 255, 66, 0.03)"}
+                borderColor="rgba(0, 0, 0, 0.12)"
+                className="bg-white border-[2.5px] border-black p-8 rounded-2xl shadow-[6px_6px_0px_rgba(0,0,0,0.04)] hover:shadow-[6px_6px_0px_#ff1e90] transition-all duration-400 min-h-[320px] flex flex-col justify-between relative group overflow-hidden"
+              >
+                {/* Header info */}
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center border-b border-zinc-100 pb-3">
+                    <span className="font-mono text-[9px] font-extrabold uppercase tracking-widest text-[#ff1e90]">
+                      {p.phase}
+                    </span>
+                    <span className="font-mono text-[9px] text-zinc-400 font-bold uppercase tracking-wider">
+                      {p.timeframe}
+                    </span>
+                  </div>
+
+                  <h3 className="font-display text-xl font-bold uppercase text-black">
+                    {p.title}
+                  </h3>
+                  <p className="font-sans text-xs text-zinc-600 leading-relaxed">
+                    {p.desc}
+                  </p>
+                </div>
+
+                {/* Bullet deliverables list */}
+                <div className="space-y-1.5 pt-4">
+                  {p.deliverables.map((item, i) => (
+                    <div key={i} className="flex items-center gap-2 text-zinc-650 font-sans text-xs">
+                      <span className="text-[#ff1e90] text-[9px]">✦</span>
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Footer spec tag */}
+                <div className="border-t border-zinc-100 pt-4 mt-6 flex justify-between items-center select-none font-mono text-[8px] font-bold text-zinc-400 uppercase">
+                  <span>Output: {p.output}</span>
+                  <span className="bg-zinc-100 border border-zinc-200 px-2 py-0.5 rounded text-zinc-600">{p.timeframe}</span>
+                </div>
+              </SpotlightCard>
+            </motion.div>
+          ))}
         </div>
-        <div className="w-[1px] h-6 bg-zinc-300 mx-auto mt-2" />
       </div>
     </div>
   );
