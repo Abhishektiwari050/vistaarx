@@ -1,149 +1,78 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
-import { ThemeOverlay } from "@/components/theme-overlay";
-import { motion } from "framer-motion";
+import { MinimalistHero } from "@/components/ui/minimalist-hero";
+import { Component as HorizonHeroSection } from "@/components/ui/horizon-hero-section";
+
+// Custom SVG components to bypass old lucide-react brand icon limitations
+const LinkedinIcon = (props: React.ComponentProps<"svg">) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={props.className}
+  >
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+    <rect width="4" height="12" x="2" y="9" />
+    <circle cx="4" cy="4" r="2" />
+  </svg>
+);
+
+const GithubIcon = (props: React.ComponentProps<"svg">) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={props.className}
+  >
+    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+    <path d="M9 18c-4.51 2-5-2-7-2" />
+  </svg>
+);
 
 export default function PhilosophyPage() {
-  const manifesto = [
-    {
-      num: "01",
-      title: "Elegance is Refusal",
-      desc: "We refuse bloated plug-ins, pre-fabricated template setups, and unnecessary code clutter. Symmetrical, customized engineering conveys maximum brand signal and ensures absolute clarity.",
-    },
-    {
-      num: "02",
-      title: "Performance is SEO",
-      desc: "Page load speeds are not a vanity metric. Search engines and conversational AI crawlers read, index, and prioritize high-speed, edge-rendered platforms first.",
-    },
-    {
-      num: "03",
-      title: "Core Codebase Ownership",
-      desc: "We hand over 100% of the repository from day one. Zero subscription lock-ins, zero hidden dependencies, and complete commercial independence for your business.",
-    },
+  const navLinks = [
+    { label: "SHOWCASE", href: "/" },
+    { label: "CASE STUDIES", href: "/work" },
+    { label: "TECHNOLOGY", href: "/vectors" },
+    { label: "ABOUT US", href: "/philosophy" },
+    { label: "CONTACT HQ", href: "/contact" }
+  ];
+
+  const socialLinks = [
+    { icon: LinkedinIcon, href: "https://linkedin.com/in/abhishektiwari050" },
+    { icon: GithubIcon, href: "https://github.com/Abhishektiwari050/vistaarx" }
   ];
 
   return (
-    <div className="w-full relative pt-8 pb-24 px-6 md:px-12 z-20 max-w-6xl mx-auto min-h-screen">
-      <ThemeOverlay />
-      
-      {/* Noise texture for premium print feel */}
-      <div className="noise-overlay" aria-hidden="true" />
-      
-      {/* Background System Grid */}
-      <div className="fixed inset-0 z-[-1] opacity-[0.03] pointer-events-none system-grid" />
+    <div className="w-full relative bg-[#faf9f5]">
+      {/* 1. Minimalist Hero Section */}
+      <MinimalistHero
+        logoText="vistar."
+        navLinks={navLinks}
+        mainText="Elite digital engineering and custom-architected web systems. We refuse bloated plug-ins, pre-fabricated template setups, and unnecessary code clutter to build high-performance visual solutions."
+        readMoreLink="#journey"
+        imageSrc="/images/headshot_primary.png"
+        imageAlt="Abhishek Tiwari - Lead Systems Architect Portrait"
+        overlayText={{
+          part1: "less is",
+          part2: "more.",
+        }}
+        socialLinks={socialLinks}
+        locationText="New Delhi, India // Operational Q2 2026"
+        className="bg-[#faf9f5] text-black"
+      />
 
-      {/* Main Grid: Left Column Manifesto / Right Column Editorial Portraits */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mt-8 items-start relative z-10">
-        
-        {/* Left Column: Studio Manifesto (5 cols) */}
-        <div className="lg:col-span-5 space-y-10 lg:sticky lg:top-28">
-          <div className="space-y-4">
-            <span className="font-mono text-[9px] font-extrabold tracking-widest text-[#ff1e90] uppercase border-2 border-black px-3 py-1 bg-[#ff1e90]/10 rounded inline-block shadow-[2px_2px_0px_#000]">
-              Studio Philosophy
-            </span>
-            <h1 className="font-display text-4xl sm:text-5xl font-black uppercase tracking-tighter text-black leading-none">
-              The Vistar<br />
-              <span className="font-serif italic font-normal text-zinc-400 lowercase">studio</span> manifesto
-            </h1>
-            <p className="font-sans text-xs sm:text-sm text-zinc-650 leading-relaxed">
-              We design the negative space where your brand truly lives. Our core principles drive every line of code we compile and every interface we architect.
-            </p>
-          </div>
-
-          <div className="space-y-8">
-            {manifesto.map((m, idx) => (
-              <motion.div
-                key={m.num}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: idx * 0.1 }}
-                className="space-y-2 border-l-2 border-black pl-5"
-              >
-                <div className="flex items-center gap-3">
-                  <span className="font-mono text-[9px] font-extrabold text-[#ff1e90] uppercase bg-[#ff1e90]/5 border border-[#ff1e90]/20 px-2 py-0.5 rounded">
-                    Principle {m.num}
-                  </span>
-                  <h3 className="font-display text-base font-bold uppercase text-black">
-                    {m.title}
-                  </h3>
-                </div>
-                <p className="font-sans text-xs text-zinc-600 leading-relaxed">
-                  {m.desc}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Action button linking to portfolio */}
-          <div className="pt-4">
-            <Link
-              href="/work"
-              className="inline-flex items-center gap-2 border-[2.5px] border-black bg-[#d8ff42] text-black font-sans font-black text-[10px] tracking-widest uppercase px-6 py-4 rounded-xl shadow-[4px_4px_0px_#000] hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_#ff1e90] active:translate-y-0.5 transition-all cursor-pointer"
-            >
-              Explore Our Deliverables ⚡
-            </Link>
-          </div>
-        </div>
-
-        {/* Right Column: Editorial Team Portraits (7 cols) */}
-        <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-8 items-start">
-          
-          {/* Portrait 1: Lead Architect */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-            className="bg-white border-[2.5px] border-black p-4 pb-6 rounded-2xl shadow-[6px_6px_0px_rgba(0,0,0,0.05)] hover:shadow-[6px_6px_0px_#ff1e90] transition-all duration-400 group relative overflow-hidden"
-          >
-            <div className="aspect-[3/4] w-full rounded-xl overflow-hidden bg-zinc-100 border-[2px] border-black mb-4 relative">
-              <img 
-                src="/images/headshot_primary.png" 
-                alt="Abhishek Tiwari - Lead Systems Architect"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]" 
-              />
-            </div>
-            <div className="space-y-2">
-              <div className="flex justify-between items-center">
-                <span className="font-display font-black text-xs text-black uppercase block">Abhishek Tiwari</span>
-                <span className="font-mono text-[7px] font-bold text-[#ff1e90] uppercase border border-[#ff1e90]/20 bg-[#ff1e90]/5 px-1.5 py-0.5 rounded">HQ OPERATOR</span>
-              </div>
-              <span className="font-mono text-[9px] text-zinc-400 uppercase tracking-widest block font-bold">Lead Systems Architect</span>
-              <p className="font-sans text-[11px] text-zinc-500 leading-relaxed pt-1.5 border-t border-zinc-100">
-                Direct studio operator. Compiles Next.js edge routers, type-safe API routing, and deploys scalable systems architectures.
-              </p>
-            </div>
-          </motion.div>
-
-          {/* Portrait 2: Creative Director */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.25 }}
-            className="bg-white border-[2.5px] border-black p-4 pb-6 rounded-2xl shadow-[6px_6px_0px_rgba(0,0,0,0.05)] hover:shadow-[6px_6px_0px_#d8ff42] transition-all duration-400 group relative overflow-hidden sm:mt-10"
-          >
-            <div className="aspect-[3/4] w-full rounded-xl overflow-hidden bg-zinc-100 border-[2px] border-black mb-4 relative">
-              <img 
-                src="/images/headshot_creative.png" 
-                alt="Creative Director - Visual & 3D Engineering"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]" 
-              />
-            </div>
-            <div className="space-y-2">
-              <div className="flex justify-between items-center">
-                <span className="font-display font-black text-xs text-black uppercase block">Creative Director</span>
-                <span className="font-mono text-[7px] font-bold text-green-700 uppercase border border-green-200 bg-green-50 px-1.5 py-0.5 rounded">VISUAL CORE</span>
-              </div>
-              <span className="font-mono text-[9px] text-zinc-400 uppercase tracking-widest block font-bold">Visual &amp; 3D Engineering</span>
-              <p className="font-sans text-[11px] text-zinc-500 leading-relaxed pt-1.5 border-t border-zinc-100">
-                Architects surrealist 3D layouts, GLSL shader choreography, responsive typography grids, and creates custom user experience.
-              </p>
-            </div>
-          </motion.div>
-
-        </div>
-
+      {/* Anchor for journey scroll */}
+      <div id="journey" className="relative w-full bg-black">
+        {/* 2. Interactive Three.js + GSAP Cosmos Journey */}
+        <HorizonHeroSection />
       </div>
     </div>
   );
