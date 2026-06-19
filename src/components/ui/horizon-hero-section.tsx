@@ -22,6 +22,7 @@ export const Component = () => {
   
   const [scrollProgress, setScrollProgress] = useState(0);
   const [currentSection, setCurrentSection] = useState(1);
+  const [isVisible, setIsVisible] = useState(false);
   const [isReady, setIsReady] = useState(false);
   const totalSections = 2;
   
@@ -511,25 +512,42 @@ export const Component = () => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-      const maxScroll = documentHeight - windowHeight;
-      const progress = maxScroll > 0 ? Math.min(scrollY / maxScroll, 1) : 0;
+      
+      // Determine if the Three.js canvas and UI overlays should be visible
+      const visible = scrollY >= windowHeight * 0.45;
+      setIsVisible(visible);
+
+      // Section starts at windowHeight and spans 2 * windowHeight (since container is 300vh)
+      const sectionStart = windowHeight;
+      const sectionDuration = windowHeight * 2;
+      
+      const relativeScrollY = Math.max(0, Math.min(scrollY - sectionStart, sectionDuration));
+      const progress = sectionDuration > 0 ? relativeScrollY / sectionDuration : 0;
       
       setScrollProgress(progress);
-      const newSection = Math.floor(progress * totalSections);
+      
+      // Equal split for 3 sections (indices 0, 1, 2)
+      const newSection = Math.min(Math.floor(progress * 3), 2);
       setCurrentSection(newSection);
 
       const { current: refs } = threeRefs;
       
-      // Calculate smooth progress through all sections
-      const totalProgress = progress * totalSections;
-      const sectionProgress = totalProgress % 1;
+      // Calculate smooth progress through each individual section segment
+      let segmentProgress = 0;
+      if (newSection === 0) {
+        segmentProgress = progress / 0.33;
+      } else if (newSection === 1) {
+        segmentProgress = (progress - 0.33) / 0.33;
+      } else {
+        segmentProgress = (progress - 0.66) / 0.34;
+      }
+      segmentProgress = Math.max(0, Math.min(segmentProgress, 1));
       
       // Define camera positions for each section
       const cameraPositions = [
-        { x: 0, y: 30, z: 300 },    // Section 0 - HORIZON
-        { x: 0, y: 40, z: -50 },     // Section 1 - COSMOS
-        { x: 0, y: 50, z: -700 }       // Section 2 - INFINITY
+        { x: 0, y: 30, z: 300 },    // Section 0 - REFUSAL
+        { x: 0, y: 40, z: -50 },     // Section 1 - PERFORMANCE
+        { x: 0, y: 50, z: -700 }       // Section 2 - OWNERSHIP
       ];
       
       // Get current and next positions
@@ -537,13 +555,13 @@ export const Component = () => {
       const nextPos = cameraPositions[newSection + 1] || currentPos;
       
       // Set target positions (actual smoothing happens in animate loop)
-      refs.targetCameraX = currentPos.x + (nextPos.x - currentPos.x) * sectionProgress;
-      refs.targetCameraY = currentPos.y + (nextPos.y - currentPos.y) * sectionProgress;
-      refs.targetCameraZ = currentPos.z + (nextPos.z - currentPos.z) * sectionProgress;
+      refs.targetCameraX = currentPos.x + (nextPos.x - currentPos.x) * segmentProgress;
+      refs.targetCameraY = currentPos.y + (nextPos.y - currentPos.y) * segmentProgress;
+      refs.targetCameraZ = currentPos.z + (nextPos.z - currentPos.z) * segmentProgress;
       // Smooth parallax for mountains
       refs.mountains.forEach((mountain, i) => {
         const speed = 1 + i * 0.9;
-        const targetZ = mountain.userData.baseZ + scrollY * speed * 0.5;
+        const targetZ = mountain.userData.baseZ + relativeScrollY * speed * 0.5;
         if (refs.nebula) {
           refs.nebula.position.z = (targetZ + progress * speed * 0.01) - 100;
         }
@@ -570,21 +588,25 @@ export const Component = () => {
 
   return (
     <div ref={containerRef} className="hero-container cosmos-style relative w-full h-[300vh] overflow-hidden bg-black text-white">
-      <canvas ref={canvasRef} className="hero-canvas fixed inset-0 w-full h-full pointer-events-none z-0" />
+      <canvas ref={canvasRef} className={`hero-canvas fixed inset-0 w-full h-full pointer-events-none z-0 transition-opacity duration-705 ${
+        isVisible ? "opacity-100" : "opacity-0"
+      }`} />
       
       {/* Side menu */}
-      <div ref={menuRef} className="side-menu fixed left-8 top-1/2 -translate-y-1/2 z-20 flex flex-col items-center gap-4 text-white" style={{ visibility: 'hidden' }}>
+      <div ref={menuRef} className={`side-menu fixed left-8 top-1/2 -translate-y-1/2 z-20 flex flex-col items-center gap-4 text-white transition-opacity duration-705 ${
+        isVisible ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+      }`} style={{ visibility: 'hidden' }}>
         <div className="menu-icon flex flex-col gap-1 w-6 cursor-pointer">
           <span className="h-0.5 w-6 bg-white"></span>
           <span className="h-0.5 w-6 bg-white"></span>
           <span className="h-0.5 w-4 bg-white"></span>
         </div>
-        <div className="vertical-text font-mono text-[9px] tracking-widest uppercase rotate-90 origin-center whitespace-nowrap mt-8">SPACE</div>
+        <div className="vertical-text font-mono text-[9px] tracking-widest uppercase rotate-90 origin-center whitespace-nowrap mt-8">MANIFESTO</div>
       </div>
 
       {/* Main content - Section 1 */}
       <div className={`hero-content cosmos-content fixed inset-0 flex flex-col justify-center items-center text-center z-10 pointer-events-none px-6 transition-all duration-700 ${
-        currentSection === 0 ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-12"
+        isVisible && currentSection === 0 ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-12"
       }`}>
         <h1 ref={titleRef} className="hero-title font-display font-black text-fluid-hero leading-none uppercase tracking-tighter text-white">
           REFUSAL
@@ -601,7 +623,9 @@ export const Component = () => {
       </div>
 
       {/* Scroll progress indicator */}
-      <div ref={scrollProgressRef} className="scroll-progress fixed right-8 bottom-8 z-20 flex items-center gap-4 font-mono text-[9px] tracking-widest text-zinc-500 uppercase" style={{ visibility: 'hidden' }}>
+      <div ref={scrollProgressRef} className={`scroll-progress fixed right-8 bottom-8 z-20 flex items-center gap-4 font-mono text-[9px] tracking-widest text-zinc-500 uppercase transition-opacity duration-705 ${
+        isVisible ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+      }`} style={{ visibility: 'hidden' }}>
         <div className="scroll-text">SCROLL</div>
         <div className="progress-track w-16 h-px bg-zinc-800 relative">
           <div 
@@ -645,7 +669,7 @@ export const Component = () => {
             <section 
               key={i} 
               className={`content-section absolute inset-0 flex flex-col justify-center items-center text-center px-6 transition-all duration-700 ${
-                isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-24"
+                isVisible && isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-24"
               }`}
             >
               <h1 className="hero-title font-display font-black text-fluid-hero leading-none uppercase tracking-tighter text-white">
