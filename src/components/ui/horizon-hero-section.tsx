@@ -583,17 +583,19 @@ export const Component = () => {
       </div>
 
       {/* Main content - Section 1 */}
-      <div className="hero-content cosmos-content fixed inset-0 flex flex-col justify-center items-center text-center z-10 pointer-events-none px-6">
+      <div className={`hero-content cosmos-content fixed inset-0 flex flex-col justify-center items-center text-center z-10 pointer-events-none px-6 transition-all duration-700 ${
+        currentSection === 0 ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-12"
+      }`}>
         <h1 ref={titleRef} className="hero-title font-display font-black text-fluid-hero leading-none uppercase tracking-tighter text-white">
-          HORIZON
+          REFUSAL
         </h1>
         
-        <div ref={subtitleRef} className="hero-subtitle cosmos-subtitle mt-6 space-y-2 text-zinc-400 font-sans text-xs sm:text-sm max-w-md">
+        <div ref={subtitleRef} className="hero-subtitle cosmos-subtitle mt-6 space-y-2 text-zinc-450 font-sans text-xs sm:text-sm max-w-md">
           <p className="subtitle-line block">
-            Where vision meets reality, 
+            We refuse bloated plug-ins and pre-built templates.
           </p>
           <p className="subtitle-line block">
-            we shape the future of tomorrow.
+            Symmetrical custom engineering is our core standard.
           </p>
         </div>
       </div>
@@ -616,23 +618,23 @@ export const Component = () => {
       <div className="scroll-sections relative w-full h-full z-10 pointer-events-none">
        {[...Array(2)].map((_, i) => {
           const titles: Record<number, string> = {
-            0: 'HORIZON',
-            1: 'COSMOS',
-            2: 'INFINITY'
+            0: 'REFUSAL',
+            1: 'PERFORMANCE',
+            2: 'OWNERSHIP'
           };
           
           const subtitles: Record<number, { line1: string; line2: string }> = {
             0: {
-              line1: 'Where vision meets reality,',
-              line2: 'we shape the future of tomorrow'
+              line1: 'We refuse bloated plug-ins and pre-built templates.',
+              line2: 'Symmetrical custom engineering is our core standard.'
             },
             1: {
-              line1: 'Beyond the boundaries of imagination,',
-              line2: 'lies the universe of possibilities'
+              line1: 'Page load speeds are not a vanity metric.',
+              line2: 'High-speed, edge-rendered platforms are prioritized first.'
             },
             2: {
-              line1: 'In the space between thought and creation,',
-              line2: 'we find the essence of true innovation'
+              line1: 'We hand over 100% of the codebase from day one.',
+              line2: 'Zero subscription lock-ins, complete independence.'
             }
           };
           
