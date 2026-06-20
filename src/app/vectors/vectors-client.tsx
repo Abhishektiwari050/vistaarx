@@ -32,6 +32,7 @@ const SECTION_HEIGHTS = {
 };
 
 function clamp(v: number, lo = 0, hi = 1) {
+  if (isNaN(v)) return lo;
   return Math.max(lo, Math.min(hi, v));
 }
 

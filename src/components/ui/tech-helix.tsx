@@ -223,7 +223,8 @@ export function TechHelix({ scrollProgress }: TechHelixProps) {
     const posAttr = points.geometry.getAttribute("position") as THREE.BufferAttribute;
     const arr = posAttr.array as Float32Array;
 
-    const t = Math.min(scrollProgress * 1.4, 1);
+    const progress = typeof scrollProgress === "number" && !isNaN(scrollProgress) ? scrollProgress : 0;
+    const t = Math.min(progress * 1.4, 1);
     const ease = 1 - Math.pow(1 - t, 3);
 
     for (let i = 0; i < arr.length; i++) {
