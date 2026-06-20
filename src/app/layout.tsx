@@ -79,7 +79,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body
-        className="min-h-screen bg-[#faf9f5] text-[#0a0a0a] selection:bg-[#d8ff42] selection:text-black antialiased overflow-x-hidden font-sans"
+        className="min-h-screen bg-[#faf9f5] text-[#0a0a0a] selection:bg-[#d8ff42] selection:text-black antialiased overflow-x-clip font-sans"
         suppressHydrationWarning
       >
         {/* Fixed background WebGL simulation */}

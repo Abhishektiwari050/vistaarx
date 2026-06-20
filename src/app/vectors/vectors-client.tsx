@@ -113,8 +113,8 @@ export default function VectorsPage() {
       {/* ─── Section 1: DNA Helix Hero ────────────────────────────────────────
           Budget: 1.5vh — sticky child sticks only while this wrapper is in view
       ──────────────────────────────────────────────────────────────────────── */}
-      <div style={{ height: `${SECTION_HEIGHTS.s1 * 100}vh` }}>
-        <div className="sticky top-0 h-screen z-10 overflow-hidden">
+      <div className="relative w-full h-[150vh]">
+        <div className="sticky top-0 h-screen z-10 overflow-hidden bg-[#050510]">
           <TechHelix scrollProgress={helixProgress} />
         </div>
       </div>
@@ -122,8 +122,8 @@ export default function VectorsPage() {
       {/* ─── Section 2: Tech Stack Bento Grid ───────────────────────────────
           Budget: 1.5vh — fades in as section scrolls into view
       ──────────────────────────────────────────────────────────────────────── */}
-      <div style={{ height: `${SECTION_HEIGHTS.s2 * 100}vh` }}>
-        <div className="sticky top-0 h-screen z-10 overflow-hidden bg-[#050510]">
+      <div className="relative w-full h-[150vh]">
+        <div className="sticky top-0 h-screen z-20 overflow-hidden bg-[#050510]">
           <TechOrbit scrollProgress={orbitProgress} />
         </div>
       </div>
@@ -131,8 +131,8 @@ export default function VectorsPage() {
       {/* ─── Section 3: Process Timeline ─────────────────────────────────────
           Budget: 2.0vh — horizontal track needs more scroll budget
       ──────────────────────────────────────────────────────────────────────── */}
-      <div style={{ height: `${SECTION_HEIGHTS.s3 * 100}vh` }}>
-        <div className="sticky top-0 h-screen z-10 overflow-hidden bg-[#050510]">
+      <div className="relative w-full h-[200vh]">
+        <div className="sticky top-0 h-screen z-30 overflow-hidden bg-[#050510]">
           <TechTimeline scrollProgress={timelineProgress} />
         </div>
       </div>
@@ -140,8 +140,8 @@ export default function VectorsPage() {
       {/* ─── Section 4: Engineering Metrics + Terminal ───────────────────────
           Budget: 1.2vh
       ──────────────────────────────────────────────────────────────────────── */}
-      <div style={{ height: `${SECTION_HEIGHTS.s4 * 100}vh` }}>
-        <div className="sticky top-0 h-screen z-10 overflow-hidden bg-[#050510]">
+      <div className="relative w-full h-[120vh]">
+        <div className="sticky top-0 h-screen z-40 overflow-hidden bg-[#050510]">
           <TechMetrics />
         </div>
       </div>
@@ -149,8 +149,8 @@ export default function VectorsPage() {
       {/* ─── Section 5: Launch CTA ───────────────────────────────────────────
           Budget: 1.2vh
       ──────────────────────────────────────────────────────────────────────── */}
-      <div style={{ height: `${SECTION_HEIGHTS.s5 * 100}vh` }}>
-        <div className="sticky top-0 h-screen z-10 overflow-hidden bg-[#050510] flex items-center justify-center">
+      <div className="relative w-full h-[120vh]">
+        <div className="sticky top-0 h-screen z-50 overflow-hidden bg-[#050510] flex items-center justify-center">
           <div
             className="w-full flex flex-col items-center justify-center px-6 transition-all duration-700"
             style={{
