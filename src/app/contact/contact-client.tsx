@@ -3,11 +3,7 @@
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ThemeOverlay } from "@/components/theme-overlay";
-import dynamic from "next/dynamic";
-
-const CobeGlobe = dynamic(() => import("@/components/3d/cobe-globe"), {
-  ssr: false,
-});
+import RotatingEarth from "@/components/ui/wireframe-dotted-globe";
 
 export default function ContactPage() {
   const [formState, setFormState] = useState({ name: "", email: "", projectType: "Bespoke 3D / Web Design", message: "" });
@@ -203,8 +199,8 @@ export default function ContactPage() {
           </div>
 
           {/* Globe space */}
-          <div className="w-full flex items-center justify-center my-auto h-[280px]">
-            <CobeGlobe />
+          <div className="w-full flex items-center justify-center my-auto h-[280px] overflow-hidden">
+            <RotatingEarth width={360} height={280} className="w-full h-full flex items-center justify-center bg-transparent" />
           </div>
 
           {/* Footer readout */}
