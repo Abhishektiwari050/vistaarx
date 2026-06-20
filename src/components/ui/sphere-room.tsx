@@ -472,22 +472,58 @@ export function SphereRoom({ projects }: SphereRoomProps) {
 
       {/* Title overlay */}
       <div className="absolute top-8 left-1/2 -translate-x-1/2 z-20 text-center pointer-events-none select-none">
+        <span className="font-mono text-[8px] tracking-[0.3em] uppercase text-[#ff1e90] font-bold block mb-2">
+          {projects.length} Projects // Selected Work
+        </span>
         <h1 className="font-display text-3xl sm:text-4xl font-black uppercase tracking-tighter text-white/90">
           Case Studies
         </h1>
-        <p className="font-mono text-[10px] tracking-widest uppercase text-white/40 mt-2">
-          Drag to explore // Click a panel to focus
+        <p className="font-mono text-[9px] tracking-widest uppercase text-white/35 mt-1.5">
+          Drag to explore &nbsp;·&nbsp; Click panel to focus
         </p>
       </div>
 
+      {/* Right-side project navigator */}
+      <div className="absolute right-6 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-2 pointer-events-auto">
+        {projects.map((p, i) => (
+          <button
+            key={p.id}
+            onClick={() => { setActiveProject(p.id); snapToPanel(i); }}
+            className="group flex items-center gap-2.5 cursor-pointer"
+            aria-label={`Focus project ${p.id}: ${p.title}`}
+          >
+            <div
+              className="text-right hidden sm:block"
+              style={{ opacity: activeProject === p.id ? 1 : 0, transition: "opacity 0.3s" }}
+            >
+              <div className="font-mono text-[7px] text-[#d8ff42] uppercase tracking-wider font-bold">{p.id}</div>
+            </div>
+            <div
+              className="w-1 h-5 rounded-full transition-all duration-300"
+              style={{
+                background: activeProject === p.id ? '#ff1e90' : 'rgba(255,255,255,0.12)',
+                transform: activeProject === p.id ? 'scaleY(1.4)' : 'scaleY(1)',
+                boxShadow: activeProject === p.id ? '0 0 10px #ff1e90' : 'none',
+              }}
+            />
+          </button>
+        ))}
+      </div>
+
       {/* Active project indicator */}
-      {activeProject && (
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 pointer-events-none">
-          <div className="font-mono text-[9px] tracking-widest uppercase text-[#d8ff42] bg-black/60 backdrop-blur-sm border border-[#d8ff42]/20 px-4 py-2 rounded">
-            Focused: Project {activeProject}
+      {activeProject && (() => {
+        const proj = projects.find(p => p.id === activeProject);
+        return (
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 pointer-events-none max-w-sm w-full">
+            <div className="font-mono text-[9px] tracking-widest text-center bg-black/70 backdrop-blur-sm border border-[#ff1e90]/20 px-5 py-2.5 rounded-lg">
+              <span className="text-[#ff1e90] uppercase font-extrabold mr-2">{activeProject}</span>
+              <span className="text-white/60 uppercase">{proj?.title}</span>
+              <span className="text-white/25 mx-2">//</span>
+              <span className="text-[#d8ff42] font-bold uppercase text-[8px]">{proj?.client}</span>
+            </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
 
       {/* Inline styles for sphere cards */}
       <style jsx global>{`

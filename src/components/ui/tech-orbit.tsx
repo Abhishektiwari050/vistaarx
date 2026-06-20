@@ -1,288 +1,265 @@
 "use client";
 
-import React, { useRef } from "react";
-import { motion, useTransform, useMotionValue } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
+import { motion, useInView } from "framer-motion";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Tech Stack Orbital → Grid Visualization
+// Tech Stack Bento Grid — Apple-style feature showcase
+// Replaces the orbital animation for a more informative, scannable layout
 // ─────────────────────────────────────────────────────────────────────────────
-
-interface TechItem {
-  name: string;
-  desc: string;
-  color: string;
-  icon: string; // emoji or symbol
-}
 
 interface TechOrbitProps {
   scrollProgress: number; // 0 → 1 within this section
 }
 
-const techItems: TechItem[] = [
+const techStack = [
   {
-    name: "Next.js Edge",
-    desc: "Global edge hosting with server-rendered page assets and ISR caching.",
-    color: "#ff1e90",
-    icon: "⚡",
+    name: "Next.js 16",
+    category: "Framework",
+    desc: "Server components, Partial Prerendering, and Edge Runtime — every page delivered at sub-150ms TTFB globally.",
+    metric: "<150ms",
+    metricLabel: "Global TTFB",
+    color: "#ffffff",
+    bg: "rgba(255,255,255,0.04)",
+    border: "rgba(255,255,255,0.1)",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7">
+        <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z" fill="white" fillOpacity="0.15"/>
+        <path d="M9 8l6 8M15 8v8" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+      </svg>
+    ),
+    span: "col-span-2 row-span-2",
+    large: true,
   },
   {
     name: "Three.js / WebGL",
-    desc: "Surrealist, lightweight 3D graphic systems running natively in-browser.",
+    category: "3D Graphics",
+    desc: "Custom GLSL shaders, particle systems, and post-processing bloom for immersive browser experiences.",
+    metric: "60fps",
+    metricLabel: "GL Render Rate",
     color: "#d8ff42",
-    icon: "◆",
+    bg: "rgba(216,255,66,0.04)",
+    border: "rgba(216,255,66,0.2)",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6">
+        <path d="M12 3l9 5v8l-9 5-9-5V8l9-5z" stroke="#d8ff42" strokeWidth="1.5" strokeLinejoin="round"/>
+        <path d="M12 3v13M3 8l9 5 9-5" stroke="#d8ff42" strokeWidth="1.5"/>
+      </svg>
+    ),
+    span: "col-span-1 row-span-1",
+    large: false,
   },
   {
     name: "Framer Motion",
-    desc: "60 FPS hardware-accelerated interface choreography and micro-interactions.",
-    color: "#3366ff",
-    icon: "◎",
+    category: "Animation",
+    desc: "Hardware-accelerated 60fps orchestration for micro-interactions and cinematic page transitions.",
+    metric: "~16ms",
+    metricLabel: "Frame Budget",
+    color: "#ff1e90",
+    bg: "rgba(255,30,144,0.04)",
+    border: "rgba(255,30,144,0.2)",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6">
+        <circle cx="12" cy="12" r="3" fill="#ff1e90"/>
+        <circle cx="12" cy="12" r="7" stroke="#ff1e90" strokeWidth="1.5" strokeDasharray="4 3"/>
+      </svg>
+    ),
+    span: "col-span-1 row-span-1",
+    large: false,
   },
   {
-    name: "Tailwind CSS",
-    desc: "Streamlined styling compilation for zero bloated assets and rapid iteration.",
-    color: "#ff6b35",
-    icon: "✦",
+    name: "TypeScript",
+    category: "Language",
+    desc: "Strict typing across every module — runtime errors eliminated before they reach production.",
+    metric: "100%",
+    metricLabel: "Type Coverage",
+    color: "#3366ff",
+    bg: "rgba(51,102,255,0.04)",
+    border: "rgba(51,102,255,0.2)",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6">
+        <rect x="3" y="3" width="18" height="18" rx="3" fill="rgba(51,102,255,0.15)" stroke="#3366ff" strokeWidth="1.5"/>
+        <path d="M8 14v1a3 3 0 006 0v-1M8 11h8M12 11v5" stroke="#3366ff" strokeWidth="1.5" strokeLinecap="round"/>
+      </svg>
+    ),
+    span: "col-span-1 row-span-1",
+    large: false,
+  },
+  {
+    name: "Tailwind CSS v4",
+    category: "Styling",
+    desc: "Zero-runtime CSS compilation using @layer directives — no bloated stylesheets, 100% custom design tokens.",
+    metric: "0kb",
+    metricLabel: "Runtime CSS",
+    color: "#06b6d4",
+    bg: "rgba(6,182,212,0.04)",
+    border: "rgba(6,182,212,0.2)",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6">
+        <path d="M6 9c.5-2 1.5-3 3-3 2 0 2.5 1.5 4 1.5s2.5-1 3-2.5" stroke="#06b6d4" strokeWidth="1.5" strokeLinecap="round"/>
+        <path d="M3 15c.5-2 1.5-3 3-3 2 0 2.5 1.5 4 1.5s2.5-1 3-2.5" stroke="#06b6d4" strokeWidth="1.5" strokeLinecap="round"/>
+      </svg>
+    ),
+    span: "col-span-1 row-span-1",
+    large: false,
+  },
+  {
+    name: "PostgreSQL + Supabase",
+    category: "Database",
+    desc: "Real-time subscriptions, row-level security, and edge functions — your data layer is production-hardened.",
+    metric: "RLS",
+    metricLabel: "Row Security",
+    color: "#22c55e",
+    bg: "rgba(34,197,94,0.04)",
+    border: "rgba(34,197,94,0.2)",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6">
+        <ellipse cx="12" cy="7" rx="8" ry="3" stroke="#22c55e" strokeWidth="1.5"/>
+        <path d="M4 7v5c0 1.66 3.58 3 8 3s8-1.34 8-3V7" stroke="#22c55e" strokeWidth="1.5"/>
+        <path d="M4 12v5c0 1.66 3.58 3 8 3s8-1.34 8-3v-5" stroke="#22c55e" strokeWidth="1.5"/>
+      </svg>
+    ),
+    span: "col-span-1 row-span-1",
+    large: false,
   },
 ];
 
-const coreStats = [
-  { label: "Compile Target", val: "Next.js Edge" },
-  { label: "First Byte (TTFB)", val: "<180ms" },
-  { label: "Base Frame Rate", val: "60 FPS GL" },
-  { label: "Core Caching SLA", val: "SWR" },
+const methodologySteps = [
+  { num: "01", title: "Discovery", desc: "Commercial goal mapping & user flow topology" },
+  { num: "02", title: "Prototyping", desc: "Immersive 3D wireframes & interaction testbeds" },
+  { num: "03", title: "Engineering", desc: "Modular React codebase with clean type-safe hooks" },
+  { num: "04", title: "Optimization", desc: "Lighthouse audits, CDN tuning, and SLA provisioning" },
 ];
 
 export function TechOrbit({ scrollProgress }: TechOrbitProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-15%" });
 
-  // Transition phases:
-  // 0.0 - 0.4: orbital animation
-  // 0.4 - 0.7: transition to grid
-  // 0.7 - 1.0: grid + stats fully visible
-  const orbitalPhase = Math.max(0, Math.min(1, (0.4 - scrollProgress) / 0.4));
-  const gridPhase = Math.max(0, Math.min(1, (scrollProgress - 0.35) / 0.35));
-  const statsPhase = Math.max(0, Math.min(1, (scrollProgress - 0.55) / 0.3));
-
-  // Orbital angle computation (continuous rotation when in orbital phase)
-  const [time, setTime] = React.useState(0);
-
-  React.useEffect(() => {
-    let animId: number;
-    const tick = () => {
-      setTime(performance.now() * 0.001);
-      animId = requestAnimationFrame(tick);
-    };
-    tick();
-    return () => cancelAnimationFrame(animId);
-  }, []);
+  // Section enter/exit opacity
+  const opacity = scrollProgress > 0.02 ? Math.min((scrollProgress - 0.02) / 0.12, 1) : 0;
 
   return (
     <div
-      ref={containerRef}
-      className="relative w-full h-screen flex items-center justify-center overflow-hidden"
+      ref={sectionRef}
+      className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden px-6 md:px-12"
+      style={{ opacity }}
     >
-      {/* Orbital view (fades out as grid fades in) */}
-      <div
-        className="absolute inset-0 flex items-center justify-center"
-        style={{
-          opacity: orbitalPhase,
-          pointerEvents: orbitalPhase > 0.1 ? "auto" : "none",
-        }}
-      >
-        {/* Central nucleus */}
-        <div className="relative">
-          {/* Glow rings */}
-          {[200, 300, 400, 500].map((size, i) => (
-            <div
-              key={i}
-              className="absolute rounded-full border"
-              style={{
-                width: `${size}px`,
-                height: `${size}px`,
-                top: `${-size / 2}px`,
-                left: `${-size / 2}px`,
-                borderColor: `${techItems[i].color}20`,
-                animation: `orbit-ring-pulse ${3 + i}s ease-in-out infinite`,
-                animationDelay: `${i * 0.5}s`,
-              }}
-            />
-          ))}
+      {/* Section label */}
+      <div className="absolute top-8 left-1/2 -translate-x-1/2 z-20 pointer-events-none select-none">
+        <span className="font-mono text-[9px] tracking-[0.35em] uppercase text-white/30">
+          02 // Stack Architecture
+        </span>
+      </div>
 
-          {/* Core orb */}
-          <div className="relative w-24 h-24 rounded-full flex items-center justify-center z-10">
-            <div
-              className="absolute inset-0 rounded-full"
-              style={{
-                background:
-                  "radial-gradient(circle, rgba(255,30,144,0.3) 0%, rgba(216,255,66,0.15) 40%, transparent 70%)",
-                filter: "blur(12px)",
-              }}
-            />
-            <div
-              className="absolute inset-2 rounded-full border border-white/10"
-              style={{
-                background:
-                  "radial-gradient(circle, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%)",
-                backdropFilter: "blur(8px)",
-              }}
-            />
-            <span className="relative z-10 font-display text-[8px] font-black tracking-[0.2em] uppercase text-white/60">
-              Core
+      <div className="w-full max-w-6xl mx-auto">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4"
+        >
+          <div>
+            <span className="font-mono text-[9px] text-[#d8ff42] font-bold uppercase tracking-[0.25em] block mb-2">
+              Core Architecture
             </span>
+            <h2 className="font-display text-3xl sm:text-4xl font-black uppercase tracking-tighter text-white leading-none">
+              Built on the<br />
+              <span className="bg-gradient-to-r from-[#ff1e90] to-[#d8ff42] bg-clip-text text-transparent">
+                Right Stack
+              </span>
+            </h2>
           </div>
+          <p className="font-sans text-xs text-white/35 max-w-[240px] leading-relaxed">
+            Every tool is chosen for performance, maintainability, and zero vendor lock-in.
+          </p>
+        </motion.div>
 
-          {/* Orbiting items */}
-          {techItems.map((item, i) => {
-            const orbitRadius = 100 + i * 50;
-            const speed = 0.3 + i * 0.1;
-            const offset = (i * Math.PI * 2) / techItems.length;
-
-            return (
+        {/* Bento Grid */}
+        <div className="grid grid-cols-3 sm:grid-cols-4 gap-3 auto-rows-[120px]">
+          {techStack.map((tech, i) => (
+            <motion.div
+              key={tech.name}
+              initial={{ opacity: 0, y: 24, scale: 0.97 }}
+              animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+              transition={{
+                duration: 0.6,
+                delay: i * 0.07,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className={`${tech.span} relative rounded-2xl p-5 border flex flex-col justify-between group cursor-default overflow-hidden`}
+              style={{
+                background: tech.bg,
+                borderColor: tech.border,
+              }}
+            >
+              {/* Hover glow */}
               <div
-                key={i}
-                className="absolute z-20"
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none"
                 style={{
-                  left: `${Math.cos(time * speed + offset) * orbitRadius}px`,
-                  top: `${Math.sin(time * speed + offset) * orbitRadius * 0.5}px`,
-                  transform: "translate(-50%, -50%)",
-                  transition: "none",
+                  background: `radial-gradient(ellipse at 30% 30%, ${tech.color}12 0%, transparent 65%)`,
                 }}
-              >
-                <div
-                  className="px-3 py-1.5 rounded-lg border backdrop-blur-sm whitespace-nowrap"
-                  style={{
-                    borderColor: `${item.color}40`,
-                    backgroundColor: `${item.color}15`,
-                    boxShadow: `0 0 20px ${item.color}20`,
-                  }}
-                >
-                  <span className="text-[10px] font-display font-bold uppercase tracking-wider text-white/80">
-                    {item.icon} {item.name}
+              />
+
+              <div className="relative z-10">
+                <div className="flex items-start justify-between mb-3">
+                  <div className="p-2 rounded-lg border" style={{ borderColor: tech.border, background: `${tech.color}10` }}>
+                    {tech.icon}
+                  </div>
+                  <span
+                    className="font-mono text-[7px] font-bold uppercase tracking-widest px-2 py-1 rounded border"
+                    style={{ color: tech.color, borderColor: `${tech.color}30`, background: `${tech.color}10` }}
+                  >
+                    {tech.category}
                   </span>
                 </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Grid view (fades in) */}
-      <div
-        className="absolute inset-0 flex items-center justify-center px-6"
-        style={{
-          opacity: gridPhase,
-          pointerEvents: gridPhase > 0.1 ? "auto" : "none",
-          transform: `translateY(${(1 - gridPhase) * 40}px)`,
-        }}
-      >
-        <div className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* Tech stack grid (7 cols) */}
-          <div className="lg:col-span-7 space-y-4">
-            <div className="flex items-center gap-2 mb-6">
-              <span className="w-2 h-2 rounded-full bg-[#d8ff42] animate-pulse" />
-              <h2 className="font-display text-lg font-black uppercase tracking-wider text-white">
-                Core Architecture
-              </h2>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              {techItems.map((tech, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{
-                    opacity: gridPhase > 0.3 ? 1 : 0,
-                    y: gridPhase > 0.3 ? 0 : 20,
-                  }}
-                  transition={{
-                    duration: 0.6,
-                    delay: i * 0.1,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
-                  className="rounded-xl p-5 border space-y-2"
-                  style={{
-                    backgroundColor: "rgba(255,255,255,0.03)",
-                    borderColor: `${tech.color}25`,
-                  }}
-                >
-                  <div className="flex items-center gap-2">
-                    <span
-                      className="text-sm"
-                      style={{ color: tech.color }}
-                    >
-                      {tech.icon}
-                    </span>
-                    <span className="font-display text-xs font-bold text-white uppercase tracking-wider">
-                      {tech.name}
-                    </span>
-                  </div>
-                  <p className="font-sans text-[10px] text-white/40 leading-relaxed">
+                <h3 className="font-display font-black text-white uppercase tracking-tight text-sm leading-tight">
+                  {tech.name}
+                </h3>
+                {tech.large && (
+                  <p className="font-sans text-[11px] text-white/40 leading-relaxed mt-2">
                     {tech.desc}
                   </p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
+                )}
+              </div>
 
-          {/* Stats panel (5 cols) */}
-          <div
-            className="lg:col-span-5"
-            style={{
-              opacity: statsPhase,
-              transform: `translateX(${(1 - statsPhase) * 30}px)`,
-            }}
-          >
-            <div className="rounded-2xl border border-white/10 p-8 space-y-6 bg-white/[0.02] backdrop-blur-sm">
-              <div className="space-y-2">
-                <span className="font-mono text-[9px] font-bold tracking-widest text-[#ff1e90] uppercase">
-                  SYSTEM STATUS: ONLINE
+              {/* Metric */}
+              <div className="relative z-10 flex items-baseline gap-1.5 mt-2">
+                <span className="font-display font-black text-2xl leading-none" style={{ color: tech.color }}>
+                  {tech.metric}
                 </span>
-                <h2 className="font-display text-lg font-black uppercase tracking-wider text-white">
-                  Telemetry Targets
-                </h2>
+                <span className="font-mono text-[8px] text-white/30 uppercase tracking-wider">
+                  {tech.metricLabel}
+                </span>
               </div>
-
-              <div className="divide-y divide-white/5">
-                {coreStats.map((stat, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{
-                      opacity: statsPhase > 0.2 ? 1 : 0,
-                      x: statsPhase > 0.2 ? 0 : 20,
-                    }}
-                    transition={{
-                      duration: 0.5,
-                      delay: i * 0.08,
-                      ease: [0.16, 1, 0.3, 1],
-                    }}
-                    className="flex justify-between items-center py-3 font-sans text-xs"
-                  >
-                    <span className="text-white/40">{stat.label}</span>
-                    <span className="font-mono font-bold text-[#ff1e90]">
-                      {stat.val}
-                    </span>
-                  </motion.div>
-                ))}
-              </div>
-
-              <div className="bg-white/5 border border-white/5 rounded-xl p-4 text-[10px] font-mono text-white/30 leading-relaxed">
-                All repositories include isolated unit tests, CI pipelines, and
-                are handed over completely on launch day.
-              </div>
-            </div>
-          </div>
+            </motion.div>
+          ))}
         </div>
-      </div>
 
-      {/* Section label */}
-      <div
-        className="absolute top-8 left-1/2 -translate-x-1/2 z-20 pointer-events-none select-none"
-        style={{ opacity: 0.4 + gridPhase * 0.6 }}
-      >
-        <span className="font-mono text-[9px] tracking-[0.3em] uppercase text-white/30">
-          Section 02 // Stack Architecture
-        </span>
+        {/* Methodology strip */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3"
+        >
+          {methodologySteps.map((step, i) => (
+            <div
+              key={step.num}
+              className="bg-white/[0.025] border border-white/5 rounded-xl p-4 flex flex-col gap-1"
+            >
+              <span className="font-mono text-[8px] font-bold text-[#ff1e90] uppercase tracking-widest">
+                {step.num}
+              </span>
+              <span className="font-display font-bold text-white text-sm uppercase tracking-tight">
+                {step.title}
+              </span>
+              <span className="font-sans text-[10px] text-white/35 leading-snug">
+                {step.desc}
+              </span>
+            </div>
+          ))}
+        </motion.div>
       </div>
     </div>
   );

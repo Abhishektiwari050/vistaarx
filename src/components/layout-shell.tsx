@@ -359,7 +359,7 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
       </div>
 
       {/* Main Content */}
-      <div className={`${(pathname === "/philosophy" || pathname === "/") ? "" : "pt-24"} min-h-screen relative z-10 flex flex-col justify-between`}>
+      <div className={`${(pathname === "/philosophy" || pathname === "/" || pathname === "/vectors" || pathname === "/work") ? "" : "pt-24"} min-h-screen relative z-10 flex flex-col justify-between`}>
         <main id="main-content" className="flex-grow">
           {children}
         </main>

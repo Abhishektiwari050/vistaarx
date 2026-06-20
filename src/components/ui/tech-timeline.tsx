@@ -1,253 +1,267 @@
 "use client";
 
-import React, { useRef } from "react";
-import { motion } from "framer-motion";
+import React from "react";
+import { motion, useInView } from "framer-motion";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Horizontal Scroll-Driven Process Timeline
 // ─────────────────────────────────────────────────────────────────────────────
 
-interface Phase {
-  id: string;
-  phase: string;
-  title: string;
-  desc: string;
-  deliverables: string[];
-  timeframe: string;
-  output: string;
-  accent: string;
-}
-
 interface TechTimelineProps {
   scrollProgress: number; // 0 → 1 within this section
 }
 
-const phases: Phase[] = [
+const phases = [
   {
     id: "01",
-    phase: "Phase 01",
+    phase: "Discovery",
     title: "Systemic Discovery",
-    desc: "We map your commercial targets to visual conversion strategies. We outline the precise parameter variables, user session flows, and data architecture scopes needed to capture high-ticket clients.",
+    subtitle: "Understanding your commercial vectors",
+    desc: "We map your business targets to visual conversion architecture. Precise parameter variables, user session flows, and data scope — all outlined before a single line of code is written.",
     deliverables: [
       "Commercial Goal Mapping",
       "User Flow Topology",
-      "Data Schema Scope",
+      "Data Architecture Scope",
+      "Competitor Benchmark Audit",
     ],
     timeframe: "Week 1",
     output: "Strategy Matrix",
     accent: "#ff1e90",
+    outputBg: "rgba(255,30,144,0.1)",
   },
   {
     id: "02",
-    phase: "Phase 02",
+    phase: "Prototype",
     title: "Cinematic Prototyping",
-    desc: "We construct high-fidelity interactive 3D concepts and web layouts. By rendering responsive wireframes and custom WebGL models early on, you interact with the actual experience before development starts.",
+    subtitle: "You interact with the experience first",
+    desc: "High-fidelity interactive 3D concepts and responsive wireframes. You see and feel the actual experience before development begins — reducing costly revisions at later stages.",
     deliverables: [
-      "Immersive 3D wireframes",
-      "Framer interaction testbeds",
-      "Typography scale audit",
+      "Immersive 3D Wireframes",
+      "Framer Motion Testbeds",
+      "Typography Scale Audit",
+      "Motion Design Blueprints",
     ],
-    timeframe: "Weeks 2-3",
+    timeframe: "Weeks 2–3",
     output: "Interactive Prototypes",
     accent: "#d8ff42",
+    outputBg: "rgba(216,255,66,0.1)",
   },
   {
     id: "03",
-    phase: "Phase 03",
+    phase: "Engineering",
     title: "High-Fidelity Build",
-    desc: "Our engineering team builds modular, production-ready React structures. All styles and assets are compiled straight to the edge for rapid loading, locked animations, and flawless accessibility.",
+    subtitle: "Modular, production-ready React architecture",
+    desc: "Clean, typed, tree-shakeable React modules compiled directly to the edge. All styles, animations, and assets are precision-engineered for flawless accessibility and locked rendering.",
     deliverables: [
-      "Modular React codebase",
-      "Clean type-safe hooks",
-      "Access boundary checks",
+      "Modular React Codebase",
+      "Clean Type-Safe Hooks",
+      "WCAG Accessibility Checks",
+      "CI/CD Pipeline Setup",
     ],
-    timeframe: "Weeks 4-6",
+    timeframe: "Weeks 4–6",
     output: "Production Codebase",
     accent: "#ff1e90",
+    outputBg: "rgba(255,30,144,0.1)",
   },
   {
     id: "04",
-    phase: "Phase 04",
+    phase: "Launch",
     title: "Latency Optimization",
-    desc: "We run speed audits and security testing. We fine-tune CDN caching and code execution threads, ensuring a highly performant application that delivers flawless conversions.",
+    subtitle: "Zero compromise on speed or security",
+    desc: "Full Lighthouse audits, CDN cache tuning, and security testing before every deployment. We achieve sub-second load times and 24Hr SLA provisioning on all production systems.",
     deliverables: [
-      "Lighthouse speed audit",
-      "Global CDN cache tuning",
-      "Direct SLA provisioning",
+      "Lighthouse Speed Audit",
+      "Global CDN Cache Tuning",
+      "Security Penetration Test",
+      "Direct SLA Provisioning",
     ],
     timeframe: "Week 7",
     output: "Deployment Ready",
     accent: "#d8ff42",
+    outputBg: "rgba(216,255,66,0.1)",
   },
 ];
 
 export function TechTimeline({ scrollProgress }: TechTimelineProps) {
-  const trackRef = useRef<HTMLDivElement>(null);
+  // Horizontal track movement
+  const translateX = scrollProgress * -70;
+  const cursorProgress = Math.min(scrollProgress * 1.15, 1);
 
-  // How far the track has scrolled horizontally (in %)
-  const translateX = scrollProgress * -75; // move 75% to the left over the scroll range
-  // The glowing cursor position along the track
-  const cursorProgress = Math.min(scrollProgress * 1.1, 1);
+  // Section enter opacity
+  const opacity = scrollProgress > 0.02
+    ? Math.min((scrollProgress - 0.02) / 0.1, 1)
+    : 0;
 
   return (
-    <div className="relative w-full h-screen flex flex-col justify-center overflow-hidden">
+    <div
+      className="relative w-full h-screen flex flex-col justify-center overflow-hidden"
+      style={{ opacity }}
+    >
       {/* Section header */}
-      <div className="px-8 md:px-16 mb-12 select-none">
-        <div className="flex items-center justify-between max-w-7xl mx-auto">
+      <div className="px-8 md:px-16 mb-10 select-none flex-shrink-0">
+        <div className="flex items-end justify-between max-w-7xl mx-auto">
           <div className="space-y-2">
-            <span className="font-mono text-[9px] tracking-[0.3em] uppercase text-white/30">
-              Section 03 // Delivery Pipeline
+            <span className="font-mono text-[9px] tracking-[0.35em] uppercase text-white/30">
+              03 // Delivery Pipeline
             </span>
-            <h2 className="font-display text-2xl sm:text-3xl font-black uppercase tracking-tighter text-white">
+            <h2 className="font-display text-3xl sm:text-4xl font-black uppercase tracking-tighter text-white leading-none">
               Build Lifecycle
             </h2>
+            <p className="font-sans text-xs text-white/35 max-w-xs leading-relaxed pt-1">
+              A battle-tested 4-phase delivery process refined across 60+ projects.
+            </p>
           </div>
-          <span className="font-mono text-[9px] text-white/20 font-bold uppercase tracking-wider hidden sm:block">
-            4 Phases // 7 Weeks
-          </span>
+          <div className="hidden sm:flex flex-col items-end gap-1">
+            <span className="font-display text-2xl font-black text-[#d8ff42] leading-none">7</span>
+            <span className="font-mono text-[8px] text-white/30 uppercase tracking-widest">Weeks Avg</span>
+          </div>
         </div>
       </div>
 
-      {/* Track container */}
-      <div className="relative w-full overflow-hidden">
-        {/* The sliding track */}
+      {/* Track */}
+      <div className="relative w-full overflow-hidden flex-shrink-0">
+        {/* Track rail */}
+        <div className="absolute top-[28px] left-8 md:left-16 right-0 h-px bg-white/5 z-0" />
+
+        {/* Glow cursor on rail */}
         <div
-          ref={trackRef}
-          className="flex gap-8 pl-8 md:pl-16 pr-[40vw] transition-transform duration-100 ease-out"
+          className="absolute top-[22px] z-10 w-3.5 h-3.5 rounded-full"
+          style={{
+            left: `calc(${6 + cursorProgress * 56}%)`,
+            background: "radial-gradient(circle, #ff1e90 0%, #d8ff42 65%, transparent 100%)",
+            boxShadow: "0 0 16px #ff1e90cc, 0 0 32px #d8ff4260",
+            transition: "left 0.1s ease-out",
+          }}
+        />
+
+        {/* Sliding card track */}
+        <div
+          className="flex gap-6 pl-8 md:pl-16 pr-[38vw] transition-transform duration-100 ease-out"
           style={{
             transform: `translateX(${translateX}%)`,
             willChange: "transform",
           }}
         >
           {phases.map((phase, idx) => {
-            // Card visibility based on cursor position
             const cardStart = idx / phases.length;
-            const cardVisible = cursorProgress > cardStart - 0.1;
+            const cardVisible = cursorProgress > cardStart - 0.08;
             const cardProgress = Math.max(
               0,
-              Math.min(1, (cursorProgress - cardStart) / 0.25)
+              Math.min(1, (cursorProgress - cardStart) / 0.22)
             );
 
             return (
               <div
                 key={phase.id}
-                className="flex-shrink-0 w-[380px] sm:w-[420px] relative"
+                className="flex-shrink-0 w-[440px] sm:w-[480px]"
               >
-                {/* Junction marker */}
-                <div className="flex items-center gap-3 mb-6">
+                {/* Junction */}
+                <div className="flex items-center gap-3 mb-5">
                   <div
-                    className="w-4 h-4 rounded-full border-2 transition-all duration-500"
+                    className="w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all duration-500"
                     style={{
                       borderColor: cardVisible ? phase.accent : "rgba(255,255,255,0.1)",
                       backgroundColor: cardVisible ? phase.accent : "transparent",
-                      boxShadow: cardVisible
-                        ? `0 0 16px ${phase.accent}60`
-                        : "none",
+                      boxShadow: cardVisible ? `0 0 20px ${phase.accent}70` : "none",
                     }}
-                  />
+                  >
+                    {cardVisible && (
+                      <div className="w-2 h-2 rounded-full bg-black" />
+                    )}
+                  </div>
                   <div
                     className="h-px flex-grow transition-all duration-700"
                     style={{
-                      background: `linear-gradient(90deg, ${phase.accent}${cardVisible ? "60" : "10"}, transparent)`,
+                      background: `linear-gradient(90deg, ${phase.accent}${cardVisible ? "50" : "10"}, transparent)`,
                     }}
                   />
+                  <span
+                    className="font-mono text-[8px] font-bold uppercase tracking-widest transition-all duration-500"
+                    style={{ color: cardVisible ? phase.accent : "rgba(255,255,255,0.15)" }}
+                  >
+                    {phase.timeframe}
+                  </span>
                 </div>
 
-                {/* Phase card */}
+                {/* Card */}
                 <div
-                  className="rounded-2xl border p-7 space-y-5 transition-all duration-700"
+                  className="rounded-2xl border p-7 space-y-5 transition-all duration-600"
                   style={{
-                    borderColor: cardVisible
-                      ? `${phase.accent}30`
-                      : "rgba(255,255,255,0.05)",
+                    borderColor: cardVisible ? `${phase.accent}30` : "rgba(255,255,255,0.05)",
                     backgroundColor: cardVisible
-                      ? "rgba(255,255,255,0.03)"
+                      ? "rgba(255,255,255,0.025)"
                       : "rgba(255,255,255,0.01)",
-                    opacity: cardVisible ? 1 : 0.3,
+                    opacity: cardVisible ? 1 : 0.25,
                     transform: `translateY(${cardVisible ? 0 : 20}px)`,
+                    boxShadow: cardVisible
+                      ? `0 0 40px ${phase.accent}08, inset 0 1px 0 ${phase.accent}10`
+                      : "none",
                   }}
                 >
                   {/* Card header */}
-                  <div className="flex justify-between items-center border-b border-white/5 pb-3">
-                    <span
-                      className="font-mono text-[9px] font-extrabold uppercase tracking-widest"
-                      style={{ color: phase.accent }}
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <span
+                        className="font-mono text-[8px] font-extrabold uppercase tracking-[0.25em]"
+                        style={{ color: phase.accent }}
+                      >
+                        Phase {phase.id} // {phase.phase}
+                      </span>
+                      <h3 className="font-display text-2xl font-black uppercase text-white tracking-tight mt-1 leading-none">
+                        {phase.title}
+                      </h3>
+                      <p className="font-sans text-[11px] text-white/35 mt-1">
+                        {phase.subtitle}
+                      </p>
+                    </div>
+                    <div
+                      className="font-mono text-[8px] font-bold uppercase px-3 py-1.5 rounded border whitespace-nowrap ml-4"
+                      style={{
+                        color: phase.accent,
+                        borderColor: `${phase.accent}30`,
+                        background: phase.outputBg,
+                      }}
                     >
-                      {phase.phase}
-                    </span>
-                    <span className="font-mono text-[9px] text-white/25 font-bold uppercase tracking-wider">
-                      {phase.timeframe}
-                    </span>
+                      {phase.output}
+                    </div>
                   </div>
 
-                  <h3 className="font-display text-xl font-bold uppercase text-white tracking-tight">
-                    {phase.title}
-                  </h3>
-
-                  <p className="font-sans text-[11px] text-white/40 leading-relaxed">
+                  <p className="font-sans text-[11px] text-white/45 leading-relaxed border-t border-white/5 pt-4">
                     {phase.desc}
                   </p>
 
                   {/* Deliverables */}
-                  <div className="space-y-2 pt-2">
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-2 pt-1">
                     {phase.deliverables.map((item, i) => (
                       <div
                         key={i}
-                        className="flex items-center gap-2 text-white/50 font-sans text-[10px]"
+                        className="flex items-center gap-2 font-sans text-[10px] text-white/50"
                         style={{
                           opacity: cardProgress > 0.3 ? 1 : 0,
                           transform: `translateX(${cardProgress > 0.3 ? 0 : 10}px)`,
-                          transition: `all 0.4s ease ${i * 0.08}s`,
+                          transition: `all 0.4s ease ${i * 0.06}s`,
                         }}
                       >
-                        <span style={{ color: phase.accent }} className="text-[8px]">
-                          ✦
-                        </span>
-                        <span>{item}</span>
+                        <svg
+                          viewBox="0 0 8 8"
+                          className="w-1.5 h-1.5 flex-shrink-0"
+                          fill={phase.accent}
+                        >
+                          <rect width="8" height="8" rx="1" />
+                        </svg>
+                        {item}
                       </div>
                     ))}
-                  </div>
-
-                  {/* Footer */}
-                  <div className="border-t border-white/5 pt-3 flex justify-between items-center select-none">
-                    <span className="font-mono text-[8px] font-bold text-white/20 uppercase">
-                      Output: {phase.output}
-                    </span>
-                    <span
-                      className="font-mono text-[8px] font-bold uppercase px-2 py-0.5 rounded border"
-                      style={{
-                        color: phase.accent,
-                        borderColor: `${phase.accent}30`,
-                        backgroundColor: `${phase.accent}10`,
-                      }}
-                    >
-                      {phase.timeframe}
-                    </span>
                   </div>
                 </div>
               </div>
             );
           })}
         </div>
-
-        {/* Track rail line */}
-        <div className="absolute top-[22px] left-8 md:left-16 right-0 h-px bg-white/5 z-0" />
-
-        {/* Travelling glow cursor */}
-        <div
-          className="absolute top-[15px] z-10 w-3 h-3 rounded-full"
-          style={{
-            left: `calc(${8 + cursorProgress * 60}%)`,
-            background:
-              "radial-gradient(circle, #ff1e90 0%, #d8ff42 60%, transparent 100%)",
-            boxShadow: "0 0 20px #ff1e90, 0 0 40px #d8ff4280",
-            transition: "left 0.1s ease-out",
-          }}
-        />
       </div>
 
-      {/* Progress indicator */}
-      <div className="px-8 md:px-16 mt-10 select-none">
+      {/* Progress bar */}
+      <div className="px-8 md:px-16 mt-8 select-none flex-shrink-0">
         <div className="max-w-7xl mx-auto flex items-center gap-4">
           <div className="flex-grow h-px bg-white/5 relative overflow-hidden rounded-full">
             <div
