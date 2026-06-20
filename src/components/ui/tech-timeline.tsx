@@ -87,10 +87,9 @@ export function TechTimeline({ scrollProgress }: TechTimelineProps) {
   const translateX = scrollProgress * -70;
   const cursorProgress = Math.min(scrollProgress * 1.15, 1);
 
-  // Section enter opacity
-  const opacity = scrollProgress > 0.02
-    ? Math.min((scrollProgress - 0.02) / 0.1, 1)
-    : 0;
+
+  const opacity = 1;
+
 
   return (
     <div

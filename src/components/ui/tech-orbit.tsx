@@ -136,7 +136,7 @@ export function TechOrbit({ scrollProgress }: TechOrbitProps) {
   const isInView = useInView(sectionRef, { once: true, margin: "-15%" });
 
   // Section enter/exit opacity
-  const opacity = scrollProgress > 0.02 ? Math.min((scrollProgress - 0.02) / 0.12, 1) : 0;
+  const opacity = 1;
 
   return (
     <div
