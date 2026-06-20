@@ -7,6 +7,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
 import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass.js";
+import { playTickSound } from "@/lib/hooks/use-audio-feedback";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Types
@@ -31,13 +32,64 @@ interface SphereRoomProps {
 const SPHERE_RADIUS = 700;
 const AUTO_ROTATE_SPEED = 0.25;
 
+const filterCategories = [
+  { id: "ALL", label: "All Work" },
+  { id: "WEBGL", label: "WebGL / 3D" },
+  { id: "NEXTJS", label: "Next.js" },
+  { id: "AI", label: "AI / ML" },
+  { id: "EDGE", label: "Edge / Secure" },
+];
+
+function getFilteredProjects(projects: Project[], filter: string) {
+  if (filter === "ALL") return projects;
+  return projects.filter((p) => {
+    const tags = p.tags.map((t) => t.toLowerCase());
+    if (filter === "WEBGL") {
+      return (
+        tags.includes("webgl") ||
+        tags.includes("three.js") ||
+        tags.includes("glsl shaders") ||
+        tags.includes("ar.js")
+      );
+    }
+    if (filter === "NEXTJS") {
+      return tags.includes("next.js") || tags.includes("next.js ssr");
+    }
+    if (filter === "AI") {
+      return (
+        tags.includes("openai") ||
+        tags.includes("gemini api") ||
+        tags.includes("stable diffusion")
+      );
+    }
+    if (filter === "EDGE") {
+      return (
+        tags.includes("edge functions") ||
+        tags.includes("webassembly") ||
+        tags.includes("rust")
+      );
+    }
+    return true;
+  });
+}
+
 // Sphere card CSS — injected into <head> once via a <style> tag
-// (styled-jsx is not available in App Router; we use a plain style element)
 const CARD_STYLES = `
 .sr-card {
   width: 380px;
   cursor: pointer;
   user-select: none;
+  opacity: 0;
+  transform: scale(0.3) translateZ(-100px);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.sr-card.sr-visible {
+  opacity: 1;
+  transform: scale(1) translateZ(0px);
+}
+.sr-card.sr-hiding {
+  opacity: 0;
+  transform: scale(0.3) translateZ(-150px) rotateY(45deg);
 }
 .sr-inner {
   background: rgba(8, 8, 18, 0.92);
@@ -168,7 +220,10 @@ export function SphereRoom({ projects }: SphereRoomProps) {
   const webglCanvasRef = useRef<HTMLCanvasElement>(null);
   const cssContainerRef = useRef<HTMLDivElement>(null);
   const [activeProject, setActiveProject] = useState<string | null>(null);
+  const [activeFilter, setActiveFilter] = useState<string>("ALL");
   const [isLoaded, setIsLoaded] = useState(false);
+
+  const filteredProjects = getFilteredProjects(projects, activeFilter);
 
   const threeRefs = useRef<{
     scene: THREE.Scene | null;
@@ -183,6 +238,7 @@ export function SphereRoom({ projects }: SphereRoomProps) {
     wireframe: THREE.LineSegments | null;
     glowRings: THREE.Mesh[];
     panelPositions: { position: THREE.Vector3 }[];
+    panels: CSS3DObject[];
   }>({
     scene: null,
     cssScene: null,
@@ -196,21 +252,8 @@ export function SphereRoom({ projects }: SphereRoomProps) {
     wireframe: null,
     glowRings: [],
     panelPositions: [],
+    panels: [],
   });
-
-  // ── Inject card CSS into <head> once ─────────────────────────────────────
-  useEffect(() => {
-    const styleId = "sphere-room-card-styles";
-    if (document.getElementById(styleId)) return;
-    const styleEl = document.createElement("style");
-    styleEl.id = styleId;
-    styleEl.textContent = CARD_STYLES;
-    document.head.appendChild(styleEl);
-    return () => {
-      const el = document.getElementById(styleId);
-      if (el) el.remove();
-    };
-  }, []);
 
   // ── Snap camera to a panel ───────────────────────────────────────────────
   const snapToPanel = useCallback((index: number) => {
@@ -231,7 +274,7 @@ export function SphereRoom({ projects }: SphereRoomProps) {
     const startTime = performance.now();
 
     // Pause auto-rotate while tweening
-    if (refs.controls) refs.controls.autoRotate = false;
+    refs.controls.autoRotate = false;
 
     const tween = () => {
       const t = Math.min((performance.now() - startTime) / duration, 1);
@@ -241,12 +284,53 @@ export function SphereRoom({ projects }: SphereRoomProps) {
       refs.controls!.update();
       if (t < 1) {
         requestAnimationFrame(tween);
-      } else {
-        // Resume auto-rotate after tween
-        if (refs.controls) refs.controls.autoRotate = true;
       }
     };
     tween();
+  }, []);
+
+  // ── Reset focus to center & resume orbit ──────────────────────────────────
+  const resetFocus = useCallback(() => {
+    const refs = threeRefs.current;
+    if (!refs.camera || !refs.controls) return;
+
+    setActiveProject(null);
+
+    const startPos = refs.camera.position.clone();
+    const startTarget = refs.controls.target.clone();
+    const endTarget = new THREE.Vector3(0, 0, 0);
+    const endPos = new THREE.Vector3(0, 60, SPHERE_RADIUS * 0.42);
+    const duration = 1000;
+    const startTime = performance.now();
+
+    const tween = () => {
+      const t = Math.min((performance.now() - startTime) / duration, 1);
+      const ease = 1 - Math.pow(1 - t, 3);
+      refs.camera!.position.lerpVectors(startPos, endPos, ease);
+      refs.controls!.target.lerpVectors(startTarget, endTarget, ease);
+      refs.controls!.update();
+      if (t < 1) {
+        requestAnimationFrame(tween);
+      } else {
+        refs.controls!.autoRotate = true;
+      }
+    };
+    tween();
+    playTickSound(600, 0.04, 0.008);
+  }, []);
+
+  // ── Inject card CSS into <head> once ─────────────────────────────────────
+  useEffect(() => {
+    const styleId = "sphere-room-card-styles";
+    if (document.getElementById(styleId)) return;
+    const styleEl = document.createElement("style");
+    styleEl.id = styleId;
+    styleEl.textContent = CARD_STYLES;
+    document.head.appendChild(styleEl);
+    return () => {
+      const el = document.getElementById(styleId);
+      if (el) el.remove();
+    };
   }, []);
 
   // ── Initialize Three.js ──────────────────────────────────────────────────
@@ -314,7 +398,6 @@ export function SphereRoom({ projects }: SphereRoomProps) {
     buildWireframe(refs);
     buildParticles(refs);
     buildGlowRings(refs);
-    buildPanels(refs, projects, setActiveProject, snapToPanel);
 
     refs.scene.add(new THREE.AmbientLight(0x334466, 0.6));
 
@@ -377,11 +460,126 @@ export function SphereRoom({ projects }: SphereRoomProps) {
       if (refs.cssRenderer && cssContainerRef.current) {
         try {
           cssContainerRef.current.removeChild(refs.cssRenderer.domElement);
-        } catch { /* already removed */ }
+        } catch {
+          /* already removed */
+        }
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // ── Rebuild panels dynamically when filter changes ───────────────────────
+  useEffect(() => {
+    if (!isLoaded) return;
+    const refs = threeRefs.current;
+    if (!refs.cssScene) return;
+
+    // 1. Staggered fade out of existing panels
+    refs.panels.forEach((p) => {
+      const el = p.element;
+      el.classList.remove("sr-visible");
+      el.classList.add("sr-hiding");
+    });
+
+    const buildTimer = setTimeout(() => {
+      // 2. Remove old panels from CSS3D scene
+      refs.panels.forEach((p) => {
+        refs.cssScene?.remove(p);
+      });
+      refs.panels = [];
+
+      // 3. Build new panels for filtered list
+      const count = filteredProjects.length;
+      refs.panelPositions = [];
+
+      filteredProjects.forEach((project, i) => {
+        // Evenly distribute around circular path
+        const angle = (i / count) * Math.PI * 2 - Math.PI / 2;
+        const dist = SPHERE_RADIUS * 0.58;
+        const x = Math.cos(angle) * dist;
+        const z = Math.sin(angle) * dist;
+        const y = Math.sin((i / count) * Math.PI * 2) * 80;
+
+        const el = document.createElement("div");
+        el.className = "sr-card";
+        el.innerHTML = `
+          <div class="sr-inner">
+            <div class="sr-header">
+              <span class="sr-id">${project.id} // CASE</span>
+              <span class="sr-metric">${project.metric.split(" // ")[0]}</span>
+            </div>
+            <h2 class="sr-title">${project.title}</h2>
+            <p class="sr-client">Client: ${project.client}</p>
+            <p class="sr-desc">${project.desc}</p>
+            <div class="sr-tags">
+              ${project.tags.map((t) => `<span class="sr-tag">${t}</span>`).join("")}
+            </div>
+            <div class="sr-status">
+              <span class="sr-dot"></span>
+              <span class="sr-status-text">${project.status}</span>
+            </div>
+          </div>
+        `;
+
+        el.style.pointerEvents = "auto";
+        el.addEventListener("click", (e) => {
+          e.stopPropagation();
+          setActiveProject(project.id);
+          snapToPanel(i);
+          playTickSound(880, 0.02, 0.006);
+        });
+
+        // Soft hovering ticks
+        el.addEventListener("mouseenter", () => {
+          playTickSound(1200, 0.012, 0.003);
+        });
+
+        const obj = new CSS3DObject(el);
+        obj.position.set(x, y, z);
+        obj.lookAt(0, y, 0);
+        obj.scale.setScalar(0.55);
+
+        refs.cssScene!.add(obj);
+        refs.panels.push(obj);
+        refs.panelPositions.push({ position: new THREE.Vector3(x, y, z) });
+
+        // Stagger entrance transitions
+        setTimeout(() => {
+          el.classList.add("sr-visible");
+        }, i * 50 + 50);
+      });
+
+      // Clear focused selection if that project was filtered out
+      if (activeProject && !filteredProjects.some((p) => p.id === activeProject)) {
+        setActiveProject(null);
+        refs.controls?.update();
+      }
+    }, 320);
+
+    return () => clearTimeout(buildTimer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeFilter, isLoaded]);
+
+  // ── Click outside to reset camera focus ──────────────────────────────────
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const handleOutsideClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (
+        activeProject &&
+        !target.closest(".sr-card") &&
+        !target.closest("button") &&
+        !target.closest("a")
+      ) {
+        resetFocus();
+      }
+    };
+
+    container.addEventListener("click", handleOutsideClick);
+    return () => container.removeEventListener("click", handleOutsideClick);
+  }, [activeProject, resetFocus]);
 
   return (
     <div
@@ -416,22 +614,51 @@ export function SphereRoom({ projects }: SphereRoomProps) {
         </div>
       )}
 
-      {/* Title */}
-      <div className="absolute top-8 left-1/2 -translate-x-1/2 z-20 text-center pointer-events-none select-none">
-        <span className="font-mono text-[8px] tracking-[0.3em] uppercase text-[#ff1e90] font-bold block mb-2">
-          {projects.length} Projects // Selected Work
-        </span>
-        <h1 className="font-display text-3xl sm:text-4xl font-black uppercase tracking-tighter text-white/90">
-          Case Studies
-        </h1>
-        <p className="font-mono text-[9px] tracking-widest uppercase text-white/35 mt-2">
-          Drag to explore &nbsp;·&nbsp; Click panel to focus
-        </p>
+      {/* Dynamic Header Overlay (pointer-events-none but controls have pointer-events-auto) */}
+      <div className="absolute top-8 left-1/2 -translate-x-1/2 z-20 text-center pointer-events-none select-none flex flex-col items-center gap-5 w-full max-w-2xl px-4">
+        <div>
+          <span className="font-mono text-[8px] tracking-[0.3em] uppercase text-[#ff1e90] font-bold block mb-1">
+            {filteredProjects.length} / {projects.length} Projects // Selected Work
+          </span>
+          <h1 className="font-display text-3xl sm:text-4xl font-black uppercase tracking-tighter text-white/90">
+            Case Studies
+          </h1>
+        </div>
+
+        {/* Filter capsule */}
+        <div className="flex bg-black/65 backdrop-blur-md border border-white/10 rounded-full p-1 gap-0.5 pointer-events-auto max-w-full overflow-x-auto no-scrollbar shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
+          {filterCategories.map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() => {
+                setActiveFilter(cat.id);
+                playTickSound(1000, 0.015, 0.005);
+              }}
+              className={`font-mono text-[8px] uppercase tracking-widest px-4 py-2 rounded-full transition-all duration-300 whitespace-nowrap cursor-pointer ${
+                activeFilter === cat.id
+                  ? "bg-[#ff1e90] text-white font-bold shadow-[0_0_12px_rgba(255,30,144,0.45)]"
+                  : "text-white/40 hover:text-white hover:bg-white/5"
+              }`}
+            >
+              {cat.label}
+            </button>
+          ))}
+        </div>
       </div>
+
+      {/* Floating Exit Focus Button */}
+      {activeProject && (
+        <button
+          onClick={resetFocus}
+          className="absolute bottom-20 left-1/2 -translate-x-1/2 z-20 font-mono text-[9px] font-bold uppercase tracking-widest text-[#d8ff42] bg-black/85 backdrop-blur-md border border-[#d8ff42]/30 rounded-full px-6 py-2.5 shadow-[0_0_16px_rgba(216,255,66,0.18)] hover:bg-[#d8ff42] hover:text-black hover:border-black transition-all duration-300 pointer-events-auto cursor-pointer"
+        >
+          ← Exit Focus / Resume Orbit
+        </button>
+      )}
 
       {/* Right-side project dot navigator */}
       <div className="absolute right-6 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-3 pointer-events-auto">
-        {projects.map((p, i) => (
+        {filteredProjects.map((p, i) => (
           <button
             key={p.id}
             onClick={() => {
@@ -469,11 +696,11 @@ export function SphereRoom({ projects }: SphereRoomProps) {
 
       {/* Active project footer bar */}
       {activeProject && (() => {
-        const proj = projects.find((p) => p.id === activeProject);
+        const proj = filteredProjects.find((p) => p.id === activeProject);
         if (!proj) return null;
         return (
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 pointer-events-none w-full max-w-md px-4">
-            <div className="bg-black/80 backdrop-blur-md border border-[#ff1e90]/25 rounded-xl px-5 py-3 flex items-center justify-between gap-3">
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 pointer-events-none w-full max-w-md px-4 animate-fade-in">
+            <div className="bg-black/85 backdrop-blur-md border border-[#ff1e90]/25 rounded-xl px-5 py-3 flex items-center justify-between gap-3 shadow-[0_8px_32px_rgba(255,30,144,0.06)]">
               <div className="flex items-center gap-2 min-w-0">
                 <span className="font-mono text-[8px] font-extrabold text-[#ff1e90] uppercase tracking-wider flex-shrink-0">
                   {proj.id}
@@ -502,9 +729,8 @@ export function SphereRoom({ projects }: SphereRoomProps) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Scene builder functions (outside component to avoid re-definition)
+// Scene builder helper functions
 // ─────────────────────────────────────────────────────────────────────────────
-
 type Refs = {
   scene: THREE.Scene | null;
   cssScene: THREE.Scene | null;
@@ -544,11 +770,17 @@ function buildParticles(refs: Refs) {
 
     const c = Math.random();
     if (c < 0.68) {
-      colors[i * 3] = 0.55; colors[i * 3 + 1] = 0.65; colors[i * 3 + 2] = 0.88;
+      colors[i * 3] = 0.55;
+      colors[i * 3 + 1] = 0.65;
+      colors[i * 3 + 2] = 0.88;
     } else if (c < 0.84) {
-      colors[i * 3] = 1.0; colors[i * 3 + 1] = 0.12; colors[i * 3 + 2] = 0.56;
+      colors[i * 3] = 1.0;
+      colors[i * 3 + 1] = 0.12;
+      colors[i * 3 + 2] = 0.56;
     } else {
-      colors[i * 3] = 0.85; colors[i * 3 + 1] = 1.0; colors[i * 3 + 2] = 0.26;
+      colors[i * 3] = 0.85;
+      colors[i * 3 + 1] = 1.0;
+      colors[i * 3 + 2] = 0.26;
     }
   }
 
@@ -634,63 +866,5 @@ function buildGlowRings(refs: Refs) {
     ring.rotation.y = tiltY;
     refs.scene!.add(ring);
     refs.glowRings.push(ring);
-  });
-}
-
-function buildPanels(
-  refs: Refs,
-  projects: Project[],
-  setActive: (id: string) => void,
-  snapTo: (i: number) => void
-) {
-  refs.panelPositions = [];
-  const count = projects.length;
-
-  projects.forEach((project, i) => {
-    // Evenly distribute around full 360° circle in the XZ plane
-    // Add a slight vertical spread so panels don't all sit at Y=0
-    const angle = (i / count) * Math.PI * 2 - Math.PI / 2;
-    const dist = SPHERE_RADIUS * 0.58;
-    const x = Math.cos(angle) * dist;
-    const z = Math.sin(angle) * dist;
-    // Spread panels vertically with a gentle sine wave
-    const y = Math.sin((i / count) * Math.PI * 2) * 80;
-
-    const el = document.createElement("div");
-    el.className = "sr-card";
-    el.innerHTML = `
-      <div class="sr-inner">
-        <div class="sr-header">
-          <span class="sr-id">${project.id} // CASE</span>
-          <span class="sr-metric">${project.metric.split(" // ")[0]}</span>
-        </div>
-        <h2 class="sr-title">${project.title}</h2>
-        <p class="sr-client">Client: ${project.client}</p>
-        <p class="sr-desc">${project.desc}</p>
-        <div class="sr-tags">
-          ${project.tags.map((t) => `<span class="sr-tag">${t}</span>`).join("")}
-        </div>
-        <div class="sr-status">
-          <span class="sr-dot"></span>
-          <span class="sr-status-text">${project.status}</span>
-        </div>
-      </div>
-    `;
-
-    el.style.pointerEvents = "auto";
-    el.addEventListener("click", () => {
-      setActive(project.id);
-      snapTo(i);
-    });
-
-    const obj = new CSS3DObject(el);
-    obj.position.set(x, y, z);
-    // Each panel faces the center of the sphere
-    obj.lookAt(0, y, 0);
-    // Scale: at 700 sphere radius, 0.55 makes 380px cards ≈ 209 CSS units
-    obj.scale.setScalar(0.55);
-
-    refs.cssScene!.add(obj);
-    refs.panelPositions.push({ position: new THREE.Vector3(x, y, z) });
   });
 }

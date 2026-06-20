@@ -4,7 +4,7 @@ import React from "react";
 import { SphereRoom, type Project } from "@/components/ui/sphere-room";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Case Studies — 5 high-impact projects across different verticals
+// Case Studies — 6 high-impact projects across different verticals
 // ─────────────────────────────────────────────────────────────────────────────
 
 const projects: Project[] = [
@@ -51,6 +51,15 @@ const projects: Project[] = [
     metric: "9 Brands // 72Hr Delivery",
     desc: "An AI-powered brand generation operating system that produces complete brand identities — logos, color systems, typography, motion design, and pitch decks — in under 72 hours. Built for a Series A-backed venture studio, the system generated 9 launch-ready brand identities across three portfolio companies in the first week of deployment.",
     tags: ["Gemini API", "Stable Diffusion", "Next.js", "Supabase", "Framer"],
+    status: "NDA Protected // Active",
+  },
+  {
+    id: "06",
+    title: "Quantum Cryptography Matrix",
+    client: "Defense Tech Coalition",
+    metric: "256-Bit // Zero Vulnerability",
+    desc: "A browser-based real-time cryptographic visualizer that compiles Rust-based post-quantum algorithms into WebAssembly, achieving ultra-high performance simulations of security matrices under simulated brute force attacks.",
+    tags: ["WebAssembly", "Rust", "React", "Next.js", "Edge Functions"],
     status: "NDA Protected // Active",
   },
 ];
