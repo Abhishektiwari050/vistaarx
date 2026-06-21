@@ -172,7 +172,12 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [headerVisible, setHeaderVisible] = useState(true);
   const lastScrollY = useRef(0);
-  const scrollProgress = useScrollStore((s: ScrollStore) => s.scrollProgress);
+  
+  // Scoped selector to avoid full-page re-renders on every scroll tick
+  const inHorizontalSweep = useScrollStore((s: ScrollStore) => {
+    const isHomepage = pathname === "/";
+    return isHomepage && s.scrollProgress > 0.04 && s.scrollProgress < 0.83;
+  });
 
   // Reset scroll progress in store on route/pathname change
   useEffect(() => {
@@ -225,9 +230,6 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
   }, [mounted]);
 
   // Handle immediate transitions at boundaries
-  const isHomepage = pathname === "/";
-  const inHorizontalSweep = isHomepage && scrollProgress > 0.04 && scrollProgress < 0.83;
-
   useEffect(() => {
     const show = !inHorizontalSweep;
     const animationFrameId = requestAnimationFrame(() => {

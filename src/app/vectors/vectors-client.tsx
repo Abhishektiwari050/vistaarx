@@ -37,56 +37,6 @@ function clamp(v: number, lo = 0, hi = 1) {
 }
 
 export default function VectorsPage() {
-  const [helixProgress, setHelixProgress] = useState(0);
-  const [orbitProgress, setOrbitProgress] = useState(0);
-  const [timelineProgress, setTimelineProgress] = useState(0);
-  const [metricsProgress, setMetricsProgress] = useState(0);
-  const [ctaProgress, setCtaProgress] = useState(0);
-  const [borderGlow, setBorderGlow] = useState(0.15);
-  const glowFrame = useRef<number>(0);
-
-  // Animated CTA border glow using rAF
-  useEffect(() => {
-    const tick = () => {
-      setBorderGlow(0.15 + Math.sin(performance.now() * 0.003) * 0.1);
-      glowFrame.current = requestAnimationFrame(tick);
-    };
-    glowFrame.current = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(glowFrame.current);
-  }, []);
-
-  // Scroll handler — computes per-section progress (0→1)
-  useEffect(() => {
-    const vh = () => window.innerHeight;
-
-    // Section start offsets in pixels (cumulative)
-    const offset = () => {
-      const h = vh();
-      const s1Start = 0;
-      const s2Start = h * SECTION_HEIGHTS.s1;
-      const s3Start = s2Start + h * SECTION_HEIGHTS.s2;
-      const s4Start = s3Start + h * SECTION_HEIGHTS.s3;
-      const s5Start = s4Start + h * SECTION_HEIGHTS.s4;
-      return { s1Start, s2Start, s3Start, s4Start, s5Start };
-    };
-
-    const onScroll = () => {
-      const y = window.scrollY;
-      const h = vh();
-      const { s1Start, s2Start, s3Start, s4Start, s5Start } = offset();
-
-      setHelixProgress(clamp((y - s1Start) / (h * SECTION_HEIGHTS.s1)));
-      setOrbitProgress(clamp((y - s2Start) / (h * SECTION_HEIGHTS.s2)));
-      setTimelineProgress(clamp((y - s3Start) / (h * SECTION_HEIGHTS.s3)));
-      setMetricsProgress(clamp((y - s4Start) / (h * SECTION_HEIGHTS.s4)));
-      setCtaProgress(clamp((y - s5Start) / (h * SECTION_HEIGHTS.s5)));
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   return (
     <div className="w-full bg-[#050510] text-white">
       {/* Fixed film-grain texture */}
@@ -116,7 +66,7 @@ export default function VectorsPage() {
       ──────────────────────────────────────────────────────────────────────── */}
       <div className="relative w-full h-[150vh]">
         <div className="sticky top-0 h-screen z-10 overflow-hidden bg-[#050510]">
-          <TechHelix scrollProgress={helixProgress} />
+          <TechHelix />
         </div>
       </div>
 
@@ -125,7 +75,7 @@ export default function VectorsPage() {
       ──────────────────────────────────────────────────────────────────────── */}
       <div className="relative w-full h-[150vh]">
         <div className="sticky top-0 h-screen z-20 overflow-hidden bg-[#050510]">
-          <TechOrbit scrollProgress={orbitProgress} />
+          <TechOrbit />
         </div>
       </div>
 
@@ -134,7 +84,7 @@ export default function VectorsPage() {
       ──────────────────────────────────────────────────────────────────────── */}
       <div className="relative w-full h-[200vh]">
         <div className="sticky top-0 h-screen z-30 overflow-hidden bg-[#050510]">
-          <TechTimeline scrollProgress={timelineProgress} />
+          <TechTimeline />
         </div>
       </div>
 
@@ -150,83 +100,124 @@ export default function VectorsPage() {
       {/* ─── Section 5: Launch CTA ───────────────────────────────────────────
           Budget: 1.2vh
       ──────────────────────────────────────────────────────────────────────── */}
-      <div className="relative w-full h-[120vh]">
-        <div className="sticky top-0 h-screen z-50 overflow-hidden bg-[#050510] flex items-center justify-center">
+      <CtaSection />
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// CtaSection — Self-contained scroll tracking and animations for the CTA section
+// ─────────────────────────────────────────────────────────────────────────────
+function CtaSection() {
+  const [ctaProgress, setCtaProgress] = useState(0);
+  const [borderGlow, setBorderGlow] = useState(0.15);
+  const glowFrame = useRef<number>(0);
+
+  // Animated CTA border glow using rAF
+  useEffect(() => {
+    const tick = () => {
+      setBorderGlow(0.15 + Math.sin(performance.now() * 0.003) * 0.1);
+      glowFrame.current = requestAnimationFrame(tick);
+    };
+    glowFrame.current = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(glowFrame.current);
+  }, []);
+
+  // Local scroll tracking for CtaSection
+  useEffect(() => {
+    const handleScroll = () => {
+      const h = window.innerHeight;
+      const y = window.scrollY;
+      // Section 5 starts at s5Start = s4Start + s4Height
+      // s1 = 1.5, s2 = 1.5, s3 = 2.0, s4 = 1.2 => s5Start = 6.2vh
+      const s5Start = h * 6.2;
+      const rawProgress = (y - s5Start) / (h * 1.2); // s5 height = 1.2vh
+      const progress = isNaN(rawProgress) ? 0 : Math.max(0, Math.min(1, rawProgress));
+      setCtaProgress(progress);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <div className="relative w-full h-[120vh]">
+      <div className="sticky top-0 h-screen z-50 overflow-hidden bg-[#050510] flex items-center justify-center">
+        <div
+          className="w-full flex flex-col items-center justify-center px-6 transition-all duration-700"
+          style={{
+            opacity: Math.min(ctaProgress * 4, 1),
+            transform: `translateY(${(1 - Math.min(ctaProgress * 4, 1)) * 24}px)`,
+          }}
+        >
+          {/* Qualifier pills */}
+          <div className="flex flex-wrap justify-center gap-2 mb-8">
+            {[
+              { label: "No lock-in contracts", dot: "#d8ff42" },
+              { label: "Full code ownership", dot: "#ff1e90" },
+              { label: "7–21 day delivery", dot: "#3366ff" },
+            ].map((pill) => (
+              <div
+                key={pill.label}
+                className="flex items-center gap-1.5 bg-white/[0.04] border border-white/10 rounded-full px-4 py-1.5"
+              >
+                <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: pill.dot }} />
+                <span className="font-mono text-[9px] uppercase tracking-widest text-white/35">
+                  {pill.label}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          {/* Pulsing border card */}
           <div
-            className="w-full flex flex-col items-center justify-center px-6 transition-all duration-700"
+            className="relative max-w-2xl w-full text-center space-y-8 py-16 px-8 rounded-3xl border"
             style={{
-              opacity: Math.min(ctaProgress * 4, 1),
-              transform: `translateY(${(1 - Math.min(ctaProgress * 4, 1)) * 24}px)`,
+              borderColor: `rgba(255, 30, 144, ${borderGlow})`,
+              background:
+                "radial-gradient(ellipse at center, rgba(255,30,144,0.04) 0%, rgba(5,5,16,0.97) 70%)",
             }}
           >
-            {/* Qualifier pills */}
-            <div className="flex flex-wrap justify-center gap-2 mb-8">
-              {[
-                { label: "No lock-in contracts", dot: "#d8ff42" },
-                { label: "Full code ownership", dot: "#ff1e90" },
-                { label: "7–21 day delivery", dot: "#3366ff" },
-              ].map((pill) => (
-                <div
-                  key={pill.label}
-                  className="flex items-center gap-1.5 bg-white/[0.04] border border-white/10 rounded-full px-4 py-1.5"
-                >
-                  <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: pill.dot }} />
-                  <span className="font-mono text-[9px] uppercase tracking-widest text-white/35">
-                    {pill.label}
-                  </span>
-                </div>
-              ))}
+            <div className="flex justify-center">
+              <span className="font-mono text-[9px] font-extrabold tracking-[0.3em] text-[#d8ff42] uppercase bg-[#d8ff42]/10 border border-[#d8ff42]/20 px-5 py-2 rounded inline-flex items-center gap-2">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#d8ff42] opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#d8ff42]" />
+                </span>
+                System Ready
+              </span>
             </div>
 
-            {/* Pulsing border card */}
-            <div
-              className="relative max-w-2xl w-full text-center space-y-8 py-16 px-8 rounded-3xl border"
-              style={{
-                borderColor: `rgba(255, 30, 144, ${borderGlow})`,
-                background:
-                  "radial-gradient(ellipse at center, rgba(255,30,144,0.04) 0%, rgba(5,5,16,0.97) 70%)",
-              }}
+            <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-black uppercase tracking-tighter text-white leading-[0.9]">
+              Ready to
+              <br />
+              <span className="bg-gradient-to-r from-[#ff1e90] to-[#d8ff42] bg-clip-text text-transparent">
+                Build?
+              </span>
+            </h2>
+
+            <p className="font-sans text-sm text-white/40 max-w-md mx-auto leading-relaxed">
+              Every project starts with a conversation. Let&apos;s discuss your
+              vision and architect a system engineered for maximum impact.
+            </p>
+
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-3 font-display text-sm font-black uppercase tracking-widest text-black bg-[#d8ff42] px-10 py-4 rounded-lg border-2 border-black shadow-[4px_4px_0px_#000] hover:shadow-[6px_6px_0px_#ff1e90] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-300"
             >
-              <div className="flex justify-center">
-                <span className="font-mono text-[9px] font-extrabold tracking-[0.3em] text-[#d8ff42] uppercase bg-[#d8ff42]/10 border border-[#d8ff42]/20 px-5 py-2 rounded inline-flex items-center gap-2">
-                  <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#d8ff42] opacity-75" />
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-[#d8ff42]" />
-                  </span>
-                  System Ready
-                </span>
-              </div>
+              Initiate Project
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+              </svg>
+            </Link>
 
-              <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-black uppercase tracking-tighter text-white leading-[0.9]">
-                Ready to
-                <br />
-                <span className="bg-gradient-to-r from-[#ff1e90] to-[#d8ff42] bg-clip-text text-transparent">
-                  Build?
-                </span>
-              </h2>
-
-              <p className="font-sans text-sm text-white/40 max-w-md mx-auto leading-relaxed">
-                Every project starts with a conversation. Let&apos;s discuss your
-                vision and architect a system engineered for maximum impact.
-              </p>
-
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-3 font-display text-sm font-black uppercase tracking-widest text-black bg-[#d8ff42] px-10 py-4 rounded-lg border-2 border-black shadow-[4px_4px_0px_#000] hover:shadow-[6px_6px_0px_#ff1e90] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-300"
-              >
-                Initiate Project
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-                </svg>
-              </Link>
-
-              <div className="flex flex-wrap justify-center gap-6 pt-2 text-white/20 font-mono text-[9px] uppercase tracking-wider">
-                <span>From <span className="text-white/50 font-bold">$15k</span></span>
-                <span>•</span>
-                <span>SLA: <span className="text-white/50 font-bold">24Hr Direct</span></span>
-                <span>•</span>
-                <span>Slots: <span className="text-[#d8ff42] font-bold">Limited</span></span>
-              </div>
+            <div className="flex flex-wrap justify-center gap-6 pt-2 text-white/20 font-mono text-[9px] uppercase tracking-wider">
+              <span>From <span className="text-white/50 font-bold">$15k</span></span>
+              <span>•</span>
+              <span>SLA: <span className="text-white/50 font-bold">24Hr Direct</span></span>
+              <span>•</span>
+              <span>Slots: <span className="text-[#d8ff42] font-bold">Limited</span></span>
             </div>
           </div>
         </div>

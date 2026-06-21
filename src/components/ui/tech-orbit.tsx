@@ -8,9 +8,7 @@ import { motion, useInView } from "framer-motion";
 // Replaces the orbital animation for a more informative, scannable layout
 // ─────────────────────────────────────────────────────────────────────────────
 
-interface TechOrbitProps {
-  scrollProgress: number; // 0 → 1 within this section
-}
+
 
 const techStack = [
   {
@@ -131,7 +129,7 @@ const methodologySteps = [
   { num: "04", title: "Optimization", desc: "Lighthouse audits, CDN tuning, and SLA provisioning" },
 ];
 
-export function TechOrbit({ scrollProgress }: TechOrbitProps) {
+export function TechOrbit() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-15%" });
 

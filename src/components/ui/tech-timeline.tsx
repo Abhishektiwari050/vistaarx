@@ -1,15 +1,13 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion, useInView } from "framer-motion";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Horizontal Scroll-Driven Process Timeline
 // ─────────────────────────────────────────────────────────────────────────────
 
-interface TechTimelineProps {
-  scrollProgress: number; // 0 → 1 within this section
-}
+
 
 const phases = [
   {
@@ -82,7 +80,26 @@ const phases = [
   },
 ];
 
-export function TechTimeline({ scrollProgress }: TechTimelineProps) {
+export function TechTimeline() {
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  // Local scroll listener to scope re-renders to only this component
+  useEffect(() => {
+    const handleScroll = () => {
+      const h = window.innerHeight;
+      const y = window.scrollY;
+      // Section 3 (Timeline) starts at 3.0vh, has height 2.0vh
+      const s3Start = h * 3.0;
+      const rawProgress = (y - s3Start) / (h * 2.0);
+      const progress = isNaN(rawProgress) ? 0 : Math.max(0, Math.min(1, rawProgress));
+      setScrollProgress(progress);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+  
   // Horizontal track movement
   const translateX = scrollProgress * -70;
   const cursorProgress = Math.min(scrollProgress * 1.15, 1);

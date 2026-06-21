@@ -11,16 +11,13 @@ import { motion } from "framer-motion";
 // 3D DNA Helix Hero — scroll-driven unwind & scatter
 // ─────────────────────────────────────────────────────────────────────────────
 
-interface TechHelixProps {
-  scrollProgress: number; // 0 → 1 within this section
-}
-
 const HELIX_PARTICLES = 1400;
 const HELIX_RADIUS = 2.6;
 const HELIX_HEIGHT = 20;
 const HELIX_TURNS = 5;
 
-export function TechHelix({ scrollProgress }: TechHelixProps) {
+export function TechHelix() {
+  const [scrollProgress, setScrollProgress] = useState(0);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const frameRef = useRef<number>(0);
   const sceneRef = useRef<{
@@ -33,6 +30,22 @@ export function TechHelix({ scrollProgress }: TechHelixProps) {
     scatterTargets: Float32Array;
   } | null>(null);
   const [isReady, setIsReady] = useState(false);
+
+  // Local scroll listener to scope re-renders to only this component
+  useEffect(() => {
+    const handleScroll = () => {
+      const h = window.innerHeight;
+      const y = window.scrollY;
+      // Section 1 (Helix) starts at 0, has height 1.5vh
+      const rawProgress = y / (h * 1.5);
+      const progress = isNaN(rawProgress) ? 0 : Math.max(0, Math.min(1, rawProgress));
+      setScrollProgress(progress);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
