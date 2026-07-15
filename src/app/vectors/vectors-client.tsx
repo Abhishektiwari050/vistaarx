@@ -192,9 +192,7 @@ function CtaSection() {
             <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-black uppercase tracking-tighter text-white leading-[0.9]">
               Ready to
               <br />
-              <span className="bg-gradient-to-r from-[#ff1e90] to-[#d8ff42] bg-clip-text text-transparent">
-                Build?
-              </span>
+              <span className="font-serif italic font-normal text-zinc-400 lowercase bg-none tracking-normal mr-2">build?</span>
             </h2>
 
             <p className="font-sans text-sm text-white/40 max-w-md mx-auto leading-relaxed">
@@ -204,7 +202,7 @@ function CtaSection() {
 
             <Link
               href="/contact"
-              className="inline-flex items-center gap-3 font-display text-sm font-black uppercase tracking-widest text-black bg-[#d8ff42] px-10 py-4 rounded-lg border-2 border-black shadow-[4px_4px_0px_#000] hover:shadow-[6px_6px_0px_#ff1e90] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-300"
+              className="inline-flex items-center gap-3 font-display text-sm font-black uppercase tracking-widest text-black bg-[#d8ff42] px-10 py-4 rounded-lg border-2 border-black shadow-[4px_4px_0px_#000] hover:shadow-[6px_6px_0px_#ff1e90] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-300 interactive"
             >
               Initiate Project
               <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">

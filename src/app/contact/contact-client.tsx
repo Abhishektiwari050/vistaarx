@@ -66,7 +66,7 @@ export default function ContactPage() {
               Start Project Compile
             </span>
             <h1 className="font-display text-4xl sm:text-5xl font-black uppercase tracking-tighter text-black leading-none">
-              Connect HQ
+              Connect <span className="font-serif italic font-normal text-zinc-400 lowercase">HQ</span>
             </h1>
             <p className="font-sans text-xs sm:text-sm text-zinc-650 max-w-md leading-relaxed">
               Transmit your project coordinates below. Our lead systems architect will evaluate your specifications and reply in less than 24 hours.
@@ -125,7 +125,7 @@ export default function ContactPage() {
                             key={cat}
                             type="button"
                             onClick={() => setFormState({ ...formState, projectType: cat })}
-                            className={`px-4 py-2 text-[10px] font-display font-black uppercase rounded-lg border-2 transition-all duration-200 cursor-pointer ${
+                            className={`px-4 py-2 text-[10px] font-display font-black uppercase rounded-lg border-2 transition-all duration-200 cursor-pointer interactive ${
                               isActive
                                 ? "bg-[#ff1e90] text-black border-black shadow-[2px_2px_0px_#000]"
                                 : "bg-white text-zinc-600 border-zinc-200 hover:border-black/50 hover:bg-[#faf9f5]"
@@ -155,7 +155,7 @@ export default function ContactPage() {
                   {/* Submit button */}
                   <button
                     type="submit"
-                    className="w-full py-4 border-[2.5px] border-black bg-[#0a0a0a] text-white font-display text-xs font-bold tracking-widest uppercase transition-all rounded-xl hover:bg-[#ff1e90] hover:text-black cursor-pointer shadow-[3px_3px_0px_#000] hover:shadow-[4px_4px_0px_#000] active:translate-y-0.5 active:shadow-[1px_1px_0px_#000]"
+                    className="w-full py-4 border-[2.5px] border-black bg-[#0a0a0a] text-white font-display text-xs font-bold tracking-widest uppercase transition-all rounded-xl hover:bg-[#ff1e90] hover:text-black cursor-pointer shadow-[3px_3px_0px_#000] hover:shadow-[4px_4px_0px_#000] active:translate-y-0.5 active:shadow-[1px_1px_0px_#000] interactive"
                   >
                     Submit Brief to HQ ⚡
                   </button>

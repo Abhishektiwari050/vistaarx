@@ -163,8 +163,9 @@ export function TechOrbit() {
             </span>
             <h2 className="font-display text-3xl sm:text-4xl font-black uppercase tracking-tighter text-white leading-none">
               Built on the<br />
+              <span className="font-serif italic font-normal text-zinc-500 lowercase bg-none tracking-normal mr-2">right</span>
               <span className="bg-gradient-to-r from-[#ff1e90] to-[#d8ff42] bg-clip-text text-transparent">
-                Right Stack
+                Stack
               </span>
             </h2>
           </div>

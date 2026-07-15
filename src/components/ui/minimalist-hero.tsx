@@ -33,7 +33,7 @@ const NavLink = ({ href, children }: { href: string; children: React.ReactNode }
 
 // Helper component for social media icons
 const SocialIcon = ({ href, icon: Icon }: { href: string; icon: React.ComponentType<{ className?: string }> }) => (
-  <a href={href} target="_blank" rel="noopener noreferrer" className="text-[#0a0a0a]/60 transition-colors hover:text-[#0a0a0a]">
+  <a href={href} target="_blank" rel="noopener noreferrer" className="text-[#0a0a0a]/60 transition-colors hover:text-[#0a0a0a] interactive">
     <Icon className="h-5 w-5" />
   </a>
 );
@@ -58,6 +58,8 @@ export const MinimalistHero = ({
         className
       )}
     >
+      {/* Global paper-grain texture overlay */}
+      <div className="noise-overlay" aria-hidden="true" />
       {/* Main Content Area */}
       <div className="relative grid w-full max-w-7xl flex-grow grid-cols-1 items-center md:grid-cols-3">
         {/* Left Text Content */}
@@ -68,7 +70,7 @@ export const MinimalistHero = ({
           className="z-20 order-2 md:order-1 text-center md:text-left"
         >
           <p className="mx-auto max-w-xs text-sm leading-relaxed text-[#0a0a0a]/80 md:mx-0">{mainText}</p>
-          <a href={readMoreLink} className="mt-4 inline-block text-sm font-medium text-[#0a0a0a] underline decoration-from-font">
+          <a href={readMoreLink} className="mt-4 inline-block text-sm font-medium text-[#0a0a0a] underline decoration-from-font interactive">
             Read More
           </a>
         </motion.div>
@@ -101,12 +103,12 @@ export const MinimalistHero = ({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="z-20 order-3 flex items-center justify-center text-center md:justify-start"
+          className="z-20 order-3 flex items-center justify-center text-center md:justify-start select-none"
         >
-          <h1 className="text-7xl font-extrabold text-[#0a0a0a] md:text-8xl lg:text-9xl tracking-tighter">
+          <h1 className="font-display text-7xl font-black uppercase text-[#0a0a0a] md:text-8xl lg:text-9xl tracking-tighter leading-[0.85]">
             {overlayText.part1}
             <br />
-            {overlayText.part2}
+            <span className="font-serif italic font-normal text-zinc-400 lowercase">{overlayText.part2}</span>
           </h1>
         </motion.div>
       </div>

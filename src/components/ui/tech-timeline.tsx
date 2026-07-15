@@ -121,7 +121,7 @@ export function TechTimeline() {
               03 // Delivery Pipeline
             </span>
             <h2 className="font-display text-3xl sm:text-4xl font-black uppercase tracking-tighter text-white leading-none">
-              Build Lifecycle
+              Build <span className="font-serif italic font-normal text-zinc-500 lowercase bg-none tracking-normal mr-2">lifecycle</span>
             </h2>
             <p className="font-sans text-xs text-white/35 max-w-xs leading-relaxed pt-1">
               A battle-tested 4-phase delivery process refined across 60+ projects.

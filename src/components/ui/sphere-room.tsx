@@ -99,7 +99,7 @@ const CARD_STYLES = `
   border-radius: 20px;
   padding: 26px 22px;
   color: white;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: var(--font-plus-jakarta-sans), system-ui, -apple-system, sans-serif;
   transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.2s ease;
 }
 .sr-card:hover .sr-inner {
@@ -125,6 +125,7 @@ const CARD_STYLES = `
   border: 1px solid rgba(255, 30, 144, 0.2);
   padding: 4px 9px;
   border-radius: 5px;
+  font-family: var(--font-space-grotesk), monospace;
 }
 .sr-metric {
   font-size: 9px;
@@ -138,6 +139,7 @@ const CARD_STYLES = `
   border-radius: 5px;
   box-shadow: 2px 2px 0 #050510;
   white-space: nowrap;
+  font-family: var(--font-space-grotesk), monospace;
 }
 .sr-title {
   font-size: 18px;
@@ -147,14 +149,17 @@ const CARD_STYLES = `
   line-height: 1.15;
   margin: 0 0 4px;
   color: #ffffff;
+  font-family: var(--font-space-grotesk), sans-serif;
 }
 .sr-client {
   font-size: 9px;
-  text-transform: uppercase;
-  letter-spacing: 0.09em;
-  color: rgba(255,255,255,0.32);
-  font-weight: 700;
+  text-transform: lowercase;
+  letter-spacing: 0.05em;
+  color: rgba(255,255,255,0.45);
+  font-weight: normal;
   margin: 0 0 13px;
+  font-family: var(--font-playfair), Georgia, serif;
+  font-style: italic;
 }
 .sr-desc {
   font-size: 11px;
@@ -182,6 +187,7 @@ const CARD_STYLES = `
   padding: 3px 8px;
   border-radius: 4px;
   color: rgba(255,255,255,0.45);
+  font-family: var(--font-space-grotesk), monospace;
 }
 .sr-status {
   display: flex;
@@ -205,6 +211,7 @@ const CARD_STYLES = `
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: rgba(255,255,255,0.28);
+  font-family: var(--font-space-grotesk), monospace;
 }
 @keyframes srPulse {
   0%, 100% { opacity: 1; transform: scale(1); }
@@ -586,6 +593,8 @@ export function SphereRoom({ projects }: SphereRoomProps) {
       ref={containerRef}
       className="relative w-full h-screen bg-[#050510] overflow-hidden"
     >
+      {/* Global paper-grain texture overlay */}
+      <div className="noise-overlay" aria-hidden="true" />
       {/* WebGL canvas */}
       <canvas
         ref={webglCanvasRef}
@@ -617,11 +626,11 @@ export function SphereRoom({ projects }: SphereRoomProps) {
       {/* Dynamic Header Overlay (pointer-events-none but controls have pointer-events-auto) */}
       <div className="absolute top-8 left-1/2 -translate-x-1/2 z-20 text-center pointer-events-none select-none flex flex-col items-center gap-5 w-full max-w-2xl px-4">
         <div>
-          <span className="font-mono text-[8px] tracking-[0.3em] uppercase text-[#ff1e90] font-bold block mb-1">
+          <span className="font-mono text-[8px] tracking-[0.3em] uppercase text-[#ff1e90] font-bold block mb-1 animate-pulse">
             {filteredProjects.length} / {projects.length} Projects // Selected Work
           </span>
-          <h1 className="font-display text-3xl sm:text-4xl font-black uppercase tracking-tighter text-white/90">
-            Case Studies
+          <h1 className="font-display text-3xl sm:text-4xl font-black uppercase tracking-tighter text-white/90 leading-none select-none">
+            Case <span className="font-serif italic font-normal text-zinc-500 lowercase">studies</span>
           </h1>
         </div>
 
@@ -634,7 +643,7 @@ export function SphereRoom({ projects }: SphereRoomProps) {
                 setActiveFilter(cat.id);
                 playTickSound(1000, 0.015, 0.005);
               }}
-              className={`font-mono text-[8px] uppercase tracking-widest px-4 py-2 rounded-full transition-all duration-300 whitespace-nowrap cursor-pointer ${
+              className={`font-mono text-[8px] uppercase tracking-widest px-4 py-2 rounded-full transition-all duration-300 whitespace-nowrap cursor-pointer interactive ${
                 activeFilter === cat.id
                   ? "bg-[#ff1e90] text-white font-bold shadow-[0_0_12px_rgba(255,30,144,0.45)]"
                   : "text-white/40 hover:text-white hover:bg-white/5"
@@ -650,7 +659,7 @@ export function SphereRoom({ projects }: SphereRoomProps) {
       {activeProject && (
         <button
           onClick={resetFocus}
-          className="absolute bottom-20 left-1/2 -translate-x-1/2 z-20 font-mono text-[9px] font-bold uppercase tracking-widest text-[#d8ff42] bg-black/85 backdrop-blur-md border border-[#d8ff42]/30 rounded-full px-6 py-2.5 shadow-[0_0_16px_rgba(216,255,66,0.18)] hover:bg-[#d8ff42] hover:text-black hover:border-black transition-all duration-300 pointer-events-auto cursor-pointer"
+          className="absolute bottom-20 left-1/2 -translate-x-1/2 z-20 font-mono text-[9px] font-bold uppercase tracking-widest text-[#d8ff42] bg-black/85 backdrop-blur-md border border-[#d8ff42]/30 rounded-full px-6 py-2.5 shadow-[0_0_16px_rgba(216,255,66,0.18)] hover:bg-[#d8ff42] hover:text-black hover:border-black transition-all duration-300 pointer-events-auto cursor-pointer interactive"
         >
           ← Exit Focus / Resume Orbit
         </button>
@@ -665,7 +674,7 @@ export function SphereRoom({ projects }: SphereRoomProps) {
               setActiveProject(p.id);
               snapToPanel(i);
             }}
-            className="flex items-center gap-2 group"
+            className="flex items-center gap-2 group interactive"
             aria-label={`Focus ${p.title}`}
             title={p.title}
           >

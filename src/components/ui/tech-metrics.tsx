@@ -196,8 +196,9 @@ export function TechMetrics() {
             </span>
             <h2 className="font-display text-3xl sm:text-4xl font-black uppercase tracking-tighter text-white leading-none">
               Numbers That<br />
+              <span className="font-serif italic font-normal text-zinc-500 lowercase bg-none tracking-normal mr-2">don&apos;t</span>
               <span className="bg-gradient-to-r from-[#d8ff42] to-[#3366ff] bg-clip-text text-transparent">
-                Don&apos;t Lie
+                Lie
               </span>
             </h2>
           </div>

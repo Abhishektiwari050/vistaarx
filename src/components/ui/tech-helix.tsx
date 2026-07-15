@@ -296,13 +296,14 @@ export function TechHelix() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: isReady ? 1 : 0, y: isReady ? 0 : 24 }}
           transition={{ duration: 0.9, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="font-display font-black uppercase tracking-tighter text-white text-center leading-[0.88]"
+          className="font-display font-black uppercase tracking-tighter text-white text-center leading-[0.88] select-none"
           style={{ fontSize: "clamp(3.5rem, 11vw, 9rem)" }}
         >
           Technology
           <br />
+          <span className="font-serif italic font-normal text-zinc-400 lowercase tracking-normal normal-case mr-3">and</span>
           <span className="bg-gradient-to-r from-[#ff1e90] via-[#d8ff42] to-[#3366ff] bg-clip-text text-transparent">
-            &amp; Process
+            Process
           </span>
         </motion.h1>
 
