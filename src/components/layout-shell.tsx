@@ -366,7 +366,7 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
           {children}
         </main>
         
-        {pathname !== "/philosophy" && <Footer />}
+        {pathname !== "/work" && <Footer />}
       </div>
     </div>
   );
