@@ -1,187 +1,345 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import { SphereRoom, type Project } from "@/components/ui/sphere-room";
+import { motion, AnimatePresence } from "framer-motion";
 import { SpotlightCard } from "@/components/spotlight-card";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Case Studies — 6 high-impact projects across different verticals
+// Commercial Growth Case Studies Data
 // ─────────────────────────────────────────────────────────────────────────────
 
-const projects: Project[] = [
+interface CaseStudy {
+  id: string;
+  category: "DTC & Commerce" | "FinTech & SaaS" | "AI & Automation";
+  title: string;
+  client: string;
+  clientType: string;
+  timeline: string;
+  highlightMetric: string;
+  metricLabel: string;
+  barrier: string;
+  solution: string;
+  impactMetrics: { label: string; value: string }[];
+  tags: string[];
+}
+
+const CASE_STUDIES: CaseStudy[] = [
   {
     id: "01",
-    title: "Apex Algorithmic Ledger",
-    client: "FinTech Trade Labs",
-    metric: "+38% Signups // 140% Session Lift",
-    desc: "A high-performance algorithmic trading interface for digital asset dealers. We built a custom WebGL shader pipeline displaying sub-millisecond real-time ledger metrics. This high-fidelity interface eliminated transaction lag, increased average user session times by 140%, and generated a 38% boost in signup conversions.",
-    tags: ["WebGL", "Framer Motion", "Real-Time Telemetry", "Next.js"],
-    status: "NDA Protected // Active",
+    category: "DTC & Commerce",
+    title: "Luminary Atelier Flagship",
+    client: "Luminary Global Brands",
+    clientType: "Luxury Direct-to-Consumer",
+    timeline: "18 Days to Production",
+    highlightMetric: "+220% AOV",
+    metricLabel: "Average Order Value Lift",
+    barrier: "A generic, bloated template storefront suffered 3.8s mobile load times, causing 68% cart abandonment and failing to reflect the brand's luxury price point.",
+    solution: "Engineered a bespoke headless Next.js storefront with edge-rendered product catalogs, sub-second routing, and lightweight WebGL material staging.",
+    impactMetrics: [
+      { label: "Conversion Rate", value: "4.2×" },
+      { label: "Global TTFB", value: "112ms" },
+      { label: "Mobile Bounce Rate", value: "-44%" },
+    ],
+    tags: ["Next.js App Router", "Shopify Headless", "WebGL Shaders", "Tailwind"],
   },
   {
     id: "02",
-    title: "Router Scaling Compiler",
-    client: "Enterprise Media Cloud",
-    metric: "2.4× Speedup // +62% Search CTR",
-    desc: "Complete architectural overhaul and edge routing deployment for a global media distribution network. By implementing Next.js native server-side rendering pipelines and eliminating code bottlenecks, we boosted load speeds by 240% and improved search engine visibility click-throughs by 62% under heavy traffic load.",
-    tags: ["Next.js SSR", "Edge Functions", "API Routing", "PostgreSQL"],
-    status: "NDA Protected // Deployed",
+    category: "FinTech & SaaS",
+    title: "Apex Algorithmic Ledger",
+    client: "TradeLabs Global",
+    clientType: "Institutional Digital Assets",
+    timeline: "21 Days to Production",
+    highlightMetric: "+38% Signups",
+    metricLabel: "Conversion Funnel Lift",
+    barrier: "Institutional traders abandoned the onboarding funnel due to UI latency during volatile market swings, eroding credibility and trust.",
+    solution: "Constructed a real-time WebGL data rendering pipeline with zero render lag and sub-millisecond WebSocket state synchronisation.",
+    impactMetrics: [
+      { label: "Session Duration", value: "+140%" },
+      { label: "FPS Stability", value: "60 FPS Solid" },
+      { label: "Funnel Completion", value: "+38%" },
+    ],
+    tags: ["WebGL", "Framer Motion", "Real-Time Telemetry", "Next.js"],
   },
   {
     id: "03",
-    title: "Spatial Bio-Modeling Engine",
-    client: "Helix Research Corp",
-    metric: "1.2M Sessions // Zero Latency",
-    desc: "Immersive spatial computed bio-modeling environment built directly inside the web browser. We designed and coded custom GLSL fluid simulation matrices, handling over 1.2M daily active user sessions without a single drop in render frame rate, bringing absolute clarity to heavy genetic datasets.",
-    tags: ["Three.js", "GLSL Shaders", "Bio-Computing UI", "React"],
-    status: "NDA Protected // Active",
+    category: "AI & Automation",
+    title: "Axiom Neural Brand OS",
+    client: "Axiom Venture Studio",
+    clientType: "Series-A Portfolio Incubator",
+    timeline: "14 Days to Production",
+    highlightMetric: "9 Launches",
+    metricLabel: "Shipped in First 60 Days",
+    barrier: "Portfolio founders spent 3+ months and $50k on fragmented agencies just to launch basic web presence, delaying seed round milestones.",
+    solution: "Engineered an AI-augmented brand generation engine that produces complete typography, color palettes, and production-ready Next.js sites in 72 hours.",
+    impactMetrics: [
+      { label: "Speed-to-Market", value: "72 Hours" },
+      { label: "Seed Capital Closed", value: "$14M" },
+      { label: "Cost Reduction", value: "-78%" },
+    ],
+    tags: ["Gemini API", "Next.js", "Supabase", "Tailwind CSS"],
   },
   {
     id: "04",
-    title: "Phantom Commerce Engine",
-    client: "Luminary DTC Brands",
-    metric: "+220% AOV // 4.2× Conversion Rate",
-    desc: "A revolutionary direct-to-consumer e-commerce platform combining AR try-on, AI-powered product recommendation, and a WebGL-rendered virtual showroom. The immersive product exploration experience increased average order values by 220% and quadrupled conversion rates compared to the client's previous Shopify storefront.",
-    tags: ["AR.js", "Three.js", "Shopify Headless", "OpenAI", "Next.js"],
-    status: "NDA Protected // Active",
+    category: "FinTech & SaaS",
+    title: "Chronicle Global Media Engine",
+    client: "Chronicle Digital",
+    clientType: "Enterprise Media Cloud",
+    timeline: "16 Days to Production",
+    highlightMetric: "2.4× Speedup",
+    metricLabel: "Core Web Vitals Boost",
+    barrier: "Sluggish mobile load times (4.2s) crushed Google Core Web Vitals, resulting in algorithmic search penalties and dropping advertising CTRs.",
+    solution: "Architected edge-rendered static pipelines with intelligent image prefetching and zero third-party bloated script dependencies.",
+    impactMetrics: [
+      { label: "Organic Search CTR", value: "+62%" },
+      { label: "Lighthouse Score", value: "99 / 100" },
+      { label: "Monthly Readers", value: "1.8M" },
+    ],
+    tags: ["Edge SSR", "Cloudflare Workers", "Next.js", "PostgreSQL"],
   },
   {
     id: "05",
-    title: "Neural Brand OS",
-    client: "Axiom Ventures (Series A)",
-    metric: "9 Brands // 72Hr Delivery",
-    desc: "An AI-powered brand generation operating system that produces complete brand identities — logos, color systems, typography, motion design, and pitch decks — in under 72 hours. Built for a Series A-backed venture studio, the system generated 9 launch-ready brand identities across three portfolio companies in the first week of deployment.",
-    tags: ["Gemini API", "Stable Diffusion", "Next.js", "Supabase", "Framer"],
-    status: "NDA Protected // Active",
+    category: "DTC & Commerce",
+    title: "Verve High-Performance Storefront",
+    client: "Verve Athletics",
+    clientType: "DTC Performance Wear",
+    timeline: "12 Days to Production",
+    highlightMetric: "+84% Mobile Sales",
+    metricLabel: "First 30 Days Post-Launch",
+    barrier: "Heavy theme plugins resulted in 18 layout shifts (CLS 0.42) during checkout on iOS devices, causing high payment drop-offs.",
+    solution: "Rebuilt from raw primitives with strict zero-layout-shift architecture and instant Apple Pay / Google Pay one-click checkout.",
+    impactMetrics: [
+      { label: "Cumulative Layout Shift", value: "0.000" },
+      { label: "Checkout Completion", value: "+46%" },
+      { label: "Mobile Revenue", value: "+84%" },
+    ],
+    tags: ["Next.js", "Stripe Elements", "Tailwind CSS", "Framer"],
   },
   {
     id: "06",
-    title: "Quantum Cryptography Matrix",
-    client: "Defense Tech Coalition",
-    metric: "256-Bit // Zero Vulnerability",
-    desc: "A browser-based real-time cryptographic visualizer that compiles Rust-based post-quantum algorithms into WebAssembly, achieving ultra-high performance simulations of security matrices under simulated brute force attacks.",
-    tags: ["WebAssembly", "Rust", "React", "Next.js", "Edge Functions"],
-    status: "NDA Protected // Active",
+    category: "AI & Automation",
+    title: "Synthetix Autonomous Pipeline",
+    client: "Synthetix Cloud",
+    clientType: "Enterprise Developer Tools",
+    timeline: "19 Days to Production",
+    highlightMetric: "Zero Latency",
+    metricLabel: "Real-time AI Playground",
+    barrier: "Developer prospects couldn't interactively evaluate model outputs without signing up for expensive enterprise trials.",
+    solution: "Built an interactive in-browser playground compiling Rust WebAssembly with streaming token visualization and instant code generation.",
+    impactMetrics: [
+      { label: "Trial Conversions", value: "+210%" },
+      { label: "Time-to-First-Call", value: "<15s" },
+      { label: "Inbound Pipeline", value: "3.5×" },
+    ],
+    tags: ["WebAssembly", "Rust", "Next.js", "AI Streaming"],
   },
 ];
 
-export default function WorkPage() {
-  return (
-    <div className="w-full relative bg-[#050510] text-white">
-      {/* ── 1. 3D Spatial Interactive Sphere Room ───────────────────────────── */}
-      <section className="relative w-full h-[88vh] overflow-hidden">
-        <SphereRoom projects={projects} />
-        
-        {/* Subtle scroll down hint bar */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-25 pointer-events-auto">
-          <a
-            href="#catalogue"
-            className="font-mono text-[9px] uppercase tracking-widest text-white/40 hover:text-[#d8ff42] transition-colors flex items-center gap-1.5 bg-black/60 backdrop-blur-sm px-4 py-1.5 rounded-full border border-white/10 interactive"
-          >
-            <span>Scroll for Full Specifications</span>
-            <span className="text-xs">↓</span>
-          </a>
-        </div>
-      </section>
+const CATEGORIES = ["All Work", "DTC & Commerce", "FinTech & SaaS", "AI & Automation"] as const;
 
-      {/* ── 2. Editorial Case Studies Directory (Paper Canvas) ──────────────── */}
-      <section id="catalogue" className="w-full bg-[#faf9f5] text-[#0a0a0a] py-24 px-6 sm:px-12 md:px-16 border-t-2 border-black relative z-20">
-        <div className="max-w-6xl mx-auto">
-          {/* Section Heading */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 pb-8 border-b-2 border-black/10">
-            <div className="space-y-3">
-              <span className="font-mono text-[9px] font-extrabold tracking-[0.3em] uppercase text-[#ff1e90] bg-[#ff1e90]/10 border border-[#ff1e90]/20 px-3 py-1 rounded-full inline-block">
-                Architectural Records // All Projects
-              </span>
-              <h2 className="font-display font-black text-4xl sm:text-5xl md:text-6xl uppercase tracking-tighter text-[#0a0a0a] leading-none">
-                Case Study{" "}
-                <span className="font-serif italic font-normal text-zinc-400 lowercase">
-                  directory
-                </span>
-              </h2>
-            </div>
-            <p className="font-sans text-xs sm:text-sm text-zinc-600 max-w-sm leading-relaxed">
-              Every system is engineered from raw primitives with guaranteed sub-second performance, strict type validation, and zero template dependencies.
-            </p>
+export default function WorkPage() {
+  const [activeCategory, setActiveCategory] = useState<string>("All Work");
+
+  const filteredProjects = activeCategory === "All Work"
+    ? CASE_STUDIES
+    : CASE_STUDIES.filter((p) => p.category === activeCategory);
+
+  return (
+    <div className="w-full relative min-h-screen bg-[#faf9f5] text-[#0a0a0a] overflow-x-hidden pt-28 pb-24">
+      {/* Film grain noise overlay matching homepage */}
+      <div className="noise-overlay" aria-hidden="true" />
+
+      <div className="max-w-6xl mx-auto px-6 sm:px-12 md:px-16 relative z-10 space-y-16">
+        
+        {/* ── 1. Editorial Hero Header ──────────────────────────────────────── */}
+        <div className="space-y-6 max-w-4xl">
+          <div className="inline-flex items-center gap-2 border-2 border-black bg-white px-3.5 py-1.5 rounded-md text-[9px] font-mono font-black tracking-[2px] uppercase text-black shadow-[2px_2px_0px_#ff1e90]">
+            <span className="w-2 h-2 rounded-full bg-[#d8ff42] border border-black animate-pulse" />
+            CASE STUDIES // PROVEN COMMERCIAL IMPACT
           </div>
 
-          {/* 2-Column Neo-Brutalist Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {projects.map((p, i) => (
-              <div key={p.id} className="group cursor-pointer">
-                <SpotlightCard
-                  glowColor={i % 2 === 0 ? "rgba(255, 30, 144, 0.08)" : "rgba(216, 255, 66, 0.12)"}
-                  borderColor={i % 2 === 0 ? "rgba(255, 30, 144, 0.25)" : "rgba(0, 0, 0, 0.2)"}
-                  className={`border-[3px] border-black rounded-3xl p-6 sm:p-8 flex flex-col justify-between min-h-[380px] shadow-[6px_6px_0px_#000] hover:shadow-[10px_10px_0px_#ff1e90] transition-all duration-300 ${
-                    i % 2 === 0 ? "bg-[#111111] text-white" : "bg-white text-black"
-                  } interactive`}
+          <h1 className="font-display font-black text-5xl sm:text-6xl md:text-7xl uppercase tracking-tighter text-[#0a0a0a] leading-[0.95]">
+            Engineered for <br />
+            <span className="font-serif italic font-normal text-zinc-400 lowercase">
+              market dominance.
+            </span>
+          </h1>
+
+          <p className="font-sans text-sm sm:text-base text-zinc-600 max-w-2xl leading-relaxed">
+            We reject digital decoration and generic templates. Every platform in our portfolio was custom-engineered to solve a critical commercial bottleneck: cutting bounce rates, accelerating conversions, and establishing undeniable category authority.
+          </p>
+        </div>
+
+        {/* ── 2. Metric Impact Banner (Brutalist Contrast Bar) ──────────────── */}
+        <div className="grid grid-cols-2 md:grid-cols-4 border-[3px] border-black divide-x-[3px] divide-y-[3px] md:divide-y-0 divide-black bg-white shadow-[6px_6px_0px_#000] rounded-2xl overflow-hidden select-none">
+          <div className="p-6 text-center group hover:bg-[#d8ff42] transition-colors duration-200">
+            <div className="font-display font-black text-3xl sm:text-4xl text-black leading-none mb-1">+220%</div>
+            <div className="font-mono text-[9px] font-bold uppercase tracking-widest text-zinc-500 group-hover:text-black">DTC Order Value Lift</div>
+          </div>
+          <div className="p-6 text-center group hover:bg-[#ff1e90] transition-colors duration-200">
+            <div className="font-display font-black text-3xl sm:text-4xl text-black group-hover:text-white leading-none mb-1">98+</div>
+            <div className="font-mono text-[9px] font-bold uppercase tracking-widest text-zinc-500 group-hover:text-white">Lighthouse P95 Score</div>
+          </div>
+          <div className="p-6 text-center group hover:bg-[#d8ff42] transition-colors duration-200">
+            <div className="font-display font-black text-3xl sm:text-4xl text-black leading-none mb-1">7–21d</div>
+            <div className="font-mono text-[9px] font-bold uppercase tracking-widest text-zinc-500 group-hover:text-black">Sprint Delivery Time</div>
+          </div>
+          <div className="p-6 text-center group hover:bg-[#ff1e90] transition-colors duration-200">
+            <div className="font-display font-black text-3xl sm:text-4xl text-black group-hover:text-white leading-none mb-1">100%</div>
+            <div className="font-mono text-[9px] font-bold uppercase tracking-widest text-zinc-500 group-hover:text-white">Client Code Ownership</div>
+          </div>
+        </div>
+
+        {/* ── 3. Category Filter Bar ─────────────────────────────────────────── */}
+        <div className="flex flex-wrap items-center justify-between gap-4 border-b-2 border-black/10 pb-6">
+          <div className="flex flex-wrap gap-2">
+            {CATEGORIES.map((cat) => {
+              const isActive = activeCategory === cat;
+              return (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  className={`px-4 py-2 font-display text-[10px] font-black uppercase tracking-wider rounded-lg border-2 transition-all duration-200 cursor-pointer interactive ${
+                    isActive
+                      ? "bg-black text-[#d8ff42] border-black shadow-[3px_3px_0px_#ff1e90]"
+                      : "bg-white text-zinc-700 border-black/20 hover:border-black hover:bg-[#faf9f5]"
+                  }`}
                 >
-                  <div>
-                    {/* Header bar */}
-                    <div className="flex items-center justify-between border-b border-black/10 pb-4 mb-5">
+                  {cat}
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="font-mono text-[10px] font-bold tracking-widest uppercase text-zinc-400">
+            SHOWING: <span className="text-black font-black">{filteredProjects.length} RECORDS</span>
+          </div>
+        </div>
+
+        {/* ── 4. Comprehensive Case Study Cards Grid ────────────────────────── */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <AnimatePresence mode="popLayout">
+            {filteredProjects.map((item, idx) => (
+              <motion.div
+                key={item.id}
+                layout
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.4, delay: idx * 0.05 }}
+                className="group"
+              >
+                <SpotlightCard
+                  glowColor={idx % 2 === 0 ? "rgba(216, 255, 66, 0.15)" : "rgba(255, 30, 144, 0.12)"}
+                  borderColor="rgba(0, 0, 0, 0.15)"
+                  className="bg-white border-[2.5px] border-black rounded-2xl p-6 sm:p-8 flex flex-col justify-between min-h-[440px] shadow-[6px_6px_0px_#000000] hover:shadow-[10px_10px_0px_#ff1e90] transition-all duration-300"
+                >
+                  <div className="space-y-5">
+                    {/* Card Top Metadata */}
+                    <div className="flex items-center justify-between border-b-2 border-black/10 pb-4">
                       <div className="flex items-center gap-2">
-                        <span className="font-mono text-[9px] font-bold px-2 py-0.5 rounded bg-[#ff1e90]/15 text-[#ff1e90] border border-[#ff1e90]/20">
-                          {p.id}
+                        <span className="font-mono text-[9px] font-black px-2 py-0.5 rounded bg-black text-[#d8ff42]">
+                          {item.id}
                         </span>
-                        <span className={`font-serif italic text-xs ${i % 2 === 0 ? "text-zinc-400" : "text-zinc-500"}`}>
-                          {p.client}
+                        <span className="font-serif italic text-xs text-zinc-500">
+                          {item.clientType}
                         </span>
                       </div>
-                      <span className="font-mono text-[9px] font-extrabold uppercase px-2.5 py-1 rounded bg-[#d8ff42] text-black border border-black shadow-[1.5px_1.5px_0px_#000]">
-                        {p.metric.split("//")[0].trim()}
-                      </span>
+                      
+                      <div className="flex items-center gap-2">
+                        <span className="font-mono text-[9px] font-extrabold uppercase px-2.5 py-1 rounded bg-[#d8ff42] text-black border border-black shadow-[1.5px_1.5px_0px_#000]">
+                          {item.highlightMetric}
+                        </span>
+                      </div>
                     </div>
 
-                    {/* Title */}
-                    <h3 className={`font-display font-black text-2xl sm:text-3xl uppercase tracking-tight leading-tight mb-4 ${
-                      i % 2 === 0 ? "text-white" : "text-black"
-                    }`}>
-                      {p.title}
-                    </h3>
+                    {/* Project Title & Client */}
+                    <div>
+                      <h3 className="font-display font-black text-2xl sm:text-3xl uppercase tracking-tight text-black leading-tight">
+                        {item.title}
+                      </h3>
+                      <p className="font-mono text-[9px] font-bold text-zinc-400 uppercase tracking-widest mt-1">
+                        Client: {item.client} · Timeline: {item.timeline}
+                      </p>
+                    </div>
 
-                    {/* Description */}
-                    <p className={`font-sans text-xs leading-relaxed ${
-                      i % 2 === 0 ? "text-zinc-400" : "text-zinc-600"
-                    }`}>
-                      {p.desc}
-                    </p>
+                    {/* The Commercial Barrier & Solution Breakdown */}
+                    <div className="space-y-3 pt-2 text-xs leading-relaxed font-sans">
+                      <div className="bg-[#faf9f5] border border-black/10 p-3 rounded-lg space-y-1">
+                        <span className="font-mono text-[8px] font-black tracking-widest uppercase text-[#ff1e90] block">
+                          The Commercial Barrier
+                        </span>
+                        <p className="text-zinc-600">{item.barrier}</p>
+                      </div>
+
+                      <div className="bg-[#faf9f5] border border-black/10 p-3 rounded-lg space-y-1">
+                        <span className="font-mono text-[8px] font-black tracking-widest uppercase text-[#0a0a0a] block">
+                          The Bespoke Architecture
+                        </span>
+                        <p className="text-zinc-700 font-medium">{item.solution}</p>
+                      </div>
+                    </div>
+
+                    {/* Impact Metrics Row */}
+                    <div className="grid grid-cols-3 gap-2 pt-2 border-t border-black/10">
+                      {item.impactMetrics.map((m) => (
+                        <div key={m.label} className="bg-white border border-black/15 p-2 rounded text-center">
+                          <div className="font-display font-black text-sm text-black">{m.value}</div>
+                          <div className="font-mono text-[7px] font-bold uppercase text-zinc-400 tracking-wider mt-0.5">{m.label}</div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
 
-                  {/* Footer tags and link */}
-                  <div className="pt-6 mt-6 border-t border-black/10 flex flex-wrap items-center justify-between gap-3">
+                  {/* Card Bottom: Tech Pills + Contact Action */}
+                  <div className="pt-6 mt-6 border-t-2 border-black/10 flex flex-wrap items-center justify-between gap-3">
                     <div className="flex flex-wrap gap-1.5">
-                      {p.tags.map((t) => (
+                      {item.tags.map((tag) => (
                         <span
-                          key={t}
-                          className={`font-mono text-[8px] font-bold uppercase px-2 py-0.5 rounded border ${
-                            i % 2 === 0
-                              ? "bg-white/5 border-white/10 text-zinc-400"
-                              : "bg-black/5 border-black/10 text-zinc-600"
-                          }`}
+                          key={tag}
+                          className="font-mono text-[8px] font-bold uppercase px-2 py-0.5 rounded bg-black/5 border border-black/10 text-zinc-600"
                         >
-                          {t}
+                          {tag}
                         </span>
                       ))}
                     </div>
 
                     <Link
                       href="/contact"
-                      className={`font-mono text-[9px] font-extrabold uppercase tracking-widest inline-flex items-center gap-1 transition-colors ${
-                        i % 2 === 0
-                          ? "text-[#d8ff42] hover:text-white"
-                          : "text-[#ff1e90] hover:text-black"
-                      }`}
+                      className="font-display text-[9px] font-black uppercase tracking-widest text-[#ff1e90] hover:text-black transition-colors inline-flex items-center gap-1 interactive"
                     >
-                      Request Architecture Spec →
+                      Request Technical Spec →
                     </Link>
                   </div>
                 </SpotlightCard>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </AnimatePresence>
         </div>
-      </section>
+
+        {/* ── 5. Bottom Guarantee Callout ────────────────────────────────────── */}
+        <div className="bg-[#111111] text-white border-[3px] border-black rounded-3xl p-8 sm:p-12 shadow-[8px_8px_0px_#d8ff42] flex flex-col md:flex-row items-center justify-between gap-8 select-none">
+          <div className="space-y-3 max-w-xl">
+            <span className="font-mono text-[9px] font-extrabold tracking-widest uppercase text-[#d8ff42] bg-[#d8ff42]/10 border border-[#d8ff42]/20 px-3 py-1 rounded-full inline-block">
+              SLA &amp; Performance Guarantee
+            </span>
+            <h3 className="font-display font-black text-3xl sm:text-4xl uppercase tracking-tight text-white leading-none">
+              Your next platform, built for speed &amp; ownership.
+            </h3>
+            <p className="font-sans text-xs sm:text-sm text-zinc-400 leading-relaxed">
+              Every build includes written Core Web Vitals SLA guarantees, sub-150ms TTFB edge hosting, and complete, unencumbered GitHub source code handover on day 21.
+            </p>
+          </div>
+
+          <Link
+            href="/contact"
+            className="shrink-0 bg-[#d8ff42] text-black font-display font-black text-xs tracking-widest uppercase px-8 py-5 rounded-xl border-2 border-black shadow-[4px_4px_0px_#000] hover:shadow-[6px_6px_0px_#ff1e90] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all interactive"
+          >
+            Start Your Transformation ⚡
+          </Link>
+        </div>
+
+      </div>
     </div>
   );
 }

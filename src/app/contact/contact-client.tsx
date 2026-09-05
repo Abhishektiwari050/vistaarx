@@ -6,15 +6,23 @@ import { ThemeOverlay } from "@/components/theme-overlay";
 import RotatingEarth from "@/components/ui/wireframe-dotted-globe";
 
 export default function ContactPage() {
-  const [formState, setFormState] = useState({ name: "", email: "", projectType: "Bespoke 3D / Web Design", message: "" });
+  const [formState, setFormState] = useState({
+    name: "",
+    email: "",
+    projectType: "Bespoke Flagship Website",
+    budget: "$15k – $25k",
+    message: "",
+  });
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const categories = [
-    "Bespoke 3D / Web Design",
-    "Custom Software Webapp",
-    "AI Workflow Automation",
-    "Full Digital Core"
+    "Bespoke Flagship Website",
+    "Full-Stack SaaS Platform",
+    "Speed & Conversion Overhaul",
+    "AI Workflow & Automation",
   ];
+
+  const budgetTiers = ["$15k – $25k", "$25k – $50k", "$50k+"];
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,8 +36,9 @@ export default function ContactPage() {
           name: formState.name,
           email: formState.email,
           brief: formState.message,
-          budget: "Not specified",
-          date: "Not selected",
+          budget: formState.budget,
+          projectType: formState.projectType,
+          date: new Date().toISOString(),
           timezone: typeof Intl !== "undefined" ? Intl.DateTimeFormat().resolvedOptions().timeZone : "Not specified",
         }),
       });
@@ -37,8 +46,14 @@ export default function ContactPage() {
         setIsSubmitted(true);
         setTimeout(() => {
           setIsSubmitted(false);
-          setFormState({ name: "", email: "", projectType: "Bespoke 3D / Web Design", message: "" });
-        }, 4000);
+          setFormState({
+            name: "",
+            email: "",
+            projectType: "Bespoke Flagship Website",
+            budget: "$15k – $25k",
+            message: "",
+          });
+        }, 5000);
       }
     } catch (err) {
       console.error("Failed to submit contact page brief:", err);
@@ -46,16 +61,16 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-[calc(100vh-80px)] w-full relative flex flex-col justify-center px-6 md:px-12 pt-8 pb-16 z-20 max-w-6xl mx-auto space-y-8">
+    <div className="min-h-[calc(100vh-80px)] w-full relative flex flex-col justify-center px-6 md:px-12 pt-8 pb-20 z-20 max-w-6xl mx-auto space-y-12">
       <ThemeOverlay />
 
-      {/* Noise overlay for premium grain */}
+      {/* Noise overlay matching homepage */}
       <div className="noise-overlay" aria-hidden="true" />
 
       {/* Background System Grid */}
       <div className="fixed inset-0 z-[-1] opacity-[0.03] pointer-events-none system-grid" />
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full my-auto relative z-10">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start w-full my-auto relative z-10">
         
         {/* Left Column: Form & Header (7 Columns) */}
         <div className="lg:col-span-7 space-y-8">
@@ -63,13 +78,14 @@ export default function ContactPage() {
           {/* Header section */}
           <div className="text-left select-none space-y-3">
             <span className="font-mono text-[9px] font-extrabold tracking-widest text-[#ff1e90] uppercase border-2 border-black px-3 py-1 bg-[#ff1e90]/10 rounded inline-block shadow-[2px_2px_0px_#000]">
-              Start Project Compile
+              DIRECT CONSULTATION // 24-HOUR EVALUATION
             </span>
             <h1 className="font-display text-4xl sm:text-5xl font-black uppercase tracking-tighter text-black leading-none">
-              Connect <span className="font-serif italic font-normal text-zinc-400 lowercase">HQ</span>
+              Let&apos;s build your <br />
+              <span className="font-serif italic font-normal text-zinc-400 lowercase">growth engine.</span>
             </h1>
-            <p className="font-sans text-xs sm:text-sm text-zinc-650 max-w-md leading-relaxed">
-              Transmit your project coordinates below. Our lead systems architect will evaluate your specifications and reply in less than 24 hours.
+            <p className="font-sans text-xs sm:text-sm text-zinc-600 max-w-md leading-relaxed">
+              Transmit your project parameters below. Our lead systems architect will review your current metrics, identify bottlenecks, and reply in under 24 hours with an initial technical blueprint.
             </p>
           </div>
 
@@ -101,7 +117,7 @@ export default function ContactPage() {
 
                     {/* Email input */}
                     <div className="space-y-2">
-                      <label htmlFor="form-email" className="font-display text-[9px] font-black tracking-widest uppercase text-zinc-400 block">Email Address</label>
+                      <label htmlFor="form-email" className="font-display text-[9px] font-black tracking-widest uppercase text-zinc-400 block">Work Email</label>
                       <input
                         type="email"
                         id="form-email"
@@ -116,7 +132,7 @@ export default function ContactPage() {
 
                   {/* Project Category Interactive Badges */}
                   <div className="space-y-3">
-                    <span className="font-display text-[9px] font-black tracking-widest uppercase text-zinc-400 block">Project Category</span>
+                    <span className="font-display text-[9px] font-black tracking-widest uppercase text-zinc-400 block">Project Scope</span>
                     <div className="flex flex-wrap gap-2.5">
                       {categories.map((cat) => {
                         const isActive = formState.projectType === cat;
@@ -138,14 +154,38 @@ export default function ContactPage() {
                     </div>
                   </div>
 
+                  {/* Budget Tier Selector */}
+                  <div className="space-y-3">
+                    <span className="font-display text-[9px] font-black tracking-widest uppercase text-zinc-400 block">Target Investment Tier</span>
+                    <div className="flex flex-wrap gap-2.5">
+                      {budgetTiers.map((tier) => {
+                        const isActive = formState.budget === tier;
+                        return (
+                          <button
+                            key={tier}
+                            type="button"
+                            onClick={() => setFormState({ ...formState, budget: tier })}
+                            className={`px-3.5 py-1.5 text-[10px] font-mono font-bold uppercase rounded-lg border-2 transition-all duration-200 cursor-pointer interactive ${
+                              isActive
+                                ? "bg-[#d8ff42] text-black border-black shadow-[2px_2px_0px_#000]"
+                                : "bg-white text-zinc-600 border-black/20 hover:border-black"
+                            }`}
+                          >
+                            {tier}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
                   {/* Textarea brief */}
                   <div className="space-y-2">
-                    <label htmlFor="form-msg" className="font-display text-[9px] font-black tracking-widest uppercase text-zinc-400 block">Project Brief &amp; Specifications</label>
+                    <label htmlFor="form-msg" className="font-display text-[9px] font-black tracking-widest uppercase text-zinc-400 block">Project Brief &amp; Performance Objectives</label>
                     <textarea
                       id="form-msg"
                       required
-                      rows={5}
-                      placeholder="Describe the platform goal, target launch date, and budget details..."
+                      rows={4}
+                      placeholder="Describe your current platform, conversion or speed bottlenecks, target launch date, and key expectations..."
                       value={formState.message}
                       onChange={(e) => setFormState({ ...formState, message: e.target.value })}
                       className="w-full bg-[#faf9f5]/85 border-[2px] border-black rounded-lg px-4 py-3 font-sans text-xs text-black focus:outline-none focus:border-[#ff1e90] focus:ring-1 focus:ring-[#ff1e90] transition-all resize-none placeholder:text-zinc-400"
@@ -157,7 +197,7 @@ export default function ContactPage() {
                     type="submit"
                     className="w-full py-4 border-[2.5px] border-black bg-[#0a0a0a] text-white font-display text-xs font-bold tracking-widest uppercase transition-all rounded-xl hover:bg-[#ff1e90] hover:text-black cursor-pointer shadow-[3px_3px_0px_#000] hover:shadow-[4px_4px_0px_#000] active:translate-y-0.5 active:shadow-[1px_1px_0px_#000] interactive"
                   >
-                    Submit Brief to HQ ⚡
+                    Submit Project Specifications ⚡
                   </button>
                 </motion.form>
               ) : (
@@ -169,9 +209,9 @@ export default function ContactPage() {
                   className="bg-white border-[2.5px] border-black rounded-2xl p-12 shadow-[6px_6px_0px_#d8ff42] text-center space-y-5"
                 >
                   <span className="text-4xl block animate-bounce">⚡</span>
-                  <h3 className="font-display text-base font-black tracking-wider text-black uppercase">Brief Compiled Successfully</h3>
-                  <p className="font-sans text-xs sm:text-sm text-zinc-500 leading-relaxed max-w-sm mx-auto">
-                    Your specifications have been routed to Vistar HQ. Our lead systems architect will evaluate the parameters and connect back shortly.
+                  <h3 className="font-display text-base font-black tracking-wider text-black uppercase">Specifications Received</h3>
+                  <p className="font-sans text-xs sm:text-sm text-zinc-600 leading-relaxed max-w-sm mx-auto">
+                    Your brief has been routed to our lead systems architect. We will evaluate your parameters and reach out within 24 hours.
                   </p>
                 </motion.div>
               )}
@@ -179,7 +219,7 @@ export default function ContactPage() {
 
             {/* Direct Email Backup */}
             <div className="text-center mt-6 font-sans text-xs text-zinc-500 select-none">
-              Bypass this form and email us directly:{" "}
+              Prefer direct email? Reach our founders directly:{" "}
               <a href="mailto:hello@vistar.tech" className="font-mono font-bold underline text-[#ff1e90] hover:text-black transition-colors interactive">
                 hello@vistar.tech
               </a>
@@ -187,26 +227,87 @@ export default function ContactPage() {
           </div>
         </div>
 
-        {/* Right Column: Globe telemetry console (5 columns) */}
-        <div className="lg:col-span-5 bg-[#0a0a0a] border-[2.5px] border-black p-6 rounded-2xl shadow-[6px_6px_0px_#d8ff42] flex flex-col justify-between items-center text-white h-[450px] relative overflow-hidden select-none">
-          {/* Header readout */}
-          <div className="flex justify-between items-center w-full font-mono text-[9px] text-[#d8ff42] tracking-widest uppercase border-b border-white/10 pb-3">
-            <span>ACTIVE CORE TELEMETRY</span>
-            <span className="flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#d8ff42] animate-ping" />
-              NODE: ND-IN-01
-            </span>
+        {/* Right Column: Strategic Partnership Blueprint (5 columns) */}
+        <div className="lg:col-span-5 space-y-6 select-none">
+          {/* Roadmap Card */}
+          <div className="bg-white border-[2.5px] border-black p-6 md:p-8 rounded-2xl shadow-[6px_6px_0px_#000] space-y-6">
+            <div className="space-y-1 border-b border-black/10 pb-4">
+              <span className="font-mono text-[9px] font-black uppercase tracking-widest text-[#ff1e90]">
+                HOW WE ENGAGE // TRANSPARENT ROADMAP
+              </span>
+              <h3 className="font-display font-black text-xl uppercase tracking-tight text-black">
+                The Partnership Blueprint
+              </h3>
+            </div>
+
+            <div className="space-y-5 font-sans text-xs">
+              <div className="flex items-start gap-4">
+                <span className="font-mono text-xs font-black px-2 py-0.5 rounded bg-[#d8ff42] text-black border border-black shadow-[1px_1px_0px_#000] shrink-0">
+                  01
+                </span>
+                <div className="space-y-1">
+                  <h4 className="font-display font-black text-sm uppercase text-black">
+                    Architectural Audit (&lt; 24h)
+                  </h4>
+                  <p className="text-zinc-600 leading-relaxed">
+                    Our lead architect reviews your current speed metrics, conversion leaks, and competitor landscape with zero fluff.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <span className="font-mono text-xs font-black px-2 py-0.5 rounded bg-[#ff1e90] text-black border border-black shadow-[1px_1px_0px_#000] shrink-0">
+                  02
+                </span>
+                <div className="space-y-1">
+                  <h4 className="font-display font-black text-sm uppercase text-black">
+                    Live 20-Min Alignment Call
+                  </h4>
+                  <p className="text-zinc-600 leading-relaxed">
+                    A direct technical conversation with senior engineering (no junior account managers) to lock in requirements.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <span className="font-mono text-xs font-black px-2 py-0.5 rounded bg-black text-white border border-black shadow-[1px_1px_0px_#000] shrink-0">
+                  03
+                </span>
+                <div className="space-y-1">
+                  <h4 className="font-display font-black text-sm uppercase text-black">
+                    Guaranteed 7–21d Sprint
+                  </h4>
+                  <p className="text-zinc-600 leading-relaxed">
+                    Fixed-scope delivery, written Core Web Vitals guarantees (&gt;95 Lighthouse), and 100% full source code transfer.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Availability Badge */}
+            <div className="pt-4 border-t border-black/10 flex items-center justify-between text-[9px] font-mono font-bold uppercase">
+              <span className="text-zinc-500">Q2 2026 Availability:</span>
+              <span className="text-[#ff1e90] bg-[#ff1e90]/10 border border-[#ff1e90]/20 px-2 py-0.5 rounded">
+                ● 2 Slots Remaining
+              </span>
+            </div>
           </div>
 
-          {/* Globe space */}
-          <div className="w-full flex items-center justify-center my-auto h-[280px] overflow-hidden">
-            <RotatingEarth width={360} height={280} className="w-full h-full flex items-center justify-center bg-transparent" />
-          </div>
+          {/* Global Edge Footprint Visual Card */}
+          <div className="bg-[#111111] border-[2.5px] border-black p-6 rounded-2xl shadow-[6px_6px_0px_#d8ff42] text-white space-y-4">
+            <div className="flex justify-between items-center border-b border-white/10 pb-3 font-mono text-[9px] tracking-widest uppercase">
+              <span className="text-[#d8ff42] font-bold">GLOBAL EDGE FOOTPRINT</span>
+              <span className="text-zinc-400">24 EDGE POPS</span>
+            </div>
 
-          {/* Footer readout */}
-          <div className="flex justify-between items-center w-full font-mono text-[8px] text-white/50 border-t border-white/10 pt-3">
-            <span>COORDS: 28.6139° N, 77.2090° E</span>
-            <span>STATUS: READY // ACTIVE</span>
+            <div className="w-full flex items-center justify-center h-[200px] overflow-hidden">
+              <RotatingEarth width={280} height={200} className="w-full h-full flex items-center justify-center bg-transparent" />
+            </div>
+
+            <div className="border-t border-white/10 pt-3 flex flex-wrap justify-between items-center text-[8px] font-mono uppercase text-zinc-400 gap-2">
+              <span>SF · NYC · LONDON · TOKYO · NEW DELHI</span>
+              <span className="text-[#d8ff42] font-bold">&lt; 150MS TTFB WORLDWIDE</span>
+            </div>
           </div>
         </div>
 

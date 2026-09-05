@@ -8,7 +8,7 @@ import { MagneticButton } from "@/components/magnetic-button";
 
 export default function PhilosophyPage() {
   return (
-    <div className="w-full relative bg-[#faf9f5] text-[#0a0a0a] min-h-screen overflow-x-hidden pt-28 pb-20">
+    <div className="w-full relative bg-[#faf9f5] text-[#0a0a0a] min-h-screen overflow-x-hidden pt-28 pb-24">
       {/* Global paper-grain texture overlay */}
       <div className="noise-overlay" aria-hidden="true" />
 
@@ -26,21 +26,21 @@ export default function PhilosophyPage() {
               <span className="relative inline-flex rounded-full h-2 w-2 bg-[#ff1e90]" />
             </span>
             <span className="font-mono text-[9px] font-extrabold tracking-[0.3em] uppercase text-[#ff1e90] bg-[#ff1e90]/10 border border-[#ff1e90]/20 px-3 py-1 rounded-full">
-              Studio Philosophy // Architectural Manifesto
+              Studio Philosophy // Brand As Defensible Equity
             </span>
           </div>
 
           <h1 className="font-display font-black text-5xl sm:text-7xl md:text-8xl uppercase tracking-tighter text-[#0a0a0a] leading-[0.88] select-none">
-            We refuse bloat.
+            We refuse commodity.
             <br />
             We compile{" "}
             <span className="font-serif italic font-normal text-zinc-400 lowercase">
-              speed.
+              authority.
             </span>
           </h1>
 
           <p className="font-sans text-sm sm:text-base md:text-lg text-zinc-600 leading-relaxed max-w-2xl pt-2">
-            Elegance is the deliberate refusal of unnecessary clutter. We eliminate bloated templates, discard heavy generic frameworks, and engineer custom, sub-second digital systems built on clean TypeScript, Next.js, and bespoke WebGL shaders.
+            Your website is not digital decoration—it is your highest-leverage sales executive and the definitive benchmark of your company&apos;s ambition. In an internet flooded with generic AI templates, bespoke architectural distinction is the ultimate competitive advantage.
           </p>
 
           {/* Quick Pillars Chips */}
@@ -52,7 +52,7 @@ export default function PhilosophyPage() {
               <span className="text-[#ff1e90]">⚡</span> &lt; 150ms Global TTFB
             </div>
             <div className="flex items-center gap-2 px-4 py-2 rounded-xl border-2 border-black bg-[#0a0a0a] text-white shadow-[3px_3px_0px_#000] font-mono text-[10px] font-extrabold uppercase">
-              <span>●</span> Zero Vendor Lock-in
+              <span>●</span> Category Differentiation
             </div>
           </div>
 
@@ -63,7 +63,7 @@ export default function PhilosophyPage() {
                 href="/contact"
                 className="bg-[#d8ff42] text-black font-sans font-black text-xs tracking-widest uppercase px-8 py-4 border-2 border-black rounded-xl shadow-[4px_4px_0px_#000000] hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#ff1e90] active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer inline-flex items-center gap-2 interactive"
               >
-                Initiate Project ⚡
+                Initiate Consultation ⚡
               </Link>
             </MagneticButton>
             <MagneticButton>
@@ -85,9 +85,9 @@ export default function PhilosophyPage() {
             Our Core Manifesto
           </span>
           <h2 className="font-display font-black tracking-tight text-[#0a0a0a] leading-tight text-4xl sm:text-5xl md:text-6xl uppercase">
-            Pillars of{" "}
+            Four axioms of{" "}
             <span className="font-serif italic font-normal text-zinc-400 lowercase">
-              excellence
+              brand building
             </span>
             .
           </h2>
@@ -115,10 +115,10 @@ export default function PhilosophyPage() {
               </div>
               <div className="mt-8">
                 <h3 className="font-display font-black uppercase text-2xl md:text-3xl text-black mb-3 leading-none tracking-tight">
-                  Refusal &amp;<br />Minimalism
+                  Distinctiveness<br />Over Templates
                 </h3>
                 <p className="text-black/75 text-xs leading-relaxed font-sans">
-                  We reject bloated plug-ins, pre-fabricated template setups, and third-party script bloat. Symmetrical, custom-crafted software architecture is our baseline standard.
+                  If your website is assembled from the same popular UI kit as 10,000 other companies, your product is judged as average. Custom shaders and bespoke layouts give you instant category leadership.
                 </p>
               </div>
               <div className="w-full h-[2px] bg-black/10 mt-6" />
@@ -142,17 +142,17 @@ export default function PhilosophyPage() {
               </div>
               <div className="mt-8">
                 <h3 className="font-display font-black uppercase text-2xl md:text-3xl text-white mb-3 leading-none tracking-tight">
-                  Sub-Second<br />Performance
+                  Performance is<br />Brand Respect
                 </h3>
                 <p className="text-white/50 text-xs leading-relaxed font-sans">
-                  Page load speeds are not a vanity metric — they are a core commercial driver. Edge-rendered platforms, minimal bundle weights, and 95+ Lighthouse scores are built from day one.
+                  Every 500ms of lag communicates carelessness. Sub-150ms page loads subconsciously tell your customer that your engineering is world-class, driving conversion rates up to 4.2× higher.
                 </p>
               </div>
               <div className="w-full h-px bg-white/10 mt-6" />
             </SpotlightCard>
           </div>
 
-          {/* Card 3 - Ownership (Brand Unified: Off-Brand Blue Removed!) */}
+          {/* Card 3 - Ownership */}
           <div className="group cursor-pointer">
             <SpotlightCard
               glowColor="rgba(216, 255, 66, 0.08)"
@@ -169,10 +169,10 @@ export default function PhilosophyPage() {
               </div>
               <div className="mt-8">
                 <h3 className="font-display font-black uppercase text-2xl md:text-3xl text-black mb-3 leading-none tracking-tight">
-                  Total Codebase<br />Ownership
+                  Total Digital<br />Sovereignty
                 </h3>
                 <p className="text-black/70 text-xs leading-relaxed font-sans">
-                  We transfer 100% of the repository and deployment infrastructure to you upon launch. Zero ongoing platform tax, zero proprietary lock-in, complete digital sovereignty.
+                  We transfer 100% of the repository, design tokens, and deployment infrastructure directly to you upon launch. Zero monthly agency ransom, zero vendor lock-in, complete commercial control.
                 </p>
               </div>
               <div className="w-full h-px bg-black/10 mt-6" />
@@ -207,11 +207,11 @@ export default function PhilosophyPage() {
             <ul className="space-y-4 font-sans text-xs sm:text-sm text-zinc-600">
               <li className="flex items-start gap-3">
                 <span className="text-red-400 font-bold shrink-0">✕</span>
-                <span>Template customization with 40+ third-party WordPress plugins and security liabilities.</span>
+                <span>Template customization with 40+ third-party WordPress plugins and recurring security liabilities.</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-red-400 font-bold shrink-0">✕</span>
-                <span>4MB+ page bundles leading to sluggish 3.5s+ mobile load times and poor Core Web Vitals.</span>
+                <span>4MB+ page bundles leading to sluggish 3.5s+ mobile load times and heavy Core Web Vitals penalties.</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-red-400 font-bold shrink-0">✕</span>
