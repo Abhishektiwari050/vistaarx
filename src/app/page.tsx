@@ -4,6 +4,7 @@ import React from "react";
 import { VistarHero } from "@/components/vistar-hero";
 import { ProblemSection } from "@/components/home/problem-section";
 import { BeforeAfterSection } from "@/components/home/before-after-section";
+import { SvgEventFlowVisualizer } from "@/components/home/svg-event-flow-visualizer";
 import { ArchitectureLayersSection } from "@/components/home/architecture-layers-section";
 import { KineticTicker } from "@/components/home/kinetic-ticker";
 import { CapabilitiesSection } from "@/components/home/capabilities-section";
@@ -27,6 +28,9 @@ export default function Home() {
 
       {/* 03 — THE SYSTEM: BEFORE → AFTER INTERACTIVE TRANSFORMATION */}
       <BeforeAfterSection />
+
+      {/* 03.5 — SVG VECTORIZED ARCHITECTURE TRACE: WHAT HAPPENS WHEN */}
+      <SvgEventFlowVisualizer />
 
       {/* 04 — WHAT WE ACTUALLY ENGINEER: 7-LAYER SYSTEMS ARCHITECTURE */}
       <ArchitectureLayersSection />

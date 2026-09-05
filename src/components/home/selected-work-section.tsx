@@ -5,16 +5,37 @@ import Image from "next/image";
 import Link from "next/link";
 import { SpotlightCard } from "@/components/spotlight-card";
 import { playTickSound } from "@/lib/hooks/use-audio-feedback";
+import { ProjectSimulator } from "./project-simulators";
 
-const FEATURED_PROJECTS = [
+export interface ShippedProject {
+  id: string;
+  category: "AI & Telemetry" | "High-Performance Web" | "Mobile & Logistics";
+  title: string;
+  domain: string;
+  status: string;
+  image: string;
+  liveUrl?: string;
+  githubUrl: string;
+  metric: string;
+  metricLabel: string;
+  problem: string;
+  system: string;
+  build: string[];
+  result: string;
+}
+
+const ALL_SHIPPED_PROJECTS: ShippedProject[] = [
   {
     id: "01",
+    category: "AI & Telemetry",
     title: "Project VAYU // Aviation Intelligence",
     domain: "Aviation Safety & Flight Dispatch",
     status: "PRODUCTION DEPLOYED",
     image: "/projects/vayu-briefing.png",
     liveUrl: "https://ai-vayu.vercel.app",
     githubUrl: "https://github.com/Abhishektiwari050/AI-VAYU",
+    metric: "<45ms Parsing",
+    metricLabel: "Real-Time Hazard Decoding",
     problem: "Pilots and dispatchers sift through hundreds of cryptic uppercase NOTAM text strings, risking safety-critical airspace oversights.",
     system: "AI-driven NOTAM parser, NLP hazard threat classification, interactive GIS airspace HUD, and instant executive pre-flight briefing reports.",
     build: ["Next.js 15", "TypeScript", "GIS Leaflet HUD", "NLP AI", "Tailwind CSS"],
@@ -22,12 +43,15 @@ const FEATURED_PROJECTS = [
   },
   {
     id: "02",
+    category: "AI & Telemetry",
     title: "AURA // Multi-Agent Telemetry Engine",
     domain: "Healthcare Telemetry & Critical Monitoring",
     status: "PRODUCTION DEPLOYED",
     image: "/projects/aura-results.png",
     liveUrl: "https://multi-agent-anomaly-system.onrender.com",
     githubUrl: "https://github.com/Abhishektiwari050/multi-agent-anomaly-system",
+    metric: "<15ms Stream",
+    metricLabel: "Multi-Agent Anomaly Isolation",
     problem: "Clinical vital signs monitoring suffers from telemetry alert fatigue, high false positives, and coupled architectures that choke under burst loads.",
     system: "Decoupled multi-agent stream architecture over a distributed message broker with unsupervised Isolation Forest ML models.",
     build: ["Python 3.11+", "Multi-Agent System", "Isolation Forest ML", "Telemetry Stream", "Render"],
@@ -35,36 +59,108 @@ const FEATURED_PROJECTS = [
   },
   {
     id: "03",
+    category: "Mobile & Logistics",
+    title: "Atify // Audiophile Android Music Engine",
+    domain: "Open Source Audio Engineering",
+    status: "PRODUCTION DEPLOYED",
+    image: "/projects/atify-preview.jpg",
+    githubUrl: "https://github.com/Abhishektiwari050/Atify",
+    metric: "Bit-Perfect FLAC",
+    metricLabel: "Lossless Audio Decoding",
+    problem: "Mainstream streaming apps lock users into lossy compression, lack Android Auto parity, and offer zero cross-platform library synchronization.",
+    system: "Modern MVVM native Android music engine with Jetpack Compose, featuring lossless Bit-Perfect FLAC playback and full Spotify account sync.",
+    build: ["Kotlin", "Jetpack Compose", "Android Auto", "Spotify SDK", "MVVM"],
+    result: "Bit-perfect 24-bit audio playback, bi-directional playlist sync, 120Hz native UI rendering.",
+  },
+  {
+    id: "04",
+    category: "High-Performance Web",
     title: "3axis Arc // Architectural Real Estate",
     domain: "PropTech & Luxury Architecture",
     status: "PRODUCTION DEPLOYED",
     image: "/projects/3axisarc.png",
     liveUrl: "https://3axisarc.vercel.app",
     githubUrl: "https://github.com/Abhishektiwari050/3axisarc",
+    metric: "60 FPS 3D",
+    metricLabel: "Mouse-Tracking Parallax Shifts",
     problem: "High-end luxury architectural projects fail to convert discerning investors when showcased on generic real estate listing templates.",
     system: "Interactive 3D parallax with mouse-tracking perspective shifts, structural typography, clip-path hover transitions, and instant inquiry flows.",
     build: ["Next.js", "TypeScript", "3D Parallax", "Tailwind CSS", "Vercel"],
     result: "60 FPS fluid rendering, +180% average session duration, 99/100 Lighthouse performance.",
   },
   {
-    id: "04",
+    id: "05",
+    category: "High-Performance Web",
     title: "Competence CRM // Enterprise Operations",
     domain: "B2B Consulting & Pipeline Operations",
     status: "PRODUCTION DEPLOYED",
     image: "/projects/competence-crm.png",
     liveUrl: "https://competenceconsultingcrm.onrender.com",
     githubUrl: "https://github.com/Abhishektiwari050/CRM",
+    metric: "+45% Velocity",
+    metricLabel: "Automated Deal Flow & Status Tracking",
     problem: "Consulting operations were stalled by fragmented spreadsheets, untracked client deliverables, and manual status reporting.",
     system: "Unified customer relationship and project management platform with Python backend, real-time client status automation, and activity telemetry.",
     build: ["Python", "FastAPI / Django", "Reactive UI", "PostgreSQL", "Render"],
     result: "100% automated deal flow tracking, +45% team delivery velocity, zero lost deliverables.",
   },
+  {
+    id: "06",
+    category: "High-Performance Web",
+    title: "Vayuways // Aviation & Charter Services",
+    domain: "Charter Travel & Fleet Logistics",
+    status: "PRODUCTION DEPLOYED",
+    image: "/projects/vayuways.png",
+    liveUrl: "https://vayuways.vercel.app",
+    githubUrl: "https://github.com/Abhishektiwari050/vayuways",
+    metric: "95ms TTFB",
+    metricLabel: "Sub-100ms Global Edge Response",
+    problem: "Private aviation clients require rapid charter route discovery and high-trust booking interfaces that typical generic booking plugins couldn't deliver.",
+    system: "High-speed Next.js aviation services platform with modern flight inquiry dispatch, responsive fleet showcases, and edge server rendering.",
+    build: ["Next.js", "TypeScript", "Tailwind CSS", "Vercel", "Aviation Fleet"],
+    result: "95ms global TTFB, +94% booking inquiry velocity, -38% mobile bounce rate.",
+  },
+  {
+    id: "07",
+    category: "Mobile & Logistics",
+    title: "JBS Cargo // Freight Dispatch Platform",
+    domain: "Freight & Heavy Transport Logistics",
+    status: "PRODUCTION DEPLOYED",
+    image: "/projects/jbs-cargo.png",
+    liveUrl: "https://jbs-cargo.vercel.app",
+    githubUrl: "https://github.com/Abhishektiwari050/jbs-cargo",
+    metric: "<5 min Quotes",
+    metricLabel: "Automated Freight Workflows",
+    problem: "Cargo dispatch inquiries were delayed by legacy manual intake phone calls, resulting in lost freight contracts to regional transport competitors.",
+    system: "Automated cargo inquiry and freight platform with instant quote dispatch, consignment tracking workflows, and cross-device responsive UI.",
+    build: ["Next.js", "TypeScript", "Tailwind CSS", "Logistics Automation", "Vercel"],
+    result: "<5 minute quote dispatch turnaround, +62% mobile conversion lift, 99.99% system uptime.",
+  },
+  {
+    id: "08",
+    category: "Mobile & Logistics",
+    title: "KL Herbal // Ayurvedic E-Commerce",
+    domain: "Ayurvedic & Herbal E-Commerce",
+    status: "PRODUCTION DEPLOYED",
+    image: "/projects/klherbal.png",
+    liveUrl: "https://klherbal.vercel.app",
+    githubUrl: "https://github.com/Abhishektiwari050/KL-HERBAL",
+    metric: "0.000 CLS",
+    metricLabel: "Zero-Shift Storefront",
+    problem: "Mobile shoppers experienced high drop-offs due to slow product catalog filtering, clunky image layouts, and complex checkout friction.",
+    system: "Responsive, zero-layout-shift Next.js storefront with rich herbal remedy catalog classification, high-speed image optimization, and one-tap checkout.",
+    build: ["Next.js", "TypeScript", "E-Commerce", "Tailwind CSS", "Vercel"],
+    result: "0.000 CLS, <0.8s catalog load speed, +52% mobile checkout completion rate.",
+  },
 ];
 
-import { ProjectSimulator } from "./project-simulators";
+type CategoryFilter = "ALL" | "AI & Telemetry" | "High-Performance Web" | "Mobile & Logistics";
 
 export function SelectedWorkSection() {
-  // State for toggling individual project view modes: "UI" vs "BLUEPRINT"
+  const [activeCategory, setActiveCategory] = useState<CategoryFilter>("ALL");
+  const [viewFormat, setViewFormat] = useState<"WALL_OF_FAME" | "TELEMETRY_HUD">("WALL_OF_FAME");
+
+  // State for toggling individual project view modes in Telemetry HUD mode: "UI" vs "BLUEPRINT"
   const [activeModes, setActiveModes] = useState<Record<string, "UI" | "BLUEPRINT">>({
     "01": "UI",
     "02": "UI",
@@ -77,6 +173,11 @@ export function SelectedWorkSection() {
     setActiveModes((prev) => ({ ...prev, [id]: mode }));
   };
 
+  const filteredProjects = ALL_SHIPPED_PROJECTS.filter((p) => {
+    if (activeCategory === "ALL") return true;
+    return p.category === activeCategory;
+  });
+
   return (
     <section id="work" className="py-24 px-6 sm:px-12 md:px-16 bg-white border-t-2 border-black relative overflow-hidden">
       <div className="max-w-6xl mx-auto space-y-16 relative z-10">
@@ -86,192 +187,360 @@ export function SelectedWorkSection() {
           <div className="space-y-4 max-w-2xl">
             <div className="inline-flex items-center gap-2 border-2 border-black bg-[#faf9f5] px-3.5 py-1.5 rounded-lg text-[9px] font-mono font-black tracking-[2px] uppercase text-black shadow-[2px_2px_0px_#ff1e90]">
               <span className="w-2 h-2 rounded-full bg-[#ff1e90] inline-block" />
-              06 // SELECTED WORK &amp; CASE STUDIES
+              06 // VISTAR WALL OF FAME
             </div>
 
             <h2 className="font-display font-black text-4xl sm:text-5xl md:text-6xl uppercase tracking-tighter text-[#0a0a0a] leading-[0.95]">
-              Real systems. <br />
+              Shipped systems. <br />
               <span className="font-serif italic font-normal text-zinc-400 lowercase">
-                editorial stories of impact.
+                a wall of verified engineering impact.
               </span>
             </h2>
 
             <p className="font-sans text-sm sm:text-base text-zinc-600 leading-relaxed">
-              Every project is an editorial breakdown: The Problem → The System → The Build → The Result. Toggle between Live Interface and Architecture Telemetry HUD to inspect internal pipelines.
+              Every system here is production deployed with public source code, verified zero-downtime architecture, and real commercial deliverables.
             </p>
           </div>
 
-          <Link
-            href="/work"
-            onClick={() => playTickSound()}
-            className="shrink-0 bg-[#d8ff42] text-black font-mono font-black text-xs uppercase tracking-widest px-6 py-4 rounded-xl border-2 border-black shadow-[4px_4px_0px_#000] hover:bg-black hover:text-[#d8ff42] transition-colors"
-          >
-            All 8 Shipped Projects →
-          </Link>
+          {/* View Format Switcher */}
+          <div className="flex items-center gap-2 bg-[#faf9f5] p-1.5 rounded-2xl border-2 border-black shadow-[3px_3px_0px_#000] shrink-0">
+            <button
+              onClick={() => {
+                playTickSound();
+                setViewFormat("WALL_OF_FAME");
+              }}
+              className={`font-mono text-[9px] font-black uppercase px-3 py-2 rounded-xl transition-all cursor-pointer ${
+                viewFormat === "WALL_OF_FAME"
+                  ? "bg-black text-[#d8ff42] shadow-[2px_2px_0px_#000]"
+                  : "text-zinc-600 hover:text-black"
+              }`}
+            >
+              🏆 WALL OF FAME (8)
+            </button>
+            <button
+              onClick={() => {
+                playTickSound();
+                setViewFormat("TELEMETRY_HUD");
+              }}
+              className={`font-mono text-[9px] font-black uppercase px-3 py-2 rounded-xl transition-all cursor-pointer ${
+                viewFormat === "TELEMETRY_HUD"
+                  ? "bg-black text-[#d8ff42] shadow-[2px_2px_0px_#000]"
+                  : "text-zinc-600 hover:text-black"
+              }`}
+            >
+              ⚡ TELEMETRY LAB
+            </button>
+          </div>
         </div>
 
-        {/* 4 Deep Editorial Case Studies */}
-        <div className="space-y-14">
-          {FEATURED_PROJECTS.map((project) => {
-            const currentMode = activeModes[project.id] || "UI";
+        {/* Category Filters Bar */}
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div className="flex flex-wrap items-center gap-2">
+            {(
+              [
+                { label: "ALL 8 SYSTEMS", value: "ALL", count: "08" },
+                { label: "AI & TELEMETRY", value: "AI & Telemetry", count: "02" },
+                { label: "HIGH-PERFORMANCE WEB", value: "High-Performance Web", count: "03" },
+                { label: "MOBILE & LOGISTICS", value: "Mobile & Logistics", count: "03" },
+              ] as const
+            ).map((cat) => (
+              <button
+                key={cat.value}
+                onClick={() => {
+                  playTickSound();
+                  setActiveCategory(cat.value);
+                }}
+                className={`px-3.5 py-1.5 rounded-xl font-mono text-[9px] font-black uppercase border-2 transition-all cursor-pointer flex items-center gap-2 ${
+                  activeCategory === cat.value
+                    ? "bg-black text-[#d8ff42] border-black shadow-[2px_2px_0px_#ff1e90]"
+                    : "bg-[#faf9f5] text-zinc-600 border-black/10 hover:border-black hover:bg-white"
+                }`}
+              >
+                <span>{cat.label}</span>
+                <span
+                  className={`text-[8px] px-1.5 py-0.2 rounded ${
+                    activeCategory === cat.value ? "bg-[#d8ff42] text-black" : "bg-black/5 text-zinc-500"
+                  }`}
+                >
+                  {cat.count}
+                </span>
+              </button>
+            ))}
+          </div>
 
-            return (
+          <span className="font-mono text-[9px] text-zinc-400 uppercase tracking-wider">
+            FILTERED: {filteredProjects.length} OF 8 SHIPPED SYSTEMS
+          </span>
+        </div>
+
+        {/* VIEW 01: WALL OF FAME GRID */}
+        {viewFormat === "WALL_OF_FAME" && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+            {filteredProjects.map((project) => (
               <SpotlightCard
                 key={project.id}
-                className="bg-[#faf9f5] border-[2.5px] border-black rounded-3xl p-6 sm:p-10 shadow-[6px_6px_0px_#000] hover:shadow-[10px_10px_0px_#d8ff42] transition-all duration-300 space-y-8"
+                className="bg-[#faf9f5] border-[2.5px] border-black rounded-3xl p-6 sm:p-7 shadow-[6px_6px_0px_#000] hover:shadow-[10px_10px_0px_#d8ff42] transition-all duration-300 flex flex-col justify-between space-y-6 group"
               >
-                {/* Project Header Bar */}
-                <div className="flex flex-wrap items-center justify-between gap-4 border-b-2 border-black/10 pb-4">
-                  <div className="flex items-center gap-3">
-                    <span className="font-mono text-[10px] font-black px-2.5 py-1 rounded bg-black text-[#d8ff42]">
-                      PROJECT {project.id}
-                    </span>
-                    <span className="font-mono text-xs font-bold text-zinc-500 uppercase">
-                      {project.domain}
-                    </span>
-                  </div>
-
-                  {/* Mode Switcher & Status */}
-                  <div className="flex items-center gap-2.5">
-                    <div className="flex items-center gap-1 bg-white p-1 rounded-xl border-2 border-black shadow-[2px_2px_0px_#000]">
-                      <button
-                        onClick={() => toggleMode(project.id, "UI")}
-                        className={`font-mono text-[9px] font-black uppercase px-2.5 py-1 rounded-lg transition-all cursor-pointer ${
-                          currentMode === "UI"
-                            ? "bg-black text-[#d8ff42]"
-                            : "text-zinc-600 hover:text-black"
-                        }`}
-                      >
-                        🖼️ INTERFACE
-                      </button>
-                      <button
-                        onClick={() => toggleMode(project.id, "BLUEPRINT")}
-                        className={`font-mono text-[9px] font-black uppercase px-2.5 py-1 rounded-lg transition-all cursor-pointer ${
-                          currentMode === "BLUEPRINT"
-                            ? "bg-[#ff1e90] text-white"
-                            : "text-zinc-600 hover:text-black"
-                        }`}
-                      >
-                        ⚡ TELEMETRY HUD
-                      </button>
+                {/* Card Header Bar */}
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between border-b-2 border-black/10 pb-3">
+                    <div className="flex items-center gap-2.5">
+                      <span className="font-mono text-[9px] font-black px-2 py-0.5 rounded bg-black text-[#d8ff42]">
+                        #{project.id}
+                      </span>
+                      <span className="font-mono text-[9px] font-bold text-zinc-500 uppercase">
+                        {project.domain}
+                      </span>
                     </div>
 
-                    <span className="font-mono text-[9px] font-bold px-2 py-1 rounded bg-emerald-100 text-emerald-800 border border-emerald-300 uppercase shrink-0">
+                    <span className="font-mono text-[8px] font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-300 uppercase">
                       ● {project.status}
                     </span>
                   </div>
-                </div>
 
-                {/* Title & Preview Grid */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                  
-                  {/* Visual Preview / Telemetry Stage (7 Columns) */}
-                  <div className="lg:col-span-7 space-y-4">
-                    {currentMode === "UI" ? (
-                      <div className="relative w-full h-64 sm:h-80 md:h-96 rounded-2xl overflow-hidden border-2 border-black bg-zinc-950 group/img shadow-[4px_4px_0px_#000]">
-                        <Image
-                          src={project.image}
-                          alt={project.title}
-                          fill
-                          className="object-cover object-top group-hover/img:scale-105 transition-transform duration-500"
-                          sizes="(max-width: 1024px) 100vw, 60vw"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-70" />
-                        
-                        {/* Floating Action Links */}
-                        <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between gap-3 z-10">
-                          {project.liveUrl && (
-                            <a
-                              href={project.liveUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="bg-[#d8ff42] text-black font-mono font-black text-[10px] uppercase tracking-wider px-3.5 py-2 rounded-lg border-2 border-black shadow-[2px_2px_0px_#000] hover:bg-white transition-colors"
-                            >
-                              Visit Live Platform ↗
-                            </a>
-                          )}
-                          <a
-                            href={project.githubUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="bg-black/90 text-white font-mono font-bold text-[10px] uppercase tracking-wider px-3.5 py-2 rounded-lg border border-white/20 hover:bg-white hover:text-black transition-colors ml-auto"
-                          >
-                            Inspect GitHub Source ↗
-                          </a>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="space-y-3">
-                        <ProjectSimulator projectId={project.id} />
-                        <div className="flex items-center justify-between text-[9px] font-mono text-zinc-500 px-1">
-                          <span>INTERACTIVE TELEMETRY LAB</span>
-                          <button
-                            onClick={() => toggleMode(project.id, "UI")}
-                            className="text-[#ff1e90] font-black uppercase hover:underline"
-                          >
-                            Back to UI View ↗
-                          </button>
-                        </div>
-                      </div>
-                    )}
+                  {/* Thumbnail Preview */}
+                  <div className="relative w-full h-52 sm:h-60 rounded-2xl overflow-hidden border-2 border-black bg-zinc-950 group-hover:scale-[1.01] transition-transform duration-500 shadow-[3px_3px_0px_#000]">
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      className="object-cover object-top"
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-80" />
+
+                    {/* Metric Trophy Badge in corner */}
+                    <div className="absolute top-3 right-3 bg-black/90 border border-white/20 px-2.5 py-1 rounded-lg text-right font-mono backdrop-blur-md">
+                      <span className="text-[7px] text-zinc-400 uppercase block">{project.metricLabel}</span>
+                      <span className="text-xs font-black text-[#d8ff42]">{project.metric}</span>
+                    </div>
+
+                    {/* Floating Direct Links */}
+                    <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between gap-2 z-10">
+                      {project.liveUrl ? (
+                        <a
+                          href={project.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="bg-[#d8ff42] text-black font-mono font-black text-[9px] uppercase tracking-wider px-3 py-1.5 rounded-lg border-2 border-black shadow-[2px_2px_0px_#000] hover:bg-white transition-colors"
+                        >
+                          Live Platform ↗
+                        </a>
+                      ) : (
+                        <span className="font-mono text-[9px] font-bold text-zinc-400 bg-black/80 px-2.5 py-1 rounded border border-white/10">
+                          Native Android APK
+                        </span>
+                      )}
+
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-black/95 text-white font-mono font-bold text-[9px] uppercase tracking-wider px-3 py-1.5 rounded-lg border border-white/20 hover:bg-white hover:text-black transition-colors ml-auto"
+                      >
+                        GitHub Repo ↗
+                      </a>
+                    </div>
                   </div>
 
-                  {/* Editorial Breakdown: Problem -> System -> Build -> Result (5 Columns) */}
-                  <div className="lg:col-span-5 space-y-4">
-                    <h3 className="font-display font-black text-2xl sm:text-3xl uppercase tracking-tight text-black leading-tight">
+                  {/* Title & Core Description */}
+                  <div className="space-y-2 pt-1">
+                    <h3 className="font-display font-black text-xl sm:text-2xl uppercase tracking-tight text-black leading-tight">
                       {project.title}
                     </h3>
+                    <p className="font-sans text-xs text-zinc-600 leading-relaxed font-medium">
+                      {project.system}
+                    </p>
+                  </div>
+                </div>
 
-                    <div className="space-y-3 font-sans text-xs">
-                      {/* The Problem */}
-                      <div className="bg-white border border-black/10 p-3.5 rounded-xl space-y-1">
-                        <span className="font-mono text-[8px] font-black uppercase tracking-widest text-[#ff1e90] block">
-                          THE PROBLEM
-                        </span>
-                        <p className="text-zinc-600 leading-relaxed font-medium">
-                          {project.problem}
-                        </p>
-                      </div>
+                {/* Tech Chips & Result */}
+                <div className="space-y-3 pt-3 border-t border-black/10">
+                  <div className="flex flex-wrap gap-1.5">
+                    {project.build.map((t) => (
+                      <span
+                        key={t}
+                        className="font-mono text-[8px] font-bold uppercase px-2 py-0.5 rounded bg-black/5 border border-black/10 text-zinc-700"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
 
-                      {/* The System */}
-                      <div className="bg-white border border-black/10 p-3.5 rounded-xl space-y-1">
-                        <span className="font-mono text-[8px] font-black uppercase tracking-widest text-black block">
-                          THE SYSTEM ARCHITECTURE
-                        </span>
-                        <p className="text-zinc-700 leading-relaxed font-medium">
-                          {project.system}
-                        </p>
-                      </div>
+                  <div className="bg-[#d8ff42]/20 border-2 border-black p-2.5 rounded-xl text-[9px] font-mono flex items-center justify-between shadow-[2px_2px_0px_#000]">
+                    <span className="font-bold text-black uppercase">RESULT:</span>
+                    <span className="text-zinc-800 font-bold truncate max-w-[280px] sm:max-w-xs">{project.result}</span>
+                  </div>
+                </div>
+              </SpotlightCard>
+            ))}
+          </div>
+        )}
 
-                      {/* The Result */}
-                      <div className="bg-[#d8ff42]/20 border-2 border-black p-3.5 rounded-xl space-y-1 shadow-[2px_2px_0px_#000]">
-                        <span className="font-mono text-[8px] font-black uppercase tracking-widest text-black block">
-                          VERIFIED BUSINESS RESULT
-                        </span>
-                        <p className="text-black font-bold leading-relaxed">
-                          {project.result}
-                        </p>
-                      </div>
+        {/* VIEW 02: TELEMETRY LAB & DEEP EDITORIAL HUD */}
+        {viewFormat === "TELEMETRY_HUD" && (
+          <div className="space-y-14">
+            {ALL_SHIPPED_PROJECTS.slice(0, 4).map((project) => {
+              const currentMode = activeModes[project.id] || "UI";
+
+              return (
+                <SpotlightCard
+                  key={project.id}
+                  className="bg-[#faf9f5] border-[2.5px] border-black rounded-3xl p-6 sm:p-10 shadow-[6px_6px_0px_#000] hover:shadow-[10px_10px_0px_#d8ff42] transition-all duration-300 space-y-8"
+                >
+                  {/* Project Header Bar */}
+                  <div className="flex flex-wrap items-center justify-between gap-4 border-b-2 border-black/10 pb-4">
+                    <div className="flex items-center gap-3">
+                      <span className="font-mono text-[10px] font-black px-2.5 py-1 rounded bg-black text-[#d8ff42]">
+                        PROJECT {project.id}
+                      </span>
+                      <span className="font-mono text-xs font-bold text-zinc-500 uppercase">
+                        {project.domain}
+                      </span>
                     </div>
 
-                    {/* Tech Stack Chips */}
-                    <div className="pt-2 flex flex-wrap gap-1.5">
-                      {project.build.map((t) => (
-                        <span
-                          key={t}
-                          className="font-mono text-[8px] font-bold uppercase px-2 py-0.5 rounded bg-black/5 border border-black/10 text-zinc-700"
+                    {/* Mode Switcher & Status */}
+                    <div className="flex items-center gap-2.5">
+                      <div className="flex items-center gap-1 bg-white p-1 rounded-xl border-2 border-black shadow-[2px_2px_0px_#000]">
+                        <button
+                          onClick={() => toggleMode(project.id, "UI")}
+                          className={`font-mono text-[9px] font-black uppercase px-2.5 py-1 rounded-lg transition-all cursor-pointer ${
+                            currentMode === "UI"
+                              ? "bg-black text-[#d8ff42]"
+                              : "text-zinc-600 hover:text-black"
+                          }`}
                         >
-                          {t}
-                        </span>
-                      ))}
+                          🖼️ INTERFACE
+                        </button>
+                        <button
+                          onClick={() => toggleMode(project.id, "BLUEPRINT")}
+                          className={`font-mono text-[9px] font-black uppercase px-2.5 py-1 rounded-lg transition-all cursor-pointer ${
+                            currentMode === "BLUEPRINT"
+                              ? "bg-[#ff1e90] text-white"
+                              : "text-zinc-600 hover:text-black"
+                          }`}
+                        >
+                          ⚡ TELEMETRY HUD
+                        </button>
+                      </div>
+
+                      <span className="font-mono text-[9px] font-bold px-2 py-1 rounded bg-emerald-100 text-emerald-800 border border-emerald-300 uppercase shrink-0">
+                        ● {project.status}
+                      </span>
                     </div>
                   </div>
 
-                </div>
-              </SpotlightCard>
-            );
-          })}
-        </div>
+                  {/* Title & Preview Grid */}
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    
+                    {/* Visual Preview / Telemetry Stage (7 Columns) */}
+                    <div className="lg:col-span-7 space-y-4">
+                      {currentMode === "UI" ? (
+                        <div className="relative w-full h-64 sm:h-80 md:h-96 rounded-2xl overflow-hidden border-2 border-black bg-zinc-950 group/img shadow-[4px_4px_0px_#000]">
+                          <Image
+                            src={project.image}
+                            alt={project.title}
+                            fill
+                            className="object-cover object-top group-hover/img:scale-105 transition-transform duration-500"
+                            sizes="(max-width: 1024px) 100vw, 60vw"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-70" />
+                          
+                          {/* Floating Action Links */}
+                          <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between gap-3 z-10">
+                            {project.liveUrl && (
+                              <a
+                                href={project.liveUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="bg-[#d8ff42] text-black font-mono font-black text-[10px] uppercase tracking-wider px-3.5 py-2 rounded-lg border-2 border-black shadow-[2px_2px_0px_#000] hover:bg-white transition-colors"
+                              >
+                                Visit Live Platform ↗
+                              </a>
+                            )}
+                            <a
+                              href={project.githubUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="bg-black/90 text-white font-mono font-bold text-[10px] uppercase tracking-wider px-3.5 py-2 rounded-lg border border-white/20 hover:bg-white hover:text-black transition-colors ml-auto"
+                            >
+                              Inspect GitHub Source ↗
+                            </a>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="space-y-3">
+                          <ProjectSimulator projectId={project.id} />
+                          <div className="flex items-center justify-between text-[9px] font-mono text-zinc-500 px-1">
+                            <span>INTERACTIVE TELEMETRY LAB</span>
+                            <button
+                              onClick={() => toggleMode(project.id, "UI")}
+                              className="text-[#ff1e90] font-black uppercase hover:underline"
+                            >
+                              Back to UI View ↗
+                            </button>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Editorial Breakdown: Problem -> System -> Build -> Result (5 Columns) */}
+                    <div className="lg:col-span-5 space-y-4">
+                      <h3 className="font-display font-black text-2xl sm:text-3xl uppercase tracking-tight text-black leading-tight">
+                        {project.title}
+                      </h3>
+
+                      <div className="space-y-3 font-sans text-xs">
+                        {/* The Problem */}
+                        <div className="bg-white border border-black/10 p-3.5 rounded-xl space-y-1">
+                          <span className="font-mono text-[8px] font-black uppercase tracking-widest text-[#ff1e90] block">
+                            THE PROBLEM
+                          </span>
+                          <p className="text-zinc-600 leading-relaxed font-medium">
+                            {project.problem}
+                          </p>
+                        </div>
+
+                        {/* The System */}
+                        <div className="bg-white border border-black/10 p-3.5 rounded-xl space-y-1">
+                          <span className="font-mono text-[8px] font-black uppercase tracking-widest text-black block">
+                            THE SYSTEM ARCHITECTURE
+                          </span>
+                          <p className="text-zinc-700 leading-relaxed font-medium">
+                            {project.system}
+                          </p>
+                        </div>
+
+                        {/* The Result */}
+                        <div className="bg-[#d8ff42]/20 border-2 border-black p-3.5 rounded-xl space-y-1 shadow-[2px_2px_0px_#000]">
+                          <span className="font-mono text-[8px] font-black uppercase tracking-widest text-black block">
+                            VERIFIED BUSINESS RESULT
+                          </span>
+                          <p className="text-black font-bold leading-relaxed">
+                            {project.result}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Tech Stack Chips */}
+                      <div className="pt-2 flex flex-wrap gap-1.5">
+                        {project.build.map((t) => (
+                          <span
+                            key={t}
+                            className="font-mono text-[8px] font-bold uppercase px-2 py-0.5 rounded bg-black/5 border border-black/10 text-zinc-700"
+                          >
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                  </div>
+                </SpotlightCard>
+              );
+            })}
+          </div>
+        )}
 
       </div>
     </section>
