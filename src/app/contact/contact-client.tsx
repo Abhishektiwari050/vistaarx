@@ -310,7 +310,169 @@ export default function ContactPage() {
             </div>
           </div>
         </div>
+      </div>
 
+      {/* ── Section 2: Transparent Engagement Models ──────────────────────── */}
+      <div className="space-y-8 pt-12 border-t-2 border-black/10 relative z-10">
+        <div className="text-center max-w-2xl mx-auto space-y-2 select-none">
+          <span className="font-mono text-[9px] font-black tracking-widest uppercase text-[#d8ff42] bg-black px-3 py-1 rounded inline-block">
+            ENGAGEMENT MODELS // FIXED SCOPE &amp; RETAINERS
+          </span>
+          <h2 className="font-display text-3xl sm:text-4xl font-black uppercase tracking-tight text-black">
+            Transparent Collaboration Tiers
+          </h2>
+          <p className="font-sans text-xs sm:text-sm text-zinc-600">
+            No endless hourly billing surprises. Fixed timelines, clear milestones, and 100% full IP transfer on completion.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Tier 1 */}
+          <div className="bg-white border-[2.5px] border-black rounded-2xl p-6 shadow-[5px_5px_0px_#000] hover:shadow-[8px_8px_0px_#d8ff42] transition-all flex flex-col justify-between space-y-6">
+            <div className="space-y-4">
+              <div className="flex justify-between items-center border-b border-black/10 pb-3">
+                <span className="font-mono text-[9px] font-black uppercase text-zinc-500">TIER 01 // SPRINT</span>
+                <span className="font-mono text-[9px] font-bold bg-[#d8ff42] px-2 py-0.5 rounded border border-black text-black">2–4 WEEKS</span>
+              </div>
+              <h3 className="font-display font-black text-2xl uppercase tracking-tight text-black">
+                Rapid MVP Launch
+              </h3>
+              <p className="font-sans text-xs text-zinc-600 leading-relaxed">
+                For funded startups needing to ship a production-grade web product, AI agent workflow, or high-conversion flagship site fast.
+              </p>
+              <ul className="font-sans text-xs space-y-2 text-zinc-700 pt-2 border-t border-black/5">
+                <li className="flex items-center gap-2">✓ Production Next.js 15/16 or Python backend</li>
+                <li className="flex items-center gap-2">✓ Sub-100ms TTFB edge hosting setup</li>
+                <li className="flex items-center gap-2">✓ Core Web Vitals 95+ SLA guarantee</li>
+                <li className="flex items-center gap-2">✓ 100% full GitHub repository handover</li>
+              </ul>
+            </div>
+            <button
+              onClick={() => {
+                setFormState(prev => ({ ...prev, projectType: "Speed & Conversion Overhaul", budget: "$15k – $25k" }));
+                window.scrollTo({ top: 120, behavior: "smooth" });
+              }}
+              className="w-full py-3 bg-black text-[#d8ff42] font-display font-black text-[10px] tracking-widest uppercase rounded-lg border border-black hover:bg-[#d8ff42] hover:text-black transition-colors"
+            >
+              Select Sprint Tier &uarr;
+            </button>
+          </div>
+
+          {/* Tier 2 */}
+          <div className="bg-white border-[2.5px] border-black rounded-2xl p-6 shadow-[5px_5px_0px_#ff1e90] hover:shadow-[8px_8px_0px_#000] transition-all flex flex-col justify-between space-y-6 relative">
+            <span className="absolute -top-3 right-4 font-mono text-[8px] font-black uppercase px-2 py-0.5 rounded bg-[#ff1e90] text-white border border-black shadow-[1px_1px_0px_#000]">
+              MOST POPULAR
+            </span>
+            <div className="space-y-4">
+              <div className="flex justify-between items-center border-b border-black/10 pb-3">
+                <span className="font-mono text-[9px] font-black uppercase text-zinc-500">TIER 02 // PLATFORM</span>
+                <span className="font-mono text-[9px] font-bold bg-[#ff1e90] text-white px-2 py-0.5 rounded border border-black">4–8 WEEKS</span>
+              </div>
+              <h3 className="font-display font-black text-2xl uppercase tracking-tight text-black">
+                Custom Enterprise Build
+              </h3>
+              <p className="font-sans text-xs text-zinc-600 leading-relaxed">
+                Complete custom platform architecture with interactive WebGL 3D, autonomous AI microservices, and design tokens.
+              </p>
+              <ul className="font-sans text-xs space-y-2 text-zinc-700 pt-2 border-t border-black/5">
+                <li className="flex items-center gap-2">✓ Full-stack custom application architecture</li>
+                <li className="flex items-center gap-2">✓ Bespoke 3D WebGL / Three.js interfaces</li>
+                <li className="flex items-center gap-2">✓ AI multi-agent integration &amp; tool pipelines</li>
+                <li className="flex items-center gap-2">✓ Comprehensive testing suite &amp; documentation</li>
+              </ul>
+            </div>
+            <button
+              onClick={() => {
+                setFormState(prev => ({ ...prev, projectType: "Bespoke Flagship Website", budget: "$25k – $50k" }));
+                window.scrollTo({ top: 120, behavior: "smooth" });
+              }}
+              className="w-full py-3 bg-[#ff1e90] text-white font-display font-black text-[10px] tracking-widest uppercase rounded-lg border border-black hover:bg-black transition-colors"
+            >
+              Select Custom Build &uarr;
+            </button>
+          </div>
+
+          {/* Tier 3 */}
+          <div className="bg-white border-[2.5px] border-black rounded-2xl p-6 shadow-[5px_5px_0px_#000] hover:shadow-[8px_8px_0px_#d8ff42] transition-all flex flex-col justify-between space-y-6">
+            <div className="space-y-4">
+              <div className="flex justify-between items-center border-b border-black/10 pb-3">
+                <span className="font-mono text-[9px] font-black uppercase text-zinc-500">TIER 03 // PARTNERSHIP</span>
+                <span className="font-mono text-[9px] font-bold bg-zinc-100 text-black px-2 py-0.5 rounded border border-black">MONTHLY</span>
+              </div>
+              <h3 className="font-display font-black text-2xl uppercase tracking-tight text-black">
+                Dedicated Engineering Pod
+              </h3>
+              <p className="font-sans text-xs text-zinc-600 leading-relaxed">
+                Ongoing fractional tech leadership, continuous feature releases, infrastructure scaling, and performance monitoring.
+              </p>
+              <ul className="font-sans text-xs space-y-2 text-zinc-700 pt-2 border-t border-black/5">
+                <li className="flex items-center gap-2">✓ Dedicated senior engineering bandwidth</li>
+                <li className="flex items-center gap-2">✓ Priority SLA response within 4 hours</li>
+                <li className="flex items-center gap-2">✓ Weekly sprint planning &amp; deploy reviews</li>
+                <li className="flex items-center gap-2">✓ Direct Slack / Discord channel with founders</li>
+              </ul>
+            </div>
+            <button
+              onClick={() => {
+                setFormState(prev => ({ ...prev, projectType: "AI Workflow & Automation", budget: "$50k+" }));
+                window.scrollTo({ top: 120, behavior: "smooth" });
+              }}
+              className="w-full py-3 bg-black text-white font-display font-black text-[10px] tracking-widest uppercase rounded-lg border border-black hover:bg-[#d8ff42] hover:text-black transition-colors"
+            >
+              Inquire For Pod &uarr;
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Section 3: Client FAQ ─────────────────────────────────────────── */}
+      <div className="space-y-6 pt-8 border-t-2 border-black/10 relative z-10 select-none">
+        <div className="space-y-1">
+          <span className="font-mono text-[9px] font-black uppercase tracking-widest text-[#ff1e90]">
+            CLIENT ASSURANCE // COMMON INQUIRIES
+          </span>
+          <h2 className="font-display text-2xl sm:text-3xl font-black uppercase tracking-tight text-black">
+            Frequently Asked Questions
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="bg-white border-2 border-black rounded-xl p-5 shadow-[3px_3px_0px_#000] space-y-2">
+            <h3 className="font-display font-black text-sm uppercase text-black">
+              Who owns the code and intellectual property?
+            </h3>
+            <p className="font-sans text-xs text-zinc-600 leading-relaxed">
+              You own 100% of all source code, assets, and intellectual property. Everything is committed to your private GitHub repository and handed over unencumbered upon final milestone acceptance.
+            </p>
+          </div>
+
+          <div className="bg-white border-2 border-black rounded-xl p-5 shadow-[3px_3px_0px_#000] space-y-2">
+            <h3 className="font-display font-black text-sm uppercase text-black">
+              Do you sign non-disclosure agreements (NDAs)?
+            </h3>
+            <p className="font-sans text-xs text-zinc-600 leading-relaxed">
+              Yes. We execute mutual standard NDAs before any sensitive data, proprietary codebases, or confidential business parameters are exchanged.
+            </p>
+          </div>
+
+          <div className="bg-white border-2 border-black rounded-xl p-5 shadow-[3px_3px_0px_#000] space-y-2">
+            <h3 className="font-display font-black text-sm uppercase text-black">
+              How do project milestones and payments work?
+            </h3>
+            <p className="font-sans text-xs text-zinc-600 leading-relaxed">
+              Sprints typically operate on a 50% kick-off deposit and 50% balance due upon successful staging review, automated testing sign-off, and repository transfer.
+            </p>
+          </div>
+
+          <div className="bg-white border-2 border-black rounded-xl p-5 shadow-[3px_3px_0px_#000] space-y-2">
+            <h3 className="font-display font-black text-sm uppercase text-black">
+              What if we need post-launch support and hosting?
+            </h3>
+            <p className="font-sans text-xs text-zinc-600 leading-relaxed">
+              All deployments include 30 days of complimentary bug fixes and performance monitoring. We also provide ongoing fractional engineering retainers for continuous feature evolution.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );

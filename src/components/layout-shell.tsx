@@ -18,6 +18,9 @@ function Footer() {
   const links = [
     { href: "/", label: "Showcase" },
     { href: "/work", label: "Case Studies" },
+    { href: "/services/nextjs-engineering", label: "Next.js Engineering" },
+    { href: "/services/ai-solutions", label: "AI Agent Systems" },
+    { href: "/services/interactive-3d", label: "Creative WebGL 3D" },
     { href: "/vectors", label: "Technology" },
     { href: "/philosophy", label: "About Us" },
     { href: "/contact", label: "Contact HQ" },
