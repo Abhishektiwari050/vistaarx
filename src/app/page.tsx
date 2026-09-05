@@ -5,6 +5,7 @@ import { VistarHero } from "@/components/vistar-hero";
 import { ProblemSection } from "@/components/home/problem-section";
 import { BeforeAfterSection } from "@/components/home/before-after-section";
 import { ArchitectureLayersSection } from "@/components/home/architecture-layers-section";
+import { KineticTicker } from "@/components/home/kinetic-ticker";
 import { CapabilitiesSection } from "@/components/home/capabilities-section";
 import { SelectedWorkSection } from "@/components/home/selected-work-section";
 import { ProcessSection } from "@/components/home/process-section";
@@ -29,6 +30,9 @@ export default function Home() {
 
       {/* 04 — WHAT WE ACTUALLY ENGINEER: 7-LAYER SYSTEMS ARCHITECTURE */}
       <ArchitectureLayersSection />
+
+      {/* EDITORIAL PACING: KINETIC MANIFESTO TICKER */}
+      <KineticTicker />
 
       {/* 05 — CAPABILITIES: PROBLEM → APPROACH → TECH → OUTCOME */}
       <CapabilitiesSection />

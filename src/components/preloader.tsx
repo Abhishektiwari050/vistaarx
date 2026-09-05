@@ -23,13 +23,12 @@ export function Preloader() {
       setMounted(true);
     });
 
-    // Respect sessionStorage to only play the preloader on first session visit
+    // Respect sessionStorage or nopreload flag to skip preloader
     if (typeof window !== "undefined") {
       const alreadyLoaded = sessionStorage.getItem("vistar-preloaded");
-      if (alreadyLoaded === "true") {
-        Promise.resolve().then(() => {
-          setVisible(false);
-        });
+      const isBypassed = window.location.search.includes("nopreload") || (window as unknown as { __disablePreloader?: boolean }).__disablePreloader;
+      if (alreadyLoaded === "true" || isBypassed) {
+        setVisible(false);
         return;
       }
     }

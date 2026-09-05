@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { SplitText } from "@/components/split-text";
 import { SystemAssemblyVisual } from "@/components/system-assembly-visual";
+import { SystemCore3D } from "@/components/3d/system-core-3d";
 import { playTickSound } from "@/lib/hooks/use-audio-feedback";
 
 function LocalClock() {
@@ -35,6 +36,9 @@ export function VistarHero() {
       
       {/* Background System Grid Overlay */}
       <div className="absolute inset-0 system-grid opacity-[0.035] pointer-events-none z-0" />
+
+      {/* 3D System Core Interactive Spatial Layer */}
+      <SystemCore3D className="opacity-45 lg:opacity-65 z-0" />
 
       <div className="max-w-6xl w-full mx-auto relative z-10 space-y-12 my-auto">
         

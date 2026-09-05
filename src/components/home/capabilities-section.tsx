@@ -65,8 +65,11 @@ const CAPABILITIES: Capability[] = [
   },
 ];
 
+import { CapabilitySimulator } from "./capability-simulators";
+
 export function CapabilitiesSection() {
   const [activeNum, setActiveNum] = useState("01");
+  const [viewMode, setViewMode] = useState<"SIMULATOR" | "SPEC">("SIMULATOR");
 
   const activeCapability = CAPABILITIES.find((c) => c.num === activeNum) || CAPABILITIES[0];
 
@@ -90,7 +93,7 @@ export function CapabilitiesSection() {
             </h2>
 
             <p className="font-sans text-sm sm:text-base text-zinc-600 leading-relaxed">
-              We do not sell generic service packages. We engineer bespoke solutions mapped to: Problem → Approach → Technology → Outcome.
+              We do not sell generic service packages. We engineer bespoke operational systems mapped to: Problem → Approach → Technology → Outcome.
             </p>
           </div>
 
@@ -152,7 +155,8 @@ export function CapabilitiesSection() {
                 transition={{ duration: 0.25 }}
                 className="bg-white border-[2.5px] border-black rounded-3xl p-6 sm:p-10 shadow-[6px_6px_0px_#000] space-y-6"
               >
-                <div className="flex items-center justify-between border-b-2 border-black/10 pb-4">
+                {/* Header with Title and Mode Switcher */}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b-2 border-black/10 pb-4">
                   <div className="space-y-1">
                     <span className="font-mono text-[9px] font-black uppercase tracking-widest text-[#ff1e90]">
                       CAPABILITY {activeCapability.num}
@@ -161,60 +165,118 @@ export function CapabilitiesSection() {
                       {activeCapability.title}
                     </h3>
                   </div>
-                  <span className="font-mono text-[9px] font-black uppercase px-2.5 py-1 rounded bg-[#d8ff42] text-black border border-black shadow-[1.5px_1.5px_0px_#000]">
-                    SPECIFIED
-                  </span>
+
+                  {/* Mode Switcher Tabs */}
+                  <div className="flex items-center gap-1.5 bg-black/5 p-1 rounded-xl border border-black/15 shrink-0">
+                    <button
+                      onClick={() => {
+                        playTickSound();
+                        setViewMode("SIMULATOR");
+                      }}
+                      className={`font-mono text-[9px] font-black uppercase px-2.5 py-1.5 rounded-lg transition-all cursor-pointer ${
+                        viewMode === "SIMULATOR"
+                          ? "bg-black text-[#d8ff42] shadow-[1.5px_1.5px_0px_#000]"
+                          : "text-zinc-600 hover:text-black"
+                      }`}
+                    >
+                      ⚡ LIVE SIMULATOR
+                    </button>
+                    <button
+                      onClick={() => {
+                        playTickSound();
+                        setViewMode("SPEC");
+                      }}
+                      className={`font-mono text-[9px] font-black uppercase px-2.5 py-1.5 rounded-lg transition-all cursor-pointer ${
+                        viewMode === "SPEC"
+                          ? "bg-black text-[#d8ff42] shadow-[1.5px_1.5px_0px_#000]"
+                          : "text-zinc-600 hover:text-black"
+                      }`}
+                    >
+                      📐 ARCHITECTURE SPEC
+                    </button>
+                  </div>
                 </div>
 
-                {/* 4-Step Architecture Flow */}
-                <div className="space-y-4">
-                  {/* Problem */}
-                  <div className="bg-red-50/70 border border-red-200 p-4 rounded-xl space-y-1">
-                    <span className="font-mono text-[8px] font-black uppercase tracking-widest text-red-600 block">
-                      01 // THE BUSINESS PROBLEM
-                    </span>
-                    <p className="font-sans text-xs text-zinc-700 leading-relaxed font-medium">
-                      {activeCapability.problem}
-                    </p>
-                  </div>
+                {/* Content switching based on viewMode */}
+                {viewMode === "SIMULATOR" ? (
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <span className="font-mono text-[9px] font-bold text-zinc-500 uppercase">
+                        INTERACTIVE OPERATIONAL FLOW SIMULATION
+                      </span>
+                      <span className="font-mono text-[8px] font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-300">
+                        LIVE TELEMETRY
+                      </span>
+                    </div>
 
-                  {/* Approach */}
-                  <div className="bg-[#faf9f5] border border-black/15 p-4 rounded-xl space-y-1">
-                    <span className="font-mono text-[8px] font-black uppercase tracking-widest text-[#0a0a0a] block">
-                      02 // OUR ARCHITECTURAL APPROACH
-                    </span>
-                    <p className="font-sans text-xs text-zinc-800 leading-relaxed font-medium">
-                      {activeCapability.approach}
-                    </p>
-                  </div>
+                    <CapabilitySimulator capabilityNum={activeCapability.num} />
 
-                  {/* Technology */}
-                  <div className="bg-black text-white p-4 rounded-xl space-y-2">
-                    <span className="font-mono text-[8px] font-black uppercase tracking-widest text-[#d8ff42] block">
-                      03 // PRODUCTION TECHNOLOGY
-                    </span>
-                    <div className="flex flex-wrap gap-2">
-                      {activeCapability.technology.map((t) => (
-                        <span
-                          key={t}
-                          className="font-mono text-[9px] font-bold uppercase px-2.5 py-0.5 rounded bg-white/10 border border-white/20 text-[#d8ff42]"
-                        >
-                          {t}
-                        </span>
-                      ))}
+                    <div className="bg-[#faf9f5] border border-black/15 p-3.5 rounded-xl flex items-center justify-between">
+                      <span className="font-sans text-xs text-zinc-700 font-medium line-clamp-1">
+                        Approach: {activeCapability.approach}
+                      </span>
+                      <button
+                        onClick={() => {
+                          playTickSound();
+                          setViewMode("SPEC");
+                        }}
+                        className="font-mono text-[9px] font-black uppercase text-[#ff1e90] hover:text-black shrink-0 ml-3"
+                      >
+                        Read Spec Matrix →
+                      </button>
                     </div>
                   </div>
+                ) : (
+                  /* 4-Step Architecture Flow */
+                  <div className="space-y-4">
+                    {/* Problem */}
+                    <div className="bg-red-50/70 border border-red-200 p-4 rounded-xl space-y-1">
+                      <span className="font-mono text-[8px] font-black uppercase tracking-widest text-red-600 block">
+                        01 // THE BUSINESS PROBLEM
+                      </span>
+                      <p className="font-sans text-xs text-zinc-700 leading-relaxed font-medium">
+                        {activeCapability.problem}
+                      </p>
+                    </div>
 
-                  {/* Outcome */}
-                  <div className="bg-[#d8ff42]/15 border-2 border-black p-4 rounded-xl space-y-1 shadow-[2px_2px_0px_#000]">
-                    <span className="font-mono text-[8px] font-black uppercase tracking-widest text-black block">
-                      04 // VERIFIED BUSINESS OUTCOME
-                    </span>
-                    <p className="font-sans text-xs text-black font-bold leading-relaxed">
-                      {activeCapability.outcome}
-                    </p>
+                    {/* Approach */}
+                    <div className="bg-[#faf9f5] border border-black/15 p-4 rounded-xl space-y-1">
+                      <span className="font-mono text-[8px] font-black uppercase tracking-widest text-[#0a0a0a] block">
+                        02 // OUR ARCHITECTURAL APPROACH
+                      </span>
+                      <p className="font-sans text-xs text-zinc-800 leading-relaxed font-medium">
+                        {activeCapability.approach}
+                      </p>
+                    </div>
+
+                    {/* Technology */}
+                    <div className="bg-black text-white p-4 rounded-xl space-y-2">
+                      <span className="font-mono text-[8px] font-black uppercase tracking-widest text-[#d8ff42] block">
+                        03 // PRODUCTION TECHNOLOGY
+                      </span>
+                      <div className="flex flex-wrap gap-2">
+                        {activeCapability.technology.map((t) => (
+                          <span
+                            key={t}
+                            className="font-mono text-[9px] font-bold uppercase px-2.5 py-0.5 rounded bg-white/10 border border-white/20 text-[#d8ff42]"
+                          >
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Outcome */}
+                    <div className="bg-[#d8ff42]/15 border-2 border-black p-4 rounded-xl space-y-1 shadow-[2px_2px_0px_#000]">
+                      <span className="font-mono text-[8px] font-black uppercase tracking-widest text-black block">
+                        04 // VERIFIED BUSINESS OUTCOME
+                      </span>
+                      <p className="font-sans text-xs text-black font-bold leading-relaxed">
+                        {activeCapability.outcome}
+                      </p>
+                    </div>
                   </div>
-                </div>
+                )}
 
                 <div className="pt-2 flex justify-between items-center border-t border-black/10">
                   <span className="font-mono text-[9px] text-zinc-400 uppercase">
