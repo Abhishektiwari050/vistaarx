@@ -67,14 +67,14 @@ export function TechHelix() {
     renderer.setSize(w, h);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 0.9;
+    renderer.toneMappingExposure = 0.6;
 
     // ── Post-processing ─────────────────────────────────────────────────────
     const composer = new EffectComposer(renderer);
     composer.addPass(new RenderPass(scene, camera));
     const bloom = new UnrealBloomPass(
       new THREE.Vector2(w, h),
-      1.4, 0.35, 0.65
+      0.38, 0.2, 0.82
     );
     composer.addPass(bloom);
 
@@ -120,14 +120,14 @@ export function TechHelix() {
         colors[i * 3 + 2] = 0.56; // pink
       }
 
-      // Cross-rungs: bright blue
+      // Cross-rungs: clean white accent
       if (!isStrand2 && idx % 6 === 0) {
-        colors[i * 3] = 0.2;
-        colors[i * 3 + 1] = 0.4;
-        colors[i * 3 + 2] = 1.0;
+        colors[i * 3] = 0.95;
+        colors[i * 3 + 1] = 0.95;
+        colors[i * 3 + 2] = 0.95;
       }
 
-      sizes[i] = 1.8 + Math.random() * 2.2;
+      sizes[i] = 1.4 + Math.random() * 1.6;
     }
 
     const basePositions = new Float32Array(positions);
@@ -302,7 +302,7 @@ export function TechHelix() {
           Technology
           <br />
           <span className="font-serif italic font-normal text-zinc-400 lowercase tracking-normal normal-case mr-3">and</span>
-          <span className="bg-gradient-to-r from-[#ff1e90] via-[#d8ff42] to-[#3366ff] bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-[#ff1e90] to-[#d8ff42] bg-clip-text text-transparent">
             Process
           </span>
         </motion.h1>

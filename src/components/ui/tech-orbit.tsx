@@ -71,13 +71,13 @@ const techStack = [
     desc: "Strict typing across every module — runtime errors eliminated before they reach production.",
     metric: "100%",
     metricLabel: "Type Coverage",
-    color: "#3366ff",
-    bg: "rgba(51,102,255,0.04)",
-    border: "rgba(51,102,255,0.2)",
+    color: "#d8ff42",
+    bg: "rgba(216,255,66,0.04)",
+    border: "rgba(216,255,66,0.2)",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6">
-        <rect x="3" y="3" width="18" height="18" rx="3" fill="rgba(51,102,255,0.15)" stroke="#3366ff" strokeWidth="1.5"/>
-        <path d="M8 14v1a3 3 0 006 0v-1M8 11h8M12 11v5" stroke="#3366ff" strokeWidth="1.5" strokeLinecap="round"/>
+        <rect x="3" y="3" width="18" height="18" rx="3" fill="rgba(216,255,66,0.15)" stroke="#d8ff42" strokeWidth="1.5"/>
+        <path d="M8 14v1a3 3 0 006 0v-1M8 11h8M12 11v5" stroke="#d8ff42" strokeWidth="1.5" strokeLinecap="round"/>
       </svg>
     ),
     span: "col-span-1 row-span-1",
@@ -89,13 +89,13 @@ const techStack = [
     desc: "Zero-runtime CSS compilation using @layer directives — no bloated stylesheets, 100% custom design tokens.",
     metric: "0kb",
     metricLabel: "Runtime CSS",
-    color: "#06b6d4",
-    bg: "rgba(6,182,212,0.04)",
-    border: "rgba(6,182,212,0.2)",
+    color: "#ff1e90",
+    bg: "rgba(255,30,144,0.04)",
+    border: "rgba(255,30,144,0.2)",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6">
-        <path d="M6 9c.5-2 1.5-3 3-3 2 0 2.5 1.5 4 1.5s2.5-1 3-2.5" stroke="#06b6d4" strokeWidth="1.5" strokeLinecap="round"/>
-        <path d="M3 15c.5-2 1.5-3 3-3 2 0 2.5 1.5 4 1.5s2.5-1 3-2.5" stroke="#06b6d4" strokeWidth="1.5" strokeLinecap="round"/>
+        <path d="M6 9c.5-2 1.5-3 3-3 2 0 2.5 1.5 4 1.5s2.5-1 3-2.5" stroke="#ff1e90" strokeWidth="1.5" strokeLinecap="round"/>
+        <path d="M3 15c.5-2 1.5-3 3-3 2 0 2.5 1.5 4 1.5s2.5-1 3-2.5" stroke="#ff1e90" strokeWidth="1.5" strokeLinecap="round"/>
       </svg>
     ),
     span: "col-span-1 row-span-1",
@@ -107,14 +107,14 @@ const techStack = [
     desc: "Real-time subscriptions, row-level security, and edge functions — your data layer is production-hardened.",
     metric: "RLS",
     metricLabel: "Row Security",
-    color: "#22c55e",
-    bg: "rgba(34,197,94,0.04)",
-    border: "rgba(34,197,94,0.2)",
+    color: "#d8ff42",
+    bg: "rgba(216,255,66,0.04)",
+    border: "rgba(216,255,66,0.2)",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6">
-        <ellipse cx="12" cy="7" rx="8" ry="3" stroke="#22c55e" strokeWidth="1.5"/>
-        <path d="M4 7v5c0 1.66 3.58 3 8 3s8-1.34 8-3V7" stroke="#22c55e" strokeWidth="1.5"/>
-        <path d="M4 12v5c0 1.66 3.58 3 8 3s8-1.34 8-3v-5" stroke="#22c55e" strokeWidth="1.5"/>
+        <ellipse cx="12" cy="7" rx="8" ry="3" stroke="#d8ff42" strokeWidth="1.5"/>
+        <path d="M4 7v5c0 1.66 3.58 3 8 3s8-1.34 8-3V7" stroke="#d8ff42" strokeWidth="1.5"/>
+        <path d="M4 12v5c0 1.66 3.58 3 8 3s8-1.34 8-3v-5" stroke="#d8ff42" strokeWidth="1.5"/>
       </svg>
     ),
     span: "col-span-1 row-span-1",
@@ -139,7 +139,7 @@ export function TechOrbit() {
   return (
     <div
       ref={sectionRef}
-      className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden px-6 md:px-12"
+      className="relative w-full py-24 min-h-screen flex flex-col items-center justify-center overflow-hidden px-6 md:px-12"
       style={{ opacity }}
     >
       {/* Section label */}

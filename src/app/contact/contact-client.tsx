@@ -128,7 +128,7 @@ export default function ContactPage() {
                             className={`px-4 py-2 text-[10px] font-display font-black uppercase rounded-lg border-2 transition-all duration-200 cursor-pointer interactive ${
                               isActive
                                 ? "bg-[#ff1e90] text-black border-black shadow-[2px_2px_0px_#000]"
-                                : "bg-white text-zinc-600 border-zinc-200 hover:border-black/50 hover:bg-[#faf9f5]"
+                                : "bg-white text-zinc-700 border-black/20 hover:border-black hover:bg-[#faf9f5]"
                             }`}
                           >
                             {cat}

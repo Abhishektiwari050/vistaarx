@@ -1,7 +1,9 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { SphereRoom, type Project } from "@/components/ui/sphere-room";
+import { SpotlightCard } from "@/components/spotlight-card";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Case Studies — 6 high-impact projects across different verticals
@@ -66,8 +68,120 @@ const projects: Project[] = [
 
 export default function WorkPage() {
   return (
-    <div className="w-full min-h-screen">
-      <SphereRoom projects={projects} />
+    <div className="w-full relative bg-[#050510] text-white">
+      {/* ── 1. 3D Spatial Interactive Sphere Room ───────────────────────────── */}
+      <section className="relative w-full h-[88vh] overflow-hidden">
+        <SphereRoom projects={projects} />
+        
+        {/* Subtle scroll down hint bar */}
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-25 pointer-events-auto">
+          <a
+            href="#catalogue"
+            className="font-mono text-[9px] uppercase tracking-widest text-white/40 hover:text-[#d8ff42] transition-colors flex items-center gap-1.5 bg-black/60 backdrop-blur-sm px-4 py-1.5 rounded-full border border-white/10 interactive"
+          >
+            <span>Scroll for Full Specifications</span>
+            <span className="text-xs">↓</span>
+          </a>
+        </div>
+      </section>
+
+      {/* ── 2. Editorial Case Studies Directory (Paper Canvas) ──────────────── */}
+      <section id="catalogue" className="w-full bg-[#faf9f5] text-[#0a0a0a] py-24 px-6 sm:px-12 md:px-16 border-t-2 border-black relative z-20">
+        <div className="max-w-6xl mx-auto">
+          {/* Section Heading */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 pb-8 border-b-2 border-black/10">
+            <div className="space-y-3">
+              <span className="font-mono text-[9px] font-extrabold tracking-[0.3em] uppercase text-[#ff1e90] bg-[#ff1e90]/10 border border-[#ff1e90]/20 px-3 py-1 rounded-full inline-block">
+                Architectural Records // All Projects
+              </span>
+              <h2 className="font-display font-black text-4xl sm:text-5xl md:text-6xl uppercase tracking-tighter text-[#0a0a0a] leading-none">
+                Case Study{" "}
+                <span className="font-serif italic font-normal text-zinc-400 lowercase">
+                  directory
+                </span>
+              </h2>
+            </div>
+            <p className="font-sans text-xs sm:text-sm text-zinc-600 max-w-sm leading-relaxed">
+              Every system is engineered from raw primitives with guaranteed sub-second performance, strict type validation, and zero template dependencies.
+            </p>
+          </div>
+
+          {/* 2-Column Neo-Brutalist Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {projects.map((p, i) => (
+              <div key={p.id} className="group cursor-pointer">
+                <SpotlightCard
+                  glowColor={i % 2 === 0 ? "rgba(255, 30, 144, 0.08)" : "rgba(216, 255, 66, 0.12)"}
+                  borderColor={i % 2 === 0 ? "rgba(255, 30, 144, 0.25)" : "rgba(0, 0, 0, 0.2)"}
+                  className={`border-[3px] border-black rounded-3xl p-6 sm:p-8 flex flex-col justify-between min-h-[380px] shadow-[6px_6px_0px_#000] hover:shadow-[10px_10px_0px_#ff1e90] transition-all duration-300 ${
+                    i % 2 === 0 ? "bg-[#111111] text-white" : "bg-white text-black"
+                  } interactive`}
+                >
+                  <div>
+                    {/* Header bar */}
+                    <div className="flex items-center justify-between border-b border-black/10 pb-4 mb-5">
+                      <div className="flex items-center gap-2">
+                        <span className="font-mono text-[9px] font-bold px-2 py-0.5 rounded bg-[#ff1e90]/15 text-[#ff1e90] border border-[#ff1e90]/20">
+                          {p.id}
+                        </span>
+                        <span className={`font-serif italic text-xs ${i % 2 === 0 ? "text-zinc-400" : "text-zinc-500"}`}>
+                          {p.client}
+                        </span>
+                      </div>
+                      <span className="font-mono text-[9px] font-extrabold uppercase px-2.5 py-1 rounded bg-[#d8ff42] text-black border border-black shadow-[1.5px_1.5px_0px_#000]">
+                        {p.metric.split("//")[0].trim()}
+                      </span>
+                    </div>
+
+                    {/* Title */}
+                    <h3 className={`font-display font-black text-2xl sm:text-3xl uppercase tracking-tight leading-tight mb-4 ${
+                      i % 2 === 0 ? "text-white" : "text-black"
+                    }`}>
+                      {p.title}
+                    </h3>
+
+                    {/* Description */}
+                    <p className={`font-sans text-xs leading-relaxed ${
+                      i % 2 === 0 ? "text-zinc-400" : "text-zinc-600"
+                    }`}>
+                      {p.desc}
+                    </p>
+                  </div>
+
+                  {/* Footer tags and link */}
+                  <div className="pt-6 mt-6 border-t border-black/10 flex flex-wrap items-center justify-between gap-3">
+                    <div className="flex flex-wrap gap-1.5">
+                      {p.tags.map((t) => (
+                        <span
+                          key={t}
+                          className={`font-mono text-[8px] font-bold uppercase px-2 py-0.5 rounded border ${
+                            i % 2 === 0
+                              ? "bg-white/5 border-white/10 text-zinc-400"
+                              : "bg-black/5 border-black/10 text-zinc-600"
+                          }`}
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+
+                    <Link
+                      href="/contact"
+                      className={`font-mono text-[9px] font-extrabold uppercase tracking-widest inline-flex items-center gap-1 transition-colors ${
+                        i % 2 === 0
+                          ? "text-[#d8ff42] hover:text-white"
+                          : "text-[#ff1e90] hover:text-black"
+                      }`}
+                    >
+                      Request Architecture Spec →
+                    </Link>
+                  </div>
+                </SpotlightCard>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

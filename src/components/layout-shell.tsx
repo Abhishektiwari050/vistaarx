@@ -366,7 +366,7 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
           {children}
         </main>
         
-        {pathname !== "/work" && <Footer />}
+        <Footer />
       </div>
     </div>
   );

@@ -1,88 +1,98 @@
 "use client";
 
 import React from "react";
-import { MinimalistHero } from "@/components/ui/minimalist-hero";
+import Link from "next/link";
+import { motion } from "framer-motion";
 import { SpotlightCard } from "@/components/spotlight-card";
-
-// Custom SVG components to bypass old lucide-react brand icon limitations
-const LinkedinIcon = (props: React.ComponentProps<"svg">) => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={props.className}
-  >
-    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-    <rect width="4" height="12" x="2" y="9" />
-    <circle cx="4" cy="4" r="2" />
-  </svg>
-);
-
-const GithubIcon = (props: React.ComponentProps<"svg">) => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={props.className}
-  >
-    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
-    <path d="M9 18c-4.51 2-5-2-7-2" />
-  </svg>
-);
+import { MagneticButton } from "@/components/magnetic-button";
 
 export default function PhilosophyPage() {
-  const navLinks = [
-    { label: "SHOWCASE", href: "/" },
-    { label: "CASE STUDIES", href: "/work" },
-    { label: "TECHNOLOGY", href: "/vectors" },
-    { label: "ABOUT US", href: "/philosophy" },
-    { label: "CONTACT HQ", href: "/contact" }
-  ];
-
-  const socialLinks = [
-    { icon: LinkedinIcon, href: "https://linkedin.com/in/abhishektiwari050" },
-    { icon: GithubIcon, href: "https://github.com/Abhishektiwari050/vistaarx" }
-  ];
-
   return (
-    <div className="w-full relative bg-[#faf9f5]">
+    <div className="w-full relative bg-[#faf9f5] text-[#0a0a0a] min-h-screen overflow-x-hidden pt-28 pb-20">
       {/* Global paper-grain texture overlay */}
       <div className="noise-overlay" aria-hidden="true" />
 
-      {/* 1. Minimalist Hero Section */}
-      <MinimalistHero
-        logoText="vistar."
-        navLinks={navLinks}
-        mainText="Elite digital engineering and custom-architected web systems. We refuse bloated plug-ins, pre-fabricated template setups, and unnecessary code clutter to build high-performance visual solutions."
-        readMoreLink="#journey"
-        imageSrc="/images/headshot_primary.png"
-        imageAlt="Abhishek Tiwari - Lead Systems Architect Portrait"
-        overlayText={{
-          part1: "less is",
-          part2: "more.",
-        }}
-        socialLinks={socialLinks}
-        locationText="New Delhi, India // Operational Q2 2026"
-        className="bg-[#faf9f5] text-black"
-      />
+      {/* ── Section 1: Editorial Studio Philosophy Hero ─────────────────────── */}
+      <section className="max-w-6xl mx-auto px-6 sm:px-12 md:px-16 pt-8 pb-20 relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="space-y-6 max-w-4xl"
+        >
+          <div className="inline-flex items-center gap-2">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ff1e90] opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#ff1e90]" />
+            </span>
+            <span className="font-mono text-[9px] font-extrabold tracking-[0.3em] uppercase text-[#ff1e90] bg-[#ff1e90]/10 border border-[#ff1e90]/20 px-3 py-1 rounded-full">
+              Studio Philosophy // Architectural Manifesto
+            </span>
+          </div>
 
-      {/* 2. Core Philosophy Manifesto Section */}
-      <section id="journey" className="py-24 px-6 sm:px-12 md:px-16 relative overflow-hidden bg-[#faf9f5] border-t border-black/5 z-20">
+          <h1 className="font-display font-black text-5xl sm:text-7xl md:text-8xl uppercase tracking-tighter text-[#0a0a0a] leading-[0.88] select-none">
+            We refuse bloat.
+            <br />
+            We compile{" "}
+            <span className="font-serif italic font-normal text-zinc-400 lowercase">
+              speed.
+            </span>
+          </h1>
+
+          <p className="font-sans text-sm sm:text-base md:text-lg text-zinc-600 leading-relaxed max-w-2xl pt-2">
+            Elegance is the deliberate refusal of unnecessary clutter. We eliminate bloated templates, discard heavy generic frameworks, and engineer custom, sub-second digital systems built on clean TypeScript, Next.js, and bespoke WebGL shaders.
+          </p>
+
+          {/* Quick Pillars Chips */}
+          <div className="flex flex-wrap gap-3 pt-2">
+            <div className="flex items-center gap-2 px-4 py-2 rounded-xl border-2 border-black bg-[#d8ff42] shadow-[3px_3px_0px_#000] font-mono text-[10px] font-extrabold uppercase">
+              <span>✦</span> 100% Code Ownership
+            </div>
+            <div className="flex items-center gap-2 px-4 py-2 rounded-xl border-2 border-black bg-white shadow-[3px_3px_0px_#ff1e90] font-mono text-[10px] font-extrabold uppercase">
+              <span className="text-[#ff1e90]">⚡</span> &lt; 150ms Global TTFB
+            </div>
+            <div className="flex items-center gap-2 px-4 py-2 rounded-xl border-2 border-black bg-[#0a0a0a] text-white shadow-[3px_3px_0px_#000] font-mono text-[10px] font-extrabold uppercase">
+              <span>●</span> Zero Vendor Lock-in
+            </div>
+          </div>
+
+          {/* CTAs */}
+          <div className="flex flex-wrap items-center gap-4 pt-4">
+            <MagneticButton>
+              <Link
+                href="/contact"
+                className="bg-[#d8ff42] text-black font-sans font-black text-xs tracking-widest uppercase px-8 py-4 border-2 border-black rounded-xl shadow-[4px_4px_0px_#000000] hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#ff1e90] active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer inline-flex items-center gap-2 interactive"
+              >
+                Initiate Project ⚡
+              </Link>
+            </MagneticButton>
+            <MagneticButton>
+              <Link
+                href="/work"
+                className="bg-white text-black font-sans font-black text-xs tracking-widest uppercase px-8 py-4 border-2 border-black rounded-xl shadow-[4px_4px_0px_#000000] hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#ff1e90] active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer inline-flex items-center gap-2 interactive"
+              >
+                Inspect Case Studies →
+              </Link>
+            </MagneticButton>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* ── Section 2: Core Manifesto Pillars Grid ──────────────────────────── */}
+      <section className="py-20 px-6 sm:px-12 md:px-16 relative overflow-hidden bg-white/60 border-t border-b border-black/10 z-20">
         <div className="max-w-6xl mx-auto text-center relative z-10 mb-16 select-none">
           <span className="font-mono text-[9px] font-bold tracking-[3px] text-[#ff1e90] uppercase bg-[#ff1e90]/10 border border-[#ff1e90]/20 px-3 py-1 rounded-full inline-block mb-4">
             Our Core Manifesto
           </span>
-          <h2 className="font-display font-bold tracking-tight text-[#0a0a0a] leading-tight text-fluid-section uppercase">
-            Pillars of <span className="font-serif italic font-normal text-zinc-400 lowercase">excellence</span>.
+          <h2 className="font-display font-black tracking-tight text-[#0a0a0a] leading-tight text-4xl sm:text-5xl md:text-6xl uppercase">
+            Pillars of{" "}
+            <span className="font-serif italic font-normal text-zinc-400 lowercase">
+              excellence
+            </span>
+            .
           </h2>
           <p className="text-xs sm:text-sm text-zinc-500 leading-relaxed font-sans max-w-xl mx-auto mt-4">
-            We operate at the intersection of extreme speed, complete ownership, and structural minimalism.
+            We operate at the convergence of relentless performance, uncompromising aesthetic execution, and structural autonomy.
           </p>
         </div>
 
@@ -96,17 +106,19 @@ export default function PhilosophyPage() {
               className="bg-[#d8ff42] border-[3px] border-black rounded-3xl p-6 md:p-8 min-h-[380px] flex flex-col justify-between shadow-[6px_6px_0px_#000] hover:shadow-[10px_10px_0px_#000] transition-all duration-500 interactive"
             >
               <div className="flex justify-between items-start">
-                <div className="w-12 h-12 rounded-full bg-black/10 flex items-center justify-center group-hover:rotate-45 transition-transform duration-500 text-black text-xl">
+                <div className="w-12 h-12 rounded-full bg-black/10 flex items-center justify-center group-hover:rotate-45 transition-transform duration-500 text-black text-xl font-bold">
                   ✦
                 </div>
-                <span className="text-black font-mono font-bold text-xs border-2 border-black px-3 py-1 rounded-full bg-white shadow-[2px_2px_0px_#000]">01</span>
+                <span className="text-black font-mono font-bold text-xs border-2 border-black px-3 py-1 rounded-full bg-white shadow-[2px_2px_0px_#000]">
+                  01
+                </span>
               </div>
               <div className="mt-8">
-                <h3 className="font-display font-bold uppercase text-2xl md:text-3xl text-black mb-3 leading-none tracking-tight">
+                <h3 className="font-display font-black uppercase text-2xl md:text-3xl text-black mb-3 leading-none tracking-tight">
                   Refusal &amp;<br />Minimalism
                 </h3>
-                <p className="text-black/70 text-xs leading-relaxed font-sans">
-                  We reject bloated plug-ins, pre-fabricated template setups, and unnecessary code clutter. Symmetrical, custom-crafted architecture is our baseline standard.
+                <p className="text-black/75 text-xs leading-relaxed font-sans">
+                  We reject bloated plug-ins, pre-fabricated template setups, and third-party script bloat. Symmetrical, custom-crafted software architecture is our baseline standard.
                 </p>
               </div>
               <div className="w-full h-[2px] bg-black/10 mt-6" />
@@ -124,43 +136,120 @@ export default function PhilosophyPage() {
                 <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:scale-110 transition-transform duration-500 text-white text-xl">
                   ⚡
                 </div>
-                <span className="text-white/50 font-mono font-bold text-xs border border-white/10 px-3 py-1 rounded-full bg-white/5">02</span>
+                <span className="text-white/70 font-mono font-bold text-xs border border-white/10 px-3 py-1 rounded-full bg-white/5">
+                  02
+                </span>
               </div>
               <div className="mt-8">
-                <h3 className="font-display font-bold uppercase text-2xl md:text-3xl text-white mb-3 leading-none tracking-tight">
+                <h3 className="font-display font-black uppercase text-2xl md:text-3xl text-white mb-3 leading-none tracking-tight">
                   Sub-Second<br />Performance
                 </h3>
-                <p className="text-white/40 text-xs leading-relaxed font-sans">
-                  Page load speeds are not a vanity metric — they are a core business driver. High-speed, edge-rendered platforms with optimal Core Web Vitals are built from day one.
+                <p className="text-white/50 text-xs leading-relaxed font-sans">
+                  Page load speeds are not a vanity metric — they are a core commercial driver. Edge-rendered platforms, minimal bundle weights, and 95+ Lighthouse scores are built from day one.
                 </p>
               </div>
               <div className="w-full h-px bg-white/10 mt-6" />
             </SpotlightCard>
           </div>
 
-          {/* Card 3 - Ownership */}
+          {/* Card 3 - Ownership (Brand Unified: Off-Brand Blue Removed!) */}
           <div className="group cursor-pointer">
             <SpotlightCard
-              glowColor="rgba(51, 102, 255, 0.05)"
+              glowColor="rgba(216, 255, 66, 0.08)"
               borderColor="rgba(0, 0, 0, 0.15)"
-              className="bg-white border-[3px] border-black rounded-3xl p-6 md:p-8 min-h-[380px] flex flex-col justify-between shadow-[6px_6px_0px_#3366ff] hover:shadow-[10px_10px_0px_#3366ff] transition-all duration-500 interactive"
+              className="bg-white border-[3px] border-black rounded-3xl p-6 md:p-8 min-h-[380px] flex flex-col justify-between shadow-[6px_6px_0px_#000] hover:shadow-[10px_10px_0px_#d8ff42] transition-all duration-500 interactive"
             >
               <div className="flex justify-between items-start">
-                <div className="w-12 h-12 rounded-full bg-[#3366ff]/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500 text-[#3366ff] text-xl">
+                <div className="w-12 h-12 rounded-full bg-[#d8ff42]/20 border border-black/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500 text-black text-xl">
                   🔑
                 </div>
-                <span className="text-[#3366ff] font-mono font-bold text-xs border-2 border-[#3366ff] px-3 py-1 rounded-full bg-white shadow-[2px_2px_0px_#3366ff]">03</span>
+                <span className="text-black font-mono font-bold text-xs border-2 border-black px-3 py-1 rounded-full bg-[#d8ff42] shadow-[2px_2px_0px_#000]">
+                  03
+                </span>
               </div>
               <div className="mt-8">
-                <h3 className="font-display font-bold uppercase text-2xl md:text-3xl text-black mb-3 leading-none tracking-tight">
+                <h3 className="font-display font-black uppercase text-2xl md:text-3xl text-black mb-3 leading-none tracking-tight">
                   Total Codebase<br />Ownership
                 </h3>
-                <p className="text-black/60 text-xs leading-relaxed font-sans">
-                  We hand over 100% of the codebase from the moment of deployment. Zero ongoing subscription lock-ins, zero proprietary platform dependencies, complete autonomy.
+                <p className="text-black/70 text-xs leading-relaxed font-sans">
+                  We transfer 100% of the repository and deployment infrastructure to you upon launch. Zero ongoing platform tax, zero proprietary lock-in, complete digital sovereignty.
                 </p>
               </div>
               <div className="w-full h-px bg-black/10 mt-6" />
             </SpotlightCard>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Section 3: Engineering Standards vs Conventional Agencies ────────── */}
+      <section className="py-24 px-6 sm:px-12 md:px-16 max-w-6xl mx-auto relative z-10">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <span className="font-mono text-[9px] font-bold tracking-[3px] text-zinc-400 uppercase bg-zinc-100 border border-zinc-200 px-3 py-1 rounded-full inline-block mb-3">
+            Studio Standards
+          </span>
+          <h2 className="font-display font-black text-3xl sm:text-4xl md:text-5xl uppercase tracking-tighter text-[#0a0a0a]">
+            How We Differ From{" "}
+            <span className="font-serif italic font-normal text-zinc-400 lowercase">
+              the industry
+            </span>
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Box 1: Conventional Agencies */}
+          <div className="border-[2.5px] border-black/20 bg-zinc-100/60 rounded-2xl p-8 space-y-6">
+            <div className="flex items-center justify-between border-b border-black/10 pb-4">
+              <span className="font-mono text-[10px] font-bold tracking-widest uppercase text-zinc-400">
+                Standard Agency Paradigm
+              </span>
+              <span className="text-red-500 font-mono text-sm">✕ The Trap</span>
+            </div>
+            <ul className="space-y-4 font-sans text-xs sm:text-sm text-zinc-600">
+              <li className="flex items-start gap-3">
+                <span className="text-red-400 font-bold shrink-0">✕</span>
+                <span>Template customization with 40+ third-party WordPress plugins and security liabilities.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-red-400 font-bold shrink-0">✕</span>
+                <span>4MB+ page bundles leading to sluggish 3.5s+ mobile load times and poor Core Web Vitals.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-red-400 font-bold shrink-0">✕</span>
+                <span>Perpetual retainer lock-ins where clients do not own or understand their own codebase.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-red-400 font-bold shrink-0">✕</span>
+                <span>Generic layouts assembled from popular UI kits without custom brand differentiation.</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Box 2: Vistar Standard */}
+          <div className="border-[3px] border-black bg-white rounded-2xl p-8 space-y-6 shadow-[6px_6px_0px_#ff1e90]">
+            <div className="flex items-center justify-between border-b border-black/10 pb-4">
+              <span className="font-mono text-[10px] font-extrabold tracking-widest uppercase text-[#ff1e90]">
+                The Vistar Standard
+              </span>
+              <span className="text-[#22c55e] font-mono text-sm font-bold">✓ Direct Impact</span>
+            </div>
+            <ul className="space-y-4 font-sans text-xs sm:text-sm text-black">
+              <li className="flex items-start gap-3">
+                <span className="text-[#22c55e] font-bold shrink-0">✓</span>
+                <span>Bespoke Next.js 16 + TypeScript architectures with zero bloated plugins and clean modules.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-[#22c55e] font-bold shrink-0">✓</span>
+                <span>Sub-150ms global TTFB delivered on edge networks with 95+ verified Lighthouse scores.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-[#22c55e] font-bold shrink-0">✓</span>
+                <span>Full GitHub repository and deployment infrastructure handed over completely on day one.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-[#22c55e] font-bold shrink-0">✓</span>
+                <span>Bespoke visual identity combining custom GLSL shaders, micro-motion, and industrial UI typography.</span>
+              </li>
+            </ul>
           </div>
         </div>
       </section>

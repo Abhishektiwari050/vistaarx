@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Engineering DNA — Animated Metrics + Terminal System Readout
@@ -10,7 +10,7 @@ import { motion, useInView } from "framer-motion";
 const metrics = [
   { value: 60, suffix: "+", label: "Projects Deployed", color: "#ff1e90" },
   { value: 97, suffix: "", label: "Avg Lighthouse Score", color: "#d8ff42" },
-  { value: 21, suffix: "d", label: "Fastest Delivery", color: "#3366ff" },
+  { value: 21, suffix: "d", label: "Fastest Delivery", color: "#d8ff42" },
   { value: 100, suffix: "%", label: "Client Ownership", color: "#ff1e90" },
 ];
 
@@ -160,11 +160,17 @@ function TerminalBlock({ isActive }: { isActive: boolean }) {
 export function TechMetrics() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-20%" });
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
   return (
-    <div
+    <motion.div
       ref={sectionRef}
-      className="relative w-full h-screen flex flex-col items-center justify-center px-6 md:px-12 overflow-hidden"
+      className="relative w-full py-24 min-h-screen flex flex-col justify-center overflow-hidden px-6 md:px-12"
+      style={{ opacity }}
     >
       {/* Ambient background */}
       <div
@@ -250,6 +256,6 @@ export function TechMetrics() {
           </motion.div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

@@ -92,20 +92,19 @@ const CARD_STYLES = `
   transform: scale(0.3) translateZ(-150px) rotateY(45deg);
 }
 .sr-inner {
-  background: rgba(8, 8, 18, 0.92);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1.5px solid rgba(255, 255, 255, 0.08);
+  background: #111111;
+  border: 2.5px solid rgba(255, 255, 255, 0.15);
   border-radius: 20px;
   padding: 26px 22px;
   color: white;
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.9);
   font-family: var(--font-plus-jakarta-sans), system-ui, -apple-system, sans-serif;
   transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.2s ease;
 }
 .sr-card:hover .sr-inner {
-  border-color: rgba(255, 30, 144, 0.45);
-  box-shadow: 0 0 50px rgba(255, 30, 144, 0.18), 0 0 100px rgba(216, 255, 66, 0.06);
-  transform: translateY(-3px);
+  border-color: #ff1e90;
+  box-shadow: 6px 6px 0px #ff1e90;
+  transform: translateY(-4px);
 }
 .sr-header {
   display: flex;
@@ -624,10 +623,10 @@ export function SphereRoom({ projects }: SphereRoomProps) {
       )}
 
       {/* Dynamic Header Overlay (pointer-events-none but controls have pointer-events-auto) */}
-      <div className="absolute top-8 left-1/2 -translate-x-1/2 z-20 text-center pointer-events-none select-none flex flex-col items-center gap-5 w-full max-w-2xl px-4">
+      <div className="absolute top-28 left-1/2 -translate-x-1/2 z-20 text-center pointer-events-none select-none flex flex-col items-center gap-4 w-full max-w-2xl px-4">
         <div>
           <span className="font-mono text-[8px] tracking-[0.3em] uppercase text-[#ff1e90] font-bold block mb-1 animate-pulse">
-            {filteredProjects.length} / {projects.length} Projects // Selected Work
+            {filteredProjects.length} / {projects.length} Projects // 3D Spatial Viewer
           </span>
           <h1 className="font-display text-3xl sm:text-4xl font-black uppercase tracking-tighter text-white/90 leading-none select-none">
             Case <span className="font-serif italic font-normal text-zinc-500 lowercase">studies</span>
