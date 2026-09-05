@@ -21,7 +21,7 @@ const CAPABILITIES: Capability[] = [
     problem: "Generic templates with 3.5s+ load times that bleed high-ticket conversions and fail to represent your brand's true value.",
     approach: "Custom Next.js App Router architecture, zero-layout-shift UI (CLS 0.000), sub-100ms edge routing, and interactive WebGL shaders.",
     technology: ["Next.js 16", "React 19", "Tailwind CSS", "Three.js", "Edge Caching"],
-    outcome: "99+ Lighthouse performance, +40–200% conversion velocity, and sub-100ms global TTFB.",
+    outcome: "99+ Lighthouse performance, verified sub-100ms global TTFB, and zero layout shift (CLS 0.000).",
   },
   {
     num: "02",
@@ -61,7 +61,7 @@ const CAPABILITIES: Capability[] = [
     problem: "Brittle, 10-year-old codebases that engineering teams are terrified to touch, blocking new feature releases and hiring.",
     approach: "Surgical incremental modernization. Decoupling monoliths, creating clean API boundaries, and migrating critical routes to Next.js with zero downtime.",
     technology: ["Incremental Migration", "Modern TypeScript", "Automated Testing", "CI/CD Gateways"],
-    outcome: "Dramatic reduction in developer friction, 4x faster feature velocity, and eliminated security liabilities.",
+    outcome: "Dramatic reduction in developer friction, accelerated feature deployment velocity, and eliminated security liabilities.",
   },
 ];
 

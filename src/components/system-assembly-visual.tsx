@@ -115,6 +115,7 @@ const STAGES: SystemStage[] = [
 export function SystemAssemblyVisual() {
   const [activeIdx, setActiveIdx] = useState(0);
   const [autoPlay, setAutoPlay] = useState(true);
+  const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
 
   useEffect(() => {
     if (!autoPlay) return;
@@ -223,19 +224,28 @@ export function SystemAssemblyVisual() {
               <motion.div
                 key={`${currentStage.id}-${node.id}`}
                 initial={{ opacity: 0, scale: 0.6 }}
-                animate={{ opacity: 1, scale: 1 }}
+                animate={{ 
+                  opacity: 1, 
+                  scale: selectedNodeId === node.id ? 1.12 : 1 
+                }}
                 exit={{ opacity: 0, scale: 0.6 }}
-                transition={{ duration: 0.4 }}
+                transition={{ duration: 0.3 }}
                 style={{
                   left: `${node.x}%`,
                   top: `${node.y}%`,
                   transform: "translate(-50%, -50%)",
                 }}
-                className="absolute flex flex-col items-center pointer-events-auto"
+                onClick={() => {
+                  playTickSound(950, 0.02, 0.008);
+                  setSelectedNodeId(selectedNodeId === node.id ? null : node.id);
+                }}
+                className="absolute flex flex-col items-center pointer-events-auto cursor-pointer group"
               >
                 <div
-                  className={`px-2 sm:px-3 py-0.5 sm:py-1 rounded-md border text-[8px] sm:text-[9px] font-mono font-black tracking-wider uppercase whitespace-nowrap transition-all shadow-[2px_2px_0px_#000] ${
-                    node.type === "core"
+                  className={`px-2 sm:px-3 py-0.5 sm:py-1 rounded-md border text-[8px] sm:text-[9px] font-mono font-black tracking-wider uppercase whitespace-nowrap transition-all shadow-[2px_2px_0px_#000] group-hover:scale-105 active:scale-95 ${
+                    selectedNodeId === node.id
+                      ? "bg-[#d8ff42] text-black border-white shadow-[0px_0px_12px_#d8ff42]"
+                      : node.type === "core"
                       ? "bg-[#d8ff42] text-black border-black shadow-[3px_3px_0px_#ff1e90]"
                       : node.type === "output"
                       ? "bg-black text-[#ff1e90] border-[#ff1e90]/60"
@@ -244,7 +254,7 @@ export function SystemAssemblyVisual() {
                 >
                   {node.label}
                 </div>
-                <span className="w-1.5 h-1.5 rounded-full bg-[#d8ff42] mt-1 animate-ping" />
+                <span className={`w-1.5 h-1.5 rounded-full mt-1 ${selectedNodeId === node.id ? "bg-[#ff1e90] animate-bounce" : "bg-[#d8ff42] animate-ping"}`} />
               </motion.div>
             ))}
           </AnimatePresence>

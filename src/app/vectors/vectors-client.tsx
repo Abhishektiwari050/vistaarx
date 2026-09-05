@@ -41,17 +41,17 @@ const BENCHMARKS: Record<"legacy" | "vistar", BenchmarkMode> = {
   },
   vistar: {
     id: "vistar",
-    name: "Vistar Growth Architecture",
-    tag: "Next.js 16 + Edge SSR + Raw Primitives",
+    name: "Vistar Systems Architecture",
+    tag: "Next.js 16 + Edge SSR + Resilient Microservices",
     loadTime: "124ms",
     loadTimeMs: 124,
     lighthouse: 99,
     pageWeight: "185 KB",
-    conversions: "+38% to +220% Lift",
+    conversions: "Zero Latency Drop-off (0.000 CLS)",
     ownership: "100% (Clean GitHub Handover)",
     techDebt: "Zero (Strict TypeScript, clean modular code)",
     color: "#d8ff42",
-    summary: "Engineered from raw primitives on edge networks. Sub-second TTFB, 0KB plugin bloat, flawless Core Web Vitals, and instant user perception of luxury and speed.",
+    summary: "Engineered from typed primitives on edge networks. Sub-100ms TTFB, 0KB plugin bloat, flawless 0.000 CLS Core Web Vitals, and resilient scalable infrastructure.",
   },
 };
 
@@ -138,7 +138,7 @@ export default function VectorsPage() {
                     : "text-zinc-400 hover:text-white"
                 }`}
               >
-                Vistar Growth Stack ⚡
+                Vistar Systems Stack ⚡
               </button>
             </div>
           </div>

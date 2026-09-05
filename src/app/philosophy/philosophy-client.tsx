@@ -84,23 +84,23 @@ export default function PhilosophyPage() {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b-2 border-black/10 pb-6">
             <div className="space-y-2">
               <span className="font-mono text-[9px] font-bold tracking-[3px] text-[#ff1e90] uppercase bg-[#ff1e90]/10 border border-[#ff1e90]/20 px-3 py-1 rounded-full inline-block">
-                EXHIBITION MANIFESTO // CURATORIAL AXIOMS
+                SYSTEMS MANIFESTO // ARCHITECTURAL AXIOMS
               </span>
               <h2 className="font-display font-black tracking-tight text-[#0a0a0a] leading-tight text-4xl sm:text-5xl md:text-6xl uppercase">
                 Four axioms of{" "}
                 <span className="font-serif italic font-normal text-zinc-400 lowercase">
-                  figurative modern art
+                  mission-critical software
                 </span>
                 .
               </h2>
             </div>
             <div className="font-mono text-[10px] text-zinc-400 uppercase tracking-widest text-right">
-              GALLERY PAVILION // VOL. IV <br />
-              <span className="text-black font-black">INV. NO. 2026-VISTAR-AXIOM</span>
+              SYSTEM KERNEL // VOL. IV <br />
+              <span className="text-black font-black">SPEC. NO. 2026-VISTAR-AXIOM</span>
             </div>
           </div>
           <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed font-sans max-w-2xl mt-4">
-            We reject the homogenization of the internet. Our work treats digital architecture as a physical sculpture in cyberspace—grounded in classical proportion, driven by sub-second mathematics, and preserved as sovereign property.
+            We reject fragile, slow, disconnected software. Our work treats digital platforms as high-leverage business engines—grounded in resilient architecture, driven by sub-100ms response times, and preserved as 100% sovereign client property.
           </p>
         </div>
 
@@ -119,17 +119,17 @@ export default function PhilosophyPage() {
                     AXIOM I
                   </span>
                   <span className="font-serif italic text-xs text-zinc-400">
-                    Ontological Reduction
+                    Structural Reduction
                   </span>
                 </div>
                 <div className="font-mono text-[8px] tracking-widest text-zinc-400 uppercase">
-                  MEDIUM: PURE PRIMITIVES
+                  PARADIGM: RESILIENT ARCHITECTURE
                 </div>
                 <h3 className="font-display font-black uppercase text-xl text-black leading-tight">
                   Strip The Commodity
                 </h3>
                 <p className="text-zinc-600 text-xs leading-relaxed font-sans">
-                  If your site relies on the same generic framework template as thousands of competitors, visitors unconsciously downgrade your brand equity. We carve from first principles with zero plugin bloat.
+                  If your platform relies on the same brittle plugins as thousands of competitors, scale becomes painful and security is compromised. We engineer from typed first principles with zero bloated dependencies.
                 </p>
               </div>
               <div className="pt-4 border-t border-black/10 flex items-center justify-between font-mono text-[9px]">
@@ -152,22 +152,22 @@ export default function PhilosophyPage() {
                     AXIOM II
                   </span>
                   <span className="font-serif italic text-xs text-zinc-400">
-                    Sensory Kineticism
+                    Operational Fluidity
                   </span>
                 </div>
                 <div className="font-mono text-[8px] tracking-widest text-zinc-400 uppercase">
-                  MEDIUM: BESPOKE GLSL SHADERS
+                  PARADIGM: SYSTEM PRECISION
                 </div>
                 <h3 className="font-display font-black uppercase text-xl text-white leading-tight">
-                  Form Must Stir Emotion
+                  Precision Commands Authority
                 </h3>
                 <p className="text-zinc-400 text-xs leading-relaxed font-sans">
-                  Digital presence should evoke the tactile gravity of an exhibition sculpture. We engineer custom WebGL shaders, scroll-parallax timelines, and responsive micro-motion at solid 60 FPS Retina speed.
+                  When an interface responds with sub-100ms latency, zero layout shifts, and tactile micro-motion, users immediately perceive enterprise competence. We build GPU-accelerated interfaces with 60 FPS fluidity.
                 </p>
               </div>
               <div className="pt-4 border-t border-white/10 flex items-center justify-between font-mono text-[9px]">
                 <span className="text-zinc-400">CORE METRIC:</span>
-                <span className="font-black text-[#d8ff42]">60 FPS RETINA SMOOTH</span>
+                <span className="font-black text-[#d8ff42]">60 FPS GPU-ACCELERATED</span>
               </div>
             </SpotlightCard>
           </div>
@@ -185,22 +185,22 @@ export default function PhilosophyPage() {
                     AXIOM III
                   </span>
                   <span className="font-serif italic text-xs text-zinc-400">
-                    Velocity As Respect
+                    Deterministic Speed
                   </span>
                 </div>
                 <div className="font-mono text-[8px] tracking-widest text-zinc-400 uppercase">
-                  MEDIUM: EDGE SSR &amp; SUB-SECOND TTFB
+                  PARADIGM: ZERO LATENCY ROUTING
                 </div>
                 <h3 className="font-display font-black uppercase text-xl text-black leading-tight">
                   Speed Is The Art of Polish
                 </h3>
                 <p className="text-zinc-600 text-xs leading-relaxed font-sans">
-                  Lag is visual disrespect. When an interface responds in 120ms with zero layout shift, it triggers instant psychological prestige, multiplying buyer trust and conversion rates by up to 4.2×.
+                  Lag is unacceptable in mission-critical applications. When a platform responds in under 100ms globally with zero layout shift, it builds unassailable confidence and eliminates conversion drop-off.
                 </p>
               </div>
               <div className="pt-4 border-t border-black/10 flex items-center justify-between font-mono text-[9px]">
                 <span className="text-zinc-400">CORE METRIC:</span>
-                <span className="font-black text-black">&lt; 150MS GLOBAL TTFB</span>
+                <span className="font-black text-black">&lt; 100MS GLOBAL TTFB</span>
               </div>
             </SpotlightCard>
           </div>
@@ -218,22 +218,22 @@ export default function PhilosophyPage() {
                     AXIOM IV
                   </span>
                   <span className="font-serif italic text-xs text-black/60">
-                    Institutional Sovereignty
+                    Sovereign Ownership
                   </span>
                 </div>
                 <div className="font-mono text-[8px] tracking-widest text-black/60 uppercase">
-                  MEDIUM: 100% GITHUB HANDOVER
+                  PARADIGM: ZERO VENDOR LOCK-IN
                 </div>
                 <h3 className="font-display font-black uppercase text-xl text-black leading-tight">
                   Total Source Autonomy
                 </h3>
                 <p className="text-black/80 text-xs leading-relaxed font-sans">
-                  True art and true engineering belong to their patron. We transfer 100% of the repository, design tokens, and CI/CD pipelines directly to your GitHub on day 21. No monthly agency ransom.
+                  True engineering belongs to the business that commissioned it. We transfer 100% of the repository, design tokens, and CI/CD pipelines directly to your GitHub on day 21. No retainers required to keep your system alive.
                 </p>
               </div>
               <div className="pt-4 border-t border-black/20 flex items-center justify-between font-mono text-[9px]">
                 <span className="text-black/60">CORE METRIC:</span>
-                <span className="font-black text-black">100% CLIENT OWNERSHIP</span>
+                <span className="font-black text-black">100% GITHUB HANDOVER</span>
               </div>
             </SpotlightCard>
           </div>

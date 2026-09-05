@@ -9,20 +9,21 @@ export default function ContactPage() {
   const [formState, setFormState] = useState({
     name: "",
     email: "",
-    projectType: "Bespoke Flagship Website",
-    budget: "$15k – $25k",
+    projectType: "Digital Platform & Flagship Web",
+    budget: "$15k – $35k",
     message: "",
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const categories = [
-    "Bespoke Flagship Website",
-    "Full-Stack SaaS Platform",
-    "Speed & Conversion Overhaul",
-    "AI Workflow & Automation",
+    "Digital Platform & Flagship Web",
+    "Custom Web Application & Client Portal",
+    "Workflow Automation & Integration Pipeline",
+    "AI Systems & Autonomous Agents",
+    "Legacy Modernization & Core Web Vitals SLA",
   ];
 
-  const budgetTiers = ["$15k – $25k", "$25k – $50k", "$50k+"];
+  const budgetTiers = ["$5k – $15k", "$15k – $35k", "$35k+"];
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -61,7 +62,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-[calc(100vh-80px)] w-full relative flex flex-col justify-center px-6 md:px-12 pt-8 pb-20 z-20 max-w-6xl mx-auto space-y-12">
+    <div className="min-h-[calc(100vh-80px)] w-full relative flex flex-col justify-center px-6 md:px-12 pt-28 pb-20 z-20 max-w-6xl mx-auto space-y-12">
       <ThemeOverlay />
 
       {/* Noise overlay matching homepage */}
@@ -349,7 +350,7 @@ export default function ContactPage() {
             </div>
             <button
               onClick={() => {
-                setFormState(prev => ({ ...prev, projectType: "Speed & Conversion Overhaul", budget: "$15k – $25k" }));
+                setFormState(prev => ({ ...prev, projectType: "Digital Platform & Flagship Web", budget: "$5k – $15k" }));
                 window.scrollTo({ top: 120, behavior: "smooth" });
               }}
               className="w-full py-3 bg-black text-[#d8ff42] font-display font-black text-[10px] tracking-widest uppercase rounded-lg border border-black hover:bg-[#d8ff42] hover:text-black transition-colors"
@@ -383,7 +384,7 @@ export default function ContactPage() {
             </div>
             <button
               onClick={() => {
-                setFormState(prev => ({ ...prev, projectType: "Bespoke Flagship Website", budget: "$25k – $50k" }));
+                setFormState(prev => ({ ...prev, projectType: "Custom Web Application & Client Portal", budget: "$15k – $35k" }));
                 window.scrollTo({ top: 120, behavior: "smooth" });
               }}
               className="w-full py-3 bg-[#ff1e90] text-white font-display font-black text-[10px] tracking-widest uppercase rounded-lg border border-black hover:bg-black transition-colors"
@@ -414,7 +415,7 @@ export default function ContactPage() {
             </div>
             <button
               onClick={() => {
-                setFormState(prev => ({ ...prev, projectType: "AI Workflow & Automation", budget: "$50k+" }));
+                setFormState(prev => ({ ...prev, projectType: "Workflow Automation & Integration Pipeline", budget: "$35k+" }));
                 window.scrollTo({ top: 120, behavior: "smooth" });
               }}
               className="w-full py-3 bg-black text-white font-display font-black text-[10px] tracking-widest uppercase rounded-lg border border-black hover:bg-[#d8ff42] hover:text-black transition-colors"
