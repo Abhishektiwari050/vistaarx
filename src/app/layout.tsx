@@ -35,36 +35,124 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Vistar — Web Systems // Custom Architected Platforms",
+  metadataBase: new URL("https://www.vistar.tech"),
+  title: {
+    default: "Vistar Web Systems — Custom Web Architecture & High-Performance Platforms",
+    template: "%s | Vistar Web Systems",
+  },
   description:
-    "Vistar Web Systems engineers fully custom-architected, search-optimized digital platforms. Sub-second page loads, zero bloated plugins, complete codebase ownership.",
+    "Vistar Web Systems engineers bespoke, search-optimized digital platforms from raw primitives. Sub-second global TTFB, 98+ Lighthouse scores, zero plugin bloat, and 100% codebase ownership.",
   keywords: [
     "Custom Website Design",
+    "Next.js Development Agency",
+    "High Performance Web Studio",
     "Web Application Development",
-    "AI Automation Agency",
-    "Next.js Developer India",
-    "Performance Engineering",
-    "SEO Architecture",
+    "Sub-Second TTFB Architecture",
+    "Core Web Vitals Optimization",
+    "Headless Shopify Next.js",
+    "WebGL GLSL Engineering",
+    "AI Workflow Automation",
+    "Full Codebase Ownership",
+    "Enterprise Cloud Architecture",
+    "Bespoke SaaS Development",
   ],
-  authors: [{ name: "Vistar Web Systems" }],
+  authors: [{ name: "Vistar Web Systems", url: "https://www.vistar.tech" }],
+  creator: "Vistar Web Systems",
+  publisher: "Vistar Web Systems",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   openGraph: {
-    title: "Vistar — Web Systems // Custom Architected Platforms",
+    title: "Vistar Web Systems — Custom Web Architecture & High-Performance Platforms",
     description:
-      "Elite digital engineering for brands that demand excellence. Bespoke websites, high-performance web apps, and AI automation systems.",
+      "Elite digital engineering for ambitious brands. Bespoke websites, high-performance web applications, sub-second edge routing, and 100% codebase ownership.",
     type: "website",
-    locale: "en_IN",
+    locale: "en_US",
     url: "https://www.vistar.tech",
     siteName: "Vistar Web Systems",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Vistar — Web Systems // Custom Architected Platforms",
+    title: "Vistar Web Systems — Custom Web Architecture & High-Performance Platforms",
     description:
-      "Elite digital engineering for brands that demand excellence. Bespoke websites, high-performance web apps, and AI automation systems.",
+      "Elite digital engineering for ambitious brands. Bespoke websites, high-performance web applications, sub-second edge routing, and 100% codebase ownership.",
+    creator: "@vistartech",
   },
   icons: {
-    icon: "/icon.svg",
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    apple: [{ url: "/icon.svg" }],
   },
+  manifest: "/manifest.webmanifest",
+  category: "technology",
+};
+
+const jsonLdSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": ["Organization", "ProfessionalService"],
+      "@id": "https://www.vistar.tech/#organization",
+      name: "Vistar Web Systems",
+      url: "https://www.vistar.tech",
+      logo: {
+        "@type": "ImageObject",
+        "@id": "https://www.vistar.tech/#logo",
+        url: "https://www.vistar.tech/icon.svg",
+        caption: "Vistar Web Systems Logo",
+      },
+      description:
+        "Bespoke digital engineering studio specializing in custom Next.js platforms, WebGL graphics, sub-150ms TTFB, and autonomous AI automation systems.",
+      email: "contact@vistar.tech",
+      address: {
+        "@type": "PostalAddress",
+        addressCountry: "IN",
+      },
+      sameAs: [
+        "https://x.com/vistartech",
+        "https://github.com/Abhishektiwari050/vistaarx",
+        "https://www.linkedin.com/company/vistar-web-systems",
+      ],
+      priceRange: "$$$$",
+      knowsAbout: [
+        "Next.js App Router Development",
+        "Headless Commerce & Shopify",
+        "Core Web Vitals Optimization",
+        "Real-Time WebSockets & Telemetry",
+        "AI Agent & Workflow Automation",
+        "WebGL & GLSL Shader Engineering",
+      ],
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.vistar.tech/#website",
+      url: "https://www.vistar.tech",
+      name: "Vistar Web Systems",
+      description: "Custom Architected Web Platforms & AI Engineering Studio",
+      publisher: {
+        "@id": "https://www.vistar.tech/#organization",
+      },
+      inLanguage: "en-US",
+    },
+  ],
 };
 
 export default function RootLayout({
@@ -78,6 +166,12 @@ export default function RootLayout({
       className={`${plusJakartaSans.variable} ${spaceGrotesk.variable} ${playfairDisplay.variable} min-h-screen antialiased`}
       suppressHydrationWarning
     >
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSchema) }}
+        />
+      </head>
       <body
         className="min-h-screen bg-[#faf9f5] text-[#0a0a0a] selection:bg-[#d8ff42] selection:text-black antialiased overflow-x-clip font-sans"
         suppressHydrationWarning

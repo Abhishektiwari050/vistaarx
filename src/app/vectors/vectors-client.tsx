@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { SpotlightCard } from "@/components/spotlight-card";
-import { ScrollDnaSequencer } from "@/components/ui/scroll-dna-sequencer";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Interactive Performance & Growth Benchmark Simulator
@@ -105,16 +104,7 @@ export default function VectorsPage() {
           </div>
         </div>
 
-      </div>
-
-      {/* ── 2. Scroll-Scrubbed Code DNA Sequencer & Modern Art Core ─────────── */}
-      <section className="my-16 relative border-y-4 border-black">
-        <ScrollDnaSequencer />
-      </section>
-
-      <div className="max-w-6xl mx-auto px-6 sm:px-12 md:px-16 relative z-10 space-y-20">
-
-        {/* ── 3. Interactive Performance & Growth Benchmark Simulator ──────── */}
+        {/* ── 2. Interactive Performance & Growth Benchmark Simulator ──────── */}
         <div id="simulator" className="scroll-mt-28 bg-[#111111] text-white border-[3px] border-black rounded-3xl p-6 sm:p-10 shadow-[8px_8px_0px_#000] relative overflow-hidden">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-8 border-b border-white/10">
             <div>
