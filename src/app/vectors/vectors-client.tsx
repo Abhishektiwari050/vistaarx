@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { SpotlightCard } from "@/components/spotlight-card";
+import { ScrollDnaSequencer } from "@/components/ui/scroll-dna-sequencer";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Interactive Performance & Growth Benchmark Simulator
@@ -60,11 +61,11 @@ export default function VectorsPage() {
   const currentBench = BENCHMARKS[selectedBenchmark];
 
   return (
-    <div className="w-full relative min-h-screen bg-[#faf9f5] text-[#0a0a0a] overflow-x-hidden pt-28 pb-24">
+    <div className="w-full relative min-h-screen bg-[#faf9f5] text-[#0a0a0a] overflow-x-clip pt-28 pb-24">
       {/* Noise overlay matching homepage */}
       <div className="noise-overlay" aria-hidden="true" />
 
-      <div className="max-w-6xl mx-auto px-6 sm:px-12 md:px-16 relative z-10 space-y-20">
+      <div className="max-w-6xl mx-auto px-6 sm:px-12 md:px-16 relative z-10 space-y-12">
         
         {/* ── 1. Hero Header ────────────────────────────────────────────────── */}
         <div className="space-y-6 max-w-4xl">
@@ -104,8 +105,17 @@ export default function VectorsPage() {
           </div>
         </div>
 
-        {/* ── 2. Interactive Performance & Growth Benchmark Simulator ──────── */}
-        <div className="bg-[#111111] text-white border-[3px] border-black rounded-3xl p-6 sm:p-10 shadow-[8px_8px_0px_#000] relative overflow-hidden">
+      </div>
+
+      {/* ── 2. Scroll-Scrubbed Code DNA Sequencer & Modern Art Core ─────────── */}
+      <section className="my-16 relative border-y-4 border-black">
+        <ScrollDnaSequencer />
+      </section>
+
+      <div className="max-w-6xl mx-auto px-6 sm:px-12 md:px-16 relative z-10 space-y-20">
+
+        {/* ── 3. Interactive Performance & Growth Benchmark Simulator ──────── */}
+        <div id="simulator" className="scroll-mt-28 bg-[#111111] text-white border-[3px] border-black rounded-3xl p-6 sm:p-10 shadow-[8px_8px_0px_#000] relative overflow-hidden">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-8 border-b border-white/10">
             <div>
               <span className="font-mono text-[9px] font-bold text-[#d8ff42] uppercase tracking-widest block mb-1">

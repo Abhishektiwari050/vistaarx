@@ -8,7 +8,7 @@ import { MagneticButton } from "@/components/magnetic-button";
 
 export default function PhilosophyPage() {
   return (
-    <div className="w-full relative bg-[#faf9f5] text-[#0a0a0a] min-h-screen overflow-x-hidden pt-28 pb-24">
+    <div className="w-full relative bg-[#faf9f5] text-[#0a0a0a] min-h-screen overflow-x-clip pt-28 pb-24">
       {/* Global paper-grain texture overlay */}
       <div className="noise-overlay" aria-hidden="true" />
 
@@ -78,104 +78,163 @@ export default function PhilosophyPage() {
         </motion.div>
       </section>
 
-      {/* ── Section 2: Core Manifesto Pillars Grid ──────────────────────────── */}
-      <section className="py-20 px-6 sm:px-12 md:px-16 relative overflow-hidden bg-white/60 border-t border-b border-black/10 z-20">
-        <div className="max-w-6xl mx-auto text-center relative z-10 mb-16 select-none">
-          <span className="font-mono text-[9px] font-bold tracking-[3px] text-[#ff1e90] uppercase bg-[#ff1e90]/10 border border-[#ff1e90]/20 px-3 py-1 rounded-full inline-block mb-4">
-            Our Core Manifesto
-          </span>
-          <h2 className="font-display font-black tracking-tight text-[#0a0a0a] leading-tight text-4xl sm:text-5xl md:text-6xl uppercase">
-            Four axioms of{" "}
-            <span className="font-serif italic font-normal text-zinc-400 lowercase">
-              brand building
-            </span>
-            .
-          </h2>
-          <p className="text-xs sm:text-sm text-zinc-500 leading-relaxed font-sans max-w-xl mx-auto mt-4">
-            We operate at the convergence of relentless performance, uncompromising aesthetic execution, and structural autonomy.
+      {/* ── Section 2: Core Manifesto Pillars Grid (Modern Figurative Art Gallery) ── */}
+      <section className="py-24 px-6 sm:px-12 md:px-16 relative overflow-hidden bg-white/70 border-t-2 border-b-2 border-black/15 z-20">
+        <div className="max-w-6xl mx-auto mb-16 select-none">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b-2 border-black/10 pb-6">
+            <div className="space-y-2">
+              <span className="font-mono text-[9px] font-bold tracking-[3px] text-[#ff1e90] uppercase bg-[#ff1e90]/10 border border-[#ff1e90]/20 px-3 py-1 rounded-full inline-block">
+                EXHIBITION MANIFESTO // CURATORIAL AXIOMS
+              </span>
+              <h2 className="font-display font-black tracking-tight text-[#0a0a0a] leading-tight text-4xl sm:text-5xl md:text-6xl uppercase">
+                Four axioms of{" "}
+                <span className="font-serif italic font-normal text-zinc-400 lowercase">
+                  figurative modern art
+                </span>
+                .
+              </h2>
+            </div>
+            <div className="font-mono text-[10px] text-zinc-400 uppercase tracking-widest text-right">
+              GALLERY PAVILION // VOL. IV <br />
+              <span className="text-black font-black">INV. NO. 2026-VISTAR-AXIOM</span>
+            </div>
+          </div>
+          <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed font-sans max-w-2xl mt-4">
+            We reject the homogenization of the internet. Our work treats digital architecture as a physical sculpture in cyberspace—grounded in classical proportion, driven by sub-second mathematics, and preserved as sovereign property.
           </p>
         </div>
 
-        {/* 3 Columns Card Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {/* Card 1 - Refusal */}
-          <div className="group cursor-pointer">
+        {/* 4 Columns Curatorial Placard Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+          {/* Axiom I */}
+          <div className="group">
             <SpotlightCard
-              glowColor="rgba(0, 0, 0, 0.05)"
+              glowColor="rgba(216, 255, 66, 0.15)"
               borderColor="rgba(0, 0, 0, 0.15)"
-              className="bg-[#d8ff42] border-[3px] border-black rounded-3xl p-6 md:p-8 min-h-[380px] flex flex-col justify-between shadow-[6px_6px_0px_#000] hover:shadow-[10px_10px_0px_#000] transition-all duration-500 interactive"
+              className="bg-[#faf9f5] border-[2.5px] border-black rounded-2xl p-6 min-h-[420px] flex flex-col justify-between shadow-[6px_6px_0px_#000] hover:shadow-[10px_10px_0px_#d8ff42] transition-all duration-300"
             >
-              <div className="flex justify-between items-start">
-                <div className="w-12 h-12 rounded-full bg-black/10 flex items-center justify-center group-hover:rotate-45 transition-transform duration-500 text-black text-xl font-bold">
-                  ✦
+              <div className="space-y-4">
+                <div className="flex justify-between items-center border-b border-black/10 pb-3">
+                  <span className="font-mono text-[9px] font-black uppercase px-2.5 py-1 rounded bg-black text-[#d8ff42]">
+                    AXIOM I
+                  </span>
+                  <span className="font-serif italic text-xs text-zinc-400">
+                    Ontological Reduction
+                  </span>
                 </div>
-                <span className="text-black font-mono font-bold text-xs border-2 border-black px-3 py-1 rounded-full bg-white shadow-[2px_2px_0px_#000]">
-                  01
-                </span>
-              </div>
-              <div className="mt-8">
-                <h3 className="font-display font-black uppercase text-2xl md:text-3xl text-black mb-3 leading-none tracking-tight">
-                  Distinctiveness<br />Over Templates
+                <div className="font-mono text-[8px] tracking-widest text-zinc-400 uppercase">
+                  MEDIUM: PURE PRIMITIVES
+                </div>
+                <h3 className="font-display font-black uppercase text-xl text-black leading-tight">
+                  Strip The Commodity
                 </h3>
-                <p className="text-black/75 text-xs leading-relaxed font-sans">
-                  If your website is assembled from the same popular UI kit as 10,000 other companies, your product is judged as average. Custom shaders and bespoke layouts give you instant category leadership.
+                <p className="text-zinc-600 text-xs leading-relaxed font-sans">
+                  If your site relies on the same generic framework template as thousands of competitors, visitors unconsciously downgrade your brand equity. We carve from first principles with zero plugin bloat.
                 </p>
               </div>
-              <div className="w-full h-[2px] bg-black/10 mt-6" />
+              <div className="pt-4 border-t border-black/10 flex items-center justify-between font-mono text-[9px]">
+                <span className="text-zinc-400">CORE METRIC:</span>
+                <span className="font-black text-black">0KB THIRD-PARTY BLOAT</span>
+              </div>
             </SpotlightCard>
           </div>
 
-          {/* Card 2 - Performance */}
-          <div className="group cursor-pointer">
+          {/* Axiom II */}
+          <div className="group">
             <SpotlightCard
-              glowColor="rgba(255, 30, 144, 0.1)"
-              borderColor="rgba(255, 255, 255, 0.1)"
-              className="bg-[#111] border-[3px] border-black rounded-3xl p-6 md:p-8 min-h-[380px] flex flex-col justify-between shadow-[6px_6px_0px_#ff1e90] hover:shadow-[10px_10px_0px_#ff1e90] transition-all duration-500 interactive"
+              glowColor="rgba(255, 30, 144, 0.15)"
+              borderColor="rgba(0, 0, 0, 0.15)"
+              className="bg-[#111] text-white border-[2.5px] border-black rounded-2xl p-6 min-h-[420px] flex flex-col justify-between shadow-[6px_6px_0px_#ff1e90] hover:shadow-[10px_10px_0px_#fff] transition-all duration-300"
             >
-              <div className="flex justify-between items-start">
-                <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:scale-110 transition-transform duration-500 text-white text-xl">
-                  ⚡
+              <div className="space-y-4">
+                <div className="flex justify-between items-center border-b border-white/10 pb-3">
+                  <span className="font-mono text-[9px] font-black uppercase px-2.5 py-1 rounded bg-[#ff1e90] text-white">
+                    AXIOM II
+                  </span>
+                  <span className="font-serif italic text-xs text-zinc-400">
+                    Sensory Kineticism
+                  </span>
                 </div>
-                <span className="text-white/70 font-mono font-bold text-xs border border-white/10 px-3 py-1 rounded-full bg-white/5">
-                  02
-                </span>
-              </div>
-              <div className="mt-8">
-                <h3 className="font-display font-black uppercase text-2xl md:text-3xl text-white mb-3 leading-none tracking-tight">
-                  Performance is<br />Brand Respect
+                <div className="font-mono text-[8px] tracking-widest text-zinc-400 uppercase">
+                  MEDIUM: BESPOKE GLSL SHADERS
+                </div>
+                <h3 className="font-display font-black uppercase text-xl text-white leading-tight">
+                  Form Must Stir Emotion
                 </h3>
-                <p className="text-white/50 text-xs leading-relaxed font-sans">
-                  Every 500ms of lag communicates carelessness. Sub-150ms page loads subconsciously tell your customer that your engineering is world-class, driving conversion rates up to 4.2× higher.
+                <p className="text-zinc-400 text-xs leading-relaxed font-sans">
+                  Digital presence should evoke the tactile gravity of an exhibition sculpture. We engineer custom WebGL shaders, scroll-parallax timelines, and responsive micro-motion at solid 60 FPS Retina speed.
                 </p>
               </div>
-              <div className="w-full h-px bg-white/10 mt-6" />
+              <div className="pt-4 border-t border-white/10 flex items-center justify-between font-mono text-[9px]">
+                <span className="text-zinc-400">CORE METRIC:</span>
+                <span className="font-black text-[#d8ff42]">60 FPS RETINA SMOOTH</span>
+              </div>
             </SpotlightCard>
           </div>
 
-          {/* Card 3 - Ownership */}
-          <div className="group cursor-pointer">
+          {/* Axiom III */}
+          <div className="group">
             <SpotlightCard
-              glowColor="rgba(216, 255, 66, 0.08)"
+              glowColor="rgba(216, 255, 66, 0.15)"
               borderColor="rgba(0, 0, 0, 0.15)"
-              className="bg-white border-[3px] border-black rounded-3xl p-6 md:p-8 min-h-[380px] flex flex-col justify-between shadow-[6px_6px_0px_#000] hover:shadow-[10px_10px_0px_#d8ff42] transition-all duration-500 interactive"
+              className="bg-white border-[2.5px] border-black rounded-2xl p-6 min-h-[420px] flex flex-col justify-between shadow-[6px_6px_0px_#000] hover:shadow-[10px_10px_0px_#ff1e90] transition-all duration-300"
             >
-              <div className="flex justify-between items-start">
-                <div className="w-12 h-12 rounded-full bg-[#d8ff42]/20 border border-black/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500 text-black text-xl">
-                  🔑
+              <div className="space-y-4">
+                <div className="flex justify-between items-center border-b border-black/10 pb-3">
+                  <span className="font-mono text-[9px] font-black uppercase px-2.5 py-1 rounded bg-[#d8ff42] text-black border border-black shadow-[1px_1px_0px_#000]">
+                    AXIOM III
+                  </span>
+                  <span className="font-serif italic text-xs text-zinc-400">
+                    Velocity As Respect
+                  </span>
                 </div>
-                <span className="text-black font-mono font-bold text-xs border-2 border-black px-3 py-1 rounded-full bg-[#d8ff42] shadow-[2px_2px_0px_#000]">
-                  03
-                </span>
-              </div>
-              <div className="mt-8">
-                <h3 className="font-display font-black uppercase text-2xl md:text-3xl text-black mb-3 leading-none tracking-tight">
-                  Total Digital<br />Sovereignty
+                <div className="font-mono text-[8px] tracking-widest text-zinc-400 uppercase">
+                  MEDIUM: EDGE SSR &amp; SUB-SECOND TTFB
+                </div>
+                <h3 className="font-display font-black uppercase text-xl text-black leading-tight">
+                  Speed Is The Art of Polish
                 </h3>
-                <p className="text-black/70 text-xs leading-relaxed font-sans">
-                  We transfer 100% of the repository, design tokens, and deployment infrastructure directly to you upon launch. Zero monthly agency ransom, zero vendor lock-in, complete commercial control.
+                <p className="text-zinc-600 text-xs leading-relaxed font-sans">
+                  Lag is visual disrespect. When an interface responds in 120ms with zero layout shift, it triggers instant psychological prestige, multiplying buyer trust and conversion rates by up to 4.2×.
                 </p>
               </div>
-              <div className="w-full h-px bg-black/10 mt-6" />
+              <div className="pt-4 border-t border-black/10 flex items-center justify-between font-mono text-[9px]">
+                <span className="text-zinc-400">CORE METRIC:</span>
+                <span className="font-black text-black">&lt; 150MS GLOBAL TTFB</span>
+              </div>
+            </SpotlightCard>
+          </div>
+
+          {/* Axiom IV */}
+          <div className="group">
+            <SpotlightCard
+              glowColor="rgba(255, 30, 144, 0.15)"
+              borderColor="rgba(0, 0, 0, 0.15)"
+              className="bg-[#d8ff42] border-[2.5px] border-black rounded-2xl p-6 min-h-[420px] flex flex-col justify-between shadow-[6px_6px_0px_#000] hover:shadow-[10px_10px_0px_#000] transition-all duration-300"
+            >
+              <div className="space-y-4">
+                <div className="flex justify-between items-center border-b border-black/20 pb-3">
+                  <span className="font-mono text-[9px] font-black uppercase px-2.5 py-1 rounded bg-black text-white">
+                    AXIOM IV
+                  </span>
+                  <span className="font-serif italic text-xs text-black/60">
+                    Institutional Sovereignty
+                  </span>
+                </div>
+                <div className="font-mono text-[8px] tracking-widest text-black/60 uppercase">
+                  MEDIUM: 100% GITHUB HANDOVER
+                </div>
+                <h3 className="font-display font-black uppercase text-xl text-black leading-tight">
+                  Total Source Autonomy
+                </h3>
+                <p className="text-black/80 text-xs leading-relaxed font-sans">
+                  True art and true engineering belong to their patron. We transfer 100% of the repository, design tokens, and CI/CD pipelines directly to your GitHub on day 21. No monthly agency ransom.
+                </p>
+              </div>
+              <div className="pt-4 border-t border-black/20 flex items-center justify-between font-mono text-[9px]">
+                <span className="text-black/60">CORE METRIC:</span>
+                <span className="font-black text-black">100% CLIENT OWNERSHIP</span>
+              </div>
             </SpotlightCard>
           </div>
         </div>

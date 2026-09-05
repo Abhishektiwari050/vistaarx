@@ -42,3 +42,5 @@ next-env.d.ts
 
 # audit screenshots
 stagehand-audit-report.png
+audit_screens/
+audit_screens_wow/

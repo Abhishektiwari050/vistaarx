@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { SpotlightCard } from "@/components/spotlight-card";
+import { DigitalMuseum } from "@/components/ui/digital-museum";
+import { playTickSound } from "@/lib/hooks/use-audio-feedback";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Commercial Growth Case Studies Data
@@ -139,35 +141,81 @@ const CATEGORIES = ["All Work", "DTC & Commerce", "FinTech & SaaS", "AI & Automa
 
 export default function WorkPage() {
   const [activeCategory, setActiveCategory] = useState<string>("All Work");
+  const [viewMode, setViewMode] = useState<"both" | "pavilion" | "catalogue">("both");
 
   const filteredProjects = activeCategory === "All Work"
     ? CASE_STUDIES
     : CASE_STUDIES.filter((p) => p.category === activeCategory);
 
   return (
-    <div className="w-full relative min-h-screen bg-[#faf9f5] text-[#0a0a0a] overflow-x-hidden pt-28 pb-24">
+    <div className="w-full relative min-h-screen bg-[#faf9f5] text-[#0a0a0a] overflow-x-clip pt-28 pb-24">
       {/* Film grain noise overlay matching homepage */}
       <div className="noise-overlay" aria-hidden="true" />
 
       <div className="max-w-6xl mx-auto px-6 sm:px-12 md:px-16 relative z-10 space-y-16">
         
         {/* ── 1. Editorial Hero Header ──────────────────────────────────────── */}
-        <div className="space-y-6 max-w-4xl">
-          <div className="inline-flex items-center gap-2 border-2 border-black bg-white px-3.5 py-1.5 rounded-md text-[9px] font-mono font-black tracking-[2px] uppercase text-black shadow-[2px_2px_0px_#ff1e90]">
-            <span className="w-2 h-2 rounded-full bg-[#d8ff42] border border-black animate-pulse" />
-            CASE STUDIES // PROVEN COMMERCIAL IMPACT
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
+          <div className="space-y-6 max-w-3xl">
+            <div className="inline-flex items-center gap-2 border-2 border-black bg-white px-3.5 py-1.5 rounded-md text-[9px] font-mono font-black tracking-[2px] uppercase text-black shadow-[2px_2px_0px_#ff1e90]">
+              <span className="w-2 h-2 rounded-full bg-[#d8ff42] border border-black animate-pulse" />
+              CASE STUDIES // 3D VIRTUAL PAVILION &amp; ARCHIVE
+            </div>
+
+            <h1 className="font-display font-black text-5xl sm:text-6xl md:text-7xl uppercase tracking-tighter text-[#0a0a0a] leading-[0.95]">
+              Engineered for <br />
+              <span className="font-serif italic font-normal text-zinc-400 lowercase">
+                market dominance.
+              </span>
+            </h1>
+
+            <p className="font-sans text-sm sm:text-base text-zinc-600 max-w-2xl leading-relaxed">
+              We reject digital decoration and generic templates. Experience our selected commissions in the interactive 3D Virtual Art Pavilion or inspect the quantified commercial impact in the full engineering archive below.
+            </p>
           </div>
 
-          <h1 className="font-display font-black text-5xl sm:text-6xl md:text-7xl uppercase tracking-tighter text-[#0a0a0a] leading-[0.95]">
-            Engineered for <br />
-            <span className="font-serif italic font-normal text-zinc-400 lowercase">
-              market dominance.
-            </span>
-          </h1>
-
-          <p className="font-sans text-sm sm:text-base text-zinc-600 max-w-2xl leading-relaxed">
-            We reject digital decoration and generic templates. Every platform in our portfolio was custom-engineered to solve a critical commercial bottleneck: cutting bounce rates, accelerating conversions, and establishing undeniable category authority.
-          </p>
+          {/* View Mode Switcher Pills */}
+          <div className="shrink-0 flex items-center p-1.5 bg-white border-2 border-black rounded-xl shadow-[3px_3px_0px_#000]">
+            <button
+              onClick={() => {
+                playTickSound();
+                setViewMode("both");
+              }}
+              className={`px-3 py-1.5 rounded-lg text-[9px] font-mono font-black uppercase tracking-wider transition-all interactive ${
+                viewMode === "both"
+                  ? "bg-black text-[#d8ff42]"
+                  : "text-zinc-600 hover:text-black"
+              }`}
+            >
+              ◈ COMPLETE VIEW
+            </button>
+            <button
+              onClick={() => {
+                playTickSound();
+                setViewMode("pavilion");
+              }}
+              className={`px-3 py-1.5 rounded-lg text-[9px] font-mono font-black uppercase tracking-wider transition-all interactive ${
+                viewMode === "pavilion"
+                  ? "bg-[#ff1e90] text-white"
+                  : "text-zinc-600 hover:text-black"
+              }`}
+            >
+              ✦ 3D PAVILION
+            </button>
+            <button
+              onClick={() => {
+                playTickSound();
+                setViewMode("catalogue");
+              }}
+              className={`px-3 py-1.5 rounded-lg text-[9px] font-mono font-black uppercase tracking-wider transition-all interactive ${
+                viewMode === "catalogue"
+                  ? "bg-[#d8ff42] text-black border border-black"
+                  : "text-zinc-600 hover:text-black"
+              }`}
+            >
+              ☰ CATALOGUE
+            </button>
+          </div>
         </div>
 
         {/* ── 2. Metric Impact Banner (Brutalist Contrast Bar) ──────────────── */}
@@ -190,34 +238,73 @@ export default function WorkPage() {
           </div>
         </div>
 
-        {/* ── 3. Category Filter Bar ─────────────────────────────────────────── */}
-        <div className="flex flex-wrap items-center justify-between gap-4 border-b-2 border-black/10 pb-6">
-          <div className="flex flex-wrap gap-2">
-            {CATEGORIES.map((cat) => {
-              const isActive = activeCategory === cat;
-              return (
-                <button
-                  key={cat}
-                  onClick={() => setActiveCategory(cat)}
-                  className={`px-4 py-2 font-display text-[10px] font-black uppercase tracking-wider rounded-lg border-2 transition-all duration-200 cursor-pointer interactive ${
-                    isActive
-                      ? "bg-black text-[#d8ff42] border-black shadow-[3px_3px_0px_#ff1e90]"
-                      : "bg-white text-zinc-700 border-black/20 hover:border-black hover:bg-[#faf9f5]"
-                  }`}
-                >
-                  {cat}
-                </button>
-              );
-            })}
-          </div>
+        {/* ── 3. 3D Digital Museum Virtual Gallery Pavilion ─────────────────── */}
+        {(viewMode === "both" || viewMode === "pavilion") && (
+          <section className="space-y-4">
+            <div className="flex items-center justify-between border-b-2 border-black/10 pb-3">
+              <div className="flex items-center gap-2">
+                <span className="font-mono text-[10px] font-black uppercase tracking-widest text-[#ff1e90]">
+                  SECTION // 01
+                </span>
+                <span className="font-display text-sm font-black uppercase tracking-wider text-black">
+                  ✦ Interactive Modern Art Pavilion
+                </span>
+              </div>
+              <span className="font-mono text-[9px] text-zinc-400 uppercase tracking-widest hidden sm:inline-block">
+                CLICK PLINTHS OR DRAG SCENE TO NAVIGATE EXHIBITS
+              </span>
+            </div>
+            <DigitalMuseum />
+          </section>
+        )}
 
-          <div className="font-mono text-[10px] font-bold tracking-widest uppercase text-zinc-400">
-            SHOWING: <span className="text-black font-black">{filteredProjects.length} RECORDS</span>
-          </div>
-        </div>
+        {/* ── 4. Curated Commercial Impact Catalogue ───────────────────────── */}
+        {(viewMode === "both" || viewMode === "catalogue") && (
+          <section id="catalogue" className="space-y-10 scroll-mt-24">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b-2 border-black/10 pb-6">
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <span className="font-mono text-[10px] font-black uppercase tracking-widest text-[#d8ff42] bg-black px-2 py-0.5 rounded">
+                    SECTION // 02
+                  </span>
+                  <span className="font-display text-sm font-black uppercase tracking-wider text-black">
+                    Engineering Archive &amp; Commercial Case Studies
+                  </span>
+                </div>
+                <p className="font-sans text-xs text-zinc-500">
+                  Select a commercial discipline to filter deep architectural breakdowns and verified metrics.
+                </p>
+              </div>
 
-        {/* ── 4. Comprehensive Case Study Cards Grid ────────────────────────── */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* Category Filter Bar */}
+              <div className="flex flex-wrap gap-2">
+                {CATEGORIES.map((cat) => {
+                  const isActive = activeCategory === cat;
+                  return (
+                    <button
+                      key={cat}
+                      onClick={() => {
+                        playTickSound();
+                        setActiveCategory(cat);
+                      }}
+                      className={`px-3.5 py-1.5 font-display text-[9px] font-black uppercase tracking-wider rounded-lg border-2 transition-all duration-200 cursor-pointer interactive ${
+                        isActive
+                          ? "bg-black text-[#d8ff42] border-black shadow-[2px_2px_0px_#ff1e90]"
+                          : "bg-white text-zinc-700 border-black/20 hover:border-black hover:bg-[#faf9f5]"
+                      }`}
+                    >
+                      {cat}
+                    </button>
+                  );
+                })}
+              </div>
+              <div className="font-mono text-[10px] font-bold tracking-widest uppercase text-zinc-400">
+                SHOWING: <span className="text-black font-black">{filteredProjects.length} RECORDS</span>
+              </div>
+            </div>
+
+            {/* Comprehensive Case Study Cards Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((item, idx) => (
               <motion.div
@@ -316,6 +403,8 @@ export default function WorkPage() {
             ))}
           </AnimatePresence>
         </div>
+      </section>
+    )}
 
         {/* ── 5. Bottom Guarantee Callout ────────────────────────────────────── */}
         <div className="bg-[#111111] text-white border-[3px] border-black rounded-3xl p-8 sm:p-12 shadow-[8px_8px_0px_#d8ff42] flex flex-col md:flex-row items-center justify-between gap-8 select-none">
