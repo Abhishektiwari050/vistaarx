@@ -41,18 +41,21 @@ function Footer() {
         {/* Brand Statement */}
         <div className="space-y-4 max-w-sm">
           <Link href="/" className="font-display text-2xl font-black tracking-wider flex items-center gap-2.5 uppercase text-black">
-            <span className="relative flex h-2.5 w-2.5 shrink-0 select-none">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ff1e90] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#ff1e90]"></span>
-            </span>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-black shrink-0">
+              <path d="M12 2L16 8H8L12 2Z" fill="currentColor"/>
+              <path d="M2 12L8 8V16L2 12Z" fill="currentColor"/>
+              <path d="M22 12L16 16V8L22 12Z" fill="currentColor"/>
+              <path d="M12 22L8 16H16L12 22Z" fill="currentColor"/>
+              <circle cx="12" cy="12" r="2.2" fill="#d8ff42" />
+            </svg>
             <TextPressure text="VISTAR" />
           </Link>
           <p className="font-mono text-xs text-zinc-500 uppercase tracking-wider leading-relaxed">
             We build the systems your business runs on. Digital platforms, custom software, automations, and AI infrastructure.
           </p>
           <div className="inline-flex items-center gap-2 border border-black/20 bg-white px-2.5 py-1 rounded text-[9px] font-mono font-bold uppercase text-zinc-600">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-            SYSTEM STATUS: ONLINE // 99.99% SLA
+            <span className="w-1.5 h-1.5 rounded-full bg-black" />
+            VISTAR TECH // SYSTEMS ARCHITECTURE
           </div>
         </div>
 
@@ -64,7 +67,7 @@ function Footer() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-black hover:text-[#ff1e90] transition-colors interactive"
+                className="text-black hover:text-black hover:underline transition-colors interactive"
               >
                 {link.label}
               </Link>
@@ -77,7 +80,7 @@ function Footer() {
               href="https://linkedin.com/in/abhishektiwari050"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-black hover:text-[#ff1e90] transition-colors interactive"
+              className="text-black hover:text-black hover:underline transition-colors interactive"
             >
               LINKEDIN ↗
             </a>
@@ -85,13 +88,13 @@ function Footer() {
               href="https://github.com/Abhishektiwari050/vistaarx"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-black hover:text-[#ff1e90] transition-colors interactive"
+              className="text-black hover:text-black hover:underline transition-colors interactive"
             >
               GITHUB ↗
             </a>
             <Link
               href="/contact"
-              className="text-[#ff1e90] hover:text-black transition-colors interactive"
+              className="text-black font-black hover:underline transition-colors interactive"
             >
               START A BUILD →
             </Link>
@@ -162,7 +165,7 @@ function TopLoadingBar() {
         pointerEvents: "none",
         transition: progress === 100 ? "opacity 150ms ease-out" : "none",
         opacity: progress === 100 ? 0 : 1,
-        boxShadow: "0 0 8px #d8ff42, 0 0 4px #ff1e90",
+        boxShadow: "0 0 8px #d8ff42",
       }}
     />
   );
@@ -230,7 +233,7 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
     const isActive = pathname === href;
     return `transition-all py-1 interactive whitespace-nowrap border-b-2 font-mono font-bold tracking-widest uppercase text-[11px] ${
       isActive 
-        ? "text-[#ff1e90] border-[#ff1e90]" 
+        ? "text-black border-black font-black" 
         : "text-zinc-600 border-transparent hover:text-black hover:border-black"
     }`;
   };
@@ -256,11 +259,14 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
             headerVisible ? "translate-y-0" : "-translate-y-[180%]"
           }`}
         >
-          <Link href="/" id="nav-brand-logo" className="font-display text-base font-black tracking-widest text-black flex items-center gap-2 interactive uppercase">
-            <span className="relative flex h-2 w-2 shrink-0 select-none">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ff1e90] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#ff1e90]"></span>
-            </span>
+          <Link href="/" id="nav-brand-logo" className="font-display text-base font-black tracking-widest text-black flex items-center gap-2.5 interactive uppercase">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-black shrink-0">
+              <path d="M12 2L16 8H8L12 2Z" fill="currentColor"/>
+              <path d="M2 12L8 8V16L2 12Z" fill="currentColor"/>
+              <path d="M22 12L16 16V8L22 12Z" fill="currentColor"/>
+              <path d="M12 22L8 16H16L12 22Z" fill="currentColor"/>
+              <circle cx="12" cy="12" r="2.2" fill="#d8ff42" />
+            </svg>
             <TextPressure text="VISTAR" />
           </Link>
           
@@ -283,7 +289,7 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
             <Link
               href="/contact"
               onClick={() => playTickSound()}
-              className="bg-[#d8ff42] text-black font-mono font-black text-[10px] tracking-widest uppercase px-3.5 py-1.5 rounded-lg border-2 border-black shadow-[2px_2px_0px_#000] hover:bg-black hover:text-[#d8ff42] hover:shadow-[3px_3px_0px_#ff1e90] active:translate-x-0.5 active:translate-y-0.5 transition-all interactive"
+              className="bg-[#d8ff42] text-black font-mono font-black text-[10px] tracking-widest uppercase px-3.5 py-1.5 rounded-lg border-2 border-black shadow-[2px_2px_0px_#000] hover:bg-black hover:text-[#d8ff42] hover:shadow-[3px_3px_0px_#d8ff42] active:translate-x-0.5 active:translate-y-0.5 transition-all interactive"
             >
               START A BUILD →
             </Link>
@@ -328,8 +334,8 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
                 }}
                 className={`transition-all interactive border-b-2 pb-2 inline-block ${
                   pathname === link.href 
-                    ? "text-[#ff1e90] border-black"
-                    : "text-black border-black/10 hover:border-black"
+                    ? "text-black border-black font-black"
+                    : "text-zinc-600 border-black/10 hover:border-black hover:text-black"
                 }`}
               >
                 {link.label}

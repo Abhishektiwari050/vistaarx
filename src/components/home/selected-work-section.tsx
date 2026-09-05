@@ -3,21 +3,16 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { SpotlightCard } from "@/components/spotlight-card";
 import { playTickSound } from "@/lib/hooks/use-audio-feedback";
-import { ProjectSimulator } from "./project-simulators";
 
 export interface ShippedProject {
   id: string;
-  category: "AI & Telemetry" | "High-Performance Web" | "Mobile & Logistics";
+  category: "AI & Systems" | "Web Applications" | "Mobile & Logistics";
   title: string;
   domain: string;
-  status: string;
   image: string;
   liveUrl?: string;
   githubUrl: string;
-  metric: string;
-  metricLabel: string;
   problem: string;
   system: string;
   build: string[];
@@ -27,151 +22,113 @@ export interface ShippedProject {
 const ALL_SHIPPED_PROJECTS: ShippedProject[] = [
   {
     id: "01",
-    category: "AI & Telemetry",
-    title: "Project VAYU // Aviation Intelligence",
-    domain: "Aviation Safety & Flight Dispatch",
-    status: "PRODUCTION DEPLOYED",
+    category: "AI & Systems",
+    title: "Project VAYU",
+    domain: "Aviation Safety & Airspace Intelligence",
     image: "/projects/vayu-briefing.png",
     liveUrl: "https://ai-vayu.vercel.app",
     githubUrl: "https://github.com/Abhishektiwari050/AI-VAYU",
-    metric: "<45ms Parsing",
-    metricLabel: "Real-Time Hazard Decoding",
-    problem: "Pilots and dispatchers sift through hundreds of cryptic uppercase NOTAM text strings, risking safety-critical airspace oversights.",
-    system: "AI-driven NOTAM parser, NLP hazard threat classification, interactive GIS airspace HUD, and instant executive pre-flight briefing reports.",
+    problem: "Pilots and flight dispatchers navigate hundreds of cryptic, raw uppercase NOTAM text strings, risking safety-critical airspace hazard oversights.",
+    system: "Custom NLP hazard classification engine paired with an interactive Leaflet GIS airspace map and instant pre-flight briefing generation.",
     build: ["Next.js 15", "TypeScript", "GIS Leaflet HUD", "NLP AI", "Tailwind CSS"],
-    result: "<45ms query response, 99.8% hazard classification accuracy, -85% briefing prep time.",
+    result: "Instant airspace threat decoding, automated corridor briefings, and complete open-source repository transparency.",
   },
   {
     id: "02",
-    category: "AI & Telemetry",
-    title: "AURA // Multi-Agent Telemetry Engine",
-    domain: "Healthcare Telemetry & Critical Monitoring",
-    status: "PRODUCTION DEPLOYED",
+    category: "AI & Systems",
+    title: "AURA",
+    domain: "Clinical Telemetry & Anomaly Isolation",
     image: "/projects/aura-results.png",
     liveUrl: "https://multi-agent-anomaly-system.onrender.com",
     githubUrl: "https://github.com/Abhishektiwari050/multi-agent-anomaly-system",
-    metric: "<15ms Stream",
-    metricLabel: "Multi-Agent Anomaly Isolation",
-    problem: "Clinical vital signs monitoring suffers from telemetry alert fatigue, high false positives, and coupled architectures that choke under burst loads.",
+    problem: "Patient monitoring streams suffer from high false-positive alarm fatigue, overwhelmed staff, and brittle monolithic pipelines that fail under burst loads.",
     system: "Decoupled multi-agent stream architecture over a distributed message broker with unsupervised Isolation Forest ML models.",
     build: ["Python 3.11+", "Multi-Agent System", "Isolation Forest ML", "Telemetry Stream", "Render"],
-    result: "<15ms telemetry processing latency, 98.4% anomaly precision, zero false-alarm fatigue.",
+    result: "Autonomous anomaly isolation, decoupled message queues, and zero false-alarm fatigue under burst sensor loads.",
   },
   {
     id: "03",
     category: "Mobile & Logistics",
-    title: "Atify // Audiophile Android Music Engine",
-    domain: "Open Source Audio Engineering",
-    status: "PRODUCTION DEPLOYED",
+    title: "Atify",
+    domain: "Native Audiophile Android Engine",
     image: "/projects/atify-preview.jpg",
     githubUrl: "https://github.com/Abhishektiwari050/Atify",
-    metric: "Bit-Perfect FLAC",
-    metricLabel: "Lossless Audio Decoding",
-    problem: "Mainstream streaming apps lock users into lossy compression, lack Android Auto parity, and offer zero cross-platform library synchronization.",
-    system: "Modern MVVM native Android music engine with Jetpack Compose, featuring lossless Bit-Perfect FLAC playback and full Spotify account sync.",
+    problem: "Mainstream streaming applications lock users into lossy compression algorithms and offer zero cross-platform Android Auto parity.",
+    system: "Modern MVVM native Android audio engine built with Jetpack Compose, featuring bit-perfect FLAC audio decoding and Spotify library sync.",
     build: ["Kotlin", "Jetpack Compose", "Android Auto", "Spotify SDK", "MVVM"],
-    result: "Bit-perfect 24-bit audio playback, bi-directional playlist sync, 120Hz native UI rendering.",
+    result: "Bit-perfect 24-bit lossless playback, bi-directional playlist synchronization, and 120Hz native interface fluidity.",
   },
   {
     id: "04",
-    category: "High-Performance Web",
-    title: "3axis Arc // Architectural Real Estate",
-    domain: "PropTech & Luxury Architecture",
-    status: "PRODUCTION DEPLOYED",
+    category: "Web Applications",
+    title: "3axis Arc",
+    domain: "Luxury Architectural & Real Estate Platform",
     image: "/projects/3axisarc.png",
     liveUrl: "https://3axisarc.vercel.app",
     githubUrl: "https://github.com/Abhishektiwari050/3axisarc",
-    metric: "60 FPS 3D",
-    metricLabel: "Mouse-Tracking Parallax Shifts",
-    problem: "High-end luxury architectural projects fail to convert discerning investors when showcased on generic real estate listing templates.",
-    system: "Interactive 3D parallax with mouse-tracking perspective shifts, structural typography, clip-path hover transitions, and instant inquiry flows.",
-    build: ["Next.js", "TypeScript", "3D Parallax", "Tailwind CSS", "Vercel"],
-    result: "60 FPS fluid rendering, +180% average session duration, 99/100 Lighthouse performance.",
+    problem: "High-end luxury architectural projects fail to convert discerning investors when showcased on generic, static listing templates.",
+    system: "Interactive 3D spatial viewport with mouse-tracking perspective shifts, structural typography, clip-path transitions, and instant inquiry workflows.",
+    build: ["Next.js", "TypeScript", "Interactive 3D", "Tailwind CSS", "Vercel"],
+    result: "High-engagement spatial presentation, sub-100ms route transitions, and responsive mobile architecture.",
   },
   {
     id: "05",
-    category: "High-Performance Web",
-    title: "Competence CRM // Enterprise Operations",
-    domain: "B2B Consulting & Pipeline Operations",
-    status: "PRODUCTION DEPLOYED",
+    category: "Web Applications",
+    title: "Competence CRM",
+    domain: "Enterprise Operations & Pipeline Tracking",
     image: "/projects/competence-crm.png",
     liveUrl: "https://competenceconsultingcrm.onrender.com",
     githubUrl: "https://github.com/Abhishektiwari050/CRM",
-    metric: "+45% Velocity",
-    metricLabel: "Automated Deal Flow & Status Tracking",
-    problem: "Consulting operations were stalled by fragmented spreadsheets, untracked client deliverables, and manual status reporting.",
-    system: "Unified customer relationship and project management platform with Python backend, real-time client status automation, and activity telemetry.",
+    problem: "Consulting operations were stalled by disconnected spreadsheets, untracked client deliverables, and manual monthly reporting.",
+    system: "Unified relationship and project management platform with Python backend, real-time client status pipelines, and audit trails.",
     build: ["Python", "FastAPI / Django", "Reactive UI", "PostgreSQL", "Render"],
-    result: "100% automated deal flow tracking, +45% team delivery velocity, zero lost deliverables.",
+    result: "100% automated deal flow tracking, single-source operational truth, and zero lost client deliverables.",
   },
   {
     id: "06",
-    category: "High-Performance Web",
-    title: "Vayuways // Aviation & Charter Services",
-    domain: "Charter Travel & Fleet Logistics",
-    status: "PRODUCTION DEPLOYED",
+    category: "Web Applications",
+    title: "Vayuways",
+    domain: "Aviation Fleet & Charter Logistics",
     image: "/projects/vayuways.png",
     liveUrl: "https://vayuways.vercel.app",
     githubUrl: "https://github.com/Abhishektiwari050/vayuways",
-    metric: "95ms TTFB",
-    metricLabel: "Sub-100ms Global Edge Response",
-    problem: "Private aviation clients require rapid charter route discovery and high-trust booking interfaces that typical generic booking plugins couldn't deliver.",
+    problem: "Private aviation clients require rapid charter route discovery and high-trust booking interfaces that typical generic booking plugins fail to deliver.",
     system: "High-speed Next.js aviation services platform with modern flight inquiry dispatch, responsive fleet showcases, and edge server rendering.",
-    build: ["Next.js", "TypeScript", "Tailwind CSS", "Vercel", "Aviation Fleet"],
-    result: "95ms global TTFB, +94% booking inquiry velocity, -38% mobile bounce rate.",
+    build: ["Next.js", "TypeScript", "Tailwind CSS", "Vercel"],
+    result: "Sub-100ms global TTFB, rapid booking inquiry velocity, and seamless mobile responsive fleet discovery.",
   },
   {
     id: "07",
     category: "Mobile & Logistics",
-    title: "JBS Cargo // Freight Dispatch Platform",
-    domain: "Freight & Heavy Transport Logistics",
-    status: "PRODUCTION DEPLOYED",
+    title: "JBS Cargo",
+    domain: "Freight Dispatch & Tracking Platform",
     image: "/projects/jbs-cargo.png",
     liveUrl: "https://jbs-cargo.vercel.app",
     githubUrl: "https://github.com/Abhishektiwari050/jbs-cargo",
-    metric: "<5 min Quotes",
-    metricLabel: "Automated Freight Workflows",
-    problem: "Cargo dispatch inquiries were delayed by legacy manual intake phone calls, resulting in lost freight contracts to regional transport competitors.",
+    problem: "Cargo dispatch inquiries were delayed by legacy manual telephone intake, resulting in lost freight contracts to regional transport competitors.",
     system: "Automated cargo inquiry and freight platform with instant quote dispatch, consignment tracking workflows, and cross-device responsive UI.",
     build: ["Next.js", "TypeScript", "Tailwind CSS", "Logistics Automation", "Vercel"],
-    result: "<5 minute quote dispatch turnaround, +62% mobile conversion lift, 99.99% system uptime.",
+    result: "Rapid quote dispatch turnaround, automated consignment tracking, and verified 99.99% system availability.",
   },
   {
     id: "08",
     category: "Mobile & Logistics",
-    title: "KL Herbal // Ayurvedic E-Commerce",
-    domain: "Ayurvedic & Herbal E-Commerce",
-    status: "PRODUCTION DEPLOYED",
+    title: "KL Herbal",
+    domain: "Ayurvedic Storefront & Inventory",
     image: "/projects/klherbal.png",
     liveUrl: "https://klherbal.vercel.app",
     githubUrl: "https://github.com/Abhishektiwari050/KL-HERBAL",
-    metric: "0.000 CLS",
-    metricLabel: "Zero-Shift Storefront",
-    problem: "Mobile shoppers experienced high drop-offs due to slow product catalog filtering, clunky image layouts, and complex checkout friction.",
+    problem: "Shoppers experienced high drop-offs due to slow product catalog filtering, clunky image layouts, and complex checkout friction.",
     system: "Responsive, zero-layout-shift Next.js storefront with rich herbal remedy catalog classification, high-speed image optimization, and one-tap checkout.",
     build: ["Next.js", "TypeScript", "E-Commerce", "Tailwind CSS", "Vercel"],
-    result: "0.000 CLS, <0.8s catalog load speed, +52% mobile checkout completion rate.",
+    result: "Zero layout shift (CLS 0.000), instantaneous catalog filtering, and frictionless mobile purchasing.",
   },
 ];
 
-type CategoryFilter = "ALL" | "AI & Telemetry" | "High-Performance Web" | "Mobile & Logistics";
+type CategoryFilter = "ALL" | "AI & Systems" | "Web Applications" | "Mobile & Logistics";
 
 export function SelectedWorkSection() {
   const [activeCategory, setActiveCategory] = useState<CategoryFilter>("ALL");
-  const [viewFormat, setViewFormat] = useState<"WALL_OF_FAME" | "TELEMETRY_HUD">("WALL_OF_FAME");
-
-  // State for toggling individual project view modes in Telemetry HUD mode: "UI" vs "BLUEPRINT"
-  const [activeModes, setActiveModes] = useState<Record<string, "UI" | "BLUEPRINT">>({
-    "01": "UI",
-    "02": "UI",
-    "03": "UI",
-    "04": "UI",
-  });
-
-  const toggleMode = (id: string, mode: "UI" | "BLUEPRINT") => {
-    playTickSound();
-    setActiveModes((prev) => ({ ...prev, [id]: mode }));
-  };
 
   const filteredProjects = ALL_SHIPPED_PROJECTS.filter((p) => {
     if (activeCategory === "ALL") return true;
@@ -179,368 +136,154 @@ export function SelectedWorkSection() {
   });
 
   return (
-    <section id="work" className="py-24 px-6 sm:px-12 md:px-16 bg-white border-t-2 border-black relative overflow-hidden">
-      <div className="max-w-6xl mx-auto space-y-16 relative z-10">
+    <section id="work" className="py-28 px-6 sm:px-12 md:px-16 bg-[#faf9f5] border-t border-black/10 relative overflow-hidden">
+      <div className="max-w-6xl mx-auto space-y-20 relative z-10">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b-2 border-black/10 pb-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-black/10 pb-10">
           <div className="space-y-4 max-w-2xl">
-            <div className="inline-flex items-center gap-2 border-2 border-black bg-[#faf9f5] px-3.5 py-1.5 rounded-lg text-[9px] font-mono font-black tracking-[2px] uppercase text-black shadow-[2px_2px_0px_#ff1e90]">
-              <span className="w-2 h-2 rounded-full bg-[#ff1e90] inline-block" />
-              06 // VISTAR WALL OF FAME
+            <div className="inline-flex items-center gap-2 border border-black/80 bg-white px-3 py-1 rounded text-[9px] font-mono font-bold tracking-[2px] uppercase text-black shadow-[2px_2px_0px_#d8ff42]">
+              <span>02 // SELECTED WORK</span>
             </div>
 
-            <h2 className="font-display font-black text-4xl sm:text-5xl md:text-6xl uppercase tracking-tighter text-[#0a0a0a] leading-[0.95]">
+            <h2 className="font-display font-black text-4xl sm:text-6xl uppercase tracking-tight text-[#0a0a0a] leading-[0.95]">
               Shipped systems. <br />
-              <span className="font-serif italic font-normal text-zinc-400 lowercase">
-                a wall of verified engineering impact.
+              <span className="font-serif italic font-normal text-zinc-500 lowercase">
+                real engineering impact.
               </span>
             </h2>
 
-            <p className="font-sans text-sm sm:text-base text-zinc-600 leading-relaxed">
-              Every system here is production deployed with public source code, verified zero-downtime architecture, and real commercial deliverables.
+            <p className="font-sans text-sm sm:text-base text-zinc-700 leading-relaxed max-w-xl">
+              We do not present mockups or theoretical concepts. Every system below is deployed, operating, and backed by authentic production codebases.
             </p>
           </div>
 
-          {/* View Format Switcher */}
-          <div className="flex items-center gap-2 bg-[#faf9f5] p-1.5 rounded-2xl border-2 border-black shadow-[3px_3px_0px_#000] shrink-0">
-            <button
-              onClick={() => {
-                playTickSound();
-                setViewFormat("WALL_OF_FAME");
-              }}
-              className={`font-mono text-[9px] font-black uppercase px-3 py-2 rounded-xl transition-all cursor-pointer ${
-                viewFormat === "WALL_OF_FAME"
-                  ? "bg-black text-[#d8ff42] shadow-[2px_2px_0px_#000]"
-                  : "text-zinc-600 hover:text-black"
-              }`}
-            >
-              🏆 WALL OF FAME (8)
-            </button>
-            <button
-              onClick={() => {
-                playTickSound();
-                setViewFormat("TELEMETRY_HUD");
-              }}
-              className={`font-mono text-[9px] font-black uppercase px-3 py-2 rounded-xl transition-all cursor-pointer ${
-                viewFormat === "TELEMETRY_HUD"
-                  ? "bg-black text-[#d8ff42] shadow-[2px_2px_0px_#000]"
-                  : "text-zinc-600 hover:text-black"
-              }`}
-            >
-              ⚡ TELEMETRY LAB
-            </button>
-          </div>
-        </div>
-
-        {/* Category Filters Bar */}
-        <div className="flex flex-wrap items-center justify-between gap-4">
+          {/* Category Filter Tabs (Minimalist & Architectural) */}
           <div className="flex flex-wrap items-center gap-2">
-            {(
-              [
-                { label: "ALL 8 SYSTEMS", value: "ALL", count: "08" },
-                { label: "AI & TELEMETRY", value: "AI & Telemetry", count: "02" },
-                { label: "HIGH-PERFORMANCE WEB", value: "High-Performance Web", count: "03" },
-                { label: "MOBILE & LOGISTICS", value: "Mobile & Logistics", count: "03" },
-              ] as const
-            ).map((cat) => (
+            {(["ALL", "AI & Systems", "Web Applications", "Mobile & Logistics"] as CategoryFilter[]).map((cat) => (
               <button
-                key={cat.value}
+                key={cat}
                 onClick={() => {
                   playTickSound();
-                  setActiveCategory(cat.value);
+                  setActiveCategory(cat);
                 }}
-                className={`px-3.5 py-1.5 rounded-xl font-mono text-[9px] font-black uppercase border-2 transition-all cursor-pointer flex items-center gap-2 ${
-                  activeCategory === cat.value
-                    ? "bg-black text-[#d8ff42] border-black shadow-[2px_2px_0px_#ff1e90]"
-                    : "bg-[#faf9f5] text-zinc-600 border-black/10 hover:border-black hover:bg-white"
+                className={`px-3.5 py-1.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider transition-all interactive ${
+                  activeCategory === cat
+                    ? "bg-black text-white border border-black shadow-[2px_2px_0px_#d8ff42]"
+                    : "bg-white text-zinc-600 border border-black/20 hover:border-black hover:text-black"
                 }`}
               >
-                <span>{cat.label}</span>
-                <span
-                  className={`text-[8px] px-1.5 py-0.2 rounded ${
-                    activeCategory === cat.value ? "bg-[#d8ff42] text-black" : "bg-black/5 text-zinc-500"
-                  }`}
-                >
-                  {cat.count}
-                </span>
+                {cat}
               </button>
             ))}
           </div>
-
-          <span className="font-mono text-[9px] text-zinc-400 uppercase tracking-wider">
-            FILTERED: {filteredProjects.length} OF 8 SHIPPED SYSTEMS
-          </span>
         </div>
 
-        {/* VIEW 01: WALL OF FAME GRID */}
-        {viewFormat === "WALL_OF_FAME" && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-            {filteredProjects.map((project) => (
-              <SpotlightCard
-                key={project.id}
-                className="bg-[#faf9f5] border-[2.5px] border-black rounded-3xl p-6 sm:p-7 shadow-[6px_6px_0px_#000] hover:shadow-[10px_10px_0px_#d8ff42] transition-all duration-300 flex flex-col justify-between space-y-6 group"
-              >
-                {/* Card Header Bar */}
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between border-b-2 border-black/10 pb-3">
-                    <div className="flex items-center gap-2.5">
-                      <span className="font-mono text-[9px] font-black px-2 py-0.5 rounded bg-black text-[#d8ff42]">
-                        #{project.id}
-                      </span>
-                      <span className="font-mono text-[9px] font-bold text-zinc-500 uppercase">
-                        {project.domain}
-                      </span>
-                    </div>
-
-                    <span className="font-mono text-[8px] font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-300 uppercase">
-                      ● {project.status}
+        {/* Large-Scale Editorial Project Stories */}
+        <div className="space-y-20">
+          {filteredProjects.map((project, idx) => (
+            <article
+              key={project.id}
+              className="bg-white border border-black/80 rounded-2xl p-6 sm:p-10 shadow-[4px_4px_0px_#000] hover:shadow-[6px_6px_0px_#000] transition-all"
+            >
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                
+                {/* Left Column: Project Editorial Narrative (5 Cols) */}
+                <div className="lg:col-span-5 space-y-6">
+                  <div className="flex items-center gap-3">
+                    <span className="font-mono text-[9px] font-bold text-zinc-400 uppercase tracking-widest">
+                      SYSTEM // 0{idx + 1}
+                    </span>
+                    <span className="w-1 h-1 rounded-full bg-zinc-300" />
+                    <span className="font-mono text-[9px] font-bold text-zinc-600 uppercase">
+                      {project.domain}
                     </span>
                   </div>
 
-                  {/* Thumbnail Preview */}
-                  <div className="relative w-full h-52 sm:h-60 rounded-2xl overflow-hidden border-2 border-black bg-zinc-950 group-hover:scale-[1.01] transition-transform duration-500 shadow-[3px_3px_0px_#000]">
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      fill
-                      className="object-cover object-top"
-                      sizes="(max-width: 1024px) 100vw, 50vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-80" />
+                  <h3 className="font-display font-black text-3xl sm:text-4xl uppercase tracking-tight text-[#0a0a0a]">
+                    {project.title}
+                  </h3>
 
-                    {/* Metric Trophy Badge in corner */}
-                    <div className="absolute top-3 right-3 bg-black/90 border border-white/20 px-2.5 py-1 rounded-lg text-right font-mono backdrop-blur-md">
-                      <span className="text-[7px] text-zinc-400 uppercase block">{project.metricLabel}</span>
-                      <span className="text-xs font-black text-[#d8ff42]">{project.metric}</span>
+                  {/* 3-Part Architecture Breakdown */}
+                  <div className="space-y-4 text-xs font-sans leading-relaxed border-t border-b border-black/10 py-5">
+                    <div>
+                      <span className="font-mono text-[9px] font-bold uppercase text-zinc-500 block mb-1">
+                        The Problem
+                      </span>
+                      <p className="text-zinc-700">{project.problem}</p>
                     </div>
 
-                    {/* Floating Direct Links */}
-                    <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between gap-2 z-10">
-                      {project.liveUrl ? (
-                        <a
-                          href={project.liveUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="bg-[#d8ff42] text-black font-mono font-black text-[9px] uppercase tracking-wider px-3 py-1.5 rounded-lg border-2 border-black shadow-[2px_2px_0px_#000] hover:bg-white transition-colors"
-                        >
-                          Live Platform ↗
-                        </a>
-                      ) : (
-                        <span className="font-mono text-[9px] font-bold text-zinc-400 bg-black/80 px-2.5 py-1 rounded border border-white/10">
-                          Native Android APK
-                        </span>
-                      )}
+                    <div>
+                      <span className="font-mono text-[9px] font-bold uppercase text-zinc-500 block mb-1">
+                        The Engineered System
+                      </span>
+                      <p className="text-zinc-700">{project.system}</p>
+                    </div>
 
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="bg-black/95 text-white font-mono font-bold text-[9px] uppercase tracking-wider px-3 py-1.5 rounded-lg border border-white/20 hover:bg-white hover:text-black transition-colors ml-auto"
-                      >
-                        GitHub Repo ↗
-                      </a>
+                    <div>
+                      <span className="font-mono text-[9px] font-bold uppercase text-zinc-500 block mb-1">
+                        Verified Outcome
+                      </span>
+                      <p className="text-zinc-900 font-medium">{project.result}</p>
                     </div>
                   </div>
 
-                  {/* Title & Core Description */}
-                  <div className="space-y-2 pt-1">
-                    <h3 className="font-display font-black text-xl sm:text-2xl uppercase tracking-tight text-black leading-tight">
-                      {project.title}
-                    </h3>
-                    <p className="font-sans text-xs text-zinc-600 leading-relaxed font-medium">
-                      {project.system}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Tech Chips & Result */}
-                <div className="space-y-3 pt-3 border-t border-black/10">
-                  <div className="flex flex-wrap gap-1.5">
-                    {project.build.map((t) => (
+                  {/* Technology Tags */}
+                  <div className="flex flex-wrap items-center gap-1.5 pt-1">
+                    {project.build.map((tech) => (
                       <span
-                        key={t}
-                        className="font-mono text-[8px] font-bold uppercase px-2 py-0.5 rounded bg-black/5 border border-black/10 text-zinc-700"
+                        key={tech}
+                        className="px-2 py-0.5 rounded text-[9px] font-mono font-medium bg-[#faf9f5] border border-black/10 text-zinc-600"
                       >
-                        {t}
+                        {tech}
                       </span>
                     ))}
                   </div>
 
-                  <div className="bg-[#d8ff42]/20 border-2 border-black p-2.5 rounded-xl text-[9px] font-mono flex items-center justify-between shadow-[2px_2px_0px_#000]">
-                    <span className="font-bold text-black uppercase">RESULT:</span>
-                    <span className="text-zinc-800 font-bold truncate max-w-[280px] sm:max-w-xs">{project.result}</span>
+                  {/* Direct Action Links */}
+                  <div className="flex flex-wrap items-center gap-3 pt-2">
+                    {project.liveUrl && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => playTickSound()}
+                        className="bg-[#d8ff42] text-black font-mono font-bold text-[10px] tracking-widest uppercase px-5 py-2.5 rounded border border-black shadow-[2px_2px_0px_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all interactive"
+                      >
+                        VISIT PLATFORM ↗
+                      </a>
+                    )}
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => playTickSound()}
+                      className="bg-white text-black font-mono font-bold text-[10px] tracking-widest uppercase px-5 py-2.5 rounded border border-black shadow-[2px_2px_0px_#000] hover:bg-[#faf9f5] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all interactive"
+                    >
+                      GITHUB SOURCE ↗
+                    </a>
                   </div>
                 </div>
-              </SpotlightCard>
-            ))}
-          </div>
-        )}
 
-        {/* VIEW 02: TELEMETRY LAB & DEEP EDITORIAL HUD */}
-        {viewFormat === "TELEMETRY_HUD" && (
-          <div className="space-y-14">
-            {ALL_SHIPPED_PROJECTS.slice(0, 4).map((project) => {
-              const currentMode = activeModes[project.id] || "UI";
-
-              return (
-                <SpotlightCard
-                  key={project.id}
-                  className="bg-[#faf9f5] border-[2.5px] border-black rounded-3xl p-6 sm:p-10 shadow-[6px_6px_0px_#000] hover:shadow-[10px_10px_0px_#d8ff42] transition-all duration-300 space-y-8"
-                >
-                  {/* Project Header Bar */}
-                  <div className="flex flex-wrap items-center justify-between gap-4 border-b-2 border-black/10 pb-4">
-                    <div className="flex items-center gap-3">
-                      <span className="font-mono text-[10px] font-black px-2.5 py-1 rounded bg-black text-[#d8ff42]">
-                        PROJECT {project.id}
-                      </span>
-                      <span className="font-mono text-xs font-bold text-zinc-500 uppercase">
-                        {project.domain}
-                      </span>
-                    </div>
-
-                    {/* Mode Switcher & Status */}
-                    <div className="flex items-center gap-2.5">
-                      <div className="flex items-center gap-1 bg-white p-1 rounded-xl border-2 border-black shadow-[2px_2px_0px_#000]">
-                        <button
-                          onClick={() => toggleMode(project.id, "UI")}
-                          className={`font-mono text-[9px] font-black uppercase px-2.5 py-1 rounded-lg transition-all cursor-pointer ${
-                            currentMode === "UI"
-                              ? "bg-black text-[#d8ff42]"
-                              : "text-zinc-600 hover:text-black"
-                          }`}
-                        >
-                          🖼️ INTERFACE
-                        </button>
-                        <button
-                          onClick={() => toggleMode(project.id, "BLUEPRINT")}
-                          className={`font-mono text-[9px] font-black uppercase px-2.5 py-1 rounded-lg transition-all cursor-pointer ${
-                            currentMode === "BLUEPRINT"
-                              ? "bg-[#ff1e90] text-white"
-                              : "text-zinc-600 hover:text-black"
-                          }`}
-                        >
-                          ⚡ TELEMETRY HUD
-                        </button>
-                      </div>
-
-                      <span className="font-mono text-[9px] font-bold px-2 py-1 rounded bg-emerald-100 text-emerald-800 border border-emerald-300 uppercase shrink-0">
-                        ● {project.status}
-                      </span>
+                {/* Right Column: Real Project Screenshot in Architectural Bezel (7 Cols) */}
+                <div className="lg:col-span-7">
+                  <div className="relative rounded-xl border border-black/80 overflow-hidden bg-[#18191c] shadow-[3px_3px_0px_#000] group">
+                    <div className="relative aspect-[16/10] w-full">
+                      <Image
+                        src={project.image}
+                        alt={`${project.title} Interface`}
+                        fill
+                        className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.02]"
+                        sizes="(max-width: 1024px) 100vw, 60vw"
+                      />
                     </div>
                   </div>
+                </div>
 
-                  {/* Title & Preview Grid */}
-                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                    
-                    {/* Visual Preview / Telemetry Stage (7 Columns) */}
-                    <div className="lg:col-span-7 space-y-4">
-                      {currentMode === "UI" ? (
-                        <div className="relative w-full h-64 sm:h-80 md:h-96 rounded-2xl overflow-hidden border-2 border-black bg-zinc-950 group/img shadow-[4px_4px_0px_#000]">
-                          <Image
-                            src={project.image}
-                            alt={project.title}
-                            fill
-                            className="object-cover object-top group-hover/img:scale-105 transition-transform duration-500"
-                            sizes="(max-width: 1024px) 100vw, 60vw"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-70" />
-                          
-                          {/* Floating Action Links */}
-                          <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between gap-3 z-10">
-                            {project.liveUrl && (
-                              <a
-                                href={project.liveUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="bg-[#d8ff42] text-black font-mono font-black text-[10px] uppercase tracking-wider px-3.5 py-2 rounded-lg border-2 border-black shadow-[2px_2px_0px_#000] hover:bg-white transition-colors"
-                              >
-                                Visit Live Platform ↗
-                              </a>
-                            )}
-                            <a
-                              href={project.githubUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="bg-black/90 text-white font-mono font-bold text-[10px] uppercase tracking-wider px-3.5 py-2 rounded-lg border border-white/20 hover:bg-white hover:text-black transition-colors ml-auto"
-                            >
-                              Inspect GitHub Source ↗
-                            </a>
-                          </div>
-                        </div>
-                      ) : (
-                        <div className="space-y-3">
-                          <ProjectSimulator projectId={project.id} />
-                          <div className="flex items-center justify-between text-[9px] font-mono text-zinc-500 px-1">
-                            <span>INTERACTIVE TELEMETRY LAB</span>
-                            <button
-                              onClick={() => toggleMode(project.id, "UI")}
-                              className="text-[#ff1e90] font-black uppercase hover:underline"
-                            >
-                              Back to UI View ↗
-                            </button>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Editorial Breakdown: Problem -> System -> Build -> Result (5 Columns) */}
-                    <div className="lg:col-span-5 space-y-4">
-                      <h3 className="font-display font-black text-2xl sm:text-3xl uppercase tracking-tight text-black leading-tight">
-                        {project.title}
-                      </h3>
-
-                      <div className="space-y-3 font-sans text-xs">
-                        {/* The Problem */}
-                        <div className="bg-white border border-black/10 p-3.5 rounded-xl space-y-1">
-                          <span className="font-mono text-[8px] font-black uppercase tracking-widest text-[#ff1e90] block">
-                            THE PROBLEM
-                          </span>
-                          <p className="text-zinc-600 leading-relaxed font-medium">
-                            {project.problem}
-                          </p>
-                        </div>
-
-                        {/* The System */}
-                        <div className="bg-white border border-black/10 p-3.5 rounded-xl space-y-1">
-                          <span className="font-mono text-[8px] font-black uppercase tracking-widest text-black block">
-                            THE SYSTEM ARCHITECTURE
-                          </span>
-                          <p className="text-zinc-700 leading-relaxed font-medium">
-                            {project.system}
-                          </p>
-                        </div>
-
-                        {/* The Result */}
-                        <div className="bg-[#d8ff42]/20 border-2 border-black p-3.5 rounded-xl space-y-1 shadow-[2px_2px_0px_#000]">
-                          <span className="font-mono text-[8px] font-black uppercase tracking-widest text-black block">
-                            VERIFIED BUSINESS RESULT
-                          </span>
-                          <p className="text-black font-bold leading-relaxed">
-                            {project.result}
-                          </p>
-                        </div>
-                      </div>
-
-                      {/* Tech Stack Chips */}
-                      <div className="pt-2 flex flex-wrap gap-1.5">
-                        {project.build.map((t) => (
-                          <span
-                            key={t}
-                            className="font-mono text-[8px] font-bold uppercase px-2 py-0.5 rounded bg-black/5 border border-black/10 text-zinc-700"
-                          >
-                            {t}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                  </div>
-                </SpotlightCard>
-              );
-            })}
-          </div>
-        )}
+              </div>
+            </article>
+          ))}
+        </div>
 
       </div>
     </section>

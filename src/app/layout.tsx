@@ -86,20 +86,37 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://www.vistar.tech",
     siteName: "Vistar Web Systems",
+    images: [
+      {
+        url: "https://www.vistar.tech/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Vistar Web Systems — Custom Web Architecture & High-Performance Platforms",
+        type: "image/jpeg",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Vistar Web Systems — Custom Web Architecture & High-Performance Platforms",
     description:
       "Elite digital engineering for ambitious brands. Bespoke websites, high-performance web applications, sub-second edge routing, and 100% codebase ownership.",
+    images: ["https://www.vistar.tech/og-image.jpg"],
     creator: "@vistartech",
+    site: "@vistartech",
   },
   icons: {
     icon: [
-      { url: "/icon.svg", type: "image/svg+xml" },
-      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.ico?v=3", sizes: "any" },
+      { url: "/icon.svg?v=3", type: "image/svg+xml" },
+      { url: "/favicon-32x32.png?v=3", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png?v=3", sizes: "16x16", type: "image/png" },
     ],
-    apple: [{ url: "/icon.svg" }],
+    apple: [
+      { url: "/apple-touch-icon.png?v=3", sizes: "180x180", type: "image/png" },
+      { url: "/icon.svg?v=3", type: "image/svg+xml" },
+    ],
+    shortcut: ["/favicon.ico?v=3"],
   },
   manifest: "/manifest.webmanifest",
   category: "technology",

@@ -1,56 +1,32 @@
 "use client";
 
 import React from "react";
-import { VistarHero } from "@/components/vistar-hero";
-import { ProblemSection } from "@/components/home/problem-section";
-import { BeforeAfterSection } from "@/components/home/before-after-section";
-import { SvgEventFlowVisualizer } from "@/components/home/svg-event-flow-visualizer";
+import { ActOneExperience } from "@/components/home/act-one-experience";
 import { ArchitectureLayersSection } from "@/components/home/architecture-layers-section";
-import { KineticTicker } from "@/components/home/kinetic-ticker";
-import { CapabilitiesSection } from "@/components/home/capabilities-section";
 import { SelectedWorkSection } from "@/components/home/selected-work-section";
-import { ProcessSection } from "@/components/home/process-section";
 import { OwnershipSection } from "@/components/home/ownership-section";
 import { FinalCTASection } from "@/components/home/final-cta-section";
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen bg-[#faf9f5] text-[#0a0a0a] overflow-x-hidden">
+    <div className="relative min-h-screen bg-[#faf9f5] text-[#0a0a0a] overflow-clip">
       
       {/* Global subtle film noise overlay */}
       <div className="noise-overlay" aria-hidden="true" />
 
-      {/* 01 — HERO: "WE BUILD THE SYSTEMS YOUR BUSINESS RUNS ON" */}
-      <VistarHero />
+      {/* SCENE 01 — THE PHYSICAL SYSTEM (ACT I: ARRIVAL, STRAIN & MECHANICAL CLOSURE) */}
+      <ActOneExperience />
 
-      {/* 02 — THE PROBLEM: "YOUR BUSINESS SHOULDN'T RUN ON DISCONNECTED TOOLS" */}
-      <ProblemSection />
-
-      {/* 03 — THE SYSTEM: BEFORE → AFTER INTERACTIVE TRANSFORMATION */}
-      <BeforeAfterSection />
-
-      {/* 03.5 — SVG VECTORIZED ARCHITECTURE TRACE: WHAT HAPPENS WHEN */}
-      <SvgEventFlowVisualizer />
-
-      {/* 04 — WHAT WE ACTUALLY ENGINEER: 7-LAYER SYSTEMS ARCHITECTURE */}
+      {/* SCENE 02 — THE 7-LAYER SYSTEMS ARCHITECTURE (PHYSICAL ASSEMBLY EXPLANATION) */}
       <ArchitectureLayersSection />
 
-      {/* EDITORIAL PACING: KINETIC MANIFESTO TICKER */}
-      <KineticTicker />
-
-      {/* 05 — CAPABILITIES: PROBLEM → APPROACH → TECH → OUTCOME */}
-      <CapabilitiesSection />
-
-      {/* 06 — SELECTED WORK: REAL VERIFIED CASE STUDIES & GITHUB REPOSITORIES */}
+      {/* SCENE 03 — SELECTED WORK EXHIBITION (LARGE-SCALE REAL CASE STUDIES) */}
       <SelectedWorkSection />
 
-      {/* 07 — PROCESS: THE 21-DAY SPRINT RHYTHM */}
-      <ProcessSection />
-
-      {/* 08 & 09 — OWNERSHIP PHILOSOPHY & VERIFIED ENGINEERING STANDARDS */}
+      {/* SCENE 04 — THE SOVEREIGN OWNERSHIP MANIFESTO (100% CODE HANDOVER) */}
       <OwnershipSection />
 
-      {/* 10 — FINAL CLIMACTIC CTA: "HAVE A SYSTEM WORTH BUILDING?" */}
+      {/* SCENE 05 — DIRECT COMMISSION (ARCHITECTURAL SCOPING & CONTACT) */}
       <FinalCTASection />
 
     </div>
