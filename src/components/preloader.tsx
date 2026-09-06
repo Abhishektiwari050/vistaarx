@@ -197,6 +197,7 @@ export function Preloader() {
       const elapsed = (now - startTime) / 1000; // seconds
 
       uniforms.uTime.value = elapsed;
+      if (typeof window !== 'undefined') (window as any).__preloaderElapsed = elapsed;
 
       // Phase 1 -> 2: Tension (1.6s to 3.0s)
       if (elapsed >= 1.6 && elapsed < 3.0) {
@@ -285,168 +286,170 @@ export function Preloader() {
           />
 
           {/* ============================================================ */}
-          {/* ONLY THE 4 ICONIC ARROWS (Zero Text, Zero Extra Clutter)     */}
+          {/* LOGO & VISTAR NAME SLIDE-UP ANIMATION                        */}
           {/* ============================================================ */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
-            <div className="relative w-44 h-44 sm:w-56 sm:h-56 flex items-center justify-center">
+            <motion.div
+              initial={{ y: "0vh", opacity: 1 }}
+              animate={
+                isTear
+                  ? { y: "-36vh", opacity: 0 }
+                  : isTension
+                  ? { y: "-1.5vh", opacity: 1 }
+                  : { y: "0vh", opacity: 1 }
+              }
+              transition={
+                isTear
+                  ? {
+                      y: { duration: 1.8, ease: [0.22, 1, 0.36, 1] },
+                      opacity: { duration: 0.7, delay: 0.45, ease: "easeOut" },
+                    }
+                  : {
+                      y: { duration: 1.4, ease: tensionEase },
+                      opacity: { duration: 0.3 },
+                    }
+              }
+              className="relative flex flex-col items-center justify-center"
+            >
+              {/* THE 4 ARROWS EMBLEM */}
+              <div className="relative w-28 h-28 sm:w-36 sm:h-36 flex items-center justify-center">
+                {/* Central copper beacon */}
+                <div className="absolute w-2.5 h-2.5 rounded-full bg-[#B87333] border border-[#D29A68] shadow-[0_0_8px_#B87333]" />
 
-              {/* NORTH ARROW */}
-              <motion.div
-                initial={{ y: 0 }}
-                animate={
-                  isTear
-                    ? { y: "-95vh", scale: 1.05, opacity: 0 }
-                    : isTension
-                    ? { y: -38 }
-                    : { y: 0 }
-                }
-                transition={
-                  isTear
-                    ? { duration: 1.6, ease: tearEase }
-                    : { duration: 1.4, ease: tensionEase }
-                }
-                className="absolute top-1 sm:top-2 flex items-center justify-center"
-              >
-                <svg
-                  viewBox="0 0 64 64"
-                  className="w-14 sm:w-18 h-14 sm:h-18 drop-shadow-[0_8px_18px_rgba(21,21,21,0.32)]"
-                  fill="none"
+                {/* NORTH ARROW */}
+                <motion.div
+                  animate={isTension ? { y: -16 } : { y: 0 }}
+                  transition={{ duration: 1.2, ease: tensionEase }}
+                  className="absolute top-1 sm:top-2 flex items-center justify-center"
                 >
-                  <polygon
-                    points="32,6 56,52 8,52"
-                    fill="#151515"
-                    stroke="#8C542C"
-                    strokeWidth="1.5"
-                    strokeLinejoin="round"
-                  />
-                  <polygon
-                    points="32,16 48,46 16,46"
-                    fill="#151515"
-                    stroke="#D29A68"
-                    strokeWidth="0.75"
-                    strokeOpacity="0.75"
-                  />
-                </svg>
-              </motion.div>
+                  <svg
+                    viewBox="0 0 64 64"
+                    className="w-9 sm:w-12 h-9 sm:h-12 drop-shadow-[0_4px_10px_rgba(21,21,21,0.32)]"
+                    fill="none"
+                  >
+                    <polygon
+                      points="32,6 56,52 8,52"
+                      fill="#151515"
+                      stroke="#8C542C"
+                      strokeWidth="1.5"
+                      strokeLinejoin="round"
+                    />
+                    <polygon
+                      points="32,16 48,46 16,46"
+                      fill="#151515"
+                      stroke="#D29A68"
+                      strokeWidth="0.75"
+                      strokeOpacity="0.75"
+                    />
+                  </svg>
+                </motion.div>
 
-              {/* EAST ARROW */}
-              <motion.div
-                initial={{ x: 0 }}
-                animate={
-                  isTear
-                    ? { x: "95vw", scale: 1.05, opacity: 0 }
-                    : isTension
-                    ? { x: 38 }
-                    : { x: 0 }
-                }
-                transition={
-                  isTear
-                    ? { duration: 1.6, ease: tearEase }
-                    : { duration: 1.4, ease: tensionEase }
-                }
-                className="absolute right-1 sm:right-2 flex items-center justify-center"
-              >
-                <svg
-                  viewBox="0 0 64 64"
-                  className="w-14 sm:w-18 h-14 sm:h-18 drop-shadow-[8px_0_18px_rgba(21,21,21,0.32)]"
-                  fill="none"
+                {/* EAST ARROW */}
+                <motion.div
+                  animate={isTension ? { x: 16 } : { x: 0 }}
+                  transition={{ duration: 1.2, ease: tensionEase }}
+                  className="absolute right-1 sm:right-2 flex items-center justify-center"
                 >
-                  <polygon
-                    points="58,32 12,56 12,8"
-                    fill="#151515"
-                    stroke="#8C542C"
-                    strokeWidth="1.5"
-                    strokeLinejoin="round"
-                  />
-                  <polygon
-                    points="48,32 18,48 18,16"
-                    fill="#151515"
-                    stroke="#D29A68"
-                    strokeWidth="0.75"
-                    strokeOpacity="0.75"
-                  />
-                </svg>
-              </motion.div>
+                  <svg
+                    viewBox="0 0 64 64"
+                    className="w-9 sm:w-12 h-9 sm:h-12 drop-shadow-[4px_0_10px_rgba(21,21,21,0.32)]"
+                    fill="none"
+                  >
+                    <polygon
+                      points="58,32 12,56 12,8"
+                      fill="#151515"
+                      stroke="#8C542C"
+                      strokeWidth="1.5"
+                      strokeLinejoin="round"
+                    />
+                    <polygon
+                      points="48,32 18,48 18,16"
+                      fill="#151515"
+                      stroke="#D29A68"
+                      strokeWidth="0.75"
+                      strokeOpacity="0.75"
+                    />
+                  </svg>
+                </motion.div>
 
-              {/* SOUTH ARROW */}
-              <motion.div
-                initial={{ y: 0 }}
-                animate={
-                  isTear
-                    ? { y: "95vh", scale: 1.05, opacity: 0 }
-                    : isTension
-                    ? { y: 38 }
-                    : { y: 0 }
-                }
-                transition={
-                  isTear
-                    ? { duration: 1.6, ease: tearEase }
-                    : { duration: 1.4, ease: tensionEase }
-                }
-                className="absolute bottom-1 sm:bottom-2 flex items-center justify-center"
-              >
-                <svg
-                  viewBox="0 0 64 64"
-                  className="w-14 sm:w-18 h-14 sm:h-18 drop-shadow-[0_10px_20px_rgba(21,21,21,0.32)]"
-                  fill="none"
+                {/* SOUTH ARROW */}
+                <motion.div
+                  animate={isTension ? { y: 16 } : { y: 0 }}
+                  transition={{ duration: 1.2, ease: tensionEase }}
+                  className="absolute bottom-1 sm:bottom-2 flex items-center justify-center"
                 >
-                  <polygon
-                    points="32,58 8,12 56,12"
-                    fill="#151515"
-                    stroke="#8C542C"
-                    strokeWidth="1.5"
-                    strokeLinejoin="round"
-                  />
-                  <polygon
-                    points="32,48 16,18 48,18"
-                    fill="#151515"
-                    stroke="#D29A68"
-                    strokeWidth="0.75"
-                    strokeOpacity="0.75"
-                  />
-                </svg>
-              </motion.div>
+                  <svg
+                    viewBox="0 0 64 64"
+                    className="w-9 sm:w-12 h-9 sm:h-12 drop-shadow-[0_6px_12px_rgba(21,21,21,0.32)]"
+                    fill="none"
+                  >
+                    <polygon
+                      points="32,58 8,12 56,12"
+                      fill="#151515"
+                      stroke="#8C542C"
+                      strokeWidth="1.5"
+                      strokeLinejoin="round"
+                    />
+                    <polygon
+                      points="32,48 16,18 48,18"
+                      fill="#151515"
+                      stroke="#D29A68"
+                      strokeWidth="0.75"
+                      strokeOpacity="0.75"
+                    />
+                  </svg>
+                </motion.div>
 
-              {/* WEST ARROW */}
-              <motion.div
-                initial={{ x: 0 }}
-                animate={
-                  isTear
-                    ? { x: "-95vw", scale: 1.05, opacity: 0 }
-                    : isTension
-                    ? { x: -38 }
-                    : { x: 0 }
-                }
-                transition={
-                  isTear
-                    ? { duration: 1.6, ease: tearEase }
-                    : { duration: 1.4, ease: tensionEase }
-                }
-                className="absolute left-1 sm:left-2 flex items-center justify-center"
-              >
-                <svg
-                  viewBox="0 0 64 64"
-                  className="w-14 sm:w-18 h-14 sm:h-18 drop-shadow-[-8px_0_18px_rgba(21,21,21,0.32)]"
-                  fill="none"
+                {/* WEST ARROW */}
+                <motion.div
+                  animate={isTension ? { x: -16 } : { x: 0 }}
+                  transition={{ duration: 1.2, ease: tensionEase }}
+                  className="absolute left-1 sm:left-2 flex items-center justify-center"
                 >
-                  <polygon
-                    points="6,32 52,8 52,56"
-                    fill="#151515"
-                    stroke="#8C542C"
-                    strokeWidth="1.5"
-                    strokeLinejoin="round"
-                  />
-                  <polygon
-                    points="16,32 46,16 46,48"
-                    fill="#151515"
-                    stroke="#D29A68"
-                    strokeWidth="0.75"
-                    strokeOpacity="0.75"
-                  />
-                </svg>
-              </motion.div>
+                  <svg
+                    viewBox="0 0 64 64"
+                    className="w-9 sm:w-12 h-9 sm:h-12 drop-shadow-[-4px_0_10px_rgba(21,21,21,0.32)]"
+                    fill="none"
+                  >
+                    <polygon
+                      points="6,32 52,8 52,56"
+                      fill="#151515"
+                      stroke="#8C542C"
+                      strokeWidth="1.5"
+                      strokeLinejoin="round"
+                    />
+                    <polygon
+                      points="16,32 46,16 46,48"
+                      fill="#151515"
+                      stroke="#D29A68"
+                      strokeWidth="0.75"
+                      strokeOpacity="0.75"
+                    />
+                  </svg>
+                </motion.div>
+              </div>
 
-            </div>
+              {/* VISTAR NAME: SLIDES UP WHEN LOGO SLIDES UP */}
+              <div className="overflow-hidden mt-3 sm:mt-4 h-8 sm:h-10 flex items-center justify-center">
+                <motion.div
+                  initial={{ y: 35, opacity: 0 }}
+                  animate={
+                    isTear
+                      ? { y: 0, opacity: 1 }
+                      : { y: 35, opacity: 0 }
+                  }
+                  transition={{
+                    duration: 0.65,
+                    ease: [0.16, 1, 0.3, 1],
+                    delay: 0.05,
+                  }}
+                  className="font-display font-black text-xl sm:text-2xl tracking-[0.35em] text-[#151515] uppercase select-none flex items-center justify-center drop-shadow-[0_2px_8px_rgba(21,21,21,0.18)]"
+                >
+                  VISTAR
+                </motion.div>
+              </div>
+
+            </motion.div>
           </div>
 
         </div>
