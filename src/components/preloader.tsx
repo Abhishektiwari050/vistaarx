@@ -15,41 +15,38 @@ export function Preloader() {
   useEffect(() => {
     setMounted(true);
 
-    // Respect sessionStorage or nopreload flag for rapid development & navigation
+    // Make preloader mandatory at each sequence (removed sessionStorage restriction)
+    // Only bypass if explicitly requested via ?nopreload URL parameter
     if (typeof window !== "undefined") {
-      const alreadyLoaded = sessionStorage.getItem("vistar-preloaded");
       const isBypassed =
         window.location.search.includes("nopreload") ||
         (window as unknown as { __disablePreloader?: boolean }).__disablePreloader;
-      if (alreadyLoaded === "true" || isBypassed) {
+      if (isBypassed) {
         setVisible(false);
         setPhase("done");
         return;
       }
     }
 
-    // Phase 1: Tension (starts at 1.0s)
+    // Phase 1: Tension (starts at 1.6s - allowing a generous moment of stillness)
     const timerTension = setTimeout(() => {
       setPhase("tension");
       if (!hasTriggeredSound.current) {
-        playTensionDrone(1.0, 0.015);
+        playTensionDrone(1.4, 0.015);
       }
-    }, 1000);
+    }, 1600);
 
-    // Phase 2: The Tear (starts at 2.0s)
+    // Phase 2: The Tear (starts at 3.2s - deliberate, heavy mechanical snap)
     const timerTear = setTimeout(() => {
       setPhase("tear");
-      playTearSnapSound(0.025);
-    }, 2000);
+      playTearSnapSound(0.022);
+    }, 3200);
 
-    // Phase 3: Final Reveal & Unmount (at 3.2s)
+    // Phase 3: Final Reveal & Smooth Unmount (at 4.6s)
     const timerDone = setTimeout(() => {
       setPhase("done");
       setVisible(false);
-      if (typeof window !== "undefined") {
-        sessionStorage.setItem("vistar-preloaded", "true");
-      }
-    }, 3200);
+    }, 4600);
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -73,9 +70,9 @@ export function Preloader() {
   const isTension = phase === "tension";
   const isTear = phase === "tear" || phase === "done";
 
-  // Easing curves for tension and mechanical tear
-  const tensionEase = [0.25, 1, 0.5, 1] as const;
-  const tearEase = [0.85, 0, 0.15, 1] as const;
+  // Luxurious cinematic easing curves
+  const tensionEase = [0.22, 1, 0.36, 1] as const;
+  const tearEase = [0.76, 0, 0.24, 1] as const;
 
   return (
     <AnimatePresence>
@@ -93,20 +90,18 @@ export function Preloader() {
             initial={{ y: 0, opacity: 1 }}
             animate={
               isTear
-                ? { y: "-105vh", scale: 1.02, rotateX: 10 }
-                : isTension
-                ? { y: -6 }
-                : { y: 0 }
+                ? { y: "-110vh", scale: 1.01, rotateX: 8 }
+                : { y: 0, scale: 1 }
             }
             transition={
               isTear
-                ? { duration: 1.1, ease: tearEase }
-                : { duration: 1.0, ease: tensionEase }
+                ? { duration: 1.35, ease: tearEase }
+                : { duration: 1.5, ease: tensionEase }
             }
             className="absolute inset-0 w-full h-full bg-[#faf9f5] origin-top"
             style={{
               clipPath: "polygon(0 0, 100% 0, 50% 50%)",
-              filter: isTear ? "drop-shadow(0 25px 35px rgba(0,0,0,0.35))" : "none",
+              filter: isTear ? "drop-shadow(0 20px 30px rgba(0,0,0,0.22))" : "none",
             }}
           />
 
@@ -115,20 +110,18 @@ export function Preloader() {
             initial={{ x: 0, opacity: 1 }}
             animate={
               isTear
-                ? { x: "105vw", scale: 1.02, rotateY: 10 }
-                : isTension
-                ? { x: 6 }
-                : { x: 0 }
+                ? { x: "110vw", scale: 1.01, rotateY: 8 }
+                : { x: 0, scale: 1 }
             }
             transition={
               isTear
-                ? { duration: 1.1, ease: tearEase }
-                : { duration: 1.0, ease: tensionEase }
+                ? { duration: 1.35, ease: tearEase }
+                : { duration: 1.5, ease: tensionEase }
             }
             className="absolute inset-0 w-full h-full bg-[#faf9f5] origin-right"
             style={{
               clipPath: "polygon(100% 0, 100% 100%, 50% 50%)",
-              filter: isTear ? "drop-shadow(-25px 0 35px rgba(0,0,0,0.35))" : "none",
+              filter: isTear ? "drop-shadow(-20px 0 30px rgba(0,0,0,0.22))" : "none",
             }}
           />
 
@@ -137,20 +130,18 @@ export function Preloader() {
             initial={{ y: 0, opacity: 1 }}
             animate={
               isTear
-                ? { y: "105vh", scale: 1.02, rotateX: -10 }
-                : isTension
-                ? { y: 6 }
-                : { y: 0 }
+                ? { y: "110vh", scale: 1.01, rotateX: -8 }
+                : { y: 0, scale: 1 }
             }
             transition={
               isTear
-                ? { duration: 1.1, ease: tearEase }
-                : { duration: 1.0, ease: tensionEase }
+                ? { duration: 1.35, ease: tearEase }
+                : { duration: 1.5, ease: tensionEase }
             }
             className="absolute inset-0 w-full h-full bg-[#faf9f5] origin-bottom"
             style={{
               clipPath: "polygon(100% 100%, 0 100%, 50% 50%)",
-              filter: isTear ? "drop-shadow(0 -25px 35px rgba(0,0,0,0.35))" : "none",
+              filter: isTear ? "drop-shadow(0 -20px 30px rgba(0,0,0,0.22))" : "none",
             }}
           />
 
@@ -159,25 +150,23 @@ export function Preloader() {
             initial={{ x: 0, opacity: 1 }}
             animate={
               isTear
-                ? { x: "-105vw", scale: 1.02, rotateY: -10 }
-                : isTension
-                ? { x: -6 }
-                : { x: 0 }
+                ? { x: "-110vw", scale: 1.01, rotateY: -8 }
+                : { x: 0, scale: 1 }
             }
             transition={
               isTear
-                ? { duration: 1.1, ease: tearEase }
-                : { duration: 1.0, ease: tensionEase }
+                ? { duration: 1.35, ease: tearEase }
+                : { duration: 1.5, ease: tensionEase }
             }
             className="absolute inset-0 w-full h-full bg-[#faf9f5] origin-left"
             style={{
               clipPath: "polygon(0 100%, 0 0, 50% 50%)",
-              filter: isTear ? "drop-shadow(25px 0 35px rgba(0,0,0,0.35))" : "none",
+              filter: isTear ? "drop-shadow(20px 0 30px rgba(0,0,0,0.22))" : "none",
             }}
           />
 
           {/* ============================================================ */}
-          {/* TENSION FRACTURE SEAMS (Radiating along the 4 tear axes)     */}
+          {/* TENSION FRACTURE SEAMS (Clean, subtle structural hairlines)  */}
           {/* ============================================================ */}
           <svg className="absolute inset-0 w-full h-full pointer-events-none z-10">
             <line
@@ -186,10 +175,9 @@ export function Preloader() {
               x2="50%"
               y2="50%"
               stroke="#0a0a0a"
-              strokeWidth={isTension ? 1.5 : 0.5}
-              strokeDasharray={isTension ? "4 2" : "none"}
-              className={`transition-opacity duration-500 ${
-                isTension ? "opacity-40" : isStill ? "opacity-10" : "opacity-0"
+              strokeWidth="0.75"
+              className={`transition-opacity duration-700 ease-out ${
+                isTension ? "opacity-25" : "opacity-0"
               }`}
             />
             <line
@@ -198,10 +186,9 @@ export function Preloader() {
               x2="50%"
               y2="50%"
               stroke="#0a0a0a"
-              strokeWidth={isTension ? 1.5 : 0.5}
-              strokeDasharray={isTension ? "4 2" : "none"}
-              className={`transition-opacity duration-500 ${
-                isTension ? "opacity-40" : isStill ? "opacity-10" : "opacity-0"
+              strokeWidth="0.75"
+              className={`transition-opacity duration-700 ease-out ${
+                isTension ? "opacity-25" : "opacity-0"
               }`}
             />
             <line
@@ -210,10 +197,9 @@ export function Preloader() {
               x2="50%"
               y2="50%"
               stroke="#0a0a0a"
-              strokeWidth={isTension ? 1.5 : 0.5}
-              strokeDasharray={isTension ? "4 2" : "none"}
-              className={`transition-opacity duration-500 ${
-                isTension ? "opacity-40" : isStill ? "opacity-10" : "opacity-0"
+              strokeWidth="0.75"
+              className={`transition-opacity duration-700 ease-out ${
+                isTension ? "opacity-25" : "opacity-0"
               }`}
             />
             <line
@@ -222,10 +208,9 @@ export function Preloader() {
               x2="50%"
               y2="50%"
               stroke="#0a0a0a"
-              strokeWidth={isTension ? 1.5 : 0.5}
-              strokeDasharray={isTension ? "4 2" : "none"}
-              className={`transition-opacity duration-500 ${
-                isTension ? "opacity-40" : isStill ? "opacity-10" : "opacity-0"
+              strokeWidth="0.75"
+              className={`transition-opacity duration-700 ease-out ${
+                isTension ? "opacity-25" : "opacity-0"
               }`}
             />
           </svg>
@@ -274,8 +259,8 @@ export function Preloader() {
                 }
                 transition={
                   isTear
-                    ? { duration: 1.1, ease: tearEase }
-                    : { duration: 0.95, ease: tensionEase }
+                    ? { duration: 1.35, ease: tearEase }
+                    : { duration: 1.5, ease: tensionEase }
                 }
                 className="absolute top-2 sm:top-4 flex items-center justify-center"
               >
@@ -312,8 +297,8 @@ export function Preloader() {
                 }
                 transition={
                   isTear
-                    ? { duration: 1.1, ease: tearEase }
-                    : { duration: 0.95, ease: tensionEase }
+                    ? { duration: 1.35, ease: tearEase }
+                    : { duration: 1.5, ease: tensionEase }
                 }
                 className="absolute right-2 sm:right-4 flex items-center justify-center"
               >
@@ -349,8 +334,8 @@ export function Preloader() {
                 }
                 transition={
                   isTear
-                    ? { duration: 1.1, ease: tearEase }
-                    : { duration: 0.95, ease: tensionEase }
+                    ? { duration: 1.35, ease: tearEase }
+                    : { duration: 1.5, ease: tensionEase }
                 }
                 className="absolute bottom-2 sm:bottom-4 flex items-center justify-center"
               >
@@ -386,8 +371,8 @@ export function Preloader() {
                 }
                 transition={
                   isTear
-                    ? { duration: 1.1, ease: tearEase }
-                    : { duration: 0.95, ease: tensionEase }
+                    ? { duration: 1.35, ease: tearEase }
+                    : { duration: 1.5, ease: tensionEase }
                 }
                 className="absolute left-2 sm:left-4 flex items-center justify-center"
               >
