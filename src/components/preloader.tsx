@@ -303,11 +303,11 @@ export function Preloader() {
               {/* THE 4 ARROWS EMBLEM (Stationary anchor at exact viewport center) */}
               <div className="relative w-28 h-28 sm:w-36 sm:h-36 flex items-center justify-center">
                 
-                {/* Central beacon (dissolves outward when tearing) */}
+                {/* Central beacon (dissolves outward when tearing - sleek obsidian with silver halo) */}
                 <motion.div
                   animate={isTear ? { scale: 2.8, opacity: 0 } : { scale: 1, opacity: 1 }}
                   transition={{ duration: 0.6, ease: "easeOut" }}
-                  className="absolute w-2.5 h-2.5 rounded-full bg-[#B87333] border border-[#D29A68] shadow-[0_0_8px_#B87333]" 
+                  className="absolute w-2.5 h-2.5 rounded-full bg-[#151515] border border-[#A1A1AA] shadow-[0_0_6px_rgba(21,21,21,0.4)]" 
                 />
 
                 {/* 1. NORTH ARROW: TEARS UPWARD (-58vh) */}
@@ -336,16 +336,16 @@ export function Preloader() {
                     <polygon
                       points="32,6 56,52 8,52"
                       fill="#151515"
-                      stroke="#8C542C"
+                      stroke="#27272A"
                       strokeWidth="1.5"
                       strokeLinejoin="round"
                     />
                     <polygon
                       points="32,16 48,46 16,46"
                       fill="#151515"
-                      stroke="#D29A68"
-                      strokeWidth="0.75"
-                      strokeOpacity="0.75"
+                      stroke="#A1A1AA"
+                      strokeWidth="0.85"
+                      strokeOpacity="0.85"
                     />
                   </svg>
                 </motion.div>
@@ -376,16 +376,16 @@ export function Preloader() {
                     <polygon
                       points="32,58 8,12 56,12"
                       fill="#151515"
-                      stroke="#8C542C"
+                      stroke="#27272A"
                       strokeWidth="1.5"
                       strokeLinejoin="round"
                     />
                     <polygon
                       points="32,48 16,18 48,18"
                       fill="#151515"
-                      stroke="#D29A68"
-                      strokeWidth="0.75"
-                      strokeOpacity="0.75"
+                      stroke="#A1A1AA"
+                      strokeWidth="0.85"
+                      strokeOpacity="0.85"
                     />
                   </svg>
                 </motion.div>
@@ -416,16 +416,16 @@ export function Preloader() {
                     <polygon
                       points="58,32 12,56 12,8"
                       fill="#151515"
-                      stroke="#8C542C"
+                      stroke="#27272A"
                       strokeWidth="1.5"
                       strokeLinejoin="round"
                     />
                     <polygon
                       points="48,32 18,48 18,16"
                       fill="#151515"
-                      stroke="#D29A68"
-                      strokeWidth="0.75"
-                      strokeOpacity="0.75"
+                      stroke="#A1A1AA"
+                      strokeWidth="0.85"
+                      strokeOpacity="0.85"
                     />
                   </svg>
                 </motion.div>
@@ -456,16 +456,16 @@ export function Preloader() {
                     <polygon
                       points="6,32 52,8 52,56"
                       fill="#151515"
-                      stroke="#8C542C"
+                      stroke="#27272A"
                       strokeWidth="1.5"
                       strokeLinejoin="round"
                     />
                     <polygon
                       points="16,32 46,16 46,48"
                       fill="#151515"
-                      stroke="#D29A68"
-                      strokeWidth="0.75"
-                      strokeOpacity="0.75"
+                      stroke="#A1A1AA"
+                      strokeWidth="0.85"
+                      strokeOpacity="0.85"
                     />
                   </svg>
                 </motion.div>

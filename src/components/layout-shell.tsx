@@ -45,7 +45,7 @@ function Footer() {
               <path d="M2 12L8 8V16L2 12Z" fill="currentColor"/>
               <path d="M22 12L16 16V8L22 12Z" fill="currentColor"/>
               <path d="M12 22L8 16H16L12 22Z" fill="currentColor"/>
-              <circle cx="12" cy="12" r="2.2" fill="#B87333" />
+              <circle cx="12" cy="12" r="2" fill="#F4F1EA" stroke="#151515" strokeWidth="1" />
             </svg>
             <TextPressure text="VISTAR" />
           </Link>
@@ -157,14 +157,14 @@ function TopLoadingBar() {
         left: 0,
         right: 0,
         height: "3px",
-        backgroundColor: "#B87333",
+        backgroundColor: "#151515",
         transform: `scaleX(${progress / 100})`,
         transformOrigin: "left",
         zIndex: 99,
         pointerEvents: "none",
         transition: progress === 100 ? "opacity 150ms ease-out" : "none",
         opacity: progress === 100 ? 0 : 1,
-        boxShadow: "0 0 10px rgba(184, 115, 51, 0.75), 0 0 4px #B87333",
+        boxShadow: "0 0 8px rgba(21, 21, 21, 0.4), 0 0 2px #151515",
       }}
     />
   );
@@ -240,13 +240,13 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
   if (!mounted) return <>{children}</>;
 
   return (
-    <div className="w-full min-h-screen bg-transparent text-[#151515] transition-colors duration-500 ease-in-out selection:bg-[#B87333] selection:text-[#F4F1EA]">
+    <div className="w-full min-h-screen bg-transparent text-[#151515] transition-colors duration-500 ease-in-out selection:bg-[#151515] selection:text-[#F4F1EA]">
       <TopLoadingBar />
 
       <div className="transition-opacity duration-1000 ease-in-out opacity-100 pointer-events-auto">
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-[#B87333] focus:text-[#F4F1EA] focus:px-4 focus:py-2 font-mono text-xs uppercase border-2 border-[#151515] shadow-[3px_3px_0px_#151515]"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-[#151515] focus:text-[#F4F1EA] focus:px-4 focus:py-2 font-mono text-xs uppercase border-2 border-[#151515] shadow-[3px_3px_0px_#151515]"
         >
           Skip to content
         </a>
@@ -263,7 +263,7 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
               <path d="M2 12L8 8V16L2 12Z" fill="currentColor"/>
               <path d="M22 12L16 16V8L22 12Z" fill="currentColor"/>
               <path d="M12 22L8 16H16L12 22Z" fill="currentColor"/>
-              <circle cx="12" cy="12" r="2.2" fill="#B87333" />
+              <circle cx="12" cy="12" r="2" fill="#F4F1EA" stroke="#151515" strokeWidth="1" />
             </svg>
             <TextPressure text="VISTAR" />
           </Link>
@@ -287,7 +287,7 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
             <Link
               href="/contact"
               onClick={() => playTickSound()}
-              className="bg-[#B87333] text-[#F4F1EA] font-mono font-bold text-[10px] tracking-widest uppercase px-3.5 py-1.5 rounded-lg border-2 border-[#151515] shadow-[2px_2px_0px_#151515] hover:bg-[#8C542C] hover:shadow-[3px_3px_0px_#151515] active:translate-x-0.5 active:translate-y-0.5 transition-all interactive"
+              className="bg-[#151515] text-[#F4F1EA] font-mono font-bold text-[10px] tracking-widest uppercase px-3.5 py-1.5 rounded-lg border-2 border-[#151515] shadow-[2px_2px_0px_#71717A] hover:bg-[#27272A] hover:shadow-[3px_3px_0px_#151515] active:translate-x-0.5 active:translate-y-0.5 transition-all interactive"
             >
               START A BUILD →
             </Link>
@@ -345,7 +345,7 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
                 playTickSound();
                 setMobileMenuOpen(false);
               }}
-              className="mt-4 bg-[#B87333] text-[#F4F1EA] font-mono text-sm font-bold tracking-widest uppercase p-4 text-center rounded-xl border-2 border-[#151515] shadow-[4px_4px_0px_#151515]"
+              className="mt-4 bg-[#151515] text-[#F4F1EA] font-mono text-sm font-bold tracking-widest uppercase p-4 text-center rounded-xl border-2 border-[#151515] shadow-[4px_4px_0px_#71717A] hover:bg-[#27272A]"
             >
               START A BUILD →
             </Link>

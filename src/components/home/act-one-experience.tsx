@@ -356,14 +356,14 @@ export function ActOneExperience() {
             {/* Phase 01: Arrival & Physical Stillness (0% -> 22%) */}
             {phaseIndex === 0 && (
               <div className="space-y-4 sm:space-y-6 transition-all duration-700 pointer-events-auto">
-                <div className="inline-flex items-center gap-2 border border-[#151515] bg-[#F4F1EA] px-2.5 sm:px-3 py-1 rounded text-[8px] sm:text-[9px] font-mono font-bold tracking-[2px] uppercase text-[#151515] shadow-[2px_2px_0px_#B87333]">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#B87333]" />
+                <div className="inline-flex items-center gap-2 border border-[#151515] bg-[#F4F1EA] px-2.5 sm:px-3 py-1 rounded text-[8px] sm:text-[9px] font-mono font-bold tracking-[2px] uppercase text-[#151515] shadow-[2px_2px_0px_#151515]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#151515]" />
                   MAKE WORK DISAPPEAR // SYSTEMS ARCHITECTURE
                 </div>
 
                 <h1 className="font-display font-black text-3xl sm:text-5xl lg:text-[4.75rem] uppercase tracking-tight text-[#151515] leading-[0.94]">
                   We build the <br />
-                  <span className="text-[#F4F1EA] bg-[#151515] px-2 py-0.5 border border-[#151515] shadow-[3px_3px_0px_#B87333] inline-block my-1">
+                  <span className="text-[#F4F1EA] bg-[#151515] px-2 py-0.5 border border-[#151515] shadow-[3px_3px_0px_#71717A] inline-block my-1">
                     systems
                   </span>
                   <br />
@@ -381,7 +381,7 @@ export function ActOneExperience() {
                   <Link
                     href="/contact"
                     onClick={() => playTickSound()}
-                    className="bg-[#B87333] text-[#F4F1EA] font-mono font-bold text-[10px] sm:text-[11px] tracking-widest uppercase px-5 py-3 sm:px-7 sm:py-3.5 rounded border border-[#151515] shadow-[3px_3px_0px_#151515] hover:bg-[#8C542C] hover:shadow-[5px_5px_0px_#151515] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all interactive"
+                    className="bg-[#151515] text-[#F4F1EA] font-mono font-bold text-[10px] sm:text-[11px] tracking-widest uppercase px-5 py-3 sm:px-7 sm:py-3.5 rounded border border-[#151515] shadow-[3px_3px_0px_#71717A] hover:bg-[#27272A] hover:shadow-[4px_4px_0px_#151515] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all interactive"
                   >
                     START A BUILD →
                   </Link>
@@ -395,7 +395,7 @@ export function ActOneExperience() {
                 </div>
 
                 <div className="pt-2 sm:pt-4 flex items-center gap-2 sm:gap-3 text-[8px] sm:text-[9px] font-mono tracking-widest uppercase text-zinc-500">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#B87333] animate-pulse" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#151515] animate-pulse" />
                   SCROLL TO INITIATE SYSTEM TRANSFORMATION ↓
                 </div>
               </div>
@@ -404,14 +404,14 @@ export function ActOneExperience() {
             {/* Phase 02: Strain & Imbalance (22% -> 68%) */}
             {phaseIndex === 1 && (
               <div className="space-y-4 sm:space-y-6 transition-all duration-700 pointer-events-auto">
-                <div className="inline-flex items-center gap-2 border border-[#151515] bg-[#F4F1EA] px-2.5 sm:px-3 py-1 rounded text-[8px] sm:text-[9px] font-mono font-bold tracking-[2px] uppercase text-[#151515] shadow-[2px_2px_0px_#8C542C]">
+                <div className="inline-flex items-center gap-2 border border-[#151515] bg-[#F4F1EA] px-2.5 sm:px-3 py-1 rounded text-[8px] sm:text-[9px] font-mono font-bold tracking-[2px] uppercase text-[#151515] shadow-[2px_2px_0px_#151515]">
                   <span>02 // THE DECOUPLED REALITY</span>
                 </div>
 
                 <h2 className="font-display font-black text-2xl sm:text-4xl lg:text-5xl uppercase tracking-tight text-[#151515] leading-[0.96]">
                   Your business <br />
                   shouldn&apos;t run on <br />
-                  <span className="line-through decoration-[#B87333] decoration-2 text-zinc-600">
+                  <span className="line-through decoration-[#151515] decoration-2 text-zinc-600">
                     disconnected
                   </span> <br />
                   tools.
@@ -430,14 +430,14 @@ export function ActOneExperience() {
             {/* Phase 03: Decisive Mechanical Closure (68% -> 100%) */}
             {phaseIndex === 2 && (
               <div className="space-y-4 sm:space-y-6 transition-all duration-700 pointer-events-auto">
-                <div className="inline-flex items-center gap-2 border border-[#151515] bg-[#F4F1EA] px-2.5 sm:px-3 py-1 rounded text-[8px] sm:text-[9px] font-mono font-bold tracking-[2px] uppercase text-[#151515] shadow-[2px_2px_0px_#B87333]">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#B87333]" />
+                <div className="inline-flex items-center gap-2 border border-[#151515] bg-[#F4F1EA] px-2.5 sm:px-3 py-1 rounded text-[8px] sm:text-[9px] font-mono font-bold tracking-[2px] uppercase text-[#151515] shadow-[2px_2px_0px_#151515]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#151515]" />
                   03 // THE UNIFIED ENGINE
                 </div>
 
                 <h2 className="font-display font-black text-2xl sm:text-4xl lg:text-5xl uppercase tracking-tight text-[#151515] leading-[0.96]">
                   One connected <br />
-                  <span className="text-[#F4F1EA] bg-[#151515] px-2 py-0.5 border border-[#151515] shadow-[3px_3px_0px_#B87333] inline-block my-1">
+                  <span className="text-[#F4F1EA] bg-[#151515] px-2 py-0.5 border border-[#151515] shadow-[3px_3px_0px_#71717A] inline-block my-1">
                     technological
                   </span> <br />
                   machine.

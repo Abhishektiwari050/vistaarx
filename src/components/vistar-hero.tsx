@@ -44,8 +44,8 @@ export function VistarHero() {
         
         {/* Top Operational Pill */}
         <div className="flex items-center gap-3">
-          <div className="inline-flex items-center gap-2 border-2 border-black bg-white px-3.5 py-1.5 rounded-lg text-[9px] font-mono font-black tracking-[2px] uppercase text-black shadow-[3px_3px_0px_#B87333]">
-            <span className="w-2 h-2 rounded-full bg-[#B87333] animate-pulse" />
+          <div className="inline-flex items-center gap-2 border-2 border-black bg-white px-3.5 py-1.5 rounded-lg text-[9px] font-mono font-black tracking-[2px] uppercase text-black shadow-[3px_3px_0px_#151515]">
+            <span className="w-2 h-2 rounded-full bg-[#151515] animate-pulse" />
             TECHNOLOGY SYSTEMS PARTNER // ARCHITECTURE &amp; ENGINEERING
           </div>
           <span className="font-mono text-[9px] font-bold text-zinc-400 uppercase tracking-widest hidden sm:inline-block">
@@ -61,7 +61,7 @@ export function VistarHero() {
             <h1 className="font-display font-black text-5xl sm:text-7xl lg:text-[5.5rem] uppercase tracking-tighter text-[#151515] leading-[0.92]">
               <SplitText text="We build the" direction="down" delay={0.05} />
               <br />
-              <span className="text-[#F4F1EA] bg-[#151515] px-2 py-0.5 border-2 border-[#151515] shadow-[4px_4px_0px_#B87333] inline-block my-1">
+              <span className="text-[#F4F1EA] bg-[#151515] px-2 py-0.5 border-2 border-[#151515] shadow-[4px_4px_0px_#71717A] inline-block my-1">
                 systems
               </span>
               <br />
@@ -81,7 +81,7 @@ export function VistarHero() {
               <Link
                 href="/contact"
                 onClick={() => playTickSound()}
-                className="bg-[#B87333] text-[#F4F1EA] font-mono font-black text-xs tracking-widest uppercase px-8 py-5 rounded-xl border-[2.5px] border-black shadow-[4px_4px_0px_#000] hover:bg-[#8C542C] hover:shadow-[6px_6px_0px_#8C542C] hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 transition-all interactive"
+                className="bg-[#151515] text-[#F4F1EA] font-mono font-black text-xs tracking-widest uppercase px-8 py-5 rounded-xl border-[2.5px] border-black shadow-[4px_4px_0px_#000] hover:bg-[#27272A] hover:shadow-[6px_6px_0px_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 transition-all interactive"
               >
                 START A BUILD →
               </Link>
