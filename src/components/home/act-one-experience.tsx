@@ -44,8 +44,8 @@ export function ActOneExperience() {
     ctx.save();
     ctx.scale(dpr, dpr);
 
-    // Warm alabaster studio background
-    ctx.fillStyle = "#faf9f5";
+    // Warm Ivory studio background
+    ctx.fillStyle = "#F4F1EA";
     ctx.fillRect(0, 0, width, height);
 
     // Resolve which image to render (fallback to nearest loaded)
@@ -100,16 +100,16 @@ export function ActOneExperience() {
       ctx.imageSmoothingQuality = "high";
       ctx.drawImage(imgToDraw, Math.round(drawX), Math.round(drawY), Math.round(drawW), Math.round(drawH));
 
-      // Seamless gradient feather on desktop so left negative space dissolves into #faf9f5
+      // Seamless gradient feather on desktop so left negative space dissolves into #F4F1EA
       if (isDesktop && drawX > 0) {
-        ctx.fillStyle = "#faf9f5";
+        ctx.fillStyle = "#F4F1EA";
         ctx.fillRect(0, 0, Math.round(drawX), height);
 
         const featherWidth = Math.min(280, drawW * 0.28);
         const grad = ctx.createLinearGradient(drawX, 0, drawX + featherWidth, 0);
-        grad.addColorStop(0, "#faf9f5");
-        grad.addColorStop(0.3, "rgba(250, 249, 245, 0.85)");
-        grad.addColorStop(1, "rgba(250, 249, 245, 0)");
+        grad.addColorStop(0, "#F4F1EA");
+        grad.addColorStop(0.3, "rgba(244, 241, 234, 0.85)");
+        grad.addColorStop(1, "rgba(244, 241, 234, 0)");
         ctx.fillStyle = grad;
         ctx.fillRect(Math.round(drawX), 0, Math.round(featherWidth), height);
       }
@@ -118,8 +118,9 @@ export function ActOneExperience() {
       if (!isDesktop && drawY > 0) {
         const topFeather = 70;
         const gradY = ctx.createLinearGradient(0, drawY, 0, drawY + topFeather);
-        gradY.addColorStop(0, "#faf9f5");
-        gradY.addColorStop(1, "rgba(250, 249, 245, 0)");
+        gradY.addColorStop(0, "#F4F1EA");
+        gradY.addColorStop(0.3, "rgba(244, 241, 234, 0.85)");
+        gradY.addColorStop(1, "rgba(244, 241, 234, 0)");
         ctx.fillStyle = gradY;
         ctx.fillRect(0, Math.round(drawY), width, Math.round(topFeather));
       }
@@ -307,7 +308,7 @@ export function ActOneExperience() {
   }, [drawFrame, currentFrameIndex]);
 
   return (
-    <div ref={trackRef} className="relative w-full h-[300vh] bg-[#faf9f5]">
+    <div ref={trackRef} className="relative w-full h-[300vh] bg-[#F4F1EA]">
       
       {/* Pinned 100vh Sticky Viewport */}
       <div
@@ -338,11 +339,11 @@ export function ActOneExperience() {
             />
           )}
 
-          {/* Ambient Warm Studio Rim Underglow (Inspired by Pinterest card lighting) */}
+          {/* Ambient Warm Studio Copper Rim Underglow */}
           <div
             className="absolute bottom-6 sm:bottom-12 left-1/2 -translate-x-1/2 w-[75%] max-w-5xl h-24 sm:h-36 rounded-full blur-[72px] sm:blur-[100px] -z-10 pointer-events-none transition-all duration-700"
             style={{
-              backgroundColor: phaseIndex === 2 ? "rgba(216, 255, 66, 0.32)" : "rgba(224, 205, 170, 0.38)",
+              backgroundColor: phaseIndex === 2 ? "rgba(184, 115, 51, 0.32)" : "rgba(184, 115, 51, 0.16)",
               opacity: phaseIndex === 2 ? 0.95 : 0.7,
             }}
           />
@@ -355,19 +356,19 @@ export function ActOneExperience() {
             {/* Phase 01: Arrival & Physical Stillness (0% -> 22%) */}
             {phaseIndex === 0 && (
               <div className="space-y-4 sm:space-y-6 transition-all duration-700 pointer-events-auto">
-                <div className="inline-flex items-center gap-2 border border-black/80 bg-white px-2.5 sm:px-3 py-1 rounded text-[8px] sm:text-[9px] font-mono font-bold tracking-[2px] uppercase text-black shadow-[2px_2px_0px_#d8ff42]">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#d8ff42]" />
+                <div className="inline-flex items-center gap-2 border border-[#151515] bg-[#F4F1EA] px-2.5 sm:px-3 py-1 rounded text-[8px] sm:text-[9px] font-mono font-bold tracking-[2px] uppercase text-[#151515] shadow-[2px_2px_0px_#B87333]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#B87333]" />
                   MAKE WORK DISAPPEAR // SYSTEMS ARCHITECTURE
                 </div>
 
-                <h1 className="font-display font-black text-3xl sm:text-5xl lg:text-[4.75rem] uppercase tracking-tight text-[#0a0a0a] leading-[0.94]">
+                <h1 className="font-display font-black text-3xl sm:text-5xl lg:text-[4.75rem] uppercase tracking-tight text-[#151515] leading-[0.94]">
                   We build the <br />
-                  <span className="text-black bg-[#d8ff42] px-2 py-0.5 border border-black shadow-[3px_3px_0px_#000] inline-block my-1">
+                  <span className="text-[#F4F1EA] bg-[#151515] px-2 py-0.5 border border-[#151515] shadow-[3px_3px_0px_#B87333] inline-block my-1">
                     systems
                   </span>
                   <br />
                   your business <br />
-                  <span className="font-serif italic font-normal text-zinc-500 lowercase text-2xl sm:text-4xl block mt-0.5 sm:mt-1">
+                  <span className="font-serif italic font-normal text-stone-500 lowercase text-2xl sm:text-4xl block mt-0.5 sm:mt-1">
                     runs on.
                   </span>
                 </h1>
@@ -380,21 +381,21 @@ export function ActOneExperience() {
                   <Link
                     href="/contact"
                     onClick={() => playTickSound()}
-                    className="bg-[#d8ff42] text-black font-mono font-bold text-[10px] sm:text-[11px] tracking-widest uppercase px-5 py-3 sm:px-7 sm:py-3.5 rounded border border-black shadow-[3px_3px_0px_#000] hover:shadow-[5px_5px_0px_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all interactive"
+                    className="bg-[#B87333] text-[#F4F1EA] font-mono font-bold text-[10px] sm:text-[11px] tracking-widest uppercase px-5 py-3 sm:px-7 sm:py-3.5 rounded border border-[#151515] shadow-[3px_3px_0px_#151515] hover:bg-[#8C542C] hover:shadow-[5px_5px_0px_#151515] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all interactive"
                   >
                     START A BUILD →
                   </Link>
                   <Link
                     href="/work"
                     onClick={() => playTickSound()}
-                    className="bg-white text-black font-mono font-bold text-[10px] sm:text-[11px] tracking-widest uppercase px-5 py-3 sm:px-7 sm:py-3.5 rounded border border-black shadow-[3px_3px_0px_#000] hover:bg-[#faf9f5] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all interactive"
+                    className="bg-[#F4F1EA] text-[#151515] font-mono font-bold text-[10px] sm:text-[11px] tracking-widest uppercase px-5 py-3 sm:px-7 sm:py-3.5 rounded border border-[#151515] shadow-[3px_3px_0px_#151515] hover:bg-[#D8D3C9] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all interactive"
                   >
                     EXPLORE WORK →
                   </Link>
                 </div>
 
-                <div className="pt-2 sm:pt-4 flex items-center gap-2 sm:gap-3 text-[8px] sm:text-[9px] font-mono tracking-widest uppercase text-zinc-400">
-                  <span className="w-1.5 h-1.5 rounded-full bg-zinc-400 animate-pulse" />
+                <div className="pt-2 sm:pt-4 flex items-center gap-2 sm:gap-3 text-[8px] sm:text-[9px] font-mono tracking-widest uppercase text-zinc-500">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#B87333] animate-pulse" />
                   SCROLL TO INITIATE SYSTEM TRANSFORMATION ↓
                 </div>
               </div>
@@ -403,14 +404,14 @@ export function ActOneExperience() {
             {/* Phase 02: Strain & Imbalance (22% -> 68%) */}
             {phaseIndex === 1 && (
               <div className="space-y-4 sm:space-y-6 transition-all duration-700 pointer-events-auto">
-                <div className="inline-flex items-center gap-2 border border-black/80 bg-white px-2.5 sm:px-3 py-1 rounded text-[8px] sm:text-[9px] font-mono font-bold tracking-[2px] uppercase text-zinc-800 shadow-[2px_2px_0px_#000]">
+                <div className="inline-flex items-center gap-2 border border-[#151515] bg-[#F4F1EA] px-2.5 sm:px-3 py-1 rounded text-[8px] sm:text-[9px] font-mono font-bold tracking-[2px] uppercase text-[#151515] shadow-[2px_2px_0px_#8C542C]">
                   <span>02 // THE DECOUPLED REALITY</span>
                 </div>
 
-                <h2 className="font-display font-black text-2xl sm:text-4xl lg:text-5xl uppercase tracking-tight text-[#0a0a0a] leading-[0.96]">
+                <h2 className="font-display font-black text-2xl sm:text-4xl lg:text-5xl uppercase tracking-tight text-[#151515] leading-[0.96]">
                   Your business <br />
                   shouldn&apos;t run on <br />
-                  <span className="line-through decoration-black decoration-2 text-zinc-600">
+                  <span className="line-through decoration-[#B87333] decoration-2 text-zinc-600">
                     disconnected
                   </span> <br />
                   tools.
@@ -420,7 +421,7 @@ export function ActOneExperience() {
                   When software is siloed, humans become the glue. Data leaks across unaligned boundaries. Operations stall under manual copy-pasting, brittle webhooks, and delayed reconciliation.
                 </p>
 
-                <div className="pt-1 sm:pt-2 text-[8px] sm:text-[9px] font-mono tracking-widest uppercase text-zinc-400">
+                <div className="pt-1 sm:pt-2 text-[8px] sm:text-[9px] font-mono tracking-widest uppercase text-zinc-500">
                   SCROLL TO CLOSE TOLERANCES ↓
                 </div>
               </div>
@@ -429,14 +430,14 @@ export function ActOneExperience() {
             {/* Phase 03: Decisive Mechanical Closure (68% -> 100%) */}
             {phaseIndex === 2 && (
               <div className="space-y-4 sm:space-y-6 transition-all duration-700 pointer-events-auto">
-                <div className="inline-flex items-center gap-2 border border-black/80 bg-white px-2.5 sm:px-3 py-1 rounded text-[8px] sm:text-[9px] font-mono font-bold tracking-[2px] uppercase text-black shadow-[2px_2px_0px_#d8ff42]">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#d8ff42]" />
+                <div className="inline-flex items-center gap-2 border border-[#151515] bg-[#F4F1EA] px-2.5 sm:px-3 py-1 rounded text-[8px] sm:text-[9px] font-mono font-bold tracking-[2px] uppercase text-[#151515] shadow-[2px_2px_0px_#B87333]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#B87333]" />
                   03 // THE UNIFIED ENGINE
                 </div>
 
-                <h2 className="font-display font-black text-2xl sm:text-4xl lg:text-5xl uppercase tracking-tight text-[#0a0a0a] leading-[0.96]">
+                <h2 className="font-display font-black text-2xl sm:text-4xl lg:text-5xl uppercase tracking-tight text-[#151515] leading-[0.96]">
                   One connected <br />
-                  <span className="text-black bg-[#d8ff42] px-2 py-0.5 border border-black shadow-[3px_3px_0px_#000] inline-block my-1">
+                  <span className="text-[#F4F1EA] bg-[#151515] px-2 py-0.5 border border-[#151515] shadow-[3px_3px_0px_#B87333] inline-block my-1">
                     technological
                   </span> <br />
                   machine.
@@ -446,7 +447,7 @@ export function ActOneExperience() {
                   We replace fragile band-aids with custom, monolithic technological infrastructure. Components physically locked into alignment. Coherent optical circuits active.
                 </p>
 
-                <div className="pt-1 sm:pt-2 text-[8px] sm:text-[9px] font-mono tracking-widest uppercase text-zinc-400">
+                <div className="pt-1 sm:pt-2 text-[8px] sm:text-[9px] font-mono tracking-widest uppercase text-zinc-500">
                   CONTINUE SCROLLING TO EXPLORE THE SYSTEMS ↓
                 </div>
               </div>

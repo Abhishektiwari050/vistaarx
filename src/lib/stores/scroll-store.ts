@@ -80,8 +80,8 @@ export const getPrefersReducedMotion = () => useScrollStore.getState().prefersRe
 export const getThemeColors = () => {
   const theme = useScrollStore.getState().theme;
   if (theme === "neon-flyer") {
-    // Architectural lime & graphite palette
-    return { primary: "#d8ff42", secondary: "#0a0a0a", base: "#faf9f5" };
+    // Vistar copper, deep graphite & warm ivory palette
+    return { primary: "#B87333", secondary: "#151515", base: "#F4F1EA" };
   }
   if (theme === "mono") {
     // Elegant pure black and subtle gray for high-end monochrome aesthetic

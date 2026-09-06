@@ -15,8 +15,7 @@ export function Preloader() {
   useEffect(() => {
     setMounted(true);
 
-    // Make preloader mandatory at each sequence (removed sessionStorage restriction)
-    // Only bypass if explicitly requested via ?nopreload URL parameter
+    // Mandatory on every sequence/refresh. Only bypass for test automation via ?nopreload
     if (typeof window !== "undefined") {
       const isBypassed =
         window.location.search.includes("nopreload") ||
@@ -28,25 +27,26 @@ export function Preloader() {
       }
     }
 
-    // Phase 1: Tension (starts at 1.6s - allowing a generous moment of stillness)
+    // Phase 1: Tension & Mechanical Incision (starts at 1.6s of dignified stillness)
     const timerTension = setTimeout(() => {
       setPhase("tension");
       if (!hasTriggeredSound.current) {
-        playTensionDrone(1.4, 0.015);
+        hasTriggeredSound.current = true;
+        playTensionDrone(1.5, 0.016);
       }
     }, 1600);
 
-    // Phase 2: The Tear (starts at 3.2s - deliberate, heavy mechanical snap)
+    // Phase 2: Delamination & 3D Peeling Tear (starts at 3.2s)
     const timerTear = setTimeout(() => {
       setPhase("tear");
-      playTearSnapSound(0.022);
+      playTearSnapSound(0.024);
     }, 3200);
 
-    // Phase 3: Final Reveal & Smooth Unmount (at 4.6s)
+    // Phase 3: Reveal Handoff & Unmount (at 4.8s)
     const timerDone = setTimeout(() => {
       setPhase("done");
       setVisible(false);
-    }, 4600);
+    }, 4800);
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -70,7 +70,7 @@ export function Preloader() {
   const isTension = phase === "tension";
   const isTear = phase === "tear" || phase === "done";
 
-  // Luxurious cinematic easing curves
+  // Heavy mechanical and fluid cinematic easing curves
   const tensionEase = [0.22, 1, 0.36, 1] as const;
   const tearEase = [0.76, 0, 0.24, 1] as const;
 
@@ -79,10 +79,11 @@ export function Preloader() {
       {visible && (
         <div 
           className="fixed inset-0 z-[99999] overflow-hidden select-none pointer-events-none"
-          aria-label="Vistar Logo Surface Tear Entrance"
+          style={{ perspective: "1200px" }}
+          aria-label="Vistar Architectural Fracture & Delamination Entrance"
         >
           {/* ============================================================ */}
-          {/* THE 4 TEARING IVORY SURFACE FLAPS                            */}
+          {/* THE 4 DELAMINATING WARM IVORY SURFACE FLAPS                  */}
           {/* ============================================================ */}
 
           {/* NORTH FLAP */}
@@ -90,18 +91,18 @@ export function Preloader() {
             initial={{ y: 0, opacity: 1 }}
             animate={
               isTear
-                ? { y: "-110vh", scale: 1.01, rotateX: 8 }
-                : { y: 0, scale: 1 }
+                ? { y: "-115vh", scale: 1.02, rotateX: 12 }
+                : { y: 0, scale: 1, rotateX: 0 }
             }
             transition={
               isTear
-                ? { duration: 1.35, ease: tearEase }
+                ? { duration: 1.45, ease: tearEase }
                 : { duration: 1.5, ease: tensionEase }
             }
-            className="absolute inset-0 w-full h-full bg-[#faf9f5] origin-top"
+            className="absolute inset-0 w-full h-full bg-[#F4F1EA] origin-top"
             style={{
               clipPath: "polygon(0 0, 100% 0, 50% 50%)",
-              filter: isTear ? "drop-shadow(0 20px 30px rgba(0,0,0,0.22))" : "none",
+              filter: isTear ? "drop-shadow(0 24px 36px rgba(21,21,21,0.3))" : "none",
             }}
           />
 
@@ -110,18 +111,18 @@ export function Preloader() {
             initial={{ x: 0, opacity: 1 }}
             animate={
               isTear
-                ? { x: "110vw", scale: 1.01, rotateY: 8 }
-                : { x: 0, scale: 1 }
+                ? { x: "115vw", scale: 1.02, rotateY: 12 }
+                : { x: 0, scale: 1, rotateY: 0 }
             }
             transition={
               isTear
-                ? { duration: 1.35, ease: tearEase }
+                ? { duration: 1.45, ease: tearEase }
                 : { duration: 1.5, ease: tensionEase }
             }
-            className="absolute inset-0 w-full h-full bg-[#faf9f5] origin-right"
+            className="absolute inset-0 w-full h-full bg-[#F4F1EA] origin-right"
             style={{
               clipPath: "polygon(100% 0, 100% 100%, 50% 50%)",
-              filter: isTear ? "drop-shadow(-20px 0 30px rgba(0,0,0,0.22))" : "none",
+              filter: isTear ? "drop-shadow(-24px 0 36px rgba(21,21,21,0.3))" : "none",
             }}
           />
 
@@ -130,18 +131,18 @@ export function Preloader() {
             initial={{ y: 0, opacity: 1 }}
             animate={
               isTear
-                ? { y: "110vh", scale: 1.01, rotateX: -8 }
-                : { y: 0, scale: 1 }
+                ? { y: "115vh", scale: 1.02, rotateX: -12 }
+                : { y: 0, scale: 1, rotateX: 0 }
             }
             transition={
               isTear
-                ? { duration: 1.35, ease: tearEase }
+                ? { duration: 1.45, ease: tearEase }
                 : { duration: 1.5, ease: tensionEase }
             }
-            className="absolute inset-0 w-full h-full bg-[#faf9f5] origin-bottom"
+            className="absolute inset-0 w-full h-full bg-[#F4F1EA] origin-bottom"
             style={{
               clipPath: "polygon(100% 100%, 0 100%, 50% 50%)",
-              filter: isTear ? "drop-shadow(0 -20px 30px rgba(0,0,0,0.22))" : "none",
+              filter: isTear ? "drop-shadow(0 -24px 36px rgba(21,21,21,0.3))" : "none",
             }}
           />
 
@@ -150,253 +151,425 @@ export function Preloader() {
             initial={{ x: 0, opacity: 1 }}
             animate={
               isTear
-                ? { x: "-110vw", scale: 1.01, rotateY: -8 }
-                : { x: 0, scale: 1 }
+                ? { x: "-115vw", scale: 1.02, rotateY: -12 }
+                : { x: 0, scale: 1, rotateY: 0 }
             }
             transition={
               isTear
-                ? { duration: 1.35, ease: tearEase }
+                ? { duration: 1.45, ease: tearEase }
                 : { duration: 1.5, ease: tensionEase }
             }
-            className="absolute inset-0 w-full h-full bg-[#faf9f5] origin-left"
+            className="absolute inset-0 w-full h-full bg-[#F4F1EA] origin-left"
             style={{
               clipPath: "polygon(0 100%, 0 0, 50% 50%)",
-              filter: isTear ? "drop-shadow(20px 0 30px rgba(0,0,0,0.22))" : "none",
+              filter: isTear ? "drop-shadow(24px 0 36px rgba(21,21,21,0.3))" : "none",
             }}
           />
 
           {/* ============================================================ */}
-          {/* TENSION FRACTURE SEAMS (Clean, subtle structural hairlines)  */}
+          {/* TENSILE INCISION RELIEF SEAMS (Dual-edge physical fracture)  */}
           {/* ============================================================ */}
           <svg className="absolute inset-0 w-full h-full pointer-events-none z-10">
+            <defs>
+              <linearGradient id="copperReliefGradTL" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#8C542C" stopOpacity="0.2" />
+                <stop offset="60%" stopColor="#B87333" stopOpacity="0.7" />
+                <stop offset="100%" stopColor="#D29A68" stopOpacity="0.9" />
+              </linearGradient>
+              <linearGradient id="copperReliefGradTR" x1="100%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="#8C542C" stopOpacity="0.2" />
+                <stop offset="60%" stopColor="#B87333" stopOpacity="0.7" />
+                <stop offset="100%" stopColor="#D29A68" stopOpacity="0.9" />
+              </linearGradient>
+              <linearGradient id="copperReliefGradBR" x1="100%" y1="100%" x2="0%" y2="0%">
+                <stop offset="0%" stopColor="#8C542C" stopOpacity="0.2" />
+                <stop offset="60%" stopColor="#B87333" stopOpacity="0.7" />
+                <stop offset="100%" stopColor="#D29A68" stopOpacity="0.9" />
+              </linearGradient>
+              <linearGradient id="copperReliefGradBL" x1="0%" y1="100%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#8C542C" stopOpacity="0.2" />
+                <stop offset="60%" stopColor="#B87333" stopOpacity="0.7" />
+                <stop offset="100%" stopColor="#D29A68" stopOpacity="0.9" />
+              </linearGradient>
+            </defs>
+
+            {/* TOP-LEFT SEAM: Shadow Line + Specular Copper Line */}
             <line
               x1="0"
               y1="0"
               x2="50%"
               y2="50%"
-              stroke="#0a0a0a"
-              strokeWidth="0.75"
+              stroke="#151515"
+              strokeWidth="1.2"
               className={`transition-opacity duration-700 ease-out ${
-                isTension ? "opacity-25" : "opacity-0"
+                isTension ? "opacity-35" : "opacity-0"
               }`}
             />
+            <line
+              x1="0"
+              y1="1"
+              x2="50%"
+              y2="50%"
+              stroke="url(#copperReliefGradTL)"
+              strokeWidth="1"
+              className={`transition-opacity duration-700 ease-out ${
+                isTension ? "opacity-60" : "opacity-0"
+              }`}
+            />
+
+            {/* TOP-RIGHT SEAM */}
             <line
               x1="100%"
               y1="0"
               x2="50%"
               y2="50%"
-              stroke="#0a0a0a"
-              strokeWidth="0.75"
+              stroke="#151515"
+              strokeWidth="1.2"
               className={`transition-opacity duration-700 ease-out ${
-                isTension ? "opacity-25" : "opacity-0"
+                isTension ? "opacity-35" : "opacity-0"
               }`}
             />
+            <line
+              x1="100%"
+              y1="1"
+              x2="50%"
+              y2="50%"
+              stroke="url(#copperReliefGradTR)"
+              strokeWidth="1"
+              className={`transition-opacity duration-700 ease-out ${
+                isTension ? "opacity-60" : "opacity-0"
+              }`}
+            />
+
+            {/* BOTTOM-RIGHT SEAM */}
             <line
               x1="100%"
               y1="100%"
               x2="50%"
               y2="50%"
-              stroke="#0a0a0a"
-              strokeWidth="0.75"
+              stroke="#151515"
+              strokeWidth="1.2"
               className={`transition-opacity duration-700 ease-out ${
-                isTension ? "opacity-25" : "opacity-0"
+                isTension ? "opacity-35" : "opacity-0"
               }`}
             />
+            <line
+              x1="100%"
+              y1="99%"
+              x2="50%"
+              y2="50%"
+              stroke="url(#copperReliefGradBR)"
+              strokeWidth="1"
+              className={`transition-opacity duration-700 ease-out ${
+                isTension ? "opacity-60" : "opacity-0"
+              }`}
+            />
+
+            {/* BOTTOM-LEFT SEAM */}
             <line
               x1="0"
               y1="100%"
               x2="50%"
               y2="50%"
-              stroke="#0a0a0a"
-              strokeWidth="0.75"
+              stroke="#151515"
+              strokeWidth="1.2"
               className={`transition-opacity duration-700 ease-out ${
-                isTension ? "opacity-25" : "opacity-0"
+                isTension ? "opacity-35" : "opacity-0"
+              }`}
+            />
+            <line
+              x1="0"
+              y1="99%"
+              x2="50%"
+              y2="50%"
+              stroke="url(#copperReliefGradBL)"
+              strokeWidth="1"
+              className={`transition-opacity duration-700 ease-out ${
+                isTension ? "opacity-60" : "opacity-0"
               }`}
             />
           </svg>
 
           {/* ============================================================ */}
-          {/* THE VISTAR 4-TRIANGLE KINETIC APERTURE MARK                  */}
+          {/* THE VISTAR 4-WEDGED APERTURE CORE & SIGNAL BEACON            */}
           {/* ============================================================ */}
           <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
-            <div className="relative w-44 h-44 sm:w-56 sm:h-56 flex items-center justify-center">
+            <div className="relative w-48 h-48 sm:w-60 sm:h-60 flex items-center justify-center">
               
-              {/* Subtle Ambient Radial Tension Shadow */}
+              {/* Diffused Mineral/Graphite Contact Shadow */}
               <motion.div
                 animate={
                   isTension
-                    ? { scale: [1, 1.15, 1.08], opacity: [0.3, 0.6, 0.45] }
+                    ? { scale: [1, 1.2, 1.1], opacity: [0.25, 0.45, 0.35] }
                     : isTear
-                    ? { scale: 2.5, opacity: 0 }
-                    : { scale: 1, opacity: 0.25 }
+                    ? { scale: 3.0, opacity: 0 }
+                    : { scale: 1, opacity: 0.22 }
                 }
-                transition={{ duration: 1.0, ease: "easeInOut" }}
-                className="absolute w-40 h-40 rounded-full bg-black/15 blur-2xl -z-10"
+                transition={{ duration: 1.2, ease: "easeInOut" }}
+                className="absolute w-44 h-44 rounded-full bg-[#151515]/18 blur-2xl -z-10"
               />
 
-              {/* Central Singularity Glow in Void */}
+              {/* Central Concentric Precision Copper Aperture Dial */}
               <motion.div
                 animate={
                   isTension
-                    ? { scale: [1, 1.4, 1.2], opacity: [0.7, 1, 0.8] }
+                    ? { scale: [1, 1.15, 1.1], opacity: 1 }
                     : isTear
-                    ? { scale: 3, opacity: 0 }
-                    : { scale: 1, opacity: 0.7 }
+                    ? { scale: 2.8, opacity: 0 }
+                    : { scale: 1, opacity: 0.9 }
                 }
-                transition={{ duration: 0.8, repeat: isStill ? Infinity : 0, repeatType: "reverse" }}
-                className="absolute w-3.5 h-3.5 rounded-full bg-[#d8ff42] border border-black shadow-[0_0_16px_#d8ff42] z-30"
+                transition={
+                  isTear
+                    ? { duration: 1.0, ease: tearEase }
+                    : { duration: 1.4, ease: tensionEase }
+                }
+                className="absolute flex items-center justify-center z-15 pointer-events-none"
+              >
+                <svg viewBox="0 0 80 80" className="w-16 h-16 sm:w-20 sm:h-20" fill="none">
+                  {/* Subtle outer dashed precision coordinate ring */}
+                  <circle
+                    cx="40"
+                    cy="40"
+                    r="34"
+                    stroke="#D8D3C9"
+                    strokeWidth="1"
+                    strokeDasharray="2 4"
+                    opacity="0.8"
+                  />
+                  {/* Burnished copper mid ring */}
+                  <circle
+                    cx="40"
+                    cy="40"
+                    r="24"
+                    stroke="#8C542C"
+                    strokeWidth="1.2"
+                    opacity="0.75"
+                  />
+                  {/* Core copper optical rim */}
+                  <circle
+                    cx="40"
+                    cy="40"
+                    r="15"
+                    stroke="#B87333"
+                    strokeWidth="1.5"
+                    opacity="0.9"
+                  />
+                  {/* Cardinal micro alignment notches */}
+                  <line x1="40" y1="9" x2="40" y2="13" stroke="#B87333" strokeWidth="1.5" strokeLinecap="round" />
+                  <line x1="40" y1="67" x2="40" y2="71" stroke="#B87333" strokeWidth="1.5" strokeLinecap="round" />
+                  <line x1="9" y1="40" x2="13" y2="40" stroke="#B87333" strokeWidth="1.5" strokeLinecap="round" />
+                  <line x1="67" y1="40" x2="71" y2="40" stroke="#B87333" strokeWidth="1.5" strokeLinecap="round" />
+
+                  {/* Central Pure Copper Signal Beacon */}
+                  <circle cx="40" cy="40" r="4.5" fill="#B87333" stroke="#D29A68" strokeWidth="1" />
+                  <circle cx="40" cy="40" r="1.8" fill="#F4F1EA" />
+                </svg>
+              </motion.div>
+
+              {/* Breathing Warm Copper Halo Glow */}
+              <motion.div
+                animate={
+                  isTension
+                    ? { scale: [1, 1.35, 1.2], opacity: [0.4, 0.75, 0.6] }
+                    : isTear
+                    ? { scale: 3.5, opacity: 0 }
+                    : { scale: [0.95, 1.05, 0.95], opacity: [0.35, 0.55, 0.35] }
+                }
+                transition={{
+                  duration: isStill ? 2.4 : 1.2,
+                  repeat: isStill ? Infinity : 0,
+                  ease: "easeInOut",
+                }}
+                className="absolute w-12 h-12 rounded-full bg-[#B87333]/25 blur-lg z-14"
               />
 
-              {/* NORTH TRIANGLE */}
+              {/* ========================================================== */}
+              {/* THE 4 ARCHITECTURAL MONOLITHIC WEDGES (Deep Graphite + Copper) */}
+              {/* ========================================================== */}
+
+              {/* NORTH WEDGE: Apex North, Flat base South */}
               <motion.div
                 initial={{ y: 0 }}
                 animate={
                   isTear
-                    ? { y: "-85vh", scale: 1.1, opacity: 0 }
+                    ? { y: "-90vh", scale: 1.08, opacity: 0 }
                     : isTension
-                    ? { y: -34 }
+                    ? { y: -38 }
                     : { y: 0 }
                 }
                 transition={
                   isTear
-                    ? { duration: 1.35, ease: tearEase }
+                    ? { duration: 1.45, ease: tearEase }
                     : { duration: 1.5, ease: tensionEase }
                 }
-                className="absolute top-2 sm:top-4 flex items-center justify-center"
+                className="absolute top-1 sm:top-2 flex items-center justify-center"
               >
                 <svg
-                  viewBox="0 0 64 52"
-                  className="w-14 sm:w-18 h-12 sm:h-15 drop-shadow-[0_4px_12px_rgba(0,0,0,0.22)]"
+                  viewBox="0 0 64 64"
+                  className="w-14 sm:w-18 h-14 sm:h-18 drop-shadow-[0_6px_14px_rgba(21,21,21,0.28)]"
                   fill="none"
                 >
                   <polygon
-                    points="32,4 60,48 4,48"
-                    fill="#0a0a0a"
-                    stroke="#27272a"
-                    strokeWidth="2"
+                    points="32,6 56,52 8,52"
+                    fill="#151515"
+                    stroke="#8C542C"
+                    strokeWidth="1.5"
                     strokeLinejoin="round"
                   />
-                  {/* Subtle 3D inner chamfer accent */}
+                  {/* Inner Specular Copper Bevel */}
                   <polygon
-                    points="32,8 54,45 10,45"
-                    fill="#18181b"
-                    opacity="0.4"
+                    points="32,16 48,46 16,46"
+                    fill="#151515"
+                    stroke="#D29A68"
+                    strokeWidth="0.75"
+                    strokeOpacity="0.65"
                   />
                 </svg>
               </motion.div>
 
-              {/* EAST TRIANGLE */}
+              {/* EAST WEDGE: Apex East, Flat base West */}
               <motion.div
                 initial={{ x: 0 }}
                 animate={
                   isTear
-                    ? { x: "85vw", scale: 1.1, opacity: 0 }
+                    ? { x: "90vw", scale: 1.08, opacity: 0 }
                     : isTension
-                    ? { x: 34 }
+                    ? { x: 38 }
                     : { x: 0 }
                 }
                 transition={
                   isTear
-                    ? { duration: 1.35, ease: tearEase }
+                    ? { duration: 1.45, ease: tearEase }
                     : { duration: 1.5, ease: tensionEase }
                 }
-                className="absolute right-2 sm:right-4 flex items-center justify-center"
+                className="absolute right-1 sm:right-2 flex items-center justify-center"
               >
                 <svg
-                  viewBox="0 0 52 64"
-                  className="w-12 sm:w-15 h-14 sm:h-18 drop-shadow-[4px_0_12px_rgba(0,0,0,0.22)]"
+                  viewBox="0 0 64 64"
+                  className="w-14 sm:w-18 h-14 sm:h-18 drop-shadow-[6px_0_14px_rgba(21,21,21,0.28)]"
                   fill="none"
                 >
                   <polygon
-                    points="48,32 4,60 4,4"
-                    fill="#0a0a0a"
-                    stroke="#27272a"
-                    strokeWidth="2"
+                    points="58,32 12,56 12,8"
+                    fill="#151515"
+                    stroke="#8C542C"
+                    strokeWidth="1.5"
                     strokeLinejoin="round"
                   />
+                  {/* Inner Specular Copper Bevel */}
                   <polygon
-                    points="44,32 8,54 8,10"
-                    fill="#18181b"
-                    opacity="0.4"
+                    points="48,32 18,48 18,16"
+                    fill="#151515"
+                    stroke="#D29A68"
+                    strokeWidth="0.75"
+                    strokeOpacity="0.65"
                   />
                 </svg>
               </motion.div>
 
-              {/* SOUTH TRIANGLE */}
+              {/* SOUTH WEDGE: Apex South, Flat base North */}
               <motion.div
                 initial={{ y: 0 }}
                 animate={
                   isTear
-                    ? { y: "85vh", scale: 1.1, opacity: 0 }
+                    ? { y: "90vh", scale: 1.08, opacity: 0 }
                     : isTension
-                    ? { y: 34 }
+                    ? { y: 38 }
                     : { y: 0 }
                 }
                 transition={
                   isTear
-                    ? { duration: 1.35, ease: tearEase }
+                    ? { duration: 1.45, ease: tearEase }
                     : { duration: 1.5, ease: tensionEase }
                 }
-                className="absolute bottom-2 sm:bottom-4 flex items-center justify-center"
+                className="absolute bottom-1 sm:bottom-2 flex items-center justify-center"
               >
                 <svg
-                  viewBox="0 0 64 52"
-                  className="w-14 sm:w-18 h-12 sm:h-15 drop-shadow-[0_8px_16px_rgba(0,0,0,0.22)]"
+                  viewBox="0 0 64 64"
+                  className="w-14 sm:w-18 h-14 sm:h-18 drop-shadow-[0_8px_16px_rgba(21,21,21,0.28)]"
                   fill="none"
                 >
                   <polygon
-                    points="32,48 4,4 60,4"
-                    fill="#0a0a0a"
-                    stroke="#27272a"
-                    strokeWidth="2"
+                    points="32,58 8,12 56,12"
+                    fill="#151515"
+                    stroke="#8C542C"
+                    strokeWidth="1.5"
                     strokeLinejoin="round"
                   />
+                  {/* Inner Specular Copper Bevel */}
                   <polygon
-                    points="32,44 10,7 54,7"
-                    fill="#18181b"
-                    opacity="0.4"
+                    points="32,48 16,18 48,18"
+                    fill="#151515"
+                    stroke="#D29A68"
+                    strokeWidth="0.75"
+                    strokeOpacity="0.65"
                   />
                 </svg>
               </motion.div>
 
-              {/* WEST TRIANGLE */}
+              {/* WEST WEDGE: Apex West, Flat base East */}
               <motion.div
                 initial={{ x: 0 }}
                 animate={
                   isTear
-                    ? { x: "-85vw", scale: 1.1, opacity: 0 }
+                    ? { x: "-90vw", scale: 1.08, opacity: 0 }
                     : isTension
-                    ? { x: -34 }
+                    ? { x: -38 }
                     : { x: 0 }
                 }
                 transition={
                   isTear
-                    ? { duration: 1.35, ease: tearEase }
+                    ? { duration: 1.45, ease: tearEase }
                     : { duration: 1.5, ease: tensionEase }
                 }
-                className="absolute left-2 sm:left-4 flex items-center justify-center"
+                className="absolute left-1 sm:left-2 flex items-center justify-center"
               >
                 <svg
-                  viewBox="0 0 52 64"
-                  className="w-12 sm:w-15 h-14 sm:h-18 drop-shadow-[-4px_0_12px_rgba(0,0,0,0.22)]"
+                  viewBox="0 0 64 64"
+                  className="w-14 sm:w-18 h-14 sm:h-18 drop-shadow-[-6px_0_14px_rgba(21,21,21,0.28)]"
                   fill="none"
                 >
                   <polygon
-                    points="4,32 48,4 48,60"
-                    fill="#0a0a0a"
-                    stroke="#27272a"
-                    strokeWidth="2"
+                    points="6,32 52,8 52,56"
+                    fill="#151515"
+                    stroke="#8C542C"
+                    strokeWidth="1.5"
                     strokeLinejoin="round"
                   />
+                  {/* Inner Specular Copper Bevel */}
                   <polygon
-                    points="8,32 44,10 44,54"
-                    fill="#18181b"
-                    opacity="0.4"
+                    points="16,32 46,16 46,48"
+                    fill="#151515"
+                    stroke="#D29A68"
+                    strokeWidth="0.75"
+                    strokeOpacity="0.65"
                   />
                 </svg>
               </motion.div>
 
             </div>
+
+            {/* Technical Sub-Caption Underneath Mark */}
+            <motion.div
+              initial={{ opacity: 0.6 }}
+              animate={
+                isTear
+                  ? { opacity: 0, y: 20 }
+                  : isTension
+                  ? { opacity: 0.85, y: 6 }
+                  : { opacity: 0.55, y: 0 }
+              }
+              transition={{ duration: 1.0 }}
+              className="absolute bottom-16 sm:bottom-20 flex flex-col items-center gap-1 text-[#151515] font-mono text-[8px] sm:text-[9px] tracking-[0.25em] uppercase select-none"
+            >
+              <div className="flex items-center gap-2">
+                <span className="w-1 h-1 rounded-full bg-[#B87333]" />
+                <span>VISTAR PRECISION SYSTEMS</span>
+              </div>
+              <span className="text-[#8C542C] text-[7px] sm:text-[8px] tracking-[0.3em]">
+                ARCHITECTURAL APERTURE ENGINE
+              </span>
+            </motion.div>
           </div>
 
         </div>

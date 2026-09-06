@@ -23,7 +23,7 @@ function Footer() {
   ];
 
   return (
-    <footer className="bg-[#faf9f5] border-t-2 border-black py-16 px-6 md:px-12 select-none relative z-30 font-sans text-black overflow-hidden">
+    <footer className="bg-[#F4F1EA] border-t-2 border-[#151515] py-16 px-6 md:px-12 select-none relative z-30 font-sans text-[#151515] overflow-hidden">
       <div className="absolute inset-0 halftone-dots-fine opacity-[0.015] pointer-events-none z-0" />
       
       {/* Big watermark text */}
@@ -31,7 +31,7 @@ function Footer() {
         aria-hidden="true"
         className="absolute bottom-0 left-0 right-0 pointer-events-none select-none leading-none overflow-hidden z-0"
       >
-        <span className="font-display font-black tracking-tighter text-[#0a0a0a]/5 text-fluid-footer leading-[0.82] block">
+        <span className="font-display font-black tracking-tighter text-[#151515]/5 text-fluid-footer leading-[0.82] block">
           VISTAR.
         </span>
       </div>
@@ -40,13 +40,13 @@ function Footer() {
         
         {/* Brand Statement */}
         <div className="space-y-4 max-w-sm">
-          <Link href="/" className="font-display text-2xl font-black tracking-wider flex items-center gap-2.5 uppercase text-black">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-black shrink-0">
+          <Link href="/" className="font-display text-2xl font-black tracking-wider flex items-center gap-2.5 uppercase text-[#151515]">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#151515] shrink-0">
               <path d="M12 2L16 8H8L12 2Z" fill="currentColor"/>
               <path d="M2 12L8 8V16L2 12Z" fill="currentColor"/>
               <path d="M22 12L16 16V8L22 12Z" fill="currentColor"/>
               <path d="M12 22L8 16H16L12 22Z" fill="currentColor"/>
-              <circle cx="12" cy="12" r="2.2" fill="#d8ff42" />
+              <circle cx="12" cy="12" r="2.2" fill="#B87333" />
             </svg>
             <TextPressure text="VISTAR" />
           </Link>
@@ -158,14 +158,14 @@ function TopLoadingBar() {
         left: 0,
         right: 0,
         height: "3px",
-        backgroundColor: "#d8ff42",
+        backgroundColor: "#B87333",
         transform: `scaleX(${progress / 100})`,
         transformOrigin: "left",
         zIndex: 99,
         pointerEvents: "none",
         transition: progress === 100 ? "opacity 150ms ease-out" : "none",
         opacity: progress === 100 ? 0 : 1,
-        boxShadow: "0 0 8px #d8ff42",
+        boxShadow: "0 0 10px rgba(184, 115, 51, 0.75), 0 0 4px #B87333",
       }}
     />
   );
@@ -233,39 +233,39 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
     const isActive = pathname === href;
     return `transition-all py-1 interactive whitespace-nowrap border-b-2 font-mono font-bold tracking-widest uppercase text-[11px] ${
       isActive 
-        ? "text-black border-black font-black" 
-        : "text-zinc-600 border-transparent hover:text-black hover:border-black"
+        ? "text-[#151515] border-[#151515] font-black" 
+        : "text-zinc-600 border-transparent hover:text-[#151515] hover:border-[#151515]"
     }`;
   };
 
   if (!mounted) return <>{children}</>;
 
   return (
-    <div className="w-full min-h-screen bg-transparent text-black transition-colors duration-500 ease-in-out selection:bg-[#d8ff42] selection:text-black">
+    <div className="w-full min-h-screen bg-transparent text-[#151515] transition-colors duration-500 ease-in-out selection:bg-[#B87333] selection:text-[#F4F1EA]">
       <Preloader />
       <TopLoadingBar />
 
       <div className="transition-opacity duration-1000 ease-in-out opacity-100 pointer-events-auto">
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-[#d8ff42] focus:text-black focus:px-4 focus:py-2 font-mono text-xs uppercase border-2 border-black shadow-[3px_3px_0px_#000]"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-[#B87333] focus:text-[#F4F1EA] focus:px-4 focus:py-2 font-mono text-xs uppercase border-2 border-[#151515] shadow-[3px_3px_0px_#151515]"
         >
           Skip to content
         </a>
 
         {/* Navigation Header Bar */}
         <header 
-          className={`fixed top-4 left-1/2 z-45 flex items-center justify-between gap-6 sm:gap-10 px-5 sm:px-7 py-2.5 select-none rounded-xl bg-white/95 backdrop-blur-md border-2 border-black shadow-[4px_4px_0px_#000] transition-all duration-300 ease-out w-auto max-w-[94vw] -translate-x-1/2 ${
+          className={`fixed top-4 left-1/2 z-45 flex items-center justify-between gap-6 sm:gap-10 px-5 sm:px-7 py-2.5 select-none rounded-xl bg-[#F4F1EA]/95 backdrop-blur-md border-2 border-[#151515] shadow-[4px_4px_0px_#151515] transition-all duration-300 ease-out w-auto max-w-[94vw] -translate-x-1/2 ${
             headerVisible ? "translate-y-0" : "-translate-y-[180%]"
           }`}
         >
-          <Link href="/" id="nav-brand-logo" className="font-display text-base font-black tracking-widest text-black flex items-center gap-2.5 interactive uppercase">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-black shrink-0">
+          <Link href="/" id="nav-brand-logo" className="font-display text-base font-black tracking-widest text-[#151515] flex items-center gap-2.5 interactive uppercase">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#151515] shrink-0">
               <path d="M12 2L16 8H8L12 2Z" fill="currentColor"/>
               <path d="M2 12L8 8V16L2 12Z" fill="currentColor"/>
               <path d="M22 12L16 16V8L22 12Z" fill="currentColor"/>
               <path d="M12 22L8 16H16L12 22Z" fill="currentColor"/>
-              <circle cx="12" cy="12" r="2.2" fill="#d8ff42" />
+              <circle cx="12" cy="12" r="2.2" fill="#B87333" />
             </svg>
             <TextPressure text="VISTAR" />
           </Link>
@@ -289,7 +289,7 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
             <Link
               href="/contact"
               onClick={() => playTickSound()}
-              className="bg-[#d8ff42] text-black font-mono font-black text-[10px] tracking-widest uppercase px-3.5 py-1.5 rounded-lg border-2 border-black shadow-[2px_2px_0px_#000] hover:bg-black hover:text-[#d8ff42] hover:shadow-[3px_3px_0px_#d8ff42] active:translate-x-0.5 active:translate-y-0.5 transition-all interactive"
+              className="bg-[#B87333] text-[#F4F1EA] font-mono font-bold text-[10px] tracking-widest uppercase px-3.5 py-1.5 rounded-lg border-2 border-[#151515] shadow-[2px_2px_0px_#151515] hover:bg-[#8C542C] hover:shadow-[3px_3px_0px_#151515] active:translate-x-0.5 active:translate-y-0.5 transition-all interactive"
             >
               START A BUILD →
             </Link>
@@ -303,26 +303,26 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
             }}
             id="nav-menu-toggle"
             aria-label="Toggle Navigation Drawer"
-            className="md:hidden p-2 border-2 border-black bg-white text-black shadow-[2px_2px_0px_#000] cursor-pointer interactive active:translate-y-0.5 transition-all flex items-center justify-center rounded-lg"
+            className="md:hidden p-2 border-2 border-[#151515] bg-[#F4F1EA] text-[#151515] shadow-[2px_2px_0px_#151515] cursor-pointer interactive active:translate-y-0.5 transition-all flex items-center justify-center rounded-lg"
           >
             <div className="flex flex-col gap-1 items-center justify-center w-4 h-3.5 select-none pointer-events-none">
-              <span className={`w-4 h-[2px] bg-black transition-transform duration-300 ${mobileMenuOpen ? 'rotate-45 translate-y-1.5' : ''}`} />
-              <span className={`w-4 h-[2px] bg-black transition-opacity duration-300 ${mobileMenuOpen ? 'opacity-0' : 'opacity-100'}`} />
-              <span className={`w-4 h-[2px] bg-black transition-transform duration-300 ${mobileMenuOpen ? '-rotate-45 -translate-y-1.5' : ''}`} />
+              <span className={`w-4 h-[2px] bg-[#151515] transition-transform duration-300 ${mobileMenuOpen ? 'rotate-45 translate-y-1.5' : ''}`} />
+              <span className={`w-4 h-[2px] bg-[#151515] transition-opacity duration-300 ${mobileMenuOpen ? 'opacity-0' : 'opacity-100'}`} />
+              <span className={`w-4 h-[2px] bg-[#151515] transition-transform duration-300 ${mobileMenuOpen ? '-rotate-45 -translate-y-1.5' : ''}`} />
             </div>
           </button>
         </header>
 
         {/* Fullscreen Mobile Navigation Menu Drawer Overlay */}
         <div 
-          className={`fixed inset-0 z-40 flex flex-col justify-center px-8 md:hidden transition-all duration-400 bg-[#faf9f5] border-b-2 border-black ${
+          className={`fixed inset-0 z-40 flex flex-col justify-center px-8 md:hidden transition-all duration-400 bg-[#F4F1EA] border-b-2 border-[#151515] ${
             mobileMenuOpen 
               ? "opacity-100 translate-y-0 pointer-events-auto" 
               : "opacity-0 -translate-y-full pointer-events-none"
           }`}
         >
           <div className="absolute inset-0 halftone-dots-fine opacity-5 pointer-events-none z-0" />
-          <nav className="flex flex-col gap-5 font-display text-3xl font-black uppercase tracking-tight relative z-50 text-black">
+          <nav className="flex flex-col gap-5 font-display text-3xl font-black uppercase tracking-tight relative z-50 text-[#151515]">
             {navLinks.map((link, idx) => (
               <Link 
                 key={link.href} 
@@ -334,8 +334,8 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
                 }}
                 className={`transition-all interactive border-b-2 pb-2 inline-block ${
                   pathname === link.href 
-                    ? "text-black border-black font-black"
-                    : "text-zinc-600 border-black/10 hover:border-black hover:text-black"
+                    ? "text-[#151515] border-[#151515] font-black" 
+                    : "text-zinc-600 border-black/10 hover:border-[#151515] hover:text-[#151515]"
                 }`}
               >
                 {link.label}
@@ -347,7 +347,7 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
                 playTickSound();
                 setMobileMenuOpen(false);
               }}
-              className="mt-4 bg-[#d8ff42] text-black font-mono text-sm font-black tracking-widest uppercase p-4 text-center rounded-xl border-2 border-black shadow-[4px_4px_0px_#000]"
+              className="mt-4 bg-[#B87333] text-[#F4F1EA] font-mono text-sm font-bold tracking-widest uppercase p-4 text-center rounded-xl border-2 border-[#151515] shadow-[4px_4px_0px_#151515]"
             >
               START A BUILD →
             </Link>
@@ -356,8 +356,8 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
           <div className="my-6 border-t border-black/10" />
           
           <div className="flex gap-6 font-mono text-xs font-bold tracking-widest uppercase justify-center text-zinc-600 relative z-50">
-            <a href="https://linkedin.com/in/abhishektiwari050" target="_blank" rel="noopener noreferrer" className="hover:text-black">LINKEDIN ↗</a>
-            <a href="https://github.com/Abhishektiwari050/vistaarx" target="_blank" rel="noopener noreferrer" className="hover:text-black">GITHUB ↗</a>
+            <a href="https://linkedin.com/in/abhishektiwari050" target="_blank" rel="noopener noreferrer" className="hover:text-[#151515]">LINKEDIN ↗</a>
+            <a href="https://github.com/Abhishektiwari050/vistaarx" target="_blank" rel="noopener noreferrer" className="hover:text-[#151515]">GITHUB ↗</a>
           </div>
         </div>
       </div>
