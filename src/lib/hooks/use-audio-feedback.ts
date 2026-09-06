@@ -2,13 +2,33 @@
 
 import { useEffect, useCallback } from "react";
 
+let sharedAudioCtx: AudioContext | null = null;
+
+function getAudioContext(): AudioContext | null {
+  if (typeof window === "undefined") return null;
+  try {
+    if (!sharedAudioCtx) {
+      const AudioContextClass =
+        window.AudioContext ||
+        (window as Window & typeof globalThis & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+      if (AudioContextClass) {
+        sharedAudioCtx = new AudioContextClass();
+      }
+    }
+    if (sharedAudioCtx && sharedAudioCtx.state === "suspended") {
+      sharedAudioCtx.resume().catch(() => {});
+    }
+    return sharedAudioCtx;
+  } catch {
+    return null;
+  }
+}
+
 // Web Audio API Synthesizer for high-fidelity mechanical click/hover sounds
 export function playTickSound(pitch: number = 800, duration: number = 0.03, volume: number = 0.008) {
-  if (typeof window === "undefined") return;
+  const ctx = getAudioContext();
+  if (!ctx) return;
   try {
-    const AudioContextClass = window.AudioContext || (window as Window & typeof globalThis & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
-    const ctx = new AudioContextClass();
-    
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
     
@@ -31,11 +51,9 @@ export function playTickSound(pitch: number = 800, duration: number = 0.03, volu
 
 // Low-frequency tactile tension drone for preloader
 export function playTensionDrone(duration: number = 1.2, volume: number = 0.015) {
-  if (typeof window === "undefined") return;
+  const ctx = getAudioContext();
+  if (!ctx) return;
   try {
-    const AudioContextClass = window.AudioContext || (window as Window & typeof globalThis & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
-    const ctx = new AudioContextClass();
-    
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
     const filter = ctx.createBiquadFilter();
@@ -65,11 +83,9 @@ export function playTensionDrone(duration: number = 1.2, volume: number = 0.015)
 
 // Tactile rupture/tear sound synthesized with noise burst + sub snap
 export function playTearSnapSound(volume: number = 0.025) {
-  if (typeof window === "undefined") return;
+  const ctx = getAudioContext();
+  if (!ctx) return;
   try {
-    const AudioContextClass = window.AudioContext || (window as Window & typeof globalThis & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
-    const ctx = new AudioContextClass();
-    
     // Low sub snap
     const osc = ctx.createOscillator();
     const oscGain = ctx.createGain();
