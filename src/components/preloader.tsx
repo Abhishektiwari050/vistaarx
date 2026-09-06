@@ -1,143 +1,420 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { playTensionDrone, playTearSnapSound } from "@/lib/hooks/use-audio-feedback";
 
-const loaderLogs = [
-  "INITIALIZING CORE WEBGL SHADERS...",
-  "LOADING 3D GEOMETRY MATRICES...",
-  "COMPILING ROUTE CONTROLLER SYSTEM...",
-  "SYNCING CDN EDGE CACHES...",
-  "ESTABLISHING PROTOCOL CHANNELS...",
-  "STATUS: ONLINE // READY",
-];
+type PreloadPhase = "still" | "tension" | "tear" | "done";
 
 export function Preloader() {
-  const [progress, setProgress] = useState(0);
+  const [phase, setPhase] = useState<PreloadPhase>("still");
   const [visible, setVisible] = useState(true);
-  const [logs, setLogs] = useState<string[]>([]);
   const [mounted, setMounted] = useState(false);
+  const hasTriggeredSound = useRef(false);
 
   useEffect(() => {
-    Promise.resolve().then(() => {
-      setMounted(true);
-    });
+    setMounted(true);
 
-    // Respect sessionStorage or nopreload flag to skip preloader
+    // Respect sessionStorage or nopreload flag for rapid development & navigation
     if (typeof window !== "undefined") {
       const alreadyLoaded = sessionStorage.getItem("vistar-preloaded");
-      const isBypassed = window.location.search.includes("nopreload") || (window as unknown as { __disablePreloader?: boolean }).__disablePreloader;
+      const isBypassed =
+        window.location.search.includes("nopreload") ||
+        (window as unknown as { __disablePreloader?: boolean }).__disablePreloader;
       if (alreadyLoaded === "true" || isBypassed) {
         setVisible(false);
+        setPhase("done");
         return;
       }
     }
 
-    let logIdx = 0;
-    const logInterval = setInterval(() => {
-      if (logIdx < loaderLogs.length) {
-        setLogs((prev) => [...prev, `[system] ${loaderLogs[logIdx]}`]);
-        logIdx++;
-      } else {
-        clearInterval(logInterval);
+    // Phase 1: Tension (starts at 1.0s)
+    const timerTension = setTimeout(() => {
+      setPhase("tension");
+      if (!hasTriggeredSound.current) {
+        playTensionDrone(1.0, 0.015);
       }
-    }, 280);
+    }, 1000);
 
-    const progressDuration = 1800; // 1.8 seconds total
-    const startTime = performance.now();
+    // Phase 2: The Tear (starts at 2.0s)
+    const timerTear = setTimeout(() => {
+      setPhase("tear");
+      playTearSnapSound(0.025);
+    }, 2000);
 
-    const animateProgress = (now: number) => {
-      const elapsed = now - startTime;
-      const pct = Math.min((elapsed / progressDuration) * 100, 100);
-      setProgress(Math.floor(pct));
+    // Phase 3: Final Reveal & Unmount (at 3.2s)
+    const timerDone = setTimeout(() => {
+      setPhase("done");
+      setVisible(false);
+      if (typeof window !== "undefined") {
+        sessionStorage.setItem("vistar-preloaded", "true");
+      }
+    }, 3200);
 
-      if (pct < 100) {
-        requestAnimationFrame(animateProgress);
-      } else {
-        setTimeout(() => {
-          setVisible(false);
-          if (typeof window !== "undefined") {
-            sessionStorage.setItem("vistar-preloaded", "true");
-          }
-        }, 300);
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setPhase("done");
+        setVisible(false);
       }
     };
-
-    requestAnimationFrame(animateProgress);
+    window.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      clearInterval(logInterval);
+      clearTimeout(timerTension);
+      clearTimeout(timerTear);
+      clearTimeout(timerDone);
+      window.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
 
   if (!mounted || !visible) return null;
 
+  const isStill = phase === "still";
+  const isTension = phase === "tension";
+  const isTear = phase === "tear" || phase === "done";
+
+  // Easing curves for tension and mechanical tear
+  const tensionEase = [0.25, 1, 0.5, 1] as const;
+  const tearEase = [0.85, 0, 0.15, 1] as const;
+
   return (
     <AnimatePresence>
       {visible && (
-        <motion.div
-          initial={{ y: 0 }}
-          exit={{ y: "-100vh" }}
-          transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-          className="fixed inset-0 z-[9999] bg-[#0a0a0a] flex flex-col items-center justify-center select-none"
+        <div 
+          className="fixed inset-0 z-[99999] overflow-hidden select-none pointer-events-none"
+          aria-label="Vistar Logo Surface Tear Entrance"
         >
-          {/* Halftone dots texture background */}
-          <div className="absolute inset-0 halftone-dots opacity-[0.02] pointer-events-none" />
+          {/* ============================================================ */}
+          {/* THE 4 TEARING IVORY SURFACE FLAPS                            */}
+          {/* ============================================================ */}
 
-          {/* Star spinner and progress content */}
-          <div className="flex flex-col items-center gap-8 z-10 max-w-sm px-6">
-            
-            {/* Spinning 4-pointed star vector */}
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 2, ease: "linear", repeat: Infinity }}
-              className="relative w-16 h-16 text-[#d8ff42] flex items-center justify-center"
-            >
-              <svg viewBox="0 0 24 24" className="w-full h-full fill-current">
-                <path d="M12,2 L14.5,9.5 L22,12 L14.5,14.5 L12,22 L9.5,14.5 L2,12 L9.5,9.5 Z" />
-              </svg>
-              <span className="absolute w-2 h-2 rounded-full bg-[#ff1e90]" />
-            </motion.div>
+          {/* NORTH FLAP */}
+          <motion.div
+            initial={{ y: 0, opacity: 1 }}
+            animate={
+              isTear
+                ? { y: "-105vh", scale: 1.02, rotateX: 10 }
+                : isTension
+                ? { y: -6 }
+                : { y: 0 }
+            }
+            transition={
+              isTear
+                ? { duration: 1.1, ease: tearEase }
+                : { duration: 1.0, ease: tensionEase }
+            }
+            className="absolute inset-0 w-full h-full bg-[#faf9f5] origin-top"
+            style={{
+              clipPath: "polygon(0 0, 100% 0, 50% 50%)",
+              filter: isTear ? "drop-shadow(0 25px 35px rgba(0,0,0,0.35))" : "none",
+            }}
+          />
 
-            {/* Title / Brand */}
-            <div className="text-center space-y-1">
-              <h1 className="font-display text-sm font-extrabold text-[#faf9f5] tracking-[6px] uppercase">
-                Vistar Studio
-              </h1>
-              <p className="text-[7.5px] font-mono text-zinc-500 tracking-[3px] uppercase">
-                Systems Architecture Lab
-              </p>
-            </div>
+          {/* EAST FLAP */}
+          <motion.div
+            initial={{ x: 0, opacity: 1 }}
+            animate={
+              isTear
+                ? { x: "105vw", scale: 1.02, rotateY: 10 }
+                : isTension
+                ? { x: 6 }
+                : { x: 0 }
+            }
+            transition={
+              isTear
+                ? { duration: 1.1, ease: tearEase }
+                : { duration: 1.0, ease: tensionEase }
+            }
+            className="absolute inset-0 w-full h-full bg-[#faf9f5] origin-right"
+            style={{
+              clipPath: "polygon(100% 0, 100% 100%, 50% 50%)",
+              filter: isTear ? "drop-shadow(-25px 0 35px rgba(0,0,0,0.35))" : "none",
+            }}
+          />
 
-            {/* Progress percentage bar */}
-            <div className="w-48 space-y-2">
-              <div className="flex justify-between font-mono text-[8px] text-zinc-400">
-                <span>COMPILE_PROGRESS</span>
-                <span className="text-[#d8ff42]">{progress}%</span>
-              </div>
-              <div className="w-full h-[3px] bg-zinc-800 rounded-full overflow-hidden">
-                <motion.div 
-                  className="h-full bg-[#d8ff42]" 
-                  style={{ width: `${progress}%` }} 
-                />
-              </div>
-            </div>
+          {/* SOUTH FLAP */}
+          <motion.div
+            initial={{ y: 0, opacity: 1 }}
+            animate={
+              isTear
+                ? { y: "105vh", scale: 1.02, rotateX: -10 }
+                : isTension
+                ? { y: 6 }
+                : { y: 0 }
+            }
+            transition={
+              isTear
+                ? { duration: 1.1, ease: tearEase }
+                : { duration: 1.0, ease: tensionEase }
+            }
+            className="absolute inset-0 w-full h-full bg-[#faf9f5] origin-bottom"
+            style={{
+              clipPath: "polygon(100% 100%, 0 100%, 50% 50%)",
+              filter: isTear ? "drop-shadow(0 -25px 35px rgba(0,0,0,0.35))" : "none",
+            }}
+          />
 
-            {/* Animating log output */}
-            <div className="w-64 bg-black/40 border border-white/5 rounded-lg p-3 h-24 font-mono text-[7px] leading-relaxed flex flex-col justify-end overflow-hidden no-scrollbar">
-              {logs.map((log, i) => (
-                <p 
-                  key={i} 
-                  className={log.includes("ONLINE") ? "text-[#d8ff42]" : "text-white/40"}
-                  style={{ transform: `translate3d(0, 0, 0)` }}
+          {/* WEST FLAP */}
+          <motion.div
+            initial={{ x: 0, opacity: 1 }}
+            animate={
+              isTear
+                ? { x: "-105vw", scale: 1.02, rotateY: -10 }
+                : isTension
+                ? { x: -6 }
+                : { x: 0 }
+            }
+            transition={
+              isTear
+                ? { duration: 1.1, ease: tearEase }
+                : { duration: 1.0, ease: tensionEase }
+            }
+            className="absolute inset-0 w-full h-full bg-[#faf9f5] origin-left"
+            style={{
+              clipPath: "polygon(0 100%, 0 0, 50% 50%)",
+              filter: isTear ? "drop-shadow(25px 0 35px rgba(0,0,0,0.35))" : "none",
+            }}
+          />
+
+          {/* ============================================================ */}
+          {/* TENSION FRACTURE SEAMS (Radiating along the 4 tear axes)     */}
+          {/* ============================================================ */}
+          <svg className="absolute inset-0 w-full h-full pointer-events-none z-10">
+            <line
+              x1="0"
+              y1="0"
+              x2="50%"
+              y2="50%"
+              stroke="#0a0a0a"
+              strokeWidth={isTension ? 1.5 : 0.5}
+              strokeDasharray={isTension ? "4 2" : "none"}
+              className={`transition-opacity duration-500 ${
+                isTension ? "opacity-40" : isStill ? "opacity-10" : "opacity-0"
+              }`}
+            />
+            <line
+              x1="100%"
+              y1="0"
+              x2="50%"
+              y2="50%"
+              stroke="#0a0a0a"
+              strokeWidth={isTension ? 1.5 : 0.5}
+              strokeDasharray={isTension ? "4 2" : "none"}
+              className={`transition-opacity duration-500 ${
+                isTension ? "opacity-40" : isStill ? "opacity-10" : "opacity-0"
+              }`}
+            />
+            <line
+              x1="100%"
+              y1="100%"
+              x2="50%"
+              y2="50%"
+              stroke="#0a0a0a"
+              strokeWidth={isTension ? 1.5 : 0.5}
+              strokeDasharray={isTension ? "4 2" : "none"}
+              className={`transition-opacity duration-500 ${
+                isTension ? "opacity-40" : isStill ? "opacity-10" : "opacity-0"
+              }`}
+            />
+            <line
+              x1="0"
+              y1="100%"
+              x2="50%"
+              y2="50%"
+              stroke="#0a0a0a"
+              strokeWidth={isTension ? 1.5 : 0.5}
+              strokeDasharray={isTension ? "4 2" : "none"}
+              className={`transition-opacity duration-500 ${
+                isTension ? "opacity-40" : isStill ? "opacity-10" : "opacity-0"
+              }`}
+            />
+          </svg>
+
+          {/* ============================================================ */}
+          {/* THE VISTAR 4-TRIANGLE KINETIC APERTURE MARK                  */}
+          {/* ============================================================ */}
+          <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+            <div className="relative w-44 h-44 sm:w-56 sm:h-56 flex items-center justify-center">
+              
+              {/* Subtle Ambient Radial Tension Shadow */}
+              <motion.div
+                animate={
+                  isTension
+                    ? { scale: [1, 1.15, 1.08], opacity: [0.3, 0.6, 0.45] }
+                    : isTear
+                    ? { scale: 2.5, opacity: 0 }
+                    : { scale: 1, opacity: 0.25 }
+                }
+                transition={{ duration: 1.0, ease: "easeInOut" }}
+                className="absolute w-40 h-40 rounded-full bg-black/15 blur-2xl -z-10"
+              />
+
+              {/* Central Singularity Glow in Void */}
+              <motion.div
+                animate={
+                  isTension
+                    ? { scale: [1, 1.4, 1.2], opacity: [0.7, 1, 0.8] }
+                    : isTear
+                    ? { scale: 3, opacity: 0 }
+                    : { scale: 1, opacity: 0.7 }
+                }
+                transition={{ duration: 0.8, repeat: isStill ? Infinity : 0, repeatType: "reverse" }}
+                className="absolute w-3.5 h-3.5 rounded-full bg-[#d8ff42] border border-black shadow-[0_0_16px_#d8ff42] z-30"
+              />
+
+              {/* NORTH TRIANGLE */}
+              <motion.div
+                initial={{ y: 0 }}
+                animate={
+                  isTear
+                    ? { y: "-85vh", scale: 1.1, opacity: 0 }
+                    : isTension
+                    ? { y: -34 }
+                    : { y: 0 }
+                }
+                transition={
+                  isTear
+                    ? { duration: 1.1, ease: tearEase }
+                    : { duration: 0.95, ease: tensionEase }
+                }
+                className="absolute top-2 sm:top-4 flex items-center justify-center"
+              >
+                <svg
+                  viewBox="0 0 64 52"
+                  className="w-14 sm:w-18 h-12 sm:h-15 drop-shadow-[0_4px_12px_rgba(0,0,0,0.22)]"
+                  fill="none"
                 >
-                  {log}
-                </p>
-              ))}
-            </div>
+                  <polygon
+                    points="32,4 60,48 4,48"
+                    fill="#0a0a0a"
+                    stroke="#27272a"
+                    strokeWidth="2"
+                    strokeLinejoin="round"
+                  />
+                  {/* Subtle 3D inner chamfer accent */}
+                  <polygon
+                    points="32,8 54,45 10,45"
+                    fill="#18181b"
+                    opacity="0.4"
+                  />
+                </svg>
+              </motion.div>
 
+              {/* EAST TRIANGLE */}
+              <motion.div
+                initial={{ x: 0 }}
+                animate={
+                  isTear
+                    ? { x: "85vw", scale: 1.1, opacity: 0 }
+                    : isTension
+                    ? { x: 34 }
+                    : { x: 0 }
+                }
+                transition={
+                  isTear
+                    ? { duration: 1.1, ease: tearEase }
+                    : { duration: 0.95, ease: tensionEase }
+                }
+                className="absolute right-2 sm:right-4 flex items-center justify-center"
+              >
+                <svg
+                  viewBox="0 0 52 64"
+                  className="w-12 sm:w-15 h-14 sm:h-18 drop-shadow-[4px_0_12px_rgba(0,0,0,0.22)]"
+                  fill="none"
+                >
+                  <polygon
+                    points="48,32 4,60 4,4"
+                    fill="#0a0a0a"
+                    stroke="#27272a"
+                    strokeWidth="2"
+                    strokeLinejoin="round"
+                  />
+                  <polygon
+                    points="44,32 8,54 8,10"
+                    fill="#18181b"
+                    opacity="0.4"
+                  />
+                </svg>
+              </motion.div>
+
+              {/* SOUTH TRIANGLE */}
+              <motion.div
+                initial={{ y: 0 }}
+                animate={
+                  isTear
+                    ? { y: "85vh", scale: 1.1, opacity: 0 }
+                    : isTension
+                    ? { y: 34 }
+                    : { y: 0 }
+                }
+                transition={
+                  isTear
+                    ? { duration: 1.1, ease: tearEase }
+                    : { duration: 0.95, ease: tensionEase }
+                }
+                className="absolute bottom-2 sm:bottom-4 flex items-center justify-center"
+              >
+                <svg
+                  viewBox="0 0 64 52"
+                  className="w-14 sm:w-18 h-12 sm:h-15 drop-shadow-[0_8px_16px_rgba(0,0,0,0.22)]"
+                  fill="none"
+                >
+                  <polygon
+                    points="32,48 4,4 60,4"
+                    fill="#0a0a0a"
+                    stroke="#27272a"
+                    strokeWidth="2"
+                    strokeLinejoin="round"
+                  />
+                  <polygon
+                    points="32,44 10,7 54,7"
+                    fill="#18181b"
+                    opacity="0.4"
+                  />
+                </svg>
+              </motion.div>
+
+              {/* WEST TRIANGLE */}
+              <motion.div
+                initial={{ x: 0 }}
+                animate={
+                  isTear
+                    ? { x: "-85vw", scale: 1.1, opacity: 0 }
+                    : isTension
+                    ? { x: -34 }
+                    : { x: 0 }
+                }
+                transition={
+                  isTear
+                    ? { duration: 1.1, ease: tearEase }
+                    : { duration: 0.95, ease: tensionEase }
+                }
+                className="absolute left-2 sm:left-4 flex items-center justify-center"
+              >
+                <svg
+                  viewBox="0 0 52 64"
+                  className="w-12 sm:w-15 h-14 sm:h-18 drop-shadow-[-4px_0_12px_rgba(0,0,0,0.22)]"
+                  fill="none"
+                >
+                  <polygon
+                    points="4,32 48,4 48,60"
+                    fill="#0a0a0a"
+                    stroke="#27272a"
+                    strokeWidth="2"
+                    strokeLinejoin="round"
+                  />
+                  <polygon
+                    points="8,32 44,10 44,54"
+                    fill="#18181b"
+                    opacity="0.4"
+                  />
+                </svg>
+              </motion.div>
+
+            </div>
           </div>
-        </motion.div>
+
+        </div>
       )}
     </AnimatePresence>
   );

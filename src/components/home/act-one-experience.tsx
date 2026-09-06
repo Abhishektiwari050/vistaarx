@@ -356,8 +356,8 @@ export function ActOneExperience() {
             {phaseIndex === 0 && (
               <div className="space-y-4 sm:space-y-6 transition-all duration-700 pointer-events-auto">
                 <div className="inline-flex items-center gap-2 border border-black/80 bg-white px-2.5 sm:px-3 py-1 rounded text-[8px] sm:text-[9px] font-mono font-bold tracking-[2px] uppercase text-black shadow-[2px_2px_0px_#d8ff42]">
-                  <span className="w-1.5 h-1.5 rounded-full bg-black" />
-                  VISTAR // SYSTEMS ARCHITECTURE
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#d8ff42]" />
+                  MAKE WORK DISAPPEAR // SYSTEMS ARCHITECTURE
                 </div>
 
                 <h1 className="font-display font-black text-3xl sm:text-5xl lg:text-[4.75rem] uppercase tracking-tight text-[#0a0a0a] leading-[0.94]">

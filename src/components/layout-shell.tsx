@@ -161,7 +161,7 @@ function TopLoadingBar() {
         backgroundColor: "#d8ff42",
         transform: `scaleX(${progress / 100})`,
         transformOrigin: "left",
-        zIndex: 99999,
+        zIndex: 99,
         pointerEvents: "none",
         transition: progress === 100 ? "opacity 150ms ease-out" : "none",
         opacity: progress === 100 ? 0 : 1,
