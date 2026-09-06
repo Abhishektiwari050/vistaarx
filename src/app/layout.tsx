@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans, Space_Grotesk, Playfair_Display } from "next/font/go
 import { LayoutShell } from "@/components/layout-shell";
 import { ClientCanvas } from "@/components/3d/client-canvas";
 import { LenisProvider } from "@/components/lenis-provider";
+import { Preloader } from "@/components/preloader";
 import "./globals.css";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -193,6 +194,9 @@ export default function RootLayout({
         className="min-h-screen bg-[#faf9f5] text-[#0a0a0a] selection:bg-[#d8ff42] selection:text-black antialiased overflow-x-clip font-sans"
         suppressHydrationWarning
       >
+        {/* Full viewport preloader curtain to eliminate any SSR flash */}
+        <Preloader />
+
         {/* Fixed background WebGL simulation */}
         <ClientCanvas />
 

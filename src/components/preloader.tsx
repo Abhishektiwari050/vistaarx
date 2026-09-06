@@ -3,9 +3,9 @@
 import React, { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import * as THREE from "three";
-import { playTensionDrone, playTearSnapSound } from "@/lib/hooks/use-audio-feedback";
+import { playTickSound, playTensionDrone, playTearSnapSound } from "@/lib/hooks/use-audio-feedback";
 
-type PreloadPhase = "still" | "tension" | "tear" | "done";
+type PreloadPhase = "liquid" | "icon_spin" | "brand_reveal" | "tear" | "done";
 
 const vertexShader = `
   varying vec2 vUv;
@@ -109,10 +109,11 @@ const fragmentShader = `
 `;
 
 export function Preloader() {
-  const [phase, setPhase] = useState<PreloadPhase>("still");
+  const [phase, setPhase] = useState<PreloadPhase>("liquid");
   const [visible, setVisible] = useState(true);
   const [mounted, setMounted] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const hasTriggeredSpinSound = useRef(false);
   const hasTriggeredDrone = useRef(false);
   const hasTriggeredSnap = useRef(false);
 
@@ -191,7 +192,12 @@ export function Preloader() {
     };
     window.addEventListener("resize", handleResize);
 
-    // Render loop
+    // Choreographed Render Loop
+    // 0.0s - 0.9s: Liquid background only (zero hero flash, pure undulating silk cloth)
+    // 0.9s - 2.0s: Icon kicks in spinning into dead center
+    // 2.0s - 3.0s: Brand name VISTAR slides up underneath the icon
+    // 3.0s - 4.8s: Arrows tear up the liquid cloth to its end
+    // 5.0s: Clean unmount
     const animate = () => {
       const now = performance.now();
       const elapsed = (now - startTime) / 1000; // seconds
@@ -199,19 +205,31 @@ export function Preloader() {
       uniforms.uTime.value = elapsed;
       if (typeof window !== 'undefined') (window as any).__preloaderElapsed = elapsed;
 
-      // Phase 1 -> 2: Tension (1.6s to 3.0s)
-      if (elapsed >= 1.6 && elapsed < 3.0) {
-        setPhase((prev) => (prev !== "tension" && prev !== "tear" && prev !== "done" ? "tension" : prev));
-        const tensionT = (elapsed - 1.6) / 1.4;
-        uniforms.uTension.value = Math.min(1.0, tensionT);
-
-        if (!hasTriggeredDrone.current) {
-          hasTriggeredDrone.current = true;
-          playTensionDrone(1.4, 0.016);
+      // Phase 2: Icon kicks in spinning (0.9s to 2.0s)
+      if (elapsed >= 0.9 && elapsed < 2.0) {
+        setPhase((prev) => (prev !== "icon_spin" && prev !== "brand_reveal" && prev !== "tear" && prev !== "done" ? "icon_spin" : prev));
+        if (!hasTriggeredSpinSound.current) {
+          hasTriggeredSpinSound.current = true;
+          playTickSound(850, 0.04, 0.012);
         }
       }
 
-      // Phase 2 -> 3: Tear & Parting to its End (3.0s to 4.8s)
+      // Phase 3: Brand name VISTAR comes up (2.0s to 3.0s)
+      if (elapsed >= 2.0 && elapsed < 3.0) {
+        setPhase((prev) => (prev !== "brand_reveal" && prev !== "tear" && prev !== "done" ? "brand_reveal" : prev));
+        
+        // Tension builds in fabric starting at 2.5s leading into tear
+        if (elapsed >= 2.5) {
+          const tensionT = (elapsed - 2.5) / 0.5;
+          uniforms.uTension.value = Math.min(1.0, tensionT);
+          if (!hasTriggeredDrone.current) {
+            hasTriggeredDrone.current = true;
+            playTensionDrone(1.2, 0.016);
+          }
+        }
+      }
+
+      // Phase 4: Arrows tear up the surface (3.0s to 4.8s)
       if (elapsed >= 3.0) {
         setPhase((prev) => (prev !== "tear" && prev !== "done" ? "tear" : prev));
         uniforms.uTension.value = 1.0;
@@ -222,14 +240,13 @@ export function Preloader() {
         }
 
         const rawTearT = Math.min(1.0, Math.max(0, (elapsed - 3.0) / 1.8)); // 1.8s
-        // Smooth easeInOut curve across the full 1.8s so the tear sweeps to the ends
         const smoothTear = rawTearT < 0.5
           ? 2.0 * rawTearT * rawTearT
           : 1.0 - Math.pow(-2.0 * rawTearT + 2.0, 2.0) / 2.0;
         uniforms.uTearProgress.value = smoothTear;
       }
 
-      // Phase 4: Complete Unmount at 5.0s
+      // Phase 5: Complete Unmount at 5.0s
       if (elapsed >= 5.0) {
         setPhase("done");
         setVisible(false);
@@ -260,20 +277,16 @@ export function Preloader() {
     };
   }, [mounted, visible]);
 
-  if (!mounted || !visible) return null;
+  if (!visible) return null;
 
-  const isTension = phase === "tension";
   const isTear = phase === "tear" || phase === "done";
-
-  // Heavy mechanical pull transitioning into fluid dispersal
-  const tensionEase = [0.22, 1, 0.36, 1] as const;
-  const tearEase = [0.76, 0, 0.24, 1] as const;
 
   return (
     <AnimatePresence>
       {visible && (
         <div 
-          className="fixed inset-0 z-[99999] overflow-hidden select-none pointer-events-none"
+          id="vistar-preloader-curtain"
+          className="fixed inset-0 z-[99999] overflow-hidden select-none pointer-events-none bg-[#F4F1EA]"
           aria-label="Vistar Entrance"
         >
           {/* ============================================================ */}
@@ -286,16 +299,15 @@ export function Preloader() {
           />
 
           {/* ============================================================ */}
-          {/* LOGO & VISTAR NAME SLIDE-UP ANIMATION                        */}
+          {/* LOGO & VISTAR BRAND SEQUENCE                                 */}
           {/* ============================================================ */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
+            {/* Parent container: ascends when arrows tear up */}
             <motion.div
               initial={{ y: "0vh", opacity: 1 }}
               animate={
                 isTear
                   ? { y: "-36vh", opacity: 0 }
-                  : isTension
-                  ? { y: "-1.5vh", opacity: 1 }
                   : { y: "0vh", opacity: 1 }
               }
               transition={
@@ -305,21 +317,30 @@ export function Preloader() {
                       opacity: { duration: 0.7, delay: 0.45, ease: "easeOut" },
                     }
                   : {
-                      y: { duration: 1.4, ease: tensionEase },
+                      y: { duration: 0.3 },
                       opacity: { duration: 0.3 },
                     }
               }
               className="relative flex flex-col items-center justify-center"
             >
-              {/* THE 4 ARROWS EMBLEM */}
-              <div className="relative w-28 h-28 sm:w-36 sm:h-36 flex items-center justify-center">
+              {/* THE 4 ARROWS EMBLEM: kicks in spinning at 0.9s */}
+              {phase !== "liquid" && (
+                <motion.div
+                  initial={{ scale: 0, rotate: -270, y: 60, opacity: 0 }}
+                  animate={{ scale: 1, rotate: 0, y: 0, opacity: 1 }}
+                  transition={{
+                    duration: 0.85,
+                    ease: [0.175, 0.885, 0.32, 1.18], // Snappy kinetic kick with mechanical overshoot
+                  }}
+                  className="relative w-28 h-28 sm:w-36 sm:h-36 flex items-center justify-center"
+                >
                 {/* Central copper beacon */}
                 <div className="absolute w-2.5 h-2.5 rounded-full bg-[#B87333] border border-[#D29A68] shadow-[0_0_8px_#B87333]" />
 
                 {/* NORTH ARROW */}
                 <motion.div
-                  animate={isTension ? { y: -16 } : { y: 0 }}
-                  transition={{ duration: 1.2, ease: tensionEase }}
+                  animate={isTear ? { y: -16 } : { y: 0 }}
+                  transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
                   className="absolute top-1 sm:top-2 flex items-center justify-center"
                 >
                   <svg
@@ -346,8 +367,8 @@ export function Preloader() {
 
                 {/* EAST ARROW */}
                 <motion.div
-                  animate={isTension ? { x: 16 } : { x: 0 }}
-                  transition={{ duration: 1.2, ease: tensionEase }}
+                  animate={isTear ? { x: 16 } : { x: 0 }}
+                  transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
                   className="absolute right-1 sm:right-2 flex items-center justify-center"
                 >
                   <svg
@@ -374,8 +395,8 @@ export function Preloader() {
 
                 {/* SOUTH ARROW */}
                 <motion.div
-                  animate={isTension ? { y: 16 } : { y: 0 }}
-                  transition={{ duration: 1.2, ease: tensionEase }}
+                  animate={isTear ? { y: 16 } : { y: 0 }}
+                  transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
                   className="absolute bottom-1 sm:bottom-2 flex items-center justify-center"
                 >
                   <svg
@@ -402,8 +423,8 @@ export function Preloader() {
 
                 {/* WEST ARROW */}
                 <motion.div
-                  animate={isTension ? { x: -16 } : { x: 0 }}
-                  transition={{ duration: 1.2, ease: tensionEase }}
+                  animate={isTear ? { x: -16 } : { x: 0 }}
+                  transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
                   className="absolute left-1 sm:left-2 flex items-center justify-center"
                 >
                   <svg
@@ -427,27 +448,25 @@ export function Preloader() {
                     />
                   </svg>
                 </motion.div>
-              </div>
+              </motion.div>
+            )}
 
-              {/* VISTAR NAME: SLIDES UP WHEN LOGO SLIDES UP */}
+            {/* VISTAR NAME: REVEALS AFTER ICON KICKS IN (phase === brand_reveal or tear) */}
+            {(phase === "brand_reveal" || phase === "tear" || phase === "done") && (
               <div className="overflow-hidden mt-3 sm:mt-4 h-8 sm:h-10 flex items-center justify-center">
                 <motion.div
                   initial={{ y: 35, opacity: 0 }}
-                  animate={
-                    isTear
-                      ? { y: 0, opacity: 1 }
-                      : { y: 35, opacity: 0 }
-                  }
+                  animate={{ y: 0, opacity: 1 }}
                   transition={{
                     duration: 0.65,
                     ease: [0.16, 1, 0.3, 1],
-                    delay: 0.05,
                   }}
-                  className="font-display font-black text-xl sm:text-2xl tracking-[0.35em] text-[#151515] uppercase select-none flex items-center justify-center drop-shadow-[0_2px_8px_rgba(21,21,21,0.18)]"
+                  className="font-display font-black text-xl sm:text-2xl tracking-[0.38em] text-[#151515] uppercase select-none flex items-center justify-center drop-shadow-[0_2px_8px_rgba(21,21,21,0.18)]"
                 >
                   VISTAR
                 </motion.div>
               </div>
+            )}
 
             </motion.div>
           </div>

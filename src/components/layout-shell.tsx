@@ -6,7 +6,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAudioFeedback, playTickSound } from "@/lib/hooks/use-audio-feedback";
 import { TextPressure } from "@/components/text-pressure";
-import { Preloader } from "@/components/preloader";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Minimal Editorial Footer
@@ -242,7 +241,6 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="w-full min-h-screen bg-transparent text-[#151515] transition-colors duration-500 ease-in-out selection:bg-[#B87333] selection:text-[#F4F1EA]">
-      <Preloader />
       <TopLoadingBar />
 
       <div className="transition-opacity duration-1000 ease-in-out opacity-100 pointer-events-auto">
