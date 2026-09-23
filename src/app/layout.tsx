@@ -1,177 +1,149 @@
 import type { Metadata, Viewport } from "next";
-import { Plus_Jakarta_Sans, Space_Grotesk, Playfair_Display } from "next/font/google";
 import { LayoutShell } from "@/components/layout-shell";
-import { ClientCanvas } from "@/components/3d/client-canvas";
 import { LenisProvider } from "@/components/lenis-provider";
-import { Preloader } from "@/components/preloader";
+import { VistarTelemetryListener } from "@/components/vistar-telemetry-listener";
 import "./globals.css";
 
-const plusJakartaSans = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  variable: "--font-plus-jakarta-sans",
-  weight: ["400", "500", "600", "700", "800"],
-  display: "swap",
-});
-
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-space-grotesk",
-  weight: ["300", "400", "500", "600", "700"],
-  display: "swap",
-});
-
-const playfairDisplay = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-playfair",
-  style: ["italic"],
-  weight: ["400", "500"],
-  display: "swap",
-});
-
 export const viewport: Viewport = {
-  themeColor: "#faf9f5",
+  // Mobile-native: dual theme-color so iOS status bar matches our ground color
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#0A0C0E" },
+    { media: "(prefers-color-scheme: light)", color: "#0A0C0E" },
+  ],
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
+  // Mobile-native: paint edge-to-edge under notch/Dynamic Island
+  viewportFit: "cover",
 };
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.vistar.tech"),
   title: {
-    default: "Vistar Web Systems — Custom Web Architecture & High-Performance Platforms",
-    template: "%s | Vistar Web Systems",
+    default: "VISTAR — AI, Software & Growth Systems",
+    template: "%s | VISTAR",
   },
   description:
-    "Vistar Web Systems engineers bespoke, search-optimized digital platforms from raw primitives. Sub-second global TTFB, 98+ Lighthouse scores, zero plugin bloat, and 100% codebase ownership.",
+    "Vistar builds AI-powered software and digital growth systems for modern businesses. BUILD → DISCOVER → GROW as one connected system.",
   keywords: [
-    "Custom Website Design",
-    "Next.js Development Agency",
-    "High Performance Web Studio",
-    "Web Application Development",
-    "Sub-Second TTFB Architecture",
-    "Core Web Vitals Optimization",
-    "Headless Shopify Next.js",
-    "WebGL GLSL Engineering",
-    "AI Workflow Automation",
-    "Full Codebase Ownership",
-    "Enterprise Cloud Architecture",
-    "Bespoke SaaS Development",
+    "AI-powered software",
+    "Digital growth systems",
+    "Next.js enterprise engineering",
+    "Custom AI software development",
+    "Programmatic SEO architecture",
+    "Bespoke software systems",
+    "Full-stack design engineering",
+    "Autonomous AI agents",
+    "High-performance web applications",
+    "Sovereign codebase ownership",
   ],
-  authors: [{ name: "Vistar Web Systems", url: "https://www.vistar.tech" }],
-  creator: "Vistar Web Systems",
-  publisher: "Vistar Web Systems",
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
+  authors: [{ name: "VISTAR", url: "https://www.vistar.tech" }],
+  creator: "VISTAR",
+  publisher: "VISTAR",
   alternates: {
-    canonical: "/",
+    canonical: "https://www.vistar.tech",
   },
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
   },
   openGraph: {
-    title: "Vistar Web Systems — Custom Web Architecture & High-Performance Platforms",
+    title: "VISTAR — AI, Software & Growth Systems",
     description:
-      "Elite digital engineering for ambitious brands. Bespoke websites, high-performance web applications, sub-second edge routing, and 100% codebase ownership.",
+      "Vistar builds AI-powered software and digital growth systems for modern businesses. BUILD → DISCOVER → GROW as one connected system.",
     type: "website",
     locale: "en_US",
     url: "https://www.vistar.tech",
-    siteName: "Vistar Web Systems",
+    siteName: "VISTAR",
     images: [
       {
-        url: "https://www.vistar.tech/og-image.jpg",
+        url: "/opengraph-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Vistar Web Systems — Custom Web Architecture & High-Performance Platforms",
-        type: "image/jpeg",
+        alt: "VISTAR — AI, Software & Growth Systems",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Vistar Web Systems — Custom Web Architecture & High-Performance Platforms",
+    title: "VISTAR — AI, Software & Growth Systems",
     description:
-      "Elite digital engineering for ambitious brands. Bespoke websites, high-performance web applications, sub-second edge routing, and 100% codebase ownership.",
-    images: ["https://www.vistar.tech/og-image.jpg"],
+      "Vistar builds AI-powered software and digital growth systems for modern businesses. BUILD → DISCOVER → GROW as one connected system.",
     creator: "@vistartech",
-    site: "@vistartech",
+    images: ["/opengraph-image.jpg"],
   },
   icons: {
-    icon: [
-      { url: "/favicon.ico?v=3", sizes: "any" },
-      { url: "/icon.svg?v=3", type: "image/svg+xml" },
-      { url: "/favicon-32x32.png?v=3", sizes: "32x32", type: "image/png" },
-      { url: "/favicon-16x16.png?v=3", sizes: "16x16", type: "image/png" },
-    ],
-    apple: [
-      { url: "/apple-touch-icon.png?v=3", sizes: "180x180", type: "image/png" },
-      { url: "/icon.svg?v=3", type: "image/svg+xml" },
-    ],
-    shortcut: ["/favicon.ico?v=3"],
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
   },
-  manifest: "/manifest.webmanifest",
-  category: "technology",
 };
 
+// Section 10 Compliance: Schema.org Organization & Service
 const jsonLdSchema = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": ["Organization", "ProfessionalService"],
+      "@type": "Organization",
       "@id": "https://www.vistar.tech/#organization",
-      name: "Vistar Web Systems",
+      name: "VISTAR",
       url: "https://www.vistar.tech",
-      logo: {
-        "@type": "ImageObject",
-        "@id": "https://www.vistar.tech/#logo",
-        url: "https://www.vistar.tech/icon.svg",
-        caption: "Vistar Web Systems Logo",
-      },
       description:
-        "Bespoke digital engineering studio specializing in custom Next.js platforms, WebGL graphics, sub-150ms TTFB, and autonomous AI automation systems.",
-      email: "contact@vistar.tech",
-      address: {
-        "@type": "PostalAddress",
-        addressCountry: "IN",
-      },
-      sameAs: [
-        "https://x.com/vistartech",
-        "https://github.com/Abhishektiwari050/vistaarx",
-        "https://www.linkedin.com/company/vistar-web-systems",
-      ],
-      priceRange: "$$$$",
-      knowsAbout: [
-        "Next.js App Router Development",
-        "Headless Commerce & Shopify",
-        "Core Web Vitals Optimization",
-        "Real-Time WebSockets & Telemetry",
-        "AI Agent & Workflow Automation",
-        "WebGL & GLSL Shader Engineering",
-      ],
+        "Vistar builds AI-powered software and digital growth systems for modern businesses.",
+      logo: "https://www.vistar.tech/icon.svg",
     },
     {
-      "@type": "WebSite",
-      "@id": "https://www.vistar.tech/#website",
-      url: "https://www.vistar.tech",
-      name: "Vistar Web Systems",
-      description: "Custom Architected Web Platforms & AI Engineering Studio",
-      publisher: {
+      "@type": "Service",
+      "@id": "https://www.vistar.tech/#service",
+      serviceType: "AI, Software & Digital Growth Systems",
+      provider: {
         "@id": "https://www.vistar.tech/#organization",
       },
-      inLanguage: "en-US",
+      areaServed: "Worldwide",
+      description: "BUILD → DISCOVER → GROW as one connected system.",
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.vistar.tech/#faq",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "What does Vistar build?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Vistar builds AI-powered software and digital growth systems for modern businesses under a connected tripartite system: BUILD → DISCOVER → GROW.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Does the client own 100% of the code?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. Vistar provides 100% sovereign code and intellectual property ownership transferred directly to the client's Git repository on day one with zero vendor lock-in.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "What is the typical sprint delivery cadence?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Engagements operate in deterministic 14–21 day production milestone cycles with automated test verification, sub-2.5s LCP, and continuous telemetry.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "How does Vistar handle AI integration?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "We engineer autonomous agents, type-safe API contracts, vector retrieval pipelines, and deterministic tool-calling workflows directly into the application runtime.",
+          },
+        },
+      ],
     },
   ],
 };
+
+import { AtmosphericShader } from "@/components/ui/atmospheric-shader";
+import { Preloader } from "@/components/preloader";
+import { MagneticCursor } from "@/components/ui/magnetic-cursor";
 
 export default function RootLayout({
   children,
@@ -179,33 +151,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${plusJakartaSans.variable} ${spaceGrotesk.variable} ${playfairDisplay.variable} min-h-screen antialiased`}
-      suppressHydrationWarning
-    >
+    <html lang="en" className="min-h-screen antialiased">
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSchema) }}
         />
       </head>
-      <body
-        className="min-h-screen bg-[#faf9f5] text-[#0a0a0a] selection:bg-[#d8ff42] selection:text-black antialiased overflow-x-clip font-sans"
-        suppressHydrationWarning
-      >
-        {/* Full viewport preloader curtain to eliminate any SSR flash */}
+      <body className="min-h-screen bg-[#060709] text-[#F3F4F6] selection:bg-white selection:text-[#060709] antialiased font-sans">
+        <MagneticCursor />
         <Preloader />
-
-        {/* Fixed background WebGL simulation */}
-        <ClientCanvas />
-
-        {/* Scrolling content */}
-        <div className="relative w-full min-h-screen">
-          <LenisProvider>
-            <LayoutShell>{children}</LayoutShell>
-          </LenisProvider>
-        </div>
+        <LenisProvider>
+          <VistarTelemetryListener />
+          <AtmosphericShader />
+          <LayoutShell>{children}</LayoutShell>
+        </LenisProvider>
       </body>
     </html>
   );
