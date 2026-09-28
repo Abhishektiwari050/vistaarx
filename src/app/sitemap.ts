@@ -43,6 +43,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.88,
     },
+    {
+      url: `${baseUrl}/pricing`,
+      lastModified,
+      changeFrequency: "weekly",
+      priority: 0.89,
+    },
     // ── Tier 3: Trust & authority pages ──────────────────────────────────────
     {
       url: `${baseUrl}/vectors`,

@@ -63,6 +63,22 @@ const nextConfig: NextConfig = {
         destination: "https://www.vistar.tech/:path*",
         permanent: true,
       },
+      // Consolidate legacy alias routes to primary canonical pages
+      {
+        source: "/company",
+        destination: "/about",
+        permanent: true,
+      },
+      {
+        source: "/platform",
+        destination: "/vectors",
+        permanent: true,
+      },
+      {
+        source: "/solutions",
+        destination: "/work",
+        permanent: true,
+      },
     ];
   },
 };

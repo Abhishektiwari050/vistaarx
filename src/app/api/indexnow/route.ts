@@ -10,6 +10,7 @@ const URL_LIST = [
   "https://www.vistar.tech/services/ai-solutions",
   "https://www.vistar.tech/services/nextjs-engineering",
   "https://www.vistar.tech/services/interactive-3d",
+  "https://www.vistar.tech/pricing",
   "https://www.vistar.tech/vectors",
   "https://www.vistar.tech/philosophy",
   "https://www.vistar.tech/start",

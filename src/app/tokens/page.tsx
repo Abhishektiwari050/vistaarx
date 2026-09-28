@@ -1,7 +1,16 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { colors, typography, spacing, grid, buttons, cards } from "@/lib/design-tokens";
 import { Button } from "@/components/vistar-button";
 import { Card } from "@/components/vistar-card";
+
+export const metadata: Metadata = {
+  title: "Design Tokens & Primitives (Internal)",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default function DesignTokensPage() {
   return (

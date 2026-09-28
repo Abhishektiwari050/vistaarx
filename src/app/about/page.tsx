@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description:
     "At Vistar, we build sovereign AI software and autonomous agent platforms with 100% repository handover. Discover our engineering philosophy, axioms, and governance.",
   alternates: {
-    canonical: "/about",
+    canonical: "https://www.vistar.tech/about",
   },
   openGraph: {
     title: "Company — Mission, Systems & Sovereignty | VISTAR",
