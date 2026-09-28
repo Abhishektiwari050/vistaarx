@@ -81,7 +81,8 @@ export function JasperInteractiveHero() {
     if (!canvasRef.current) return;
 
     try {
-      const riveModule = await import("@rive-app/canvas");
+      // @ts-ignore - dynamic import fallback for production build safety
+      const riveModule: any = await import("@rive-app/canvas");
       const Rive = riveModule.Rive || (riveModule as any).default?.Rive || (window as any).rive?.Rive;
       const Layout = riveModule.Layout || (riveModule as any).default?.Layout || (window as any).rive?.Layout;
       const Fit = riveModule.Fit || (riveModule as any).default?.Fit || (window as any).rive?.Fit;
