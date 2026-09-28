@@ -3,23 +3,41 @@
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import RotatingEarth from "@/components/ui/wireframe-dotted-globe";
-import { ArrowRight, CheckCircle2, ShieldCheck, Mail, Terminal, Clock, Lock } from "lucide-react";
+import {
+  ArrowRight,
+  CheckCircle2,
+  ShieldCheck,
+  Mail,
+  Terminal,
+  Clock,
+  Lock,
+  Loader2,
+  AlertCircle,
+  Building2,
+} from "lucide-react";
 import { playClick } from "@/lib/sound";
 
 export default function ContactPage() {
   const [formState, setFormState] = useState({
     name: "",
     email: "",
+    company: "",
     projectType: "Autonomous AI Agents",
     budget: "$15k – $35k",
     message: "",
+    _hp: "",
   });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [referenceId, setReferenceId] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const categories = [
     "Autonomous AI Agents",
     "Sovereign VPC Platform",
-    "Legacy Stack Migration",
+    "Enterprise Next.js 16",
+    "Spatial 3D / WebGL",
     "High-Throughput Telemetry",
     "14-Day Production Sprint",
   ];
@@ -30,6 +48,8 @@ export default function ContactPage() {
     e.preventDefault();
     if (!formState.name || !formState.email || !formState.message) return;
 
+    setIsSubmitting(true);
+    setErrorMessage(null);
     playClick(1000, 0.03);
 
     try {
@@ -39,9 +59,13 @@ export default function ContactPage() {
         body: JSON.stringify({
           name: formState.name,
           email: formState.email,
+          company: formState.company,
           brief: formState.message,
+          notes: formState.message,
           budget: formState.budget,
           projectType: formState.projectType,
+          goal: formState.projectType,
+          _hp: formState._hp,
           date: new Date().toISOString(),
           timezone:
             typeof Intl !== "undefined"
@@ -49,33 +73,51 @@ export default function ContactPage() {
               : "Not specified",
         }),
       });
-      if (res.ok) {
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        setReferenceId(data.referenceId || "VST-CONFIRMED");
         setIsSubmitted(true);
-        setTimeout(() => {
-          setIsSubmitted(false);
-          setFormState({
-            name: "",
-            email: "",
-            projectType: "Autonomous AI Agents",
-            budget: "$15k – $35k",
-            message: "",
-          });
-        }, 5000);
+      } else {
+        setErrorMessage(
+          (data.errors && data.errors[0]) ||
+            "Unable to submit requirements right now. Please email us directly at engineering@vistar.tech."
+        );
       }
     } catch (err) {
       console.error("Failed to submit contact brief:", err);
+      setErrorMessage(
+        "Network connection error. Please try again or reach out directly to engineering@vistar.tech."
+      );
+    } finally {
+      setIsSubmitting(false);
     }
+  };
+
+  const handleResetForm = () => {
+    setIsSubmitted(false);
+    setReferenceId(null);
+    setErrorMessage(null);
+    setFormState({
+      name: "",
+      email: "",
+      company: "",
+      projectType: "Autonomous AI Agents",
+      budget: "$15k – $35k",
+      message: "",
+      _hp: "",
+    });
   };
 
   return (
     <div className="w-full bg-[#FAF9F5] text-[#0E1118] font-sans antialiased selection:bg-[#FF3823] selection:text-white min-h-screen pb-32">
-      
-      {/* ── 1. HEADER (JASPER BLUEPRINT GRID) ── */}
+      {/* ── 1. HEADER (BLUEPRINT GRID) ── */}
       <section className="w-full pt-16 pb-16 jasper-grid-hero border-b border-black/10 text-center px-4">
         <div className="max-w-4xl mx-auto space-y-4">
           <div>
             <span className="jasper-tape-salmon font-mono text-xs uppercase tracking-wider font-semibold px-3 py-1">
-              Direct Consultation // 24h SLA
+              Direct Consultation // Guaranteed 24h SLA
             </span>
           </div>
 
@@ -88,7 +130,7 @@ export default function ContactPage() {
           </h1>
 
           <p className="text-base sm:text-lg text-neutral-600 max-w-xl mx-auto leading-relaxed">
-            Submit your technical requirements below. A principal systems architect will analyze your stack and respond within 24 hours with an actionable production roadmap and security architecture.
+            Submit your technical specifications below. A principal systems architect will analyze your stack and respond within 24 hours with a production roadmap, timeline, and security specification.
           </p>
         </div>
       </section>
@@ -96,7 +138,6 @@ export default function ContactPage() {
       {/* ── 2. FORM & INFO SPLIT SECTION ── */}
       <section className="max-w-6xl mx-auto px-6 pt-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          
           {/* Left Column: Clean White Form Card (7 Cols) */}
           <div className="lg:col-span-7 bg-white border border-black/10 rounded-[6px] shadow-sm p-8 sm:p-10 space-y-8">
             <AnimatePresence mode="wait">
@@ -119,6 +160,7 @@ export default function ContactPage() {
                         <button
                           key={cat}
                           type="button"
+                          disabled={isSubmitting}
                           onClick={() => {
                             setFormState({ ...formState, projectType: cat });
                             playClick(900, 0.02);
@@ -135,34 +177,58 @@ export default function ContactPage() {
                     </div>
                   </div>
 
-                  {/* Name & Email */}
+                  {/* Name & Corporate Email */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <label className="block font-mono text-xs uppercase tracking-wider text-neutral-500">
-                        Full Name
+                        Full Name <span className="text-[#FF3823]">*</span>
                       </label>
                       <input
                         type="text"
                         required
+                        disabled={isSubmitting}
                         value={formState.name}
-                        onChange={(e) => setFormState({ ...formState, name: e.target.value })}
+                        onChange={(e) =>
+                          setFormState({ ...formState, name: e.target.value })
+                        }
                         placeholder="Alex Chen"
-                        className="w-full bg-[#FAF9F5] border border-black/15 rounded-[4px] px-4 py-3 text-sm text-neutral-900 focus:outline-none focus:border-[#FF3823] focus:bg-white transition-colors"
+                        className="w-full bg-[#FAF9F5] border border-black/15 rounded-[4px] px-4 py-3 text-sm text-neutral-900 focus:outline-none focus:border-[#FF3823] focus:bg-white transition-colors disabled:opacity-60"
                       />
                     </div>
                     <div className="space-y-2">
                       <label className="block font-mono text-xs uppercase tracking-wider text-neutral-500">
-                        Corporate Email
+                        Work Email <span className="text-[#FF3823]">*</span>
                       </label>
                       <input
                         type="email"
                         required
+                        disabled={isSubmitting}
                         value={formState.email}
-                        onChange={(e) => setFormState({ ...formState, email: e.target.value })}
-                        placeholder="alex@enterprise.com"
-                        className="w-full bg-[#FAF9F5] border border-black/15 rounded-[4px] px-4 py-3 text-sm text-neutral-900 focus:outline-none focus:border-[#FF3823] focus:bg-white transition-colors"
+                        onChange={(e) =>
+                          setFormState({ ...formState, email: e.target.value })
+                        }
+                        placeholder="alex@company.com"
+                        className="w-full bg-[#FAF9F5] border border-black/15 rounded-[4px] px-4 py-3 text-sm text-neutral-900 focus:outline-none focus:border-[#FF3823] focus:bg-white transition-colors disabled:opacity-60"
                       />
                     </div>
+                  </div>
+
+                  {/* Company / Organization (Optional) */}
+                  <div className="space-y-2">
+                    <label className="block font-mono text-xs uppercase tracking-wider text-neutral-500 flex items-center gap-1.5">
+                      <Building2 className="w-3.5 h-3.5 text-neutral-400" />
+                      Company / Organization (Optional)
+                    </label>
+                    <input
+                      type="text"
+                      disabled={isSubmitting}
+                      value={formState.company}
+                      onChange={(e) =>
+                        setFormState({ ...formState, company: e.target.value })
+                      }
+                      placeholder="Acme Corp / Stealth AI"
+                      className="w-full bg-[#FAF9F5] border border-black/15 rounded-[4px] px-4 py-3 text-sm text-neutral-900 focus:outline-none focus:border-[#FF3823] focus:bg-white transition-colors disabled:opacity-60"
+                    />
                   </div>
 
                   {/* Budget Tier */}
@@ -175,6 +241,7 @@ export default function ContactPage() {
                         <button
                           key={tier}
                           type="button"
+                          disabled={isSubmitting}
                           onClick={() => {
                             setFormState({ ...formState, budget: tier });
                             playClick(950, 0.02);
@@ -194,25 +261,64 @@ export default function ContactPage() {
                   {/* Message / Brief */}
                   <div className="space-y-2">
                     <label className="block font-mono text-xs uppercase tracking-wider text-neutral-500">
-                      Technical Scope &amp; Target Constraints
+                      Technical Scope &amp; Target Constraints <span className="text-[#FF3823]">*</span>
                     </label>
                     <textarea
                       required
                       rows={4}
+                      disabled={isSubmitting}
                       value={formState.message}
-                      onChange={(e) => setFormState({ ...formState, message: e.target.value })}
-                      placeholder="Outline your existing stack, target agent workflows, latency SLAs, and deployment perimeter..."
-                      className="w-full bg-[#FAF9F5] border border-black/15 rounded-[4px] p-4 text-sm text-neutral-900 focus:outline-none focus:border-[#FF3823] focus:bg-white transition-colors"
+                      onChange={(e) =>
+                        setFormState({ ...formState, message: e.target.value })
+                      }
+                      placeholder="Outline your existing stack, target agent workflows, latency SLAs, cloud perimeter, and required delivery date..."
+                      className="w-full bg-[#FAF9F5] border border-black/15 rounded-[4px] p-4 text-sm text-neutral-900 focus:outline-none focus:border-[#FF3823] focus:bg-white transition-colors disabled:opacity-60"
                     />
                   </div>
+
+                  {/* Hidden Anti-Spam Honeypot */}
+                  <input
+                    type="text"
+                    name="_hp"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={formState._hp}
+                    onChange={(e) =>
+                      setFormState({ ...formState, _hp: e.target.value })
+                    }
+                    className="hidden"
+                    aria-hidden="true"
+                  />
+
+                  {/* Error Notification */}
+                  {errorMessage && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="p-3.5 rounded-[4px] bg-red-50 border border-red-200 text-red-700 text-xs flex items-start gap-2.5"
+                    >
+                      <AlertCircle className="w-4 h-4 shrink-0 text-red-600 mt-0.5" />
+                      <div>{errorMessage}</div>
+                    </motion.div>
+                  )}
 
                   {/* Submit Button */}
                   <button
                     type="submit"
-                    className="w-full bg-[#FF3823] hover:bg-[#E0301C] text-white py-4 font-semibold text-sm rounded-[4px] shadow-sm transition-colors duration-150 inline-flex items-center justify-center gap-2 cursor-pointer"
+                    disabled={isSubmitting}
+                    className="w-full bg-[#FF3823] hover:bg-[#E0301C] disabled:bg-neutral-400 text-white py-4 font-semibold text-sm rounded-[4px] shadow-sm transition-all duration-150 inline-flex items-center justify-center gap-2 cursor-pointer disabled:cursor-not-allowed"
                   >
-                    <span>Transmit Requirements to Systems Principal</span>
-                    <ArrowRight className="w-4 h-4" />
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        <span>Transmitting Requirements to Principal...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>Transmit Requirements to Systems Principal</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </>
+                    )}
                   </button>
 
                   <div className="flex items-center justify-between text-[11px] text-neutral-500 pt-2 border-t border-black/5 font-mono">
@@ -222,7 +328,7 @@ export default function ContactPage() {
                     </span>
                     <span className="flex items-center gap-1.5">
                       <Clock className="w-3.5 h-3.5 text-neutral-400" />
-                      Guaranteed 24h SLA
+                      Guaranteed 24h Response SLA
                     </span>
                   </div>
                 </motion.form>
@@ -231,17 +337,39 @@ export default function ContactPage() {
                   key="success"
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="text-center py-16 space-y-4"
+                  className="text-center py-12 space-y-5"
                 >
-                  <div className="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto">
-                    <CheckCircle2 className="w-6 h-6" />
+                  <div className="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto shadow-xs">
+                    <CheckCircle2 className="w-7 h-7" />
                   </div>
-                  <h3 className="font-serif text-2xl font-bold text-[#0E1118]">
-                    Requirements Transmitted Successfully
-                  </h3>
-                  <p className="text-sm text-neutral-600 max-w-sm mx-auto">
-                    Our principal systems architect is reviewing your specifications. An actionable blueprint will arrive in your inbox within 24 hours.
+                  <div className="space-y-1.5">
+                    <span className="font-mono text-xs uppercase tracking-widest text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full">
+                      TRANSMISSION CONFIRMED
+                    </span>
+                    <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#0E1118] pt-2">
+                      Requirements Transmitted
+                    </h3>
+                  </div>
+
+                  {referenceId && (
+                    <div className="inline-block bg-[#FAF9F5] border border-black/10 rounded-[4px] px-4 py-2 font-mono text-xs text-neutral-800">
+                      Reference ID: <strong className="text-[#FF3823]">{referenceId}</strong>
+                    </div>
+                  )}
+
+                  <p className="text-sm text-neutral-600 max-w-md mx-auto leading-relaxed">
+                    Our principal systems architect is reviewing your specifications. An actionable production roadmap and architectural estimate will arrive in your inbox within 24 hours.
                   </p>
+
+                  <div className="pt-4">
+                    <button
+                      type="button"
+                      onClick={handleResetForm}
+                      className="px-5 py-2.5 text-xs font-semibold rounded-[4px] bg-[#FAF9F5] hover:bg-neutral-200 border border-black/15 text-neutral-800 transition-colors cursor-pointer"
+                    >
+                      Submit Another Technical Specification
+                    </button>
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -249,7 +377,6 @@ export default function ContactPage() {
 
           {/* Right Column: Direct Info & Dotted Globe (5 Cols) */}
           <div className="lg:col-span-5 space-y-6">
-            
             {/* Globe Card */}
             <div className="bg-white border border-black/10 rounded-[6px] shadow-sm p-6 text-center overflow-hidden">
               <span className="font-mono text-xs uppercase tracking-widest text-neutral-500 block mb-4">
@@ -268,26 +395,35 @@ export default function ContactPage() {
               <div className="space-y-3 text-sm text-neutral-600">
                 <div className="flex items-center gap-3">
                   <Mail className="w-4 h-4 text-[#FF3823]" />
-                  <a href="mailto:engineering@vistar.tech" className="hover:underline font-mono text-xs">
+                  <a
+                    href="mailto:engineering@vistar.tech"
+                    className="hover:underline font-mono text-xs"
+                  >
                     engineering@vistar.tech
                   </a>
                 </div>
                 <div className="flex items-center gap-3">
+                  <Mail className="w-4 h-4 text-neutral-500" />
+                  <a
+                    href="mailto:contact@vistar.tech"
+                    className="hover:underline font-mono text-xs text-neutral-500"
+                  >
+                    contact@vistar.tech
+                  </a>
+                </div>
+                <div className="flex items-center gap-3">
                   <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                  <span>SOC2 Type II &amp; ISO 27001 Aligned</span>
+                  <span>SOC2 Type II &amp; ISO 27001 Aligned Controls</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Terminal className="w-4 h-4 text-[#1E60E6]" />
-                  <span>100% Day-One Private GitHub Handover</span>
+                  <span>100% Day-One Private GitHub Repository Handover</span>
                 </div>
               </div>
             </div>
-
           </div>
-
         </div>
       </section>
-
     </div>
   );
 }

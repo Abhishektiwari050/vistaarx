@@ -1,4 +1,4 @@
-import { NextResponse } from "next";
+import { NextResponse } from "next/server";
 
 const INDEXNOW_KEY = "cacf974aed439f58efa2fd6f15276dfa";
 const HOST = "www.vistar.tech";
