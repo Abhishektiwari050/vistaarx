@@ -82,13 +82,13 @@ export default function ContactPage() {
       } else {
         setErrorMessage(
           (data.errors && data.errors[0]) ||
-            "Unable to submit requirements right now. Please email us directly at engineering@vistar.tech."
+            "Unable to submit requirements right now. Please email us directly at services.vistaar@gmail.com."
         );
       }
     } catch (err) {
       console.error("Failed to submit contact brief:", err);
       setErrorMessage(
-        "Network connection error. Please try again or reach out directly to engineering@vistar.tech."
+        "Network connection error. Please try again or reach out directly to services.vistaar@gmail.com."
       );
     } finally {
       setIsSubmitting(false);
@@ -392,31 +392,22 @@ export default function ContactPage() {
               <h4 className="font-serif text-lg font-bold text-[#0E1118]">
                 Direct Engineering Channels
               </h4>
-              <div className="space-y-3 text-sm text-neutral-600">
+              <div className="space-y-3.5 text-sm text-neutral-600">
                 <div className="flex items-center gap-3">
-                  <Mail className="w-4 h-4 text-[#FF3823]" />
+                  <Mail className="w-4 h-4 text-[#FF3823] shrink-0" />
                   <a
-                    href="mailto:engineering@vistar.tech"
-                    className="hover:underline font-mono text-xs"
+                    href="mailto:services.vistaar@gmail.com"
+                    className="hover:underline font-mono text-xs text-[#FF3823] font-semibold"
                   >
-                    engineering@vistar.tech
+                    services.vistaar@gmail.com
                   </a>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Mail className="w-4 h-4 text-neutral-500" />
-                  <a
-                    href="mailto:contact@vistar.tech"
-                    className="hover:underline font-mono text-xs text-neutral-500"
-                  >
-                    contact@vistar.tech
-                  </a>
-                </div>
-                <div className="flex items-center gap-3">
-                  <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                  <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
                   <span>SOC2 Type II &amp; ISO 27001 Aligned Controls</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Terminal className="w-4 h-4 text-[#1E60E6]" />
+                  <Terminal className="w-4 h-4 text-[#1E60E6] shrink-0" />
                   <span>100% Day-One Private GitHub Repository Handover</span>
                 </div>
               </div>

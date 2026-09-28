@@ -119,10 +119,10 @@ const jsonLdSchema = {
         "VISTAR is a custom software engineering company specializing in AI agent development, enterprise Next.js applications, and interactive 3D web experiences. 100% source code ownership on every engagement.",
       foundingDate: "2022",
       areaServed: ["United States", "United Kingdom", "Europe", "India", "UAE", "Australia"],
-      email: "contact@vistar.tech",
+      email: "services.vistaar@gmail.com",
       contactPoint: {
         "@type": "ContactPoint",
-        email: "contact@vistar.tech",
+        email: "services.vistaar@gmail.com",
         contactType: "sales",
         availableLanguage: ["English"],
       },

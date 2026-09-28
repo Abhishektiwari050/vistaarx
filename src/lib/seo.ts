@@ -149,7 +149,7 @@ export const organizationSchema = {
   ],
   contactPoint: {
     "@type": "ContactPoint",
-    email: "contact@vistar.tech",
+    email: "services.vistaar@gmail.com",
     contactType: "sales",
     availableLanguage: ["English"],
   },
