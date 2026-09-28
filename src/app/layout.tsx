@@ -82,13 +82,9 @@ export const metadata: Metadata = {
     creator: "@vistartech",
     images: ["/opengraph-image.jpg"],
   },
-  // ── Search engine verification ────────────────────────────────────────────
-  // Replace the placeholder values below with your real tokens:
-  //   Google: Search Console → Add Property → HTML tag → copy content="..." value
-  //   Bing:   Webmaster Tools → Add Site → HTML Meta Tag → copy content="..." value
+  // ── Search engine verification ─────────────────────────────────────────────
   verification: {
-    google: "REPLACE_WITH_YOUR_GOOGLE_VERIFICATION_TOKEN",
-    // other: [{ name: "msvalidate.01", value: "REPLACE_WITH_BING_TOKEN" }],
+    google: "Sd-AgqQ0I1QUGM8wHq9t-i_HthghPMiZCI25jRVJpfY",
   },
   icons: {
     icon: [
