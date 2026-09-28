@@ -67,11 +67,11 @@ const fragmentShader = `
     vec3 halfDir = normalize(lightDir + viewDir);
     float spec = pow(max(dot(normal, halfDir), 0.0), 24.0);
 
-    // Color gradient across cloth folds (from Mineral shadow to Warm Ivory)
+    // Color gradient across cloth folds (from Titanium shadow to Liquid Platinum)
     vec3 clothColor = mix(uColorShadow, uColorBase, smoothstep(-0.45, 0.45, hC));
-    // Pure neutral pearl / soft ivory sheen (absolutely zero copper in the background)
-    vec3 pearlSheen = vec3(1.0, 0.99, 0.97);
-    clothColor += pearlSheen * spec * 0.32;
+    // Pure neutral silver / liquid specular sheen (absolutely zero warm tint or copper)
+    vec3 silverSheen = vec3(1.0, 1.0, 1.0);
+    clothColor += silverSheen * spec * 0.35;
 
     // -------------------------------------------------------------
     // ORGANIC TEAR & PARTING BOUNDARY (4 Cardinal Tearing Physics)
@@ -96,9 +96,9 @@ const fragmentShader = `
       edgeLip = (1.0 - smoothstep(0.0, 0.09, abs(tearDist - currentRadius))) * (1.0 - uTearProgress * 0.6);
       edgeShadow = smoothstep(currentRadius, currentRadius + 0.12, tearDist) * (1.0 - smoothstep(currentRadius + 0.12, currentRadius + 0.26, tearDist));
       
-      // Pure neutral fabric torn rim and depth shadow (zero copper in background)
-      clothColor = mix(clothColor, vec3(0.10, 0.10, 0.10), edgeShadow * 0.35);
-      clothColor = mix(clothColor, vec3(1.0, 0.99, 0.96), edgeLip * 0.65);
+      // Warm ivory fabric torn rim and depth shadow
+      clothColor = mix(clothColor, vec3(0.1, 0.098, 0.086), edgeShadow * 0.35);
+      clothColor = mix(clothColor, vec3(1.0, 0.98, 0.95), edgeLip * 0.6);
     }
 
     // Alpha is 0 where the cloth has parted, revealing the website beneath
@@ -163,8 +163,8 @@ export function Preloader() {
       uTension: { value: 0 },
       uTearProgress: { value: 0 },
       uResolution: { value: new THREE.Vector2(width, height) },
-      uColorBase: { value: new THREE.Color("#F4F1EA") },
-      uColorShadow: { value: new THREE.Color("#D8D3C9") },
+      uColorBase: { value: new THREE.Color("#F9F7F2") }, // Warm Ivory
+      uColorShadow: { value: new THREE.Color("#D5CFC3") }, // Parchment Shadow Fold
     };
 
     const material = new THREE.ShaderMaterial({
@@ -192,11 +192,11 @@ export function Preloader() {
     window.addEventListener("resize", handleResize);
 
     // Choreographed Render Loop:
-    // 0.0s - 1.2s: ONLY the logo mark is displayed on clean Warm Ivory liquid cloth
-    // 1.2s - 2.4s: Brand name VISTAR slides up smoothly with zero layout shift
-    // 1.9s - 2.4s: Tensile strain builds across the surface
-    // 2.4s - 4.2s: The 4 arrows tear outward in 4 cardinal directions (North UP, South DOWN, East RIGHT, West LEFT)
-    // 4.3s: Clean unmount, revealing the page
+    // 0.0s - 1.5s: ONLY the 4-arrow logo mark is displayed on Liquid Platinum & Titanium fluid cloth
+    // 1.5s - 3.4s: Brand name VISTAR slides up smoothly with zero layout shift & tension builds
+    // 3.4s - 6.4s: The 4 arrows tear outward in 4 cardinal directions (North UP, South DOWN, East RIGHT, West LEFT)
+    // 6.4s - 7.0s: Full parting holds as hero settles in with luxurious confidence
+    // 7.0s: Graceful unmount / exit dissolve
     const animate = () => {
       const now = performance.now();
       const elapsed = (now - startTime) / 1000; // seconds
@@ -204,25 +204,25 @@ export function Preloader() {
       uniforms.uTime.value = elapsed;
       if (typeof window !== 'undefined') (window as any).__preloaderElapsed = elapsed;
 
-      // Phase 2: Brand name VISTAR slides up (one-shot state trigger at 1.2s)
-      if (elapsed >= 1.2 && !hasTriggeredBrandPhase.current) {
+      // Phase 2: Brand name VISTAR slides up (one-shot state trigger at 1.5s)
+      if (elapsed >= 1.5 && !hasTriggeredBrandPhase.current) {
         hasTriggeredBrandPhase.current = true;
         setPhase("brand_reveal");
         playTickSound(720, 0.035, 0.01);
       }
 
-      // Tension builds in fabric starting at 1.9s leading into tear
-      if (elapsed >= 1.9 && elapsed < 2.4) {
-        const tensionT = (elapsed - 1.9) / 0.5;
+      // Tension builds in fabric starting at 2.6s leading into tear at 3.4s
+      if (elapsed >= 2.6 && elapsed < 3.4) {
+        const tensionT = (elapsed - 2.6) / 0.8;
         uniforms.uTension.value = Math.min(1.0, tensionT);
         if (!hasTriggeredDrone.current) {
           hasTriggeredDrone.current = true;
-          playTensionDrone(1.2, 0.016);
+          playTensionDrone(1.4, 0.016);
         }
       }
 
-      // Phase 3: Arrows tear in 4 directions (one-shot state trigger at 2.4s)
-      if (elapsed >= 2.4) {
+      // Phase 3: Arrows tear in 4 directions (one-shot state trigger at 3.4s)
+      if (elapsed >= 3.4) {
         if (!hasTriggeredTearPhase.current) {
           hasTriggeredTearPhase.current = true;
           setPhase("tear");
@@ -230,15 +230,15 @@ export function Preloader() {
         }
         uniforms.uTension.value = 1.0;
 
-        const rawTearT = Math.min(1.0, Math.max(0, (elapsed - 2.4) / 1.7)); // 1.7s
-        const smoothTear = rawTearT < 0.5
-          ? 2.0 * rawTearT * rawTearT
-          : 1.0 - Math.pow(-2.0 * rawTearT + 2.0, 2.0) / 2.0;
+        // Majestic 3.0s tear progression: 3.4s -> 6.4s
+        const rawTearT = Math.min(1.0, Math.max(0, (elapsed - 3.4) / 3.0));
+        // Organic sinusoidal ease: steady, continuous parting clearing all 4 corners
+        const smoothTear = 0.5 * (1.0 - Math.cos(Math.PI * rawTearT));
         uniforms.uTearProgress.value = smoothTear;
       }
 
-      // Phase 4: Complete Unmount at 4.3s
-      if (elapsed >= 4.3 && !hasTriggeredDonePhase.current) {
+      // Phase 4: Settle hold until 7.0s, then unmount with smooth exit dissolve
+      if (elapsed >= 7.0 && !hasTriggeredDonePhase.current) {
         hasTriggeredDonePhase.current = true;
         setPhase("done");
         setVisible(false);
@@ -267,25 +267,26 @@ export function Preloader() {
       material.dispose();
       renderer.dispose();
     };
-  }, [mounted, visible]);
-
-  if (!visible) return null;
+  }, [mounted]);
 
   const isTear = phase === "tear" || phase === "done";
 
   return (
     <AnimatePresence>
       {visible && (
-        <div 
+        <motion.div 
+          key="vistar-preloader-curtain"
           id="vistar-preloader-curtain"
+          initial={{ opacity: 1 }}
+          exit={{ opacity: 0, transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] } }}
           className={`fixed inset-0 z-[99999] overflow-hidden select-none pointer-events-none transition-colors duration-300 ${
-            mounted ? "bg-transparent" : "bg-[#F4F1EA]"
+            mounted ? "bg-transparent" : "bg-[#F9F7F2]"
           }`}
           aria-label="Vistar Entrance"
         >
           {/* ============================================================ */}
           {/* WEBGL SILK CLOTH & LIQUID WATER TEARING SURFACE              */}
-          {/* (Pure Warm Ivory & Mineral - Zero copper in background)      */}
+          {/* (Liquid Platinum & Titanium Gray - 100% Monochrome)          */}
           {/* ============================================================ */}
           <canvas
             ref={canvasRef}
@@ -305,24 +306,24 @@ export function Preloader() {
                 
                 {/* Central beacon (dissolves outward when tearing - sleek obsidian with silver halo) */}
                 <motion.div
-                  animate={isTear ? { scale: 2.8, opacity: 0 } : { scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.6, ease: "easeOut" }}
+                  animate={isTear ? { scale: 3.2, opacity: 0 } : { scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.8, ease: "easeOut" }}
                   className="absolute w-2.5 h-2.5 rounded-full bg-[#151515] border border-[#A1A1AA] shadow-[0_0_6px_rgba(21,21,21,0.4)]" 
                 />
 
-                {/* 1. NORTH ARROW: TEARS UPWARD (-58vh) */}
+                {/* 1. NORTH ARROW: TEARS UPWARD (-75vh) */}
                 <motion.div
                   animate={
                     isTear
-                      ? { y: "-58vh", scale: 1.15, opacity: [1, 1, 0.9, 0] }
+                      ? { y: "-75vh", scale: 1.2, opacity: [1, 1, 0.9, 0] }
                       : { y: 0, scale: 1, opacity: 1 }
                   }
                   transition={
                     isTear
                       ? {
-                          y: { duration: 1.7, ease: [0.35, 0.05, 0.2, 1] },
-                          scale: { duration: 1.7, ease: [0.35, 0.05, 0.2, 1] },
-                          opacity: { duration: 0.6, delay: 0.9, ease: "easeOut" },
+                          y: { duration: 2.8, ease: [0.22, 1, 0.36, 1] },
+                          scale: { duration: 2.8, ease: [0.22, 1, 0.36, 1] },
+                          opacity: { duration: 0.9, delay: 1.8, ease: "easeOut" },
                         }
                       : { duration: 0.3 }
                   }
@@ -350,19 +351,19 @@ export function Preloader() {
                   </svg>
                 </motion.div>
 
-                {/* 2. SOUTH ARROW: TEARS DOWNWARD (+58vh) */}
+                {/* 2. SOUTH ARROW: TEARS DOWNWARD (+75vh) */}
                 <motion.div
                   animate={
                     isTear
-                      ? { y: "58vh", scale: 1.15, opacity: [1, 1, 0.9, 0] }
+                      ? { y: "75vh", scale: 1.2, opacity: [1, 1, 0.9, 0] }
                       : { y: 0, scale: 1, opacity: 1 }
                   }
                   transition={
                     isTear
                       ? {
-                          y: { duration: 1.7, ease: [0.35, 0.05, 0.2, 1] },
-                          scale: { duration: 1.7, ease: [0.35, 0.05, 0.2, 1] },
-                          opacity: { duration: 0.6, delay: 0.9, ease: "easeOut" },
+                          y: { duration: 2.8, ease: [0.22, 1, 0.36, 1] },
+                          scale: { duration: 2.8, ease: [0.22, 1, 0.36, 1] },
+                          opacity: { duration: 0.9, delay: 1.8, ease: "easeOut" },
                         }
                       : { duration: 0.3 }
                   }
@@ -390,19 +391,19 @@ export function Preloader() {
                   </svg>
                 </motion.div>
 
-                {/* 3. EAST ARROW: TEARS RIGHTWARD (+58vw) */}
+                {/* 3. EAST ARROW: TEARS RIGHTWARD (+75vw) */}
                 <motion.div
                   animate={
                     isTear
-                      ? { x: "58vw", scale: 1.15, opacity: [1, 1, 0.9, 0] }
+                      ? { x: "75vw", scale: 1.2, opacity: [1, 1, 0.9, 0] }
                       : { x: 0, scale: 1, opacity: 1 }
                   }
                   transition={
                     isTear
                       ? {
-                          x: { duration: 1.7, ease: [0.35, 0.05, 0.2, 1] },
-                          scale: { duration: 1.7, ease: [0.35, 0.05, 0.2, 1] },
-                          opacity: { duration: 0.6, delay: 0.9, ease: "easeOut" },
+                          x: { duration: 2.8, ease: [0.22, 1, 0.36, 1] },
+                          scale: { duration: 2.8, ease: [0.22, 1, 0.36, 1] },
+                          opacity: { duration: 0.9, delay: 1.8, ease: "easeOut" },
                         }
                       : { duration: 0.3 }
                   }
@@ -430,19 +431,19 @@ export function Preloader() {
                   </svg>
                 </motion.div>
 
-                {/* 4. WEST ARROW: TEARS LEFTWARD (-58vw) */}
+                {/* 4. WEST ARROW: TEARS LEFTWARD (-75vw) */}
                 <motion.div
                   animate={
                     isTear
-                      ? { x: "-58vw", scale: 1.15, opacity: [1, 1, 0.9, 0] }
+                      ? { x: "-75vw", scale: 1.2, opacity: [1, 1, 0.9, 0] }
                       : { x: 0, scale: 1, opacity: 1 }
                   }
                   transition={
                     isTear
                       ? {
-                          x: { duration: 1.7, ease: [0.35, 0.05, 0.2, 1] },
-                          scale: { duration: 1.7, ease: [0.35, 0.05, 0.2, 1] },
-                          opacity: { duration: 0.6, delay: 0.9, ease: "easeOut" },
+                          x: { duration: 2.8, ease: [0.22, 1, 0.36, 1] },
+                          scale: { duration: 2.8, ease: [0.22, 1, 0.36, 1] },
+                          opacity: { duration: 0.9, delay: 1.8, ease: "easeOut" },
                         }
                       : { duration: 0.3 }
                   }
@@ -484,8 +485,8 @@ export function Preloader() {
                   }
                   transition={
                     isTear
-                      ? { duration: 0.45, ease: "easeOut" }
-                      : { duration: 0.75, ease: [0.22, 1, 0.36, 1] }
+                      ? { duration: 0.6, ease: "easeOut" }
+                      : { duration: 0.85, ease: [0.22, 1, 0.36, 1] }
                   }
                   className="font-display font-black text-xl sm:text-2xl tracking-[0.38em] text-[#151515] uppercase select-none flex items-center justify-center drop-shadow-[0_2px_8px_rgba(21,21,21,0.18)]"
                 >
@@ -496,7 +497,7 @@ export function Preloader() {
             </div>
           </div>
 
-        </div>
+        </motion.div>
       )}
     </AnimatePresence>
   );

@@ -40,7 +40,26 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# audit screenshots
+# audit screenshots & local dev artifacts
 stagehand-audit-report.png
 audit_screens/
 audit_screens_wow/
+pacing_audit/
+pacing_exact/
+plate1_extracted_frames/
+data/
+scratch/
+
+# agent-generated local scripts (not deployable)
+scripts/
+trace_rootly_nav.js
+cohere_audit.json
+cohere_full.png
+jasper_computed_styles.json
+*.cjs
+
+# local dev files
+public/rive_test.html
+SYSTEM_PROMPT.md
+.cursorrules
+.agents/

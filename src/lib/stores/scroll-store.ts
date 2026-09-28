@@ -80,8 +80,8 @@ export const getPrefersReducedMotion = () => useScrollStore.getState().prefersRe
 export const getThemeColors = () => {
   const theme = useScrollStore.getState().theme;
   if (theme === "neon-flyer") {
-    // Vistar monochrome deep graphite, slate & warm ivory palette
-    return { primary: "#151515", secondary: "#27272A", base: "#F4F1EA" };
+    // Vistar Anthropic & Claude Editorial: Claude Terracotta, Crail Deep Terracotta, and Warm Oat Canvas
+    return { primary: "#0284C7", secondary: "#C15F3C", base: "#FAF9F5" };
   }
   if (theme === "mono") {
     // Elegant pure black and subtle gray for high-end monochrome aesthetic

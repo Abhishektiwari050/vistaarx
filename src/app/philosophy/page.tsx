@@ -1,52 +1,66 @@
 import type { Metadata } from "next";
+import { KEYWORDS, BASE_URL, DEFAULT_OG_IMAGES } from "@/lib/seo";
 import PhilosophyPage from "./philosophy-client";
 
 export const metadata: Metadata = {
-  title: "Studio Philosophy & Curatorial Axioms",
+  title: "Our Engineering Philosophy — No Vendor Lock-In & 100% Code Ownership",
   description:
-    "The core engineering philosophy of Vistar Web Systems: hand-crafted code, ontological reduction, zero templates, complete codebase transfer, and sub-second load times.",
-  keywords: [
-    "Design Engineering Philosophy",
-    "Anti-Template Agency",
-    "Digital Sovereignty",
-    "Bespoke Web Studio Manifesto",
-    "Performance First Design",
-    "Full IP Ownership",
-  ],
+    "VISTAR's software engineering philosophy: hand-crafted production code, zero templates, 100% IP ownership transferred to the client, and performance-first architecture. We reject throwaway software.",
+  keywords: KEYWORDS.philosophy,
   alternates: {
-    canonical: "/philosophy",
+    canonical: `${BASE_URL}/philosophy`,
   },
   openGraph: {
-    title: "Studio Philosophy & Curatorial Axioms | Vistar Web Systems",
+    title: "Engineering Philosophy — No Vendor Lock-In & 100% Code Ownership | VISTAR",
     description:
-      "We refuse digital commodity. Discover our four axioms of brand building and digital equity.",
-    url: "https://www.vistar.tech/philosophy",
+      "We build bespoke software, not templates. Every engagement includes full source code ownership, no retainer lock-in, and performance-first architecture.",
+    url: `${BASE_URL}/philosophy`,
     type: "website",
+    images: DEFAULT_OG_IMAGES,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Studio Philosophy & Curatorial Axioms | Vistar Web Systems",
+    title: "Engineering Philosophy — No Vendor Lock-In & 100% Code Ownership | VISTAR",
     description:
-      "We refuse digital commodity. Discover our four axioms of brand building and digital equity.",
+      "We build bespoke software, not templates. Every engagement includes full source code ownership, no retainer lock-in, and performance-first architecture.",
+    images: [DEFAULT_OG_IMAGES[0].url],
   },
 };
 
 const philosophySchema = {
   "@context": "https://schema.org",
-  "@type": "AboutPage",
-  name: "Vistar Web Systems Philosophy",
-  description: "Studio manifesto and four axioms of high-performance brand architecture.",
-  url: "https://www.vistar.tech/philosophy",
-  mainEntity: {
-    "@type": "Organization",
-    name: "Vistar Web Systems",
-    knowsAbout: [
-      "Ontological Reduction & Zero Bloat",
-      "Sensory Kineticism & Bespoke GLSL",
-      "Velocity As Brand Respect",
-      "Institutional Sovereignty & 100% Code Ownership",
-    ],
-  },
+  "@graph": [
+    {
+      "@type": "AboutPage",
+      "@id": `${BASE_URL}/philosophy#webpage`,
+      url: `${BASE_URL}/philosophy`,
+      name: "VISTAR Engineering Philosophy — No Vendor Lock-In & 100% Code Ownership",
+      description:
+        "VISTAR's manifesto for bespoke software engineering: zero templates, full source code ownership, and performance-first development.",
+      isPartOf: { "@id": `${BASE_URL}/#website` },
+      about: { "@id": `${BASE_URL}/#organization` },
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
+        { "@type": "ListItem", position: 2, name: "Our Philosophy", item: `${BASE_URL}/philosophy` },
+      ],
+    },
+    {
+      "@type": "Organization",
+      "@id": `${BASE_URL}/#organization`,
+      knowsAbout: [
+        "Custom AI Agent Development",
+        "Enterprise Next.js Engineering",
+        "Zero Vendor Lock-In Software",
+        "100% Source Code Ownership",
+        "Core Web Vitals Performance Optimization",
+        "Interactive 3D WebGL Development",
+        "No-Template Bespoke Software",
+      ],
+    },
+  ],
 };
 
 export default function Page() {

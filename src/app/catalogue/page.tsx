@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 
 export default function CataloguePage() {
   return (
-    <main className="min-h-screen w-full bg-[#0A0C0E] text-[#EDE7DC] selection:bg-[#E8913C] selection:text-[#0A0C0E]">
+    <main className="min-h-screen w-full bg-[#FAF9F5] text-[#141413] selection:bg-[#0284C7] selection:text-[#FAF9F5]">
       <PortalNav />
       <PortalHero />
       <MarqueeTicker />

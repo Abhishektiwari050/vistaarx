@@ -2,316 +2,160 @@
 
 import React from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { SpotlightCard } from "@/components/spotlight-card";
-import { MagneticButton } from "@/components/magnetic-button";
+import { ArrowRight, BookOpen, ShieldCheck } from "lucide-react";
+import { playClick } from "@/lib/sound";
+
+const RESEARCH_ESSAYS = [
+  {
+    num: "01",
+    tag: "AUTONOMOUS SYSTEMS",
+    title: "Deterministic Multi-Agent Graphs vs Probabilistic Drift",
+    desc: "Why traditional LLM prompt wrappers fail in production environments, and how typed schema verification, state machine constraints, and multi-agent consensus eliminate non-deterministic hallucinations.",
+    readTime: "6 min read",
+    author: "Architecture Core",
+  },
+  {
+    num: "02",
+    tag: "CRYPTOGRAPHY",
+    title: "Falcon-1024 Lattice Security in Modern Enterprise Telemetry",
+    desc: "A mathematical breakdown of post-quantum cryptography applied to distributed multi-agent channels. Resisting Shor's algorithm and securing private enterprise state transitions.",
+    readTime: "9 min read",
+    author: "Security Labs",
+  },
+  {
+    num: "03",
+    tag: "SYSTEM PERFORMANCE",
+    title: "Sub-90ms Edge Inference and Global Cache Disbursement",
+    desc: "Achieving sub-second response times across 24 edge points of presence. Profiling Next.js 16 App Router streaming, zero-layout-shift canvas telemetry, and TTFB optimization.",
+    readTime: "5 min read",
+    author: "Edge Infrastructure",
+  },
+  {
+    num: "04",
+    tag: "SOFTWARE SOVEREIGNTY",
+    title: "The Death of Agency Vendor Lock-In",
+    desc: "An economic and technical manifesto on why modern enterprises must demand 100% source code handover, zero CMS hostage fees, and total infrastructure sovereignty from day one.",
+    readTime: "7 min read",
+    author: "Systems Principals",
+  },
+];
 
 export default function PhilosophyPage() {
   return (
-    <div className="w-full relative bg-[#faf9f5] text-[#0a0a0a] min-h-screen overflow-x-clip pt-28 pb-24">
-      {/* Global paper-grain texture overlay */}
-      <div className="noise-overlay" aria-hidden="true" />
-
-      {/* ── Section 1: Editorial Studio Philosophy Hero ─────────────────────── */}
-      <section className="max-w-6xl mx-auto px-6 sm:px-12 md:px-16 pt-8 pb-20 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="space-y-6 max-w-4xl"
-        >
-          <div className="inline-flex items-center gap-2">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ff1e90] opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#ff1e90]" />
-            </span>
-            <span className="font-mono text-[9px] font-extrabold tracking-[0.3em] uppercase text-[#ff1e90] bg-[#ff1e90]/10 border border-[#ff1e90]/20 px-3 py-1 rounded-full">
-              Studio Philosophy // Brand As Defensible Equity
+    <div className="w-full bg-[#FAF9F5] text-[#0E1118] font-sans antialiased selection:bg-[#FF3823] selection:text-white min-h-screen">
+      
+      {/* ── 1. JASPER RESEARCH HERO ── */}
+      <section className="relative w-full pt-20 pb-28 md:pt-28 md:pb-36 bg-[#F2EFE9] [background-image:linear-gradient(to_right,#ffffff_1.5px,transparent_1.5px),linear-gradient(to_bottom,#ffffff_1.5px,transparent_1.5px)] [background-size:46px_46px] border-b border-black/10 text-center px-4">
+        <div className="max-w-4xl mx-auto space-y-8">
+          <div>
+            <span className="inline-block bg-[#FFD8CE] text-[#1A1A1A] font-mono text-xs uppercase tracking-wider font-semibold px-3 py-1 rounded-[2px]">
+              Research &amp; Axioms
             </span>
           </div>
 
-          <h1 className="font-display font-black text-5xl sm:text-7xl md:text-8xl uppercase tracking-tighter text-[#0a0a0a] leading-[0.88] select-none">
-            We refuse commodity.
-            <br />
-            We compile{" "}
-            <span className="font-serif italic font-normal text-zinc-400 lowercase">
-              authority.
-            </span>
+          <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl font-semibold text-[#0E1118] tracking-tight leading-[1.08]">
+            We reject throwaway software. We engineer{" "}
+            <span className="inline-block bg-[#1E60E6] text-white rotate-1 shadow-sm font-serif font-bold text-3xl sm:text-5xl md:text-6xl px-4 py-1">
+              sovereign
+            </span>{" "}
+            infrastructure.
           </h1>
 
-          <p className="font-sans text-sm sm:text-base md:text-lg text-zinc-600 leading-relaxed max-w-2xl pt-2">
-            Your website is not digital decoration—it is your highest-leverage sales executive and the definitive benchmark of your company&apos;s ambition. In an internet flooded with generic AI templates, bespoke architectural distinction is the ultimate competitive advantage.
+          <p className="text-lg md:text-xl text-neutral-600 max-w-2xl mx-auto leading-relaxed">
+            In an ecosystem saturated with fragile prompt wrappers and agency lock-in, mathematically verifiable code and private repository ownership are the only durable assets.
           </p>
 
-          {/* Quick Pillars Chips */}
-          <div className="flex flex-wrap gap-3 pt-2">
-            <div className="flex items-center gap-2 px-4 py-2 rounded-xl border-2 border-black bg-[#d8ff42] shadow-[3px_3px_0px_#000] font-mono text-[10px] font-extrabold uppercase">
-              <span>✦</span> 100% Code Ownership
-            </div>
-            <div className="flex items-center gap-2 px-4 py-2 rounded-xl border-2 border-black bg-white shadow-[3px_3px_0px_#ff1e90] font-mono text-[10px] font-extrabold uppercase">
-              <span className="text-[#ff1e90]">⚡</span> &lt; 150ms Global TTFB
-            </div>
-            <div className="flex items-center gap-2 px-4 py-2 rounded-xl border-2 border-black bg-[#0a0a0a] text-white shadow-[3px_3px_0px_#000] font-mono text-[10px] font-extrabold uppercase">
-              <span>●</span> Category Differentiation
-            </div>
-          </div>
-
-          {/* CTAs */}
-          <div className="flex flex-wrap items-center gap-4 pt-4">
-            <MagneticButton>
-              <Link
-                href="/contact"
-                className="bg-[#d8ff42] text-black font-sans font-black text-xs tracking-widest uppercase px-8 py-4 border-2 border-black rounded-xl shadow-[4px_4px_0px_#000000] hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#ff1e90] active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer inline-flex items-center gap-2 interactive"
-              >
-                Initiate Consultation ⚡
-              </Link>
-            </MagneticButton>
-            <MagneticButton>
-              <Link
-                href="/work"
-                className="bg-white text-black font-sans font-black text-xs tracking-widest uppercase px-8 py-4 border-2 border-black rounded-xl shadow-[4px_4px_0px_#000000] hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#ff1e90] active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer inline-flex items-center gap-2 interactive"
-              >
-                Inspect Case Studies →
-              </Link>
-            </MagneticButton>
-          </div>
-        </motion.div>
-      </section>
-
-      {/* ── Section 2: Core Manifesto Pillars Grid (Modern Figurative Art Gallery) ── */}
-      <section className="py-24 px-6 sm:px-12 md:px-16 relative overflow-hidden bg-white/70 border-t-2 border-b-2 border-black/15 z-20">
-        <div className="max-w-6xl mx-auto mb-16 select-none">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b-2 border-black/10 pb-6">
-            <div className="space-y-2">
-              <span className="font-mono text-[9px] font-bold tracking-[3px] text-[#ff1e90] uppercase bg-[#ff1e90]/10 border border-[#ff1e90]/20 px-3 py-1 rounded-full inline-block">
-                SYSTEMS MANIFESTO // ARCHITECTURAL AXIOMS
-              </span>
-              <h2 className="font-display font-black tracking-tight text-[#0a0a0a] leading-tight text-4xl sm:text-5xl md:text-6xl uppercase">
-                Four axioms of{" "}
-                <span className="font-serif italic font-normal text-zinc-400 lowercase">
-                  mission-critical software
-                </span>
-                .
-              </h2>
-            </div>
-            <div className="font-mono text-[10px] text-zinc-400 uppercase tracking-widest text-right">
-              SYSTEM KERNEL // VOL. IV <br />
-              <span className="text-black font-black">SPEC. NO. 2026-VISTAR-AXIOM</span>
-            </div>
-          </div>
-          <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed font-sans max-w-2xl mt-4">
-            We reject fragile, slow, disconnected software. Our work treats digital platforms as high-leverage business engines—grounded in resilient architecture, driven by sub-100ms response times, and preserved as 100% sovereign client property.
-          </p>
-        </div>
-
-        {/* 4 Columns Curatorial Placard Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-          {/* Axiom I */}
-          <div className="group">
-            <SpotlightCard
-              glowColor="rgba(216, 255, 66, 0.15)"
-              borderColor="rgba(0, 0, 0, 0.15)"
-              className="bg-[#faf9f5] border-[2.5px] border-black rounded-2xl p-6 min-h-[420px] flex flex-col justify-between shadow-[6px_6px_0px_#000] hover:shadow-[10px_10px_0px_#d8ff42] transition-all duration-300"
+          <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
+            <Link
+              href="/start"
+              onClick={() => playClick(900, 0.03)}
+              className="bg-[#FF3823] hover:bg-[#E0301C] text-white px-7 py-3.5 font-semibold text-sm rounded-[4px] shadow-sm transition-colors duration-150 inline-flex items-center gap-2"
             >
-              <div className="space-y-4">
-                <div className="flex justify-between items-center border-b border-black/10 pb-3">
-                  <span className="font-mono text-[9px] font-black uppercase px-2.5 py-1 rounded bg-black text-[#d8ff42]">
-                    AXIOM I
-                  </span>
-                  <span className="font-serif italic text-xs text-zinc-400">
-                    Structural Reduction
-                  </span>
-                </div>
-                <div className="font-mono text-[8px] tracking-widest text-zinc-400 uppercase">
-                  PARADIGM: RESILIENT ARCHITECTURE
-                </div>
-                <h3 className="font-display font-black uppercase text-xl text-black leading-tight">
-                  Strip The Commodity
-                </h3>
-                <p className="text-zinc-600 text-xs leading-relaxed font-sans">
-                  If your platform relies on the same brittle plugins as thousands of competitors, scale becomes painful and security is compromised. We engineer from typed first principles with zero bloated dependencies.
-                </p>
-              </div>
-              <div className="pt-4 border-t border-black/10 flex items-center justify-between font-mono text-[9px]">
-                <span className="text-zinc-400">CORE METRIC:</span>
-                <span className="font-black text-black">0KB THIRD-PARTY BLOAT</span>
-              </div>
-            </SpotlightCard>
-          </div>
-
-          {/* Axiom II */}
-          <div className="group">
-            <SpotlightCard
-              glowColor="rgba(255, 30, 144, 0.15)"
-              borderColor="rgba(0, 0, 0, 0.15)"
-              className="bg-[#111] text-white border-[2.5px] border-black rounded-2xl p-6 min-h-[420px] flex flex-col justify-between shadow-[6px_6px_0px_#ff1e90] hover:shadow-[10px_10px_0px_#fff] transition-all duration-300"
+              Start Free Diagnostic
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link
+              href="/work"
+              onClick={() => playClick(1000, 0.02)}
+              className="bg-white hover:bg-neutral-50 text-neutral-900 border border-neutral-900 px-7 py-3.5 font-semibold text-sm rounded-[4px] shadow-sm transition-colors duration-150 inline-flex items-center gap-2"
             >
-              <div className="space-y-4">
-                <div className="flex justify-between items-center border-b border-white/10 pb-3">
-                  <span className="font-mono text-[9px] font-black uppercase px-2.5 py-1 rounded bg-[#ff1e90] text-white">
-                    AXIOM II
-                  </span>
-                  <span className="font-serif italic text-xs text-zinc-400">
-                    Operational Fluidity
-                  </span>
-                </div>
-                <div className="font-mono text-[8px] tracking-widest text-zinc-400 uppercase">
-                  PARADIGM: SYSTEM PRECISION
-                </div>
-                <h3 className="font-display font-black uppercase text-xl text-white leading-tight">
-                  Precision Commands Authority
-                </h3>
-                <p className="text-zinc-400 text-xs leading-relaxed font-sans">
-                  When an interface responds with sub-100ms latency, zero layout shifts, and tactile micro-motion, users immediately perceive enterprise competence. We build GPU-accelerated interfaces with 60 FPS fluidity.
-                </p>
-              </div>
-              <div className="pt-4 border-t border-white/10 flex items-center justify-between font-mono text-[9px]">
-                <span className="text-zinc-400">CORE METRIC:</span>
-                <span className="font-black text-[#d8ff42]">60 FPS GPU-ACCELERATED</span>
-              </div>
-            </SpotlightCard>
-          </div>
-
-          {/* Axiom III */}
-          <div className="group">
-            <SpotlightCard
-              glowColor="rgba(216, 255, 66, 0.15)"
-              borderColor="rgba(0, 0, 0, 0.15)"
-              className="bg-white border-[2.5px] border-black rounded-2xl p-6 min-h-[420px] flex flex-col justify-between shadow-[6px_6px_0px_#000] hover:shadow-[10px_10px_0px_#ff1e90] transition-all duration-300"
-            >
-              <div className="space-y-4">
-                <div className="flex justify-between items-center border-b border-black/10 pb-3">
-                  <span className="font-mono text-[9px] font-black uppercase px-2.5 py-1 rounded bg-[#d8ff42] text-black border border-black shadow-[1px_1px_0px_#000]">
-                    AXIOM III
-                  </span>
-                  <span className="font-serif italic text-xs text-zinc-400">
-                    Deterministic Speed
-                  </span>
-                </div>
-                <div className="font-mono text-[8px] tracking-widest text-zinc-400 uppercase">
-                  PARADIGM: ZERO LATENCY ROUTING
-                </div>
-                <h3 className="font-display font-black uppercase text-xl text-black leading-tight">
-                  Speed Is The Art of Polish
-                </h3>
-                <p className="text-zinc-600 text-xs leading-relaxed font-sans">
-                  Lag is unacceptable in mission-critical applications. When a platform responds in under 100ms globally with zero layout shift, it builds unassailable confidence and eliminates conversion drop-off.
-                </p>
-              </div>
-              <div className="pt-4 border-t border-black/10 flex items-center justify-between font-mono text-[9px]">
-                <span className="text-zinc-400">CORE METRIC:</span>
-                <span className="font-black text-black">&lt; 100MS GLOBAL TTFB</span>
-              </div>
-            </SpotlightCard>
-          </div>
-
-          {/* Axiom IV */}
-          <div className="group">
-            <SpotlightCard
-              glowColor="rgba(255, 30, 144, 0.15)"
-              borderColor="rgba(0, 0, 0, 0.15)"
-              className="bg-[#d8ff42] border-[2.5px] border-black rounded-2xl p-6 min-h-[420px] flex flex-col justify-between shadow-[6px_6px_0px_#000] hover:shadow-[10px_10px_0px_#000] transition-all duration-300"
-            >
-              <div className="space-y-4">
-                <div className="flex justify-between items-center border-b border-black/20 pb-3">
-                  <span className="font-mono text-[9px] font-black uppercase px-2.5 py-1 rounded bg-black text-white">
-                    AXIOM IV
-                  </span>
-                  <span className="font-serif italic text-xs text-black/60">
-                    Sovereign Ownership
-                  </span>
-                </div>
-                <div className="font-mono text-[8px] tracking-widest text-black/60 uppercase">
-                  PARADIGM: ZERO VENDOR LOCK-IN
-                </div>
-                <h3 className="font-display font-black uppercase text-xl text-black leading-tight">
-                  Total Source Autonomy
-                </h3>
-                <p className="text-black/80 text-xs leading-relaxed font-sans">
-                  True engineering belongs to the business that commissioned it. We transfer 100% of the repository, design tokens, and CI/CD pipelines directly to your GitHub on day 21. No retainers required to keep your system alive.
-                </p>
-              </div>
-              <div className="pt-4 border-t border-black/20 flex items-center justify-between font-mono text-[9px]">
-                <span className="text-black/60">CORE METRIC:</span>
-                <span className="font-black text-black">100% GITHUB HANDOVER</span>
-              </div>
-            </SpotlightCard>
+              Explore Case Studies
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* ── Section 3: Engineering Standards vs Conventional Agencies ────────── */}
-      <section className="py-24 px-6 sm:px-12 md:px-16 max-w-6xl mx-auto relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="font-mono text-[9px] font-bold tracking-[3px] text-zinc-400 uppercase bg-zinc-100 border border-zinc-200 px-3 py-1 rounded-full inline-block mb-3">
-            Studio Standards
-          </span>
-          <h2 className="font-display font-black text-3xl sm:text-4xl md:text-5xl uppercase tracking-tighter text-[#0a0a0a]">
-            How We Differ From{" "}
-            <span className="font-serif italic font-normal text-zinc-400 lowercase">
-              the industry
+      {/* ── 2. TECHNICAL ESSAYS GRID ── */}
+      <section className="w-full py-24 px-6 bg-white border-b border-black/10">
+        <div className="max-w-5xl mx-auto space-y-16">
+          <div className="text-center space-y-3">
+            <span className="font-mono text-xs uppercase tracking-widest border border-black/15 px-2.5 py-1 rounded bg-[#FAF9F5]">
+              Technical Essays
             </span>
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Box 1: Conventional Agencies */}
-          <div className="border-[2.5px] border-black/20 bg-zinc-100/60 rounded-2xl p-8 space-y-6">
-            <div className="flex items-center justify-between border-b border-black/10 pb-4">
-              <span className="font-mono text-[10px] font-bold tracking-widest uppercase text-zinc-400">
-                Standard Agency Paradigm
-              </span>
-              <span className="text-red-500 font-mono text-sm">✕ The Trap</span>
-            </div>
-            <ul className="space-y-4 font-sans text-xs sm:text-sm text-zinc-600">
-              <li className="flex items-start gap-3">
-                <span className="text-red-400 font-bold shrink-0">✕</span>
-                <span>Template customization with 40+ third-party WordPress plugins and recurring security liabilities.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-red-400 font-bold shrink-0">✕</span>
-                <span>4MB+ page bundles leading to sluggish 3.5s+ mobile load times and heavy Core Web Vitals penalties.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-red-400 font-bold shrink-0">✕</span>
-                <span>Perpetual retainer lock-ins where clients do not own or understand their own codebase.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-red-400 font-bold shrink-0">✕</span>
-                <span>Generic layouts assembled from popular UI kits without custom brand differentiation.</span>
-              </li>
-            </ul>
+            <h2 className="font-serif text-3xl sm:text-5xl font-semibold text-[#0E1118] tracking-tight">
+              Foundational Engineering Principles
+            </h2>
+            <p className="text-neutral-600 max-w-xl mx-auto text-sm sm:text-base">
+              Peer into our technical publications on agent determinism, post-quantum cryptography, and edge architecture.
+            </p>
           </div>
 
-          {/* Box 2: Vistar Standard */}
-          <div className="border-[3px] border-black bg-white rounded-2xl p-8 space-y-6 shadow-[6px_6px_0px_#ff1e90]">
-            <div className="flex items-center justify-between border-b border-black/10 pb-4">
-              <span className="font-mono text-[10px] font-extrabold tracking-widest uppercase text-[#ff1e90]">
-                The Vistar Standard
-              </span>
-              <span className="text-[#22c55e] font-mono text-sm font-bold">✓ Direct Impact</span>
-            </div>
-            <ul className="space-y-4 font-sans text-xs sm:text-sm text-black">
-              <li className="flex items-start gap-3">
-                <span className="text-[#22c55e] font-bold shrink-0">✓</span>
-                <span>Bespoke Next.js 16 + TypeScript architectures with zero bloated plugins and clean modules.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-[#22c55e] font-bold shrink-0">✓</span>
-                <span>Sub-150ms global TTFB delivered on edge networks with 95+ verified Lighthouse scores.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-[#22c55e] font-bold shrink-0">✓</span>
-                <span>Full GitHub repository and deployment infrastructure handed over completely on day one.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-[#22c55e] font-bold shrink-0">✓</span>
-                <span>Bespoke visual identity combining custom GLSL shaders, micro-motion, and industrial UI typography.</span>
-              </li>
-            </ul>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {RESEARCH_ESSAYS.map((essay) => (
+              <article
+                key={essay.num}
+                className="bg-[#FAF9F5] border border-black/10 rounded-[6px] p-8 hover:border-black/30 transition-all flex flex-col justify-between space-y-6"
+              >
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs font-semibold text-[#FF3823] uppercase tracking-wider">
+                      {essay.tag}
+                    </span>
+                    <span className="font-serif text-2xl font-bold text-neutral-400">
+                      {essay.num}
+                    </span>
+                  </div>
+
+                  <h3 className="font-serif text-2xl font-bold text-[#0E1118] leading-snug">
+                    {essay.title}
+                  </h3>
+
+                  <p className="text-sm text-neutral-600 leading-relaxed">
+                    {essay.desc}
+                  </p>
+                </div>
+
+                <div className="flex items-center justify-between pt-4 border-t border-black/10 text-xs text-neutral-500 font-mono">
+                  <span>{essay.author}</span>
+                  <span>{essay.readTime}</span>
+                </div>
+              </article>
+            ))}
           </div>
         </div>
       </section>
+
+      {/* ── 3. FINAL CTA ── */}
+      <section className="w-full py-24 px-6 vistar-grid-hero border-b border-black/10 text-center">
+        <div className="max-w-3xl mx-auto space-y-6">
+          <h2 className="font-serif text-4xl sm:text-6xl font-semibold text-[#0E1118] tracking-tight">
+            Read enough theory? Let&apos;s build.
+          </h2>
+          <p className="text-neutral-600 text-base max-w-xl mx-auto">
+            Kick off a 14-day production delivery sprint with guaranteed repository transfer.
+          </p>
+          <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
+            <Link
+              href="/start"
+              className="bg-[#FF3823] hover:bg-[#E0301C] text-white px-8 py-4 font-semibold text-sm rounded-[4px] shadow-sm inline-flex items-center gap-2"
+            >
+              Start Free Diagnostic
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
     </div>
   );
 }

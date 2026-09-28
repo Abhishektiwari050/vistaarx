@@ -1,32 +1,91 @@
-/* ─── VISTAR BUILD SPEC (v2 Frontier AI) — Design Tokens as Code ─────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Sora:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap');
+/* ─── COHERE & JASPER REPLICA FONT FACES & TOKENS ────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
 
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'CohereText';
+  src: url('/fonts/CohereText-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'CohereMono';
+  src: url('/fonts/CohereMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Unica77 Cohere Web';
+  src: url('/fonts/Unica77CohereWeb-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Unica77 Cohere Web';
+  src: url('/fonts/Unica77CohereWeb-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Unica77 Cohere Web';
+  src: url('/fonts/Unica77CohereWeb-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 
 /* ─── CSS Variables ────────────────────────────────────────────────────────── */
 :root {
-  /* Color Tokens */
-  --bg-near-black: #060709;
-  --bg-card: rgba(255, 255, 255, 0.035);
-  --bg-surface-elevated: #13151F;
-  --bg-surface-subtle: #0D0E15;
-  --text-warm-white: #F8F9FC;
-  --text-pure-white: #FFFFFF;
-  --color-accent: #ECEEF5;
-  --color-platinum: #ECEEF5;
-  --color-silver: #D5D8E4;
-  --color-titanium: #959CB3;
-  --color-slate: #696F85;
-  --color-obsidian: #060709;
+  --bg-pure-white: #FFFFFF;
+  --bg-stone: #F0EEE9;
+  --bg-dark-card: #141413;
+  --bg-pine: #152717;
+  --bg-forest: #355146;
+  --bg-footer: #17171C;
+  --text-dark: #212121;
+  --text-secondary: #5E605D;
+  --text-white: #FFFFFF;
 
-  --border-hairline: rgba(255, 255, 255, 0.08);
-  --border-hairline-active: rgba(255, 255, 255, 0.4);
-  --border-silver: rgba(213, 216, 228, 0.25);
-  --border-platinum: rgba(236, 238, 245, 0.35);
+  /* Typography Font Families */
+  --font-family-display: 'CohereText', 'Space Grotesk', Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-family-heading: 'CohereText', 'Space Grotesk', Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-family-body: 'Unica77 Cohere Web', Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-family-serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --font-family-mono: 'CohereMono', monospace;
 
-  --text-muted: rgba(248, 249, 252, 0.65);
-  --text-dim: rgba(248, 249, 252, 0.4);
+  /* Ethereal Sky Blue Light Brand Palette */
+  --color-accent: #0284C7; /* Sky Blue primary for contrast */
+  --color-sky-light: #38BDF8; /* Radiant Sky Blue Light */
+  --color-sky-soft: #E0F2FE; /* Subtle Sky Blue Light mist */
+  --color-cyan: #38BDF8; /* Mapped to Sky Blue Light */
+  --color-orange: #0284C7;
+  --color-crail: #0369A1; /* Deep sky ocean hover */
+  --color-amber: #38BDF8; /* Sky Blue highlight */
+  --color-forest: #0284C7;
+  --color-platinum: #F0F7FD;
+  --color-silver: #64748B; /* Elegant slate */
+  --color-titanium: #334155;
+  --color-slate: #94A3B8;
+  --color-blue: #38BDF8; /* Sky Blue Light */
+  --color-olive: #38BDF8;
+  --color-obsidian: #060B14;
+
+  --border-hairline: rgba(56, 189, 248, 0.20);
+  --border-hairline-active: rgba(56, 189, 248, 0.60);
+  --border-silver: rgba(15, 23, 42, 0.08);
+  --border-platinum: rgba(56, 189, 248, 0.25);
+
+  --text-muted: #475569;
+  --text-dim: #94A3B8;
 
   /* Spacing Scale */
   --space-8: 8px;
@@ -39,15 +98,18 @@
   --space-128: 128px;
 
   /* Layout Scale */
-  --max-content-width: 1280px;
-  --gutter-desktop: 24px;
-  --gutter-mobile: 16px;
-  --section-pad-desktop: 128px;
+  --max-content-width: 1560px;
+  --gutter-desktop: 48px;
+  --gutter-mobile: 20px;
+  --section-pad-desktop: 112px;
   --section-pad-mobile: 64px;
 
   /* Typography Font Families */
-  --font-family-base: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-family-heading: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family-display: 'CohereText', 'Space Grotesk', Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-family-heading: 'CohereText', 'Space Grotesk', Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-family-serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --font-family-base: 'Unica77 Cohere Web', Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-family-mono: 'CohereMono', 'JetBrains Mono', monospace;
 }
 
 /* ─── Tailwind v4 Theme Mappings ───────────────────────────────────────────── */
@@ -59,6 +121,9 @@
   --color-warm-white: var(--text-warm-white);
   --color-pure-white: var(--text-pure-white);
   --color-accent: var(--color-accent);
+  --color-orange: var(--color-accent);
+  --color-amber: var(--color-amber);
+  --color-forest: var(--color-forest);
   --color-platinum: var(--color-platinum);
   --color-silver: var(--color-silver);
   --color-titanium: var(--color-titanium);
@@ -67,55 +132,52 @@
   --color-hairline: var(--border-hairline);
   --font-instrument: var(--font-family-base);
   --font-heading: var(--font-family-heading);
+  --font-display: var(--font-family-display);
+  --font-serif: var(--font-family-serif);
   --font-sans: var(--font-family-base);
+  --font-mono: var(--font-family-mono);
+  --font-syne: var(--font-family-heading);
 }
 
 /* ─── Base Reset & Accessibility ───────────────────────────────────────────── */
 html {
-  background-color: var(--bg-near-black);
-  color: var(--text-warm-white);
+  background-color: #FFFFFF;
+  color: #212121;
   font-family: var(--font-family-base);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* Mobile-native: kill iOS blue/gray tap flash */
   -webkit-tap-highlight-color: transparent;
-  /* Mobile-native: no font inflation in landscape */
   -webkit-text-size-adjust: 100%;
-  /* Mobile-native: disable pull-to-refresh hijacking page scroll */
   overscroll-behavior: none;
 }
 
 body {
-  background-color: var(--bg-near-black);
-  color: var(--text-warm-white);
-  /* Mobile-native: 100svh = smallest viewport (URL bar visible), never clips */
+  background-color: #FFFFFF;
+  color: #212121;
+  font-family: 'Unica77 Cohere Web', Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   min-height: 100svh;
   margin: 0;
   padding: 0;
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 400;
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
-/* Mobile-native: prevent 300ms tap delay on interactive elements */
 button, a, [role="button"] {
   touch-action: manipulation;
 }
 
-/* Mobile-native: button/link text should not be long-press selectable */
 button, [role="button"] {
   user-select: none;
   -webkit-user-select: none;
   -webkit-touch-callout: none;
 }
 
-/* Mobile-native: prevent iOS input zoom — font-size must be ≥16px */
 input, textarea, select {
   font-size: 16px;
 }
 
-/* Mobile-native: gate ALL hover states so stuck-hover bug doesn't affect touch */
 @media (hover: none) {
   .btn-primary:hover,
   .btn-secondary:hover,
@@ -127,24 +189,25 @@ input, textarea, select {
   }
 }
 
-/* Accessible focus rings (WCAG 2.1 AA) */
+/* Accessible focus rings */
 :focus-visible {
-  outline: 2px solid rgba(255, 255, 255, 0.8) !important;
+  outline: 2px solid #0284C7 !important;
   outline-offset: 3px !important;
 }
 
 ::selection {
-  background-color: #FFFFFF;
-  color: #060709;
+  background-color: #0284C7;
+  color: #FFFFFF;
 }
 
 /* ─── Typography Utility Classes ────────────────────────────────────────────── */
 .type-display {
-  font-family: var(--font-family-heading);
+  font-family: var(--font-family-display);
   font-size: clamp(48px, 8vw, 96px);
   font-weight: 700;
-  line-height: 1.02;
+  line-height: 1.04;
   letter-spacing: -0.03em;
+  color: var(--text-warm-white);
 }
 
 .type-h2 {
@@ -153,14 +216,16 @@ input, textarea, select {
   font-weight: 600;
   line-height: 1.15;
   letter-spacing: -0.02em;
+  color: var(--text-warm-white);
 }
 
 .type-h3 {
-  font-family: var(--font-family-heading);
+  font-family: var(--font-family-serif);
   font-size: 24px;
   font-weight: 600;
   line-height: 1.3;
   letter-spacing: -0.01em;
+  color: var(--text-warm-white);
 }
 
 .type-body {
@@ -168,14 +233,16 @@ input, textarea, select {
   font-size: 17px;
   font-weight: 400;
   line-height: 1.65;
+  color: var(--text-muted);
 }
 
 .type-label {
   font-family: var(--font-family-heading);
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
+  color: var(--text-dim);
 }
 
 /* ─── Grid & Container Primitives ───────────────────────────────────────────── */
@@ -220,48 +287,59 @@ input, textarea, select {
   }
 }
 
-/* ─── Contrast Zones ───────────────────────────────────────────────────────── */
-.section-zone-dark {
-  background-color: #060709;
+/* ─── Luminous White Gradient Zones with Sky Blue Light Mists ─────────────── */
+.section-zone-white {
+  background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFD 100%);
+}
+
+.section-zone-warm {
+  background: linear-gradient(180deg, #F8FAFD 0%, #F0F8FF 100%);
+  border-top: 1px solid rgba(56, 189, 248, 0.15);
+  border-bottom: 1px solid rgba(56, 189, 248, 0.15);
 }
 
 .section-zone-elevated {
-  background-color: #0D0E15;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: linear-gradient(180deg, #F0F8FF 0%, #E6F3FD 100%);
+  border-top: 1px solid rgba(56, 189, 248, 0.20);
+  border-bottom: 1px solid rgba(56, 189, 248, 0.20);
 }
 
 .section-zone-gradient {
-  background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(255, 255, 255, 0.04), transparent 70%),
-              radial-gradient(ellipse 60% 40% at 80% 100%, rgba(255, 255, 255, 0.02), transparent 70%),
-              #060709;
+  background: radial-gradient(ellipse 90% 60% at 50% -10%, rgba(56, 189, 248, 0.16), transparent 75%),
+              radial-gradient(ellipse 70% 50% at 85% 100%, rgba(125, 211, 252, 0.12), transparent 75%),
+              linear-gradient(180deg, #FFFFFF 0%, #F8FAFD 100%);
 }
 
-/* ─── Button Primitives ─────────────────────────────────────────────────────── */
+/* ─── Sky Blue Light Button Primitives ───────────────────────────────────── */
 .btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: linear-gradient(180deg, #FFFFFF 0%, #F4F5F8 50%, #D5D8E4 100%);
-  color: #060709;
-  font-family: var(--font-family-heading);
+  background: linear-gradient(135deg, #0284C7 0%, #38BDF8 100%);
+  color: #FFFFFF;
+  font-family: var(--font-family-serif);
   font-size: 14px;
   font-weight: 600;
-  letter-spacing: 0.02em;
-  padding: 13px 26px;
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  border-radius: 8px;
+  letter-spacing: -0.01em;
+  padding: 12px 24px;
+  border: 1px solid #0284C7;
+  border-radius: 6px;
   cursor: pointer;
   text-decoration: none;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2), 0 2px 4px rgba(0, 0, 0, 0.6);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 3px rgba(2, 132, 199, 0.15), 0 4px 16px rgba(56, 189, 248, 0.32);
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .btn-primary:hover {
-  background: linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 100%);
+  background: linear-gradient(135deg, #0369A1 0%, #0284C7 100%);
   transform: translateY(-1px);
-  box-shadow: 0 0 32px rgba(255, 255, 255, 0.4), 0 4px 12px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 2px 6px rgba(2, 132, 199, 0.20), 0 6px 22px rgba(56, 189, 248, 0.45);
+}
+
+.btn-primary:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 2px rgba(2, 132, 199, 0.12);
 }
 
 .btn-secondary {
@@ -269,76 +347,44 @@ input, textarea, select {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  color: var(--text-warm-white);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  font-family: var(--font-family-heading);
+  background: #FFFFFF;
+  color: #0284C7;
+  border: 1px solid rgba(56, 189, 248, 0.40);
+  font-family: var(--font-family-serif);
   font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  padding: 13px 26px;
-  border-radius: 8px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  padding: 12px 24px;
+  border-radius: 6px;
   cursor: pointer;
   text-decoration: none;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.35);
-  color: #FFFFFF;
+  background: #F0F9FF;
+  border-color: #0284C7;
+  color: #0369A1;
   transform: translateY(-1px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
-/* ─── Bespoke Monochrome Glow & Border Utilities ────────────────────────────── */
-.glow-silver {
-  text-shadow: 0 0 20px rgba(213, 216, 228, 0.6);
+.btn-secondary:active {
+  transform: translateY(1px);
 }
 
-.glow-platinum {
-  text-shadow: 0 0 24px rgba(255, 255, 255, 0.8);
-}
-
-.border-glow-silver {
-  border-color: rgba(213, 216, 228, 0.4) !important;
-  box-shadow: 0 0 24px rgba(213, 216, 228, 0.12), inset 0 0 12px rgba(255, 255, 255, 0.04);
-}
-
-.border-glow-platinum {
-  border-color: rgba(255, 255, 255, 0.6) !important;
-  box-shadow: 0 0 28px rgba(255, 255, 255, 0.2), inset 0 0 14px rgba(255, 255, 255, 0.08);
-}
-
-.text-gradient-silver {
-  background: linear-gradient(180deg, #FFFFFF 0%, #D5D8E4 60%, #959CB3 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.text-gradient-platinum {
-  background: linear-gradient(180deg, #FFFFFF 0%, #ECEEF5 50%, #B0B7CB 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* ─── Card Primitive (Glassmorphic Surface) ─────────────────────────────────── */
+/* ─── Card Primitive (Luminous Crisp White Surface) ─────────────────────────── */
 .vistar-card {
-  background: rgba(255, 255, 255, 0.035);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  background: #FFFFFF;
+  border: 1px solid rgba(56, 189, 248, 0.18);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px 0 rgba(15, 23, 42, 0.04);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .vistar-card:hover {
-  border-color: rgba(255, 255, 255, 0.16);
-  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5);
-  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(56, 189, 248, 0.50);
+  box-shadow: 0 8px 24px 0 rgba(56, 189, 248, 0.15);
 }
 
 /* ─── Motion Reduced Accessibility ─────────────────────────────────────────── */
@@ -352,41 +398,39 @@ input, textarea, select {
 }
 
 /* ─── Record-Label Portal Architecture Utilities ────────────────────────────── */
-.font-syne {
-  font-family: 'Syne', var(--font-family-heading), sans-serif;
+.font-display {
+  font-family: var(--font-family-display);
 }
 
-.font-sora {
-  font-family: 'Sora', var(--font-family-base), sans-serif;
+.font-serif {
+  font-family: var(--font-family-serif);
 }
 
 .stroke-text {
-  -webkit-text-stroke: 1.5px rgba(237, 231, 220, 0.2);
+  -webkit-text-stroke: 1.5px rgba(15, 23, 42, 0.16);
   color: transparent;
 }
 
 .stroke-text-hover:hover {
-  -webkit-text-stroke: 1.5px rgba(232, 145, 60, 0.6);
+  -webkit-text-stroke: 1.5px #0284C7;
 }
 
-/* ─── Portal Nav — Hover Gating (mobile-native: no stuck-hover on touch) ───── */
-/* Default: no hover color change (works for touch) */
 .portal-nav-link {
   transition: color 0.15s ease, opacity 0.15s ease;
 }
 .portal-pill {
-  transition: border-color 0.15s ease, color 0.15s ease;
+  transition: border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease;
 }
 
-/* Only apply hover on pointer:fine (mouse/trackpad) — not touch */
 @media (hover: hover) and (pointer: fine) {
   .portal-nav-link:hover {
-    color: #E8913C;
+    color: #0284C7;
     opacity: 1;
   }
   .portal-pill:hover {
-    border-color: #E8913C;
-    color: #E8913C;
+    border-color: #0284C7;
+    background-color: #0284C7;
+    color: #FFFFFF;
   }
 }
 
@@ -401,3 +445,134 @@ input, textarea, select {
     0%, 100% { transform: translate3d(0, 0, 0); }
   }
 }
+
+/* ─── CELESTIAL OBSIDIAN & AEROSPACE TITANIUM GRID UTILITIES ──────────────── */
+.obsidian-grid-bg {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.obsidian-grid-bg-dense {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.obsidian-radial-glow {
+  background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+}
+
+/* ─── VISTAR EDITORIAL & SOVEREIGN DESIGN UTILITIES ─────────────────────────── */
+.vistar-grid-hero,
+.jasper-grid-hero {
+  background-color: #F1EFEA;
+  background-image: 
+    linear-gradient(to right, #FFFFFF 1.5px, transparent 1.5px),
+    linear-gradient(to bottom, #FFFFFF 1.5px, transparent 1.5px);
+  background-size: 44px 44px;
+}
+
+.vistar-peach-hero,
+.jasper-peach-hero {
+  background-color: #FFF0EB;
+  background-image:
+    linear-gradient(to right, rgba(255, 138, 122, 0.22) 1px, transparent 1px);
+  background-size: 160px 100%;
+}
+
+.vistar-halftone-dots,
+.jasper-halftone-dots {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.85) 2px, transparent 2px);
+  background-size: 18px 18px;
+}
+
+.vistar-halftone-dots-dark,
+.jasper-halftone-dots-dark {
+  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.08) 1.5px, transparent 1.5px);
+  background-size: 18px 18px;
+}
+
+.vistar-tile-pink,
+.jasper-tile-pink {
+  background-color: #FFDEE6;
+  background-image: 
+    linear-gradient(to right, #FFFFFF 1.5px, transparent 1.5px),
+    linear-gradient(to bottom, #FFFFFF 1.5px, transparent 1.5px);
+  background-size: 28px 28px;
+}
+
+.vistar-tape-lime,
+.jasper-tape-lime {
+  background-color: #66FF66;
+  color: #052E16;
+  transform: rotate(-1.5deg);
+  display: inline-block;
+  padding: 0.15em 0.5em;
+  font-family: var(--font-family-serif);
+  font-weight: 700;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.vistar-tape-blue,
+.jasper-tape-blue {
+  background-color: #1E60E6;
+  color: #FFFFFF;
+  transform: rotate(1.5deg);
+  display: inline-block;
+  padding: 0.15em 0.55em;
+  font-family: var(--font-family-serif);
+  font-weight: 700;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+}
+
+.vistar-tape-red,
+.jasper-tape-red {
+  background-color: #FF3823;
+  color: #FFEAE4;
+  transform: rotate(0deg);
+  display: inline-block;
+  padding: 0.15em 0.55em;
+  font-family: var(--font-family-serif);
+  font-weight: 700;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+}
+
+.vistar-tape-salmon,
+.jasper-tape-salmon {
+  background-color: #FFD8CE;
+  color: #1A1A1A;
+  display: inline-block;
+  padding: 0.25em 0.6em;
+  font-family: var(--font-family-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-radius: 2px;
+}
+
+/* ─── Lenis Smooth Scrolling Optimizations ─────────────────────────────────── */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+
+

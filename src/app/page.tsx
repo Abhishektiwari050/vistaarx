@@ -1,34 +1,94 @@
-"use client";
+// Homepage is a Server Component so Next.js can SSR the <head> metadata.
+// The child components handle their own "use client" directives.
+import type { Metadata } from "next";
+import { KEYWORDS, BASE_URL, DEFAULT_OG_IMAGES } from "@/lib/seo";
+import { CohereHero } from "@/components/cohere/cohere-hero";
+import { CohereSocialProof } from "@/components/cohere/cohere-social-proof";
+import { CohereEmpowerment } from "@/components/cohere/cohere-empowerment";
+import { CohereSolutions } from "@/components/cohere/cohere-solutions";
+import { CohereDeployment } from "@/components/cohere/cohere-deployment";
 
-import React from "react";
-import { ActOneExperience } from "@/components/home/act-one-experience";
-import { ArchitectureLayersSection } from "@/components/home/architecture-layers-section";
-import { SelectedWorkSection } from "@/components/home/selected-work-section";
-import { OwnershipSection } from "@/components/home/ownership-section";
-import { FinalCTASection } from "@/components/home/final-cta-section";
+// ─── Page-level metadata (overrides root layout title for the homepage) ───────
+export const metadata: Metadata = {
+  title: "VISTAR — Custom AI Software & Enterprise Web Engineering",
+  description:
+    "VISTAR builds custom AI agents, enterprise Next.js web applications, and interactive 3D WebGL experiences. 100% source code ownership. No vendor lock-in. Delivered in 14–21 day sprints.",
+  keywords: KEYWORDS.home,
+  alternates: {
+    canonical: BASE_URL,
+  },
+  openGraph: {
+    title: "VISTAR — Custom AI Software & Enterprise Web Engineering",
+    description:
+      "Custom AI agents, enterprise Next.js apps, and 3D interactive experiences — built to production and fully handed over to you.",
+    url: BASE_URL,
+    images: DEFAULT_OG_IMAGES,
+  },
+  twitter: {
+    title: "VISTAR — Custom AI Software & Enterprise Web Engineering",
+    description:
+      "Custom AI agents, enterprise Next.js apps, and 3D interactive experiences — built to production and fully handed over to you.",
+    images: [DEFAULT_OG_IMAGES[0].url],
+  },
+};
+
+// ─── Homepage JSON-LD: WebPage + BreadcrumbList ───────────────────────────────
+const homePageSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": `${BASE_URL}/#webpage`,
+      url: BASE_URL,
+      name: "VISTAR — Custom AI Software & Enterprise Web Engineering",
+      description:
+        "VISTAR builds custom AI agents, enterprise Next.js web applications, and interactive 3D WebGL experiences. 100% source code ownership on every project.",
+      isPartOf: { "@id": `${BASE_URL}/#website` },
+      about: { "@id": `${BASE_URL}/#organization` },
+      primaryImageOfPage: {
+        "@type": "ImageObject",
+        url: `${BASE_URL}/opengraph-image.jpg`,
+        width: 1200,
+        height: 630,
+      },
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: BASE_URL,
+        },
+      ],
+    },
+  ],
+};
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen bg-[#faf9f5] text-[#0a0a0a] overflow-clip">
-      
-      {/* Global subtle film noise overlay */}
-      <div className="noise-overlay" aria-hidden="true" />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(homePageSchema) }}
+      />
+      <div className="relative min-h-screen bg-white text-[#212121] w-full selection:bg-[#212121] selection:text-white">
+        {/* 01: HERO */}
+        <CohereHero />
 
-      {/* SCENE 01 — THE PHYSICAL SYSTEM (ACT I: ARRIVAL, STRAIN & MECHANICAL CLOSURE) */}
-      <ActOneExperience />
+        {/* 02: SOCIAL PROOF */}
+        <CohereSocialProof />
 
-      {/* SCENE 02 — THE 7-LAYER SYSTEMS ARCHITECTURE (PHYSICAL ASSEMBLY EXPLANATION) */}
-      <ArchitectureLayersSection />
+        {/* 03: EMPOWERMENT */}
+        <CohereEmpowerment />
 
-      {/* SCENE 03 — SELECTED WORK EXHIBITION (LARGE-SCALE REAL CASE STUDIES) */}
-      <SelectedWorkSection />
+        {/* 04: SOLUTIONS */}
+        <CohereSolutions />
 
-      {/* SCENE 04 — THE SOVEREIGN OWNERSHIP MANIFESTO (100% CODE HANDOVER) */}
-      <OwnershipSection />
-
-      {/* SCENE 05 — DIRECT COMMISSION (ARCHITECTURAL SCOPING & CONTACT) */}
-      <FinalCTASection />
-
-    </div>
+        {/* 05: SECURITY & DEPLOYMENT */}
+        <CohereDeployment />
+      </div>
+    </>
   );
 }

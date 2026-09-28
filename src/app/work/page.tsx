@@ -1,120 +1,100 @@
+// Server Component — exports metadata for SSR <head> injection.
+// The actual interactive UI lives in work-client.tsx.
 import type { Metadata } from "next";
-import WorkPage from "./work-client";
+import { KEYWORDS, BASE_URL, DEFAULT_OG_IMAGES } from "@/lib/seo";
+import WorkSolutionsPage from "./work-client";
 
+// ─── Page-level metadata ──────────────────────────────────────────────────────
 export const metadata: Metadata = {
-  title: "Production Case Studies & Shipped Systems",
+  title: "AI Software Engineering Portfolio & Enterprise Case Studies",
   description:
-    "Explore verified production systems engineered by Vistar Web Systems: Project VAYU (Aviation AI), AURA (Multi-Agent Telemetry), Atify (Native Audio Engine), 3axis Arc (3D Real Estate), and Competence CRM.",
-  keywords: [
-    "Next.js Case Studies",
-    "Aviation AI Telemetry",
-    "Multi-Agent System Architecture",
-    "Native Kotlin Audio Engine",
-    "WebGL Real Estate Platform",
-    "Enterprise CRM Engineering",
-    "Production Software Portfolio",
-  ],
+    "Inspect production systems built by VISTAR: an AI cockpit telemetry platform for aviation, multi-agent biometric anomaly detection for healthcare, and 3D architectural platforms for PropTech. 100% source code handed over on every project.",
+  keywords: KEYWORDS.work,
   alternates: {
-    canonical: "/work",
+    canonical: `${BASE_URL}/work`,
   },
   openGraph: {
-    title: "Production Case Studies & Shipped Systems | Vistar Web Systems",
+    title: "AI Software Engineering Portfolio & Enterprise Case Studies | VISTAR",
     description:
-      "Deep architectural breakdowns and verified metrics for production software platforms engineered by Vistar Web Systems.",
-    url: "https://www.vistar.tech/work",
-    type: "website",
+      "Production AI agents, enterprise web platforms, and interactive 3D systems — engineered by VISTAR and fully owned by the client. Inspect our live systems.",
+    url: `${BASE_URL}/work`,
+    images: DEFAULT_OG_IMAGES,
   },
   twitter: {
-    card: "summary_large_image",
-    title: "Production Case Studies & Shipped Systems | Vistar Web Systems",
+    title: "AI Software Engineering Portfolio & Enterprise Case Studies | VISTAR",
     description:
-      "Deep architectural breakdowns and verified metrics for production software platforms engineered by Vistar Web Systems.",
+      "Production AI agents, enterprise web platforms, and interactive 3D systems — engineered by VISTAR and fully owned by the client.",
+    images: [DEFAULT_OG_IMAGES[0].url],
   },
 };
 
-const workSchema = {
+// ─── Page JSON-LD ─────────────────────────────────────────────────────────────
+const workPageSchema = {
   "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  name: "Vistar Web Systems Shipped Software Portfolio",
-  description: "Verified commercial production systems and open-source software engineering breakdowns.",
-  url: "https://www.vistar.tech/work",
-  mainEntity: {
-    "@type": "ItemList",
-    itemListElement: [
-      {
-        "@type": "SoftwareApplication",
-        position: 1,
-        name: "Project VAYU (AI-VAYU)",
-        applicationCategory: "Aviation AI & Cockpit Telemetry",
-        operatingSystem: "Web",
-        url: "https://ai-vayu.vercel.app",
-        description: "AI-powered aviation cockpit platform with GIS interactive airspace HUD, automated NOTAM hazard decoding, and executive briefing reports.",
-      },
-      {
-        "@type": "SoftwareApplication",
-        position: 2,
-        name: "AURA: Multi-Agent Anomaly System",
-        applicationCategory: "Healthcare & Telemetry Monitoring",
-        operatingSystem: "Cloud / Web",
-        url: "https://multi-agent-anomaly-system.onrender.com",
-        description: "Asynchronous clinical telemetry monitoring and anomaly detection engine powered by a decoupled multi-agent system and Isolation Forest machine learning.",
-      },
-      {
-        "@type": "SoftwareApplication",
-        position: 3,
-        name: "Atify Audiophile Music Player",
-        applicationCategory: "Mobile Audio Engineering",
-        operatingSystem: "Android",
-        url: "https://github.com/Abhishektiwari050/Atify",
-        description: "Multi-source Android music engine with lossless Bit-Perfect FLAC playback, full Spotify account synchronization, and native Android Auto head-unit support.",
-      },
-      {
-        "@type": "SoftwareApplication",
-        position: 4,
-        name: "3axis Arc Architectural Platform",
-        applicationCategory: "PropTech & Real Estate",
-        operatingSystem: "Web",
-        url: "https://3axisarc.vercel.app",
-        description: "High-end architectural real estate platform featuring interactive 3D parallax with mouse-tracking perspective shifts and structural typography.",
-      },
-      {
-        "@type": "SoftwareApplication",
-        position: 5,
-        name: "Competence CRM Platform",
-        applicationCategory: "Enterprise B2B Operations",
-        operatingSystem: "Web",
-        url: "https://competenceconsultingcrm.onrender.com",
-        description: "Enterprise CRM and project management platform with automated client status tracking and activity telemetry logging.",
-      },
-      {
-        "@type": "SoftwareApplication",
-        position: 6,
-        name: "Vayuways Aviation Consultancy",
-        applicationCategory: "Aviation & Charter Logistics",
-        operatingSystem: "Web",
-        url: "https://vayuways.vercel.app",
-        description: "High-speed Next.js aviation services platform with modern flight inquiry dispatch and responsive fleet showcases.",
-      },
-      {
-        "@type": "SoftwareApplication",
-        position: 7,
-        name: "JBS Cargo Dispatch Platform",
-        applicationCategory: "Freight Logistics & Transport",
-        operatingSystem: "Web",
-        url: "https://jbs-cargo.vercel.app",
-        description: "Automated freight inquiry and logistics dispatch platform with instant quote generation and tracking workflows.",
-      },
-      {
-        "@type": "SoftwareApplication",
-        position: 8,
-        name: "KL Herbal E-Commerce Storefront",
-        applicationCategory: "E-Commerce",
-        operatingSystem: "Web",
-        url: "https://klherbal.vercel.app",
-        description: "Responsive, zero-layout-shift Next.js herbal wellness storefront with catalog filtering and instant checkout.",
-      },
-    ],
-  },
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": `${BASE_URL}/work#webpage`,
+      url: `${BASE_URL}/work`,
+      name: "AI Software Engineering Portfolio — VISTAR",
+      description:
+        "A portfolio of mission-critical production software engineered by VISTAR: aviation telemetry, healthcare AI, PropTech 3D platforms, and enterprise SaaS.",
+      isPartOf: { "@id": `${BASE_URL}/#website` },
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
+        { "@type": "ListItem", position: 2, name: "Our Work", item: `${BASE_URL}/work` },
+      ],
+    },
+    // Case study items
+    {
+      "@type": "ItemList",
+      name: "VISTAR Production Systems",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          item: {
+            "@type": "CreativeWork",
+            name: "Project VAYU: Cockpit Telemetry & NOTAM AI",
+            description:
+              "Real-time aviation cockpit dashboard with GIS vector hazard layers, automated NOTAM threat extraction, and sub-45ms situational awareness.",
+            url: "https://ai-vayu.vercel.app",
+            creator: { "@id": `${BASE_URL}/#organization` },
+            keywords: "aviation software development, cockpit telemetry dashboard, GIS hazard mapping",
+          },
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          item: {
+            "@type": "CreativeWork",
+            name: "AURA: Multi-Agent Biometric Anomaly Detection",
+            description:
+              "Multi-agent telemetry architecture with Isolation Forest ML models for real-time biometric anomaly detection in healthcare environments.",
+            url: "https://multi-agent-anomaly-system.onrender.com",
+            creator: { "@id": `${BASE_URL}/#organization` },
+            keywords: "healthcare AI development, biometric anomaly detection, multi-agent systems",
+          },
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          item: {
+            "@type": "CreativeWork",
+            name: "3axis Arc: High-Performance Spatial Platform",
+            description:
+              "Bespoke Next.js 16 3D architectural visualization platform with dynamic perspective transformations and sub-85ms global TTFB.",
+            url: "https://3axisarc.vercel.app",
+            creator: { "@id": `${BASE_URL}/#organization` },
+            keywords: "PropTech software development, architectural 3D visualization, WebGL real estate",
+          },
+        },
+      ],
+    },
+  ],
 };
 
 export default function Page() {
@@ -122,9 +102,9 @@ export default function Page() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(workSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(workPageSchema) }}
       />
-      <WorkPage />
+      <WorkSolutionsPage />
     </>
   );
 }

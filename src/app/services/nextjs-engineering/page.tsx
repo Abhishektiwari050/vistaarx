@@ -1,29 +1,31 @@
+import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { SpotlightCard } from "@/components/spotlight-card";
+import { Globe, ArrowRight, ShieldCheck, Zap, Layers, CheckCircle2 } from "lucide-react";
+import { KEYWORDS, BASE_URL, DEFAULT_OG_IMAGES } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Enterprise Next.js Development & App Router Engineering",
+  title: "Next.js Development Agency — Hire Next.js & React Engineers | VISTAR",
   description:
-    "Hire elite Next.js developers. We build custom high-performance web applications with sub-100ms TTFB, 99+ Lighthouse scores, React 19 Server Components, and 100% code ownership.",
-  keywords: [
-    "Enterprise Next.js Development",
-    "Hire Next.js Developers",
-    "Next.js App Router Migration",
-    "React Performance Optimization",
-    "Headless Shopify Next.js",
-    "Core Web Vitals Consulting",
-    "Sub-100ms TTFB Agency",
-  ],
+    "Hire senior Next.js developers. VISTAR builds enterprise Next.js App Router applications with sub-100ms TTFB, React 19 Server Components, Core Web Vitals optimization, and 100% source code ownership. No vendor lock-in.",
+  keywords: KEYWORDS.nextjsEngineering,
   alternates: {
-    canonical: "/services/nextjs-engineering",
+    canonical: `${BASE_URL}/services/nextjs-engineering`,
   },
   openGraph: {
-    title: "Enterprise Next.js Development & Engineering | Vistar Web Systems",
+    title: "Next.js Development Agency — Hire Next.js & React Engineers | VISTAR",
     description:
-      "Production-grade Next.js systems engineered for maximum velocity, sub-100ms TTFB, and zero layout shifts.",
-    url: "https://www.vistar.tech/services/nextjs-engineering",
+      "Senior Next.js engineers for enterprise web applications. Sub-100ms TTFB, React 19 Server Components, full source code ownership.",
+    url: `${BASE_URL}/services/nextjs-engineering`,
     type: "website",
+    images: DEFAULT_OG_IMAGES,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Next.js Development Agency — Hire Next.js & React Engineers | VISTAR",
+    description:
+      "Senior Next.js engineers for enterprise web applications. Sub-100ms TTFB, full source code ownership.",
+    images: [DEFAULT_OG_IMAGES[0].url],
   },
 };
 
@@ -51,7 +53,7 @@ const DELIVERABLES = [
     step: "01",
     title: "App Router & Server Component Architecture",
     desc: "Migrate legacy codebases or construct from zero using Next.js App Router, streaming SSR, and React 19 Server Components for instant page transitions.",
-    tags: ["React 19", "Next.js 15/16", "Streaming SSR"],
+    tags: ["React 19", "Next.js 16", "Streaming SSR"],
   },
   {
     step: "02",
@@ -75,142 +77,117 @@ const DELIVERABLES = [
 
 export default function NextJSEngineeringPage() {
   return (
-    <div className="w-full relative min-h-screen bg-[#faf9f5] text-[#0a0a0a] overflow-x-clip pt-28 pb-24">
+    <main className="w-full bg-[#FAF9F5] text-[#0E1118] font-sans antialiased selection:bg-[#FF3823] selection:text-white min-h-screen pt-20 pb-32">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
       />
-      <div className="noise-overlay" aria-hidden="true" />
 
-      <div className="max-w-6xl mx-auto px-6 sm:px-12 md:px-16 relative z-10 space-y-16">
-        {/* Header Breadcrumb */}
-        <div className="flex items-center gap-2 font-mono text-[10px] tracking-widest uppercase text-zinc-500">
-          <Link href="/" className="hover:text-black">Home</Link>
-          <span>/</span>
-          <span>Services</span>
-          <span>/</span>
-          <span className="text-black font-bold">Next.js Engineering</span>
-        </div>
-
-        {/* Hero Section */}
-        <div className="space-y-6 max-w-4xl">
-          <div className="inline-flex items-center gap-2 border-2 border-black bg-white px-3.5 py-1.5 rounded-md text-[9px] font-mono font-black tracking-[2px] uppercase text-black shadow-[2px_2px_0px_#ff1e90]">
-            <span className="w-2 h-2 rounded-full bg-[#d8ff42] border border-black animate-pulse" />
-            HIGH-INTENT COMMERCIAL SERVICE // NEXT.JS SPECIALISTS
+      {/* ── 1. JASPER HERO: ARCHITECTURAL BLUEPRINT GRID ── */}
+      <section className="relative jasper-grid-hero border-b border-black/10 pt-20 pb-28 text-center px-4">
+        <div className="max-w-4xl mx-auto space-y-6">
+          <div>
+            <span className="jasper-tape-salmon font-mono text-xs uppercase tracking-wider font-semibold px-3 py-1">
+              Services // Next.js &amp; Web Systems
+            </span>
           </div>
 
-          <h1 className="font-display font-black text-4xl sm:text-6xl md:text-7xl uppercase tracking-tighter text-[#0a0a0a] leading-[0.95]">
-            Enterprise Next.js <br />
-            <span className="font-serif italic font-normal text-zinc-400 lowercase">
-              built for speed, scale &amp; revenue.
-            </span>
+          <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl font-semibold text-[#0E1118] tracking-tight leading-[1.08]">
+            Enterprise Next.js &amp;{" "}
+            <span className="jasper-tape-lime text-3xl sm:text-5xl md:text-6xl px-4 py-1">
+              App Router
+            </span>{" "}
+            Engineering.
           </h1>
 
-          <p className="font-sans text-base sm:text-lg text-zinc-700 max-w-3xl leading-relaxed">
-            Stop losing conversions to slow, bloated templates. We engineer bespoke Next.js web applications with sub-100ms TTFB, 99+ Lighthouse performance scores, and uncompromised code ownership.
+          <p className="text-base sm:text-lg text-neutral-600 max-w-2xl mx-auto leading-relaxed">
+            Eliminate sluggish WordPress plugins and fragile Webflow sites. We build custom Next.js 16 platforms with sub-100ms TTFB, 99+ Lighthouse performance, and 100% repository ownership.
           </p>
 
-          <div className="flex flex-wrap items-center gap-4 pt-2">
+          <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
             <Link
-              href="/contact"
-              className="bg-[#d8ff42] text-black font-display font-black text-xs tracking-widest uppercase px-8 py-4 rounded-xl border-2 border-black shadow-[4px_4px_0px_#000] hover:shadow-[6px_6px_0px_#ff1e90] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all interactive"
+              href="/start"
+              className="bg-[#FF3823] hover:bg-[#E0301C] text-white px-7 py-3.5 font-semibold text-sm rounded-[4px] shadow-sm inline-flex items-center gap-2"
             >
-              Book Technical Consultation ⚡
+              Start Diagnostic
+              <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
               href="/work"
-              className="bg-white text-black font-display font-black text-xs tracking-widest uppercase px-8 py-4 rounded-xl border-2 border-black shadow-[4px_4px_0px_#000] hover:bg-[#faf9f5] transition-all interactive"
+              className="bg-white hover:bg-neutral-50 text-neutral-900 border border-neutral-900 px-7 py-3.5 font-semibold text-sm rounded-[4px] shadow-sm inline-flex items-center gap-2"
             >
-              Inspect Shipped Code &rarr;
+              Explore Next.js Platforms
             </Link>
           </div>
         </div>
+      </section>
 
-        {/* SLA Benchmark Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 border-[3px] border-black divide-x-[3px] divide-y-[3px] md:divide-y-0 divide-black bg-white shadow-[6px_6px_0px_#000] rounded-2xl overflow-hidden select-none">
-          <div className="p-6 text-center group hover:bg-[#d8ff42] transition-colors duration-200">
-            <div className="font-display font-black text-3xl sm:text-4xl text-black leading-none mb-1">&lt;100ms</div>
-            <div className="font-mono text-[9px] font-bold uppercase tracking-widest text-zinc-500 group-hover:text-black">Global Edge TTFB</div>
-          </div>
-          <div className="p-6 text-center group hover:bg-[#ff1e90] transition-colors duration-200">
-            <div className="font-display font-black text-3xl sm:text-4xl text-black group-hover:text-white leading-none mb-1">99 / 100</div>
-            <div className="font-mono text-[9px] font-bold uppercase tracking-widest text-zinc-500 group-hover:text-white">Lighthouse Performance</div>
-          </div>
-          <div className="p-6 text-center group hover:bg-[#d8ff42] transition-colors duration-200">
-            <div className="font-display font-black text-3xl sm:text-4xl text-black leading-none mb-1">0.000</div>
-            <div className="font-mono text-[9px] font-bold uppercase tracking-widest text-zinc-500 group-hover:text-black">CLS Layout Shift</div>
-          </div>
-          <div className="p-6 text-center group hover:bg-[#ff1e90] transition-colors duration-200">
-            <div className="font-display font-black text-3xl sm:text-4xl text-black group-hover:text-white leading-none mb-1">14–21d</div>
-            <div className="font-mono text-[9px] font-bold uppercase tracking-widest text-zinc-500 group-hover:text-white">Production Deployment</div>
-          </div>
+      {/* ── 2. CAPABILITIES GRID ── */}
+      <section className="max-w-6xl mx-auto px-6 py-24 space-y-16">
+        <div className="max-w-2xl">
+          <span className="font-mono text-xs uppercase tracking-widest border border-black/15 px-2.5 py-1 rounded bg-white">
+            Architecture Core
+          </span>
+          <h2 className="font-serif text-3xl sm:text-4xl font-semibold text-[#0E1118] tracking-tight mt-3">
+            High-Performance Deliverables
+          </h2>
         </div>
 
-        {/* Deliverables Architecture */}
-        <div className="space-y-8">
-          <div className="border-b-2 border-black/10 pb-4">
-            <span className="font-mono text-[10px] font-black uppercase tracking-widest text-[#ff1e90] block mb-1">
-              ENGINEERING DELIVERABLES
-            </span>
-            <h2 className="font-display font-black text-3xl sm:text-4xl uppercase tracking-tight text-black">
-              What We Architect For Your Business
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {DELIVERABLES.map((d) => (
-              <SpotlightCard
-                key={d.step}
-                className="bg-white border-2 border-black rounded-2xl p-6 sm:p-8 shadow-[4px_4px_0px_#000] hover:shadow-[8px_8px_0px_#d8ff42] transition-all duration-300"
-              >
-                <div className="space-y-4">
-                  <span className="font-mono text-xs font-black px-2.5 py-1 rounded bg-black text-[#d8ff42] inline-block">
-                    PHASE {d.step}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {DELIVERABLES.map((item) => (
+            <div
+              key={item.step}
+              className="bg-white border border-black/10 rounded-[6px] p-8 shadow-sm space-y-4 hover:border-black/30 transition-all flex flex-col justify-between"
+            >
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-xs font-semibold text-[#FF3823] uppercase tracking-wider">
+                    MODULE // {item.step}
                   </span>
-                  <h3 className="font-display font-black text-2xl uppercase tracking-tight text-black">
-                    {d.title}
-                  </h3>
-                  <p className="font-sans text-sm text-zinc-600 leading-relaxed">
-                    {d.desc}
-                  </p>
-                  <div className="flex flex-wrap gap-2 pt-2">
-                    {d.tags.map((t) => (
-                      <span
-                        key={t}
-                        className="font-mono text-[9px] font-bold uppercase px-2 py-0.5 rounded bg-black/5 border border-black/10 text-zinc-700"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
+                  <span className="font-serif text-2xl font-bold text-neutral-300">
+                    {item.step}
+                  </span>
                 </div>
-              </SpotlightCard>
-            ))}
+                <h3 className="font-serif text-2xl font-bold text-[#0E1118]">
+                  {item.title}
+                </h3>
+                <p className="text-sm text-neutral-600 leading-relaxed">
+                  {item.desc}
+                </p>
+              </div>
+
+              <div className="flex flex-wrap gap-2 pt-4 border-t border-black/5">
+                {item.tags.map((t, idx) => (
+                  <span key={idx} className="font-mono text-[11px] px-2.5 py-1 bg-[#FAF9F5] border border-black/10 rounded text-neutral-600">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── 3. FINAL CTA ── */}
+      <section className="w-full py-20 px-6 jasper-grid-hero border-t border-black/10 text-center">
+        <div className="max-w-3xl mx-auto space-y-6">
+          <h2 className="font-serif text-3xl sm:text-5xl font-semibold text-[#0E1118]">
+            Accelerate your web architecture.
+          </h2>
+          <p className="text-neutral-600 text-sm sm:text-base max-w-xl mx-auto">
+            14-day production delivery with verified 99+ Core Web Vitals.
+          </p>
+          <div className="pt-2">
+            <Link
+              href="/start"
+              className="bg-[#FF3823] hover:bg-[#E0301C] text-white px-8 py-4 font-semibold text-sm rounded-[4px] shadow-sm inline-flex items-center gap-2"
+            >
+              Start Technical Diagnostic
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </div>
-
-        {/* Bottom CTA Card */}
-        <div className="bg-black text-white border-[3px] border-black rounded-3xl p-8 sm:p-12 shadow-[8px_8px_0px_#d8ff42] flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="space-y-3 max-w-xl">
-            <span className="font-mono text-[9px] font-black tracking-widest uppercase text-[#d8ff42] bg-[#d8ff42]/10 border border-[#d8ff42]/20 px-3 py-1 rounded-full inline-block">
-              Ready To Deploy
-            </span>
-            <h3 className="font-display font-black text-3xl sm:text-4xl uppercase tracking-tight text-white leading-tight">
-              Let&apos;s build your next high-performance platform.
-            </h3>
-            <p className="font-sans text-sm text-zinc-400 leading-relaxed">
-              We take on a maximum of 2 enterprise builds per month to maintain flawless engineering standards.
-            </p>
-          </div>
-
-          <Link
-            href="/contact"
-            className="shrink-0 bg-[#d8ff42] text-black font-display font-black text-xs tracking-widest uppercase px-8 py-5 rounded-xl border-2 border-black shadow-[4px_4px_0px_#000] hover:shadow-[6px_6px_0px_#ff1e90] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all interactive"
-          >
-            Start Your Next.js Sprint ⚡
-          </Link>
-        </div>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }

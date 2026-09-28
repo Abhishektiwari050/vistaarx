@@ -17,11 +17,11 @@ interface BorderBeamProps {
 export function BorderBeam({
   className,
   size = 120,
-  duration = 12,
+  duration = 8,
   anchor = 90,
   borderWidth = 1.5,
-  colorFrom = "#d8ff42",
-  colorTo = "#ff1e90",
+  colorFrom = "#0284C7",
+  colorTo = "#C15F3C",
   delay = 0,
 }: BorderBeamProps) {
   return (
