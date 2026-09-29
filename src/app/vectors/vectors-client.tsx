@@ -35,8 +35,8 @@ const LIFECYCLE_STEPS = [
   },
   {
     step: "05. Verify",
-    title: "Cryptographic Lattice Audit",
-    desc: "Every step is verified with Falcon-1024 quantum-resistant signatures logged to immutable ClickHouse ledgers.",
+    title: "Cryptographic Audit Ledger",
+    desc: "Every step is cryptographically verified with HMAC-SHA256 signatures logged to immutable ClickHouse ledgers.",
     bg: "bg-[#F5F0FF] border-l-4 border-[#9333EA]",
   },
 ];
@@ -91,7 +91,7 @@ export default function VectorsPlatformPage() {
 
           <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl font-normal text-[#00063D] tracking-[-2.4px] leading-[1.05]">
             Vistar connects your data, models, and autonomous{" "}
-            <span className="inline-block bg-[#55FF55] text-[#052E16] -rotate-1 shadow-sm font-serif font-bold text-3xl sm:text-5xl md:text-6xl px-3 py-1">
+            <span className="font-serif italic font-normal text-[#FF3823]">
               agents
             </span>{" "}
             in one, sovereign runtime.
@@ -295,7 +295,7 @@ export default function VectorsPlatformPage() {
                 <p className="text-[#FF3823] font-semibold">// Continuous Multi-Agent Convergence Loop</p>
                 <p>1. INGESTION: 18ms stream ingestion via WebSocket binary buffer</p>
                 <p>2. ALIGNMENT: Strict JSON Schema gate &amp; deterministic state DAG</p>
-                <p>3. PERIMETER: Air-gapped VPC sandbox with Falcon-1024 encryption</p>
+                <p>3. PERIMETER: Air-gapped VPC sandbox with TLS 1.3 / AES-256 Egress Controls</p>
                 <p>4. EXECUTION: Parallel tool calls across decoupled worker pods</p>
                 <p>5. AUDIT: Immutable cryptographically signed execution proof</p>
               </div>
@@ -314,7 +314,7 @@ export default function VectorsPlatformPage() {
       <section className="w-full py-24 px-6 bg-white border-b border-black/10 text-center">
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="space-y-3">
-            <span className="inline-block bg-[#55FF55] text-[#052E16] font-mono text-xs uppercase tracking-wider font-semibold px-3 py-1 rounded-[2px]">
+            <span className="inline-block bg-black/5 text-[#052E16] border border-black/10 font-mono text-xs uppercase tracking-wider font-semibold px-3 py-1 rounded-[2px]">
               Sovereign IQ
             </span>
             <h2 className="font-serif text-3xl sm:text-5xl font-normal text-[#00063D] tracking-tight">
@@ -327,9 +327,9 @@ export default function VectorsPlatformPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="bg-[#E8FCE8] border border-black/10 rounded-[4px] p-6 text-left space-y-3">
-              <h3 className="font-serif text-xl font-bold text-[#052E16]">Lattice Ciphers and Falcon-1024</h3>
+              <h3 className="font-serif text-xl font-bold text-[#052E16]">Zero-Trust Cryptographic Isolation</h3>
               <p className="text-xs text-neutral-700 leading-relaxed">
-                Post-quantum cryptographic state channels ensure multi-agent communication is immune to present and future threats.
+                Hardware-backed TLS 1.3 tunnels, AES-256 state channels, and strict egress filtering guarantee zero data cross-contamination.
               </p>
             </div>
 

@@ -116,14 +116,14 @@ export default function ContactPage() {
       <section className="w-full pt-16 pb-16 jasper-grid-hero border-b border-black/10 text-center px-4">
         <div className="max-w-4xl mx-auto space-y-4">
           <div>
-            <span className="jasper-tape-salmon font-mono text-xs uppercase tracking-wider font-semibold px-3 py-1">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-black/5 border border-black/10 text-neutral-800 font-mono text-xs uppercase tracking-wider font-semibold rounded-[2px]">
               Direct Consultation // Guaranteed 24h SLA
             </span>
           </div>
 
           <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl font-semibold text-[#0E1118] tracking-tight leading-[1.08]">
             Let&apos;s architect your{" "}
-            <span className="jasper-tape-lime text-3xl sm:text-5xl md:text-6xl px-4 py-1">
+            <span className="font-serif italic font-normal text-[#FF3823]">
               sovereign
             </span>{" "}
             platform.
@@ -324,7 +324,7 @@ export default function ContactPage() {
                   <div className="flex items-center justify-between text-[11px] text-neutral-500 pt-2 border-t border-black/5 font-mono">
                     <span className="flex items-center gap-1.5">
                       <Lock className="w-3.5 h-3.5 text-emerald-600" />
-                      Falcon-1024 Encrypted Payload
+                      TLS 1.3 // AES-256 Encrypted Payload
                     </span>
                     <span className="flex items-center gap-1.5">
                       <Clock className="w-3.5 h-3.5 text-neutral-400" />

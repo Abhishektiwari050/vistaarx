@@ -27,16 +27,16 @@ const VECTOR_NODES: VectorNode[] = [
   {
     id: 1,
     step: "VECTOR 01 // INCEPTION",
-    title: "Type-Safe Schemas & Lattice Cryptography",
+    title: "Type-Safe Schemas & Zero-Trust Security",
     metric: "<12ms",
     metricLabel: "Contract Validation",
     cx: 210,
     cy: 135,
     summary:
-      "Deterministic data contracts and Falcon-1024 post-quantum lattice security verification ensure unbreakable runtime integrity before a single component renders.",
+      "Deterministic data contracts and hardware-backed TLS 1.3 / AES-256 state channel verification ensure unbreakable runtime integrity before a single component renders.",
     deliverables: [
       "Strict TypeScript Schema Synchronization",
-      "Post-Quantum Falcon-1024 Signatures",
+      "TLS 1.3 / AES-256 Cryptographic Channels",
       "Automated OpenTelemetry Instrumentation",
     ],
     techSpec: "RFC-9110 // Next.js 16 Typed Handlers",
@@ -143,7 +143,7 @@ export function SvgVectorPathSection() {
           SYS.VECTOR.GRID // X: 1280 Y: 420
         </div>
         <div className="absolute bottom-12 right-10 text-[11px] font-mono text-[#0284C7]/30 tracking-widest">
-          PROTOCOL // FALCON-1024.LATTICE
+          PROTOCOL // ZERO-TRUST.TLS13
         </div>
       </div>
 

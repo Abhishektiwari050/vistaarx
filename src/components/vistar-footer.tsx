@@ -21,7 +21,7 @@ const VISTAR_COLUMNS: FooterColumn[] = [
       { label: "North Autonomous Agents", href: "/vectors" },
       { label: "Sovereign Model Vaults", href: "/vectors" },
       { label: "Edge Telemetry Mesh", href: "/work" },
-      { label: "Lattice Cryptography", href: "/work" },
+      { label: "Zero-Trust Architecture", href: "/work" },
       { label: "Pricing & Tiers", href: "/pricing" },
     ],
   },
@@ -40,7 +40,7 @@ const VISTAR_COLUMNS: FooterColumn[] = [
     links: [
       { label: "Technical Essays", href: "/philosophy" },
       { label: "Deterministic Multi-Agent Graphs", href: "/philosophy" },
-      { label: "Falcon-1024 Lattice Security", href: "/philosophy" },
+      { label: "Zero-Trust Enterprise Security", href: "/philosophy" },
       { label: "Sub-90ms Edge Architecture", href: "/philosophy" },
       { label: "The Death of Vendor Lock-In", href: "/philosophy" },
     ],

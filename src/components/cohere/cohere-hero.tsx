@@ -34,9 +34,9 @@ export function CohereHero() {
             </motion.div>
 
             {/* 02: Cinematic Headline Reveal */}
-            <div className="mb-6 break-words max-w-[1128px] mx-auto overflow-hidden">
+            <div className="mb-6 break-words max-w-[1128px] mx-auto overflow-hidden px-2">
               <h1
-                className="text-[54px] sm:text-[72px] md:text-[88px] lg:text-[104px] font-normal leading-[0.98] tracking-[-0.03em] text-[#141413]"
+                className="text-4xl sm:text-6xl md:text-7xl lg:text-[96px] xl:text-[104px] font-normal leading-[1.04] sm:leading-[1.0] md:leading-[0.98] tracking-[-0.03em] text-[#141413]"
                 style={{
                   fontFamily:
                     '"CohereText", "Space Grotesk", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
@@ -48,7 +48,7 @@ export function CohereHero() {
                   animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                   transition={{ duration: 0.85, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  Your AI.
+                  Custom AI Agents.
                 </motion.span>
                 <motion.span
                   className="block overflow-hidden"
@@ -56,7 +56,7 @@ export function CohereHero() {
                   animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                   transition={{ duration: 0.85, delay: 0.36, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  Your rules.
+                  Your Code. Your Rules.
                 </motion.span>
               </h1>
             </div>

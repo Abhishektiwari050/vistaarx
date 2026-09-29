@@ -45,7 +45,7 @@ const PRODUCTION_CARDS: ProductionCard[] = [
     metrics: [
       { label: "Situational Latency", value: "<45ms" },
       { label: "Vector Layers", value: "Real-Time GIS" },
-      { label: "Security", value: "Falcon-1024" },
+      { label: "Security", value: "TLS 1.3 / AES-256" },
     ],
     liveUrl: "https://ai-vayu.vercel.app",
     displayUrl: "ai-vayu.vercel.app",
@@ -332,8 +332,83 @@ export function CohereSolutions() {
           </p>
         </div>
 
-        {/* ── 2. EXACT SAMPLE 3D PERSPECTIVE CARD DECK: SHIFTED UP TO BALANCE WITH HEADER ── */}
-        <div className="relative w-full flex flex-col items-center lg:items-end justify-center min-h-[380px] sm:min-h-[440px] lg:min-h-[500px] xl:min-h-[540px] -mt-16 sm:-mt-24 lg:-mt-[190px] xl:-mt-[220px] overflow-visible">
+        {/* ── 2A. MOBILE-OPTIMIZED PRODUCTION CARD STACK (CLEAN, ZERO 3D PERSPECTIVE DISTORTION) ── */}
+        <div className="flex md:hidden flex-col gap-6 w-full mt-8">
+          {PRODUCTION_CARDS.map((card) => (
+            <div
+              key={`mobile-${card.id}`}
+              onClick={() => handleCardClick(card)}
+              className="w-full bg-[#080d19] rounded-[16px] overflow-hidden border border-black/10 shadow-md cursor-pointer transition-transform active:scale-[0.99]"
+            >
+              {/* Browser Window Bar */}
+              <div className="h-8 px-3.5 flex items-center justify-between border-b border-white/10 bg-black/75">
+                <div className="flex items-center gap-1.5">
+                  <div className="w-2 h-2 rounded-full bg-[#ff5f56]" />
+                  <div className="w-2 h-2 rounded-full bg-[#ffbd2e]" />
+                  <div className="w-2 h-2 rounded-full bg-[#27c93f]" />
+                </div>
+                <div className="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-white/10 text-[10px] font-mono text-white/80">
+                  <Lock className="w-2.5 h-2.5 text-emerald-400" />
+                  <span className="truncate max-w-[150px]">{card.displayUrl || "vistar.systems"}</span>
+                </div>
+                <div className="flex items-center gap-1 text-[9px] font-mono uppercase text-emerald-400 font-semibold">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  LIVE
+                </div>
+              </div>
+
+              {/* Screenshot Image */}
+              <div className="relative w-full aspect-[16/10] bg-slate-950 overflow-hidden">
+                <Image
+                  src={card.image}
+                  alt={card.alt}
+                  fill
+                  className="object-cover object-top"
+                  sizes="(max-width: 768px) 100vw, 500px"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#050A14] via-[#050A14]/20 to-transparent pointer-events-none" />
+                
+                {/* Floating Category Pill */}
+                <div className="absolute top-3 right-3 z-10">
+                  <span className="px-3 py-1 bg-white text-[#050A14] text-[11px] font-bold rounded-full shadow-sm font-sans">
+                    {card.pill}
+                  </span>
+                </div>
+
+                {/* Bottom Overlay Title & Tag */}
+                <div className="absolute inset-x-0 bottom-0 p-4 z-10">
+                  <span
+                    className="text-[9px] font-mono uppercase tracking-wider font-semibold px-2 py-0.5 rounded bg-black/70 border border-white/15 text-white/90"
+                    style={{ color: card.accentColor }}
+                  >
+                    {card.tag}
+                  </span>
+                  <h3 className="font-sans font-bold text-base text-white mt-1.5 truncate">
+                    {card.title}
+                  </h3>
+                </div>
+              </div>
+
+              {/* Mobile Quick Metrics & Action */}
+              <div className="p-3.5 bg-neutral-900 border-t border-white/5 flex items-center justify-between text-xs font-mono text-neutral-300">
+                <div className="flex items-center gap-3">
+                  {card.metrics.slice(0, 2).map((m, idx) => (
+                    <div key={idx} className="flex flex-col">
+                      <span className="text-[10px] text-neutral-400 uppercase">{m.label}</span>
+                      <span className="text-white font-semibold">{m.value}</span>
+                    </div>
+                  ))}
+                </div>
+                <span className="text-[11px] font-sans font-semibold text-[#FF3823] flex items-center gap-1">
+                  Inspect System &rarr;
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* ── 2B. DESKTOP 3D PERSPECTIVE CARD DECK: SHIFTED UP TO BALANCE WITH HEADER ── */}
+        <div className="hidden md:flex relative w-full flex-col items-center lg:items-end justify-center min-h-[380px] sm:min-h-[440px] lg:min-h-[500px] xl:min-h-[540px] -mt-16 sm:-mt-24 lg:-mt-[190px] xl:-mt-[220px] overflow-visible">
           
           {/* 3D Perspective Scene Container */}
           <div

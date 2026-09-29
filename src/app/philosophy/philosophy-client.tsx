@@ -17,9 +17,9 @@ const RESEARCH_ESSAYS = [
   {
     num: "02",
     tag: "CRYPTOGRAPHY",
-    title: "Falcon-1024 Lattice Security in Modern Enterprise Telemetry",
-    desc: "A mathematical breakdown of post-quantum cryptography applied to distributed multi-agent channels. Resisting Shor's algorithm and securing private enterprise state transitions.",
-    readTime: "9 min read",
+    title: "Zero-Trust Cryptographic Isolation in Modern Enterprise Telemetry",
+    desc: "An architectural breakdown of hardware-backed TLS 1.3 state channels, AES-256-GCM encryption, and air-gapped VPC sandbox boundaries applied to distributed multi-agent clusters.",
+    readTime: "8 min read",
     author: "Security Labs",
   },
   {
@@ -48,14 +48,14 @@ export default function PhilosophyPage() {
       <section className="relative w-full pt-20 pb-28 md:pt-28 md:pb-36 bg-[#F2EFE9] [background-image:linear-gradient(to_right,#ffffff_1.5px,transparent_1.5px),linear-gradient(to_bottom,#ffffff_1.5px,transparent_1.5px)] [background-size:46px_46px] border-b border-black/10 text-center px-4">
         <div className="max-w-4xl mx-auto space-y-8">
           <div>
-            <span className="inline-block bg-[#FFD8CE] text-[#1A1A1A] font-mono text-xs uppercase tracking-wider font-semibold px-3 py-1 rounded-[2px]">
+            <span className="inline-block bg-black/5 border border-black/10 text-neutral-800 font-mono text-xs uppercase tracking-wider font-semibold px-3 py-1 rounded-[2px]">
               Research &amp; Axioms
             </span>
           </div>
 
           <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl font-semibold text-[#0E1118] tracking-tight leading-[1.08]">
             We reject throwaway software. We engineer{" "}
-            <span className="inline-block bg-[#1E60E6] text-white rotate-1 shadow-sm font-serif font-bold text-3xl sm:text-5xl md:text-6xl px-4 py-1">
+            <span className="font-serif italic font-normal text-[#1E60E6]">
               sovereign
             </span>{" "}
             infrastructure.

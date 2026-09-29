@@ -24,11 +24,11 @@ const MATRIX_SECTIONS: MatrixSection[] = [
     ],
   },
   {
-    title: "LLM & Falcon-1024 Optimization",
+    title: "LLM & Cryptographic Security",
     headerBg: "bg-[#EBF3FF] text-[#1E3A8A]",
     rows: [
       { name: "Model Routing & Token Optimization", sprint: true, business: true },
-      { name: "Falcon-1024 Post-Quantum Lattice Ciphers", sprint: "Standard Ciphers", business: "Full Lattice Channels" },
+      { name: "TLS 1.3 / AES-256 State Channels & Egress Controls", sprint: "Standard Security", business: "Dedicated Hardened Channels" },
       { name: "Zero Third-Party Model Training Leakage", sprint: true, business: true },
       { name: "Air-Gapped Egress Option", sprint: false, business: true },
     ],
@@ -86,8 +86,8 @@ const FAQS_SECURITY = [
     a: "Yes. On our Sovereign Business deployments, the entire autonomous agent cluster, vector databases, and model checkpoints are provisioned inside your private AWS, GCP, or on-premise VPC perimeter with zero public egress.",
   },
   {
-    q: "What is Falcon-1024 encryption?",
-    a: "Falcon-1024 is a NIST-standardized post-quantum lattice signature scheme. It ensures that multi-agent state channels and enterprise financial settlements are impervious to both present-day decryption and future quantum computing attacks.",
+    q: "How does Vistar secure multi-agent communication and data egress?",
+    a: "We enforce mutual TLS 1.3, AES-256-GCM encryption at rest and in transit, private VPC subnet isolation, and strict role-based token sanitization to guarantee zero cross-tenant leakage and zero third-party training on your data.",
   },
   {
     q: "What certifications does Vistar align with?",
@@ -257,7 +257,7 @@ export default function PricingPage() {
                   </li>
                   <li className="flex items-center gap-2.5">
                     <Check className="w-4 h-4 text-[#FF3823] shrink-0" />
-                    <span>Falcon-1024 Post-Quantum Encryption</span>
+                    <span>TLS 1.3 &amp; AES-256 Enterprise Security</span>
                   </li>
                   <li className="flex items-center gap-2.5">
                     <Check className="w-4 h-4 text-[#FF3823] shrink-0" />
@@ -281,37 +281,42 @@ export default function PricingPage() {
             <p className="text-neutral-500 text-sm mt-2">
               Comprehensive breakdown of capabilities across engagement tiers.
             </p>
+            <p className="text-neutral-400 font-mono text-[11px] mt-3 sm:hidden">
+              ← Scroll horizontally to inspect full matrix →
+            </p>
           </div>
 
-          <div className="border border-black/10 rounded-[6px] overflow-hidden bg-white shadow-2xs">
-            {MATRIX_SECTIONS.map((sec, idx) => (
-              <div key={idx} className="border-b last:border-b-0 border-black/10">
-                <div className={`${sec.headerBg} px-6 py-3.5 font-serif text-base font-bold tracking-tight`}>
-                  {sec.title}
-                </div>
-                <div className="divide-y divide-black/5">
-                  {sec.rows.map((row, rIdx) => (
-                    <div key={rIdx} className="grid grid-cols-12 px-6 py-3.5 text-sm items-center hover:bg-neutral-50">
-                      <div className="col-span-6 font-medium text-neutral-800">{row.name}</div>
-                      <div className="col-span-3 text-center text-xs text-neutral-600">
-                        {typeof row.sprint === "boolean" ? (
-                          row.sprint ? <Check className="w-4 h-4 text-emerald-600 mx-auto" /> : <span className="text-neutral-300">—</span>
-                        ) : (
-                          row.sprint
-                        )}
+          <div className="border border-black/10 rounded-[6px] overflow-hidden bg-white shadow-2xs overflow-x-auto">
+            <div className="min-w-[580px]">
+              {MATRIX_SECTIONS.map((sec, idx) => (
+                <div key={idx} className="border-b last:border-b-0 border-black/10">
+                  <div className={`${sec.headerBg} px-6 py-3.5 font-serif text-base font-bold tracking-tight`}>
+                    {sec.title}
+                  </div>
+                  <div className="divide-y divide-black/5">
+                    {sec.rows.map((row, rIdx) => (
+                      <div key={rIdx} className="grid grid-cols-12 px-6 py-3.5 text-sm items-center hover:bg-neutral-50">
+                        <div className="col-span-6 font-medium text-neutral-800">{row.name}</div>
+                        <div className="col-span-3 text-center text-xs text-neutral-600">
+                          {typeof row.sprint === "boolean" ? (
+                            row.sprint ? <Check className="w-4 h-4 text-emerald-600 mx-auto" /> : <span className="text-neutral-300">—</span>
+                          ) : (
+                            row.sprint
+                          )}
+                        </div>
+                        <div className="col-span-3 text-center text-xs font-semibold text-[#00063D]">
+                          {typeof row.business === "boolean" ? (
+                            row.business ? <Check className="w-4 h-4 text-[#FF3823] mx-auto" /> : <span className="text-neutral-300">—</span>
+                          ) : (
+                            row.business
+                          )}
+                        </div>
                       </div>
-                      <div className="col-span-3 text-center text-xs font-semibold text-[#00063D]">
-                        {typeof row.business === "boolean" ? (
-                          row.business ? <Check className="w-4 h-4 text-[#FF3823] mx-auto" /> : <span className="text-neutral-300">—</span>
-                        ) : (
-                          row.business
-                        )}
-                      </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -324,7 +329,7 @@ export default function PricingPage() {
             Enterprise-grade security, quality outputs
           </h2>
           <p className="text-neutral-600 text-sm max-w-xl mx-auto">
-            Zero training on client payloads, air-gapped VPC sandbox perimeters, and Falcon-1024 cryptographic verification.
+            Zero training on client payloads, air-gapped VPC sandbox perimeters, and end-to-end cryptographic verification.
           </p>
           <div className="pt-2">
             <Link href="/philosophy" className="border border-black text-[#00063D] font-semibold text-xs px-5 py-2.5 rounded-[4px] inline-block hover:bg-neutral-50">

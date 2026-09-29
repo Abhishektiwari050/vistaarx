@@ -27,21 +27,21 @@ interface ProductionCard {
 const PRODUCTION_CARDS: ProductionCard[] = [
   {
     id: 1,
-    slug: "quantum",
-    pill: "Quantum resilience",
+    slug: "enterprise-security",
+    pill: "Zero-Trust Security",
     pillPosition: "top-8 right-12",
-    tag: "LAYER 01 // QUANTUM RESILIENCE",
-    category: "Post-Quantum Cryptography & AI",
-    title: "Falcon-1024 Lattice Security & AI Architecture",
-    shortDesc: "Post-quantum cryptographic verification, zero-trust state channels, and enterprise AI safeguards.",
+    tag: "LAYER 01 // ENTERPRISE SECURITY",
+    category: "Zero-Trust Cryptography & AI",
+    title: "TLS 1.3 / AES-256 State Security & AI Architecture",
+    shortDesc: "Hardware-backed zero-trust state channels, AES-256 egress controls, and enterprise AI safeguards.",
     fullDesc:
-      "Vistar engineers mission-critical web applications with post-quantum lattice cryptography and deterministic AI guardrails, ensuring sovereign platform resilience against next-generation computational threats.",
+      "Vistar engineers mission-critical web applications with mutual TLS 1.3, AES-256-GCM encryption at rest and in transit, and deterministic AI guardrails ensuring sovereign platform resilience.",
     image: "/projects/vayuways.png",
-    alt: "Quantum Resilience Interface",
+    alt: "Zero-Trust Security Interface",
     bgGradient: "linear-gradient(135deg, #0C34F0 0%, #1640EA 45%, #0A26A8 100%)",
     accentColor: "#38BDF8",
     metrics: [
-      { label: "Lattice Entropy", value: "1024-bit" },
+      { label: "Encryption", value: "AES-256" },
       { label: "Verification", value: "<45ms" },
       { label: "IP Ownership", value: "100% Git" },
     ],
@@ -378,7 +378,7 @@ export function AlgorandHero() {
                             : "translate3d(0px, 0%, 0px) scale3d(1, 1, 1)",
                         }}
                       >
-                        {/* ── CARD 1: ELECTRIC COBALT BLUEPRINT & QUANTUM RESILIENCE ── */}
+                          {/* ── CARD 1: ELECTRIC COBALT BLUEPRINT & ZERO-TRUST SECURITY ── */}
                         {card.id === 1 && (
                           <div className="absolute inset-0 overflow-hidden pointer-events-none">
                             {/* CAD Corner Bracket */}
@@ -390,8 +390,8 @@ export function AlgorandHero() {
                             <div className="absolute top-14 left-8 max-w-[280px] text-[11px] font-mono text-cyan-200/80 leading-relaxed">
                               <p className="text-white/90">// Box 01: Vistar Signature Cipher</p>
                               <p>#signature_res: 0x93FA92...</p>
-                              <p className="text-cyan-300/80">(128-bit lattice entropy verified)</p>
-                              <p className="mt-2 text-white/60">return Falcon.Sign(payload) -&gt;</p>
+                              <p className="text-cyan-300/80">(AES-256-GCM verified channel)</p>
+                              <p className="mt-2 text-white/60">return HMAC.Sign(payload, key) -&gt;</p>
                             </div>
 
                             {/* 3D Wireframe Cube Monolith in center-bottom */}
@@ -406,7 +406,7 @@ export function AlgorandHero() {
                             {/* Technical Monospace Bottom Text */}
                             <div className="absolute bottom-6 left-8 right-8 flex items-end justify-between text-white/95">
                               <div className="text-[10px] font-mono text-cyan-200/80 uppercase tracking-wider">
-                                Falcon 1024-bit post-quantum lattice cryptography
+                                AES-256-GCM zero-trust cryptographic channel
                               </div>
                               <div className="font-mono text-xs text-white bg-white/10 px-3 py-1.5 rounded-full border border-white/20 backdrop-blur-sm font-semibold">
                                 &lt;45ms Latency

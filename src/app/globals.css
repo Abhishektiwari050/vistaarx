@@ -506,46 +506,40 @@ input, textarea, select {
 
 .vistar-tape-lime,
 .jasper-tape-lime {
-  background-color: #66FF66;
-  color: #052E16;
-  transform: rotate(-1.5deg);
-  display: inline-block;
-  padding: 0.15em 0.5em;
+  color: #FF3823;
+  font-style: italic;
   font-family: var(--font-family-serif);
-  font-weight: 700;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  font-weight: 400;
+  display: inline;
 }
 
 .vistar-tape-blue,
 .jasper-tape-blue {
-  background-color: #1E60E6;
-  color: #FFFFFF;
-  transform: rotate(1.5deg);
-  display: inline-block;
-  padding: 0.15em 0.55em;
+  color: #1E60E6;
+  font-style: italic;
   font-family: var(--font-family-serif);
-  font-weight: 700;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+  font-weight: 400;
+  display: inline;
 }
 
 .vistar-tape-red,
 .jasper-tape-red {
-  background-color: #FF3823;
-  color: #FFEAE4;
-  transform: rotate(0deg);
-  display: inline-block;
-  padding: 0.15em 0.55em;
+  color: #FF3823;
+  font-style: italic;
   font-family: var(--font-family-serif);
-  font-weight: 700;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+  font-weight: 400;
+  display: inline;
 }
 
 .vistar-tape-salmon,
 .jasper-tape-salmon {
-  background-color: #FFD8CE;
+  background-color: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   color: #1A1A1A;
-  display: inline-block;
-  padding: 0.25em 0.6em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25em 0.65em;
   font-family: var(--font-family-mono);
   font-size: 0.75rem;
   letter-spacing: 0.05em;

@@ -28,14 +28,14 @@ export default function StartPage() {
       <section className="relative w-full pt-16 pb-16 md:pt-24 md:pb-24 jasper-grid-hero border-b border-black/10 text-center px-4">
         <div className="max-w-4xl mx-auto space-y-4">
           <div>
-            <span className="jasper-tape-salmon font-mono text-xs uppercase tracking-wider font-semibold px-3 py-1">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-black/5 border border-black/10 text-neutral-800 font-mono text-xs uppercase tracking-wider font-semibold rounded-[2px]">
               Project Initiation // 24-Hour SLA
             </span>
           </div>
 
           <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl font-semibold text-[#0E1118] tracking-tight leading-[1.08]">
             Request a demo &amp;{" "}
-            <span className="jasper-tape-lime text-3xl sm:text-5xl md:text-6xl px-4 py-1">
+            <span className="font-serif italic font-normal text-[#FF3823]">
               diagnostic
             </span>{" "}
             sprint.

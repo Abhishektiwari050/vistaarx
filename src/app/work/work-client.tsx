@@ -56,7 +56,7 @@ const ROLES = [
   {
     role: "Head of AI & Machine Learning",
     summary: "Isolate proprietary model weights and fine-tuned embeddings in your private VPC perimeter.",
-    detail: "Zero cross-tenant inference leakage. Dedicated Falcon-1024 quantum-resistant state channels.",
+    detail: "Zero cross-tenant inference leakage. Dedicated TLS 1.3 / AES-256 state channels.",
   },
   {
     role: "Information Security & Compliance",
