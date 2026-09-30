@@ -48,13 +48,14 @@
 
 ## Canonical URLs
 - Home: https://www.vistar.tech/
+- Engineering Blog: https://www.vistar.tech/blog
 - Global Network & PoPs: https://www.vistar.tech/network
 - Case Studies: https://www.vistar.tech/work
 - AI Solutions: https://www.vistar.tech/services/ai-solutions
 - Next.js Engineering: https://www.vistar.tech/services/nextjs-engineering
 - 3D WebGL: https://www.vistar.tech/services/interactive-3d
 - Technical Vectors: https://www.vistar.tech/vectors
-- Philosophy: https://www.vistar.tech/philosophy
+- Philosophy & Underdog Manifesto: https://www.vistar.tech/philosophy
 - Pricing: https://www.vistar.tech/pricing
 - Diagnostic: https://www.vistar.tech/start
 - Contact: https://www.vistar.tech/contact

@@ -37,11 +37,11 @@ const VISTAR_COLUMNS: FooterColumn[] = [
   {
     title: "RESEARCH & AXIOMS",
     links: [
-      { label: "Technical Essays", href: "/philosophy" },
-      { label: "Deterministic Multi-Agent Graphs", href: "/philosophy" },
-      { label: "Zero-Trust Enterprise Security", href: "/philosophy" },
-      { label: "Sub-90ms Edge Architecture", href: "/philosophy" },
-      { label: "The Death of Vendor Lock-In", href: "/philosophy" },
+      { label: "Engineering Blog & Logs", href: "/blog" },
+      { label: "Deterministic Multi-Agent Graphs", href: "/blog/deterministic-multi-agent-graphs-vs-probabilistic-drift" },
+      { label: "The Death of Agency Wrappers", href: "/blog/why-agencies-charge-200k-for-chatgpt-wrappers" },
+      { label: "Sovereign Private VPC Guide", href: "/blog/sovereign-private-vpc-ai-deployment-guide" },
+      { label: "Underdog Engineering Manifesto", href: "/philosophy" },
     ],
   },
   {

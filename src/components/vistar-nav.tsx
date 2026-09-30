@@ -15,6 +15,7 @@ const NAV_LINKS: NavLinkItem[] = [
   { label: "Solutions", href: "/work" },
   { label: "Network", href: "/network" },
   { label: "Research", href: "/philosophy" },
+  { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ];
 

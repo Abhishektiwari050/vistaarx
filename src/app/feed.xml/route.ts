@@ -1,10 +1,20 @@
 import { NextResponse } from "next/server";
+import { BLOG_POSTS } from "@/lib/blog-data";
 
 export async function GET() {
   const baseUrl = "https://www.vistar.tech";
   const pubDate = new Date().toUTCString();
 
+  const blogItems = BLOG_POSTS.map((post) => ({
+    title: post.title,
+    link: `${baseUrl}/blog/${post.slug}`,
+    description: post.excerpt,
+    pubDate: new Date(post.date).toUTCString(),
+    guid: `${baseUrl}/blog/${post.slug}`,
+  }));
+
   const items = [
+    ...blogItems,
     {
       title: "Global Points of Presence (PoPs) & Sovereign AI Edge Network Architecture",
       link: `${baseUrl}/network`,
@@ -36,22 +46,6 @@ export async function GET() {
         "GPU-accelerated architectural perspective transformations delivering 60fps locked rendering and sub-85ms global TTFB worldwide.",
       pubDate,
       guid: `${baseUrl}/work#3axisarc`,
-    },
-    {
-      title: "Autonomous Multi-Agent Systems & Sovereign Cloud AI Engineering",
-      link: `${baseUrl}/services/ai-solutions`,
-      description:
-        "Deterministic agent graphs, private VPC model vaults, and enterprise workflow automation delivered in 14-day production sprints with 100% source code ownership.",
-      pubDate,
-      guid: `${baseUrl}/services/ai-solutions`,
-    },
-    {
-      title: "Enterprise Next.js 16 & React 19 Edge Engineering Standards",
-      link: `${baseUrl}/services/nextjs-engineering`,
-      description:
-        "Mission-critical web platforms engineered with TypeScript, PostgreSQL 16 relational integrity, and sub-100ms global Anycast edge response times.",
-      pubDate,
-      guid: `${baseUrl}/services/nextjs-engineering`,
     },
   ];
 

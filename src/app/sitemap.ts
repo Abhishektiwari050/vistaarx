@@ -1,8 +1,16 @@
 import type { MetadataRoute } from "next";
+import { BLOG_POSTS } from "@/lib/blog-data";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://www.vistar.tech";
   const lastModified = new Date().toISOString();
+
+  const blogPostEntries: MetadataRoute.Sitemap = BLOG_POSTS.map((post) => ({
+    url: `${baseUrl}/blog/${post.slug}`,
+    lastModified: new Date(post.date).toISOString(),
+    changeFrequency: "weekly",
+    priority: 0.88,
+  }));
 
   return [
     // ── Tier 1: Core money pages ─────────────────────────────────────────────
@@ -19,16 +27,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.95,
     },
     {
-      url: `${baseUrl}/contact`,
-      lastModified,
-      changeFrequency: "monthly",
-      priority: 0.92,
-    },
-    {
       url: `${baseUrl}/network`,
       lastModified,
       changeFrequency: "weekly",
       priority: 0.94,
+    },
+    {
+      url: `${baseUrl}/blog`,
+      lastModified,
+      changeFrequency: "daily",
+      priority: 0.93,
+    },
+    {
+      url: `${baseUrl}/contact`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.92,
     },
     // ── Tier 2: Service landing pages ─────────────────────────────────────────
     {
@@ -67,7 +81,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.89,
     },
-    // ── Tier 3: Trust & authority pages ──────────────────────────────────────
+    // ── Tier 3: Blog posts & Technical Articles ─────────────────────────────
+    ...blogPostEntries,
+    // ── Tier 4: Trust & authority pages ──────────────────────────────────────
     {
       url: `${baseUrl}/vectors`,
       lastModified,
@@ -86,7 +102,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.78,
     },
-    // ── Tier 4: Legal / utility ───────────────────────────────────────────────
+    // ── Tier 5: Legal / utility ───────────────────────────────────────────────
     {
       url: `${baseUrl}/privacy`,
       lastModified,
