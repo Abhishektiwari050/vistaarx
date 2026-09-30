@@ -4,7 +4,6 @@ import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { VistarLogo } from "./vistar-logo";
-import { playClick } from "@/lib/sound";
 
 interface NavLinkItem {
   label: string;
@@ -14,6 +13,7 @@ interface NavLinkItem {
 const NAV_LINKS: NavLinkItem[] = [
   { label: "Platform", href: "/vectors" },
   { label: "Solutions", href: "/work" },
+  { label: "Network", href: "/network" },
   { label: "Research", href: "/philosophy" },
   { label: "Contact", href: "/contact" },
 ];

@@ -39,14 +39,16 @@
 - **14-Day Production Sprints**: Fixed-scope delivery with continuous automated testing.
 - **Data Sovereignty**: Private VPC deployments with zero third-party model training leakage.
 
-## Global Service Footprint & Edge Regions
-- **North America**: United States (New York, San Francisco, Austin, Seattle, Boston), Canada (Toronto).
-- **Europe & UK**: United Kingdom (London), Germany (Berlin, Frankfurt), Netherlands (Amsterdam), France (Paris).
-- **Middle East**: United Arab Emirates (Dubai, Abu Dhabi), Saudi Arabia (Riyadh).
-- **Asia-Pacific**: India (Bengaluru, Mumbai, Delhi-NCR), Singapore, Japan (Tokyo), Australia (Sydney, Melbourne).
+## Global Service Footprint & 16 Edge Points of Presence (PoPs)
+- **Americas**: SFO-1 (Silicon Valley, 14ms), IAD-1 (Ashburn/DC, 18ms), LGA-1 (New York, 20ms), ORD-1 (Chicago, 22ms), YYZ-1 (Toronto, 25ms).
+- **EMEA**: LHR-1 (London, 24ms), FRA-1 (Frankfurt, 26ms), AMS-1 (Amsterdam, 28ms), CDG-1 (Paris, 29ms), ZRH-1 (Zurich, 30ms).
+- **Middle East**: DXB-1 (Dubai, 38ms), AUH-1 (Abu Dhabi, 40ms).
+- **Asia-Pacific**: BLR-1 (Bengaluru, 35ms), BOM-1 (Mumbai, 37ms), SIN-1 (Singapore, 32ms), NRT-1 (Tokyo, 42ms), SYD-1 (Sydney, 55ms).
+- **Global Network Architecture**: https://www.vistar.tech/network
 
 ## Canonical URLs
 - Home: https://www.vistar.tech/
+- Global Network & PoPs: https://www.vistar.tech/network
 - Case Studies: https://www.vistar.tech/work
 - AI Solutions: https://www.vistar.tech/services/ai-solutions
 - Next.js Engineering: https://www.vistar.tech/services/nextjs-engineering

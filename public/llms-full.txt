@@ -119,25 +119,33 @@ VISTAR replaces ambiguous, open-ended agency retainers with structured, mileston
 
 ---
 
-## 5. Global Service Footprint & Regional Presence
+## 5. Global Service Footprint & 16 Edge Points of Presence (PoPs)
 
-VISTAR services enterprise clients, fast-growing venture-backed startups, and critical infrastructure operators worldwide:
+VISTAR deploys sovereign software, private VPC vaults, and autonomous multi-agent clusters across 16 global carrier-neutral Points of Presence (PoPs) with sub-40ms P95 latency:
 
-* **North America:**
-  * United States: New York, NY; San Francisco / Silicon Valley, CA; Austin, TX; Seattle, WA; Boston, MA.
-  * Canada: Toronto, ON; Vancouver, BC.
-* **Europe & United Kingdom:**
-  * United Kingdom: London.
-  * European Union: Berlin & Frankfurt, Germany; Amsterdam, Netherlands; Paris, France; Zurich, Switzerland.
-* **Middle East & GCC:**
-  * United Arab Emirates: Dubai, Abu Dhabi.
-  * Kingdom of Saudi Arabia: Riyadh.
-* **Asia-Pacific & India:**
-  * India: Bengaluru (Bangalore), Mumbai, Delhi-NCR, Hyderabad.
-  * Singapore.
-  * Japan: Tokyo.
-  * Australia: Sydney, Melbourne.
+* **Americas:**
+  * **SFO-1 (San Francisco / Silicon Valley, CA):** 14ms P95 latency. Autonomous agent pods, foundation model fine-tuning, SOC 2 Type II, CCPA.
+  * **IAD-1 (Ashburn / Northern Virginia):** 18ms P95 latency. FinTech transaction telemetry, HIPAA vault perimeters, FedRAMP ready.
+  * **LGA-1 (New York City, NY):** 20ms P95 latency. Algorithmic state machines, high-frequency WebGL, NYDFS 500 compliance.
+  * **ORD-1 (Chicago, IL):** 22ms P95 latency. Industrial supply chain AI, real-time telemetry streaming, ISO 27001.
+  * **YYZ-1 (Toronto, ON, Canada):** 25ms P95 latency. Healthcare ML sandboxes, PIPEDA compliance, private VPC storage.
+* **Europe & United Kingdom (EMEA):**
+  * **LHR-1 (London, UK):** 24ms P95 latency. Aerospace cockpit GIS, sovereign banking telemetry, UK GDPR, DORA compliant.
+  * **FRA-1 (Frankfurt, Germany):** 26ms P95 latency. EU AI Act compliant enclave, air-gapped private VPCs, BSI C5, EU GDPR.
+  * **AMS-1 (Amsterdam, Netherlands):** 28ms P95 latency. High-density vector index, European Anycast transit, EU GDPR.
+  * **CDG-1 (Paris, France):** 29ms P95 latency. PropTech spatial 3D streams, SecNumCloud ready, EU GDPR.
+  * **ZRH-1 (Zurich, Switzerland):** 30ms P95 latency. Private wealth ML enclaves, Swiss FADP, FINMA Circular 08/21.
+* **Middle East & GCC (MENA):**
+  * **DXB-1 (Dubai, UAE):** 38ms P95 latency. MENA sovereign AI, DIFC Data Protection Law compliant, GovTech automation.
+  * **AUH-1 (Abu Dhabi, UAE):** 40ms P95 latency. Sovereign Arabic LLM hosting, ADGM regulatory compliance, energy telemetry.
+* **Asia-Pacific & India (APAC):**
+  * **BLR-1 (Bengaluru, India):** 35ms P95 latency. Principal engineering lab, DPDP Act 2023 compliance, high-throughput agent pods.
+  * **BOM-1 (Mumbai, India):** 37ms P95 latency. Banking microservices, RBI data localization compliance, direct fiber peering.
+  * **SIN-1 (Singapore):** 32ms P95 latency. Cross-border trade orchestration, Singapore PDPA, MAS TRM guidelines.
+  * **NRT-1 (Tokyo, Japan):** 42ms P95 latency. Biometric anomaly detection, robotics AI, APPI compliance.
+  * **SYD-1 (Sydney, Australia):** 55ms P95 latency. Natural resources telemetry, Privacy Act 1988 compliance.
 
+Detailed global topology & live latency benchmarks: https://www.vistar.tech/network
 ---
 
 ## 6. Security, Compliance & Data Sovereignty
@@ -172,6 +180,9 @@ VISTAR services enterprise clients, fast-growing venture-backed startups, and cr
 
 ### Q: Where is VISTAR headquartered and what areas does it serve?
 **A:** VISTAR is based in India and serves enterprise clients globally across the United States, United Kingdom, European Union, United Arab Emirates, Singapore, and Australia.
+
+### Q: Where are VISTAR's global Points of Presence (PoPs) located?
+**A:** VISTAR operates across 16 global Points of Presence including Silicon Valley (SFO-1), Northern Virginia (IAD-1), New York (LGA-1), Chicago (ORD-1), Toronto (YYZ-1), London (LHR-1), Frankfurt (FRA-1), Amsterdam (AMS-1), Paris (CDG-1), Zurich (ZRH-1), Dubai (DXB-1), Abu Dhabi (AUH-1), Bengaluru (BLR-1), Mumbai (BOM-1), Singapore (SIN-1), Tokyo (NRT-1), and Sydney (SYD-1), delivering sub-40ms P95 latency and regional data sovereignty. Full network specs: https://www.vistar.tech/network
 
 ### Q: How can an enterprise engage VISTAR for a project?
 **A:** Inquiries can be submitted directly via https://www.vistar.tech/contact or by emailing services.vistaar@gmail.com. Prospective clients receive an architecture review and technical scoping within 24 hours directly from principal engineers.

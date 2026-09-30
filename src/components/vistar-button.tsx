@@ -2,7 +2,6 @@
 
 import React from "react";
 import Link from "next/link";
-import { playClick } from "@/lib/sound";
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "secondary";
@@ -35,7 +34,6 @@ export function Button({
   const combinedClasses = `${baseClasses} ${variantClasses} ${className}`.trim();
 
   const handleMouseEnter = (e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
-    playClick(6200, 0.015);
     if (onMouseEnter) {
       // @ts-expect-error type compatibility
       onMouseEnter(e);
@@ -43,7 +41,6 @@ export function Button({
   };
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
-    playClick(2400, 0.035);
     if (onClick) {
       // @ts-expect-error type compatibility
       onClick(e);

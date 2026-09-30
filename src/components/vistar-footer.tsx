@@ -19,8 +19,8 @@ const VISTAR_COLUMNS: FooterColumn[] = [
     links: [
       { label: "Autonomous Agent Pods", href: "/vectors" },
       { label: "Private Model Vaults", href: "/vectors" },
-      { label: "Edge Performance Network", href: "/work" },
-      { label: "Zero-Trust Architecture", href: "/work" },
+      { label: "Global Edge PoPs (16 Nodes)", href: "/network" },
+      { label: "Zero-Trust Architecture", href: "/vectors" },
       { label: "Pricing & Tiers", href: "/pricing" },
     ],
   },
