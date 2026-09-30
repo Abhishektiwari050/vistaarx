@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { playClick } from "@/lib/sound";
 
 interface FooterColumn {
   title: string;
@@ -18,9 +17,9 @@ const VISTAR_COLUMNS: FooterColumn[] = [
   {
     title: "PLATFORM",
     links: [
-      { label: "North Autonomous Agents", href: "/vectors" },
-      { label: "Sovereign Model Vaults", href: "/vectors" },
-      { label: "Edge Telemetry Mesh", href: "/work" },
+      { label: "Autonomous Agent Pods", href: "/vectors" },
+      { label: "Private Model Vaults", href: "/vectors" },
+      { label: "Edge Performance Network", href: "/work" },
       { label: "Zero-Trust Architecture", href: "/work" },
       { label: "Pricing & Tiers", href: "/pricing" },
     ],
@@ -66,7 +65,6 @@ export function VistarFooter() {
     e.preventDefault();
     if (!email || !email.includes("@")) return;
 
-    playClick(1000, 0.03);
     setLoading(true);
 
     try {
@@ -115,7 +113,6 @@ export function VistarFooter() {
           <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
             <Link
               href="/start"
-              onClick={() => playClick(800, 0.04)}
               className="inline-flex items-center justify-center h-12 px-7 rounded-full bg-[#100F12] hover:bg-[#232227] text-white text-[14.5px] font-medium shadow-md transition-all active:scale-95"
             >
               Start Free Diagnostic
@@ -123,7 +120,6 @@ export function VistarFooter() {
 
             <Link
               href="/contact"
-              onClick={() => playClick(1000, 0.02)}
               className="inline-flex items-center justify-center h-12 px-7 rounded-full bg-white/80 hover:bg-white text-[#100F12] border border-black/15 text-[14.5px] font-medium shadow-md transition-all active:scale-95"
             >
               Get A Demo
@@ -194,7 +190,6 @@ export function VistarFooter() {
                     ) : (
                       <Link
                         href={link.href}
-                        onClick={() => playClick(1100, 0.02)}
                         className="text-[14px] text-white/80 hover:text-white transition-colors inline-flex items-center gap-2 font-normal"
                       >
                         <span>{link.label}</span>

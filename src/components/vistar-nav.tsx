@@ -101,7 +101,6 @@ export function VistarNav() {
         {/* Left: Brand Logo */}
         <Link
           href="/"
-          onClick={() => playClick(1000, 0.02)}
           className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#141413] rounded-sm transition-transform active:scale-95 flex items-center"
           aria-label="VISTAR Homepage"
         >
@@ -123,7 +122,6 @@ export function VistarNav() {
               <Link
                 key={item.label}
                 href={item.href}
-                onClick={() => playClick(1100, 0.02)}
                 className={`transition-colors duration-150 px-3.5 py-1.5 rounded-full ${
                   isActive
                     ? "text-[#141413] font-semibold bg-black/[0.05]"
@@ -146,7 +144,6 @@ export function VistarNav() {
         >
           <Link
             href="/start"
-            onClick={() => playClick(950, 0.03)}
             className="text-[#5E605D] hover:text-[#141413] transition-colors py-1.5 px-3 rounded-full hover:bg-black/[0.03]"
           >
             Start Free Diagnostic
@@ -154,7 +151,6 @@ export function VistarNav() {
 
           <Link
             href="/contact"
-            onClick={() => playClick(800, 0.04)}
             className="inline-flex items-center justify-center h-9 px-4 rounded-full bg-[#141413] hover:bg-[#2A2B2A] text-white text-[13px] font-medium transition-all duration-150 active:scale-95 shadow-sm"
           >
             Get A Demo

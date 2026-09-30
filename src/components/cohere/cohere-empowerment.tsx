@@ -65,7 +65,7 @@ export function CohereEmpowerment() {
                   '"Unica77 Cohere Web", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
               }}
             >
-              Your data. Your VPC. Zero vendor lock-in. North by Vistar delivers deterministic multi-agent graphs with 100% private repository handover from day one.
+              Your data. Your cloud. Zero vendor lock-in. VISTAR delivers production autonomous agents and high-performance software with 100% private repository handover from day one.
             </p>
 
             <div className="pt-2">

@@ -7,7 +7,7 @@
  */
 
 let audioCtx: AudioContext | null = null;
-let isMuted = false;
+let isMuted = true;
 
 // Initialize on first user interaction to comply with browser autoplay policies
 function getAudioContext(): AudioContext | null {
@@ -26,7 +26,7 @@ function getAudioContext(): AudioContext | null {
 
 export function isSoundMuted(): boolean {
   if (typeof window === "undefined") return true;
-  return isMuted || localStorage.getItem("vistar_sound_muted") === "true";
+  return isMuted || localStorage.getItem("vistar_sound_enabled") !== "true";
 }
 
 export function toggleSound(): boolean {

@@ -146,7 +146,7 @@ export default function VectorsPlatformPage() {
             </p>
 
             <p className="text-neutral-600 text-base sm:text-lg leading-relaxed">
-              By combining agent execution, sovereign VPC vaults, shared governance, and edge orchestration in a single runtime, Vistar helps leadership execute mission-critical automation with mathematical certainty.
+              By combining autonomous agent execution, private VPC vaults, continuous governance, and edge orchestration into unified architectures, VISTAR delivers mission-critical automation with sub-second latency and zero vendor lock-in.
             </p>
           </div>
 
@@ -242,9 +242,9 @@ export default function VectorsPlatformPage() {
               )}
               {activeFeature === "mesh" && (
                 <div className="space-y-2">
-                  <h4 className="font-serif font-bold text-lg text-[#00063D]">Edge Telemetry Mesh</h4>
+                  <h4 className="font-serif font-bold text-lg text-[#00063D]">Edge Telemetry & Observability</h4>
                   <p className="text-sm text-neutral-600 leading-relaxed">
-                    High-throughput, binary protocol telemetry streaming 60fps interaction metrics, query latency profiling, and automated self-healing triggers to edge nodes.
+                    High-throughput, binary protocol telemetry streaming 60fps interaction metrics, query latency profiling, and automated health checks across edge nodes.
                   </p>
                 </div>
               )}

@@ -62,7 +62,7 @@ export default function PhilosophyPage() {
           </h1>
 
           <p className="text-lg md:text-xl text-neutral-600 max-w-2xl mx-auto leading-relaxed">
-            In an ecosystem saturated with fragile prompt wrappers and agency lock-in, mathematically verifiable code and private repository ownership are the only durable assets.
+            In an ecosystem saturated with fragile prompt wrappers and agency lock-in, production-tested software and 100% private repository ownership are the only durable assets.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-4 pt-4">

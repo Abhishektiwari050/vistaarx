@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { JasperInteractiveHero } from "@/components/jasper/jasper-interactive-hero";
+import { AgentOrchestrationConsole } from "@/components/cohere/agent-orchestration-console";
 
 const SECURITY_BADGES = [
   {
@@ -45,9 +45,9 @@ export function CohereDeployment() {
             className="inline-flex items-center gap-2 px-3.5 py-1 bg-[#E8F5E9] hover:bg-[#d5edd7] border border-[#C8E6C9] rounded-full text-xs sm:text-sm font-medium text-[#1B5E20] mb-6 select-none transition-colors"
           >
             <span className="bg-[#2E7D32] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-[3px] tracking-wide uppercase">
-              Sovereign Runtime
+              Production AI
             </span>
-            <span>North Autonomous Agents with 100% Repository Handover &rarr;</span>
+            <span>Autonomous Multi-Agent Systems with 100% Repository Handover &rarr;</span>
           </Link>
 
           {/* Headline */}
@@ -63,7 +63,7 @@ export function CohereDeployment() {
 
           {/* Subtitle */}
           <p className="text-base sm:text-lg md:text-[19px] text-[#4A4D57] leading-relaxed max-w-[660px] mx-auto mb-8 font-normal">
-            Orchestrate sovereign multi-agent clusters across your private VPC—delivering deterministic execution, mathematical guarantees, and zero vendor lock-in.
+            Orchestrate autonomous agent systems across your private cloud infrastructure—engineered for real-world reliability, sub-second latency, and zero vendor lock-in.
           </p>
 
           {/* Buttons */}
@@ -83,9 +83,9 @@ export function CohereDeployment() {
           </div>
         </div>
 
-        {/* Full-width Rive Canvas (no side clipping, exact 14.4/4.2 ratio) */}
-        <div className="w-full">
-          <JasperInteractiveHero />
+        {/* Full-width Multi-Agent Orchestration Console */}
+        <div className="w-full pb-16 sm:pb-24">
+          <AgentOrchestrationConsole />
         </div>
       </section>
 

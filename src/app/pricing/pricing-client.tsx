@@ -34,7 +34,7 @@ const MATRIX_SECTIONS: MatrixSection[] = [
     ],
   },
   {
-    title: "Vistar Platform & Telemetry Mesh",
+    title: "VISTAR Platform & Edge Observability",
     headerBg: "bg-[#FFF0EB] text-[#9A3412]",
     rows: [
       { name: "Next.js 16 High-Performance Edge Engine", sprint: true, business: true },

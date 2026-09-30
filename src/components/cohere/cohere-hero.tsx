@@ -27,16 +27,16 @@ export function CohereHero() {
                 className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-neutral-100/90 hover:bg-neutral-200/80 border border-neutral-300/80 text-[11px] sm:text-xs font-mono uppercase tracking-wider text-neutral-800 transition-all hover:scale-[1.02] shadow-2xs"
               >
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="font-semibold text-neutral-900">Sovereign Architecture</span>
+                <span className="font-semibold text-neutral-900">Custom Engineering</span>
                 <span className="text-neutral-400">|</span>
-                <span className="text-neutral-600">Zero Model Leakage &rarr;</span>
+                <span className="text-neutral-600">100% Code Ownership &rarr;</span>
               </Link>
             </motion.div>
 
             {/* 02: Cinematic Headline Reveal */}
             <div className="mb-6 break-words max-w-[1128px] mx-auto overflow-hidden px-2">
               <h1
-                className="text-4xl sm:text-6xl md:text-7xl lg:text-[96px] xl:text-[104px] font-normal leading-[1.04] sm:leading-[1.0] md:leading-[0.98] tracking-[-0.03em] text-[#141413]"
+                className="text-5xl sm:text-7xl md:text-8xl lg:text-[104px] xl:text-[116px] font-normal leading-[1.0] sm:leading-[0.98] tracking-[-0.035em] text-[#141413]"
                 style={{
                   fontFamily:
                     '"CohereText", "Space Grotesk", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
@@ -48,7 +48,7 @@ export function CohereHero() {
                   animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                   transition={{ duration: 0.85, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  Custom AI Agents.
+                  Your AI.
                 </motion.span>
                 <motion.span
                   className="block overflow-hidden"
@@ -56,7 +56,7 @@ export function CohereHero() {
                   animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                   transition={{ duration: 0.85, delay: 0.36, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  Your Code. Your Rules.
+                  Your Work.
                 </motion.span>
               </h1>
             </div>
@@ -75,7 +75,7 @@ export function CohereHero() {
                     '"Unica77 Cohere Web", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
                 }}
               >
-                North by Vistar is the sovereign enterprise AI platform. Orchestrate deterministic multi-agent clusters across your private VPC with mathematical guarantees and 100% repository handover from day one.
+                VISTAR engineers custom AI agents, production web platforms, and interactive 3D systems. 100% source code ownership, zero vendor lock-in, delivered in 14-day production sprints.
               </p>
             </motion.div>
 
@@ -142,7 +142,7 @@ export function CohereHero() {
               {/* Fallback GIF */}
               <img
                 src="/videos/hero-agent-loop.gif"
-                alt="North by Vistar Enterprise AI Platform Video Loop"
+                alt="VISTAR Custom AI Software & Systems Engineering Video Loop"
                 className="w-full h-auto object-cover rounded-[12px]"
               />
             </video>
@@ -166,7 +166,7 @@ export function CohereHero() {
               {/* Fallback GIF */}
               <img
                 src="/videos/hero-agent-loop.gif"
-                alt="North by Vistar Enterprise AI Platform Mobile Loop"
+                alt="VISTAR Custom AI Software & Systems Engineering Mobile Loop"
                 className="w-full h-auto object-cover rounded-[20px]"
               />
             </video>
