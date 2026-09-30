@@ -4,7 +4,6 @@ import React, { useEffect, useRef, useState, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Lock } from "lucide-react";
-import { playClick } from "@/lib/sound";
 
 interface ProductionCard {
   id: number;
@@ -227,12 +226,28 @@ export function CohereSolutions() {
   }, [tick]);
 
   useEffect(() => {
+    const isDesktop =
+      typeof window !== "undefined" &&
+      window.innerWidth >= 1024 &&
+      !window.matchMedia("(pointer: coarse)").matches;
+    if (!isDesktop) return;
+
     const section = sectionRef.current;
     if (!section) return;
 
+    let cachedRect: DOMRect | null = null;
+    const updateRect = () => {
+      cachedRect = section.getBoundingClientRect();
+    };
+
+    const handleMouseEnter = () => {
+      updateRect();
+    };
+
     const handleMouseMove = (e: MouseEvent) => {
       if (isLocked.current) return;
-      const rect = section.getBoundingClientRect();
+      if (!cachedRect) updateRect();
+      const rect = cachedRect!;
       const nx = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
       const ny = Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height));
 
@@ -248,12 +263,16 @@ export function CohereSolutions() {
       startTick();
     };
 
+    section.addEventListener("mouseenter", handleMouseEnter, { passive: true });
     section.addEventListener("mousemove", handleMouseMove, { passive: true });
     section.addEventListener("mouseleave", handleMouseLeave, { passive: true });
+    window.addEventListener("resize", updateRect, { passive: true });
 
     return () => {
+      section.removeEventListener("mouseenter", handleMouseEnter);
       section.removeEventListener("mousemove", handleMouseMove);
       section.removeEventListener("mouseleave", handleMouseLeave);
+      window.removeEventListener("resize", updateRect);
       if (rafId.current) cancelAnimationFrame(rafId.current);
     };
   }, [startTick]);
@@ -261,7 +280,6 @@ export function CohereSolutions() {
   const handleCardMouseEnter = (cardId: number) => {
     isLocked.current = true;
     setHoveredCardId(cardId);
-    playClick(1400, 0.015);
 
     targetValues.current.scale = 1.03;
     targetValues.current.wrpT = 0.5;
@@ -278,12 +296,10 @@ export function CohereSolutions() {
   };
 
   const handleCardClick = (card: ProductionCard) => {
-    playClick(800, 0.04);
     setActiveModalCard(card);
   };
 
   const closeModal = () => {
-    playClick(600, 0.02);
     setActiveModalCard(null);
   };
 

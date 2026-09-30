@@ -35,20 +35,9 @@ const SECURITY_BADGES = [
 export function CohereDeployment() {
   return (
     <>
-      {/* ── 1. AUTHENTIC JASPER.AI INTERACTIVE HERO (MATCHING EXACT USER REFERENCE media_1790471003677.png) ── */}
-      <section className="relative w-full pt-16 sm:pt-24 pb-0 bg-white border-t border-black/[0.06] overflow-hidden">
-        {/* Header & CTAs matching sovereign platform theme */}
+      <section className="relative w-full pt-12 sm:pt-16 md:pt-20 pb-0 bg-white border-t border-black/[0.06] overflow-hidden">
+        {/* Header & CTAs matching enterprise platform theme */}
         <div className="max-w-[840px] mx-auto px-4 text-center mb-8 sm:mb-12">
-          {/* Eyebrow Pill */}
-          <Link
-            href="/start"
-            className="inline-flex items-center gap-2 px-3.5 py-1 bg-[#E8F5E9] hover:bg-[#d5edd7] border border-[#C8E6C9] rounded-full text-xs sm:text-sm font-medium text-[#1B5E20] mb-6 select-none transition-colors"
-          >
-            <span className="bg-[#2E7D32] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-[3px] tracking-wide uppercase">
-              Production AI
-            </span>
-            <span>Autonomous Multi-Agent Systems with 100% Repository Handover &rarr;</span>
-          </Link>
 
           {/* Headline */}
           <h2

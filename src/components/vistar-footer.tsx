@@ -100,9 +100,6 @@ export function VistarFooter() {
         <div className="absolute inset-0 bg-white/20 backdrop-blur-[0.5px] pointer-events-none" />
 
         <div className="relative z-10 max-w-3xl mx-auto space-y-6">
-          <span className="inline-block font-mono text-xs uppercase tracking-widest text-[#100F12]/80 bg-white/70 border border-black/10 px-3 py-1 rounded-full shadow-2xs">
-            Autonomous Enterprise Systems
-          </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-semibold text-[#100F12] tracking-[-0.03em] leading-[1.12]">
             Your enterprise AI infrastructure, fully sovereign.
           </h2>
