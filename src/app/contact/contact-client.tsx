@@ -15,7 +15,6 @@ import {
   AlertCircle,
   Building2,
 } from "lucide-react";
-import { playClick } from "@/lib/sound";
 
 export default function ContactPage() {
   const [formState, setFormState] = useState({
@@ -50,7 +49,6 @@ export default function ContactPage() {
 
     setIsSubmitting(true);
     setErrorMessage(null);
-    playClick(1000, 0.03);
 
     try {
       const res = await fetch("/api/contact", {
@@ -111,9 +109,9 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="w-full bg-[#FAF9F5] text-[#0E1118] font-sans antialiased selection:bg-[#FF3823] selection:text-white min-h-screen pb-32">
+    <div className="w-full bg-[#FAF9F5] text-[#0E1118] font-sans antialiased selection:bg-[#3B82F6] selection:text-white min-h-screen pb-32">
       {/* ── 1. HEADER (BLUEPRINT GRID) ── */}
-      <section className="w-full pt-16 pb-16 jasper-grid-hero border-b border-black/10 text-center px-4">
+      <section className="w-full pt-16 pb-16 bg-white border-b border-black/10 text-center px-4">
         <div className="max-w-4xl mx-auto space-y-4">
           <div>
             <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-black/5 border border-black/10 text-neutral-800 font-mono text-xs uppercase tracking-wider font-semibold rounded-[2px]">
@@ -123,7 +121,7 @@ export default function ContactPage() {
 
           <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl font-semibold text-[#0E1118] tracking-tight leading-[1.08]">
             Let&apos;s architect your{" "}
-            <span className="font-serif italic font-normal text-[#FF3823]">
+            <span className="font-serif italic font-normal text-[#3B82F6]">
               sovereign
             </span>{" "}
             platform.
@@ -163,11 +161,10 @@ export default function ContactPage() {
                           disabled={isSubmitting}
                           onClick={() => {
                             setFormState({ ...formState, projectType: cat });
-                            playClick(900, 0.02);
                           }}
                           className={`px-3.5 py-1.5 text-xs font-medium rounded-[3px] border transition-colors cursor-pointer ${
                             formState.projectType === cat
-                              ? "bg-[#FF3823] text-white border-[#FF3823]"
+                              ? "bg-[#3B82F6] text-white border-[#3B82F6]"
                               : "bg-[#FAF9F5] text-neutral-700 border-black/10 hover:border-black/25"
                           }`}
                         >
@@ -244,7 +241,6 @@ export default function ContactPage() {
                           disabled={isSubmitting}
                           onClick={() => {
                             setFormState({ ...formState, budget: tier });
-                            playClick(950, 0.02);
                           }}
                           className={`py-2 text-xs font-semibold rounded-[3px] border text-center transition-colors cursor-pointer ${
                             formState.budget === tier

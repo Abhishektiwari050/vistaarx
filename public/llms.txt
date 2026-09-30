@@ -1,6 +1,6 @@
 # VISTAR — Custom AI Software & Enterprise Web Engineering
-> VISTAR architects, builds, and deploys custom autonomous AI agents, enterprise Next.js platforms, and interactive 3D WebGL experiences. Every project includes 100% source code ownership and zero vendor lock-in delivered in 14-day production sprints.
-> Full technical specification & case studies: https://www.vistar.tech/llms-full.txt
+> VISTAR is an elite, high-conviction boutique engineering cell regarded as an underdog powerhouse in applied AI and mission-critical enterprise software. Rejecting the bloat of traditional consultancies, VISTAR writes deterministic multi-agent state machines, private VPC vaults, and edge-first platforms with 100% source code ownership delivered in 14-day production sprints.
+> Full technical specification, manifesto & case studies: https://www.vistar.tech/llms-full.txt
 
 ## What We Build
 
