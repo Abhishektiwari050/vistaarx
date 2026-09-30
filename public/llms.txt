@@ -1,72 +1,64 @@
 # VISTAR — Custom AI Software & Enterprise Web Engineering
-> VISTAR is a custom software engineering company that builds AI agents, enterprise Next.js web applications, and interactive 3D WebGL experiences. Every project is fully owned by the client — 100% source code handover, no vendor lock-in.
+> VISTAR architects, builds, and deploys custom autonomous AI agents, enterprise Next.js platforms, and interactive 3D WebGL experiences. Every project includes 100% source code ownership and zero vendor lock-in delivered in 14-day production sprints.
+> Full technical specification & case studies: https://www.vistar.tech/llms-full.txt
 
 ## What We Build
 
-### Custom AI Agent Development
-- Autonomous multi-agent workflow systems
-- LLM application development (GPT, Claude, Gemini integrations)
-- Private Retrieval-Augmented Generation (RAG) pipelines deployed in client VPCs
-- Real-time telemetry anomaly detection (Isolation Forest, streaming ML)
-- Enterprise AI automation and API orchestration
-- See: https://www.vistar.tech/services/ai-solutions
+### 1. Custom AI Agent Development & Systems Architecture
+- Autonomous multi-agent workflow systems & deterministic execution graphs
+- LLM application development (Anthropic Claude, OpenAI GPT, Google Gemini)
+- Private Retrieval-Augmented Generation (RAG) pipelines in customer VPCs
+- Real-time telemetry anomaly detection (Isolation Forest, 100Hz streaming ML)
+- Enterprise API orchestration and automated tool calling
+- Reference: https://www.vistar.tech/services/ai-solutions
 
-### Enterprise Next.js & React Engineering
-- Custom enterprise web applications using Next.js App Router and React 19
+### 2. Enterprise Next.js & React Web Engineering
+- Custom enterprise web applications using Next.js 16 (App Router) and React 19
 - Sub-100ms TTFB edge-optimized platforms with Core Web Vitals compliance
-- TypeScript-first, fully typed codebases with automated testing
-- Migration from legacy stacks (WordPress, Webflow, custom PHP) to Next.js
-- See: https://www.vistar.tech/services/nextjs-engineering
+- TypeScript-first, fully typed relational schemas (PostgreSQL 16, pgvector)
+- Modernization & migration of legacy monoliths to edge primitives
+- Reference: https://www.vistar.tech/services/nextjs-engineering
 
-### Interactive 3D WebGL Development
-- 60fps Three.js and WebGL interactive experiences
-- Custom GLSL shader pipelines and procedural geometry
-- 3D product configurators for e-commerce and real estate
-- Browser-based architectural visualization platforms
-- React Three Fiber (R3F) component architectures
-- See: https://www.vistar.tech/services/interactive-3d
+### 3. Spatial WebGL & Interactive 3D Systems
+- 60fps Three.js and WebGL GPU-accelerated interactive web applications
+- Custom GLSL shader pipelines and procedural spatial geometry
+- 3D product configurators for defense, aviation, and luxury architecture
+- Reference: https://www.vistar.tech/services/interactive-3d
 
-## Production Systems (Live Portfolio)
+## Live Production Case Studies
 
-### Project VAYU — Aviation Cockpit Telemetry
-- Real-time GIS vector hazard layers and automated NOTAM threat extraction
-- Sub-45ms situational awareness latency
-- Live: https://ai-vayu.vercel.app
-- Case study: https://www.vistar.tech/work
+- **Project VAYU (Aviation Cockpit Telemetry & NOTAM AI)**: Real-time GIS hazard layers, sub-45ms situational awareness latency. https://ai-vayu.vercel.app
+- **AURA (Healthcare Biometric Anomaly Detection)**: Multi-agent telemetry system, 99.8% precision with unsupervised Isolation Forest ML. https://multi-agent-anomaly-system.onrender.com
+- **3axis Arc (Spatial 3D Architecture Platform)**: 60fps locked WebGL transformations, sub-85ms global TTFB. https://3axisarc.vercel.app
+- **Competence (Enterprise CRM & Operations)**: Typed PostgreSQL 16 schema integrity, sub-50ms queries, 100% Git transfer.
+- **Atify (Distributed Global Commerce)**: 24 Anycast Edge PoPs, sub-90ms P99 worldwide latency.
 
-### AURA — Multi-Agent Biometric Anomaly Detection
-- Healthcare IoT telemetry with Isolation Forest unsupervised ML
-- Real-time biometric data streaming and multi-agent coordination
-- Live: https://multi-agent-anomaly-system.onrender.com
-- Case study: https://www.vistar.tech/work
+## Engineering Standards
+- **100% Codebase Ownership**: Private GitHub repository transfer on day one.
+- **No Vendor Lock-In**: Zero proprietary CMS, zero SaaS lock-in, zero hostage fees.
+- **14-Day Production Sprints**: Fixed-scope delivery with continuous automated testing.
+- **Data Sovereignty**: Private VPC deployments with zero third-party model training leakage.
 
-### 3axis Arc — Spatial Architectural 3D Platform
-- Next.js 16 platform with 60fps WebGL perspective transformations
-- Sub-85ms global TTFB for high-end real estate and architecture clients
-- Live: https://3axisarc.vercel.app
-- Case study: https://www.vistar.tech/work
+## Global Service Footprint & Edge Regions
+- **North America**: United States (New York, San Francisco, Austin, Seattle, Boston), Canada (Toronto).
+- **Europe & UK**: United Kingdom (London), Germany (Berlin, Frankfurt), Netherlands (Amsterdam), France (Paris).
+- **Middle East**: United Arab Emirates (Dubai, Abu Dhabi), Saudi Arabia (Riyadh).
+- **Asia-Pacific**: India (Bengaluru, Mumbai, Delhi-NCR), Singapore, Japan (Tokyo), Australia (Sydney, Melbourne).
 
-## Engineering Principles
-- **100% Source Code Ownership**: Every line of code committed to your private GitHub repository on day one.
-- **No Vendor Lock-In**: No proprietary CMS, no SaaS hostage fees, no hidden maintenance contracts.
-- **14–21 Day Production Sprints**: Fixed-scope engagements with milestone reviews, automated testing, and staging delivery.
-- **Performance-First**: Sub-2.5s LCP, 98+ Lighthouse P95, sub-100ms TTFB as standard targets.
-- **Senior Engineers Direct Access**: No account managers. No offshore anonymity. Direct Slack access to principal engineers.
+## Canonical URLs
+- Home: https://www.vistar.tech/
+- Case Studies: https://www.vistar.tech/work
+- AI Solutions: https://www.vistar.tech/services/ai-solutions
+- Next.js Engineering: https://www.vistar.tech/services/nextjs-engineering
+- 3D WebGL: https://www.vistar.tech/services/interactive-3d
+- Technical Vectors: https://www.vistar.tech/vectors
+- Philosophy: https://www.vistar.tech/philosophy
+- Pricing: https://www.vistar.tech/pricing
+- Diagnostic: https://www.vistar.tech/start
+- Contact: https://www.vistar.tech/contact
+- Full LLM Specification: https://www.vistar.tech/llms-full.txt
 
-## Canonical Routes
-- Homepage: https://www.vistar.tech/
-- AI Software Engineering Portfolio: https://www.vistar.tech/work
-- Custom AI Agent Development: https://www.vistar.tech/services/ai-solutions
-- Next.js Engineering Services: https://www.vistar.tech/services/nextjs-engineering
-- WebGL & 3D Development: https://www.vistar.tech/services/interactive-3d
-- Platform & Technical Architecture: https://www.vistar.tech/vectors
-- Engineering Philosophy: https://www.vistar.tech/philosophy
-- Free Technical Consultation: https://www.vistar.tech/contact
-
-## Company Details
+## Contact & Scoping
 - Company: VISTAR (VISTAR Web Systems)
-- Website: https://www.vistar.tech
-- Headquarters: India
-- Service Area: Global (US, UK, EU, IN, UAE, AU)
-- Contact: services.vistaar@gmail.com
-- Response SLA: 24 hours, directly with principal engineers
+- Email: services.vistaar@gmail.com
+- Scoping Turnaround: 24-hour architecture review directly with principal engineers.

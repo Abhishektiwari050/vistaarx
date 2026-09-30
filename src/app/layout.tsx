@@ -118,7 +118,36 @@ const jsonLdSchema = {
       description:
         "VISTAR is a custom software engineering company specializing in AI agent development, enterprise Next.js applications, and interactive 3D web experiences. 100% source code ownership on every engagement.",
       foundingDate: "2022",
-      areaServed: ["United States", "United Kingdom", "Europe", "India", "UAE", "Australia"],
+      knowsAbout: [
+        "Artificial Intelligence",
+        "Custom AI Agent Development",
+        "Autonomous Multi-Agent Systems",
+        "Deterministic Agent Architecture",
+        "Retrieval-Augmented Generation (RAG)",
+        "Enterprise Software Engineering",
+        "Full-Stack Web Development",
+        "Next.js 16 & React 19",
+        "Interactive 3D WebGL & Three.js",
+        "Aviation Telemetry & Spatial GIS Systems",
+        "Healthcare Biometric Anomaly Detection",
+        "Private VPC & Air-Gapped Cloud Deployments",
+        "100% Source Code Ownership & IP Handover",
+      ],
+      areaServed: [
+        "United States",
+        "United Kingdom",
+        "Germany",
+        "Netherlands",
+        "France",
+        "Switzerland",
+        "United Arab Emirates",
+        "Saudi Arabia",
+        "Singapore",
+        "Japan",
+        "Australia",
+        "India",
+        "Canada",
+      ],
       email: "services.vistaar@gmail.com",
       contactPoint: {
         "@type": "ContactPoint",
@@ -231,6 +260,9 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=JetBrains+Mono:wght@400;500;600&display=swap"
           rel="stylesheet"
         />
+        {/* Machine-Readable AI & LLM Discovery Feeds */}
+        <link rel="alternate" type="text/markdown" href="https://www.vistar.tech/llms.txt" title="LLM Summary" />
+        <link rel="help" type="text/markdown" href="https://www.vistar.tech/llms-full.txt" title="Full LLM Specification" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSchema) }}

@@ -99,7 +99,7 @@ export function CohereHero() {
             </div>
 
             {/* 02: Polished Authoritative Subhead */}
-            <div className="gsap-hero-subhead w-full max-w-[660px] px-4 mx-auto mb-7 will-change-transform">
+            <div className="gsap-hero-subhead w-full max-w-[680px] px-4 mx-auto mb-7 will-change-transform">
               <p
                 className="text-base sm:text-lg md:text-[18.5px] font-normal leading-[1.55] text-neutral-600"
                 style={{
@@ -107,7 +107,7 @@ export function CohereHero() {
                     '"Unica77 Cohere Web", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
                 }}
               >
-                VISTAR engineers custom AI agents, production web platforms, and interactive 3D systems. 100% source code ownership, zero vendor lock-in, delivered in 14-day production sprints.
+                We architect, build, and deploy custom autonomous AI agents and enterprise software directly into your private infrastructure. 100% source code ownership. Zero vendor lock-in. Delivered in 14-day production sprints.
               </p>
             </div>
 
@@ -125,14 +125,14 @@ export function CohereHero() {
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
-                href="/contact"
+                href="/work"
                 className="inline-flex items-center justify-center px-7 py-3.5 border border-[#141413] text-[#141413] bg-transparent hover:bg-neutral-100 font-medium text-sm sm:text-base rounded-none transition-all active:scale-95"
                 style={{
                   fontFamily:
                     '"Unica77 Cohere Web", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
                 }}
               >
-                Get A Demo
+                Explore Production Systems &rarr;
               </Link>
             </div>
 

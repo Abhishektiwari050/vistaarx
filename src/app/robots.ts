@@ -5,7 +5,7 @@ export default function robots(): MetadataRoute.Robots {
 
   return {
     rules: [
-      // ── Default: all crawlers ────────────────────────────────────────────
+      // ── Default: all web crawlers ─────────────────────────────────────────
       {
         userAgent: "*",
         allow: "/",
@@ -17,23 +17,25 @@ export default function robots(): MetadataRoute.Robots {
           "/scripts/",
         ],
       },
-      // ── Google: no restrictions beyond API ──────────────────────────────
+      // ── Search Engines ───────────────────────────────────────────────────
       {
         userAgent: "Googlebot",
         allow: "/",
         disallow: ["/api/"],
       },
-      // ── Bing ────────────────────────────────────────────────────────────
       {
         userAgent: "Bingbot",
         allow: "/",
         disallow: ["/api/"],
       },
-      // ── AI / LLM crawlers: allow full indexing ───────────────────────────
-      // These feed LLM knowledge bases and AI search products.
-      // Blocking them hinders brand discovery in ChatGPT, Perplexity, etc.
+      // ── AI Search & LLM Engines (OpenAI, Anthropic, Perplexity, Google, Meta, Apple) ──
       {
         userAgent: "GPTBot",
+        allow: "/",
+        disallow: ["/api/"],
+      },
+      {
+        userAgent: "ChatGPT-User",
         allow: "/",
         disallow: ["/api/"],
       },
@@ -48,12 +50,47 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/"],
       },
       {
+        userAgent: "ClaudeBot",
+        allow: "/",
+        disallow: ["/api/"],
+      },
+      {
         userAgent: "PerplexityBot",
         allow: "/",
         disallow: ["/api/"],
       },
       {
+        userAgent: "Google-Extended",
+        allow: "/",
+        disallow: ["/api/"],
+      },
+      {
+        userAgent: "Applebot-Extended",
+        allow: "/",
+        disallow: ["/api/"],
+      },
+      {
         userAgent: "cohere-ai",
+        allow: "/",
+        disallow: ["/api/"],
+      },
+      {
+        userAgent: "Amazonbot",
+        allow: "/",
+        disallow: ["/api/"],
+      },
+      {
+        userAgent: "Meta-ExternalAgent",
+        allow: "/",
+        disallow: ["/api/"],
+      },
+      {
+        userAgent: "Bytespider",
+        allow: "/",
+        disallow: ["/api/"],
+      },
+      {
+        userAgent: "Diffbot",
         allow: "/",
         disallow: ["/api/"],
       },
