@@ -232,7 +232,7 @@ export default function PricingPage() {
               <div className="w-full h-px bg-black/10" />
 
               <p className="text-sm text-neutral-600 leading-relaxed min-h-[44px]">
-                Dedicated autonomous clusters deployed inside your private VPC perimeter with post-quantum security.
+                Dedicated autonomous clusters deployed inside your private VPC perimeter with zero-trust AES-256 state isolation.
               </p>
 
               <Link
@@ -432,9 +432,9 @@ export default function PricingPage() {
             </Link>
 
             {/* Card 2: Support (Cyan grid) */}
-            <a href="mailto:engineering@vistar.tech" className="bg-[#EBF3FF] border border-black/10 rounded-[4px] p-6 h-64 flex flex-col justify-between hover:border-black/30 transition-colors [background-image:linear-gradient(to_right,rgba(30,96,230,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(30,96,230,0.08)_1px,transparent_1px)] [background-size:24px_24px]">
+            <a href="mailto:services.vistaar@gmail.com" className="bg-[#EBF3FF] border border-black/10 rounded-[4px] p-6 h-64 flex flex-col justify-between hover:border-black/30 transition-colors [background-image:linear-gradient(to_right,rgba(30,96,230,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(30,96,230,0.08)_1px,transparent_1px)] [background-size:24px_24px]">
               <h3 className="font-serif text-xl font-bold text-[#00063D]">Get engineering support</h3>
-              <span className="text-xs font-mono text-neutral-700">Email engineering@vistar.tech →</span>
+              <span className="text-xs font-mono text-neutral-700">Email services.vistaar@gmail.com →</span>
             </a>
 
             {/* Card 3: Learn more (Green grid) */}

@@ -46,7 +46,7 @@ const ROLES = [
   {
     role: "Chief Technology Officers",
     summary: "Eliminate vendor lock-in and agency maintenance retainers with 100% day-one private GitHub repository transfer.",
-    detail: "Receive typed Next.js 16 codebases, private Dockerfiles, and verifiable post-quantum cryptographic security.",
+    detail: "Receive typed Next.js 16 codebases, private Dockerfiles, and hardware-backed TLS 1.3 / AES-256 cryptographic security.",
   },
   {
     role: "VP Engineering & Architecture",
@@ -73,7 +73,7 @@ const ROLES = [
 const INDUSTRIES = [
   {
     name: "Financial Services & Trading",
-    summary: "Sub-second order book streams, post-quantum settlement, and typed Postgres audit ledgers.",
+    summary: "Sub-second order book streams, deterministic cryptographic settlement, and typed Postgres audit ledgers.",
   },
   {
     name: "Aviation & Mission-Critical",

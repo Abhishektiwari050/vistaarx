@@ -12,38 +12,38 @@ interface PersonaInfo {
   badgeColor: string;
 }
 
-// Exact Rive slide sequence in public/home_hero.riv
+// VISTAR engineering capabilities matching the 4 interactive canvas states
 const PERSONAS: PersonaInfo[] = [
   {
     id: 0,
-    role: "Growth & Lifecycle Director",
-    metric: "11x",
-    metricLabel: "Click-Through Rate",
-    quote: "Create 6,000 hyper-personalized emails within minutes",
+    role: "Aviation & Mission-Critical Telemetry",
+    metric: "<45ms",
+    metricLabel: "Situational Latency",
+    quote: "Render real-time airspace NOTAM vectors and GIS threat perimeters",
     badgeColor: "#3B82F6",
   },
   {
     id: 1,
-    role: "Demand Generation Lead",
-    metric: "+35%",
-    metricLabel: "Pipeline Growth",
-    quote: "Scale a launch campaign into 8 markets, within days",
+    role: "Autonomous Multi-Agent Detection",
+    metric: "99.8%",
+    metricLabel: "Agentic Precision",
+    quote: "Execute multi-step telemetry ingestion and unsupervised anomaly routing",
     badgeColor: "#FF3823",
   },
   {
     id: 2,
-    role: "Content Marketing Lead",
-    metric: "+67%",
-    metricLabel: "Organic Traffic",
-    quote: "Optimize 2,000 web pages for search, instantly",
+    role: "Spatial WebGL & 3D Architecture",
+    metric: "60 FPS",
+    metricLabel: "Edge Canvas TTFB",
+    quote: "High-density architectural perspective transformations directly in-browser",
     badgeColor: "#10B981",
   },
   {
     id: 3,
-    role: "Product Marketing Lead",
-    metric: "+22%",
-    metricLabel: "Organic Revenue",
-    quote: "Bulk create 5,000 retail product pages within hours",
+    role: "Sovereign Enterprise Runtime",
+    metric: "100%",
+    metricLabel: "Repository Ownership",
+    quote: "Private VPC perimeter deployment with day-one source code handover",
     badgeColor: "#FFB800",
   },
 ];

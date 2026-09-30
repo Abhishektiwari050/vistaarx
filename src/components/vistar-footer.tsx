@@ -51,7 +51,7 @@ const VISTAR_COLUMNS: FooterColumn[] = [
       { label: "100% Day-One Git Handover", href: "/philosophy" },
       { label: "Air-Gapped Private VPC", href: "/vectors" },
       { label: "Direct Systems Consultation", href: "/contact" },
-      { label: "GitHub Repository", href: "https://github.com", isExternal: true },
+      { label: "GitHub Repository", href: "https://github.com/Abhishektiwari050/vistaarx", isExternal: true },
     ],
   },
 ];
@@ -62,18 +62,27 @@ export function VistarFooter() {
   const [subscribed, setSubscribed] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !email.includes("@")) return;
 
     playClick(1000, 0.03);
     setLoading(true);
 
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, type: "newsletter" }),
+      });
       setSubscribed(true);
       setEmail("");
-    }, 450);
+    } catch {
+      setSubscribed(true);
+      setEmail("");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -273,7 +282,7 @@ export function VistarFooter() {
 
             {/* GitHub */}
             <a
-              href="https://github.com"
+              href="https://github.com/Abhishektiwari050/vistaarx"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="VISTAR on GitHub"

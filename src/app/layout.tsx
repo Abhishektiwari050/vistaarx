@@ -207,7 +207,7 @@ const jsonLdSchema = {
           name: "What is VISTAR's pricing model?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Projects typically start at $5,000 and scale based on scope and sprint duration. We offer fixed-scope sprints with transparent pricing. Contact us for a free technical diagnostic.",
+            text: "Projects operate on transparent, fixed-scope engineering packages. Our 14-day production Sprint package starts at $14,800, with enterprise sovereign deployments tailored with custom SLAs and private VPC isolation.",
           },
         },
       ],

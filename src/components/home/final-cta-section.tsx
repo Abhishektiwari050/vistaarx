@@ -45,7 +45,7 @@ export function FinalCTASection() {
           <Button variant="primary" href="/start">
             Start a 14-Day Sprint →
           </Button>
-          <Button variant="secondary" href="mailto:engineering@vistar.tech" external>
+          <Button variant="secondary" href="mailto:services.vistaar@gmail.com" external>
             Contact Engineering ↗
           </Button>
         </div>

@@ -84,13 +84,18 @@ async function persistLeadToAuditSink(leadRecord: Record<string, unknown>) {
   try {
     const dataDir = path.join(process.cwd(), "data");
     if (!fs.existsSync(dataDir)) {
-      fs.mkdirSync(dataDir, { recursive: true });
+      try {
+        fs.mkdirSync(dataDir, { recursive: true });
+      } catch {
+        // In read-only serverless environments, fallback to /tmp
+      }
     }
-    const filePath = path.join(dataDir, "leads_audit.jsonl");
+    const targetDir = fs.existsSync(dataDir) ? dataDir : "/tmp";
+    const filePath = path.join(targetDir, "leads_audit.jsonl");
     const line = JSON.stringify(leadRecord) + "\n";
     fs.appendFileSync(filePath, line, "utf8");
   } catch (err) {
-    console.error("[LEAD HANDLER] Audit persistence error:", err);
+    console.warn("[LEAD HANDLER] Audit persistence non-critical notice:", err);
   }
 }
 
@@ -302,9 +307,10 @@ export async function POST(request: NextRequest) {
     }
 
     // 3. Validation
+    const isNewsletter = (body as any).type === "newsletter";
     const errors: string[] = [];
 
-    if (!body.name || body.name.trim().length < 2) {
+    if (!isNewsletter && (!body.name || body.name.trim().length < 2)) {
       errors.push("Name is required (minimum 2 characters).");
     }
     if (!body.email || !isValidEmail(body.email)) {
@@ -319,19 +325,19 @@ export async function POST(request: NextRequest) {
     const referenceId = generateReferenceId();
     const sanitizedData = {
       referenceId,
-      name: sanitize(body.name!, 100),
+      name: sanitize(body.name || (isNewsletter ? "Newsletter Subscriber" : "Inquirer"), 100),
       email: sanitize(body.email!, 150),
-      company: sanitize(body.company || "", 150),
-      goal: sanitize(body.goal || (body as any).projectType || "Custom Architecture", 200),
+      company: sanitize(body.company || (isNewsletter ? "Newsletter" : "Direct"), 150),
+      goal: sanitize(body.goal || (body as any).projectType || (isNewsletter ? "Technical Publications" : "Custom Architecture"), 200),
       bottleneck: sanitize(body.bottleneck || "Not specified", 200),
       industry: sanitize(body.industry || "Not specified", 200),
       stack: sanitize(body.stack || "Not specified", 200),
-      budget: sanitize(body.budget || "Not specified", 100),
-      timeline: sanitize(body.timeline || body.date || "Within 30 Days", 100),
-      notes: sanitize(body.notes || body.brief || "", 4000),
+      budget: sanitize(body.budget || (isNewsletter ? "N/A" : "Not specified"), 100),
+      timeline: sanitize(body.timeline || body.date || (isNewsletter ? "Immediate" : "Within 30 Days"), 100),
+      notes: sanitize(body.notes || body.brief || (isNewsletter ? "Subscribed to technical publications from website footer." : ""), 4000),
       timezone: sanitize(body.timezone || "UTC", 60),
       submittedAt: new Date().toISOString(),
-      sla: "< 24 Hours",
+      sla: isNewsletter ? "Instant" : "< 24 Hours",
       ipAddress: rawIp,
     };
 

@@ -264,11 +264,11 @@ export function StartDiagnosticClient() {
         });
       } else {
         setSubmitError(
-          json.errors ? json.errors.join(" ") : "Submission failed. Please try again or email engineering@vistar.tech."
+          json.errors ? json.errors.join(" ") : "Submission failed. Please try again or email services.vistaar@gmail.com."
         );
       }
     } catch {
-      setSubmitError("Network connection error. Please try again or email engineering@vistar.tech.");
+      setSubmitError("Network connection error. Please try again or email services.vistaar@gmail.com.");
     } finally {
       setSubmitting(false);
     }
@@ -365,7 +365,7 @@ export function StartDiagnosticClient() {
         );
       }
     } catch {
-      setSubmitError("Network connection error. Please try again or email engineering@vistar.tech.");
+      setSubmitError("Network connection error. Please try again or email services.vistaar@gmail.com.");
     } finally {
       setSubmitting(false);
     }
@@ -956,49 +956,47 @@ export function StartDiagnosticClient() {
           </div>
 
           <div className="space-y-3 pt-2">
-            {/* Direct WhatsApp Channel */}
-            <a
-              href="https://wa.me/919999999999?text=Hello%20Vistar%20Engineering%2C%20I%20would%20like%20to%20discuss%20a%20new%20system%20architecture."
-              target="_blank"
-              rel="noopener noreferrer"
+            {/* Direct Contact Form */}
+            <Link
+              href="/contact"
               onClick={() =>
                 trackEvent("escape_hatch_click", {
-                  channel: "whatsapp",
-                  label: "DIRECT WHATSAPP CHANNEL",
+                  channel: "contact_page",
+                  label: "DETAILED ARCHITECTURAL BRIEF",
                 })
               }
-              className="flex items-center justify-between p-3.5 border border-black/10 hover:border-emerald-400 bg-transparent hover:bg-white group transition-all rounded-[4px]"
+              className="flex items-center justify-between p-3.5 border border-black/10 hover:border-black/30 bg-transparent hover:bg-neutral-50 group transition-all rounded-[4px]"
             >
               <div className="space-y-0.5">
                 <p className="font-mono text-xs text-[#0E1118] font-semibold group-hover:text-[#FF3823] transition-colors">
-                  DIRECT WHATSAPP CHANNEL
+                  DETAILED ARCHITECTURAL BRIEF
                 </p>
                 <p className="text-[11px] text-neutral-600 font-sans">
-                  Fastest for quick technical triage &amp; initial scoping
+                  Submit custom specifications and request a tailored quote
                 </p>
               </div>
-              <span className="font-mono text-xs text-[#FF3823]">↗</span>
-            </a>
+              <span className="font-mono text-xs text-[#FF3823]">&rarr;</span>
+            </Link>
 
-            {/* Calendly 20-min Technical Consult */}
+            {/* Direct Engineering Repository */}
             <a
-              href="https://calendly.com/vistar-tech/architecture-briefing"
+              href="https://github.com/Abhishektiwari050/vistaarx"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() =>
                 trackEvent("escape_hatch_click", {
-                  channel: "calendly",
-                  label: "SCHEDULE 20-MIN BRIEFING",
+                  channel: "github",
+                  label: "INSPECT GITHUB REPOSITORY",
                 })
               }
-              className="flex items-center justify-between p-3.5 border border-black/10 hover:border-emerald-400 bg-transparent hover:bg-white group transition-all rounded-[4px]"
+              className="flex items-center justify-between p-3.5 border border-black/10 hover:border-black/30 bg-transparent hover:bg-neutral-50 group transition-all rounded-[4px]"
             >
               <div className="space-y-0.5">
                 <p className="font-mono text-xs text-[#0E1118] font-semibold group-hover:text-[#FF3823] transition-colors">
-                  SCHEDULE 20-MIN BRIEFING
+                  INSPECT GITHUB REPOSITORY
                 </p>
                 <p className="text-[11px] text-neutral-600 font-sans">
-                  Direct Google Meet with a systems architect
+                  Review production codebases, architecture schemas, and commit logs
                 </p>
               </div>
               <span className="font-mono text-xs text-[#FF3823]">↗</span>
@@ -1010,7 +1008,7 @@ export function StartDiagnosticClient() {
                 DIRECT PRINCIPAL INBOX
               </p>
               <a
-                href="mailto:engineering@vistar.tech"
+                href="mailto:services.vistaar@gmail.com"
                 onClick={() =>
                   trackEvent("escape_hatch_click", {
                     channel: "email",
@@ -1019,7 +1017,7 @@ export function StartDiagnosticClient() {
                 }
                 className="font-mono text-sm text-[#FF3823] hover:underline block font-semibold"
               >
-                engineering@vistar.tech
+                services.vistaar@gmail.com
               </a>
             </div>
           </div>

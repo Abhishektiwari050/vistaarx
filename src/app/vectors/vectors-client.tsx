@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { ArrowRight, Terminal, Cpu, ShieldCheck, Activity, Copy, Check, Plus } from "lucide-react";
+import { ArrowRight, Terminal, Cpu, ShieldCheck, Activity, Plus } from "lucide-react";
 import { playClick } from "@/lib/sound";
 import { JasperInteractiveHero } from "@/components/jasper/jasper-interactive-hero";
 
@@ -64,14 +64,6 @@ const PURPOSE_AGENTS = [
 
 export default function VectorsPlatformPage() {
   const [activeFeature, setActiveFeature] = useState<PlatformFeature>("agents");
-  const [copied, setCopied] = useState(false);
-
-  const handleCopy = () => {
-    navigator.clipboard?.writeText("npx vistar deploy --sovereign");
-    setCopied(true);
-    playClick(1000, 0.03);
-    setTimeout(() => setCopied(false), 2000);
-  };
 
   return (
     <div className="w-full bg-[#FAF9F5] text-[#00063D] font-sans antialiased selection:bg-[#FF3823] selection:text-white min-h-screen">

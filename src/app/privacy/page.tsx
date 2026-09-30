@@ -195,7 +195,7 @@ export default function PrivacyPage() {
               <p className="text-sm text-neutral-600">Response SLA within 24 hours.</p>
             </div>
             <a
-              href="mailto:privacy@vistar.tech"
+              href="mailto:services.vistaar@gmail.com"
               className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-white text-black hover:bg-[#ECEEF5] font-sans text-xs uppercase tracking-wider font-semibold transition-all shadow-sm shrink-0"
             >
               <Mail className="w-4 h-4" />

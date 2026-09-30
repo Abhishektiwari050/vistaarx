@@ -10,52 +10,44 @@ interface PartnerLogo {
 
 const LOGOS: PartnerLogo[] = [
   {
-    name: "Alibaba Group",
-    src: "https://upload.wikimedia.org/wikipedia/en/8/80/Alibaba-Group-Logo.svg",
+    name: "Amazon Web Services",
+    src: "https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg",
   },
   {
-    name: "Oracle",
-    src: "https://cdn.sanity.io/images/rjtqmwfu/web3-prod/5836b142b7434a7600de0481735a41a310dd3c3c-171x61.svg",
+    name: "Google Cloud",
+    src: "https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg",
   },
   {
-    name: "Dell Technologies",
-    src: "https://cdn.sanity.io/images/rjtqmwfu/web3-prod/d5bd03ccb68aceccae91a5e93f104e143b8b930d-170x60.svg",
+    name: "Microsoft Azure",
+    src: "https://upload.wikimedia.org/wikipedia/commons/a/a8/Microsoft_Azure_Logo.svg",
   },
   {
-    name: "McKinsey & Company",
-    src: "https://cdn.sanity.io/images/rjtqmwfu/web3-prod/5e55f56f8e105cddbcd6f243fc2686c7eeb63a29-160x50.svg",
+    name: "Cloudflare",
+    src: "https://upload.wikimedia.org/wikipedia/commons/4/4b/Cloudflare_Logo.svg",
   },
   {
-    name: "Accenture",
-    src: "https://cdn.sanity.io/images/rjtqmwfu/web3-prod/44b6dcb718341a204c9684ecd69889fd204d1368-170x60.svg",
+    name: "Docker",
+    src: "https://upload.wikimedia.org/wikipedia/commons/4/4e/Docker_%28container_engine%29_logo.svg",
   },
   {
-    name: "Fujitsu",
-    src: "https://cdn.sanity.io/images/rjtqmwfu/web3-prod/bea01a873a54823b1b79c71b16e74e94d7871b14-170x60.svg",
+    name: "Kubernetes",
+    src: "https://upload.wikimedia.org/wikipedia/commons/3/39/Kubernetes_logo_without_workmark.svg",
   },
   {
-    name: "RBC",
-    src: "https://cdn.sanity.io/images/rjtqmwfu/web3-prod/39abce988f8dc7b0c10f36e7e766e5d04d3e2d94-171x61.svg",
+    name: "PostgreSQL",
+    src: "https://upload.wikimedia.org/wikipedia/commons/2/29/Postgresql_elephant.svg",
   },
   {
-    name: "LG CNS",
-    src: "https://cdn.sanity.io/images/rjtqmwfu/web3-prod/e8a30bc84caccaef42d84f2c447c58c63443d2fb-170x60.svg",
+    name: "Next.js",
+    src: "https://upload.wikimedia.org/wikipedia/commons/8/8e/Nextjs-logo.svg",
   },
   {
-    name: "Bell",
-    src: "https://cdn.sanity.io/images/rjtqmwfu/web3-prod/38a1f54b2cfcd93209930bedec2bd723a70d5e90-170x61.svg",
+    name: "Python",
+    src: "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg",
   },
   {
-    name: "Asana",
-    src: "https://cdn.sanity.io/images/rjtqmwfu/web3-prod/d1d693711b08a6ea65038d7514ba2dbafcc2e1dc-170x60.svg",
-  },
-  {
-    name: "Salesforce",
-    src: "https://cdn.sanity.io/images/rjtqmwfu/web3-prod/6fa18af555fccc6529de4bb0f6ceb0f00db62696-171x61.svg",
-  },
-  {
-    name: "SAP",
-    src: "https://cdn.sanity.io/images/rjtqmwfu/web3-prod/9210d325433b4057e78429767006c4886df08ac4-170x60.svg",
+    name: "Redis",
+    src: "https://upload.wikimedia.org/wikipedia/en/6/6b/Redis_Logo.svg",
   },
 ];
 
