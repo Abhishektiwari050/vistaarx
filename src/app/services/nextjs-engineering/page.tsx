@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Globe, ArrowRight, ShieldCheck, Zap, Layers, CheckCircle2 } from "lucide-react";
 import { KEYWORDS, BASE_URL, DEFAULT_OG_IMAGES } from "@/lib/seo";
+import { EdgeStreamingPipelineMotion } from "@/components/ui/edge-streaming-pipeline-motion";
 
 export const metadata: Metadata = {
   title: "Next.js Development Agency — Hire Next.js & React Engineers | VISTAR",
@@ -122,7 +123,12 @@ export default function NextJSEngineeringPage() {
         </div>
       </section>
 
-      {/* ── 2. CAPABILITIES GRID ── */}
+      {/* ── 2. LIVE ANYCAST EDGE STREAMING PIPELINE DEPICTION ── */}
+      <section className="max-w-6xl mx-auto px-6 pt-12 -mb-8">
+        <EdgeStreamingPipelineMotion />
+      </section>
+
+      {/* ── 3. CAPABILITIES GRID ── */}
       <section className="max-w-6xl mx-auto px-6 py-24 space-y-16">
         <div className="max-w-2xl">
           <span className="font-mono text-xs uppercase tracking-widest border border-black/15 px-2.5 py-1 rounded bg-white">
