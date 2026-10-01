@@ -140,44 +140,36 @@ The future of software belongs to lean, highly capable engineering cells that wr
     content: `
 ## The Fallacy of "Prompt Engineering" in Mission-Critical Systems
 
-In consumer applications, a 95% model accuracy rate is acceptable. In aviation telemetry, healthcare biometrics, or institutional financial settlement, a 5% error rate is catastrophic.
+In consumer chat apps, a 95% accuracy rate is fine. In aviation telemetry, healthcare biometrics, or financial settlement, even a 1% error rate is unacceptable.
 
-Traditional LLM workflows rely on "prompt engineering"—attempting to coax a non-deterministic transformer into reliable behavior through conversational instructions. Under unexpected edge cases, the model inevitably suffers from **probabilistic drift**:
-* Inventing imaginary API parameters.
-* Violating regulatory schemas.
-* Looping endlessly without reaching convergence.
+Traditional AI workflows rely on simple prompt engineering—trying to coax a non-deterministic model into reliable behavior through polite instructions. Under unexpected edge cases, the model inevitably drifts:
+* Hallucinating imaginary API parameters.
+* Generating invalid database fields.
+* Looping indefinitely without completing the job.
 
-To achieve enterprise reliability, software engineers must replace conversational prompts with **deterministic state transition graphs**.
+To achieve enterprise reliability, software engineers must replace conversational prompts with **deterministic state validation**.
 
 ---
 
-## Architectural Principles of Deterministic Agent Graphs
+## Three Principles for Reliable Multi-Agent Systems
 
-### 1. Finite State Machine (FSM) Boundary Constraints
-An autonomous agent must never have unconstrained authority to mutate databases or invoke external tools. Instead, workflow logic is compiled into a formal state graph:
-$$\\Sigma = (S, S_0, \\delta, F)$$
-Where:
-* $S$ is the finite set of valid system states.
-* $S_0$ is the initial ingestion state.
-* $\\delta: S \\times \\Sigma \\rightarrow S$ is the deterministic transition function governed by typed schemas.
-* $F$ is the verified terminal state.
+### 1. Schema Validation Gates
+An autonomous agent must never have unconstrained authority to write to your database or invoke external tools. Every single agent output must pass through strict, typed schema validation (e.g., Zod or Pydantic JSON schemas) before any downstream action is permitted. If the model produces an invalid format, the validation gate rejects it immediately and asks for a precise correction.
 
-If an agent produces an output that does not satisfy the typed schema contract, the transition function $\\delta$ rejects the transition immediately, triggering an automated verification re-evaluation rather than committing corrupted state.
-
-### 2. Decoupled Multi-Agent Pod Architecture
-Rather than asking a single LLM to analyze, reason, and execute simultaneously, the workload is decomposed into specialized pods:
-* **Ingestion Pod:** Ingests raw telemetry, documents, or sensor streams into typed memory buffers.
-* **Reasoning Kernel:** Performs domain synthesis within strict prompt constraints.
-* **Verification Agent:** Independently evaluates the proposed mutations against enterprise business axioms and PII filters.
-* **Consensus Gate:** Requires $M$-of-$N$ pod consensus before signing execution payloads with HMAC-SHA256 signatures.
+### 2. Deconstructed Agent Workflows
+Rather than asking a single LLM to analyze, reason, and execute simultaneously, we split the workflow into focused, specialized roles:
+* **Ingestion Worker:** Converts raw documents, telemetry, or user requests into clean, structured data.
+* **Reasoning Kernel:** Performs domain synthesis within strict operational guardrails.
+* **Verification Agent:** Independently evaluates proposed actions against your business rules and security policies.
+* **Execution Gate:** Executes the approved action and logs an immutable audit trail.
 
 ---
 
 ## Case Study: Project VAYU Aerospace Telemetry
 
-In **Project VAYU** ([ai-vayu.vercel.app](https://ai-vayu.vercel.app)), VISTAR implemented this exact architecture to parse live FAA NOTAM (Notice to Air Missions) advisories for cockpit heads-up displays:
-* Raw unstructured text is parsed by an ingestion pod into geospatial coordinates.
-* A verification agent cross-checks coordinates against national airspace GIS boundaries.
+In **Project VAYU** ([ai-vayu.vercel.app](https://ai-vayu.vercel.app)), VISTAR implemented this exact architecture to parse live FAA NOTAM (Notice to Air Missions) advisories for cockpit displays:
+* Raw, unstructured aviation notices are parsed into precise geospatial coordinates.
+* A verification agent validates the coordinates against active airspace GIS boundaries.
 * Hazard vectors are projected onto the flight map with **sub-45ms latency** and **99.4% precision**.
 
 Zero hallucinations. Zero unverified coordinates. Pure deterministic engineering.
@@ -457,15 +449,14 @@ Standard REST and JSON-over-WebSocket pipelines suffer from excessive serializat
 
 ---
 
-## Architectural Principle 2: Unsupervised Isolation Forest Anomaly Detection (AURA)
+## Architectural Principle 2: Real-Time Biometric Anomaly Detection (AURA)
 
-In clinical healthcare telemetry, waiting for supervised labeled data is impossible—novel physiological collapse patterns have never been seen before.
+In clinical healthcare telemetry, waiting for manually labeled historical data is impossible—novel physiological collapse patterns have never been seen before.
 
-In **AURA**, we deployed an unsupervised **Isolation Forest** ML pipeline running over sliding temporal windows ($w = 50$ samples):
-* High-dimensional sensor inputs (heart rate variance, SpO2 saturation, galvanic skin response) are mapped into private memory arrays.
-* The Isolation Forest algorithm isolates anomalies through recursive random partitioning:
-$$s(x, n) = 2^{-\\frac{E(h(x))}{c(n)}}$$
-* Path lengths $h(x)$ for anomalous points are significantly shorter than normal observations, enabling the system to flag critical biometric drift in **under 12 milliseconds**.
+In **AURA**, we deployed a lightweight unsupervised anomaly detection pipeline running over streaming sensor windows:
+* High-dimensional sensor inputs (heart rate variance, SpO2 saturation, skin response) stream into fast, private memory buffers.
+* An unsupervised tree-partitioning algorithm isolates outlier data points without requiring pre-labeled training data.
+* The system flags critical biometric drift in **under 12 milliseconds**, alerting medical staff before visible symptom onset.
 
 ---
 

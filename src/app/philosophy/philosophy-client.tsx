@@ -6,7 +6,6 @@ import {
   ArrowRight,
   ShieldCheck,
   Cpu,
-  Terminal,
   Zap,
   CheckCircle2,
   XCircle,
@@ -19,34 +18,34 @@ import { AnswerBlocks, type QAPair } from "@/components/seo/answer-blocks";
 const AXIOMS = [
   {
     num: "01",
-    tag: "THE BLOAT INVERSION",
-    title: "Small Principal Cells Outperform Monolithic Hierarchies",
-    desc: "Billion-dollar consultancies staff projects with junior contractors managed by account executives who have never written production software. VISTAR is intentionally small: a compact strike team of principal systems architects who write high-performance TypeScript, Python, and SQL directly. No telephone games. No billable hour bloat.",
-    spec: "ENGINEERING SPEC: ZERO DELEGATION DEBT",
-    domain: "Team Architecture",
+    tag: "NO AGENCY BLOAT",
+    title: "Small Principal Cells Outperform Monolithic Consultancies",
+    desc: "Large consultancies staff client projects with junior developers managed by account executives who have never written production software. VISTAR is intentionally compact: a strike team of principal engineers who write TypeScript, Python, and SQL directly. No telephone games. No billable-hour padding.",
+    spec: "PRINCIPLE: DIRECT SENIOR ENGINEERING",
+    domain: "Team Structure",
   },
   {
     num: "02",
-    tag: "STATE-MACHINE RIGOR",
-    title: "Deterministic Consensus Over Probabilistic Drift",
-    desc: "The enterprise AI market is flooded with flimsy prompt wrappers that collapse under edge cases. We engineer autonomous agents as deterministic state graphs with strict boundary typing, JSON schema validation gates, and multi-agent voting protocols that mathematically guarantee zero out-of-bounds execution.",
-    spec: "RELIABILITY SPEC: ZERO-HALLUCINATION GATES",
+    tag: "PRODUCTION RELIABILITY",
+    title: "Deterministic Validation Over Brittle Prompts",
+    desc: "The market is flooded with flimsy ChatGPT wrappers that break the moment real customers use them. We build autonomous agents with strict schema validation gates and verification steps that guarantee your system never writes corrupted data or executes unauthorized actions.",
+    spec: "PRINCIPLE: ZERO-HALLUCINATION GATES",
     domain: "Autonomous Agents",
   },
   {
     num: "03",
-    tag: "SOVEREIGN PERIMETER",
-    title: "Private VPC Vaults Over Multi-Tenant Leaks",
-    desc: "Confidential enterprise intelligence should never train a third-party model. We architect all model inference, fine-tuned weights, and vector embedding pipelines directly inside your private VPC perimeter (AWS, GCP, Azure, or bare-metal). Hardware-backed TLS 1.3 and AES-256 state channels guarantee zero external telemetry egress.",
-    spec: "SECURITY SPEC: AIR-GAPPED VPC ENCLAVE",
-    domain: "Zero-Trust Perimeter",
+    tag: "PRIVATE CLOUD",
+    title: "Private VPC Perimeters Over Public Multi-Tenant APIs",
+    desc: "Your confidential business intelligence should never train a third-party model. We architect all model inference, fine-tuned weights, and vector databases directly inside your private VPC perimeter (AWS, GCP, or Azure) with encrypted state channels and zero external data leaks.",
+    spec: "PRINCIPLE: AIR-GAPPED PRIVATE CLOUD",
+    domain: "Security & Privacy",
   },
   {
     num: "04",
-    tag: "ABSOLUTE CODE SOVEREIGNTY",
-    title: "100% Private Repository Handover on Day One",
-    desc: "Agencies intentionally engineer proprietary dependencies and closed CMS platforms to force endless monthly retainers. We reject this rent-seeking model entirely. You receive 100% private GitHub repository rights, typed Next.js 16 and Python codebases, Dockerfiles, and Terraform scripts. You own every commit.",
-    spec: "HANDOVER SPEC: 100% CLIENT GITHUB OWNERSHIP",
+    tag: "100% CODE OWNERSHIP",
+    title: "Full GitHub Handover on Day One",
+    desc: "Traditional agencies build proprietary dependencies and closed platforms to lock you into $15,000/month retainers. We reject this rent-seeking model entirely. You receive 100% private GitHub repository rights, typed Next.js and Python codebases, Dockerfiles, and deployment runbooks. You own every line of code.",
+    spec: "PRINCIPLE: 100% CLIENT CODE OWNERSHIP",
     domain: "Code Sovereignty",
   },
 ];
@@ -60,7 +59,7 @@ const COMPARISON_ROWS = [
   {
     dimension: "Engineering Team",
     agency: "Junior developers learning on your dime behind account reps",
-    vistar: "Direct pairing with principal systems architects who write code",
+    vistar: "Direct pairing with principal software engineers who write code",
   },
   {
     dimension: "Source Code Ownership",
@@ -70,7 +69,7 @@ const COMPARISON_ROWS = [
   {
     dimension: "AI Architecture",
     agency: "Cosmetic API wrappers that break under real enterprise loads",
-    vistar: "Deterministic multi-agent state machines & private VPC vaults",
+    vistar: "Deterministic multi-agent workflows & private VPC vaults",
   },
   {
     dimension: "Data Sovereignty",
@@ -78,9 +77,9 @@ const COMPARISON_ROWS = [
     vistar: "Air-gapped private VPC perimeter (GDPR, HIPAA, DIFC, DPDP)",
   },
   {
-    dimension: "Performance & Latency",
+    dimension: "Performance & Speed",
     agency: "Sluggish monolithic templates with failing Lighthouse metrics",
-    vistar: "Sub-40ms P95 global edge latency across 16 Anycast PoPs",
+    vistar: "Sub-45ms P95 global edge latency across 16 Anycast PoPs",
   },
 ];
 
@@ -133,42 +132,45 @@ const PHILOSOPHY_FAQ_ITEMS: QAPair[] = [
 
 export default function PhilosophyPage() {
   return (
-    <div className="w-full bg-[#060709] text-[#ECEEF5] font-sans antialiased selection:bg-[#3B82F6] selection:text-white min-h-screen">
+    <div className="w-full bg-[#FAF9F5] text-[#141413] font-sans antialiased selection:bg-[#FF3823] selection:text-white min-h-screen">
       
-      {/* ── FRAME 1: CINEMATIC OBSIDIAN HERO ── */}
-      <section className="relative w-full pt-28 pb-20 md:pt-36 md:pb-28 border-b border-white/10 overflow-hidden px-4 sm:px-6">
-        {/* Subtle Grid Background */}
-        <div className="absolute inset-0 [background-image:linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] [background-size:64px_64px] pointer-events-none" />
-        
-        {/* Ambient Core Glow */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-gradient-to-b from-blue-600/10 via-purple-500/5 to-transparent blur-3xl pointer-events-none" />
+      {/* ── FRAME 1: WARM EDITORIAL HERO ── */}
+      <section className="relative w-full pt-28 pb-16 md:pt-36 md:pb-24 border-b border-black/10 overflow-hidden px-4 sm:px-6">
+        <div
+          className="absolute inset-0 opacity-40 pointer-events-none"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, rgba(0,0,0,0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.03) 1px, transparent 1px)",
+            backgroundSize: "48px 48px",
+          }}
+        />
 
-        <div className="relative z-10 max-w-5xl mx-auto text-center space-y-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs font-mono text-[#959CB3]">
-            <Code2 className="w-3.5 h-3.5 text-blue-400" />
+        <div className="relative z-10 max-w-4xl mx-auto text-center space-y-5">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-white border border-black/10 rounded-full text-xs font-medium text-[#5E605D] shadow-xs">
+            <Code2 className="w-3.5 h-3.5 text-[#FF3823]" />
             <span>THE UNDERDOG ENGINEERING MANIFESTO</span>
           </div>
 
-          <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl font-normal text-white tracking-tight leading-[1.08]">
+          <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl font-normal text-[#141413] tracking-tight leading-[1.08]">
             Big Consultancies Build Slides. <br />
-            <span className="text-[#959CB3] italic">We Ship Production Code.</span>
+            <span className="text-[#5E605D] italic">We Ship Production Code.</span>
           </h1>
 
-          <p className="text-base sm:text-lg text-[#959CB3] max-w-2xl mx-auto leading-relaxed">
-            In an industry saturated with bloated agencies and brittle prompt wrappers, VISTAR is the lean, uncompromising engineering cell that builds real production software. Zero fluff. 100% source code ownership.
+          <p className="text-base sm:text-lg md:text-[19px] text-[#5E605D] max-w-2xl mx-auto leading-relaxed font-normal">
+            In an industry saturated with bloated agencies and fragile prompt demos, VISTAR is the lean engineering cell that builds real production systems. Zero fluff. 100% source code ownership.
           </p>
 
-          <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 pt-3">
             <Link
               href="/start"
-              className="bg-white hover:bg-neutral-200 text-black px-7 py-3.5 font-semibold text-sm rounded-[4px] shadow-sm transition-all duration-150 inline-flex items-center gap-2 cursor-pointer"
+              className="inline-flex items-center justify-center px-7 py-3.5 bg-[#FF3823] hover:bg-[#E02F1C] text-white font-medium text-sm rounded-none transition-colors shadow-xs gap-2"
             >
-              Start Architecture Diagnostic
+              Start Free Diagnostic
               <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
               href="/work"
-              className="bg-white/5 hover:bg-white/10 text-white border border-white/15 px-7 py-3.5 font-semibold text-sm rounded-[4px] shadow-sm transition-all duration-150 inline-flex items-center gap-2"
+              className="inline-flex items-center justify-center px-7 py-3.5 border border-[#141413] text-[#141413] bg-transparent hover:bg-white font-medium text-sm rounded-none transition-colors"
             >
               Inspect Production Systems
             </Link>
@@ -176,49 +178,49 @@ export default function PhilosophyPage() {
         </div>
       </section>
 
-      {/* ── FRAME 2: 4 FOUNDATIONAL ENGINEERING AXIOMS ── */}
-      <section className="w-full py-24 px-4 sm:px-6 bg-[#0A0B10] border-b border-white/10">
-        <div className="max-w-6xl mx-auto space-y-16">
-          <div className="space-y-3 max-w-2xl">
-            <span className="font-mono text-xs uppercase tracking-wider text-blue-400 font-semibold">
-              // ARCHITECTURAL AXIOMS
+      {/* ── FRAME 2: 4 FOUNDATIONAL ENGINEERING PRINCIPLES ── */}
+      <section className="w-full py-20 px-4 sm:px-6 bg-[#F6F4ED] border-b border-black/10">
+        <div className="max-w-6xl mx-auto space-y-12">
+          <div className="space-y-2 max-w-2xl">
+            <span className="text-xs uppercase tracking-widest text-[#FF3823] font-semibold">
+              ENGINEERING PRINCIPLES
             </span>
-            <h2 className="text-3xl sm:text-5xl font-serif font-normal text-white tracking-tight">
-              Foundational Engineering Principles
+            <h2 className="text-3xl sm:text-5xl font-serif font-normal text-[#141413] tracking-tight">
+              Foundational Operating Rules
             </h2>
-            <p className="text-sm sm:text-base text-[#959CB3]">
-              The uncompromising technical axioms that govern every system we engineer.
+            <p className="text-base text-[#5E605D]">
+              The core principles that govern every single system we engineer.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
             {AXIOMS.map((axiom) => (
               <article
                 key={axiom.num}
-                className="bg-[#0D0E15] border border-white/10 rounded-xl p-8 hover:border-white/20 transition-all flex flex-col justify-between space-y-6 group"
+                className="bg-white border border-black/10 rounded-2xl p-7 sm:p-8 hover:border-black/30 hover:shadow-md transition-all flex flex-col justify-between space-y-5 group"
               >
-                <div className="space-y-4">
+                <div className="space-y-3.5">
                   <div className="flex items-center justify-between">
-                    <span className="font-mono text-xs font-semibold text-blue-400 uppercase tracking-wider">
+                    <span className="text-xs font-semibold text-[#FF3823] uppercase tracking-wider">
                       {axiom.tag}
                     </span>
-                    <span className="font-mono text-xl font-bold text-neutral-600 group-hover:text-white transition-colors">
+                    <span className="text-lg font-bold text-neutral-400 group-hover:text-[#141413] transition-colors">
                       {axiom.num}
                     </span>
                   </div>
 
-                  <h3 className="font-serif text-2xl font-bold text-white group-hover:text-blue-400 transition-colors">
+                  <h3 className="font-serif text-2xl font-normal text-[#141413] group-hover:text-[#FF3823] transition-colors leading-snug">
                     {axiom.title}
                   </h3>
 
-                  <p className="text-sm text-neutral-300 leading-relaxed font-normal">
+                  <p className="text-sm text-[#5E605D] leading-relaxed font-normal">
                     {axiom.desc}
                   </p>
                 </div>
 
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between pt-4 border-t border-white/10 text-xs text-[#959CB3] font-mono gap-2">
-                  <span className="text-white font-semibold">{axiom.spec}</span>
-                  <span className="text-[#959CB3]">{axiom.domain}</span>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between pt-4 border-t border-black/10 text-xs text-[#5E605D] gap-1">
+                  <span className="text-[#141413] font-medium">{axiom.spec}</span>
+                  <span className="text-[#888888]">{axiom.domain}</span>
                 </div>
               </article>
             ))}
@@ -226,43 +228,43 @@ export default function PhilosophyPage() {
         </div>
       </section>
 
-      {/* ── FRAME 3: UNDERDOG CAPABILITY COMPARISON TABLE ── */}
-      <section className="w-full py-24 px-4 sm:px-6 bg-[#060709] border-b border-white/10">
-        <div className="max-w-6xl mx-auto space-y-12">
-          <div className="space-y-3 text-center max-w-3xl mx-auto">
-            <span className="font-mono text-xs uppercase tracking-wider text-emerald-400 font-semibold">
-              // THE BLOAT COMPARISON
+      {/* ── FRAME 3: COMPARISON TABLE ── */}
+      <section className="w-full py-20 px-4 sm:px-6 bg-[#FAF9F5] border-b border-black/10">
+        <div className="max-w-6xl mx-auto space-y-10">
+          <div className="space-y-2 text-center max-w-3xl mx-auto">
+            <span className="text-xs uppercase tracking-widest text-[#FF3823] font-semibold">
+              THE BLOAT COMPARISON
             </span>
-            <h2 className="text-3xl sm:text-5xl font-serif font-normal text-white tracking-tight">
-              The Underdog Edge vs. Monolithic Consultancies
+            <h2 className="text-3xl sm:text-5xl font-serif font-normal text-[#141413] tracking-tight">
+              The Underdog Edge vs. Traditional Consultancies
             </h2>
-            <p className="text-sm sm:text-base text-[#959CB3]">
-              Why high-conviction engineering cells deliver vastly superior software outcomes compared to traditional consultancies.
+            <p className="text-base text-[#5E605D]">
+              Why lean, principal-led engineering teams deliver vastly superior software outcomes.
             </p>
           </div>
 
-          <div className="overflow-x-auto border border-white/10 rounded-xl bg-[#0D0E15]">
+          <div className="overflow-x-auto border border-black/10 rounded-2xl bg-white shadow-xs">
             <table className="w-full text-left text-sm font-sans border-collapse">
               <thead>
-                <tr className="border-b border-white/10 bg-white/5 font-mono text-xs text-[#959CB3] uppercase tracking-wider">
+                <tr className="border-b border-black/10 bg-[#F6F4ED] text-xs text-[#141413] uppercase tracking-wider font-semibold">
                   <th className="p-4 sm:p-5">Dimension</th>
-                  <th className="p-4 sm:p-5 text-neutral-400">Traditional Consultancies</th>
-                  <th className="p-4 sm:p-5 text-white bg-blue-500/10">VISTAR (Sovereign Cell)</th>
+                  <th className="p-4 sm:p-5 text-[#5E605D]">Traditional Consultancies</th>
+                  <th className="p-4 sm:p-5 text-[#052E16] bg-[#E8FCE8]">VISTAR (Engineering Cell)</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-white/10 text-xs sm:text-sm">
+              <tbody className="divide-y divide-black/10 text-xs sm:text-sm">
                 {COMPARISON_ROWS.map((row, idx) => (
-                  <tr key={idx} className="hover:bg-white/[0.02] transition-colors">
-                    <td className="p-4 sm:p-5 font-mono font-bold text-white whitespace-nowrap">
+                  <tr key={idx} className="hover:bg-neutral-50 transition-colors">
+                    <td className="p-4 sm:p-5 font-semibold text-[#141413] whitespace-nowrap">
                       {row.dimension}
                     </td>
-                    <td className="p-4 sm:p-5 text-neutral-400 flex items-start gap-2">
-                      <XCircle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
+                    <td className="p-4 sm:p-5 text-[#5E605D] flex items-start gap-2">
+                      <XCircle className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
                       <span>{row.agency}</span>
                     </td>
-                    <td className="p-4 sm:p-5 text-neutral-200 bg-blue-500/[0.03] font-medium">
+                    <td className="p-4 sm:p-5 text-[#141413] bg-[#E8FCE8]/40 font-medium">
                       <div className="flex items-start gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                        <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                         <span>{row.vistar}</span>
                       </div>
                     </td>
@@ -274,38 +276,38 @@ export default function PhilosophyPage() {
         </div>
       </section>
 
-      {/* ── FRAME 4: TECHNICAL ANSWER BLOCKS (DARK THEME) ── */}
+      {/* ── FRAME 4: TECHNICAL ANSWER BLOCKS (LIGHT THEME) ── */}
       <AnswerBlocks
         title="Underdog Engineering & Capability Answers"
-        subtitle="Canonical answers addressing VISTAR's boutique engineering cell architecture, delivery speed, and code ownership guarantees."
+        subtitle="Answers regarding our engineering cell architecture, delivery velocity, and source code ownership guarantees."
         badge="MANIFESTO SPECIFICATION"
         items={PHILOSOPHY_FAQ_ITEMS}
         schemaId="philosophy-faq-schema"
-        theme="dark"
+        theme="light"
       />
 
       {/* ── FRAME 5: BOTTOM CONVERSION CTA ── */}
-      <section className="w-full py-24 px-4 sm:px-6 bg-[#0A0B10] border-t border-white/10 text-center">
-        <div className="max-w-3xl mx-auto space-y-6">
-          <h2 className="font-serif text-3xl sm:text-5xl font-normal text-white tracking-tight">
+      <section className="w-full py-20 px-4 sm:px-6 bg-[#F6F4ED] border-t border-black/10 text-center">
+        <div className="max-w-3xl mx-auto space-y-5">
+          <h2 className="font-serif text-3xl sm:text-5xl font-normal text-[#141413] tracking-tight">
             Read enough theory? Let&apos;s engineer.
           </h2>
-          <p className="text-sm sm:text-base text-[#959CB3] max-w-xl mx-auto">
-            Pair directly with principal systems architects. Ship production AI software in 14 days with 100% repository handover.
+          <p className="text-base text-[#5E605D] max-w-xl mx-auto leading-relaxed">
+            Pair directly with principal systems engineers. Ship production AI software in 14 days with 100% repository handover.
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 pt-3">
             <Link
               href="/start"
-              className="bg-white hover:bg-neutral-200 text-black px-7 py-3.5 font-semibold text-sm rounded-[4px] shadow-sm transition-all duration-150 inline-flex items-center gap-2"
+              className="inline-flex items-center justify-center px-7 py-3.5 bg-[#FF3823] hover:bg-[#E02F1C] text-white font-medium text-sm rounded-none transition-colors shadow-xs gap-2"
             >
-              Start Architecture Diagnostic
+              Start Free Diagnostic
               <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
               href="/contact"
-              className="bg-white/5 hover:bg-white/10 text-white border border-white/15 px-7 py-3.5 font-semibold text-sm rounded-[4px] shadow-sm transition-all duration-150"
+              className="inline-flex items-center justify-center px-7 py-3.5 border border-[#141413] text-[#141413] bg-transparent hover:bg-white font-medium text-sm rounded-none transition-colors"
             >
-              Talk to Principal Architects
+              Talk to Principal Engineers
             </Link>
           </div>
         </div>

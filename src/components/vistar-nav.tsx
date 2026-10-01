@@ -12,10 +12,10 @@ interface NavLinkItem {
 
 const NAV_LINKS: NavLinkItem[] = [
   { label: "Platform", href: "/vectors" },
-  { label: "Solutions", href: "/work" },
-  { label: "Network", href: "/network" },
-  { label: "Research", href: "/philosophy" },
+  { label: "Work", href: "/work" },
+  { label: "Pricing", href: "/pricing" },
   { label: "Blog", href: "/blog" },
+  { label: "Philosophy", href: "/philosophy" },
   { label: "Contact", href: "/contact" },
 ];
 
