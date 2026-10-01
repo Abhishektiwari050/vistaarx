@@ -20,6 +20,7 @@ import {
   Check,
 } from "lucide-react";
 import { AnswerBlocks, type QAPair } from "@/components/seo/answer-blocks";
+import { MechanicalGearsMotion } from "@/components/ui/mechanical-gears-motion";
 
 const AXIOMS = [
   {
@@ -142,6 +143,7 @@ const PHILOSOPHY_FAQ_ITEMS: QAPair[] = [
 
 export default function PhilosophyPage() {
   const [activeModel, setActiveModel] = useState<"vistar" | "agency">("vistar");
+  const [activeStage, setActiveStage] = useState<number>(1);
 
   return (
     <div className="w-full bg-[#FAF9F5] text-[#141413] font-sans antialiased selection:bg-[#FF3823] selection:text-white min-h-screen">
@@ -298,6 +300,15 @@ export default function PhilosophyPage() {
             </div>
           </div>
 
+          {/* Dedicated Motion Depiction: Mechanical Sprint Transmission */}
+          <div className="space-y-4">
+            <MechanicalGearsMotion
+              mode={activeModel}
+              activeStage={activeStage}
+              onSelectStage={(idx) => setActiveStage(idx)}
+            />
+          </div>
+
           {/* Interactive Flow Diagram Visualizer */}
           {activeModel === "vistar" ? (
             <div className="bg-white border border-[#141413] rounded-2xl p-6 sm:p-8 space-y-6 shadow-sm transition-all">
@@ -315,26 +326,66 @@ export default function PhilosophyPage() {
 
               {/* Step Nodes Grid */}
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div className="p-4 bg-[#FAF9F5] border border-black/10 rounded-xl space-y-2">
-                  <span className="text-[10px] font-mono text-[#FF3823] font-bold">STAGE 01</span>
+                <div
+                  onClick={() => setActiveStage(0)}
+                  className={`p-4 rounded-xl space-y-2 cursor-pointer transition-all ${
+                    activeStage === 0
+                      ? "bg-white border-2 border-[#FF3823] shadow-md ring-2 ring-[#FF3823]/10"
+                      : "bg-[#FAF9F5] border border-black/10 hover:border-black/30"
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-mono text-[#FF3823] font-bold">STAGE 01</span>
+                    {activeStage === 0 && <span className="text-[9px] font-mono px-1.5 py-0.5 bg-[#FF3823]/10 text-[#FF3823] rounded">GEAR ENGAGED</span>}
+                  </div>
                   <h4 className="font-serif text-base font-normal text-[#141413]">48-Hour Architecture Scoping</h4>
                   <p className="text-xs text-[#5E605D]">Direct pairing with principal systems architect. Concrete system interfaces and typed API boundaries.</p>
                 </div>
 
-                <div className="p-4 bg-[#FAF9F5] border border-black/10 rounded-xl space-y-2">
-                  <span className="text-[10px] font-mono text-[#FF3823] font-bold">STAGE 02</span>
+                <div
+                  onClick={() => setActiveStage(1)}
+                  className={`p-4 rounded-xl space-y-2 cursor-pointer transition-all ${
+                    activeStage === 1
+                      ? "bg-white border-2 border-[#3B82F6] shadow-md ring-2 ring-[#3B82F6]/10"
+                      : "bg-[#FAF9F5] border border-black/10 hover:border-black/30"
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-mono text-[#3B82F6] font-bold">STAGE 02</span>
+                    {activeStage === 1 && <span className="text-[9px] font-mono px-1.5 py-0.5 bg-[#3B82F6]/10 text-[#3B82F6] rounded">GEAR ENGAGED</span>}
+                  </div>
                   <h4 className="font-serif text-base font-normal text-[#141413]">14-Day Production Sprint</h4>
                   <p className="text-xs text-[#5E605D]">Principal engineers write TypeScript, Python, and SQL directly. Weekly deployable milestones with automated test suites.</p>
                 </div>
 
-                <div className="p-4 bg-[#FAF9F5] border border-black/10 rounded-xl space-y-2">
-                  <span className="text-[10px] font-mono text-[#FF3823] font-bold">STAGE 03</span>
+                <div
+                  onClick={() => setActiveStage(2)}
+                  className={`p-4 rounded-xl space-y-2 cursor-pointer transition-all ${
+                    activeStage === 2
+                      ? "bg-white border-2 border-[#10B981] shadow-md ring-2 ring-[#10B981]/10"
+                      : "bg-[#FAF9F5] border border-black/10 hover:border-black/30"
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-mono text-[#10B981] font-bold">STAGE 03</span>
+                    {activeStage === 2 && <span className="text-[9px] font-mono px-1.5 py-0.5 bg-[#10B981]/10 text-[#10B981] rounded">GEAR ENGAGED</span>}
+                  </div>
                   <h4 className="font-serif text-base font-normal text-[#141413]">Air-Gapped Private VPC</h4>
                   <p className="text-xs text-[#5E605D]">Models, embeddings, and vector stores deployed directly in your AWS, GCP, or Azure perimeter. Zero third-party training leaks.</p>
                 </div>
 
-                <div className="p-4 bg-[#FAF9F5] border border-black/10 rounded-xl space-y-2">
-                  <span className="text-[10px] font-mono text-[#FF3823] font-bold">STAGE 04</span>
+                <div
+                  onClick={() => setActiveStage(3)}
+                  className={`p-4 rounded-xl space-y-2 cursor-pointer transition-all ${
+                    activeStage === 3
+                      ? "bg-white border-2 border-[#F59E0B] shadow-md ring-2 ring-[#F59E0B]/10"
+                      : "bg-[#FAF9F5] border border-black/10 hover:border-black/30"
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-mono text-[#F59E0B] font-bold">STAGE 04</span>
+                    {activeStage === 3 && <span className="text-[9px] font-mono px-1.5 py-0.5 bg-[#F59E0B]/10 text-[#F59E0B] rounded">GEAR ENGAGED</span>}
+                  </div>
                   <h4 className="font-serif text-base font-normal text-[#141413]">100% Repository Transfer</h4>
                   <p className="text-xs text-[#5E605D]">Full private GitHub handover, Dockerfiles, and Terraform scripts. You own every line of code with zero ongoing retainers.</p>
                 </div>

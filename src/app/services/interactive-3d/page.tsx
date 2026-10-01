@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Box, ArrowRight, ShieldCheck, Sparkles, Layers, CheckCircle2 } from "lucide-react";
 import { KEYWORDS, BASE_URL, DEFAULT_OG_IMAGES } from "@/lib/seo";
+import { SpatialGimbalMotion } from "@/components/ui/spatial-gimbal-motion";
 
 export const metadata: Metadata = {
   title: "WebGL & Three.js Interactive 3D Web Development Studio | VISTAR",
@@ -122,7 +123,12 @@ export default function Interactive3DPage() {
         </div>
       </section>
 
-      {/* ── 2. CAPABILITIES GRID ── */}
+      {/* ── 2. LIVE SPATIAL ENGINE DEPICTION ── */}
+      <section className="max-w-6xl mx-auto px-6 pt-12 -mb-8">
+        <SpatialGimbalMotion />
+      </section>
+
+      {/* ── 3. CAPABILITIES GRID ── */}
       <section className="max-w-6xl mx-auto px-6 py-24 space-y-16">
         <div className="max-w-2xl">
           <span className="font-mono text-xs uppercase tracking-widest border border-black/15 px-2.5 py-1 rounded bg-white">

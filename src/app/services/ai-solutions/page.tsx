@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Cpu, ArrowRight, ShieldCheck, Zap, Terminal, Sparkles, CheckCircle2 } from "lucide-react";
 import { KEYWORDS, BASE_URL, DEFAULT_OG_IMAGES } from "@/lib/seo";
 import { AnswerBlocks } from "@/components/seo/answer-blocks";
+import { MultiAgentConsensusMotion } from "@/components/ui/multi-agent-consensus-motion";
 
 const AI_FAQ_ITEMS = [
   {
@@ -181,7 +182,12 @@ export default function AISolutionsPage() {
         </div>
       </section>
 
-      {/* ── 2. CAPABILITIES GRID ── */}
+      {/* ── 2. LIVE MULTI-AGENT CONSENSUS BUS DEPICTION ── */}
+      <section className="max-w-6xl mx-auto px-6 pt-12 -mb-8">
+        <MultiAgentConsensusMotion />
+      </section>
+
+      {/* ── 3. CAPABILITIES GRID ── */}
       <section className="max-w-6xl mx-auto px-6 py-24 space-y-16">
         <div className="max-w-2xl">
           <span className="font-mono text-xs uppercase tracking-widest border border-black/15 px-2.5 py-1 rounded bg-white">
