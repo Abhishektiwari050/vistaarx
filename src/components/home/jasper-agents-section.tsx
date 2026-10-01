@@ -10,11 +10,6 @@ export function JasperAgentsSection() {
         
         {/* Section Header */}
         <div className="max-w-3xl mx-auto text-center mb-10 sm:mb-14 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-[2px] bg-black/5 border border-black/10 text-neutral-700 font-mono text-xs uppercase tracking-wider font-semibold">
-            <span className="w-2 h-2 rounded-full bg-[#FF3823] animate-pulse" />
-            AUTONOMOUS WORKFORCE // PRODUCTION MATRIX
-          </div>
-
           <h2
             className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-normal tracking-[-0.03em] leading-[1.12] text-[#141413]"
             style={{

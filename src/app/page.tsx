@@ -141,9 +141,9 @@ export default function Home() {
 
         {/* 07: TECHNICAL ANSWER BLOCKS (GOOGLE SEO & KNOWLEDGE GRAPH CITATIONS) */}
         <AnswerBlocks
-          title="Technical Specifications & Frequently Asked Questions"
-          subtitle="Direct technical answers addressing VISTAR's engineering standards, 14-day production sprints, and sovereign cloud deployment."
-          badge="KNOWLEDGE GRAPH // SPEC"
+          title="Frequently Asked Questions"
+          subtitle="Clear answers on our 14-day production sprints, dual-currency pricing, WhatsApp automations, and complete source code ownership."
+          badge="FAQ"
           items={HOME_FAQ_ITEMS}
           schemaId="home-faq-schema"
           theme="light"

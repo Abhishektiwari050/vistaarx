@@ -235,29 +235,7 @@ export function JasperInteractiveHero() {
 
   return (
     <div className="w-full flex flex-col bg-[#FAF9F5] select-none">
-      {/* ── 1. TOP INTERACTIVE STATUS HUD ── */}
-      <div className="w-full px-4 py-2.5 bg-white/80 border-b border-black/[0.06] flex items-center justify-between text-xs font-mono text-[#5E605D]">
-        <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-          <span className="font-semibold text-[#141413] tracking-wide text-[11px]">
-            INTERACTIVE 3D ISOMETRIC ENGINE
-          </span>
-          <span className="hidden sm:inline text-neutral-300">|</span>
-          <span className="hidden sm:inline text-[11px] text-[#5E605D]">
-            60 FPS HARDWARE ACCELERATED
-          </span>
-        </div>
-        <div className="flex items-center gap-2 text-[11px]">
-          <span className="hidden md:inline text-neutral-400">
-            Hover keys to press &bull; Click to cycle capability
-          </span>
-          <span className="px-2 py-0.5 rounded bg-black/5 font-semibold text-[#141413]">
-            {activeSlide + 1} / 4
-          </span>
-        </div>
-      </div>
-
-      {/* ── 2. EXACT JASPER PRODUCTION RIVE WRAPPER (aspect-ratio: 14.4 / 4.2) ── */}
+      {/* ── EXACT JASPER PRODUCTION RIVE WRAPPER (aspect-ratio: 14.4 / 4.2) ── */}
       <div
         ref={containerRef}
         onClick={advanceToNext}

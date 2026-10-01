@@ -40,8 +40,8 @@ export function CohereEmpowerment() {
           </div>
 
           {/* Top Label */}
-          <div className="relative z-10 text-xs font-mono tracking-widest uppercase text-white/70">
-            ENTERPRISE EMPOWERMENT // SOVEREIGNTY
+          <div className="relative z-10 text-xs font-sans tracking-wider uppercase text-white/70 font-medium">
+            Data Sovereignty
           </div>
 
           {/* Bottom Content */}
