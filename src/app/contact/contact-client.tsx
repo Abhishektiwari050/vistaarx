@@ -14,15 +14,18 @@ import {
   Loader2,
   AlertCircle,
   Building2,
+  Phone,
+  MessageCircle,
 } from "lucide-react";
 
 export default function ContactPage() {
   const [formState, setFormState] = useState({
     name: "",
     email: "",
+    phone: "",
     company: "",
-    projectType: "Autonomous AI Agents",
-    budget: "$15k – $35k",
+    projectType: "WhatsApp & AI Automations",
+    budget: "₹49k – ₹1.5L ($600 – $1.8k)",
     message: "",
     _hp: "",
   });
@@ -33,15 +36,18 @@ export default function ContactPage() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const categories = [
-    "Autonomous AI Agents",
-    "Sovereign VPC Platform",
-    "Enterprise Next.js 16",
-    "Spatial 3D / WebGL",
-    "High-Throughput Telemetry",
+    "WhatsApp & AI Automations",
+    "Custom Web App / Portal",
+    "3D Spatial / Interactive Website",
+    "Enterprise Systems & Integrations",
     "14-Day Production Sprint",
   ];
 
-  const budgetTiers = ["$5k – $15k", "$15k – $35k", "$35k+"];
+  const budgetTiers = [
+    "₹49k – ₹1.5L ($600 – $1.8k)",
+    "₹1.5L – ₹3.5L ($1.8k – $4.2k)",
+    "₹3.5L+ ($4.2k+)",
+  ];
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,6 +63,7 @@ export default function ContactPage() {
         body: JSON.stringify({
           name: formState.name,
           email: formState.email,
+          phone: formState.phone,
           company: formState.company,
           brief: formState.message,
           notes: formState.message,
@@ -100,52 +107,89 @@ export default function ContactPage() {
     setFormState({
       name: "",
       email: "",
+      phone: "",
       company: "",
-      projectType: "Autonomous AI Agents",
-      budget: "$15k – $35k",
+      projectType: "WhatsApp & AI Automations",
+      budget: "₹49k – ₹1.5L ($600 – $1.8k)",
       message: "",
       _hp: "",
     });
   };
 
   return (
-    <div className="w-full bg-[#FAF9F5] text-[#0E1118] font-sans antialiased selection:bg-[#3B82F6] selection:text-white min-h-screen pb-32">
-      {/* ── 1. HEADER (BLUEPRINT GRID) ── */}
-      <section className="w-full pt-16 pb-16 bg-white border-b border-black/10 text-center px-4">
-        <div className="max-w-4xl mx-auto space-y-4">
-          <div>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-black/5 border border-black/10 text-neutral-800 font-mono text-xs uppercase tracking-wider font-semibold rounded-[2px]">
-              Direct Consultation // Guaranteed 24h SLA
-            </span>
+    <div className="w-full bg-[#FAF9F5] text-[#0E1118] font-sans antialiased selection:bg-[#FF3823] selection:text-white min-h-screen">
+      
+      {/* ── FRAME 1: EDITORIAL HEADER ── */}
+      <section className="relative w-full pt-28 pb-12 md:pt-36 md:pb-16 border-b border-black/10 overflow-hidden px-4 sm:px-6">
+        <div
+          className="absolute inset-0 opacity-40 pointer-events-none"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, rgba(0,0,0,0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.03) 1px, transparent 1px)",
+            backgroundSize: "48px 48px",
+          }}
+        />
+
+        <div className="relative z-10 max-w-4xl mx-auto text-center space-y-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-white border border-black/10 rounded-full text-xs font-medium text-[#5E605D] shadow-xs">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span>DIRECT FOUNDER CONSULTATION &bull; 24H SLA</span>
           </div>
 
-          <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl font-semibold text-[#0E1118] tracking-tight leading-[1.08]">
-            Let&apos;s architect your{" "}
-            <span className="font-serif italic font-normal text-[#3B82F6]">
-              sovereign
-            </span>{" "}
-            platform.
+          <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl font-normal text-[#0E1118] tracking-tight leading-[1.08]">
+            Let&apos;s talk about your <br />
+            <span className="text-[#5E605D] italic">software or AI project.</span>
           </h1>
 
-          <p className="text-base sm:text-lg text-neutral-600 max-w-xl mx-auto leading-relaxed">
-            Submit your technical specifications below. A principal systems architect will analyze your stack and respond within 24 hours with a production roadmap, timeline, and security specification.
+          <p className="text-base sm:text-lg md:text-[19px] text-[#5E605D] max-w-2xl mx-auto leading-relaxed font-normal">
+            Direct access to principal software engineers. We review your requirements, provide honest technical feasibility, and scope working production systems delivered in 14-day sprints.
           </p>
         </div>
       </section>
 
-      {/* ── 2. FORM & INFO SPLIT SECTION ── */}
-      <section className="max-w-6xl mx-auto px-6 pt-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          {/* Left Column: Clean White Form Card (7 Cols) */}
-          <div className="lg:col-span-7 bg-white border border-black/10 rounded-[6px] shadow-sm p-8 sm:p-10 space-y-8">
+      {/* ── FRAME 2: CONTACT FORM & DIRECT CHANNELS ── */}
+      <section className="w-full py-16 px-4 sm:px-6 md:px-8">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+          
+          {/* Left Column: Form (7 cols) */}
+          <div className="lg:col-span-7 bg-white border border-black/10 rounded-2xl p-6 sm:p-10 shadow-xs">
             <AnimatePresence mode="wait">
-              {!isSubmitted ? (
-                <motion.form
-                  key="form"
+              {isSubmitted ? (
+                <motion.div
+                  key="submitted"
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.98 }}
+                  className="space-y-6 text-center py-10"
+                >
+                  <div className="w-16 h-16 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center mx-auto">
+                    <CheckCircle2 className="w-8 h-8" />
+                  </div>
+
+                  <div className="space-y-2">
+                    <span className="font-mono text-xs text-neutral-400 uppercase tracking-widest">
+                      REF ID: {referenceId}
+                    </span>
+                    <h3 className="font-serif text-2xl sm:text-3xl font-normal text-[#0E1118]">
+                      Requirements Received
+                    </h3>
+                    <p className="text-sm text-neutral-600 max-w-md mx-auto leading-relaxed">
+                      Thank you. We have received your technical requirements. A principal engineer will review the brief and respond within 24 hours.
+                    </p>
+                  </div>
+
+                  <div className="pt-4 flex justify-center">
+                    <button
+                      onClick={handleResetForm}
+                      className="px-6 py-2.5 text-xs font-semibold text-neutral-700 bg-neutral-100 hover:bg-neutral-200 rounded transition-colors cursor-pointer"
+                    >
+                      Submit Another Requirement
+                    </button>
+                  </div>
+                </motion.div>
+              ) : (
+                <form
                   onSubmit={handleFormSubmit}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
                   className="space-y-6"
                 >
                   {/* Category Selection */}
@@ -162,9 +206,9 @@ export default function ContactPage() {
                           onClick={() => {
                             setFormState({ ...formState, projectType: cat });
                           }}
-                          className={`px-3.5 py-1.5 text-xs font-medium rounded-[3px] border transition-colors cursor-pointer ${
+                          className={`px-3.5 py-1.5 text-xs font-medium rounded-[4px] border transition-colors cursor-pointer ${
                             formState.projectType === cat
-                              ? "bg-[#3B82F6] text-white border-[#3B82F6]"
+                              ? "bg-[#141413] text-white border-[#141413]"
                               : "bg-[#FAF9F5] text-neutral-700 border-black/10 hover:border-black/25"
                           }`}
                         >
@@ -174,7 +218,7 @@ export default function ContactPage() {
                     </div>
                   </div>
 
-                  {/* Name & Corporate Email */}
+                  {/* Name & Email */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <label className="block font-mono text-xs uppercase tracking-wider text-neutral-500">
@@ -188,13 +232,13 @@ export default function ContactPage() {
                         onChange={(e) =>
                           setFormState({ ...formState, name: e.target.value })
                         }
-                        placeholder="Alex Chen"
+                        placeholder="Abhishek Tiwari"
                         className="w-full bg-[#FAF9F5] border border-black/15 rounded-[4px] px-4 py-3 text-sm text-neutral-900 focus:outline-none focus:border-[#FF3823] focus:bg-white transition-colors disabled:opacity-60"
                       />
                     </div>
                     <div className="space-y-2">
                       <label className="block font-mono text-xs uppercase tracking-wider text-neutral-500">
-                        Work Email <span className="text-[#FF3823]">*</span>
+                        Work / Personal Email <span className="text-[#FF3823]">*</span>
                       </label>
                       <input
                         type="email"
@@ -204,36 +248,54 @@ export default function ContactPage() {
                         onChange={(e) =>
                           setFormState({ ...formState, email: e.target.value })
                         }
-                        placeholder="alex@company.com"
+                        placeholder="abhishek@example.com"
                         className="w-full bg-[#FAF9F5] border border-black/15 rounded-[4px] px-4 py-3 text-sm text-neutral-900 focus:outline-none focus:border-[#FF3823] focus:bg-white transition-colors disabled:opacity-60"
                       />
                     </div>
                   </div>
 
-                  {/* Company / Organization (Optional) */}
-                  <div className="space-y-2">
-                    <label className="block font-mono text-xs uppercase tracking-wider text-neutral-500 flex items-center gap-1.5">
-                      <Building2 className="w-3.5 h-3.5 text-neutral-400" />
-                      Company / Organization (Optional)
-                    </label>
-                    <input
-                      type="text"
-                      disabled={isSubmitting}
-                      value={formState.company}
-                      onChange={(e) =>
-                        setFormState({ ...formState, company: e.target.value })
-                      }
-                      placeholder="Acme Corp / Stealth AI"
-                      className="w-full bg-[#FAF9F5] border border-black/15 rounded-[4px] px-4 py-3 text-sm text-neutral-900 focus:outline-none focus:border-[#FF3823] focus:bg-white transition-colors disabled:opacity-60"
-                    />
+                  {/* Phone / WhatsApp & Company */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <label className="block font-mono text-xs uppercase tracking-wider text-neutral-500 flex items-center gap-1.5">
+                        <Phone className="w-3.5 h-3.5 text-neutral-400" />
+                        Phone / WhatsApp (Recommended)
+                      </label>
+                      <input
+                        type="tel"
+                        disabled={isSubmitting}
+                        value={formState.phone}
+                        onChange={(e) =>
+                          setFormState({ ...formState, phone: e.target.value })
+                        }
+                        placeholder="+91 98765 43210"
+                        className="w-full bg-[#FAF9F5] border border-black/15 rounded-[4px] px-4 py-3 text-sm text-neutral-900 focus:outline-none focus:border-[#FF3823] focus:bg-white transition-colors disabled:opacity-60"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="block font-mono text-xs uppercase tracking-wider text-neutral-500 flex items-center gap-1.5">
+                        <Building2 className="w-3.5 h-3.5 text-neutral-400" />
+                        Company / Business Name (Optional)
+                      </label>
+                      <input
+                        type="text"
+                        disabled={isSubmitting}
+                        value={formState.company}
+                        onChange={(e) =>
+                          setFormState({ ...formState, company: e.target.value })
+                        }
+                        placeholder="Business / Startup Name"
+                        className="w-full bg-[#FAF9F5] border border-black/15 rounded-[4px] px-4 py-3 text-sm text-neutral-900 focus:outline-none focus:border-[#FF3823] focus:bg-white transition-colors disabled:opacity-60"
+                      />
+                    </div>
                   </div>
 
                   {/* Budget Tier */}
                   <div className="space-y-2.5">
                     <label className="block font-mono text-xs uppercase tracking-wider text-neutral-500">
-                      Target Investment Range
+                      Estimated Budget Range
                     </label>
-                    <div className="grid grid-cols-3 gap-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                       {budgetTiers.map((tier) => (
                         <button
                           key={tier}
@@ -242,9 +304,9 @@ export default function ContactPage() {
                           onClick={() => {
                             setFormState({ ...formState, budget: tier });
                           }}
-                          className={`py-2 text-xs font-semibold rounded-[3px] border text-center transition-colors cursor-pointer ${
+                          className={`py-2 px-2 text-xs font-semibold rounded-[4px] border text-center transition-colors cursor-pointer ${
                             formState.budget === tier
-                              ? "bg-[#0E1118] text-white border-[#0E1118]"
+                              ? "bg-[#141413] text-white border-[#141413]"
                               : "bg-[#FAF9F5] text-neutral-700 border-black/10 hover:border-black/25"
                           }`}
                         >
@@ -257,7 +319,7 @@ export default function ContactPage() {
                   {/* Message / Brief */}
                   <div className="space-y-2">
                     <label className="block font-mono text-xs uppercase tracking-wider text-neutral-500">
-                      Technical Scope &amp; Target Constraints <span className="text-[#FF3823]">*</span>
+                      What are you looking to build? <span className="text-[#FF3823]">*</span>
                     </label>
                     <textarea
                       required
@@ -267,7 +329,7 @@ export default function ContactPage() {
                       onChange={(e) =>
                         setFormState({ ...formState, message: e.target.value })
                       }
-                      placeholder="Outline your existing stack, target agent workflows, latency SLAs, cloud perimeter, and required delivery date..."
+                      placeholder="Tell us about the problem you need solved: e.g. a WhatsApp bot to qualify leads from IndiaMART, a custom internal CRM, a fast Next.js website, or an interactive 3D model viewer..."
                       className="w-full bg-[#FAF9F5] border border-black/15 rounded-[4px] p-4 text-sm text-neutral-900 focus:outline-none focus:border-[#FF3823] focus:bg-white transition-colors disabled:opacity-60"
                     />
                   </div>
@@ -302,112 +364,120 @@ export default function ContactPage() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-[#FF3823] hover:bg-[#E0301C] disabled:bg-neutral-400 text-white py-4 font-semibold text-sm rounded-[4px] shadow-sm transition-all duration-150 inline-flex items-center justify-center gap-2 cursor-pointer disabled:cursor-not-allowed"
+                    className="w-full bg-[#FF3823] hover:bg-[#E02F1C] text-white font-medium text-sm py-4 rounded-[4px] shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
                   >
                     {isSubmitting ? (
                       <>
                         <Loader2 className="w-4 h-4 animate-spin" />
-                        <span>Transmitting Requirements to Principal...</span>
+                        <span>Sending to Principal Engineers...</span>
                       </>
                     ) : (
                       <>
-                        <span>Transmit Requirements to Systems Principal</span>
+                        <span>Submit Project Specification</span>
                         <ArrowRight className="w-4 h-4" />
                       </>
                     )}
                   </button>
 
-                  <div className="flex items-center justify-between text-[11px] text-neutral-500 pt-2 border-t border-black/5 font-mono">
-                    <span className="flex items-center gap-1.5">
-                      <Lock className="w-3.5 h-3.5 text-emerald-600" />
-                      TLS 1.3 // AES-256 Encrypted Payload
-                    </span>
-                    <span className="flex items-center gap-1.5">
+                  <div className="flex items-center justify-between text-xs text-neutral-500 pt-1 font-mono">
+                    <span className="flex items-center gap-1">
                       <Clock className="w-3.5 h-3.5 text-neutral-400" />
-                      Guaranteed 24h Response SLA
+                      Guaranteed reply within 24h
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Lock className="w-3.5 h-3.5 text-neutral-400" />
+                      Bilateral NDA Protected
                     </span>
                   </div>
-                </motion.form>
-              ) : (
-                <motion.div
-                  key="success"
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="text-center py-12 space-y-5"
-                >
-                  <div className="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto shadow-xs">
-                    <CheckCircle2 className="w-7 h-7" />
-                  </div>
-                  <div className="space-y-1.5">
-                    <span className="font-mono text-xs uppercase tracking-widest text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full">
-                      TRANSMISSION CONFIRMED
-                    </span>
-                    <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#0E1118] pt-2">
-                      Requirements Transmitted
-                    </h3>
-                  </div>
-
-                  {referenceId && (
-                    <div className="inline-block bg-[#FAF9F5] border border-black/10 rounded-[4px] px-4 py-2 font-mono text-xs text-neutral-800">
-                      Reference ID: <strong className="text-[#FF3823]">{referenceId}</strong>
-                    </div>
-                  )}
-
-                  <p className="text-sm text-neutral-600 max-w-md mx-auto leading-relaxed">
-                    Our principal systems architect is reviewing your specifications. An actionable production roadmap and architectural estimate will arrive in your inbox within 24 hours.
-                  </p>
-
-                  <div className="pt-4">
-                    <button
-                      type="button"
-                      onClick={handleResetForm}
-                      className="px-5 py-2.5 text-xs font-semibold rounded-[4px] bg-[#FAF9F5] hover:bg-neutral-200 border border-black/15 text-neutral-800 transition-colors cursor-pointer"
-                    >
-                      Submit Another Technical Specification
-                    </button>
-                  </div>
-                </motion.div>
+                </form>
               )}
             </AnimatePresence>
           </div>
 
-          {/* Right Column: Direct Info & Dotted Globe (5 Cols) */}
+          {/* Right Column: Direct Channels & WhatsApp CTA (5 cols) */}
           <div className="lg:col-span-5 space-y-6">
-            {/* Globe Card */}
-            <div className="bg-white border border-black/10 rounded-[6px] shadow-sm p-6 text-center overflow-hidden">
-              <span className="font-mono text-xs uppercase tracking-widest text-neutral-500 block mb-4">
-                Global Edge Topology // 24 Anycast PoPs
-              </span>
-              <div className="w-full h-64 flex items-center justify-center">
-                <RotatingEarth />
+            
+            {/* Direct WhatsApp Callout Card */}
+            <div className="bg-[#E8FCE8] border border-emerald-300 rounded-2xl p-6 sm:p-7 space-y-4 shadow-xs">
+              <div className="flex items-center gap-2.5">
+                <div className="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-xs">
+                  <MessageCircle className="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 className="font-serif text-lg font-normal text-emerald-950">
+                    Prefer instant chat?
+                  </h4>
+                  <p className="text-xs text-emerald-800">
+                    Chat directly with our founding team on WhatsApp.
+                  </p>
+                </div>
+              </div>
+
+              <p className="text-xs text-emerald-900 leading-relaxed">
+                Skip forms. Send us your requirements, voice notes, or website links on WhatsApp for a fast reply and initial estimate.
+              </p>
+
+              <a
+                href="https://wa.me/917985790432?text=Hi%20Vistar%20team,%20I'm%20interested%20in%20building%20custom%20software%20or%20AI%20for%20my%20business."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-3 px-4 bg-emerald-700 hover:bg-emerald-800 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-2 transition-colors shadow-xs"
+              >
+                <MessageCircle className="w-4 h-4" />
+                <span>Chat on WhatsApp (+91 79857 90432)</span>
+              </a>
+            </div>
+
+            {/* Direct Channels Card */}
+            <div className="bg-white border border-black/10 rounded-2xl p-6 sm:p-7 space-y-5 shadow-xs">
+              <h4 className="font-serif text-lg font-normal text-[#0E1118]">
+                Direct Founder Contact
+              </h4>
+              <div className="space-y-4 text-xs text-neutral-600">
+                <div className="flex items-start gap-3">
+                  <Mail className="w-4 h-4 text-[#FF3823] shrink-0 mt-0.5" />
+                  <div>
+                    <span className="block font-medium text-[#0E1118]">Direct Email</span>
+                    <a
+                      href="mailto:services.vistaar@gmail.com"
+                      className="hover:underline font-mono text-[#FF3823] font-semibold"
+                    >
+                      services.vistaar@gmail.com
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                  <div>
+                    <span className="block font-medium text-[#0E1118]">Confidentiality First</span>
+                    <span className="text-neutral-500">Mutual Non-Disclosure Agreement (NDA) signed before codebase inspection.</span>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <Terminal className="w-4 h-4 text-[#1E60E6] shrink-0 mt-0.5" />
+                  <div>
+                    <span className="block font-medium text-[#0E1118]">100% Code Handover</span>
+                    <span className="text-neutral-500">Day-one private GitHub transfer with Dockerfiles and complete documentation.</span>
+                  </div>
+                </div>
               </div>
             </div>
 
-            {/* Direct Channel Card */}
-            <div className="bg-white border border-black/10 rounded-[6px] shadow-sm p-6 space-y-4">
-              <h4 className="font-serif text-lg font-bold text-[#0E1118]">
-                Direct Engineering Channels
-              </h4>
-              <div className="space-y-3.5 text-sm text-neutral-600">
-                <div className="flex items-center gap-3">
-                  <Mail className="w-4 h-4 text-[#FF3823] shrink-0" />
-                  <a
-                    href="mailto:services.vistaar@gmail.com"
-                    className="hover:underline font-mono text-xs text-[#FF3823] font-semibold"
-                  >
-                    services.vistaar@gmail.com
-                  </a>
-                </div>
-                <div className="flex items-center gap-3">
-                  <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>SOC2 Type II &amp; ISO 27001 Aligned Controls</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Terminal className="w-4 h-4 text-[#1E60E6] shrink-0" />
-                  <span>100% Day-One Private GitHub Repository Handover</span>
-                </div>
+            {/* Interactive Wireframe Globe */}
+            <div className="bg-white border border-black/10 rounded-2xl p-6 shadow-xs text-center space-y-2">
+              <span className="font-mono text-[10px] text-neutral-400 uppercase tracking-widest block">
+                GLOBAL CLIENTS &bull; LUCKNOW &bull; INDIA
+              </span>
+              <div className="w-full h-52 flex items-center justify-center">
+                <RotatingEarth />
               </div>
+              <p className="text-xs text-neutral-500 font-mono">
+                Serving businesses across India, US, UK, and UAE
+              </p>
             </div>
+
           </div>
         </div>
       </section>

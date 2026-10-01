@@ -20,6 +20,7 @@ const TARGET_EMAIL = "services.vistaar@gmail.com";
 export interface LeadPayload {
   name: string;
   email: string;
+  phone?: string;
   company?: string;
   notes?: string;
 
@@ -108,6 +109,7 @@ NEW PROJECT SPECIFICATION RECEIVED
 Reference ID:  ${record.referenceId}
 Full Name:     ${record.name}
 Work Email:    ${record.email}
+Phone/WhatsApp:${record.phone || "Not provided"}
 Company:       ${record.company || "Not provided"}
 Category:      ${record.goal}
 Budget:        ${record.budget}
@@ -327,6 +329,7 @@ export async function POST(request: NextRequest) {
       referenceId,
       name: sanitize(body.name || (isNewsletter ? "Newsletter Subscriber" : "Inquirer"), 100),
       email: sanitize(body.email!, 150),
+      phone: sanitize(body.phone || "Not provided", 50),
       company: sanitize(body.company || (isNewsletter ? "Newsletter" : "Direct"), 150),
       goal: sanitize(body.goal || (body as any).projectType || (isNewsletter ? "Technical Publications" : "Custom Architecture"), 200),
       bottleneck: sanitize(body.bottleneck || "Not specified", 200),

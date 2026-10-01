@@ -92,16 +92,16 @@ export function CohereHero() {
                 }}
               >
                 <span className="gsap-hero-title-line block overflow-hidden will-change-transform">
-                  Your AI.
+                  Custom Software &amp; AI.
                 </span>
                 <span className="gsap-hero-title-line block overflow-hidden will-change-transform">
-                  Your Work.
+                  Shipped in 14 Days.
                 </span>
               </h1>
             </div>
 
             {/* 02: Polished Authoritative Subhead */}
-            <div className="gsap-hero-subhead w-full max-w-[680px] px-4 mx-auto mb-7 will-change-transform">
+            <div className="gsap-hero-subhead w-full max-w-[720px] px-4 mx-auto mb-7 will-change-transform">
               <p
                 className="text-base sm:text-lg md:text-[18.5px] font-normal leading-[1.55] text-neutral-600"
                 style={{
@@ -109,32 +109,45 @@ export function CohereHero() {
                     '"Unica77 Cohere Web", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
                 }}
               >
-                We architect, build, and deploy custom autonomous AI agents and enterprise software directly into your private infrastructure. 100% source code ownership. Zero vendor lock-in. Delivered in 14-day production sprints.
+                From WhatsApp sales automations and operational dashboards to high-speed Next.js portals and 3D architectural showcases. Engineered by founders with 100% repository handover. Fixed-scope packages from ₹49,000 ($600).
               </p>
             </div>
 
             {/* 03: Clear Conversion CTA Row */}
             <div className="gsap-hero-cta flex flex-wrap items-center justify-center gap-3 sm:gap-4 will-change-transform">
               <Link
-                href="/start"
+                href="/pricing"
                 className="inline-flex items-center justify-center px-7 py-3.5 bg-[#FF3823] hover:bg-[#E02F1C] text-white font-medium text-sm sm:text-base rounded-none transition-all shadow-xs hover:shadow-sm active:scale-95 gap-2"
                 style={{
                   fontFamily:
                     '"Unica77 Cohere Web", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
                 }}
               >
-                Start Free Diagnostic
+                View Packages (from ₹49k / $600)
                 <ArrowRight className="w-4 h-4" />
               </Link>
-              <Link
-                href="/work"
-                className="inline-flex items-center justify-center px-7 py-3.5 border border-[#141413] text-[#141413] bg-transparent hover:bg-neutral-100 font-medium text-sm sm:text-base rounded-none transition-all active:scale-95"
+              <a
+                href="https://wa.me/917985790432?text=Hi%20Abhishek%2C%20I%20would%20like%20to%20discuss%20a%20software%2Fautomation%20project%20for%20my%20business."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center px-7 py-3.5 bg-[#25D366] hover:bg-[#20BD5A] text-white font-medium text-sm sm:text-base rounded-none transition-all active:scale-95 gap-2 shadow-xs"
                 style={{
                   fontFamily:
                     '"Unica77 Cohere Web", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
                 }}
               >
-                Explore Production Systems &rarr;
+                Chat on WhatsApp
+                <ArrowRight className="w-4 h-4" />
+              </a>
+              <Link
+                href="/work"
+                className="inline-flex items-center justify-center px-6 py-3.5 border border-[#141413] text-[#141413] bg-transparent hover:bg-neutral-100 font-medium text-sm sm:text-base rounded-none transition-all active:scale-95"
+                style={{
+                  fontFamily:
+                    '"Unica77 Cohere Web", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                }}
+              >
+                Inspect Real Work &rarr;
               </Link>
             </div>
 

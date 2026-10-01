@@ -11,11 +11,10 @@ interface NavLinkItem {
 }
 
 const NAV_LINKS: NavLinkItem[] = [
-  { label: "Platform", href: "/vectors" },
   { label: "Work", href: "/work" },
+  { label: "Services", href: "/vectors" },
   { label: "Pricing", href: "/pricing" },
-  { label: "Blog", href: "/blog" },
-  { label: "Philosophy", href: "/philosophy" },
+  { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -143,18 +142,21 @@ export function VistarNav() {
               '"Unica77 Cohere Web", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
           }}
         >
-          <Link
-            href="/start"
-            className="text-[#5E605D] hover:text-[#141413] transition-colors py-1.5 px-3 rounded-full hover:bg-black/[0.03]"
+          <a
+            href="https://wa.me/917985790432?text=Hi%20Abhishek%2C%20I%20would%20like%20to%20discuss%20a%20project%20with%20VISTAR."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#15803D] hover:text-[#166534] transition-colors py-1.5 px-3 rounded-full hover:bg-emerald-50 font-medium inline-flex items-center gap-1.5"
           >
-            Start Free Diagnostic
-          </Link>
+            <span className="w-2 h-2 rounded-full bg-[#22C55E]" />
+            WhatsApp
+          </a>
 
           <Link
             href="/contact"
             className="inline-flex items-center justify-center h-9 px-4 rounded-full bg-[#141413] hover:bg-[#2A2B2A] text-white text-[13px] font-medium transition-all duration-150 active:scale-95 shadow-sm"
           >
-            Get A Demo
+            Talk to Founder
           </Link>
         </div>
 
@@ -203,19 +205,21 @@ export function VistarNav() {
           </nav>
 
           <div className="pt-8 pb-4 space-y-3">
-            <Link
-              href="/start"
+            <a
+              href="https://wa.me/917985790432?text=Hi%20Abhishek%2C%20I%20would%20like%20to%20discuss%20a%20project%20with%20VISTAR."
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full inline-flex items-center justify-center py-3 bg-neutral-100 hover:bg-neutral-200 text-neutral-900 border border-neutral-300 rounded-full font-medium text-[14px] transition-colors"
+              className="w-full inline-flex items-center justify-center py-3 bg-[#25D366] hover:bg-[#20BD5A] text-white rounded-full font-medium text-[14px] transition-colors shadow-sm gap-2"
             >
-              Start Free Diagnostic
-            </Link>
+              Chat on WhatsApp (+91 79857 90432)
+            </a>
             <Link
               href="/contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full inline-flex items-center justify-center py-3 bg-[#FF3823] hover:bg-[#E0301C] text-white rounded-full font-medium text-[14px] transition-colors shadow-sm"
+              className="w-full inline-flex items-center justify-center py-3 bg-[#141413] hover:bg-black text-white rounded-full font-medium text-[14px] transition-colors shadow-sm"
             >
-              Get A Demo &rarr;
+              Book a Call &rarr;
             </Link>
           </div>
         </div>

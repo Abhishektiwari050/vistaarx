@@ -2,101 +2,77 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { ArrowRight, Check, ChevronDown, ShieldCheck, Terminal, Cpu } from "lucide-react";
+import { ArrowRight, Check, ChevronDown, ShieldCheck, Terminal, Cpu, MessageCircle, Clock, Zap } from "lucide-react";
 import { playClick } from "@/lib/sound";
 
 interface MatrixSection {
   title: string;
   headerBg: string;
-  rows: { name: string; sprint: string | boolean; business: string | boolean }[];
+  rows: { name: string; starter: string | boolean; sprint: string | boolean; enterprise: string | boolean }[];
 }
 
 const MATRIX_SECTIONS: MatrixSection[] = [
   {
-    title: "Sovereign Runtime & Multi-Agent Pods",
+    title: "Software & AI Capabilities",
     headerBg: "bg-[#E8FCE8] text-[#052E16]",
     rows: [
-      { name: "Deterministic Multi-Agent Tool Calling", sprint: true, business: true },
-      { name: "Execution Perimeter", sprint: "Managed Cloud Sandbox", business: "Dedicated Private VPC" },
-      { name: "Schema Validation & Verification Gate", sprint: true, business: true },
-      { name: "Autonomous Agent Pods", sprint: "Up to 3 Agent Pods", business: "Unlimited Autonomous Clusters" },
-      { name: "Custom Fine-Tuned Model Weights", sprint: false, business: true },
+      { name: "WhatsApp & Lead Automation", starter: true, sprint: true, enterprise: true },
+      { name: "Custom Web App / Portal", starter: "Landing & API", sprint: "Full Web Application", enterprise: "Distributed Platform" },
+      { name: "Schema Validation & Verification Gates", starter: true, sprint: true, enterprise: true },
+      { name: "Interactive 3D / WebGL Showcase", starter: false, sprint: "Basic 3D Viewer", enterprise: "Full 60fps Spatial Engine" },
+      { name: "Database & Backend Architecture", starter: "PostgreSQL / SQLite", sprint: "PostgreSQL + Redis", enterprise: "Distributed Multi-Region" },
     ],
   },
   {
-    title: "LLM & Cryptographic Security",
-    headerBg: "bg-[#EBF3FF] text-[#1E3A8A]",
-    rows: [
-      { name: "Model Routing & Token Optimization", sprint: true, business: true },
-      { name: "TLS 1.3 / AES-256 State Channels & Egress Controls", sprint: "Standard Security", business: "Dedicated Hardened Channels" },
-      { name: "Zero Third-Party Model Training Leakage", sprint: true, business: true },
-      { name: "Air-Gapped Egress Option", sprint: false, business: true },
-    ],
-  },
-  {
-    title: "VISTAR Platform & Edge Observability",
-    headerBg: "bg-[#FFF0EB] text-[#9A3412]",
-    rows: [
-      { name: "Next.js 16 High-Performance Edge Engine", sprint: true, business: true },
-      { name: "Global Edge Anycast PoPs", sprint: "12 Global Regions", business: "24 Anycast Regions" },
-      { name: "P99 Response Latency", sprint: "< 120ms", business: "< 45ms" },
-      { name: "60fps WebGL Canvas Telemetry", sprint: true, business: true },
-    ],
-  },
-  {
-    title: "Sovereignty & Code Ownership",
+    title: "Code Ownership & Sovereignty",
     headerBg: "bg-[#FCE4EC] text-[#831843]",
     rows: [
-      { name: "100% GitHub Repository Handover", sprint: true, business: true },
-      { name: "Private Dockerfiles & Infrastructure as Code", sprint: true, business: true },
-      { name: "Zero Hostage Retainer Contracts", sprint: true, business: true },
-      { name: "Full Unencumbered IP Copyright", sprint: true, business: true },
+      { name: "100% GitHub Repository Handover", starter: true, sprint: true, enterprise: true },
+      { name: "Dockerfiles & Deployment Manifests", starter: "Standard Dockerfile", sprint: "Full CI/CD & Docker", enterprise: "Multi-Environment IaC" },
+      { name: "Zero Hostage Retainers", starter: true, sprint: true, enterprise: true },
+      { name: "Full Unencumbered IP Ownership", starter: true, sprint: true, enterprise: true },
     ],
   },
   {
-    title: "Engineering Engagement & SLA",
+    title: "Delivery & Engineering SLA",
     headerBg: "bg-[#E0F2FE] text-[#0369A1]",
     rows: [
-      { name: "Production Delivery Cadence", sprint: "14–21 Days Guaranteed", business: "Continuous Milestone Cadence" },
-      { name: "Direct Principal Engineer Access", sprint: "Dedicated Slack & Daily Standups", business: "Dedicated Principal Pod" },
-      { name: "Post-Launch Warranty", sprint: "30-Day Zero-Cost Bug Warranty", business: "Continuous SLA & Liveness" },
-      { name: "Enterprise Support SLA", sprint: "Standard Support", business: "24/7 Priority SLA" },
+      { name: "Delivery Timeline", starter: "5–7 Days", sprint: "14 Days Committed", enterprise: "21–30 Days Milestones" },
+      { name: "Direct Founder & Principal Pairing", starter: true, sprint: true, enterprise: true },
+      { name: "Post-Launch Bug Warranty", starter: "14-Day Warranty", sprint: "30-Day Zero-Cost Warranty", enterprise: "60-Day Dedicated SLA" },
+      { name: "Mutual Non-Disclosure Agreement (NDA)", starter: true, sprint: true, enterprise: true },
     ],
   },
 ];
 
 const FAQS_BASICS = [
   {
-    q: "How much does Vistar cost?",
-    a: "Vistar operates on transparent, fixed-scope engineering packages. Our 14-day production Sprint package is $14,800 (billed yearly) or $18,500 (billed sprint-by-sprint). Enterprise sovereign deployments are tailored with custom SLAs and private VPC isolation.",
+    q: "How much does custom software from Vistar cost?",
+    a: "We offer transparent, fixed-scope engineering packages in both Indian Rupees (₹) and US Dollars ($). Our Starter Automation/MVP is ₹49,000 ($600), our full 14-day Production Sprint is ₹1,85,000 ($2,400), and custom enterprise platforms are scoped milestone-by-milestone. No hidden hourly fees or surprise invoices.",
   },
   {
-    q: "What is sovereign software handover?",
-    a: "On deployment day, we transfer complete, unencumbered ownership of the private GitHub repository, Docker configurations, infrastructure scripts, and typed documentation directly to your organization. You never pay hostage maintenance fees.",
+    q: "What is 100% source code handover?",
+    a: "On deployment, we transfer complete, unencumbered ownership of the private GitHub repository, Docker configurations, database schemas, and documentation directly to your organization. You own every line of code forever with zero hostage fees.",
   },
   {
-    q: "Why should I choose Vistar over an agency?",
-    a: "Agencies build fragile WordPress/Webflow sites, charge recurring retainer fees, and introduce junior developer telephone games. Vistar provides direct access to principal systems engineers delivering sovereign Next.js 16 runtimes in 14-day deterministic sprints.",
+    q: "How are you different from typical agencies?",
+    a: "Agencies charge high monthly retainers, hire junior contractors behind account executives, and take months to deliver slide decks. Vistar is a lean engineering studio led by Abhishek Tiwari. You pair directly with the engineers writing the code, shipping working production software in 14 days.",
   },
 ];
 
 const FAQS_SECURITY = [
   {
-    q: "Does Vistar support private VPC deployments?",
-    a: "Yes. On our Sovereign Business deployments, the entire autonomous agent cluster, vector databases, and model checkpoints are provisioned inside your private AWS, GCP, or on-premise VPC perimeter with zero public egress.",
+    q: "How do you protect client data and IP confidentiality?",
+    a: "Every project begins with a bilateral Non-Disclosure Agreement (NDA). All credentials, API tokens, and database environments belong directly to your cloud accounts (AWS, GCP, Vercel, or on-premise). Your data is never used to train external models.",
   },
   {
-    q: "How does Vistar secure multi-agent communication and data egress?",
-    a: "We enforce mutual TLS 1.3, AES-256-GCM encryption at rest and in transit, private VPC subnet isolation, and strict role-based token sanitization to guarantee zero cross-tenant leakage and zero third-party training on your data.",
-  },
-  {
-    q: "What certifications does Vistar align with?",
-    a: "All Vistar architectures are designed to comply with SOC2 Type II, ISO 27001, and GDPR standards, featuring encrypted audit ledgers and strict zero-leakage policies.",
+    q: "What happens after the project is delivered?",
+    a: "Every project includes a 30-day zero-cost bug fix warranty. We ensure your team is trained, all documentation is clear, and the application is running smoothly in production. We do not trap you in mandatory recurring retainers.",
   },
 ];
 
 export default function PricingPage() {
-  const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">("yearly");
+  const [currency, setCurrency] = useState<"inr" | "usd">("inr");
   const [openFaq, setOpenFaq] = useState<string | null>("b-0");
 
   const toggleFaq = (id: string) => {
@@ -107,377 +83,396 @@ export default function PricingPage() {
   return (
     <div className="w-full bg-[#FAF9F5] text-[#00063D] font-sans antialiased selection:bg-[#FF3823] selection:text-white min-h-screen">
       
-      {/* ── FRAME 1: BLUEPRINT DRAFTING GRID HERO ── */}
-      <section className="relative w-full pt-20 pb-20 md:pt-28 md:pb-28 bg-[#F2EFE9] [background-image:linear-gradient(to_right,#ffffff_1.5px,transparent_1.5px),linear-gradient(to_bottom,#ffffff_1.5px,transparent_1.5px)] [background-size:46px_46px] border-b border-black/10 text-center px-4">
-        <div className="max-w-4xl mx-auto space-y-6">
-          <h1 className="font-serif text-4xl sm:text-6xl md:text-[80px] font-normal text-[#00063D] tracking-[-2.4px] leading-[1.0]">
-            Get the AI built for better sovereign results
+      {/* ── FRAME 1: HEADER & CURRENCY TOGGLE ── */}
+      <section className="relative w-full pt-28 pb-16 md:pt-36 md:pb-20 border-b border-black/10 text-center px-4 bg-[#F2EFE9] [background-image:linear-gradient(to_right,#ffffff_1.5px,transparent_1.5px),linear-gradient(to_bottom,#ffffff_1.5px,transparent_1.5px)] [background-size:46px_46px]">
+        <div className="max-w-4xl mx-auto space-y-5">
+          <div className="inline-block">
+            <span className="font-mono text-xs uppercase tracking-wider px-3 py-1 bg-white border border-black/15 text-neutral-800 rounded shadow-xs">
+              TRANSPARENT FIXED PRICING &bull; ZERO RETAINERS
+            </span>
+          </div>
+
+          <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl font-normal text-[#00063D] tracking-tight leading-[1.08]">
+            Simple, honest pricing <br />
+            <span className="text-[#5E605D] italic">for working production software.</span>
           </h1>
 
-          <p className="text-base sm:text-lg text-neutral-600 max-w-xl mx-auto">
-            Vistar&apos;s plans &amp; pricing are designed to meet your needs as you scale
+          <p className="text-base sm:text-lg text-neutral-600 max-w-xl mx-auto leading-relaxed">
+            Fixed scope. Guaranteed 14-day production delivery. 100% source code ownership from day one.
           </p>
 
-          {/* Toggle Switch: Monthly vs Yearly (Matching Jasper Pill) */}
-          <div className="pt-4 flex items-center justify-center">
-            <div className="inline-flex items-center bg-white border border-black/15 p-1 rounded-[4px] shadow-2xs">
+          {/* Currency Switcher: INR vs USD */}
+          <div className="pt-3 flex items-center justify-center">
+            <div className="inline-flex items-center bg-white border border-black/15 p-1 rounded-lg shadow-xs">
               <button
                 onClick={() => {
-                  setBillingCycle("monthly");
+                  setCurrency("inr");
                   playClick(900, 0.02);
                 }}
-                className={`px-5 py-2 font-sans text-sm font-semibold rounded-[3px] transition-colors cursor-pointer ${
-                  billingCycle === "monthly"
-                    ? "bg-[#FF3823] text-white"
+                className={`px-5 py-2 font-sans text-xs font-semibold rounded-md transition-all cursor-pointer ${
+                  currency === "inr"
+                    ? "bg-[#141413] text-white shadow-xs"
                     : "text-neutral-700 hover:text-black"
                 }`}
               >
-                Monthly
+                ₹ INR (India)
               </button>
               <button
                 onClick={() => {
-                  setBillingCycle("yearly");
+                  setCurrency("usd");
                   playClick(1000, 0.02);
                 }}
-                className={`px-5 py-2 font-sans text-sm font-semibold rounded-[3px] transition-colors cursor-pointer flex items-center gap-1.5 ${
-                  billingCycle === "yearly"
-                    ? "bg-[#FF3823] text-white"
+                className={`px-5 py-2 font-sans text-xs font-semibold rounded-md transition-all cursor-pointer ${
+                  currency === "usd"
+                    ? "bg-[#141413] text-white shadow-xs"
                     : "text-neutral-700 hover:text-black"
                 }`}
               >
-                <span>Yearly</span>
-                <span className={`text-xs px-1.5 py-0.5 rounded font-mono ${
-                  billingCycle === "yearly" ? "bg-white/25 text-white" : "bg-[#FFD8CE] text-[#FF3823]"
-                }`}>
-                  Save ~20%
-                </span>
+                $ USD (Global)
               </button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── FRAME 2: PRICING CARDS ── */}
-      <section className="w-full py-16 px-6 -mt-8">
-        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+      {/* ── FRAME 2: 3-TIER PRICING CARDS ── */}
+      <section className="w-full py-16 px-4 sm:px-6 -mt-8">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
           
-          {/* Card 1: Sprint */}
-          <div className="bg-white border border-black/10 rounded-[6px] shadow-sm p-8 sm:p-10 space-y-6 flex flex-col justify-between">
-            <div className="space-y-6">
+          {/* Tier 1: Starter Automation & MVP */}
+          <div className="bg-white border border-black/10 rounded-2xl shadow-xs p-7 sm:p-8 space-y-6 flex flex-col justify-between hover:border-black/30 transition-all">
+            <div className="space-y-5">
               <div className="flex items-baseline justify-between">
-                <h3 className="font-serif text-3xl font-normal text-[#00063D]">Sprint</h3>
+                <div>
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-[#5E605D] block">ENTRY OFFER</span>
+                  <h3 className="font-serif text-2xl font-normal text-[#00063D]">Starter MVP</h3>
+                </div>
                 <div className="text-right">
-                  <span className="font-serif text-3xl sm:text-4xl font-normal text-[#FF3823]">
-                    {billingCycle === "yearly" ? "$14,800" : "$18,500"}
+                  <span className="font-serif text-3xl font-normal text-[#141413]">
+                    {currency === "inr" ? "₹49,000" : "$600"}
                   </span>
-                  <span className="text-xs text-neutral-500 block font-mono">/ sprint package</span>
+                  <span className="text-xs text-neutral-500 block font-mono">one-time</span>
                 </div>
               </div>
 
               <div className="w-full h-px bg-black/10" />
 
-              <p className="text-sm text-neutral-600 leading-relaxed min-h-[44px]">
-                Deterministic 14–21 day production delivery with 100% private Git repo handover on day one.
+              <p className="text-xs text-neutral-600 leading-relaxed min-h-[36px]">
+                Rapid automation, WhatsApp lead qualification bot, or focused web tool delivered in 5–7 days.
               </p>
 
-              <Link
-                href="/start"
-                onClick={() => playClick(900, 0.03)}
-                className="w-full bg-white hover:bg-neutral-50 text-neutral-900 border border-neutral-900 px-7 py-3.5 font-semibold text-sm rounded-[4px] shadow-sm transition-colors duration-150 inline-flex items-center justify-center gap-2 text-center"
-              >
-                Start Free Diagnostic
-              </Link>
-
-              <div className="space-y-3 pt-4">
-                <p className="font-mono text-xs text-neutral-500 uppercase tracking-wider">Plan includes:</p>
-                <ul className="space-y-2.5 text-sm text-neutral-700">
-                  <li className="flex items-center gap-2.5">
-                    <Check className="w-4 h-4 text-[#FF3823] shrink-0" />
-                    <span>100% Day-One GitHub Transfer</span>
-                  </li>
-                  <li className="flex items-center gap-2.5">
-                    <Check className="w-4 h-4 text-[#FF3823] shrink-0" />
-                    <span>Up to 3 Autonomous Agent Pods</span>
-                  </li>
-                  <li className="flex items-center gap-2.5">
-                    <Check className="w-4 h-4 text-[#FF3823] shrink-0" />
-                    <span>Next.js 16 Edge Runtime (&lt; 120ms P99)</span>
-                  </li>
-                  <li className="flex items-center gap-2.5">
-                    <Check className="w-4 h-4 text-[#FF3823] shrink-0" />
-                    <span>30-Day Zero-Cost Bug Warranty</span>
-                  </li>
-                </ul>
+              <div className="space-y-2.5 pt-2 text-xs text-neutral-700">
+                <p className="font-mono text-[10px] text-neutral-400 uppercase tracking-wider">Includes:</p>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                    <span>WhatsApp or AI Lead Bot</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                    <span>CRM / Sheets / Email Automation</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                    <span>100% Private GitHub Handover</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                    <span>14-Day Bug Warranty</span>
+                  </div>
+                </div>
               </div>
+            </div>
+
+            <div className="pt-4 border-t border-black/10 space-y-2">
+              <Link
+                href="/contact"
+                className="w-full py-3 bg-neutral-100 hover:bg-neutral-200 text-[#141413] rounded-lg text-xs font-semibold text-center block transition-colors"
+              >
+                Get Started
+              </Link>
+              <a
+                href="https://wa.me/917985790432?text=Hi%20Vistar,%20I'm%20interested%20in%20the%20Starter%20MVP%20package."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[11px] text-emerald-700 hover:underline flex items-center justify-center gap-1 font-mono"
+              >
+                <MessageCircle className="w-3 h-3" />
+                <span>Discuss on WhatsApp</span>
+              </a>
             </div>
           </div>
 
-          {/* Card 2: Business */}
-          <div className="bg-white border-2 border-[#FF3823] rounded-[6px] shadow-md p-8 sm:p-10 space-y-6 flex flex-col justify-between relative">
-            <div className="absolute -top-3.5 right-6 bg-[#FF3823] text-white text-[11px] font-mono uppercase tracking-widest px-3 py-0.5 rounded-[2px] font-semibold">
+          {/* Tier 2: 14-Day Production Sprint (Most Popular) */}
+          <div className="bg-white border-2 border-[#FF3823] rounded-2xl shadow-md p-7 sm:p-8 space-y-6 flex flex-col justify-between relative">
+            <div className="absolute -top-3 right-6 bg-[#FF3823] text-white text-[10px] font-mono uppercase tracking-widest px-3 py-0.5 rounded font-semibold">
               Most Popular
             </div>
 
-            <div className="space-y-6">
+            <div className="space-y-5">
               <div className="flex items-baseline justify-between">
-                <h3 className="font-serif text-3xl font-normal text-[#00063D]">Business</h3>
+                <div>
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-[#FF3823] block font-semibold">COMPLETE SYSTEM</span>
+                  <h3 className="font-serif text-2xl font-normal text-[#00063D]">Production Sprint</h3>
+                </div>
                 <div className="text-right">
-                  <span className="font-mono text-xs font-semibold text-[#FF3823] uppercase tracking-wider block">
-                    Custom Pricing
+                  <span className="font-serif text-3xl font-normal text-[#FF3823]">
+                    {currency === "inr" ? "₹1,85,000" : "$2,400"}
                   </span>
-                  <span className="text-xs text-neutral-500 block font-mono">tailored SLA</span>
+                  <span className="text-xs text-neutral-500 block font-mono">14-day sprint</span>
                 </div>
               </div>
 
               <div className="w-full h-px bg-black/10" />
 
-              <p className="text-sm text-neutral-600 leading-relaxed min-h-[44px]">
-                Dedicated autonomous clusters deployed inside your private VPC perimeter with zero-trust AES-256 state isolation.
+              <p className="text-xs text-neutral-600 leading-relaxed min-h-[36px]">
+                Full custom web application, operational dashboard, or multi-agent pipeline shipped in 14 days.
               </p>
 
+              <div className="space-y-2.5 pt-2 text-xs text-neutral-700">
+                <p className="font-mono text-[10px] text-neutral-400 uppercase tracking-wider">Includes:</p>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-[#FF3823] shrink-0" />
+                    <span>Full Next.js 16 Web Application</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-[#FF3823] shrink-0" />
+                    <span>Multi-Step AI Workflows &amp; Schema Gates</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-[#FF3823] shrink-0" />
+                    <span>Database Architecture &amp; Migrations</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-[#FF3823] shrink-0" />
+                    <span>100% Day-One Private GitHub Handover</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-[#FF3823] shrink-0" />
+                    <span>30-Day Zero-Cost Bug Warranty</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-4 border-t border-black/10 space-y-2">
+              <Link
+                href="/start"
+                className="w-full py-3 bg-[#FF3823] hover:bg-[#E02F1C] text-white rounded-lg text-xs font-semibold text-center block transition-colors shadow-xs"
+              >
+                Start 14-Day Sprint
+              </Link>
+              <a
+                href="https://wa.me/917985790432?text=Hi%20Vistar,%20I'm%20interested%20in%20the%2014-Day%20Production%20Sprint."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[11px] text-emerald-700 hover:underline flex items-center justify-center gap-1 font-mono"
+              >
+                <MessageCircle className="w-3 h-3" />
+                <span>Chat on WhatsApp</span>
+              </a>
+            </div>
+          </div>
+
+          {/* Tier 3: Enterprise Platform & 3D Spatial */}
+          <div className="bg-white border border-black/10 rounded-2xl shadow-xs p-7 sm:p-8 space-y-6 flex flex-col justify-between hover:border-black/30 transition-all">
+            <div className="space-y-5">
+              <div className="flex items-baseline justify-between">
+                <div>
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-[#5E605D] block">BESPOKE SCALE</span>
+                  <h3 className="font-serif text-2xl font-normal text-[#00063D]">Enterprise &amp; 3D</h3>
+                </div>
+                <div className="text-right">
+                  <span className="font-serif text-3xl font-normal text-[#141413]">
+                    {currency === "inr" ? "₹3,90,000+" : "$4,800+"}
+                  </span>
+                  <span className="text-xs text-neutral-500 block font-mono">custom scope</span>
+                </div>
+              </div>
+
+              <div className="w-full h-px bg-black/10" />
+
+              <p className="text-xs text-neutral-600 leading-relaxed min-h-[36px]">
+                High-performance 3D spatial platforms (like 3axis Arc), custom ERPs, or distributed microservices.
+              </p>
+
+              <div className="space-y-2.5 pt-2 text-xs text-neutral-700">
+                <p className="font-mono text-[10px] text-neutral-400 uppercase tracking-wider">Includes:</p>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                    <span>60fps WebGL / Spatial 3D Engine</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                    <span>Dedicated Private Cloud Deployment</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                    <span>Dedicated Slack / WhatsApp Channel</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                    <span>60-Day Priority Engineering SLA</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-4 border-t border-black/10 space-y-2">
               <Link
                 href="/contact"
-                onClick={() => playClick(950, 0.03)}
-                className="w-full bg-[#FF3823] hover:bg-[#E0301C] text-white px-7 py-3.5 font-semibold text-sm rounded-[4px] shadow-sm transition-colors duration-150 inline-flex items-center justify-center gap-2 text-center"
+                className="w-full py-3 bg-neutral-100 hover:bg-neutral-200 text-[#141413] rounded-lg text-xs font-semibold text-center block transition-colors"
               >
-                Contact Sales
-                <ArrowRight className="w-4 h-4" />
+                Schedule Architecture Review
               </Link>
-
-              <div className="space-y-3 pt-4">
-                <p className="font-mono text-xs text-neutral-500 uppercase tracking-wider">Plan includes everything in Sprint, plus:</p>
-                <ul className="space-y-2.5 text-sm text-neutral-700">
-                  <li className="flex items-center gap-2.5">
-                    <Check className="w-4 h-4 text-[#FF3823] shrink-0" />
-                    <span>Unlimited Autonomous Agent Pods</span>
-                  </li>
-                  <li className="flex items-center gap-2.5">
-                    <Check className="w-4 h-4 text-[#FF3823] shrink-0" />
-                    <span>Private AWS / GCP VPC Isolation</span>
-                  </li>
-                  <li className="flex items-center gap-2.5">
-                    <Check className="w-4 h-4 text-[#FF3823] shrink-0" />
-                    <span>TLS 1.3 &amp; AES-256 Enterprise Security</span>
-                  </li>
-                  <li className="flex items-center gap-2.5">
-                    <Check className="w-4 h-4 text-[#FF3823] shrink-0" />
-                    <span>Dedicated Principal Engineering Pod</span>
-                  </li>
-                </ul>
-              </div>
+              <a
+                href="https://wa.me/917985790432?text=Hi%20Vistar,%20I'd%20like%20to%20discuss%20an%20Enterprise%20or%203D%20Spatial%20project."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[11px] text-emerald-700 hover:underline flex items-center justify-center gap-1 font-mono"
+              >
+                <MessageCircle className="w-3 h-3" />
+                <span>Chat on WhatsApp</span>
+              </a>
             </div>
           </div>
 
         </div>
       </section>
 
-      {/* ── FRAME 3: COLOR-CODED MATRIX COMPARISON TABLE (EXACT MATCH TO JASPER TABLE) ── */}
-      <section className="w-full py-20 px-6 bg-white border-y border-black/10">
-        <div className="max-w-5xl mx-auto space-y-12">
-          <div className="text-center max-w-2xl mx-auto">
-            <h2 className="font-serif text-3xl sm:text-5xl font-normal text-[#00063D] tracking-tight">
-              Detailed Feature Comparison
+      {/* ── FRAME 3: COMPARISON MATRIX ── */}
+      <section className="w-full py-16 px-4 sm:px-6 bg-[#F6F4ED] border-y border-black/10">
+        <div className="max-w-5xl mx-auto space-y-8">
+          <div className="space-y-2 text-center">
+            <span className="text-xs uppercase tracking-widest text-[#FF3823] font-semibold">
+              FEATURE SPECIFICATION
+            </span>
+            <h2 className="text-2xl sm:text-4xl font-serif font-normal text-[#141413] tracking-tight">
+              Package Comparison
             </h2>
-            <p className="text-neutral-500 text-sm mt-2">
-              Comprehensive breakdown of capabilities across engagement tiers.
-            </p>
-            <p className="text-neutral-400 font-mono text-[11px] mt-3 sm:hidden">
-              ← Scroll horizontally to inspect full matrix →
-            </p>
           </div>
 
-          <div className="border border-black/10 rounded-[6px] overflow-hidden bg-white shadow-2xs overflow-x-auto">
-            <div className="min-w-[580px]">
-              {MATRIX_SECTIONS.map((sec, idx) => (
-                <div key={idx} className="border-b last:border-b-0 border-black/10">
-                  <div className={`${sec.headerBg} px-6 py-3.5 font-serif text-base font-bold tracking-tight`}>
-                    {sec.title}
-                  </div>
-                  <div className="divide-y divide-black/5">
-                    {sec.rows.map((row, rIdx) => (
-                      <div key={rIdx} className="grid grid-cols-12 px-6 py-3.5 text-sm items-center hover:bg-neutral-50">
-                        <div className="col-span-6 font-medium text-neutral-800">{row.name}</div>
-                        <div className="col-span-3 text-center text-xs text-neutral-600">
+          <div className="bg-white border border-black/10 rounded-2xl overflow-hidden shadow-xs">
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs border-collapse min-w-[600px]">
+                <thead>
+                  <tr className="border-b border-black/10 bg-[#FAF9F5] text-neutral-500 font-mono uppercase tracking-wider">
+                    <th className="py-3 px-4 font-semibold w-2/5">Feature</th>
+                    <th className="py-3 px-4 font-semibold text-center">Starter MVP</th>
+                    <th className="py-3 px-4 font-semibold text-center text-[#FF3823] bg-[#FFF0EB]">Production Sprint</th>
+                    <th className="py-3 px-4 font-semibold text-center">Enterprise</th>
+                  </tr>
+                </thead>
+                {MATRIX_SECTIONS.map((section, sIdx) => (
+                  <tbody key={sIdx} className="divide-y divide-black/5">
+                    <tr className="bg-neutral-50/70">
+                      <td colSpan={4} className="py-2.5 px-4 font-mono font-bold text-neutral-800 uppercase tracking-wider text-[11px]">
+                        {section.title}
+                      </td>
+                    </tr>
+                    {section.rows.map((row, rIdx) => (
+                      <tr key={rIdx} className="hover:bg-neutral-50/50">
+                        <td className="py-3 px-4 font-medium text-neutral-800">
+                          {row.name}
+                        </td>
+                        <td className="py-3 px-4 text-center text-neutral-600">
+                          {typeof row.starter === "boolean" ? (
+                            row.starter ? <Check className="w-4 h-4 text-emerald-600 mx-auto" /> : <span className="text-neutral-300">&mdash;</span>
+                          ) : (
+                            row.starter
+                          )}
+                        </td>
+                        <td className="py-3 px-4 text-center font-medium text-[#141413] bg-[#FFF0EB]/40">
                           {typeof row.sprint === "boolean" ? (
-                            row.sprint ? <Check className="w-4 h-4 text-emerald-600 mx-auto" /> : <span className="text-neutral-300">—</span>
+                            row.sprint ? <Check className="w-4 h-4 text-[#FF3823] mx-auto" /> : <span className="text-neutral-300">&mdash;</span>
                           ) : (
                             row.sprint
                           )}
-                        </div>
-                        <div className="col-span-3 text-center text-xs font-semibold text-[#00063D]">
-                          {typeof row.business === "boolean" ? (
-                            row.business ? <Check className="w-4 h-4 text-[#FF3823] mx-auto" /> : <span className="text-neutral-300">—</span>
+                        </td>
+                        <td className="py-3 px-4 text-center text-neutral-600">
+                          {typeof row.enterprise === "boolean" ? (
+                            row.enterprise ? <Check className="w-4 h-4 text-emerald-600 mx-auto" /> : <span className="text-neutral-300">&mdash;</span>
                           ) : (
-                            row.business
+                            row.enterprise
                           )}
-                        </div>
-                      </div>
+                        </td>
+                      </tr>
                     ))}
-                  </div>
+                  </tbody>
+                ))}
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── FRAME 4: HONEST PRICING FAQS ── */}
+      <section className="w-full py-20 px-4 sm:px-6 bg-[#FAF9F5]">
+        <div className="max-w-3xl mx-auto space-y-8">
+          <div className="text-center space-y-2">
+            <h2 className="text-3xl sm:text-4xl font-serif font-normal text-[#141413] tracking-tight">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-sm text-neutral-600">
+              Straightforward answers about our pricing, deliverables, and guarantees.
+            </p>
+          </div>
+
+          <div className="space-y-3">
+            {[...FAQS_BASICS, ...FAQS_SECURITY].map((faq, idx) => {
+              const id = `faq-${idx}`;
+              const isOpen = openFaq === id;
+              return (
+                <div
+                  key={id}
+                  className="bg-white border border-black/10 rounded-xl overflow-hidden transition-colors"
+                >
+                  <button
+                    onClick={() => toggleFaq(id)}
+                    className="w-full py-4 px-5 text-left flex items-center justify-between gap-4 font-medium text-sm text-[#141413] cursor-pointer"
+                  >
+                    <span>{faq.q}</span>
+                    <ChevronDown className={`w-4 h-4 text-neutral-500 transition-transform ${isOpen ? "rotate-180" : ""}`} />
+                  </button>
+                  {isOpen && (
+                    <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-neutral-600 leading-relaxed border-t border-black/5">
+                      {faq.a}
+                    </div>
+                  )}
                 </div>
-              ))}
-            </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* ── FRAME 4: TRUST & SAFETY CALLOUT ── */}
-      <section className="w-full py-20 px-6 bg-[#FAF9F5] border-b border-black/10 text-center">
-        <div className="max-w-3xl mx-auto space-y-4">
-          <p className="font-mono text-xs uppercase text-neutral-500">Trust Foundation</p>
-          <h2 className="font-serif text-3xl sm:text-5xl font-normal text-[#00063D] tracking-tight">
-            Enterprise-grade security, quality outputs
+      {/* ── FRAME 5: BOTTOM CONVERSION CTA ── */}
+      <section className="w-full py-16 px-4 bg-[#141413] text-white text-center">
+        <div className="max-w-2xl mx-auto space-y-4">
+          <h2 className="font-serif text-2xl sm:text-4xl font-normal tracking-tight">
+            Have a project in mind?
           </h2>
-          <p className="text-neutral-600 text-sm max-w-xl mx-auto">
-            Zero training on client payloads, air-gapped VPC sandbox perimeters, and end-to-end cryptographic verification.
+          <p className="text-xs sm:text-sm text-neutral-400 max-w-md mx-auto leading-relaxed">
+            Message us on WhatsApp with your requirements or schedule a free diagnostic scoping call with Abhishek Tiwari.
           </p>
-          <div className="pt-2">
-            <Link href="/philosophy" className="border border-black text-[#00063D] font-semibold text-xs px-5 py-2.5 rounded-[4px] inline-block hover:bg-neutral-50">
-              Explore Trust &amp; Safety
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ── FRAME 5: SALMON-TINTED ACCORDION FAQS (EXACT JASPER FAQS SECTION) ── */}
-      <section className="w-full py-24 px-6 bg-white border-b border-black/10">
-        <div className="max-w-5xl mx-auto space-y-16">
-          
-          {/* FAQ Block 1: Basics */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            <div className="lg:col-span-4 space-y-2">
-              <span className="inline-block bg-[#FF3823] text-white font-mono text-[10px] font-bold px-2 py-0.5 rounded">
-                FAQS
-              </span>
-              <h3 className="font-serif text-2xl sm:text-3xl font-normal text-[#00063D]">
-                Questions about Sovereign Basics
-              </h3>
-            </div>
-
-            <div className="lg:col-span-8 space-y-3">
-              {FAQS_BASICS.map((faq, idx) => {
-                const id = `b-${idx}`;
-                const isOpen = openFaq === id;
-                return (
-                  <div
-                    key={id}
-                    onClick={() => toggleFaq(id)}
-                    className="bg-[#FFF0EB] border border-[#FFD0C4] rounded-[4px] p-5 cursor-pointer"
-                  >
-                    <div className="flex items-center justify-between">
-                      <h4 className="font-serif text-base font-bold text-[#00063D]">{faq.q}</h4>
-                      <span className="font-mono text-xs text-[#FF3823]">{isOpen ? "−" : "+"}</span>
-                    </div>
-                    {isOpen && (
-                      <p className="text-xs text-neutral-700 mt-3 pt-3 border-t border-[#FFD0C4] leading-relaxed">
-                        {faq.a}
-                      </p>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* FAQ Block 2: Security */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start pt-8 border-t border-black/10">
-            <div className="lg:col-span-4 space-y-2">
-              <h3 className="font-serif text-2xl sm:text-3xl font-normal text-[#00063D]">
-                Enterprise Security Questions
-              </h3>
-            </div>
-
-            <div className="lg:col-span-8 space-y-3">
-              {FAQS_SECURITY.map((faq, idx) => {
-                const id = `s-${idx}`;
-                const isOpen = openFaq === id;
-                return (
-                  <div
-                    key={id}
-                    onClick={() => toggleFaq(id)}
-                    className="bg-[#FFF0EB] border border-[#FFD0C4] rounded-[4px] p-5 cursor-pointer"
-                  >
-                    <div className="flex items-center justify-between">
-                      <h4 className="font-serif text-base font-bold text-[#00063D]">{faq.q}</h4>
-                      <span className="font-mono text-xs text-[#FF3823]">{isOpen ? "−" : "+"}</span>
-                    </div>
-                    {isOpen && (
-                      <p className="text-xs text-neutral-700 mt-3 pt-3 border-t border-[#FFD0C4] leading-relaxed">
-                        {faq.a}
-                      </p>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* ── FRAME 6: 3 GRID TEXTURE CARDS (EXACT MATCH TO JASPER'S "HAVE ADDITIONAL QUESTIONS?") ── */}
-      <section className="w-full py-24 px-6 bg-[#FAF9F5] border-b border-black/10">
-        <div className="max-w-5xl mx-auto space-y-12">
-          <div className="text-center">
-            <h2 className="font-serif text-3xl sm:text-5xl font-normal text-[#00063D]">
-              Have additional questions?
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Card 1: Articles / FAQs (Gray grid) */}
-            <Link href="/philosophy" className="bg-[#FAF9F5] border border-black/10 rounded-[4px] p-6 h-64 flex flex-col justify-between hover:border-black/30 transition-colors [background-image:linear-gradient(to_right,rgba(0,0,0,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.04)_1px,transparent_1px)] [background-size:24px_24px]">
-              <h3 className="font-serif text-xl font-bold text-[#00063D]">Read architectural RFCs &amp; FAQs</h3>
-              <span className="text-xs font-mono text-neutral-700">Explore Architecture →</span>
-            </Link>
-
-            {/* Card 2: Support (Cyan grid) */}
-            <a href="mailto:services.vistaar@gmail.com" className="bg-[#EBF3FF] border border-black/10 rounded-[4px] p-6 h-64 flex flex-col justify-between hover:border-black/30 transition-colors [background-image:linear-gradient(to_right,rgba(30,96,230,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(30,96,230,0.08)_1px,transparent_1px)] [background-size:24px_24px]">
-              <h3 className="font-serif text-xl font-bold text-[#00063D]">Get engineering support</h3>
-              <span className="text-xs font-mono text-neutral-700">Email services.vistaar@gmail.com →</span>
+          <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+            <a
+              href="https://wa.me/917985790432?text=Hi%20Vistar,%20I'd%20like%20to%20discuss%20a%20project."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-lg flex items-center gap-2 transition-colors shadow-xs"
+            >
+              <MessageCircle className="w-4 h-4" />
+              <span>Chat on WhatsApp (+91 79857 90432)</span>
             </a>
-
-            {/* Card 3: Learn more (Green grid) */}
-            <Link href="/about" className="bg-[#E8FCE8] border border-black/10 rounded-[4px] p-6 h-64 flex flex-col justify-between hover:border-black/30 transition-colors [background-image:linear-gradient(to_right,rgba(34,197,94,0.12)_1px,transparent_1px),linear-gradient(to_bottom,rgba(34,197,94,0.12)_1px,transparent_1px)] [background-size:24px_24px]">
-              <h3 className="font-serif text-xl font-bold text-[#00063D]">Learn more about Vistar</h3>
-              <span className="text-xs font-mono text-neutral-700">Company Overview →</span>
+            <Link
+              href="/start"
+              className="px-6 py-3 border border-white/20 hover:bg-white/10 text-white text-xs font-semibold rounded-lg transition-colors"
+            >
+              Start Diagnostic
             </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ── FRAME 7: FRAMED WORKSPACE BOTTOM CTA ── */}
-      <section className="w-full py-24 px-6 bg-white border-b border-black/10">
-        <div className="max-w-4xl mx-auto border border-black/15 rounded-[6px] shadow-sm overflow-hidden bg-[#FAF9F5]">
-          <div className="bg-white border-b border-black/10 px-4 py-2.5 flex items-center justify-between font-mono text-xs text-neutral-500">
-            <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-red-400" />
-              <span className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
-              <span className="ml-2">vistar-pricing-tier.sh</span>
-            </div>
-            <span>Verified 100% Handover</span>
-          </div>
-
-          <div className="p-12 sm:p-20 text-center space-y-6">
-            <h2 className="font-serif text-4xl sm:text-6xl font-normal text-[#00063D] tracking-tight">
-              Start building with Vistar today
-            </h2>
-            <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
-              <Link
-                href="/start"
-                className="bg-white hover:bg-neutral-50 text-neutral-900 border border-neutral-900 px-7 py-3.5 font-semibold text-sm rounded-[4px] shadow-sm transition-colors duration-150"
-              >
-                Start Free Diagnostic
-              </Link>
-              <Link
-                href="/contact"
-                className="bg-[#FF3823] hover:bg-[#E0301C] text-white px-7 py-3.5 font-semibold text-sm rounded-[4px] shadow-sm transition-colors duration-150 inline-flex items-center gap-2"
-              >
-                Get A Demo
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
           </div>
         </div>
       </section>

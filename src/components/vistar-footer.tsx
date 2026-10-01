@@ -15,42 +15,42 @@ interface FooterColumn {
 
 const VISTAR_COLUMNS: FooterColumn[] = [
   {
-    title: "PLATFORM",
+    title: "WHAT WE BUILD",
     links: [
-      { label: "Autonomous Agent Pods", href: "/vectors" },
-      { label: "Private Model Vaults", href: "/vectors" },
-      { label: "Global Edge PoPs (16 Nodes)", href: "/network" },
-      { label: "Zero-Trust Architecture", href: "/vectors" },
-      { label: "Pricing & Tiers", href: "/pricing" },
+      { label: "3D Spatial & Architecture (3axis Arc)", href: "/work" },
+      { label: "Aviation GIS Tool (Project VAYU)", href: "/work" },
+      { label: "WhatsApp & Lead Ingestion Automation", href: "/work" },
+      { label: "Custom Next.js Web Applications", href: "/work" },
+      { label: "14-Day Production Sprints", href: "/pricing" },
     ],
   },
   {
-    title: "SOLUTIONS",
+    title: "STUDIO & ETHOS",
     links: [
-      { label: "Aviation & Mission-Critical", href: "/work" },
-      { label: "Critical Healthcare AI", href: "/work" },
-      { label: "PropTech & Tokenized Assets", href: "/work" },
-      { label: "Institutional Settlement", href: "/work" },
-      { label: "Legacy Stack Modernization", href: "/work" },
+      { label: "About Abhishek Tiwari & Studio", href: "/about" },
+      { label: "The Underdog Manifesto", href: "/philosophy" },
+      { label: "100% Repository Handover", href: "/philosophy" },
+      { label: "Engineering Blog & Blueprints", href: "/blog" },
+      { label: "Pricing & Packages (₹ / $)", href: "/pricing" },
     ],
   },
   {
-    title: "RESEARCH & AXIOMS",
+    title: "ENGINEERING GUIDES",
     links: [
-      { label: "Engineering Blog & Logs", href: "/blog" },
-      { label: "Deterministic Multi-Agent Graphs", href: "/blog/deterministic-multi-agent-graphs-vs-probabilistic-drift" },
       { label: "The Death of Agency Wrappers", href: "/blog/why-agencies-charge-200k-for-chatgpt-wrappers" },
-      { label: "Sovereign Private VPC Guide", href: "/blog/sovereign-private-vpc-ai-deployment-guide" },
-      { label: "Underdog Engineering Manifesto", href: "/philosophy" },
+      { label: "Deterministic Multi-Agent Graphs", href: "/blog/deterministic-multi-agent-graphs-vs-probabilistic-drift" },
+      { label: "Sovereign Private Cloud Deployment", href: "/blog/sovereign-private-vpc-ai-deployment-guide" },
+      { label: "GitHub: Open Source VAYU", href: "https://github.com/Abhishektiwari050/AI-VAYU", isExternal: true },
+      { label: "GitHub: 3axis Arc Platform", href: "https://github.com/Abhishektiwari050/3axisarc", isExternal: true },
     ],
   },
   {
-    title: "SOVEREIGNTY",
+    title: "DIRECT CONTACT",
     links: [
-      { label: "100% Day-One Git Handover", href: "/philosophy" },
-      { label: "Air-Gapped Private VPC", href: "/vectors" },
-      { label: "Direct Systems Consultation", href: "/contact" },
-      { label: "GitHub Repository", href: "https://github.com/Abhishektiwari050/vistaarx", isExternal: true },
+      { label: "Chat on WhatsApp (+91 79857 90432)", href: "https://wa.me/917985790432", isExternal: true },
+      { label: "Email: services.vistaar@gmail.com", href: "mailto:services.vistaar@gmail.com", isExternal: true },
+      { label: "Schedule 30-Min Diagnostic", href: "/contact" },
+      { label: "GitHub: Abhishek Tiwari", href: "https://github.com/Abhishektiwari050", isExternal: true },
     ],
   },
 ];
@@ -101,26 +101,28 @@ export function VistarFooter() {
 
         <div className="relative z-10 max-w-3xl mx-auto space-y-6">
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-semibold text-[#100F12] tracking-[-0.03em] leading-[1.12]">
-            Your enterprise AI infrastructure, fully sovereign.
+            Custom software &amp; automations, delivered in 14 days.
           </h2>
           <p className="text-base sm:text-lg text-[#100F12]/80 max-w-xl mx-auto leading-relaxed font-normal">
-            Deterministic multi-agent graphs, air-gapped VPC vaults, and 100% private codebase handover delivered in guaranteed sprints.
+            WhatsApp sales pipelines, modern Next.js 16 portals, and 3D architectural showcases with 100% private code ownership. Fixed-scope packages from ₹49,000 ($600).
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
             <Link
-              href="/start"
+              href="/pricing"
               className="inline-flex items-center justify-center h-12 px-7 rounded-full bg-[#100F12] hover:bg-[#232227] text-white text-[14.5px] font-medium shadow-md transition-all active:scale-95"
             >
-              Start Free Diagnostic
+              View Packages (from ₹49k)
             </Link>
 
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center h-12 px-7 rounded-full bg-white/80 hover:bg-white text-[#100F12] border border-black/15 text-[14.5px] font-medium shadow-md transition-all active:scale-95"
+            <a
+              href="https://wa.me/917985790432?text=Hi%20Abhishek%2C%20I%20would%20like%20to%20discuss%20a%20project%20with%20VISTAR."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center h-12 px-7 rounded-full bg-[#25D366] hover:bg-[#20BD5A] text-white text-[14.5px] font-medium shadow-md transition-all active:scale-95 gap-2"
             >
-              Get A Demo
-            </Link>
+              Chat on WhatsApp (+91 79857 90432)
+            </a>
           </div>
         </div>
       </section>
@@ -237,47 +239,48 @@ export function VistarFooter() {
           </div>
         </div>
 
-        {/* ── 4. BOTTOM LEGAL & SOCIAL ROW ── */}
+        {/* ── 4. BOTTOM LEGAL & CONTACT ROW ── */}
         <div className="pt-6 border-t border-white/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 text-xs text-white/50">
           
-          {/* Left: Copyright & Legal Policies */}
+          {/* Left: Entity & Legal Policies */}
           <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-            <span>&copy; {currentYear} VISTAR Inc. All rights reserved.</span>
+            <span>&copy; {currentYear} Vistar Web Systems. Lucknow, UP, India.</span>
             <span>&middot;</span>
             <Link href="/privacy" className="hover:text-white/90 transition-colors">
-              Privacy policy
+              Privacy Policy (DPDP &amp; GDPR)
             </Link>
             <span>&middot;</span>
             <Link href="/terms" className="hover:text-white/90 transition-colors">
-              Terms of use
+              Terms of Engagement
             </Link>
             <span>&middot;</span>
-            <Link href="/privacy" className="hover:text-white/90 transition-colors">
-              Security &amp; Compliance
+            <Link href="/contact" className="hover:text-white/90 transition-colors">
+              Direct Contact
             </Link>
           </div>
 
-          {/* Right: Circular Social Media Buttons */}
+          {/* Right: Direct Contact Icons */}
           <div className="flex items-center gap-3">
-            {/* X / Twitter */}
+            {/* WhatsApp */}
             <a
-              href="https://x.com"
+              href="https://wa.me/917985790432?text=Hi%20Vistar%20team,%20I'd%20like%20to%20discuss%20a%20software%20project."
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="VISTAR on X"
-              className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 flex items-center justify-center text-white transition-all active:scale-95 cursor-pointer"
+              aria-label="Chat with VISTAR on WhatsApp"
+              title="Chat on WhatsApp (+91 79857 90432)"
+              className="h-9 px-3 rounded-full bg-emerald-600/30 hover:bg-emerald-600 border border-emerald-500/40 flex items-center gap-1.5 text-white transition-all active:scale-95 cursor-pointer text-xs font-mono"
             >
-              <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-              </svg>
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span>WhatsApp: +91 79857 90432</span>
             </a>
 
             {/* GitHub */}
             <a
-              href="https://github.com/Abhishektiwari050/vistaarx"
+              href="https://github.com/Abhishektiwari050"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="VISTAR on GitHub"
+              aria-label="Abhishek Tiwari on GitHub"
+              title="Abhishek Tiwari GitHub"
               className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 flex items-center justify-center text-white transition-all active:scale-95 cursor-pointer"
             >
               <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
@@ -285,16 +288,15 @@ export function VistarFooter() {
               </svg>
             </a>
 
-            {/* LinkedIn */}
+            {/* Email */}
             <a
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="VISTAR on LinkedIn"
+              href="mailto:services.vistaar@gmail.com"
+              aria-label="Email VISTAR"
+              title="services.vistaar@gmail.com"
               className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 flex items-center justify-center text-white transition-all active:scale-95 cursor-pointer"
             >
-              <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
             </a>
           </div>

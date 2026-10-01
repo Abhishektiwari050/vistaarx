@@ -84,7 +84,7 @@ const COMPARISON_ROWS = [
   {
     dimension: "Data Sovereignty",
     agency: "Multi-tenant clouds with potential training data leakage",
-    vistar: "Air-gapped private VPC perimeter (GDPR, HIPAA, DIFC, DPDP)",
+    vistar: "Dedicated client-owned cloud accounts with zero external training leakage",
   },
   {
     dimension: "Performance & Speed",
@@ -129,13 +129,13 @@ const PHILOSOPHY_FAQ_ITEMS: QAPair[] = [
   },
   {
     category: "TECHNICAL RIGOR",
-    question: "What makes VISTAR's software development approach underrated?",
+    question: "What makes VISTAR's software development approach different?",
     answer:
-      "While hype-driven agencies showcase brittle chatbot mockups, VISTAR quietly engineers mission-critical infrastructure: sub-45ms cockpit telemetry streams, unsupervised Isolation Forest ML anomaly detection, 60fps WebGL spatial compute, and air-gapped private VPC model vaults compliant with global data laws.",
+      "While hype-driven agencies showcase brittle chatbot mockups, VISTAR quietly engineers production systems: automated WhatsApp & CRM lead pipelines, geospatial aviation tools, 60fps WebGL spatial architecture, and clean Next.js codebases delivered with 100% repository handover.",
     keyPoints: [
       "Deep technical rigor across Python, Next.js 16, Three.js, and PostgreSQL",
-      "Verified sub-40ms P95 latency across 16 global Points of Presence",
-      "Air-gapped private VPC deployments meeting SOC 2, HIPAA, and GDPR standards",
+      "Fixed 14-day production delivery with weekly deployable releases",
+      "Direct pairing with founding systems engineers under bilateral NDA",
     ],
   },
 ];
@@ -491,7 +491,7 @@ export default function PhilosophyPage() {
                         Subnet 10.0.4.0/24 &bull; Isolated Model Vault &bull; No Public Ingress
                       </div>
                       <div className="text-neutral-400 text-[11px] truncate">
-                        Air-gapped compliance: SOC 2 Type II &bull; HIPAA &bull; GDPR
+                        Data Isolation: Bilateral NDA &bull; Zero Public Training &bull; Private Subnets
                       </div>
                     </div>
                   )}

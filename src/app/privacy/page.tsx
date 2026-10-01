@@ -93,11 +93,11 @@ export default function PrivacyPage() {
             </div>
             <h2 className="text-2xl font-sans font-medium text-[#0E1118] mb-4">Who We Are</h2>
             <p className="text-neutral-600 leading-relaxed font-sans text-base">
-              Vistar (&quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) operates the digital engineering studio at{" "}
+              Vistar Web Systems (&quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) is an independent digital engineering studio operating from Lucknow, Uttar Pradesh, India, accessible at{" "}
               <Link href="/" className="text-[#0E1118] underline underline-offset-4 hover:text-[#FF3823] transition-colors">
                 vistar.tech
               </Link>
-              . This Privacy Policy applies to all interactions with our website, our diagnostic platforms, API endpoints, and direct client communications.
+              . We adhere to the Digital Personal Data Protection Act, 2023 (DPDP Act 2023) of India, and uphold international data protection standards (including EU GDPR principles) for our global partners. This policy governs how we collect, process, and protect your information across our website, diagnostic tools, and engineering engagements.
             </p>
           </div>
 
@@ -190,16 +190,17 @@ export default function PrivacyPage() {
           {/* Contact Card */}
           <div className="bg-white border border-black/10 rounded-[6px] p-8 sm:p-10 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-6">
             <div>
-              <div className="font-mono text-xs uppercase tracking-wider text-neutral-600 mb-2">05 // Data Protection Officer</div>
-              <h3 className="text-xl font-sans font-medium text-[#0E1118] mb-1">Direct Privacy Inquiries</h3>
-              <p className="text-sm text-neutral-600">Response SLA within 24 hours.</p>
+              <div className="font-mono text-xs uppercase tracking-wider text-neutral-600 mb-2">05 // Legal &amp; Data Inquiries</div>
+              <h3 className="text-xl font-sans font-medium text-[#0E1118] mb-1">Direct Privacy Officer</h3>
+              <p className="text-sm text-neutral-600 mb-2">Vistar Web Systems &bull; Lucknow, Uttar Pradesh, India</p>
+              <p className="text-xs font-mono text-neutral-500">Phone &amp; WhatsApp: +91 79857 90432 &bull; SLA &lt; 24h</p>
             </div>
             <a
               href="mailto:services.vistaar@gmail.com"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-white text-black hover:bg-[#ECEEF5] font-sans text-xs uppercase tracking-wider font-semibold transition-all shadow-sm shrink-0"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-[4px] bg-[#141413] text-white hover:bg-neutral-800 font-sans text-xs uppercase tracking-wider font-semibold transition-all shadow-sm shrink-0"
             >
               <Mail className="w-4 h-4" />
-              <span>Contact Privacy Team</span>
+              <span>Contact Privacy Officer</span>
             </a>
           </div>
         </div>

@@ -3,32 +3,33 @@
 import React from "react";
 import Link from "next/link";
 import { AgentOrchestrationConsole } from "@/components/cohere/agent-orchestration-console";
+import { ShieldCheck, Code2, Lock, GitBranch, Clock, Zap } from "lucide-react";
 
-const SECURITY_BADGES = [
+const ENGINEERING_GUARANTEES = [
   {
-    name: "SOC2",
-    src: "https://cdn.sanity.io/images/rjtqmwfu/web3-prod/a4bfc60fb89701deeebabcd9501246f459df53ea-240x240.png?auto=format&fit=max&q=80&w=120",
-    label: "SOC2",
+    icon: Code2,
+    title: "100% Repository Handover",
+    desc: "Complete private GitHub transfer with clean Next.js, Python, and Docker code. You own every commit.",
   },
   {
-    name: "GDPR",
-    src: "https://cdn.sanity.io/images/rjtqmwfu/web3-prod/7fd3414e7a961b69827a8c41b1904136fcff9d2c-240x240.png?auto=format&fit=max&q=80&w=120",
-    label: "GDPR",
+    icon: Zap,
+    title: "14-Day Sprint Cadence",
+    desc: "Direct pairing with founder and senior engineers. Working production software delivered in two-week cycles.",
   },
   {
-    name: "CCPA",
-    src: "https://cdn.sanity.io/images/rjtqmwfu/web3-prod/0a96ba380fd3fabbcab39f83ba037fe047730bd1-240x240.png?auto=format&fit=max&q=80&w=120",
-    label: "CCPA",
+    icon: Lock,
+    title: "Strict Data Privacy",
+    desc: "Protected under bilateral NDA. Environment keys encrypted with zero third-party training on your data.",
   },
   {
-    name: "ISO 27001",
-    src: "https://cdn.sanity.io/images/rjtqmwfu/web3-prod/6013d06e01e0ffaaaef1ac484cf07ee833da33c7-240x240.png?auto=format&fit=max&q=80&w=120",
-    label: "ISO 27001",
+    icon: GitBranch,
+    title: "Zero Hostage Retainers",
+    desc: "No proprietary platform lock-in or recurring monthly maintenance fees. Full deployment documentation included.",
   },
   {
-    name: "Cyber Essentials",
-    src: "https://cdn.sanity.io/images/rjtqmwfu/web3-prod/18200243be57ac3ecdde9c59ead50af0c8eeacb7-240x240.png?auto=format&fit=max&q=80&w=120",
-    label: "Cyber Essentials",
+    icon: Clock,
+    title: "30-Day Bug Warranty",
+    desc: "Every release is backed by a 30-day zero-cost bug fix guarantee and automated regression test suites.",
   },
 ];
 
@@ -36,38 +37,34 @@ export function CohereDeployment() {
   return (
     <>
       <section className="relative w-full pt-8 sm:pt-12 md:pt-14 pb-0 bg-white border-t border-black/[0.06] overflow-hidden">
-        {/* Header & CTAs matching enterprise platform theme */}
+        {/* Header & CTAs */}
         <div className="max-w-[840px] mx-auto px-4 text-center mb-8 sm:mb-12">
 
           {/* Headline */}
           <h2
-            className="text-4xl sm:text-6xl md:text-7xl font-normal leading-[1.05] tracking-[-0.02em] text-[#0B0D17] mb-5"
-            style={{
-              fontFamily:
-                '"CohereText", "Space Grotesk", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-            }}
+            className="text-4xl sm:text-5xl md:text-6xl font-normal leading-[1.08] tracking-[-0.02em] text-[#0B0D17] mb-5 font-serif"
           >
-            Put autonomous agents to work<br className="hidden sm:inline" /> across your enterprise
+            Custom software built for your business.<br className="hidden sm:inline" /> Shipped in 14 days.
           </h2>
 
           {/* Subtitle */}
-          <p className="text-base sm:text-lg md:text-[19px] text-[#4A4D57] leading-relaxed max-w-[660px] mx-auto mb-8 font-normal">
-            Orchestrate autonomous agent systems across your private cloud infrastructure—engineered for real-world reliability, sub-second latency, and zero vendor lock-in.
+          <p className="text-base sm:text-lg md:text-[18px] text-[#4A4D57] leading-relaxed max-w-[660px] mx-auto mb-8 font-normal">
+            From WhatsApp automations and client dashboards to high-performance 3D web applications. Direct senior engineering with 100% source code ownership.
           </p>
 
           {/* Buttons */}
-          <div className="flex items-center justify-center gap-3 sm:gap-4">
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
             <Link
               href="/start"
-              className="inline-flex items-center justify-center px-6 py-3 border border-[#0B0D17] text-[#0B0D17] bg-transparent hover:bg-neutral-100 font-medium text-sm sm:text-base rounded-none transition-colors"
+              className="inline-flex items-center justify-center px-6 py-3 bg-[#FF3823] hover:bg-[#E02F1C] text-white font-medium text-sm sm:text-base rounded-none transition-colors shadow-xs"
             >
-              Start Free Diagnostic
+              Start Free Scoping Sprint
             </Link>
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center px-6 py-3 bg-[#FF3823] hover:bg-[#E02F1C] text-white font-medium text-sm sm:text-base rounded-none transition-colors shadow-xs"
+              className="inline-flex items-center justify-center px-6 py-3 border border-[#0B0D17] text-[#0B0D17] bg-transparent hover:bg-neutral-100 font-medium text-sm sm:text-base rounded-none transition-colors"
             >
-              Get A Demo
+              Chat on WhatsApp &bull; Talk to Founders
             </Link>
           </div>
         </div>
@@ -78,85 +75,43 @@ export function CohereDeployment() {
         </div>
       </section>
 
-      {/* ── 2. INDUSTRY-LEADING AI SECURITY & DATA PROTECTION (PINE BG #152717) ── */}
-      <section className="relative w-full py-20 sm:py-28 bg-[#152717] text-white">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-10 text-center space-y-12">
+      {/* ── 2. ENGINEERING COMMITMENTS & DELIVERABLES (CLEAN PINE BG #152717) ── */}
+      <section className="relative w-full py-16 sm:py-24 bg-[#152717] text-white">
+        <div className="max-w-[1300px] mx-auto px-6 lg:px-10 space-y-12">
           
-          <div className="max-w-2xl mx-auto space-y-4">
-            <h2
-              className="text-3xl sm:text-4xl md:text-5xl font-normal tracking-[-0.02em] text-white leading-tight"
-              style={{
-                fontFamily:
-                  '"CohereText", "Space Grotesk", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-              }}
-            >
-              Industry-leading AI security and data protection
+          <div className="max-w-2xl mx-auto text-center space-y-3">
+            <span className="text-xs font-mono uppercase tracking-widest text-[#FF8A7A] font-semibold">
+              ENGINEERING STANDARDS
+            </span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-normal text-white tracking-tight">
+              Our Commitments to Every Client
             </h2>
-            <p
-              className="text-base sm:text-lg text-white/80 leading-relaxed font-normal"
-              style={{
-                fontFamily:
-                  '"Unica77 Cohere Web", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-              }}
-            >
-              Deploy inside your own VPC or on-premise infrastructure. Your data never leaves your perimeter.
+            <p className="text-base sm:text-lg text-white/80 font-normal">
+              No agency games, no junior developer handoffs, and zero hostage retainers.
             </p>
           </div>
 
-          {/* Continuous Infinite Smooth Marquee for Compliance Badges */}
-          <div className="relative w-full overflow-hidden flex items-center pt-2">
-            {/* Left & Right Subtle Fade Gradient Masks */}
-            <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-r from-[#152717] to-transparent z-10 pointer-events-none" />
-            <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-l from-[#152717] to-transparent z-10 pointer-events-none" />
-
-            {/* Marquee Track with Duplicate for Seamless Infinite Loop */}
-            <div
-              className="flex shrink-0 items-center gap-12 sm:gap-20 hover:[animation-play-state:paused]"
-              style={{
-                animation: "marquee-scroll 24s linear infinite",
-                width: "max-content",
-              }}
-            >
-              {/* Loop 1: Repeated twice for wide screen coverage */}
-              {[...SECURITY_BADGES, ...SECURITY_BADGES].map((b, idx) => (
+          {/* Clean 5-Pillar Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-4">
+            {ENGINEERING_GUARANTEES.map((item, idx) => {
+              const Icon = item.icon;
+              return (
                 <div
-                  key={`badge-1-${b.name}-${idx}`}
-                  className="flex flex-col items-center gap-3 shrink-0 group cursor-default"
+                  key={idx}
+                  className="bg-white/5 border border-white/10 rounded-xl p-6 space-y-3 hover:bg-white/10 transition-colors"
                 >
-                  <img
-                    src={b.src}
-                    alt={b.name}
-                    className="w-16 h-16 sm:w-20 sm:h-20 object-contain opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-200"
-                  />
-                  <span
-                    className="text-xs uppercase tracking-wider text-white/70 group-hover:text-white transition-colors"
-                    style={{ fontFamily: '"CohereMono", monospace' }}
-                  >
-                    {b.label}
-                  </span>
+                  <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center text-[#FF8A7A]">
+                    <Icon className="w-5 h-5" />
+                  </div>
+                  <h3 className="font-serif text-xl font-normal text-white">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm text-white/70 leading-relaxed font-sans">
+                    {item.desc}
+                  </p>
                 </div>
-              ))}
-
-              {/* Loop 2: Duplicate for seamless continuation */}
-              {[...SECURITY_BADGES, ...SECURITY_BADGES].map((b, idx) => (
-                <div
-                  key={`badge-2-${b.name}-${idx}`}
-                  className="flex flex-col items-center gap-3 shrink-0 group cursor-default"
-                >
-                  <img
-                    src={b.src}
-                    alt={b.name}
-                    className="w-16 h-16 sm:w-20 sm:h-20 object-contain opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-200"
-                  />
-                  <span
-                    className="text-xs uppercase tracking-wider text-white/70 group-hover:text-white transition-colors"
-                    style={{ fontFamily: '"CohereMono", monospace' }}
-                  >
-                    {b.label}
-                  </span>
-                </div>
-              ))}
-            </div>
+              );
+            })}
           </div>
 
         </div>

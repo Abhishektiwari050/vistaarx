@@ -14,30 +14,30 @@ const VECTORS_FAQ_ITEMS = [
       "VISTAR's technical architecture unifies autonomous agent execution, private VPC model vaults, typed PostgreSQL relational data, and sub-100ms edge runtime orchestration. Rather than daisy-chaining disjointed third-party APIs, workflows are compiled as deterministic, typed state machines running in client-managed clouds.",
     keyPoints: [
       "Deterministic state-machine workflows with strict boundary typing",
-      "Private VPC model vaults with air-gapped egress security",
-      "Native Next.js 16 edge runtime deployed across 24 global Anycast regions",
+      "Private cloud model vaults with air-gapped egress security",
+      "Native Next.js 16 edge runtime deployed across global edge CDNs",
     ],
   },
   {
     category: "GLOBAL PERFORMANCE & LATENCY",
     question: "How does VISTAR achieve sub-100ms global latency?",
     answer:
-      "VISTAR leverages Next.js 16 App Router primitives deployed across a 24-region Anycast global edge network. Static assets are cached at edge points of presence while dynamic database queries execute against localized read replicas, yielding P99 response times under 90ms worldwide.",
+      "VISTAR leverages Next.js 16 App Router primitives deployed across global edge networks (Vercel, Cloudflare, AWS). Static assets are cached at edge points of presence while dynamic database queries execute against localized read replicas, yielding sub-100ms response times worldwide.",
     keyPoints: [
-      "Anycast routing to the nearest edge point of presence",
-      "Localized read-replica database routing for sub-50ms query times",
-      "Core Web Vitals compliance targeting perfect 100/100 Lighthouse scores",
+      "Edge routing to the nearest cloud point of presence",
+      "Localized read-replica database routing for fast query times",
+      "Core Web Vitals compliance targeting 100/100 Lighthouse scores",
     ],
   },
   {
     category: "SECURITY & DATA ISOLATION",
-    question: "How does VISTAR prevent training leakage and data breaches?",
+    question: "How does VISTAR protect client data privacy?",
     answer:
-      "VISTAR enforces zero third-party training leakage by deploying inference engines inside client-managed AWS, GCP, or Azure VPC perimeters. Egress filters prevent confidential enterprise data from being sent to external training corpora, adhering to SOC 2 Type II and ISO 27001 standards.",
+      "VISTAR enforces zero third-party training leakage by isolating inference and application databases inside your private cloud accounts. Environment secrets are encrypted at rest and in transit, and your proprietary data is never used to train external models.",
     keyPoints: [
-      "Dedicated air-gapped VPC sandbox with zero telemetry egress",
+      "Client-owned private cloud deployment with zero external model training",
       "TLS 1.3 cryptographic state channels and AES-256 storage",
-      "Strict data privacy guaranteeing zero model training leakage",
+      "Strict data privacy guaranteeing full client data isolation",
     ],
   },
   {
@@ -174,16 +174,18 @@ export default function VectorsPlatformPage() {
         </div>
       </section>
 
-      {/* ── FRAME 2: WORLD-CLASS ENTERPRISE PROOF BAR ── */}
+      {/* ── FRAME 2: CORE TECHNOLOGIES & RUNTIME ── */}
       <section className="w-full py-8 px-6 bg-white border-b border-black/10 text-center">
-        <p className="font-sans text-xs font-medium text-neutral-500 uppercase tracking-widest mb-6">
-          World-class engineering teams build on Vistar sovereign runtime
+        <p className="font-sans text-xs font-medium text-neutral-500 uppercase tracking-widest mb-4">
+          Core Technologies &amp; Frameworks We Build With
         </p>
-        <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-16 opacity-70 font-mono text-xs text-neutral-700">
-          <span>// NATIONAL AIRSPACE</span>
-          <span>// MEDTELEMETRY LABS</span>
-          <span>// DEFENSE SYSTEMS</span>
-          <span>// PROPTECH VENTURES</span>
+        <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 font-mono text-xs text-neutral-800">
+          <span className="px-3 py-1 bg-[#FAF9F5] border border-black/10 rounded font-medium">NEXT.JS 16</span>
+          <span className="px-3 py-1 bg-[#FAF9F5] border border-black/10 rounded font-medium">PYTHON &amp; FASTAPI</span>
+          <span className="px-3 py-1 bg-[#FAF9F5] border border-black/10 rounded font-medium">TYPESCRIPT</span>
+          <span className="px-3 py-1 bg-[#FAF9F5] border border-black/10 rounded font-medium">POSTGRESQL</span>
+          <span className="px-3 py-1 bg-[#FAF9F5] border border-black/10 rounded font-medium">THREE.JS / WEBGL</span>
+          <span className="px-3 py-1 bg-[#FAF9F5] border border-black/10 rounded font-medium">DOCKER</span>
         </div>
       </section>
 

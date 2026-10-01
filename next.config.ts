@@ -79,6 +79,11 @@ const nextConfig: NextConfig = {
         destination: "/work",
         permanent: true,
       },
+      {
+        source: "/network",
+        destination: "/vectors",
+        permanent: true,
+      },
     ];
   },
 };

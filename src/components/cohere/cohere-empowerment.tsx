@@ -23,7 +23,7 @@ export function CohereEmpowerment() {
             />
             <img
               src="https://cdn.sanity.io/images/rjtqmwfu/web3-prod/14e17653849fcffefa40ca83674a8136f2e4ac52-1440x1040.png?auto=format&fit=max&q=80&w=1440"
-              alt="AI for Empowerment Texture"
+              alt="Vistar Engineering Texture"
               className="w-full h-full object-cover opacity-60 filter contrast-125 mix-blend-overlay"
             />
             {/* Fine Geometric Grid Overlay */}
