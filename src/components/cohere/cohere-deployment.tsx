@@ -35,7 +35,7 @@ const SECURITY_BADGES = [
 export function CohereDeployment() {
   return (
     <>
-      <section className="relative w-full pt-12 sm:pt-16 md:pt-20 pb-0 bg-white border-t border-black/[0.06] overflow-hidden">
+      <section className="relative w-full pt-8 sm:pt-12 md:pt-14 pb-0 bg-white border-t border-black/[0.06] overflow-hidden">
         {/* Header & CTAs matching enterprise platform theme */}
         <div className="max-w-[840px] mx-auto px-4 text-center mb-8 sm:mb-12">
 

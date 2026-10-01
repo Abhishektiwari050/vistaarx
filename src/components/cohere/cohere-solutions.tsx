@@ -182,7 +182,7 @@ export function CohereSolutions() {
   const applyTransforms = useCallback(() => {
     if (listRef.current) {
       const { scale, rx, rz } = currentValues.current;
-      listRef.current.style.transform = `translate3d(16%, 0%, 0px) scale3d(${scale * 0.915},${scale * 0.915},1) rotateX(${rx}deg) rotateY(0deg) rotateZ(${rz}deg) skew(0deg,0deg)`;
+      listRef.current.style.transform = `translate3d(8%, 0%, 0px) scale3d(${scale * 0.915},${scale * 0.915},1) rotateX(${rx}deg) rotateY(0deg) rotateZ(${rz}deg) skew(0deg,0deg)`;
     }
     if (wrpRef.current) {
       const offY = currentValues.current.wrpT * 32;
@@ -317,38 +317,166 @@ export function CohereSolutions() {
     <section
       ref={sectionRef}
       id="solutions"
-      className="relative w-full bg-white text-[#050A14] overflow-hidden select-none pt-8 md:pt-12 pb-12 md:pb-16"
+      className="relative w-full bg-white text-[#050A14] overflow-hidden select-none py-10 sm:py-14 lg:py-16"
       aria-label="Built for what's next. Ready now."
     >
       <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14">
         
-        {/* ── 1. EXACT SAMPLE HEADER LAYOUT: TOP-LEFT POSITIONED, BOLD SANS TYPOGRAPHY ── */}
-        <div className="max-w-[560px] space-y-4 pt-2 sm:pt-4 pb-2 z-30 relative">
-          <h2
-            className="text-4xl sm:text-6xl md:text-7xl lg:text-[76px] xl:text-[84px] font-bold text-[#050A14] tracking-[-0.035em] leading-[1.0] font-sans"
-            style={{
-              fontFamily:
-                'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-            }}
-          >
-            Built for what&apos;s next.
-            <br />
-            Ready now.
-          </h2>
+        {/* ── UNIFIED 2-COLUMN SECTION: ZERO AWKWARD VERTICAL VACANT GAP ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+          
+          {/* 1. Header Column (Left): Crisp Editorial Framing */}
+          <div className="lg:col-span-5 space-y-4 z-20">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#F1F5F9] rounded-full text-xs font-semibold text-[#0F172A] uppercase tracking-wider">
+              <span>Verified Systems</span>
+            </div>
 
-          <p
-            className="text-base sm:text-[17px] md:text-[17.5px] text-[#334155] leading-[1.58] max-w-[480px] font-normal font-sans"
-            style={{
-              fontFamily:
-                'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-            }}
-          >
-            From mission-critical cockpit GIS and real-time biometric anomaly detection to high-throughput spatial 3D platforms, Vistar engineers production software with 100% private codebase ownership.{" "}
-            <strong className="text-[#050A14] font-bold">Inspect our live systems.</strong>
-          </p>
+            <h2
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#050A14] tracking-[-0.03em] leading-[1.05] font-sans"
+              style={{
+                fontFamily:
+                  'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+              }}
+            >
+              Built for what&apos;s next.
+              <br />
+              Ready now.
+            </h2>
+
+            <p
+              className="text-base sm:text-[17px] text-[#334155] leading-[1.6] max-w-[460px] font-normal font-sans"
+              style={{
+                fontFamily:
+                  'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+              }}
+            >
+              From mission-critical cockpit GIS and real-time biometric anomaly detection to high-throughput spatial 3D platforms, Vistar engineers production software with 100% private codebase ownership.
+            </p>
+
+            <div className="pt-2">
+              <Link
+                href="/work"
+                className="inline-flex items-center justify-center px-6 py-3 bg-[#050A14] hover:bg-[#1E293B] text-white text-sm font-semibold rounded-none transition-colors shadow-xs gap-2"
+              >
+                Inspect All Systems &rarr;
+              </Link>
+            </div>
+          </div>
+
+          {/* 2. Desktop 3D Perspective Card Deck (Right Column): Apple-Style Window Stack */}
+          <div className="hidden md:flex lg:col-span-7 relative w-full items-center justify-center min-h-[400px] lg:min-h-[460px] overflow-visible">
+            
+            {/* 3D Perspective Scene Container */}
+            <div
+              className="w-full h-full flex items-center justify-center lg:justify-end overflow-visible"
+              style={{ perspective: "2800px" }}
+            >
+              {/* Cards List Wrapper */}
+              <div
+                ref={wrpRef}
+                className="relative w-full flex items-center justify-center lg:justify-end transition-transform duration-75 ease-out overflow-visible"
+                style={{
+                  transformStyle: "preserve-3d",
+                  transform: "translate3d(0%, 0px, 0px)",
+                }}
+              >
+                {/* Isometric 3D Cards Stack */}
+                <div
+                  ref={listRef}
+                  className="flex flex-col-reverse items-center justify-center relative w-full overflow-visible"
+                  style={{
+                    transformStyle: "preserve-3d",
+                    transform: `translate3d(8%, 0%, 0px) scale3d(0.915, 0.915, 1) rotateX(${BASE_RX}deg) rotateY(0deg) rotateZ(${BASE_RZ}deg) skew(0deg, 0deg)`,
+                  }}
+                >
+                  {PRODUCTION_CARDS.map((card, idx) => {
+                    const isHovered = hoveredCardId === card.id;
+                    const isAnyHovered = hoveredCardId !== null;
+
+                    return (
+                      <div
+                        key={card.id}
+                        onClick={() => handleCardClick(card)}
+                        onMouseEnter={() => handleCardMouseEnter(card.id)}
+                        onMouseLeave={handleCardMouseLeave}
+                        data-card-id={card.id}
+                        className="group relative cursor-pointer"
+                        style={{
+                          zIndex: isHovered ? 100 : 50 - idx,
+                          aspectRatio: "16 / 10",
+                          width: "clamp(340px, 38vw, 600px)",
+                          marginTop: "-72px",
+                          marginBottom: "-72px",
+                          transformStyle: "preserve-3d",
+                          transform: "rotateX(-90deg) rotateY(0deg) rotate(0deg)",
+                        }}
+                      >
+                        {/* Card Surface Container */}
+                        <div
+                          className="relative w-full h-full rounded-[20px] overflow-hidden border border-black/15 shadow-[0_24px_54px_rgba(15,23,42,0.18)] transition-all duration-300 ease-out select-none bg-[#080d19]"
+                          style={{
+                            transformStyle: "preserve-3d",
+                            transform: isHovered
+                              ? "translate3d(0px, -24px, 0px) scale3d(1.04, 1.04, 1)"
+                              : "translate3d(0px, 0%, 0px) scale3d(1, 1, 1)",
+                          }}
+                        >
+                          {/* ── CARD FACE: BROWSER WINDOW WITH PURE WEBPAGE SCREENSHOT ONLY ── */}
+                          <div className="absolute inset-0 flex flex-col overflow-hidden pointer-events-none bg-[#080d19]">
+                            {/* Sleek Apple-Style macOS Window Header */}
+                            <div className="relative h-7 px-3.5 flex items-center justify-between border-b border-white/10 bg-black/75 backdrop-blur-md z-10 shrink-0">
+                              <div className="flex items-center gap-1.5">
+                                <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
+                                <div className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
+                                <div className="w-2.5 h-2.5 rounded-full bg-[#27c93f]" />
+                              </div>
+
+                              {/* Clean URL Pill */}
+                              <div className="flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-white/10 border border-white/10 text-[10.5px] font-mono text-white/90">
+                                <Lock className="w-2.5 h-2.5 text-emerald-400" />
+                                <span className="tracking-tight">{card.displayUrl || "vistar.systems"}</span>
+                              </div>
+
+                              {/* Live Pulse Indicator */}
+                              <div className="flex items-center gap-1">
+                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                                <span className="text-[9px] font-mono uppercase tracking-wider text-emerald-400 font-semibold">
+                                  LIVE
+                                </span>
+                              </div>
+                            </div>
+
+                            {/* Pure Real Project Screenshot (ONLY THE PAGE IS SEEN - NO OVERLAY SCRIMS) */}
+                            <div className="relative w-full flex-1 overflow-hidden bg-slate-950">
+                              <Image
+                                src={card.image}
+                                alt={card.alt}
+                                fill
+                                className="object-cover object-top filter brightness-[1.0] contrast-[1.0] transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+                                sizes="(max-width: 768px) 100vw, 600px"
+                                priority={idx < 2}
+                              />
+                            </div>
+                          </div>
+
+                          {/* Subtle dimming when another card is hovered */}
+                          <div
+                            className={`absolute inset-0 bg-white/40 transition-opacity duration-200 pointer-events-none ${
+                              isAnyHovered && !isHovered ? "opacity-100" : "opacity-0"
+                            }`}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
 
-        {/* ── 2A. MOBILE-OPTIMIZED PRODUCTION CARD STACK (CLEAN, ZERO 3D PERSPECTIVE DISTORTION) ── */}
+        {/* ── MOBILE-OPTIMIZED PRODUCTION CARD STACK ── */}
         <div className="flex md:hidden flex-col gap-6 w-full mt-8">
           {PRODUCTION_CARDS.map((card) => (
             <div
@@ -357,7 +485,7 @@ export function CohereSolutions() {
               className="w-full bg-[#080d19] rounded-[16px] overflow-hidden border border-black/10 shadow-md cursor-pointer transition-transform active:scale-[0.99]"
             >
               {/* Browser Window Bar */}
-              <div className="h-8 px-3.5 flex items-center justify-between border-b border-white/10 bg-black/75">
+              <div className="h-7 px-3.5 flex items-center justify-between border-b border-white/10 bg-black/75">
                 <div className="flex items-center gap-1.5">
                   <div className="w-2 h-2 rounded-full bg-[#ff5f56]" />
                   <div className="w-2 h-2 rounded-full bg-[#ffbd2e]" />
@@ -373,7 +501,7 @@ export function CohereSolutions() {
                 </div>
               </div>
 
-              {/* Screenshot Image */}
+              {/* Pure Screenshot Surface without dark overlays */}
               <div className="relative w-full aspect-[16/10] bg-slate-950 overflow-hidden">
                 <Image
                   src={card.image}
@@ -382,188 +510,24 @@ export function CohereSolutions() {
                   className="object-cover object-top"
                   sizes="(max-width: 768px) 100vw, 500px"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#050A14] via-[#050A14]/20 to-transparent pointer-events-none" />
-                
-                {/* Floating Category Pill */}
-                <div className="absolute top-3 right-3 z-10">
-                  <span className="px-3 py-1 bg-white text-[#050A14] text-[11px] font-bold rounded-full shadow-sm font-sans">
+              </div>
+
+              {/* Clean Bottom Bar with Title & Action */}
+              <div className="p-3.5 bg-white border-t border-black/10 flex items-center justify-between">
+                <div>
+                  <h3 className="font-sans font-bold text-sm text-[#050A14] truncate">
+                    {card.title}
+                  </h3>
+                  <span className="text-[11px] text-[#64748B] font-mono">
                     {card.pill}
                   </span>
                 </div>
-
-                {/* Bottom Overlay Title & Tag */}
-                <div className="absolute inset-x-0 bottom-0 p-4 z-10">
-                  <span
-                    className="text-[9px] font-mono uppercase tracking-wider font-semibold px-2 py-0.5 rounded bg-black/70 border border-white/15 text-white/90"
-                    style={{ color: card.accentColor }}
-                  >
-                    {card.tag}
-                  </span>
-                  <h3 className="font-sans font-bold text-base text-white mt-1.5 truncate">
-                    {card.title}
-                  </h3>
-                </div>
-              </div>
-
-              {/* Mobile Quick Metrics & Action */}
-              <div className="p-3.5 bg-neutral-900 border-t border-white/5 flex items-center justify-between text-xs font-mono text-neutral-300">
-                <div className="flex items-center gap-3">
-                  {card.metrics.slice(0, 2).map((m, idx) => (
-                    <div key={idx} className="flex flex-col">
-                      <span className="text-[10px] text-neutral-400 uppercase">{m.label}</span>
-                      <span className="text-white font-semibold">{m.value}</span>
-                    </div>
-                  ))}
-                </div>
-                <span className="text-[11px] font-sans font-semibold text-[#FF3823] flex items-center gap-1">
-                  Inspect System &rarr;
+                <span className="text-xs font-semibold text-[#FF3823] flex items-center gap-1 shrink-0">
+                  Inspect &rarr;
                 </span>
               </div>
             </div>
           ))}
-        </div>
-
-        {/* ── 2B. DESKTOP 3D PERSPECTIVE CARD DECK: SHIFTED UP TO BALANCE WITH HEADER ── */}
-        <div className="hidden md:flex relative w-full flex-col items-center lg:items-end justify-center min-h-[380px] sm:min-h-[440px] lg:min-h-[500px] xl:min-h-[540px] -mt-16 sm:-mt-24 lg:-mt-[190px] xl:-mt-[220px] overflow-visible">
-          
-          {/* 3D Perspective Scene Container */}
-          <div
-            className="w-full h-full flex items-center justify-center lg:justify-end overflow-visible"
-            style={{ perspective: "2800px" }}
-          >
-            {/* Cards List Wrapper */}
-            <div
-              ref={wrpRef}
-              className="relative w-full flex items-center justify-center lg:justify-end transition-transform duration-75 ease-out overflow-visible"
-              style={{
-                transformStyle: "preserve-3d",
-                transform: "translate3d(0%, 0px, 0px)",
-              }}
-            >
-              {/* Isometric 3D Cards Stack */}
-              <div
-                ref={listRef}
-                className="flex flex-col-reverse items-center justify-center relative w-full overflow-visible"
-                style={{
-                  transformStyle: "preserve-3d",
-                  transform: `translate3d(16%, 0%, 0px) scale3d(0.915, 0.915, 1) rotateX(${BASE_RX}deg) rotateY(0deg) rotateZ(${BASE_RZ}deg) skew(0deg, 0deg)`,
-                }}
-              >
-                {PRODUCTION_CARDS.map((card, idx) => {
-                  const isHovered = hoveredCardId === card.id;
-                  const isAnyHovered = hoveredCardId !== null;
-
-                  return (
-                    <div
-                      key={card.id}
-                      onClick={() => handleCardClick(card)}
-                      onMouseEnter={() => handleCardMouseEnter(card.id)}
-                      onMouseLeave={handleCardMouseLeave}
-                      data-card-id={card.id}
-                      className="group relative cursor-pointer"
-                      style={{
-                        zIndex: isHovered ? 100 : 50 - idx,
-                        aspectRatio: "16 / 10",
-                        width: "clamp(390px, 42vw, 690px)",
-                        marginTop: "-95px",
-                        marginBottom: "-95px",
-                        transformStyle: "preserve-3d",
-                        transform: "rotateX(-90deg) rotateY(0deg) rotate(0deg)",
-                      }}
-                    >
-                      {/* Card Surface Container */}
-                      <div
-                        className="relative w-full h-full rounded-[24px] overflow-hidden border border-white/20 shadow-[0_30px_70px_rgba(15,23,42,0.22)] transition-all duration-300 ease-out select-none"
-                        style={{
-                          background: card.bgGradient,
-                          transformStyle: "preserve-3d",
-                          transform: isHovered
-                            ? "translate3d(0px, -30%, 0px) scale3d(1.06, 1.06, 1)"
-                            : "translate3d(0px, 0%, 0px) scale3d(1, 1, 1)",
-                        }}
-                      >
-                        {/* ── CARD FACE: BROWSER / SOFTWARE WINDOW FRAME WITH REAL SCREENSHOT ── */}
-                        <div className="absolute inset-0 flex flex-col overflow-hidden pointer-events-none bg-[#080d19]">
-                          {/* macOS / Web App Window Header */}
-                          <div className="relative h-8 px-4 flex items-center justify-between border-b border-white/10 bg-black/65 backdrop-blur-md z-10 shrink-0">
-                            <div className="flex items-center gap-1.5">
-                              <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]/90 border border-[#e0443e]/50" />
-                              <div className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]/90 border border-[#dea123]/50" />
-                              <div className="w-2.5 h-2.5 rounded-full bg-[#27c93f]/90 border border-[#1aab29]/50" />
-                            </div>
-
-                            {/* URL Pill */}
-                            <div className="flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-white/10 border border-white/10 text-[10.5px] font-mono text-white/80">
-                              <Lock className="w-2.5 h-2.5 text-emerald-400" />
-                              <span className="tracking-tight">{card.displayUrl || "vistar.systems"}</span>
-                            </div>
-
-                            {/* Live Pulse Indicator */}
-                            <div className="flex items-center gap-1.5">
-                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                              <span className="text-[9px] font-mono uppercase tracking-wider text-emerald-400 font-semibold">
-                                LIVE
-                              </span>
-                            </div>
-                          </div>
-
-                          {/* Real Project Screenshot Surface */}
-                          <div className="relative w-full flex-1 overflow-hidden bg-slate-950">
-                            <Image
-                              src={card.image}
-                              alt={card.alt}
-                              fill
-                              className="object-cover object-top filter brightness-[0.98] contrast-[1.02] transition-transform duration-500 ease-out group-hover:scale-[1.02]"
-                              sizes="(max-width: 768px) 100vw, 690px"
-                              priority={idx < 2}
-                            />
-
-                            {/* Subtle Vignette & Scrim */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#050A14] via-[#050A14]/30 to-transparent pointer-events-none" />
-
-                            {/* Project Metadata Caption at Bottom */}
-                            <div className="absolute inset-x-0 bottom-0 p-5 flex flex-col justify-end pointer-events-none z-10">
-                              <div className="flex items-center gap-2">
-                                <span
-                                  className="text-[10px] font-mono uppercase tracking-wider font-semibold px-2 py-0.5 rounded bg-black/60 border border-white/15 backdrop-blur-sm"
-                                  style={{ color: card.accentColor }}
-                                >
-                                  {card.tag}
-                                </span>
-                              </div>
-                              <h3 className="font-sans font-bold text-base sm:text-lg text-white drop-shadow-md tracking-tight truncate mt-1">
-                                {card.title}
-                              </h3>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* ── Signature Floating Pill Badge (Exact Sample Placement & Font) ── */}
-                        <div className={`absolute ${card.pillPosition} z-20 pointer-events-none`}>
-                          <span
-                            className="px-4 py-1.5 bg-white text-[#050A14] text-[13px] font-bold rounded-full shadow-[0_4px_16px_rgba(0,0,0,0.20)] border border-white/90 tracking-tight whitespace-nowrap font-sans"
-                            style={{
-                              fontFamily:
-                                'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-                            }}
-                          >
-                            {card.pill}
-                          </span>
-                        </div>
-
-                        {/* Dimming overlay when another card is hovered */}
-                        <div
-                          className={`absolute inset-0 bg-white/60 transition-opacity duration-200 pointer-events-none ${
-                            isAnyHovered && !isHovered ? "opacity-100" : "opacity-0"
-                          }`}
-                        />
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
         </div>
 
       </div>
