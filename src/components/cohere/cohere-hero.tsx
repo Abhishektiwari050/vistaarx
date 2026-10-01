@@ -5,7 +5,6 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import gsap from "gsap";
 
-import { JasperInteractiveHero } from "@/components/jasper/jasper-interactive-hero";
 
 export function CohereHero() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -82,7 +81,7 @@ export function CohereHero() {
         <div className="relative mx-auto w-full max-w-[1400px]">
           <div className="text-center flex flex-col items-center">
             
-            {/* 01: Headline */}
+            {/* 01: Headline matching original Cohere aesthetic */}
             <div className="mb-5 break-words max-w-[1020px] mx-auto overflow-hidden px-2">
               <h1
                 className="text-4xl sm:text-5xl md:text-6xl lg:text-[72px] xl:text-[80px] font-normal leading-[1.05] tracking-[-0.035em] text-[#141413]"
@@ -92,10 +91,10 @@ export function CohereHero() {
                 }}
               >
                 <span className="gsap-hero-title-line block overflow-hidden will-change-transform">
-                  Custom Software &amp; AI.
+                  Your AI.
                 </span>
                 <span className="gsap-hero-title-line block overflow-hidden will-change-transform">
-                  Shipped in 14 Days.
+                  Your rules.
                 </span>
               </h1>
             </div>
@@ -109,7 +108,7 @@ export function CohereHero() {
                     '"Unica77 Cohere Web", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
                 }}
               >
-                From WhatsApp sales automations and operational dashboards to high-speed Next.js portals and 3D architectural showcases. Engineered by founders with 100% repository handover. Fixed-scope packages from ₹49,000 ($600).
+                Custom software, WhatsApp automations, and interactive 3D web systems built for your business. Shipped by founding engineers in 14-day sprints with 100% source code ownership. Packages start at ₹49,000 ($600).
               </p>
             </div>
 
@@ -155,10 +154,58 @@ export function CohereHero() {
         </div>
       </section>
 
-      {/* ── 2. JASPER AI INTERACTIVE HERO STAGE (3D RIVE KEYBOARD & CAPABILITY CYCLER) ── */}
+      {/* ── 2. ORIGINAL COHERE HERO FEATURED GRAPHIC (HARDWARE-ACCELERATED GSAP ENTRANCE) ── */}
       <section className="gsap-hero-media relative w-full px-4 lg:px-10 pb-12 md:pb-16 bg-white text-[#212121] will-change-transform">
-        <div className="relative mx-auto w-full max-w-[1360px] overflow-hidden rounded-[16px] border border-black/[0.08] shadow-sm bg-[#FAF9F5]">
-          <JasperInteractiveHero />
+        <div className="relative mx-auto w-full max-w-[1360px]">
+          
+          {/* Desktop & Tablet Video Loop (Aspect Ratio 2720/1120 = 2.428) */}
+          <div className="hidden md:block w-full overflow-hidden rounded-[12px] shadow-sm bg-[#0C0D12] border border-black/[0.06]">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="auto"
+              poster="https://cdn.sanity.io/images/rjtqmwfu/web3-prod/1a41717be695e315b008b080ff3ae9e10c43060c-2720x1120.png?auto=format&fit=max&q=80&w=1920"
+              className="w-full h-auto object-cover rounded-[12px] block"
+              width={1920}
+              height={791}
+            >
+              <source src="/videos/hero-agent-loop.mp4" type="video/mp4" />
+              <source src="/videos/hero-agent-loop.webm" type="video/webm" />
+              {/* Fallback GIF */}
+              <img
+                src="/videos/hero-agent-loop.gif"
+                alt="VISTAR Custom AI Software & Systems Engineering Platform Interface"
+                className="w-full h-auto object-cover rounded-[12px]"
+              />
+            </video>
+          </div>
+
+          {/* Mobile Video / GIF Loop (Square 1472x1472 Aspect Ratio) */}
+          <div className="block md:hidden w-full overflow-hidden rounded-[20px] shadow-sm bg-[#0C0D12] border border-black/[0.06]">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="auto"
+              poster="https://cdn.sanity.io/images/rjtqmwfu/web3-prod/d6caa02cd2aefe2f9cfa34a2f733cd2b883306b5-1472x1472.png?auto=format&fit=max&q=80&w=1472"
+              className="w-full h-auto object-cover rounded-[20px] block"
+              width={1472}
+              height={1472}
+            >
+              <source src="/videos/hero-agent-loop.mp4" type="video/mp4" />
+              <source src="/videos/hero-agent-loop.webm" type="video/webm" />
+              {/* Fallback GIF */}
+              <img
+                src="/videos/hero-agent-loop.gif"
+                alt="VISTAR Custom AI Software & Systems Engineering Mobile Interface"
+                className="w-full h-auto object-cover rounded-[20px]"
+              />
+            </video>
+          </div>
+
         </div>
       </section>
     </div>

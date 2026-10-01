@@ -1,33 +1,33 @@
-// Homepage is a Server Component so Next.js can SSR the <head> metadata.
-// The child components handle their own "use client" directives.
 import type { Metadata } from "next";
 import { KEYWORDS, BASE_URL, DEFAULT_OG_IMAGES } from "@/lib/seo";
 import { CohereHero } from "@/components/cohere/cohere-hero";
 import { CohereSocialProof } from "@/components/cohere/cohere-social-proof";
 import { CohereEmpowerment } from "@/components/cohere/cohere-empowerment";
+import { JasperAgentsSection } from "@/components/home/jasper-agents-section";
 import { CohereSolutions } from "@/components/cohere/cohere-solutions";
 import { CohereDeployment } from "@/components/cohere/cohere-deployment";
+import { AnswerBlocks, type QAPair } from "@/components/seo/answer-blocks";
 
-// ─── Page-level metadata (overrides root layout title for the homepage) ───────
+// ─── Page-level metadata (Google Search Essentials / SEO Starter Guide compliant) ───────
 export const metadata: Metadata = {
-  title: "VISTAR — Custom AI Software & Enterprise Web Engineering",
+  title: "VISTAR — Custom Software, AI & WhatsApp Automations Studio",
   description:
-    "VISTAR builds custom AI agents, enterprise Next.js web applications, and interactive 3D WebGL experiences. 100% source code ownership. No vendor lock-in. Delivered in 14–21 day sprints.",
+    "VISTAR is a founder-led engineering studio in Lucknow, India. We build WhatsApp sales automations, high-speed Next.js web apps, and 3D spatial platforms in fixed 14-day sprints with 100% repository handover.",
   keywords: KEYWORDS.home,
   alternates: {
     canonical: BASE_URL,
   },
   openGraph: {
-    title: "VISTAR — Custom AI Software & Enterprise Web Engineering",
+    title: "VISTAR — Custom Software, AI & WhatsApp Automations Studio",
     description:
-      "Custom AI agents, enterprise Next.js apps, and 3D interactive experiences — built to production and fully handed over to you.",
+      "Custom software, WhatsApp sales automations, and interactive 3D web systems shipped in 14 days by founding engineers with 100% source code ownership.",
     url: BASE_URL,
     images: DEFAULT_OG_IMAGES,
   },
   twitter: {
-    title: "VISTAR — Custom AI Software & Enterprise Web Engineering",
+    title: "VISTAR — Custom Software, AI & WhatsApp Automations Studio",
     description:
-      "Custom AI agents, enterprise Next.js apps, and 3D interactive experiences — built to production and fully handed over to you.",
+      "Custom software, WhatsApp sales automations, and interactive 3D web systems shipped in 14 days by founding engineers with 100% source code ownership.",
     images: [DEFAULT_OG_IMAGES[0].url],
   },
 };
@@ -40,9 +40,9 @@ const homePageSchema = {
       "@type": "WebPage",
       "@id": `${BASE_URL}/#webpage`,
       url: BASE_URL,
-      name: "VISTAR — Custom AI Software & Enterprise Web Engineering",
+      name: "VISTAR — Custom Software, AI & WhatsApp Automations Studio",
       description:
-        "VISTAR builds custom AI agents, enterprise Next.js web applications, and interactive 3D WebGL experiences. 100% source code ownership on every project.",
+        "VISTAR builds WhatsApp sales automations, high-performance Next.js 16 web applications, and interactive 3D platforms with 100% source code ownership.",
       isPartOf: { "@id": `${BASE_URL}/#website` },
       about: { "@id": `${BASE_URL}/#organization` },
       primaryImageOfPage: {
@@ -66,51 +66,49 @@ const homePageSchema = {
   ],
 };
 
-import { AnswerBlocks, type QAPair } from "@/components/seo/answer-blocks";
-
 const HOME_FAQ_ITEMS: QAPair[] = [
   {
-    category: "UNDERDOG ADVANTAGE",
-    question: "Who is VISTAR and why is it considered the most capable underdog in AI software development?",
+    category: "FOUNDER-LED STUDIO",
+    question: "Who is VISTAR and what makes your engineering approach different?",
     answer:
-      "VISTAR is an elite, high-conviction boutique engineering firm that builds custom autonomous AI agents, private VPC model vaults, and mission-critical enterprise platforms. Operating as a lean strike cell of principal systems architects, VISTAR rejects agency overhead and delivers working production software in 14-day guaranteed sprints with 100% private repository handover.",
+      "VISTAR is a founder-led software engineering studio based in Lucknow, India, directed by Abhishek Tiwari. We work directly with business owners, founders, and CTOs to ship production software without layers of agency account managers or outsourced junior contractors. Every sprint delivers 100% source code ownership with zero retainer hostage lock-in.",
     keyPoints: [
-      "Pure engineering focus with zero account executive bloat",
-      "Direct execution by principal systems engineers",
-      "Live verified production case studies in aviation, healthcare, and 3D PropTech",
+      "Direct collaboration with founding systems engineers",
+      "Fixed 14-day production delivery cycles with transparent pricing",
+      "Live verified deployments in 3D architecture (3axis Arc) and sales automation (AutoLead)",
     ],
   },
   {
     category: "PRODUCTION VELOCITY",
-    question: "How does VISTAR's delivery model outperform 50-person consultancies and agencies?",
+    question: "How does VISTAR deliver production software in 14-day sprints?",
     answer:
-      "Traditional consultancies staff projects with junior contractors billing hourly retainers for PowerPoint slide decks. VISTAR pairs clients directly with principal systems architects who write typed, production-ready code in 14-day sprints, slashing delivery timelines by 75% and eliminating all retainers.",
+      "Traditional agencies introduce multi-month delays with junior developer telephone games and billable hourly padding. VISTAR operates on focused, milestone-driven sprints (5–7 days for MVPs and WhatsApp bots; 14 days for full Next.js web applications). We pair directly with leadership, scope tightly, and ship production-ready code with automated tests.",
     keyPoints: [
-      "14-day milestone-committed production delivery cycles",
-      "No junior developer telephone games or billable hour padding",
-      "Weekly deployable production releases with automated test suites",
+      "14-day fixed-scope production sprints with deployable staging releases",
+      "No agency markups, phantom hours, or maintenance retainer traps",
+      "Comprehensive 30-day post-delivery bug warranty included at no extra cost",
     ],
   },
   {
     category: "CODE SOVEREIGNTY",
-    question: "What does 100% source code ownership and zero vendor lock-in mean?",
+    question: "What does 100% source code ownership mean for my business?",
     answer:
-      "Clients receive full private GitHub repository transfer on day one, including typed Next.js 16 and Python codebases, Docker and Kubernetes manifests, and automated Terraform infrastructure runbooks. You own every line of code and commit history with zero recurring software royalties.",
+      "On delivery day, full ownership of the private GitHub repository transfers directly to your organization. You receive all TypeScript, Next.js 16, Python, Docker, and PostgreSQL schema files. You own your IP completely—no licensing fees, no recurring agency subscriptions, and full freedom to maintain or extend the codebase.",
     keyPoints: [
-      "100% private GitHub repository rights transferred on day one",
+      "100% private GitHub repository rights transferred directly to you",
       "Zero recurring software licensing fees, subscription markup, or vendor lock-in",
       "Complete deployment documentation enabling internal team maintainability",
     ],
   },
   {
-    category: "GLOBAL EDGE & POPS",
-    question: "Where are VISTAR's global Points of Presence (PoPs) located?",
+    category: "DATA PRIVACY & DPDP",
+    question: "How does VISTAR protect client business data and proprietary secrets?",
     answer:
-      "VISTAR operates across 16 global Points of Presence including Silicon Valley, Northern Virginia, New York, London, Frankfurt, Dubai, Bengaluru, Singapore, Tokyo, and Sydney, providing sub-40ms P95 latency and regional data sovereignty compliance (GDPR, HIPAA, DIFC, DPDP).",
+      "Every project is protected under a mutual bilateral Non-Disclosure Agreement (NDA). All credentials, databases, and customer records stay within your private cloud environment (AWS, GCP, or bare-metal). We never train public AI models on your proprietary data, fully upholding India's Digital Personal Data Protection Act 2023 (DPDP Act) and international privacy standards.",
     keyPoints: [
-      "16 tier-1 carrier-neutral PoPs across 5 continents",
-      "Sub-40ms P95 latency for edge-compiled Next.js 16 and agent workloads",
-      "Full local compliance with GDPR, HIPAA, DIFC, and DPDP regulations",
+      "Bilateral NDA executed before reviewing proprietary specifications",
+      "Client-owned private cloud deployment with zero external model training",
+      "Full compliance with India's DPDP Act 2023 and GDPR data protection standards",
     ],
   },
 ];
@@ -123,22 +121,25 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(homePageSchema) }}
       />
       <div className="relative min-h-screen bg-white text-[#212121] w-full selection:bg-[#212121] selection:text-white">
-        {/* 01: HERO */}
+        {/* 01: HERO (RESTORED ORIGINAL COHERE VIDEO / DASHBOARD LOOP) */}
         <CohereHero />
 
-        {/* 02: SOCIAL PROOF */}
+        {/* 02: SOCIAL PROOF (CLOUD & INFRASTRUCTURE INTEGRATIONS) */}
         <CohereSocialProof />
 
-        {/* 03: EMPOWERMENT */}
+        {/* 03: EMPOWERMENT (DATA SOVEREIGNTY & EDITORIAL VIDEO BANNER) */}
         <CohereEmpowerment />
 
-        {/* 04: SOLUTIONS */}
+        {/* 04: JASPER AUTONOMOUS AGENTS SECTION (INTERACTIVE 3D STAGE & CAPABILITY MATRIX) */}
+        <JasperAgentsSection />
+
+        {/* 05: SOLUTIONS (4 VERIFIED ISOMETRIC PRODUCTION CARDS) */}
         <CohereSolutions />
 
-        {/* 05: SECURITY & DEPLOYMENT */}
+        {/* 06: SECURITY & DEPLOYMENT (ENGINEERING GUARANTEES & SPRINT CADENCE) */}
         <CohereDeployment />
 
-        {/* 06: TECHNICAL ANSWER BLOCKS (GEO & AI SEARCH ENGINE CITATIONS) */}
+        {/* 07: TECHNICAL ANSWER BLOCKS (GOOGLE SEO & KNOWLEDGE GRAPH CITATIONS) */}
         <AnswerBlocks
           title="Technical Specifications & Frequently Asked Questions"
           subtitle="Direct technical answers addressing VISTAR's engineering standards, 14-day production sprints, and sovereign cloud deployment."
