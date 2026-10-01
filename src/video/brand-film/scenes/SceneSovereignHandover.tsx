@@ -52,7 +52,7 @@ export const SceneSovereignHandover: React.FC = () => {
       <div
         style={{
           position: 'absolute',
-          width: '840px',
+          width: '860px',
           background: 'rgba(13, 14, 21, 0.95)',
           border: `1px solid ${BRAND_TOKENS.colors.borderActive}`,
           borderRadius: '14px',
@@ -87,7 +87,7 @@ export const SceneSovereignHandover: React.FC = () => {
               color: BRAND_TOKENS.colors.textTertiary,
             }}
           >
-            bash // vistar-handover-protocol.sh
+            vistar-operational-terminal // execute-autonomy.sh
           </div>
           <div style={{ width: 40 }} />
         </div>
@@ -103,19 +103,22 @@ export const SceneSovereignHandover: React.FC = () => {
           }}
         >
           <div style={{ color: BRAND_TOKENS.colors.textSecondary }}>
-            $ git remote add production client-org/core-system.git
+            $ vistar audit --analyze enterprise/workflows
           </div>
-          <div style={{ color: BRAND_TOKENS.colors.textSecondary }}>
-            $ git push --mirror production
+          <div style={{ color: BRAND_TOKENS.colors.textTertiary }}>
+            [scan] 38 manual bottlenecks isolated • 420 human hours/month burned
           </div>
-          <div style={{ color: BRAND_TOKENS.colors.accentEmerald, marginTop: '8px' }}>
-            ✓ 100% Repository Transfer Completed.
+          <div style={{ color: BRAND_TOKENS.colors.textSecondary, marginTop: '4px' }}>
+            $ vistar deploy --automations --ai-orchestrator
+          </div>
+          <div style={{ color: BRAND_TOKENS.colors.accentEmerald, marginTop: '4px' }}>
+            ✓ Autonomous AI pipelines deployed across communications & data.
           </div>
           <div style={{ color: BRAND_TOKENS.colors.accentEmerald }}>
-            ✓ Full Intellectual Property Ownership Assigned.
+            ✓ 94% Human Toil Eliminated • Real-time Zero-Latency Execution.
           </div>
           <div style={{ color: BRAND_TOKENS.colors.textTertiary, fontSize: '11px', marginTop: '6px' }}>
-            Zero recurring license locks • Zero retainer traps • 30-day warranty active
+            Operations running easier, faster, and humanless. 100% Client Code Sovereignty.
           </div>
         </div>
       </div>
@@ -126,7 +129,7 @@ export const SceneSovereignHandover: React.FC = () => {
           position: 'relative',
           zIndex: 30,
           textAlign: 'center',
-          maxWidth: '900px',
+          maxWidth: '960px',
           opacity: endcardOpacity,
           transform: `scale(${endcardEntrance})`,
         }}
@@ -180,7 +183,7 @@ export const SceneSovereignHandover: React.FC = () => {
             margin: '0 0 36px 0',
           }}
         >
-          WE BUILD THE SYSTEMS YOUR BUSINESS RUNS ON.
+          MAKING ENTERPRISE OPERATIONS EASIER, FASTER, AND HUMANLESS.
         </p>
 
         <div
@@ -188,7 +191,7 @@ export const SceneSovereignHandover: React.FC = () => {
             display: 'inline-flex',
             alignItems: 'center',
             gap: '16px',
-            padding: '12px 28px',
+            padding: '12px 32px',
             borderRadius: '999px',
             background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
             color: '#060709',
@@ -199,7 +202,7 @@ export const SceneSovereignHandover: React.FC = () => {
             boxShadow: '0 10px 30px rgba(16, 185, 129, 0.4)',
           }}
         >
-          START YOUR 14-DAY BUILD // CONTACT@VISTAR.TECH
+          BOOK AN OPERATIONAL AUDIT // CONTACT@VISTAR.TECH
         </div>
       </div>
     </AbsoluteFill>

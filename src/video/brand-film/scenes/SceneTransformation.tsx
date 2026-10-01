@@ -58,7 +58,7 @@ export const SceneTransformation: React.FC = () => {
             marginBottom: '12px',
           }}
         >
-          THE TRANSFORMATION
+          THE TRANSFORMATION // MANUAL TO HUMANLESS
         </div>
         <h2
           style={{
@@ -70,7 +70,7 @@ export const SceneTransformation: React.FC = () => {
             letterSpacing: '-0.02em',
           }}
         >
-          FROM FRAGMENTED CHAOS TO UNIFIED VELOCITY
+          MAKING ENTERPRISE OPERATIONS RUN WITHOUT HUMAN DRAG
         </h2>
       </div>
 
@@ -85,7 +85,7 @@ export const SceneTransformation: React.FC = () => {
           margin: '0 auto',
         }}
       >
-        {/* Left: The Old Agency / Fragmented Stack */}
+        {/* Left: The Human-Choked Workflow */}
         <div
           style={{
             background: 'rgba(239, 68, 68, 0.04)',
@@ -113,7 +113,7 @@ export const SceneTransformation: React.FC = () => {
                 letterSpacing: '0.1em',
               }}
             >
-              TRADITIONAL / DISJOINTED
+              HUMAN-CHOKED WORKFLOW
             </span>
             <span
               style={{
@@ -125,7 +125,7 @@ export const SceneTransformation: React.FC = () => {
                 borderRadius: '999px',
               }}
             >
-              HIGH FRICTION
+              HIGH TOIL • 84% MANUAL
             </span>
           </div>
 
@@ -139,7 +139,7 @@ export const SceneTransformation: React.FC = () => {
               }}
             >
               <div style={{ fontWeight: 600, color: '#ECEEF5', fontSize: '15px' }}>
-                Lost Inbound Leads
+                Manual Customer Qualification
               </div>
               <div
                 style={{
@@ -149,7 +149,7 @@ export const SceneTransformation: React.FC = () => {
                   marginTop: '4px',
                 }}
               >
-                Manual WhatsApp replies • 40% bounce rate before response
+                Human reps typing replies all day • 4-hour delay • 42% lost leads
               </div>
             </div>
 
@@ -162,7 +162,7 @@ export const SceneTransformation: React.FC = () => {
               }}
             >
               <div style={{ fontWeight: 600, color: '#ECEEF5', fontSize: '15px' }}>
-                Agency Retainer Lock-in
+                Mechanical Data Entry & Triage
               </div>
               <div
                 style={{
@@ -172,7 +172,7 @@ export const SceneTransformation: React.FC = () => {
                   marginTop: '4px',
                 }}
               >
-                3-6 month delays • Junior developer games • Code withheld
+                Copy-pasting between CRMs, ERPs, and Sheets • Constant human errors
               </div>
             </div>
 
@@ -185,7 +185,7 @@ export const SceneTransformation: React.FC = () => {
               }}
             >
               <div style={{ fontWeight: 600, color: '#ECEEF5', fontSize: '15px' }}>
-                Fragile Webhooks
+                Growth Requires Adding Headcount
               </div>
               <div
                 style={{
@@ -195,13 +195,13 @@ export const SceneTransformation: React.FC = () => {
                   marginTop: '4px',
                 }}
               >
-                Broken automations • Stale Google Sheets • 3,400ms latency
+                Scaling volume breaks staff • Massive payroll overhead • Operational exhaustion
               </div>
             </div>
           </div>
         </div>
 
-        {/* Right: The VISTAR Unified Engine */}
+        {/* Right: The VISTAR Autonomous Architecture */}
         <div
           style={{
             background: 'rgba(16, 185, 129, 0.04)',
@@ -230,7 +230,7 @@ export const SceneTransformation: React.FC = () => {
                 letterSpacing: '0.1em',
               }}
             >
-              VISTAR ARCHITECTURE
+              VISTAR AUTONOMOUS SYSTEM
             </span>
             <span
               style={{
@@ -243,7 +243,7 @@ export const SceneTransformation: React.FC = () => {
                 fontWeight: 600,
               }}
             >
-              100% SOVEREIGN
+              94% HUMANLESS • INSTANT
             </span>
           </div>
 
@@ -257,7 +257,7 @@ export const SceneTransformation: React.FC = () => {
               }}
             >
               <div style={{ fontWeight: 600, color: '#ECEEF5', fontSize: '15px' }}>
-                AutoLead WhatsApp Engine
+                Autonomous AI Lead Execution
               </div>
               <div
                 style={{
@@ -267,7 +267,7 @@ export const SceneTransformation: React.FC = () => {
                   marginTop: '4px',
                 }}
               >
-                Instant 24/7 AI qualification • Zero lead leakage • CRM auto-sync
+                Instant 24/7 AI qualification • Automated WhatsApp closing • Zero delay
               </div>
             </div>
 
@@ -280,7 +280,7 @@ export const SceneTransformation: React.FC = () => {
               }}
             >
               <div style={{ fontWeight: 600, color: '#ECEEF5', fontSize: '15px' }}>
-                14-Day Production Sprints
+                Self-Operating Data Pipelines
               </div>
               <div
                 style={{
@@ -290,7 +290,7 @@ export const SceneTransformation: React.FC = () => {
                   marginTop: '4px',
                 }}
               >
-                Direct founder engineering • Fixed milestones • No account managers
+                Event-driven synchronization across tools • Zero manual entry • 100% data fidelity
               </div>
             </div>
 
@@ -303,7 +303,7 @@ export const SceneTransformation: React.FC = () => {
               }}
             >
               <div style={{ fontWeight: 600, color: '#ECEEF5', fontSize: '15px' }}>
-                Complete Code Sovereignty
+                10x Scale Without Headcount
               </div>
               <div
                 style={{
@@ -313,12 +313,13 @@ export const SceneTransformation: React.FC = () => {
                   marginTop: '4px',
                 }}
               >
-                100% GitHub repository transfer • Zero ongoing license traps • 18ms latency
+                Software absorbs 100x transaction volume • Humans only supervise strategic growth
               </div>
             </div>
           </div>
         </div>
       </div>
+
       {/* Dynamic Transformation Wipe Divider Line */}
       <div
         style={{

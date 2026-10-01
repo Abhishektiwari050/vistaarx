@@ -2,24 +2,24 @@ import React from 'react';
 import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
 import { BRAND_TOKENS } from '../constants';
 
-const PHASES = [
+const METHOD_STAGES = [
   {
-    day: 'DAYS 01 - 05',
-    title: 'System Architecture & Schema',
-    details: 'Database modeling, Next.js 16 core scaffold, WhatsApp webhook architecture & API contracts.',
-    status: 'COMPLETED',
+    step: 'STAGE 01',
+    title: 'Operational Deep-Dive & Friction Mapping',
+    details: 'We audit how your company functions: uncovering hidden data choke points, manual toil, and where employees spend hours on mechanical tasks.',
+    status: 'AUDIT COMPLETE',
   },
   {
-    day: 'DAYS 06 - 10',
-    title: 'Core Engine Build & Integration',
-    details: 'Live staging release, AutoLead qualification engine, CRM synchronization, 3D interactive layers.',
-    status: 'ACTIVE BUILD',
+    step: 'STAGE 02',
+    title: 'Autonomous System & AI Synthesis',
+    details: 'We engineer custom automations, intelligent AI workers, and high-speed software pipelines that execute routine workflows without human delays.',
+    status: 'SYSTEM DEPLOYED',
   },
   {
-    day: 'DAYS 11 - 14',
-    title: 'Hardening & Repository Transfer',
-    details: 'E2E test suite, load testing, Docker containerization, 100% GitHub IP handover with 30-day warranty.',
-    status: 'PRODUCTION READY',
+    step: 'STAGE 03',
+    title: 'Humanless Velocity & Complete Sovereignty',
+    details: 'Your enterprise operates 10x faster and easier. You receive 100% source code ownership, private deployment, and total operational autonomy.',
+    status: 'OPERATIONAL SOVEREIGNTY',
   },
 ];
 
@@ -77,7 +77,7 @@ export const SceneAssemblyLine: React.FC = () => {
             marginBottom: '12px',
           }}
         >
-          HOW WE BUILD // THE ASSEMBLY LINE
+          THE VISTAR METHOD // HOW WE OPERATE
         </div>
         <h2
           style={{
@@ -89,7 +89,7 @@ export const SceneAssemblyLine: React.FC = () => {
             letterSpacing: '-0.02em',
           }}
         >
-          THE 14-DAY PRODUCTION SPRINT
+          RE-ENGINEERING ENTERPRISES FOR HUMANLESS SCALE
         </h2>
         <p
           style={{
@@ -99,7 +99,7 @@ export const SceneAssemblyLine: React.FC = () => {
             color: BRAND_TOKENS.colors.textSecondary,
           }}
         >
-          Direct collaboration with founding engineers. Fixed scope, fixed timeline, zero bloat.
+          We audit your operations. We build the automations. Software does the work.
         </p>
       </div>
 
@@ -114,7 +114,7 @@ export const SceneAssemblyLine: React.FC = () => {
           margin: '0 auto',
         }}
       >
-        {PHASES.map((phase, idx) => {
+        {METHOD_STAGES.map((stage, idx) => {
           const cardSpring = spring({
             frame: relFrame - idx * 15,
             fps,
@@ -125,7 +125,7 @@ export const SceneAssemblyLine: React.FC = () => {
 
           return (
             <div
-              key={phase.day}
+              key={stage.step}
               style={{
                 background: 'rgba(13, 14, 21, 0.85)',
                 border: `1px solid ${
@@ -156,7 +156,7 @@ export const SceneAssemblyLine: React.FC = () => {
                     letterSpacing: '0.1em',
                   }}
                 >
-                  {phase.day}
+                  {stage.step}
                 </span>
                 <span
                   style={{
@@ -168,7 +168,7 @@ export const SceneAssemblyLine: React.FC = () => {
                     borderRadius: '4px',
                   }}
                 >
-                  PHASE 0{idx + 1}
+                  {stage.status}
                 </span>
               </div>
 
@@ -181,7 +181,7 @@ export const SceneAssemblyLine: React.FC = () => {
                   margin: '0 0 10px 0',
                 }}
               >
-                {phase.title}
+                {stage.title}
               </h3>
 
               <p
@@ -193,7 +193,7 @@ export const SceneAssemblyLine: React.FC = () => {
                   margin: 0,
                 }}
               >
-                {phase.details}
+                {stage.details}
               </p>
             </div>
           );

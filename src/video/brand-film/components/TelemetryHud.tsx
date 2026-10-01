@@ -7,15 +7,15 @@ export const TelemetryHud: React.FC = () => {
   const { fps, width, height } = useVideoConfig();
 
   // Derive current scene tag
-  let activeScene = '01 // HOOK';
-  if (frame >= SCENE_RANGES.core.start && frame < SCENE_RANGES.core.end) {
-    activeScene = '02 // SYSTEM CORE';
-  } else if (frame >= SCENE_RANGES.transformation.start && frame < SCENE_RANGES.transformation.end) {
-    activeScene = '03 // THE TRANSFORMATION';
-  } else if (frame >= SCENE_RANGES.assembly.start && frame < SCENE_RANGES.assembly.end) {
-    activeScene = '04 // 14-DAY ASSEMBLY';
-  } else if (frame >= SCENE_RANGES.handover.start) {
-    activeScene = '05 // SOVEREIGN HANDOVER';
+  let activeScene = '01 // OPERATIONAL FRICTION';
+  if (frame >= SCENE_RANGES.audit.start && frame < SCENE_RANGES.audit.end) {
+    activeScene = '02 // WORKFLOW DECONSTRUCTION';
+  } else if (frame >= SCENE_RANGES.synthesis.start && frame < SCENE_RANGES.synthesis.end) {
+    activeScene = '03 // AUTONOMOUS AI ARCHITECTURE';
+  } else if (frame >= SCENE_RANGES.impact.start && frame < SCENE_RANGES.impact.end) {
+    activeScene = '04 // HUMANLESS SCALE ENGINE';
+  } else if (frame >= SCENE_RANGES.climax.start) {
+    activeScene = '05 // AUTONOMOUS ENTERPRISE';
   }
 
   const seconds = (frame / fps).toFixed(2);
@@ -81,7 +81,7 @@ export const TelemetryHud: React.FC = () => {
               color: BRAND_TOKENS.colors.textTertiary,
             }}
           >
-            ARCH_V4 // PRODUCTION SPEC
+            ENTERPRISE AUTOMATION INTELLIGENCE
           </div>
         </div>
 
@@ -133,14 +133,14 @@ export const TelemetryHud: React.FC = () => {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
           <div style={{ fontSize: '10px', color: BRAND_TOKENS.colors.textTertiary }}>
-            SYSTEM LATENCY
+            HUMAN FRICTION INDEX
           </div>
           <div
             style={{
               fontSize: '13px',
               fontWeight: 600,
               color:
-                frame < SCENE_RANGES.transformation.start + 60
+                frame < SCENE_RANGES.synthesis.start + 60
                   ? BRAND_TOKENS.colors.accentCrimson
                   : BRAND_TOKENS.colors.accentEmerald,
               display: 'flex',
@@ -149,16 +149,16 @@ export const TelemetryHud: React.FC = () => {
             }}
           >
             <span>
-              {frame < SCENE_RANGES.transformation.start + 60
-                ? '+4,200ms (FRAGMENTED)'
-                : '18ms (OPTIMIZED)'}
+              {frame < SCENE_RANGES.synthesis.start + 60
+                ? '84% MANUAL TOIL // DECISION BOTTLENECK'
+                : '94% AUTONOMOUS // ZERO-LATENCY EXECUTION'}
             </span>
           </div>
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <span style={{ fontSize: '10px', color: BRAND_TOKENS.colors.textTertiary }}>
-            SPRINT CYCLE:
+            ENTERPRISE POSTURE:
           </span>
           <span
             style={{
@@ -171,7 +171,7 @@ export const TelemetryHud: React.FC = () => {
               fontWeight: 600,
             }}
           >
-            14 DAYS STRICT
+            HUMANLESS OPERATIONAL CORE
           </span>
         </div>
       </div>

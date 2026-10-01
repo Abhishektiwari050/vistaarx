@@ -7,11 +7,11 @@ export const VIDEO_CONFIG = {
 } as const;
 
 export const SCENE_RANGES = {
-  hook: { start: 0, end: 90, duration: 90 }, // 0s - 3s
-  core: { start: 90, end: 240, duration: 150 }, // 3s - 8s
-  transformation: { start: 240, end: 480, duration: 240 }, // 8s - 16s
-  assembly: { start: 480, end: 720, duration: 240 }, // 16s - 24s
-  handover: { start: 720, end: 900, duration: 180 }, // 24s - 30s
+  diagnostic: { start: 0, end: 90, duration: 90 }, // 0s - 3s: The Operational Friction
+  audit: { start: 90, end: 240, duration: 150 }, // 3s - 8s: Deep Workflow Deconstruction
+  synthesis: { start: 240, end: 480, duration: 240 }, // 8s - 16s: The Autonomous Architecture
+  impact: { start: 480, end: 720, duration: 240 }, // 16s - 24s: The Humanless Velocity Engine
+  climax: { start: 720, end: 900, duration: 180 }, // 24s - 30s: Sovereign Autonomous Enterprise
 } as const;
 
 export const BRAND_TOKENS = {

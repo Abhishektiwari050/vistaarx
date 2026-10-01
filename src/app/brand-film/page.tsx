@@ -141,10 +141,10 @@ export default function BrandFilmPage() {
               <span>30-SECOND CINEMATIC BRAND FILM // REMOTION ENGINE</span>
             </div>
             <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-white">
-              We Build The Systems Your Business Runs On
+              Making Enterprise Operations Easier, Faster & Humanless
             </h1>
             <p className="text-white/60 font-mono text-sm mt-1">
-              Engineered using frame-by-frame programmatic animation, kinetic typography, and multi-agent critique.
+              We audit how companies function and engineer autonomous software & AI pipelines to eliminate human toil.
             </p>
           </div>
 
@@ -211,18 +211,18 @@ export default function BrandFilmPage() {
 
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
             {[
-              { label: '01: The Hook', sub: '0s - 3s', frame: SCENE_RANGES.hook.start },
-              { label: '02: System Core', sub: '3s - 8s', frame: SCENE_RANGES.core.start },
-              { label: '03: Transformation', sub: '8s - 16s', frame: SCENE_RANGES.transformation.start },
-              { label: '04: 14-Day Sprint', sub: '16s - 24s', frame: SCENE_RANGES.assembly.start },
-              { label: '05: IP Handover', sub: '24s - 30s', frame: SCENE_RANGES.handover.start },
+              { label: '01: Operational Friction', sub: '0s - 3s', frame: SCENE_RANGES.diagnostic.start },
+              { label: '02: Workflow Audit', sub: '3s - 8s', frame: SCENE_RANGES.audit.start },
+              { label: '03: Autonomous Shift', sub: '8s - 16s', frame: SCENE_RANGES.synthesis.start },
+              { label: '04: The VISTAR Method', sub: '16s - 24s', frame: SCENE_RANGES.impact.start },
+              { label: '05: Humanless Scale', sub: '24s - 30s', frame: SCENE_RANGES.climax.start },
             ].map((scene, idx) => (
               <button
                 key={scene.label}
                 onClick={() => jumpToScene(scene.frame)}
                 className={`text-left p-2.5 rounded-lg border transition-all ${
                   currentFrame >= scene.frame &&
-                  (idx === 4 || currentFrame < [SCENE_RANGES.core.start, SCENE_RANGES.transformation.start, SCENE_RANGES.assembly.start, SCENE_RANGES.handover.start, 900][idx])
+                  (idx === 4 || currentFrame < [SCENE_RANGES.audit.start, SCENE_RANGES.synthesis.start, SCENE_RANGES.impact.start, SCENE_RANGES.climax.start, 900][idx])
                     ? 'bg-emerald-500/10 border-emerald-500/40 text-emerald-300'
                     : 'bg-white/5 border-white/5 text-white/70 hover:bg-white/10'
                 }`}

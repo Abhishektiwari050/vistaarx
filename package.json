@@ -33,6 +33,7 @@
   "devDependencies": {
     "@browserbasehq/stagehand": "^3.4.0",
     "@playwright/test": "^1.60.0",
+    "@remotion/cli": "^4.0.530",
     "@tailwindcss/postcss": "^4",
     "@types/d3": "^7.4.3",
     "@types/node": "^20",
