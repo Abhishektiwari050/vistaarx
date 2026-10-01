@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRight,
   ExternalLink,
@@ -12,10 +13,18 @@ import {
   Code2,
   CheckCircle2,
   Sparkles,
+  Lock,
+  Play,
+  Pause,
+  Maximize2,
+  Monitor,
+  Terminal,
 } from "lucide-react";
 import { AnswerBlocks, type QAPair } from "@/components/seo/answer-blocks";
 
 interface ProductionSystem {
+  id: string;
+  category: "all" | "aviation" | "healthcare" | "spatial" | "enterprise";
   tag: string;
   title: string;
   sector: string;
@@ -23,25 +32,39 @@ interface ProductionSystem {
   desc: string;
   architecture: string;
   liveUrl: string;
+  displayUrl: string;
   repoTransfer: string;
   accentBg: string;
   accentText: string;
+  primaryImage: string;
+  secondaryImages?: Array<{ title: string; src: string }>;
 }
 
 const PRODUCTION_SYSTEMS: ProductionSystem[] = [
   {
+    id: "vayu",
+    category: "aviation",
     tag: "AVIATION TELEMETRY & GIS",
     title: "Project VAYU: Cockpit Telemetry & NOTAM AI",
     sector: "Aerospace & Mission-Critical",
     metrics: ["Sub-45ms Stream", "99.4% Threat Precision", "Vector GIS Overlay"],
-    desc: "Cockpit situational awareness system ingesting live FAA notices, weather telemetry, and geospatial vector hazard layers into an intuitive heads-up display.",
+    desc: "Real-time cockpit situational awareness system ingesting live FAA notices, weather telemetry, and geospatial vector hazard layers into an intuitive heads-up display.",
     architecture: "Next.js 16 Edge + Python FastAPI LangGraph + Mapbox GL Vector Tiles + Private VPC",
     liveUrl: "https://ai-vayu.vercel.app",
+    displayUrl: "ai-vayu.vercel.app",
     repoTransfer: "100% Private GitHub Handover & Docker Manifests",
     accentBg: "bg-[#EBF3FF]",
     accentText: "text-[#1E3A8A]",
+    primaryImage: "/projects/vayuways.png",
+    secondaryImages: [
+      { title: "Cockpit HUD", src: "/projects/vayuways.png" },
+      { title: "GIS Hazard Map", src: "/projects/vayu-map.png" },
+      { title: "Mission Briefing", src: "/projects/vayu-briefing.png" },
+    ],
   },
   {
+    id: "aura",
+    category: "healthcare",
     tag: "CRITICAL HEALTHCARE & ML",
     title: "AURA: Multi-Agent Biometric Anomaly Detection",
     sector: "Healthcare & Life Sciences",
@@ -49,11 +72,15 @@ const PRODUCTION_SYSTEMS: ProductionSystem[] = [
     desc: "Biometric telemetry pipeline running unsupervised ML anomaly detection over live patient sensor feeds with strict validation gates and HIPAA compliance.",
     architecture: "Python PyTorch / Scikit-Learn + Multi-Agent Consensus Stream + ClickHouse Ledger",
     liveUrl: "https://multi-agent-anomaly-system.onrender.com",
+    displayUrl: "aura-anomaly.onrender.com",
     repoTransfer: "Air-Gapped Private VPC Weights & Model Artifacts",
     accentBg: "bg-[#E8FCE8]",
     accentText: "text-[#052E16]",
+    primaryImage: "/projects/aura-results.png",
   },
   {
+    id: "3axisarc",
+    category: "spatial",
     tag: "PROPTECH & SPATIAL COMPUTING",
     title: "3axis Arc: High-Performance Spatial 3D Platform",
     sector: "PropTech & Architectural Real Estate",
@@ -61,9 +88,43 @@ const PRODUCTION_SYSTEMS: ProductionSystem[] = [
     desc: "Interactive 3D architectural visualization platform featuring real-time perspective transformations, volumetric lighting, and global edge CDN distribution.",
     architecture: "Next.js 16 App Router + Three.js / WebGL Custom Shaders + Edge Replicas",
     liveUrl: "https://3axisarc.vercel.app",
+    displayUrl: "3axisarc.vercel.app",
     repoTransfer: "100% Repository Transfer & Custom Shader Assets",
     accentBg: "bg-[#FFF0EB]",
     accentText: "text-[#9A3412]",
+    primaryImage: "/projects/3axisarc.png",
+  },
+  {
+    id: "competence",
+    category: "enterprise",
+    tag: "OPERATIONS & TELEMETRY",
+    title: "Competence CRM: High-Density Operations Engine",
+    sector: "Enterprise Workflow & Logistics",
+    metrics: ["Sub-30ms Socket Sync", "10k+ Live Sessions", "Audit Ledgers"],
+    desc: "Mission-critical internal operations suite coordinating distributed field teams, live inventory states, and deterministic scheduling with instant optimistic mutations.",
+    architecture: "Next.js 16 + PostgreSQL + Real-Time WebSockets + Redis State Mesh",
+    liveUrl: "https://competence-crm.vercel.app",
+    displayUrl: "competence.vistar.systems",
+    repoTransfer: "Full Private GitHub Transfer & Schema Migrations",
+    accentBg: "bg-[#F3E8FF]",
+    accentText: "text-[#581C87]",
+    primaryImage: "/projects/competence-crm.png",
+  },
+  {
+    id: "atify",
+    category: "enterprise",
+    tag: "DISTRIBUTED EDGE NETWORK",
+    title: "Atify Network: High-Throughput Edge Compute",
+    sector: "Cloud Infrastructure & Edge",
+    metrics: ["16 Anycast PoPs", "<20ms Edge Routing", "Zero Egress Leak"],
+    desc: "Distributed serverless edge computing mesh orchestrating intelligent traffic distribution, dynamic caching, and DDoS scrubbing for mission-critical web APIs.",
+    architecture: "Go / eBPF + Cloudflare Edge Workers + Anycast Routing Mesh",
+    liveUrl: "https://atify.vercel.app",
+    displayUrl: "network.atify.io",
+    repoTransfer: "100% Edge Microservice Codebase & Terraform Blueprints",
+    accentBg: "bg-[#FEF3C7]",
+    accentText: "text-[#92400E]",
+    primaryImage: "/projects/atify-banner.png",
   },
 ];
 
@@ -171,14 +232,22 @@ const WORK_FAQ_ITEMS: QAPair[] = [
 ];
 
 export default function WorkClientPage() {
+  const [activeCategory, setActiveCategory] = useState<string>("all");
   const [activeRole, setActiveRole] = useState(0);
   const [activeIndustry, setActiveIndustry] = useState(0);
+  const [vayuSubImage, setVayuSubImage] = useState<string>("/projects/vayuways.png");
+  const [isPlayingVideo, setIsPlayingVideo] = useState(true);
+
+  const filteredSystems =
+    activeCategory === "all"
+      ? PRODUCTION_SYSTEMS
+      : PRODUCTION_SYSTEMS.filter((s) => s.category === activeCategory);
 
   return (
     <div className="w-full bg-[#FAF9F5] text-[#141413] font-sans antialiased selection:bg-[#FF3823] selection:text-white min-h-screen">
       
       {/* ── FRAME 1: WARM EDITORIAL HERO ── */}
-      <section className="relative w-full pt-28 pb-16 md:pt-36 md:pb-24 border-b border-black/10 overflow-hidden px-4 sm:px-6">
+      <section className="relative w-full pt-28 pb-16 md:pt-36 md:pb-20 border-b border-black/10 overflow-hidden px-4 sm:px-6">
         <div
           className="absolute inset-0 opacity-40 pointer-events-none"
           style={{
@@ -221,92 +290,278 @@ export default function WorkClientPage() {
         </div>
       </section>
 
-      {/* ── FRAME 2: VERIFIED PRODUCTION SYSTEMS (CASE STUDIES) ── */}
-      <section className="w-full py-20 px-4 sm:px-6 bg-[#F6F4ED] border-b border-black/10">
-        <div className="max-w-6xl mx-auto space-y-10">
-          <div className="space-y-2">
-            <span className="text-xs uppercase tracking-widest text-[#FF3823] font-semibold">
-              LIVE PRODUCTION ARCHITECTURES
-            </span>
-            <h2 className="text-3xl sm:text-5xl font-serif font-normal text-[#141413] tracking-tight">
-              Systems in Active Operation
-            </h2>
-            <p className="text-base text-[#5E605D] max-w-xl">
-              Inspect deployed systems engineered to enterprise standards. Every project is transferred with private GitHub repositories and zero vendor lock-in.
-            </p>
+      {/* ── FRAME 2: FEATURED LIVE SYSTEM VIDEO SHOWCASE ── */}
+      <section className="w-full py-12 px-4 sm:px-6 bg-white border-b border-black/10">
+        <div className="max-w-6xl mx-auto space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            <div className="space-y-1">
+              <span className="text-[11px] font-mono uppercase tracking-widest text-[#FF3823] font-semibold flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                LIVE RUNTIME SHOWCASE
+              </span>
+              <h2 className="text-2xl sm:text-4xl font-serif font-normal text-[#141413] tracking-tight">
+                Autonomous Systems in Active Operation
+              </h2>
+            </div>
+            <div className="flex items-center gap-4 text-xs font-mono text-[#5E605D]">
+              <span className="px-2.5 py-1 rounded bg-[#FAF9F5] border border-black/10 text-[#141413] font-semibold">
+                LATENCY: &lt;45MS P95
+              </span>
+              <span className="px-2.5 py-1 rounded bg-[#FAF9F5] border border-black/10 text-emerald-700 font-semibold">
+                TTFB: 18MS
+              </span>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {PRODUCTION_SYSTEMS.map((sys, idx) => (
-              <div
-                key={idx}
-                className="bg-white border border-black/10 rounded-2xl overflow-hidden shadow-xs flex flex-col justify-between hover:border-black/30 hover:shadow-md transition-all duration-200 group"
+          {/* Interactive Cinematic Video Player Window */}
+          <div className="relative w-full rounded-2xl overflow-hidden border border-black/15 shadow-md bg-[#0C0D12]">
+            {/* macOS Browser Header Bar */}
+            <div className="h-8 px-4 flex items-center justify-between bg-black/80 border-b border-white/10 z-20 relative text-xs">
+              <div className="flex items-center gap-1.5">
+                <div className="w-3 h-3 rounded-full bg-[#ff5f56]" />
+                <div className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
+                <div className="w-3 h-3 rounded-full bg-[#27c93f]" />
+              </div>
+
+              <div className="flex items-center gap-2 px-3 py-0.5 rounded-full bg-white/10 border border-white/10 font-mono text-[11px] text-white/90">
+                <Lock className="w-3 h-3 text-emerald-400" />
+                <span>telemetry.vistar.systems/live-orchestration</span>
+              </div>
+
+              <div className="flex items-center gap-2 font-mono text-[10px] text-emerald-400">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                <span>60 FPS HD STREAM</span>
+              </div>
+            </div>
+
+            {/* Video Container */}
+            <div className="relative aspect-[16/9] md:aspect-[21/9] w-full overflow-hidden bg-black">
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="auto"
+                className="w-full h-full object-cover"
+                poster="https://cdn.sanity.io/images/rjtqmwfu/web3-prod/1a41717be695e315b008b080ff3ae9e10c43060c-2720x1120.png?auto=format&fit=max&q=80&w=1920"
               >
-                {/* Header Graphic */}
-                <div className={`w-full p-6 relative ${sys.accentBg} border-b border-black/10 space-y-3`}>
-                  <div className="flex items-center justify-between">
-                    <span className={`text-[10px] font-bold uppercase tracking-wider ${sys.accentText} bg-white/80 border border-black/10 px-2 py-0.5 rounded`}>
-                      {sys.tag}
-                    </span>
-                    <a
-                      href={sys.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-[#141413] hover:bg-neutral-800 text-white text-xs font-medium px-2.5 py-1 rounded transition-colors inline-flex items-center gap-1 shadow-xs cursor-pointer"
-                    >
-                      Inspect Live
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
-                  </div>
+                <source src="/videos/hero-agent-loop.mp4" type="video/mp4" />
+                <source src="/videos/hero-ai-loop.mp4" type="video/mp4" />
+              </video>
 
-                  <h3 className="font-serif text-xl font-normal text-[#141413] group-hover:text-[#FF3823] transition-colors leading-snug">
-                    {sys.title}
-                  </h3>
-                  <p className="text-xs text-[#5E605D]">
-                    Sector: {sys.sector}
-                  </p>
+              {/* HUD Telemetry Overlay */}
+              <div className="absolute bottom-4 left-4 right-4 flex flex-wrap items-center justify-between gap-3 p-3 bg-black/70 backdrop-blur-md border border-white/10 rounded-xl text-white font-mono text-xs">
+                <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-1.5 text-emerald-400 font-semibold">
+                    <Activity className="w-4 h-4" />
+                    <span>ORCHESTRATOR LIVE</span>
+                  </div>
+                  <span className="text-white/40">|</span>
+                  <span className="text-white/80">Active Pods: 6 Autonomous Nodes</span>
                 </div>
-
-                {/* Body Details */}
-                <div className="p-6 space-y-4 flex-1 flex flex-col justify-between">
-                  <p className="text-sm text-[#5E605D] leading-relaxed">
-                    {sys.desc}
-                  </p>
-
-                  {/* Key Metrics Chips */}
-                  <div className="space-y-2 pt-3 border-t border-black/10">
-                    <span className="text-[10px] uppercase tracking-wider text-[#5E605D] font-semibold">
-                      Verified Metrics:
-                    </span>
-                    <div className="flex flex-wrap gap-1.5">
-                      {sys.metrics.map((m, mIdx) => (
-                        <span
-                          key={mIdx}
-                          className="px-2 py-0.5 text-xs bg-[#FAF9F5] border border-black/10 rounded text-[#141413] font-medium"
-                        >
-                          {m}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Architecture & Handover */}
-                  <div className="pt-3 border-t border-black/10 space-y-1 text-xs">
-                    <p className="text-[#5E605D]">
-                      <span className="text-[#141413] font-medium">Stack:</span> {sys.architecture}
-                    </p>
-                    <p className="text-emerald-700 font-medium">
-                      &bull; {sys.repoTransfer}
-                    </p>
-                  </div>
+                <div className="flex items-center gap-3 text-white/70">
+                  <span>Throughput: 1,420 req/s</span>
+                  <span className="text-white/40">&bull;</span>
+                  <span>Isolation: Private VPC Sandbox</span>
                 </div>
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ── FRAME 3: SOLUTIONS BY LEADERSHIP ROLE ── */}
+      {/* ── FRAME 3: VERIFIED PRODUCTION SYSTEMS (BROWSER-FRAMED CASE STUDIES) ── */}
+      <section className="w-full py-20 px-4 sm:px-6 bg-[#F6F4ED] border-b border-black/10">
+        <div className="max-w-6xl mx-auto space-y-10">
+          
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div className="space-y-2">
+              <span className="text-xs uppercase tracking-widest text-[#FF3823] font-semibold">
+                VERIFIED CASE STUDIES
+              </span>
+              <h2 className="text-3xl sm:text-5xl font-serif font-normal text-[#141413] tracking-tight">
+                Software Deployed to Production
+              </h2>
+              <p className="text-base text-[#5E605D] max-w-xl">
+                Every project below is an active, production-grade system engineered by VISTAR. Transferred with 100% private GitHub repositories and zero recurring platform fees.
+              </p>
+            </div>
+
+            {/* Filter Pills */}
+            <div className="flex flex-wrap gap-1.5 p-1 bg-white border border-black/10 rounded-xl self-start md:self-end">
+              {[
+                { label: "All Systems (5)", value: "all" },
+                { label: "Aviation Telemetry", value: "aviation" },
+                { label: "Healthcare & ML", value: "healthcare" },
+                { label: "Spatial 3D", value: "spatial" },
+                { label: "Enterprise Stack", value: "enterprise" },
+              ].map((btn) => (
+                <button
+                  key={btn.value}
+                  onClick={() => setActiveCategory(btn.value)}
+                  className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all cursor-pointer ${
+                    activeCategory === btn.value
+                      ? "bg-[#141413] text-white shadow-xs"
+                      : "text-[#5E605D] hover:text-[#141413] hover:bg-neutral-100"
+                  }`}
+                >
+                  {btn.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Grid of Production Systems */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {filteredSystems.map((sys) => {
+              const currentImg = sys.id === "vayu" ? vayuSubImage : sys.primaryImage;
+
+              return (
+                <div
+                  key={sys.id}
+                  className="bg-white border border-black/10 rounded-2xl overflow-hidden shadow-xs hover:border-black/30 hover:shadow-lg transition-all duration-300 flex flex-col justify-between group"
+                >
+                  {/* ── SLEEK MACOS BROWSER FRAME SHOWING REAL SCREENSHOT ── */}
+                  <div className="w-full bg-[#0F172A] border-b border-black/10 overflow-hidden flex flex-col">
+                    {/* Browser Address Bar */}
+                    <div className="h-8 px-3.5 flex items-center justify-between bg-black/60 border-b border-white/10 text-xs">
+                      <div className="flex items-center gap-1.5">
+                        <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-[#27c93f]" />
+                      </div>
+
+                      <div className="flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-white/10 border border-white/10 font-mono text-[10.5px] text-white/90">
+                        <Lock className="w-2.5 h-2.5 text-emerald-400" />
+                        <span>{sys.displayUrl}</span>
+                      </div>
+
+                      <a
+                        href={sys.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[10px] font-mono text-emerald-400 hover:text-emerald-300 flex items-center gap-1 underline underline-offset-2"
+                      >
+                        Visit <ExternalLink className="w-2.5 h-2.5" />
+                      </a>
+                    </div>
+
+                    {/* Screenshot Container */}
+                    <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-900">
+                      <Image
+                        src={currentImg}
+                        alt={sys.title}
+                        fill
+                        className="object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+                        sizes="(max-width: 768px) 100vw, 600px"
+                      />
+
+                      {/* Live Badge */}
+                      <div className="absolute top-3 left-3 px-2 py-0.5 rounded bg-black/75 backdrop-blur-md border border-white/15 text-[10px] font-mono text-white flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                        <span>VERIFIED RUNTIME</span>
+                      </div>
+                    </div>
+
+                    {/* Interactive Sub-Image Selector (for Project VAYU) */}
+                    {sys.secondaryImages && (
+                      <div className="px-3 py-2 bg-neutral-900 border-t border-white/10 flex items-center gap-2 overflow-x-auto">
+                        <span className="text-[10px] font-mono text-white/50 uppercase tracking-wider shrink-0">
+                          VIEWS:
+                        </span>
+                        {sys.secondaryImages.map((sub, idx) => (
+                          <button
+                            key={idx}
+                            onClick={() => setVayuSubImage(sub.src)}
+                            className={`px-2.5 py-1 text-[11px] font-mono rounded transition-colors cursor-pointer shrink-0 ${
+                              vayuSubImage === sub.src
+                                ? "bg-white text-black font-semibold"
+                                : "bg-white/10 text-white/70 hover:bg-white/20 hover:text-white"
+                            }`}
+                          >
+                            {sub.title}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* ── CARD CONTENT & DETAILS ── */}
+                  <div className="p-6 sm:p-7 space-y-4 flex-1 flex flex-col justify-between">
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between gap-2">
+                        <span className={`text-[10px] font-bold uppercase tracking-wider ${sys.accentText} ${sys.accentBg} px-2 py-0.5 rounded`}>
+                          {sys.tag}
+                        </span>
+                        <span className="text-xs text-[#5E605D]">
+                          {sys.sector}
+                        </span>
+                      </div>
+
+                      <h3 className="font-serif text-2xl font-normal text-[#141413] group-hover:text-[#FF3823] transition-colors leading-snug">
+                        {sys.title}
+                      </h3>
+
+                      <p className="text-sm text-[#5E605D] leading-relaxed">
+                        {sys.desc}
+                      </p>
+                    </div>
+
+                    {/* Verified Metrics Chips */}
+                    <div className="space-y-2 pt-4 border-t border-black/10">
+                      <span className="text-[10px] uppercase tracking-wider text-[#5E605D] font-semibold">
+                        Verified Production Benchmarks:
+                      </span>
+                      <div className="flex flex-wrap gap-1.5">
+                        {sys.metrics.map((m, mIdx) => (
+                          <span
+                            key={mIdx}
+                            className="px-2 py-0.5 text-xs bg-[#FAF9F5] border border-black/10 rounded text-[#141413] font-mono font-medium"
+                          >
+                            {m}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Architecture & Handover */}
+                    <div className="pt-3 border-t border-black/10 space-y-1.5 text-xs">
+                      <p className="text-[#5E605D]">
+                        <span className="text-[#141413] font-medium">Stack:</span> {sys.architecture}
+                      </p>
+                      <p className="text-emerald-700 font-medium flex items-center gap-1.5">
+                        <CheckCircle2 className="w-3.5 h-3.5" />
+                        <span>{sys.repoTransfer}</span>
+                      </p>
+                    </div>
+
+                    {/* Inspect CTA Row */}
+                    <div className="pt-4 border-t border-black/10 flex items-center justify-between">
+                      <a
+                        href={sys.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#141413] group-hover:text-[#FF3823] transition-colors"
+                      >
+                        Inspect Live Deployment
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </a>
+                      <Link
+                        href="/start"
+                        className="text-xs text-[#5E605D] hover:text-[#141413] underline underline-offset-2"
+                      >
+                        Build similar system &rarr;
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── FRAME 4: SOLUTIONS BY LEADERSHIP ROLE ── */}
       <section className="w-full py-20 px-4 sm:px-6 bg-[#FAF9F5] border-b border-black/10">
         <div className="max-w-6xl mx-auto space-y-10">
           <div className="space-y-2">
@@ -370,7 +625,7 @@ export default function WorkClientPage() {
         </div>
       </section>
 
-      {/* ── FRAME 4: SOLUTIONS BY INDUSTRY ── */}
+      {/* ── FRAME 5: SOLUTIONS BY INDUSTRY ── */}
       <section className="w-full py-20 px-4 sm:px-6 bg-[#F6F4ED] border-b border-black/10">
         <div className="max-w-6xl mx-auto space-y-10">
           <div className="space-y-2">
@@ -434,7 +689,7 @@ export default function WorkClientPage() {
         </div>
       </section>
 
-      {/* ── FRAME 5: TECHNICAL ANSWER BLOCKS (LIGHT THEME) ── */}
+      {/* ── FRAME 6: TECHNICAL ANSWER BLOCKS (LIGHT THEME) ── */}
       <AnswerBlocks
         title="Software Engineering & Portfolio Specifications"
         subtitle="Answers regarding our production deliverables, intellectual property transfer, and engineering standards."
@@ -444,7 +699,7 @@ export default function WorkClientPage() {
         theme="light"
       />
 
-      {/* ── FRAME 6: BOTTOM CONVERSION CTA ── */}
+      {/* ── FRAME 7: BOTTOM CONVERSION CTA ── */}
       <section className="w-full py-20 px-4 sm:px-6 bg-[#FAF9F5] border-t border-black/10 text-center">
         <div className="max-w-3xl mx-auto space-y-5">
           <h2 className="font-serif text-3xl sm:text-5xl font-normal text-[#141413] tracking-tight">

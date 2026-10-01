@@ -5,6 +5,8 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import gsap from "gsap";
 
+import { JasperInteractiveHero } from "@/components/jasper/jasper-interactive-hero";
+
 export function CohereHero() {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -54,7 +56,7 @@ export function CohereHero() {
         }
       );
 
-      // 4. Hero Video Frame Entrance
+      // 4. Hero Graphic Entrance
       gsap.fromTo(
         ".gsap-hero-media",
         { y: 36, opacity: 0, scale: 0.99 },
@@ -75,12 +77,12 @@ export function CohereHero() {
 
   return (
     <div ref={containerRef} className="w-full bg-white text-[#212121]">
-      {/* ── 1. COHERE HERO TEXT SECTION (SHIFTED UP & REFINED SCALE) ── */}
+      {/* ── 1. HERO TEXT SECTION ── */}
       <section className="relative w-full px-4 pt-10 sm:pt-14 md:pt-18 pb-6 md:pb-8 text-[#212121]">
         <div className="relative mx-auto w-full max-w-[1400px]">
           <div className="text-center flex flex-col items-center">
             
-            {/* 01: Headline - Refined editorial scale, shifted up */}
+            {/* 01: Headline */}
             <div className="mb-5 break-words max-w-[1020px] mx-auto overflow-hidden px-2">
               <h1
                 className="text-4xl sm:text-5xl md:text-6xl lg:text-[72px] xl:text-[80px] font-normal leading-[1.05] tracking-[-0.035em] text-[#141413]"
@@ -140,58 +142,10 @@ export function CohereHero() {
         </div>
       </section>
 
-      {/* ── 2. COHERE HERO FEATURED GRAPHIC (HARDWARE-ACCELERATED GSAP ENTRANCE) ── */}
+      {/* ── 2. JASPER AI INTERACTIVE HERO STAGE (3D RIVE KEYBOARD & CAPABILITY CYCLER) ── */}
       <section className="gsap-hero-media relative w-full px-4 lg:px-10 pb-12 md:pb-16 bg-white text-[#212121] will-change-transform">
-        <div className="relative mx-auto w-full max-w-[1360px]">
-          
-          {/* Desktop & Tablet Video Loop (Aspect Ratio 2720/1120 = 2.428) */}
-          <div className="hidden md:block w-full overflow-hidden rounded-[12px] shadow-sm bg-[#0C0D12] border border-black/[0.06]">
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="auto"
-              poster="https://cdn.sanity.io/images/rjtqmwfu/web3-prod/1a41717be695e315b008b080ff3ae9e10c43060c-2720x1120.png?auto=format&fit=max&q=80&w=1920"
-              className="w-full h-auto object-cover rounded-[12px] block"
-              width={1920}
-              height={791}
-            >
-              <source src="/videos/hero-agent-loop.mp4" type="video/mp4" />
-              <source src="/videos/hero-agent-loop.webm" type="video/webm" />
-              {/* Fallback GIF */}
-              <img
-                src="/videos/hero-agent-loop.gif"
-                alt="VISTAR Custom AI Software & Systems Engineering Video Loop"
-                className="w-full h-auto object-cover rounded-[12px]"
-              />
-            </video>
-          </div>
-
-          {/* Mobile Video / GIF Loop (Square 1472x1472 Aspect Ratio) */}
-          <div className="block md:hidden w-full overflow-hidden rounded-[20px] shadow-sm bg-[#0C0D12] border border-black/[0.06]">
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="auto"
-              poster="https://cdn.sanity.io/images/rjtqmwfu/web3-prod/d6caa02cd2aefe2f9cfa34a2f733cd2b883306b5-1472x1472.png?auto=format&fit=max&q=80&w=1472"
-              className="w-full h-auto object-cover rounded-[20px] block"
-              width={1472}
-              height={1472}
-            >
-              <source src="/videos/hero-agent-loop.mp4" type="video/mp4" />
-              <source src="/videos/hero-agent-loop.webm" type="video/webm" />
-              {/* Fallback GIF */}
-              <img
-                src="/videos/hero-agent-loop.gif"
-                alt="VISTAR Custom AI Software & Systems Engineering Mobile Loop"
-                className="w-full h-auto object-cover rounded-[20px]"
-              />
-            </video>
-          </div>
-
+        <div className="relative mx-auto w-full max-w-[1360px] overflow-hidden rounded-[16px] border border-black/[0.08] shadow-sm bg-[#FAF9F5]">
+          <JasperInteractiveHero />
         </div>
       </section>
     </div>

@@ -59,6 +59,7 @@ export function JasperInteractiveHero() {
   const initialTimersRef = useRef<NodeJS.Timeout[]>([]);
 
   const [loaded, setLoaded] = useState(false);
+  const [activeSlide, setActiveSlide] = useState(1);
 
   // Advance to next slide in state machine
   const advanceToNext = useCallback(() => {
@@ -67,13 +68,38 @@ export function JasperInteractiveHero() {
       isAnimatingRef.current = true;
       nextSlideRef.current.fire();
       currentSlideRef.current = (currentSlideRef.current + 1) % PERSONAS.length;
+      setActiveSlide(currentSlideRef.current);
       playClick(1050, 0.03);
       setTimeout(() => {
         isAnimatingRef.current = false;
-      }, 2000);
+      }, 1500);
     } catch (_) {
       isAnimatingRef.current = false;
     }
+  }, []);
+
+  // Jump to specific slide
+  const goToSlide = useCallback((targetIndex: number) => {
+    if (!nextSlideRef.current || isAnimatingRef.current) return;
+    const diff = (targetIndex - currentSlideRef.current + PERSONAS.length) % PERSONAS.length;
+    if (diff === 0) return;
+
+    isAnimatingRef.current = true;
+    let step = 0;
+    const interval = setInterval(() => {
+      if (nextSlideRef.current && step < diff) {
+        nextSlideRef.current.fire();
+        playClick(1000 + step * 50, 0.02);
+        step++;
+      } else {
+        clearInterval(interval);
+        currentSlideRef.current = targetIndex;
+        setActiveSlide(targetIndex);
+        setTimeout(() => {
+          isAnimatingRef.current = false;
+        }, 1200);
+      }
+    }, 280);
   }, []);
 
   // Initialize Rive instance using @rive-app/canvas matching Jasper.ai production embed
@@ -93,7 +119,6 @@ export function JasperInteractiveHero() {
       const isMobile = window.innerWidth < 992;
       const artboard = isMobile ? "home_hero_mobile" : "home_hero";
 
-      // Fit.Cover matches Jasper production embed (hero_main_rive_wrap with aspect-ratio: 14.4 / 4.2)
       const layout = new Layout({
         fit: Fit.Cover,
         alignment: Alignment.Center,
@@ -126,7 +151,6 @@ export function JasperInteractiveHero() {
                 mouseX.value = 50;
               }
 
-              // Clear any previous timers before setting new ones
               initialTimersRef.current.forEach((t) => clearTimeout(t));
               initialTimersRef.current = [];
 
@@ -137,6 +161,7 @@ export function JasperInteractiveHero() {
                   const t2 = setTimeout(() => {
                     if (nextSlide) {
                       nextSlide.fire();
+                      setActiveSlide(1);
                     }
                   }, 2200);
                   initialTimersRef.current.push(t2);
@@ -209,33 +234,100 @@ export function JasperInteractiveHero() {
   }, []);
 
   return (
-    /* ── EXACT JASPER PRODUCTION RIVE WRAPPER (aspect-ratio: 14.4 / 4.2, width: 100%) ── */
-    <div
-      ref={containerRef}
-      onClick={advanceToNext}
-      onPointerMove={handlePointerMove}
-      onPointerLeave={handlePointerLeave}
-      className="relative w-full aspect-[674/410] md:aspect-[14.4/4.2] cursor-pointer overflow-hidden block select-none"
-      title="Hover grid to depress keys • Click to cycle persona"
-    >
-      {/* Loading Skeleton */}
-      {!loaded && (
-        <div className="absolute inset-0 flex items-center justify-center bg-transparent">
-          <div className="flex items-center gap-2 font-mono text-xs text-neutral-400">
-            <span className="w-2 h-2 rounded-full bg-[#FF3823] animate-ping" />
-            <span>Loading Jasper Interactive Stage...</span>
-          </div>
+    <div className="w-full flex flex-col bg-[#FAF9F5] select-none">
+      {/* ── 1. TOP INTERACTIVE STATUS HUD ── */}
+      <div className="w-full px-4 py-2.5 bg-white/80 border-b border-black/[0.06] flex items-center justify-between text-xs font-mono text-[#5E605D]">
+        <div className="flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+          <span className="font-semibold text-[#141413] tracking-wide text-[11px]">
+            INTERACTIVE 3D ISOMETRIC ENGINE
+          </span>
+          <span className="hidden sm:inline text-neutral-300">|</span>
+          <span className="hidden sm:inline text-[11px] text-[#5E605D]">
+            60 FPS HARDWARE ACCELERATED
+          </span>
         </div>
-      )}
+        <div className="flex items-center gap-2 text-[11px]">
+          <span className="hidden md:inline text-neutral-400">
+            Hover keys to press &bull; Click to cycle capability
+          </span>
+          <span className="px-2 py-0.5 rounded bg-black/5 font-semibold text-[#141413]">
+            {activeSlide + 1} / 4
+          </span>
+        </div>
+      </div>
 
-      {/* Live Interactive Rive Canvas */}
-      <canvas
-        ref={canvasRef}
-        style={{ width: "100%", height: "100%", display: "block" }}
-        className={`w-full h-full block transition-opacity duration-300 ${
-          loaded ? "opacity-100" : "opacity-0"
-        }`}
-      />
+      {/* ── 2. EXACT JASPER PRODUCTION RIVE WRAPPER (aspect-ratio: 14.4 / 4.2) ── */}
+      <div
+        ref={containerRef}
+        onClick={advanceToNext}
+        onPointerMove={handlePointerMove}
+        onPointerLeave={handlePointerLeave}
+        className="relative w-full aspect-[674/410] md:aspect-[14.4/4.2] cursor-pointer overflow-hidden block select-none bg-[#FAF9F5]"
+        title="Hover grid to depress keys • Click to cycle persona"
+      >
+        {/* Loading Skeleton */}
+        {!loaded && (
+          <div className="absolute inset-0 flex items-center justify-center bg-[#FAF9F5]">
+            <div className="flex items-center gap-2 font-mono text-xs text-neutral-400">
+              <span className="w-2 h-2 rounded-full bg-[#FF3823] animate-ping" />
+              <span>Loading Interactive 3D Stage...</span>
+            </div>
+          </div>
+        )}
+
+        {/* Live Interactive Rive Canvas */}
+        <canvas
+          ref={canvasRef}
+          style={{ width: "100%", height: "100%", display: "block" }}
+          className={`w-full h-full block transition-opacity duration-300 ${
+            loaded ? "opacity-100" : "opacity-0"
+          }`}
+        />
+      </div>
+
+      {/* ── 3. BOTTOM CAPABILITY SELECTOR BUTTONS ── */}
+      <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-1.5 p-2.5 sm:p-3 bg-white border-t border-black/[0.08]">
+        {PERSONAS.map((p) => {
+          const isActive = activeSlide === p.id;
+          return (
+            <button
+              key={p.id}
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                goToSlide(p.id);
+              }}
+              className={`p-2.5 sm:p-3 rounded-lg text-left transition-all duration-150 cursor-pointer flex flex-col justify-between border ${
+                isActive
+                  ? "bg-[#FAF9F5] border-[#141413] shadow-xs"
+                  : "bg-transparent border-transparent hover:bg-neutral-50 hover:border-black/[0.06]"
+              }`}
+            >
+              <div className="flex items-center justify-between gap-1 mb-1">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-[#5E605D]">
+                  0{p.id + 1} // CAPABILITY
+                </span>
+                <span
+                  className="text-xs font-bold font-mono px-1.5 py-0.5 rounded"
+                  style={{
+                    backgroundColor: isActive ? `${p.badgeColor}15` : "transparent",
+                    color: p.badgeColor,
+                  }}
+                >
+                  {p.metric}
+                </span>
+              </div>
+              <div className="text-xs sm:text-[13px] font-medium text-[#141413] truncate">
+                {p.role}
+              </div>
+              <div className="text-[10px] sm:text-[11px] text-[#5E605D] truncate mt-0.5">
+                {p.metricLabel}
+              </div>
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }
