@@ -2,7 +2,8 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { ArrowRight, Terminal, Cpu, ShieldCheck, Activity, Plus } from "lucide-react";
+import Image from "next/image";
+import { ArrowRight, Terminal, Cpu, ShieldCheck, Activity, Plus, ExternalLink, Layers, Eye } from "lucide-react";
 import { AgentOrchestrationConsole } from "@/components/cohere/agent-orchestration-console";
 import { AnswerBlocks } from "@/components/seo/answer-blocks";
 
@@ -299,6 +300,42 @@ export default function VectorsPlatformPage() {
               )}
             </div>
 
+            {/* Visual Screenshot of Active Architecture */}
+            <div className="relative w-full aspect-[16/9] rounded-[4px] overflow-hidden border border-black/15 shadow-sm bg-neutral-900 group">
+              {activeFeature === "agents" && (
+                <Image
+                  src="/projects/competence-crm.png"
+                  alt="Multi-Agent Consensus Fabric Architecture"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 550px"
+                  className="object-cover object-top"
+                />
+              )}
+              {activeFeature === "vaults" && (
+                <Image
+                  src="/projects/vayu-briefing.png"
+                  alt="Private VPC Model Vaults & Telemetry Briefing"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 550px"
+                  className="object-cover object-top"
+                />
+              )}
+              {activeFeature === "mesh" && (
+                <Image
+                  src="/projects/vayu-map.png"
+                  alt="Edge Telemetry & 60fps Airspace Spatial Mesh"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 550px"
+                  className="object-cover object-top"
+                />
+              )}
+              <div className="absolute bottom-2 left-2 bg-black/75 backdrop-blur-xs text-white text-[10px] font-mono px-2 py-0.5 rounded">
+                {activeFeature === "agents" && "Live Telemetry: AutoLead CRM & Multi-Agent Routing"}
+                {activeFeature === "vaults" && "Air-Gapped Vault: Project VAYU Briefing Telemetry"}
+                {activeFeature === "mesh" && "Edge Spatial Mesh: Sub-50ms Airspace Vector Engine"}
+              </div>
+            </div>
+
           </div>
 
         </div>
@@ -327,12 +364,27 @@ export default function VectorsPlatformPage() {
               ))}
             </div>
 
-            <div className="lg:col-span-7 bg-white border border-black/10 rounded-[6px] p-8 shadow-sm space-y-6">
+            <div className="lg:col-span-7 bg-white border border-black/10 rounded-[6px] p-6 sm:p-8 shadow-sm space-y-6">
               <div className="flex items-center justify-between border-b border-black/10 pb-4">
-                <span className="font-mono text-xs uppercase text-neutral-500">RUNTIME SPECIFICATION</span>
-                <span className="font-mono text-xs text-emerald-600 font-semibold">STATUS: VERIFIED</span>
+                <span className="font-mono text-xs uppercase text-neutral-500">RUNTIME SPECIFICATION &amp; TELEMETRY</span>
+                <span className="font-mono text-xs text-emerald-600 font-semibold">STATUS: LIVE VERIFIED</span>
               </div>
-              <div className="space-y-4 font-mono text-xs text-neutral-700 bg-[#FAF9F5] p-5 rounded border border-black/10">
+
+              {/* Real Telemetry Screenshot Preview */}
+              <div className="relative w-full aspect-[16/9] rounded overflow-hidden border border-black/15 bg-neutral-950">
+                <Image
+                  src="/projects/aura-results.png"
+                  alt="Live Anomaly Detection & Telemetry Engine"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 600px"
+                  className="object-cover object-top"
+                />
+                <div className="absolute top-2 left-2 bg-black/80 backdrop-blur-xs text-[#00FF66] text-[10px] font-mono px-2 py-0.5 rounded border border-[#00FF66]/30">
+                  LIVE TELEMETRY: 99.4% CONVERGENCE PRECISION
+                </div>
+              </div>
+
+              <div className="space-y-3 font-mono text-xs text-neutral-700 bg-[#FAF9F5] p-5 rounded border border-black/10">
                 <p className="text-[#FF3823] font-semibold">// Continuous Multi-Agent Convergence Loop</p>
                 <p>1. INGESTION: 18ms stream ingestion via WebSocket binary buffer</p>
                 <p>2. ALIGNMENT: Strict JSON Schema gate &amp; deterministic state DAG</p>
@@ -340,9 +392,10 @@ export default function VectorsPlatformPage() {
                 <p>4. EXECUTION: Parallel tool calls across decoupled worker pods</p>
                 <p>5. AUDIT: Immutable cryptographically signed execution proof</p>
               </div>
-              <div className="flex items-center justify-between">
+
+              <div className="flex items-center justify-between pt-2">
                 <span className="font-mono text-xs text-neutral-500">100% Client Ownership Guarantee</span>
-                <Link href="/start" className="bg-[#FF3823] text-white text-xs font-semibold px-4 py-2 rounded-[4px]">
+                <Link href="/start" className="bg-[#FF3823] hover:bg-[#E02F1C] text-white text-xs font-semibold px-4 py-2 rounded-[4px] transition-colors">
                   Deploy Pipeline →
                 </Link>
               </div>

@@ -12,6 +12,7 @@ import {
 import { BASE_URL, DEFAULT_OG_IMAGES } from "@/lib/seo";
 import { BLOG_POSTS, getBlogPostBySlug, getAllBlogSlugs } from "@/lib/blog-data";
 import { AnswerBlocks } from "@/components/seo/answer-blocks";
+import { RKLaxmanCartoon } from "@/components/blog/rk-laxman-cartoon";
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -180,6 +181,15 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         {/* ── CORE ARTICLE CONTAINER ── */}
         <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12 space-y-10">
           
+          {/* EDITORIAL CARTOON HERO VIGNETTE */}
+          <div className="w-full">
+            <RKLaxmanCartoon
+              slug={slug}
+              interactive={true}
+              className="max-w-3xl mx-auto"
+            />
+          </div>
+
           {/* EXECUTIVE SUMMARY BLOCK (FOR AEO / GEO LLM CITATION) */}
           <section
             data-ai-answer="true"

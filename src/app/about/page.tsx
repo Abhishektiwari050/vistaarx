@@ -2,7 +2,7 @@ import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, CheckCircle2, Shield, Code2, Sparkles, MessageCircle, MapPin, Mail, Phone } from "lucide-react";
+import { ArrowRight, CheckCircle2, Shield, Code2, Sparkles, MessageCircle, MapPin, Mail, Phone, ExternalLink } from "lucide-react";
 import { DEFAULT_OG_IMAGES } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -241,6 +241,169 @@ export default function AboutCompanyPage() {
                 </div>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── FRAME 4.5: SYSTEMS SHIPPED UNDER VISTAR DIRECTION ── */}
+      <section className="w-full py-20 px-6 bg-[#FAF9F5] border-b border-black/10">
+        <div className="max-w-6xl mx-auto space-y-12">
+          <div className="space-y-2 text-center max-w-2xl mx-auto">
+            <span className="font-mono text-xs uppercase tracking-wider text-[#FF3823] font-semibold">
+              PROVEN TRACK RECORD
+            </span>
+            <h2 className="font-serif text-3xl sm:text-4xl font-normal text-[#0E1118]">
+              Production Systems Shipped Under VISTAR
+            </h2>
+            <p className="text-xs sm:text-sm text-neutral-600">
+              Live software deployed for architecture firms, healthcare prototypes, logistics, and aviation.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* System 1: 3axis Arc */}
+            <div className="bg-white border border-black/10 rounded-[8px] overflow-hidden shadow-xs hover:shadow-md transition-all group">
+              <div className="relative w-full aspect-[16/10] bg-neutral-100 overflow-hidden">
+                <Image
+                  src="/projects/3axisarc.png"
+                  alt="3axis Arc Spatial 3D Platform"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 550px"
+                  className="object-cover object-top group-hover:scale-102 transition-transform duration-300"
+                />
+                <div className="absolute top-3 right-3 bg-black/75 backdrop-blur-xs text-white text-[11px] font-mono px-2 py-0.5 rounded">
+                  Lucknow Real Estate &bull; 60 FPS WebGL
+                </div>
+              </div>
+              <div className="p-6 space-y-3">
+                <div className="flex items-center justify-between">
+                  <h3 className="font-serif text-xl font-normal text-[#0E1118]">3axis Arc — Spatial 3D Engine</h3>
+                  <a
+                    href="https://3axisarc.vercel.app"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-[#FF3823] hover:underline flex items-center gap-1 font-mono"
+                  >
+                    <span>Visit Live</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+                <p className="text-xs text-neutral-600 leading-relaxed">
+                  Real-time 3D spatial architectural walk-through engine built for Lucknow’s premier design firm, delivering fluid 60fps orbital rendering across desktop and mobile devices.
+                </p>
+                <div className="pt-1 flex flex-wrap gap-1.5 text-[10px] font-mono text-neutral-500">
+                  <span className="px-2 py-0.5 bg-neutral-100 rounded">Three.js</span>
+                  <span className="px-2 py-0.5 bg-neutral-100 rounded">Next.js 16</span>
+                  <span className="px-2 py-0.5 bg-neutral-100 rounded">TypeScript</span>
+                </div>
+              </div>
+            </div>
+
+            {/* System 2: AutoLead CRM */}
+            <div className="bg-white border border-black/10 rounded-[8px] overflow-hidden shadow-xs hover:shadow-md transition-all group">
+              <div className="relative w-full aspect-[16/10] bg-neutral-100 overflow-hidden">
+                <Image
+                  src="/projects/competence-crm.png"
+                  alt="AutoLead CRM & WhatsApp Automation"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 550px"
+                  className="object-cover object-top group-hover:scale-102 transition-transform duration-300"
+                />
+                <div className="absolute top-3 right-3 bg-emerald-700/80 backdrop-blur-xs text-white text-[11px] font-mono px-2 py-0.5 rounded">
+                  SME Automation &bull; Lead Routing
+                </div>
+              </div>
+              <div className="p-6 space-y-3">
+                <div className="flex items-center justify-between">
+                  <h3 className="font-serif text-xl font-normal text-[#0E1118]">AutoLead &amp; WhatsApp CRM</h3>
+                  <span className="text-xs text-neutral-500 font-mono">Operations Portal</span>
+                </div>
+                <p className="text-xs text-neutral-600 leading-relaxed">
+                  Automated buyer intake system capturing leads from IndiaMART, JustDial, and web forms into instant WhatsApp conversations and structured PostgreSQL tables.
+                </p>
+                <div className="pt-1 flex flex-wrap gap-1.5 text-[10px] font-mono text-neutral-500">
+                  <span className="px-2 py-0.5 bg-neutral-100 rounded">WhatsApp API</span>
+                  <span className="px-2 py-0.5 bg-neutral-100 rounded">FastAPI</span>
+                  <span className="px-2 py-0.5 bg-neutral-100 rounded">PostgreSQL</span>
+                </div>
+              </div>
+            </div>
+
+            {/* System 3: Project VAYU */}
+            <div className="bg-white border border-black/10 rounded-[8px] overflow-hidden shadow-xs hover:shadow-md transition-all group">
+              <div className="relative w-full aspect-[16/10] bg-neutral-100 overflow-hidden">
+                <Image
+                  src="/projects/vayuways.png"
+                  alt="Project VAYU Aviation Telemetry"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 550px"
+                  className="object-cover object-top group-hover:scale-102 transition-transform duration-300"
+                />
+                <div className="absolute top-3 right-3 bg-[#FF3823]/90 backdrop-blur-xs text-white text-[11px] font-mono px-2 py-0.5 rounded">
+                  Aerospace GIS &bull; Sub-50ms
+                </div>
+              </div>
+              <div className="p-6 space-y-3">
+                <div className="flex items-center justify-between">
+                  <h3 className="font-serif text-xl font-normal text-[#0E1118]">Project VAYU — Airspace Telemetry</h3>
+                  <a
+                    href="https://ai-vayu.vercel.app"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-[#FF3823] hover:underline flex items-center gap-1 font-mono"
+                  >
+                    <span>Visit Live</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+                <p className="text-xs text-neutral-600 leading-relaxed">
+                  Airspace advisory intelligence parsing FAA NOTAMs into interactive vector flight corridors with sub-50ms situational latency for pilots and dispatchers.
+                </p>
+                <div className="pt-1 flex flex-wrap gap-1.5 text-[10px] font-mono text-neutral-500">
+                  <span className="px-2 py-0.5 bg-neutral-100 rounded">Mapbox GL</span>
+                  <span className="px-2 py-0.5 bg-neutral-100 rounded">Deterministic Gates</span>
+                  <span className="px-2 py-0.5 bg-neutral-100 rounded">GeoJSON</span>
+                </div>
+              </div>
+            </div>
+
+            {/* System 4: KL Herbal */}
+            <div className="bg-white border border-black/10 rounded-[8px] overflow-hidden shadow-xs hover:shadow-md transition-all group">
+              <div className="relative w-full aspect-[16/10] bg-neutral-100 overflow-hidden">
+                <Image
+                  src="/projects/klherbal.png"
+                  alt="KL Herbal Ayurvedic Storefront"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 550px"
+                  className="object-cover object-top group-hover:scale-102 transition-transform duration-300"
+                />
+                <div className="absolute top-3 right-3 bg-black/75 backdrop-blur-xs text-white text-[11px] font-mono px-2 py-0.5 rounded">
+                  D2C Commerce &bull; UPI &amp; Cards
+                </div>
+              </div>
+              <div className="p-6 space-y-3">
+                <div className="flex items-center justify-between">
+                  <h3 className="font-serif text-xl font-normal text-[#0E1118]">KL Herbal — D2C E-Commerce</h3>
+                  <a
+                    href="https://klherbal.in"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-[#FF3823] hover:underline flex items-center gap-1 font-mono"
+                  >
+                    <span>Storefront</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+                <p className="text-xs text-neutral-600 leading-relaxed">
+                  High-converting digital storefront with instant WhatsApp order confirmations, integrated payment checkouts, and inventory sync for wellness products.
+                </p>
+                <div className="pt-1 flex flex-wrap gap-1.5 text-[10px] font-mono text-neutral-500">
+                  <span className="px-2 py-0.5 bg-neutral-100 rounded">Razorpay</span>
+                  <span className="px-2 py-0.5 bg-neutral-100 rounded">Next.js 16</span>
+                  <span className="px-2 py-0.5 bg-neutral-100 rounded">Tailwind</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

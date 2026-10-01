@@ -6,11 +6,15 @@
     "dev": "node --max-old-space-size=4096 node_modules/next/dist/bin/next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "video:preview": "remotion preview src/video/brand-film/Root.tsx",
+    "video:render": "remotion render src/video/brand-film/Root.tsx VistarBrandFilm out/vistar-brand-film.mp4 --crf=18",
+    "video:still": "remotion still src/video/brand-film/Root.tsx VistarBrandFilm out/vistar-poster.png --frame=360"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.6.1",
+    "@remotion/player": "^4.0.530",
     "@rive-app/canvas": "^2.43.1",
     "cobe": "^2.0.1",
     "d3": "^7.9.0",
@@ -22,6 +26,7 @@
     "nodemailer": "^10.0.11",
     "react": "19.2.4",
     "react-dom": "19.2.4",
+    "remotion": "^4.0.530",
     "three": "^0.184.0",
     "zustand": "^5.0.13"
   },

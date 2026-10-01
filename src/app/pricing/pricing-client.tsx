@@ -2,7 +2,8 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { ArrowRight, Check, ChevronDown, ShieldCheck, Terminal, Cpu, MessageCircle, Clock, Zap } from "lucide-react";
+import Image from "next/image";
+import { ArrowRight, Check, ChevronDown, ShieldCheck, Terminal, Cpu, MessageCircle, Clock, Zap, ExternalLink } from "lucide-react";
 import { playClick } from "@/lib/sound";
 
 interface MatrixSection {
@@ -140,8 +141,8 @@ export default function PricingPage() {
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
           
           {/* Tier 1: Starter Automation & MVP */}
-          <div className="bg-white border border-black/10 rounded-2xl shadow-xs p-7 sm:p-8 space-y-6 flex flex-col justify-between hover:border-black/30 transition-all">
-            <div className="space-y-5">
+          <div className="bg-white border border-black/10 rounded-2xl shadow-xs p-6 sm:p-7 space-y-5 flex flex-col justify-between hover:border-black/30 transition-all">
+            <div className="space-y-4">
               <div className="flex items-baseline justify-between">
                 <div>
                   <span className="text-[10px] font-mono uppercase tracking-wider text-[#5E605D] block">ENTRY OFFER</span>
@@ -155,15 +156,31 @@ export default function PricingPage() {
                 </div>
               </div>
 
+              {/* Visual Preview for Tier 1 */}
+              <div className="relative w-full h-32 rounded-lg overflow-hidden border border-black/10 bg-neutral-100 group">
+                <Image
+                  src="/projects/competence-crm.png"
+                  alt="Starter MVP: AutoLead & WhatsApp CRM Engine"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 350px"
+                  className="object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-2.5">
+                  <span className="text-[10px] font-mono text-white bg-black/60 px-2 py-0.5 rounded">
+                    Output: AutoLead &amp; WhatsApp Bot
+                  </span>
+                </div>
+              </div>
+
               <div className="w-full h-px bg-black/10" />
 
               <p className="text-xs text-neutral-600 leading-relaxed min-h-[36px]">
                 Rapid automation, WhatsApp lead qualification bot, or focused web tool delivered in 5–7 days.
               </p>
 
-              <div className="space-y-2.5 pt-2 text-xs text-neutral-700">
+              <div className="space-y-2 pt-1 text-xs text-neutral-700">
                 <p className="font-mono text-[10px] text-neutral-400 uppercase tracking-wider">Includes:</p>
-                <div className="space-y-2">
+                <div className="space-y-1.5">
                   <div className="flex items-center gap-2">
                     <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                     <span>WhatsApp or AI Lead Bot</span>
@@ -204,12 +221,12 @@ export default function PricingPage() {
           </div>
 
           {/* Tier 2: 14-Day Production Sprint (Most Popular) */}
-          <div className="bg-white border-2 border-[#FF3823] rounded-2xl shadow-md p-7 sm:p-8 space-y-6 flex flex-col justify-between relative">
+          <div className="bg-white border-2 border-[#FF3823] rounded-2xl shadow-md p-6 sm:p-7 space-y-5 flex flex-col justify-between relative">
             <div className="absolute -top-3 right-6 bg-[#FF3823] text-white text-[10px] font-mono uppercase tracking-widest px-3 py-0.5 rounded font-semibold">
               Most Popular
             </div>
 
-            <div className="space-y-5">
+            <div className="space-y-4">
               <div className="flex items-baseline justify-between">
                 <div>
                   <span className="text-[10px] font-mono uppercase tracking-wider text-[#FF3823] block font-semibold">COMPLETE SYSTEM</span>
@@ -223,15 +240,31 @@ export default function PricingPage() {
                 </div>
               </div>
 
+              {/* Visual Preview for Tier 2 */}
+              <div className="relative w-full h-32 rounded-lg overflow-hidden border border-[#FF3823]/30 bg-neutral-100 group">
+                <Image
+                  src="/projects/vayuways.png"
+                  alt="Production Sprint: Full Next.js 16 Web Application & GIS"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 350px"
+                  className="object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-2.5">
+                  <span className="text-[10px] font-mono text-white bg-[#FF3823] px-2 py-0.5 rounded font-semibold">
+                    Output: Full Next.js Web App
+                  </span>
+                </div>
+              </div>
+
               <div className="w-full h-px bg-black/10" />
 
               <p className="text-xs text-neutral-600 leading-relaxed min-h-[36px]">
                 Full custom web application, operational dashboard, or multi-agent pipeline shipped in 14 days.
               </p>
 
-              <div className="space-y-2.5 pt-2 text-xs text-neutral-700">
+              <div className="space-y-2 pt-1 text-xs text-neutral-700">
                 <p className="font-mono text-[10px] text-neutral-400 uppercase tracking-wider">Includes:</p>
-                <div className="space-y-2">
+                <div className="space-y-1.5">
                   <div className="flex items-center gap-2">
                     <Check className="w-3.5 h-3.5 text-[#FF3823] shrink-0" />
                     <span>Full Next.js 16 Web Application</span>
@@ -276,8 +309,8 @@ export default function PricingPage() {
           </div>
 
           {/* Tier 3: Enterprise Platform & 3D Spatial */}
-          <div className="bg-white border border-black/10 rounded-2xl shadow-xs p-7 sm:p-8 space-y-6 flex flex-col justify-between hover:border-black/30 transition-all">
-            <div className="space-y-5">
+          <div className="bg-white border border-black/10 rounded-2xl shadow-xs p-6 sm:p-7 space-y-5 flex flex-col justify-between hover:border-black/30 transition-all">
+            <div className="space-y-4">
               <div className="flex items-baseline justify-between">
                 <div>
                   <span className="text-[10px] font-mono uppercase tracking-wider text-[#5E605D] block">BESPOKE SCALE</span>
@@ -291,15 +324,31 @@ export default function PricingPage() {
                 </div>
               </div>
 
+              {/* Visual Preview for Tier 3 */}
+              <div className="relative w-full h-32 rounded-lg overflow-hidden border border-black/10 bg-neutral-100 group">
+                <Image
+                  src="/projects/3axisarc.png"
+                  alt="Enterprise & 3D: 60fps WebGL Spatial Engine"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 350px"
+                  className="object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-2.5">
+                  <span className="text-[10px] font-mono text-white bg-black/60 px-2 py-0.5 rounded">
+                    Output: 60fps WebGL Spatial 3D
+                  </span>
+                </div>
+              </div>
+
               <div className="w-full h-px bg-black/10" />
 
               <p className="text-xs text-neutral-600 leading-relaxed min-h-[36px]">
                 High-performance 3D spatial platforms (like 3axis Arc), custom ERPs, or distributed microservices.
               </p>
 
-              <div className="space-y-2.5 pt-2 text-xs text-neutral-700">
+              <div className="space-y-2 pt-1 text-xs text-neutral-700">
                 <p className="font-mono text-[10px] text-neutral-400 uppercase tracking-wider">Includes:</p>
-                <div className="space-y-2">
+                <div className="space-y-1.5">
                   <div className="flex items-center gap-2">
                     <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                     <span>60fps WebGL / Spatial 3D Engine</span>
@@ -339,6 +388,167 @@ export default function PricingPage() {
             </div>
           </div>
 
+        </div>
+
+        {/* ── VISUAL PROOF GALLERY: WHAT WE BUILD IN THESE TIERS ── */}
+        <div className="max-w-6xl mx-auto mt-20 pt-16 border-t border-black/10">
+          <div className="text-center max-w-2xl mx-auto mb-10 space-y-2">
+            <span className="font-mono text-xs uppercase tracking-wider text-[#FF3823] font-semibold">
+              VERIFIED PORTFOLIO DELIVERABLES
+            </span>
+            <h2 className="font-serif text-3xl sm:text-4xl text-[#00063D]">
+              Real systems shipped in these tiers.
+            </h2>
+            <p className="text-xs sm:text-sm text-neutral-600">
+              Every system below was engineered and delivered with 100% private GitHub repository transfer.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Project 1: 3axis Arc */}
+            <div className="bg-white border border-black/10 rounded-2xl overflow-hidden shadow-xs hover:shadow-md transition-all group">
+              <div className="relative w-full aspect-[16/10] bg-neutral-100 overflow-hidden">
+                <Image
+                  src="/projects/3axisarc.png"
+                  alt="3axis Arc — 60 FPS Spatial 3D Engine for Architecture in Lucknow"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 550px"
+                  className="object-cover object-top group-hover:scale-102 transition-transform duration-300"
+                />
+                <div className="absolute top-3 right-3 bg-black/70 backdrop-blur-xs text-white text-[11px] font-mono px-2.5 py-1 rounded">
+                  Enterprise Tier &bull; WebGL 60 FPS
+                </div>
+              </div>
+              <div className="p-6 space-y-3">
+                <div className="flex items-center justify-between">
+                  <h3 className="font-serif text-xl font-normal text-[#141413]">3axis Arc — Spatial 3D Platform</h3>
+                  <a
+                    href="https://3axisarc.vercel.app"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-[#FF3823] hover:underline flex items-center gap-1 font-mono"
+                  >
+                    <span>Live Demo</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+                <p className="text-xs text-neutral-600 leading-relaxed">
+                  Interactive real-time 3D architectural visualization engine built for premier Lucknow architecture studio. Zero lag, buttery smooth 60fps orbital camera controls.
+                </p>
+                <div className="pt-2 flex flex-wrap gap-1.5 text-[10px] font-mono text-neutral-600">
+                  <span className="px-2 py-0.5 bg-neutral-100 rounded">Three.js / WebGL</span>
+                  <span className="px-2 py-0.5 bg-neutral-100 rounded">Next.js 16</span>
+                  <span className="px-2 py-0.5 bg-neutral-100 rounded">GLTF Compression</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Project 2: Competence CRM & AutoLead */}
+            <div className="bg-white border border-black/10 rounded-2xl overflow-hidden shadow-xs hover:shadow-md transition-all group">
+              <div className="relative w-full aspect-[16/10] bg-neutral-100 overflow-hidden">
+                <Image
+                  src="/projects/competence-crm.png"
+                  alt="AutoLead CRM & WhatsApp Lead Routing System"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 550px"
+                  className="object-cover object-top group-hover:scale-102 transition-transform duration-300"
+                />
+                <div className="absolute top-3 right-3 bg-emerald-700/80 backdrop-blur-xs text-white text-[11px] font-mono px-2.5 py-1 rounded">
+                  Starter / Sprint Tier &bull; CRM &amp; AI
+                </div>
+              </div>
+              <div className="p-6 space-y-3">
+                <div className="flex items-center justify-between">
+                  <h3 className="font-serif text-xl font-normal text-[#141413]">AutoLead &amp; Operations CRM</h3>
+                  <span className="text-xs text-neutral-500 font-mono">14-Day Delivery</span>
+                </div>
+                <p className="text-xs text-neutral-600 leading-relaxed">
+                  Multi-agent lead qualification and WhatsApp conversational bot routing inquiries directly into Google Sheets and custom CRM tables with zero manual data entry.
+                </p>
+                <div className="pt-2 flex flex-wrap gap-1.5 text-[10px] font-mono text-neutral-600">
+                  <span className="px-2 py-0.5 bg-neutral-100 rounded">WhatsApp Business API</span>
+                  <span className="px-2 py-0.5 bg-neutral-100 rounded">PostgreSQL</span>
+                  <span className="px-2 py-0.5 bg-neutral-100 rounded">FastAPI</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Project 3: Project VAYU Aviation Telemetry */}
+            <div className="bg-white border border-black/10 rounded-2xl overflow-hidden shadow-xs hover:shadow-md transition-all group">
+              <div className="relative w-full aspect-[16/10] bg-neutral-100 overflow-hidden">
+                <Image
+                  src="/projects/vayuways.png"
+                  alt="Project VAYU — Airspace Telemetry & GIS Route Engine"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 550px"
+                  className="object-cover object-top group-hover:scale-102 transition-transform duration-300"
+                />
+                <div className="absolute top-3 right-3 bg-[#FF3823]/90 backdrop-blur-xs text-white text-[11px] font-mono px-2.5 py-1 rounded">
+                  Sprint Tier &bull; Aviation GIS
+                </div>
+              </div>
+              <div className="p-6 space-y-3">
+                <div className="flex items-center justify-between">
+                  <h3 className="font-serif text-xl font-normal text-[#141413]">Project VAYU — Airspace Telemetry</h3>
+                  <a
+                    href="https://ai-vayu.vercel.app"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-[#FF3823] hover:underline flex items-center gap-1 font-mono"
+                  >
+                    <span>Live App</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+                <p className="text-xs text-neutral-600 leading-relaxed">
+                  Deterministic NOTAM parsing and GIS route vector engine for general aviation pilots, delivering sub-50ms situational telemetry across Indian and global airspace.
+                </p>
+                <div className="pt-2 flex flex-wrap gap-1.5 text-[10px] font-mono text-neutral-600">
+                  <span className="px-2 py-0.5 bg-neutral-100 rounded">Mapbox GL</span>
+                  <span className="px-2 py-0.5 bg-neutral-100 rounded">Next.js 16</span>
+                  <span className="px-2 py-0.5 bg-neutral-100 rounded">Deterministic Gates</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Project 4: KL Herbal E-Commerce */}
+            <div className="bg-white border border-black/10 rounded-2xl overflow-hidden shadow-xs hover:shadow-md transition-all group">
+              <div className="relative w-full aspect-[16/10] bg-neutral-100 overflow-hidden">
+                <Image
+                  src="/projects/klherbal.png"
+                  alt="KL Herbal — E-Commerce Storefront & Payment Gateway"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 550px"
+                  className="object-cover object-top group-hover:scale-102 transition-transform duration-300"
+                />
+                <div className="absolute top-3 right-3 bg-black/70 backdrop-blur-xs text-white text-[11px] font-mono px-2.5 py-1 rounded">
+                  Starter / Sprint Tier &bull; E-Commerce
+                </div>
+              </div>
+              <div className="p-6 space-y-3">
+                <div className="flex items-center justify-between">
+                  <h3 className="font-serif text-xl font-normal text-[#141413]">KL Herbal — D2C E-Commerce</h3>
+                  <a
+                    href="https://klherbal.in"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-[#FF3823] hover:underline flex items-center gap-1 font-mono"
+                  >
+                    <span>Storefront</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+                <p className="text-xs text-neutral-600 leading-relaxed">
+                  High-conversion Ayurvedic wellness e-commerce storefront with integrated Indian payment gateways (UPI, cards), WhatsApp order confirmations, and inventory sync.
+                </p>
+                <div className="pt-2 flex flex-wrap gap-1.5 text-[10px] font-mono text-neutral-600">
+                  <span className="px-2 py-0.5 bg-neutral-100 rounded">Next.js</span>
+                  <span className="px-2 py-0.5 bg-neutral-100 rounded">Razorpay / UPI</span>
+                  <span className="px-2 py-0.5 bg-neutral-100 rounded">Tailwind CSS</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
