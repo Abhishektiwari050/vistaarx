@@ -22,6 +22,7 @@ import {
   MessageCircle,
 } from "lucide-react";
 import { AnswerBlocks, type QAPair } from "@/components/seo/answer-blocks";
+import { CloudShaderDemo } from "@/components/ui/cloud-shader-demo";
 
 interface ProductionSystem {
   id: string;
@@ -462,6 +463,25 @@ export default function WorkClientPage() {
               );
             })}
           </div>
+        </div>
+      </section>
+
+      {/* ── FRAME 3: INTERACTIVE ATMOSPHERIC WEBGL SIMULATION (PROJECT VAYU) ── */}
+      <section className="w-full py-16 px-4 sm:px-6 bg-white border-b border-black/10">
+        <div className="max-w-6xl mx-auto space-y-6">
+          <div className="space-y-1">
+            <span className="text-xs uppercase tracking-widest text-[#FF3823] font-semibold">
+              LIVE WEBGL PRIMITIVE &bull; AVIATION GIS
+            </span>
+            <h2 className="text-2xl sm:text-4xl font-serif font-normal text-[#141413] tracking-tight">
+              Atmospheric Cloud Drift &amp; Weather Shader
+            </h2>
+            <p className="text-sm text-[#5E605D] max-w-2xl">
+              Interactive WebGL volumetric billow noise shader engineered for Project VAYU to model real-time atmospheric conditions, self-shadowing cloud layers, and flight corridor visibility.
+            </p>
+          </div>
+
+          <CloudShaderDemo />
         </div>
       </section>
 
