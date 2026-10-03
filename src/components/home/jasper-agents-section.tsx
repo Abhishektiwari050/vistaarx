@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { JasperInteractiveHero } from "@/components/jasper/jasper-interactive-hero";
+import { VistarInteractiveStage } from "@/components/home/vistar-interactive-stage";
 
 export function JasperAgentsSection() {
   return (
@@ -31,9 +31,9 @@ export function JasperAgentsSection() {
           </p>
         </div>
 
-        {/* Interactive 3D Canvas Stage */}
-        <div className="relative mx-auto w-full max-w-[1360px] overflow-hidden rounded-[16px] border border-black/[0.08] shadow-sm bg-white">
-          <JasperInteractiveHero />
+        {/* Instant Interactive Stage */}
+        <div className="relative mx-auto w-full max-w-[1360px] overflow-hidden rounded-[16px] shadow-sm bg-white">
+          <VistarInteractiveStage />
         </div>
 
       </div>

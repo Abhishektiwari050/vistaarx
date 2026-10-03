@@ -2,7 +2,6 @@
 
 import React from "react";
 import Link from "next/link";
-import TigerTearReveal from "@/components/ui/tiger-tear-reveal";
 import { ShieldCheck, Code2, Lock, GitBranch, Clock, Zap } from "lucide-react";
 
 const ENGINEERING_GUARANTEES = [
@@ -67,18 +66,6 @@ export function CohereDeployment() {
               Contact Us
             </Link>
           </div>
-        </div>
-
-        {/* Full-width Tiger Tear Interactive Poster Stage */}
-        <div className="w-full relative">
-          <TigerTearReveal
-            word="COURAGE"
-            tagline="HAVE NO FEAR // 14-DAY PRODUCTION SPRINTS"
-            ink="#FF3823"
-            paper="#FAFAF9"
-            height="80svh"
-            scrollDistance="70svh"
-          />
         </div>
       </section>
 

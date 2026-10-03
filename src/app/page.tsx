@@ -6,6 +6,7 @@ import { CohereEmpowerment } from "@/components/cohere/cohere-empowerment";
 import { JasperAgentsSection } from "@/components/home/jasper-agents-section";
 import { CohereSolutions } from "@/components/cohere/cohere-solutions";
 import { CohereDeployment } from "@/components/cohere/cohere-deployment";
+import { CourageRevealSection } from "@/components/home/courage-reveal-section";
 import { AnswerBlocks, type QAPair } from "@/components/seo/answer-blocks";
 
 // ─── Page-level metadata (Google Search Essentials / SEO Starter Guide compliant) ───────
@@ -139,7 +140,10 @@ export default function Home() {
         {/* 06: SECURITY & DEPLOYMENT (ENGINEERING GUARANTEES & SPRINT CADENCE) */}
         <CohereDeployment />
 
-        {/* 07: TECHNICAL ANSWER BLOCKS (GOOGLE SEO & KNOWLEDGE GRAPH CITATIONS) */}
+        {/* 07: FOUNDER CONVICTION (COURAGE TEAR REVEAL POSTER) */}
+        <CourageRevealSection />
+
+        {/* 08: TECHNICAL ANSWER BLOCKS (GOOGLE SEO & KNOWLEDGE GRAPH CITATIONS) */}
         <AnswerBlocks
           title="Frequently Asked Questions"
           subtitle="Clear answers on our 14-day production sprints, dual-currency pricing, WhatsApp automations, and complete source code ownership."
