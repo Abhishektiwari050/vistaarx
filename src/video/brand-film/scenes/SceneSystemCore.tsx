@@ -1,164 +1,146 @@
 import React from 'react';
 import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
-import { BRAND_TOKENS } from '../constants';
+import { CinematicBackground } from '../components/CinematicBackground';
+
+const AUDIT_TARGETS = [
+  { id: 'TGT_01', label: 'Manual WhatsApp Lead Triage', fix: 'Autonomous AI Qualification Engine', status: 'AUDITED' },
+  { id: 'TGT_02', label: 'Cross-System Copy-Pasting', fix: 'Real-time Webhook Event Pipeline', status: 'AUTOMATED' },
+  { id: 'TGT_03', label: 'Multi-Day Approval Delays', fix: 'Self-Executing Business Logic Rules', status: 'OPTIMIZED' },
+];
 
 export const SceneSystemCore: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // Relative frame (0 to 150)
-  const relFrame = Math.max(0, frame - 90);
+  const relFrame = frame; // In Remotion Sequence, 0 to 150
 
-  // Core Assembly Spring
-  const coreScale = spring({
+  // Rotation math for scanner reticles
+  const rot1 = relFrame * 1.2;
+  const rot2 = -relFrame * 0.8;
+  const rot3 = relFrame * 2.2;
+
+  // Scanner sweep laser
+  const laserAngle = (relFrame * 4) % 360;
+
+  // Headline entrance
+  const headlineSpring = spring({
     frame: relFrame,
     fps,
-    config: { damping: 15, stiffness: 80, mass: 1 },
-  });
-
-  const rotation = relFrame * 0.8;
-  const counterRotation = -relFrame * 0.5;
-
-  // Text entrance
-  const textOpacity = interpolate(relFrame, [10, 35], [0, 1], { extrapolateRight: 'clamp' });
-  const textY = interpolate(relFrame, [10, 35], [20, 0], { extrapolateRight: 'clamp' });
-
-  // Pulsing energy
-  const corePulse = 1 + Math.sin(relFrame * 0.15) * 0.05;
-
-  // Scanner sweep
-  const scannerY = interpolate(relFrame, [0, 120], [-180, 180], {
-    extrapolateRight: 'clamp',
-    extrapolateLeft: 'clamp',
+    config: { damping: 12, stiffness: 140 },
   });
 
   // Exit towards Scene 3
+  const exitZoom = interpolate(relFrame, [130, 150], [1, 1.2], { extrapolateLeft: 'clamp' });
   const exitOpacity = interpolate(relFrame, [135, 150], [1, 0], { extrapolateLeft: 'clamp' });
 
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: BRAND_TOKENS.colors.bg,
+        backgroundColor: '#040507',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         opacity: exitOpacity,
+        transform: `scale(${exitZoom})`,
         overflow: 'hidden',
       }}
     >
-      {/* Background Radial Glow */}
+      <CinematicBackground accentColor="#06b6d4" />
+
+      {/* Centerpiece Cybernetic Radar & Scanner */}
       <div
         style={{
           position: 'absolute',
-          width: '850px',
-          height: '850px',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, transparent 70%)',
-          filter: 'blur(60px)',
-          transform: `scale(${corePulse})`,
-        }}
-      />
-
-      {/* Dynamic Operational Diagnostic Mesh & Scanner */}
-      <div
-        style={{
-          position: 'relative',
-          width: '520px',
-          height: '520px',
+          width: '700px',
+          height: '700px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          transform: `scale(${coreScale})`,
+          opacity: 0.65,
         }}
       >
-        {/* Outer Ring 1 - Workflow Trace Perimeter */}
+        {/* Outer Ring with Compass Ticks */}
         <div
           style={{
             position: 'absolute',
-            width: '480px',
-            height: '480px',
+            width: '640px',
+            height: '640px',
             borderRadius: '50%',
-            border: '1px dashed rgba(16, 185, 129, 0.35)',
-            transform: `rotate(${rotation}deg)`,
+            border: '1px dashed rgba(6, 182, 212, 0.4)',
+            transform: `rotate(${rot1}deg)`,
           }}
         />
 
-        {/* Outer Ring 2 - Operational Conduits */}
+        {/* Counter Ring */}
         <div
           style={{
             position: 'absolute',
-            width: '390px',
-            height: '390px',
+            width: '520px',
+            height: '520px',
             borderRadius: '50%',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
-            transform: `rotate(${counterRotation}deg)`,
+            border: '2px solid rgba(255, 255, 255, 0.08)',
+            transform: `rotate(${rot2}deg)`,
           }}
         >
-          {/* Active Diagnostic Probe Node */}
           <div
             style={{
               position: 'absolute',
-              top: '-7px',
+              top: '-8px',
               left: '50%',
-              width: '14px',
-              height: '14px',
+              width: '16px',
+              height: '16px',
               borderRadius: '50%',
-              backgroundColor: BRAND_TOKENS.colors.accentEmerald,
-              boxShadow: `0 0 16px ${BRAND_TOKENS.colors.accentEmerald}`,
+              backgroundColor: '#06b6d4',
+              boxShadow: '0 0 20px #06b6d4',
             }}
           />
         </div>
 
-        {/* Inner Ring 3 - Automation Synthesizer */}
+        {/* Inner High Speed Ring */}
         <div
           style={{
             position: 'absolute',
-            width: '290px',
-            height: '290px',
+            width: '360px',
+            height: '360px',
             borderRadius: '50%',
-            border: '2px solid rgba(16, 185, 129, 0.4)',
-            transform: `rotate(${rotation * 1.5}deg)`,
+            border: '1.5px solid rgba(16, 185, 129, 0.4)',
+            transform: `rotate(${rot3}deg)`,
           }}
         />
 
-        {/* Central Operational Diagnostic Core */}
+        {/* Radar Scanner Beam (Conic Gradient) */}
         <div
           style={{
-            width: '150px',
-            height: '150px',
-            borderRadius: '24px',
-            background: 'linear-gradient(135deg, rgba(20, 22, 34, 0.95) 0%, rgba(13, 14, 21, 0.98) 100%)',
-            border: `1.5px solid ${BRAND_TOKENS.colors.accentEmerald}`,
-            boxShadow: `0 0 40px rgba(16, 185, 129, 0.3)`,
+            position: 'absolute',
+            width: '520px',
+            height: '520px',
+            borderRadius: '50%',
+            background: `conic-gradient(from ${laserAngle}deg, rgba(6, 182, 212, 0.3) 0deg, transparent 60deg, transparent 360deg)`,
+            pointerEvents: 'none',
+          }}
+        />
+
+        {/* Center Target Core */}
+        <div
+          style={{
+            width: '120px',
+            height: '120px',
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(6, 182, 212, 0.25) 0%, rgba(4, 5, 7, 0.95) 70%)',
+            border: '2px solid #06b6d4',
+            boxShadow: '0 0 40px rgba(6, 182, 212, 0.5)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'column',
-            transform: `rotate(${rotation * 0.25}deg) scale(${corePulse})`,
-            zIndex: 5,
-            position: 'relative',
-            overflow: 'hidden',
           }}
         >
-          {/* Laser Scanner Bar */}
           <div
             style={{
-              position: 'absolute',
-              top: '50%',
-              left: 0,
-              right: 0,
-              height: '2px',
-              backgroundColor: BRAND_TOKENS.colors.accentEmerald,
-              boxShadow: '0 0 10px #10b981',
-              transform: `translateY(${scannerY * 0.3}px)`,
-            }}
-          />
-          <div
-            style={{
-              fontFamily: BRAND_TOKENS.typography.fontMono,
+              fontFamily: 'ui-monospace, monospace',
               fontSize: '11px',
-              fontWeight: 700,
-              color: BRAND_TOKENS.colors.accentEmerald,
+              fontWeight: 800,
+              color: '#06b6d4',
               letterSpacing: '0.15em',
             }}
           >
@@ -166,64 +148,64 @@ export const SceneSystemCore: React.FC = () => {
           </div>
           <div
             style={{
+              fontFamily: 'ui-monospace, monospace',
               fontSize: '9px',
-              fontFamily: BRAND_TOKENS.typography.fontMono,
-              color: BRAND_TOKENS.colors.textSecondary,
+              color: 'rgba(255, 255, 255, 0.6)',
               marginTop: '4px',
             }}
           >
-            OPERATIONAL X-RAY
+            OPTICAL AUDIT
           </div>
         </div>
       </div>
 
-      {/* Foreground Kinetic Copy */}
+      {/* Kinetic Headline */}
       <div
         style={{
-          position: 'absolute',
-          bottom: '110px',
-          textAlign: 'center',
-          maxWidth: '960px',
-          opacity: textOpacity,
-          transform: `translateY(${textY}px)`,
+          position: 'relative',
           zIndex: 20,
+          textAlign: 'center',
+          maxWidth: '1200px',
+          padding: '0 40px',
         }}
       >
         <div
           style={{
             display: 'inline-flex',
             alignItems: 'center',
-            gap: '8px',
-            padding: '5px 16px',
+            gap: '10px',
+            padding: '6px 18px',
             borderRadius: '999px',
-            backgroundColor: 'rgba(16, 185, 129, 0.1)',
-            border: `1px solid ${BRAND_TOKENS.colors.borderActive}`,
-            color: BRAND_TOKENS.colors.accentEmerald,
-            fontFamily: BRAND_TOKENS.typography.fontMono,
-            fontSize: '11px',
+            background: 'rgba(6, 182, 212, 0.1)',
+            border: '1px solid rgba(6, 182, 212, 0.4)',
+            color: '#06b6d4',
+            fontFamily: 'ui-monospace, monospace',
+            fontSize: '12px',
             letterSpacing: '0.15em',
-            marginBottom: '18px',
+            marginBottom: '24px',
           }}
         >
-          STEP 01 // OPERATIONAL INTELLIGENCE AUDIT
+          <span>STAGE 01 // OPERATIONAL DECONSTRUCTION</span>
         </div>
 
         <h2
           style={{
-            fontFamily: BRAND_TOKENS.typography.fontSans,
-            fontSize: '48px',
-            fontWeight: 800,
-            letterSpacing: '-0.02em',
-            lineHeight: 1.15,
-            color: BRAND_TOKENS.colors.textPrimary,
+            fontFamily: 'system-ui, -apple-system, sans-serif',
+            fontSize: '68px',
+            fontWeight: 900,
+            letterSpacing: '-0.03em',
+            lineHeight: 1.05,
+            color: '#ECEEF5',
             margin: 0,
+            transform: `scale(${headlineSpring})`,
+            textShadow: '0 10px 40px rgba(0, 0, 0, 0.9)',
           }}
         >
           WE EXAMINE HOW YOUR COMPANY
           <br />
           <span
             style={{
-              background: 'linear-gradient(135deg, #ECEEF5 0%, #959CB3 100%)',
+              background: 'linear-gradient(135deg, #06b6d4 0%, #10b981 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
             }}
@@ -234,15 +216,85 @@ export const SceneSystemCore: React.FC = () => {
 
         <p
           style={{
-            marginTop: '16px',
-            fontFamily: BRAND_TOKENS.typography.fontMono,
-            fontSize: '15px',
-            color: BRAND_TOKENS.colors.textSecondary,
-            letterSpacing: '0.04em',
+            marginTop: '20px',
+            fontFamily: 'ui-monospace, monospace',
+            fontSize: '17px',
+            color: 'rgba(255, 255, 255, 0.7)',
+            letterSpacing: '0.05em',
           }}
         >
-          We trace every information flow, locate every human drag point, and identify where AI makes software run itself.
+          Tracing every information pathway. Isolating every human drag point.
         </p>
+
+        {/* 3 Staggered Audit Target Pills */}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            gap: '20px',
+            marginTop: '44px',
+            textAlign: 'left',
+          }}
+        >
+          {AUDIT_TARGETS.map((target, idx) => {
+            const pillSpring = spring({
+              frame: relFrame - 25 - idx * 12,
+              fps,
+              config: { damping: 14, stiffness: 120 },
+            });
+
+            return (
+              <div
+                key={target.id}
+                style={{
+                  background: 'rgba(13, 14, 21, 0.85)',
+                  border: '1px solid rgba(6, 182, 212, 0.3)',
+                  borderRadius: '14px',
+                  padding: '16px 20px',
+                  backdropFilter: 'blur(16px)',
+                  transform: `translateY(${interpolate(pillSpring, [0, 1], [30, 0])}px)`,
+                  opacity: pillSpring,
+                  boxShadow: '0 8px 30px rgba(0, 0, 0, 0.5)',
+                }}
+              >
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    fontFamily: 'ui-monospace, monospace',
+                    fontSize: '11px',
+                    color: '#06b6d4',
+                    marginBottom: '8px',
+                    fontWeight: 700,
+                  }}
+                >
+                  <span>{target.id}</span>
+                  <span style={{ color: '#10b981' }}>{target.status}</span>
+                </div>
+                <div
+                  style={{
+                    fontFamily: 'system-ui, sans-serif',
+                    fontSize: '14px',
+                    fontWeight: 700,
+                    color: '#ECEEF5',
+                  }}
+                >
+                  {target.label}
+                </div>
+                <div
+                  style={{
+                    fontFamily: 'ui-monospace, monospace',
+                    fontSize: '11px',
+                    color: 'rgba(255, 255, 255, 0.5)',
+                    marginTop: '4px',
+                  }}
+                >
+                  → {target.fix}
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </AbsoluteFill>
   );

@@ -1,28 +1,29 @@
 import React from 'react';
 import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
-import { BRAND_TOKENS } from '../constants';
+import { CinematicBackground } from '../components/CinematicBackground';
 
 export const SceneTransformation: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // Relative frame (0 to 240)
-  const relFrame = Math.max(0, frame - 240);
+  const relFrame = frame; // 0 to 240
 
   // Entrance spring
   const entrance = spring({
     frame: relFrame,
     fps,
-    config: { damping: 14, stiffness: 85 },
+    config: { damping: 14, stiffness: 120 },
   });
 
-  // Slider animation: starts at 50%, sweeps to 85% at frame 100, then full resolution
-  const wipeX = interpolate(
-    relFrame,
-    [20, 110, 180],
-    [50, 20, 0],
-    { extrapolateRight: 'clamp', extrapolateLeft: 'clamp' }
-  );
+  // Dynamic sweep of the laser divider (starts at 50%, sweeps to reveal the emerald engine)
+  const laserX = interpolate(relFrame, [10, 80, 160], [50, 25, 10], {
+    extrapolateRight: 'clamp',
+    extrapolateLeft: 'clamp',
+  });
+
+  // Ticking metrics
+  const humanToil = Math.floor(interpolate(relFrame, [20, 120], [84, 6], { extrapolateRight: 'clamp' }));
+  const speedup = Math.floor(interpolate(relFrame, [20, 140], [1, 180], { extrapolateRight: 'clamp' }));
 
   // Exit towards Scene 4
   const exitOpacity = interpolate(relFrame, [225, 240], [1, 0], { extrapolateLeft: 'clamp' });
@@ -30,7 +31,7 @@ export const SceneTransformation: React.FC = () => {
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: BRAND_TOKENS.colors.bg,
+        backgroundColor: '#040507',
         opacity: exitOpacity,
         transform: `scale(${entrance})`,
         display: 'flex',
@@ -40,60 +41,77 @@ export const SceneTransformation: React.FC = () => {
         overflow: 'hidden',
       }}
     >
+      <CinematicBackground accentColor="#10b981" />
+
       {/* Scene Header */}
-      <div style={{ textAlign: 'center', marginBottom: '36px' }}>
+      <div style={{ textAlign: 'center', marginBottom: '36px', zIndex: 20 }}>
         <div
           style={{
             display: 'inline-flex',
             alignItems: 'center',
             gap: '8px',
-            padding: '5px 16px',
+            padding: '6px 18px',
             borderRadius: '999px',
-            backgroundColor: 'rgba(255, 255, 255, 0.05)',
-            border: `1px solid ${BRAND_TOKENS.colors.border}`,
-            color: BRAND_TOKENS.colors.textPrimary,
-            fontFamily: BRAND_TOKENS.typography.fontMono,
-            fontSize: '11px',
+            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+            border: '1px solid rgba(16, 185, 129, 0.35)',
+            color: '#10b981',
+            fontFamily: 'ui-monospace, monospace',
+            fontSize: '12px',
             letterSpacing: '0.15em',
-            marginBottom: '12px',
+            marginBottom: '14px',
           }}
         >
-          THE TRANSFORMATION // MANUAL TO HUMANLESS
+          THE TRANSFORMATION // THE MONEY SHOT
         </div>
+
         <h2
           style={{
-            fontFamily: BRAND_TOKENS.typography.fontSans,
-            fontSize: '44px',
-            fontWeight: 800,
+            fontFamily: 'system-ui, -apple-system, sans-serif',
+            fontSize: '56px',
+            fontWeight: 900,
             margin: 0,
-            color: BRAND_TOKENS.colors.textPrimary,
-            letterSpacing: '-0.02em',
+            color: '#ECEEF5',
+            letterSpacing: '-0.03em',
+            lineHeight: 1.1,
           }}
         >
-          MAKING ENTERPRISE OPERATIONS RUN WITHOUT HUMAN DRAG
+          SOFTWARE DOES THE WORK.
+          <br />
+          <span
+            style={{
+              background: 'linear-gradient(135deg, #10b981 0%, #06b6d4 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              textShadow: '0 0 50px rgba(16, 185, 129, 0.5)',
+            }}
+          >
+            FASTER. EASIER. HUMANLESS.
+          </span>
         </h2>
       </div>
 
-      {/* Side-by-Side Comparison Grid */}
+      {/* Side-by-Side High-Voltage Comparison */}
       <div
         style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
-          gap: '32px',
+          gap: '36px',
           maxWidth: '1400px',
           width: '100%',
           margin: '0 auto',
+          position: 'relative',
+          zIndex: 20,
         }}
       >
         {/* Left: The Human-Choked Workflow */}
         <div
           style={{
-            background: 'rgba(239, 68, 68, 0.04)',
+            background: 'rgba(239, 68, 68, 0.03)',
             border: '1px solid rgba(239, 68, 68, 0.25)',
-            borderRadius: '16px',
+            borderRadius: '20px',
             padding: '36px',
-            backdropFilter: 'blur(16px)',
-            position: 'relative',
+            backdropFilter: 'blur(20px)',
+            boxShadow: '0 20px 60px rgba(0, 0, 0, 0.6), inset 0 0 40px rgba(239, 68, 68, 0.05)',
           }}
         >
           <div
@@ -106,96 +124,97 @@ export const SceneTransformation: React.FC = () => {
           >
             <span
               style={{
-                fontFamily: BRAND_TOKENS.typography.fontMono,
+                fontFamily: 'ui-monospace, monospace',
                 fontSize: '12px',
-                color: BRAND_TOKENS.colors.accentCrimson,
-                fontWeight: 700,
-                letterSpacing: '0.1em',
+                color: '#ef4444',
+                fontWeight: 800,
+                letterSpacing: '0.15em',
               }}
             >
               HUMAN-CHOKED WORKFLOW
             </span>
             <span
               style={{
-                fontSize: '11px',
-                fontFamily: BRAND_TOKENS.typography.fontMono,
-                color: BRAND_TOKENS.colors.accentCrimson,
-                background: 'rgba(239, 68, 68, 0.1)',
-                padding: '4px 10px',
+                fontFamily: 'ui-monospace, monospace',
+                fontSize: '13px',
+                fontWeight: 700,
+                color: '#ef4444',
+                background: 'rgba(239, 68, 68, 0.12)',
+                padding: '4px 12px',
                 borderRadius: '999px',
               }}
             >
-              HIGH TOIL • 84% MANUAL
+              {humanToil}% MANUAL TOIL
             </span>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div
               style={{
-                padding: '16px',
-                background: 'rgba(0, 0, 0, 0.4)',
-                borderRadius: '8px',
-                borderLeft: '3px solid #ef4444',
+                padding: '18px',
+                background: 'rgba(0, 0, 0, 0.5)',
+                borderRadius: '12px',
+                borderLeft: '4px solid #ef4444',
               }}
             >
-              <div style={{ fontWeight: 600, color: '#ECEEF5', fontSize: '15px' }}>
-                Manual Customer Qualification
+              <div style={{ fontWeight: 700, color: '#ECEEF5', fontSize: '16px' }}>
+                Manual Customer Inbound & Qualification
               </div>
               <div
                 style={{
                   fontSize: '12px',
-                  color: '#959CB3',
-                  fontFamily: BRAND_TOKENS.typography.fontMono,
-                  marginTop: '4px',
+                  color: 'rgba(255, 255, 255, 0.5)',
+                  fontFamily: 'ui-monospace, monospace',
+                  marginTop: '6px',
                 }}
               >
-                Human reps typing replies all day • 4-hour delay • 42% lost leads
+                Human reps typing replies all day • 4.8h response delay • 42% lost leads
               </div>
             </div>
 
             <div
               style={{
-                padding: '16px',
-                background: 'rgba(0, 0, 0, 0.4)',
-                borderRadius: '8px',
-                borderLeft: '3px solid #ef4444',
+                padding: '18px',
+                background: 'rgba(0, 0, 0, 0.5)',
+                borderRadius: '12px',
+                borderLeft: '4px solid #ef4444',
               }}
             >
-              <div style={{ fontWeight: 600, color: '#ECEEF5', fontSize: '15px' }}>
-                Mechanical Data Entry & Triage
+              <div style={{ fontWeight: 700, color: '#ECEEF5', fontSize: '16px' }}>
+                Mechanical Data Entry & Reconciliation
               </div>
               <div
                 style={{
                   fontSize: '12px',
-                  color: '#959CB3',
-                  fontFamily: BRAND_TOKENS.typography.fontMono,
-                  marginTop: '4px',
+                  color: 'rgba(255, 255, 255, 0.5)',
+                  fontFamily: 'ui-monospace, monospace',
+                  marginTop: '6px',
                 }}
               >
-                Copy-pasting between CRMs, ERPs, and Sheets • Constant human errors
+                Copy-pasting between CRMs, ERPs, and Sheets • Frequent human errors
               </div>
             </div>
 
             <div
               style={{
-                padding: '16px',
-                background: 'rgba(0, 0, 0, 0.4)',
-                borderRadius: '8px',
-                borderLeft: '3px solid #ef4444',
+                padding: '18px',
+                background: 'rgba(0, 0, 0, 0.5)',
+                borderRadius: '12px',
+                borderLeft: '4px solid #ef4444',
               }}
             >
-              <div style={{ fontWeight: 600, color: '#ECEEF5', fontSize: '15px' }}>
+              <div style={{ fontWeight: 700, color: '#ECEEF5', fontSize: '16px' }}>
                 Growth Requires Adding Headcount
               </div>
               <div
                 style={{
                   fontSize: '12px',
-                  color: '#959CB3',
-                  fontFamily: BRAND_TOKENS.typography.fontMono,
-                  marginTop: '4px',
+                  color: 'rgba(255, 255, 255, 0.5)',
+                  fontFamily: 'ui-monospace, monospace',
+                  marginTop: '6px',
                 }}
               >
-                Scaling volume breaks staff • Massive payroll overhead • Operational exhaustion
+                Scaling volume breaks staff • Massive payroll overhead • Operational gridlock
               </div>
             </div>
           </div>
@@ -205,12 +224,12 @@ export const SceneTransformation: React.FC = () => {
         <div
           style={{
             background: 'rgba(16, 185, 129, 0.04)',
-            border: `1px solid ${BRAND_TOKENS.colors.borderActive}`,
-            borderRadius: '16px',
+            border: '1.5px solid rgba(16, 185, 129, 0.5)',
+            borderRadius: '20px',
             padding: '36px',
-            backdropFilter: 'blur(16px)',
-            boxShadow: '0 0 40px rgba(16, 185, 129, 0.08)',
-            position: 'relative',
+            backdropFilter: 'blur(20px)',
+            boxShadow:
+              '0 24px 80px rgba(0, 0, 0, 0.8), 0 0 60px rgba(16, 185, 129, 0.15), inset 0 0 40px rgba(16, 185, 129, 0.08)',
           }}
         >
           <div
@@ -223,71 +242,72 @@ export const SceneTransformation: React.FC = () => {
           >
             <span
               style={{
-                fontFamily: BRAND_TOKENS.typography.fontMono,
+                fontFamily: 'ui-monospace, monospace',
                 fontSize: '12px',
-                color: BRAND_TOKENS.colors.accentEmerald,
-                fontWeight: 700,
-                letterSpacing: '0.1em',
+                color: '#10b981',
+                fontWeight: 800,
+                letterSpacing: '0.15em',
               }}
             >
               VISTAR AUTONOMOUS SYSTEM
             </span>
             <span
               style={{
-                fontSize: '11px',
-                fontFamily: BRAND_TOKENS.typography.fontMono,
-                color: BRAND_TOKENS.colors.accentEmerald,
-                background: 'rgba(16, 185, 129, 0.12)',
-                padding: '4px 10px',
+                fontFamily: 'ui-monospace, monospace',
+                fontSize: '13px',
+                fontWeight: 800,
+                color: '#10b981',
+                background: 'rgba(16, 185, 129, 0.15)',
+                padding: '4px 12px',
                 borderRadius: '999px',
-                fontWeight: 600,
+                boxShadow: '0 0 16px rgba(16, 185, 129, 0.4)',
               }}
             >
-              94% HUMANLESS • INSTANT
+              {speedup}X EXECUTION VELOCITY
             </span>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div
               style={{
-                padding: '16px',
-                background: 'rgba(13, 14, 21, 0.7)',
-                borderRadius: '8px',
-                borderLeft: `3px solid ${BRAND_TOKENS.colors.accentEmerald}`,
+                padding: '18px',
+                background: 'rgba(13, 14, 21, 0.85)',
+                borderRadius: '12px',
+                borderLeft: '4px solid #10b981',
               }}
             >
-              <div style={{ fontWeight: 600, color: '#ECEEF5', fontSize: '15px' }}>
+              <div style={{ fontWeight: 700, color: '#ECEEF5', fontSize: '16px' }}>
                 Autonomous AI Lead Execution
               </div>
               <div
                 style={{
                   fontSize: '12px',
-                  color: '#959CB3',
-                  fontFamily: BRAND_TOKENS.typography.fontMono,
-                  marginTop: '4px',
+                  color: 'rgba(255, 255, 255, 0.7)',
+                  fontFamily: 'ui-monospace, monospace',
+                  marginTop: '6px',
                 }}
               >
-                Instant 24/7 AI qualification • Automated WhatsApp closing • Zero delay
+                Instant 24/7 AI qualification • Automated WhatsApp closing in 12s • Zero delay
               </div>
             </div>
 
             <div
               style={{
-                padding: '16px',
-                background: 'rgba(13, 14, 21, 0.7)',
-                borderRadius: '8px',
-                borderLeft: `3px solid ${BRAND_TOKENS.colors.accentEmerald}`,
+                padding: '18px',
+                background: 'rgba(13, 14, 21, 0.85)',
+                borderRadius: '12px',
+                borderLeft: '4px solid #10b981',
               }}
             >
-              <div style={{ fontWeight: 600, color: '#ECEEF5', fontSize: '15px' }}>
+              <div style={{ fontWeight: 700, color: '#ECEEF5', fontSize: '16px' }}>
                 Self-Operating Data Pipelines
               </div>
               <div
                 style={{
                   fontSize: '12px',
-                  color: '#959CB3',
-                  fontFamily: BRAND_TOKENS.typography.fontMono,
-                  marginTop: '4px',
+                  color: 'rgba(255, 255, 255, 0.7)',
+                  fontFamily: 'ui-monospace, monospace',
+                  marginTop: '6px',
                 }}
               >
                 Event-driven synchronization across tools • Zero manual entry • 100% data fidelity
@@ -296,21 +316,21 @@ export const SceneTransformation: React.FC = () => {
 
             <div
               style={{
-                padding: '16px',
-                background: 'rgba(13, 14, 21, 0.7)',
-                borderRadius: '8px',
-                borderLeft: `3px solid ${BRAND_TOKENS.colors.accentEmerald}`,
+                padding: '18px',
+                background: 'rgba(13, 14, 21, 0.85)',
+                borderRadius: '12px',
+                borderLeft: '4px solid #10b981',
               }}
             >
-              <div style={{ fontWeight: 600, color: '#ECEEF5', fontSize: '15px' }}>
+              <div style={{ fontWeight: 700, color: '#ECEEF5', fontSize: '16px' }}>
                 10x Scale Without Headcount
               </div>
               <div
                 style={{
                   fontSize: '12px',
-                  color: '#959CB3',
-                  fontFamily: BRAND_TOKENS.typography.fontMono,
-                  marginTop: '4px',
+                  color: 'rgba(255, 255, 255, 0.7)',
+                  fontFamily: 'ui-monospace, monospace',
+                  marginTop: '6px',
                 }}
               >
                 Software absorbs 100x transaction volume • Humans only supervise strategic growth
@@ -320,18 +340,18 @@ export const SceneTransformation: React.FC = () => {
         </div>
       </div>
 
-      {/* Dynamic Transformation Wipe Divider Line */}
+      {/* Dynamic Laser Wipe Blade */}
       <div
         style={{
           position: 'absolute',
           top: 0,
           bottom: 0,
-          left: `${wipeX}%`,
-          width: '2px',
-          background: 'linear-gradient(to bottom, transparent, #10b981, transparent)',
-          boxShadow: '0 0 16px #10b981',
+          left: `${laserX}%`,
+          width: '3px',
+          background: 'linear-gradient(to bottom, transparent, #10b981, #06b6d4, transparent)',
+          boxShadow: '0 0 30px #10b981, 0 0 10px #fff',
           zIndex: 40,
-          opacity: relFrame > 15 && relFrame < 200 ? 0.8 : 0,
+          opacity: 0.9,
           pointerEvents: 'none',
         }}
       />

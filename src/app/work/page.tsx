@@ -6,24 +6,24 @@ import WorkSolutionsPage from "./work-client";
 
 // ─── Page-level metadata ──────────────────────────────────────────────────────
 export const metadata: Metadata = {
-  title: "AI Software Engineering Portfolio & Enterprise Case Studies",
+  title: "Production Software & Web Engineering Case Studies",
   description:
-    "Inspect production systems built by VISTAR: an AI cockpit telemetry platform for aviation, multi-agent biometric anomaly detection for healthcare, and 3D architectural platforms for PropTech. 100% source code handed over on every project.",
+    "Inspect production systems engineered by VISTAR: 3axis Arc (interactive 3D spatial showroom for Lucknow architecture), Project VAYU (open-source aviation NOTAM GIS tool), and automated WhatsApp CRM pipelines. 100% source code handover.",
   keywords: KEYWORDS.work,
   alternates: {
     canonical: `${BASE_URL}/work`,
   },
   openGraph: {
-    title: "AI Software Engineering Portfolio & Enterprise Case Studies | VISTAR",
+    title: "Production Software & Web Engineering Case Studies | VISTAR",
     description:
-      "Production AI agents, enterprise web platforms, and interactive 3D systems — engineered by VISTAR and fully owned by the client. Inspect our live systems.",
+      "Production web applications, WhatsApp automations, and interactive 3D spatial platforms engineered by VISTAR with 100% source code ownership. Inspect our live deployments.",
     url: `${BASE_URL}/work`,
     images: DEFAULT_OG_IMAGES,
   },
   twitter: {
-    title: "AI Software Engineering Portfolio & Enterprise Case Studies | VISTAR",
+    title: "Production Software & Web Engineering Case Studies | VISTAR",
     description:
-      "Production AI agents, enterprise web platforms, and interactive 3D systems — engineered by VISTAR and fully owned by the client.",
+      "Production web applications, WhatsApp automations, and interactive 3D spatial platforms engineered by VISTAR with 100% source code ownership.",
     images: [DEFAULT_OG_IMAGES[0].url],
   },
 };
@@ -36,9 +36,9 @@ const workPageSchema = {
       "@type": "CollectionPage",
       "@id": `${BASE_URL}/work#webpage`,
       url: `${BASE_URL}/work`,
-      name: "AI Software Engineering Portfolio — VISTAR",
+      name: "Production Software Portfolio — VISTAR",
       description:
-        "A portfolio of mission-critical production software engineered by VISTAR: aviation telemetry, healthcare AI, PropTech 3D platforms, and enterprise SaaS.",
+        "A portfolio of production software engineered by VISTAR: 3D spatial web for architecture, open-source aviation GIS, and internal lead pipelines.",
       isPartOf: { "@id": `${BASE_URL}/#website` },
     },
     {

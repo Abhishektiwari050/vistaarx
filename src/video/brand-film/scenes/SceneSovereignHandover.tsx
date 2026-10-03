@@ -1,63 +1,55 @@
 import React from 'react';
 import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
-import { BRAND_TOKENS } from '../constants';
+import { CinematicBackground } from '../components/CinematicBackground';
 
 export const SceneSovereignHandover: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // Relative frame (0 to 180)
-  const relFrame = Math.max(0, frame - 720);
+  const relFrame = frame; // 0 to 180
 
   // Terminal entrance
   const terminalEntrance = spring({
     frame: relFrame,
     fps,
-    config: { damping: 14, stiffness: 85 },
+    config: { damping: 14, stiffness: 100 },
   });
 
-  // Endcard entrance at relFrame 90 (27s)
+  // Endcard entrance at relFrame 75
   const endcardEntrance = spring({
-    frame: relFrame - 80,
+    frame: relFrame - 70,
     fps,
-    config: { damping: 15, stiffness: 80 },
+    config: { damping: 12, stiffness: 90 },
   });
 
-  const endcardOpacity = interpolate(relFrame, [75, 95], [0, 1], { extrapolateRight: 'clamp' });
-  const terminalOpacity = interpolate(relFrame, [75, 95], [1, 0.15], { extrapolateRight: 'clamp' });
+  const endcardOpacity = interpolate(relFrame, [65, 85], [0, 1], { extrapolateRight: 'clamp' });
+  const terminalOpacity = interpolate(relFrame, [65, 85], [1, 0.08], { extrapolateRight: 'clamp' });
+
+  // Light pulse on emblem
+  const emblemGlow = Math.sin(relFrame * 0.1) * 0.2 + 0.8;
 
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: BRAND_TOKENS.colors.bg,
+        backgroundColor: '#040507',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         overflow: 'hidden',
       }}
     >
-      {/* Background Subtle Radial Pulse */}
-      <div
-        style={{
-          position: 'absolute',
-          width: '900px',
-          height: '900px',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(16, 185, 129, 0.08) 0%, transparent 70%)',
-          filter: 'blur(70px)',
-        }}
-      />
+      <CinematicBackground accentColor="#10b981" />
 
-      {/* Terminal View (Frames 720 - 810) */}
+      {/* Terminal View (Frames 0 - 75) */}
       <div
         style={{
           position: 'absolute',
-          width: '860px',
-          background: 'rgba(13, 14, 21, 0.95)',
-          border: `1px solid ${BRAND_TOKENS.colors.borderActive}`,
-          borderRadius: '14px',
-          boxShadow: '0 24px 64px rgba(0, 0, 0, 0.8), 0 0 30px rgba(16, 185, 129, 0.1)',
-          backdropFilter: 'blur(20px)',
+          width: '920px',
+          background: 'rgba(10, 12, 18, 0.95)',
+          border: '1.5px solid rgba(16, 185, 129, 0.4)',
+          borderRadius: '18px',
+          boxShadow: '0 30px 80px rgba(0, 0, 0, 0.9), 0 0 50px rgba(16, 185, 129, 0.15)',
+          backdropFilter: 'blur(24px)',
           overflow: 'hidden',
           transform: `scale(${terminalEntrance})`,
           opacity: terminalOpacity,
@@ -67,27 +59,28 @@ export const SceneSovereignHandover: React.FC = () => {
         {/* Terminal Header */}
         <div
           style={{
-            padding: '12px 18px',
+            padding: '14px 22px',
             background: 'rgba(255, 255, 255, 0.03)',
-            borderBottom: `1px solid ${BRAND_TOKENS.colors.border}`,
+            borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
           }}
         >
           <div style={{ display: 'flex', gap: '8px' }}>
-            <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#ef4444' }} />
-            <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#f59e0b' }} />
-            <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#10b981' }} />
+            <div style={{ width: 11, height: 11, borderRadius: '50%', background: '#ef4444' }} />
+            <div style={{ width: 11, height: 11, borderRadius: '50%', background: '#f59e0b' }} />
+            <div style={{ width: 11, height: 11, borderRadius: '50%', background: '#10b981' }} />
           </div>
           <div
             style={{
-              fontFamily: BRAND_TOKENS.typography.fontMono,
-              fontSize: '11px',
-              color: BRAND_TOKENS.colors.textTertiary,
+              fontFamily: 'ui-monospace, monospace',
+              fontSize: '12px',
+              color: 'rgba(255, 255, 255, 0.4)',
+              letterSpacing: '0.1em',
             }}
           >
-            vistar-operational-terminal // execute-autonomy.sh
+            vistar-terminal // autonomous-deployment.sh
           </div>
           <div style={{ width: 40 }} />
         </div>
@@ -95,65 +88,74 @@ export const SceneSovereignHandover: React.FC = () => {
         {/* Terminal Body */}
         <div
           style={{
-            padding: '24px 28px',
-            fontFamily: BRAND_TOKENS.typography.fontMono,
-            fontSize: '13px',
-            lineHeight: 1.8,
-            color: BRAND_TOKENS.colors.textPrimary,
+            padding: '28px 32px',
+            fontFamily: 'ui-monospace, monospace',
+            fontSize: '14px',
+            lineHeight: 1.85,
+            color: '#ECEEF5',
           }}
         >
-          <div style={{ color: BRAND_TOKENS.colors.textSecondary }}>
+          <div style={{ color: 'rgba(255, 255, 255, 0.5)' }}>
             $ vistar audit --analyze enterprise/workflows
           </div>
-          <div style={{ color: BRAND_TOKENS.colors.textTertiary }}>
-            [scan] 38 manual bottlenecks isolated • 420 human hours/month burned
+          <div style={{ color: '#06b6d4' }}>
+            [scan] 38 manual friction points isolated • 420 human hours/month burned
           </div>
-          <div style={{ color: BRAND_TOKENS.colors.textSecondary, marginTop: '4px' }}>
+          <div style={{ color: 'rgba(255, 255, 255, 0.5)', marginTop: '8px' }}>
             $ vistar deploy --automations --ai-orchestrator
           </div>
-          <div style={{ color: BRAND_TOKENS.colors.accentEmerald, marginTop: '4px' }}>
+          <div style={{ color: '#10b981', marginTop: '4px' }}>
             ✓ Autonomous AI pipelines deployed across communications & data.
           </div>
-          <div style={{ color: BRAND_TOKENS.colors.accentEmerald }}>
+          <div style={{ color: '#10b981' }}>
             ✓ 94% Human Toil Eliminated • Real-time Zero-Latency Execution.
           </div>
-          <div style={{ color: BRAND_TOKENS.colors.textTertiary, fontSize: '11px', marginTop: '6px' }}>
-            Operations running easier, faster, and humanless. 100% Client Code Sovereignty.
+          <div
+            style={{
+              color: 'rgba(255, 255, 255, 0.4)',
+              fontSize: '12px',
+              marginTop: '10px',
+              borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+              paddingTop: '10px',
+            }}
+          >
+            OPERATIONS RUNNING EASIER, FASTER, AND HUMANLESS. 100% SOVEREIGN OWNERSHIP.
           </div>
         </div>
       </div>
 
-      {/* Final Endcard / Brand Climax (relFrame >= 80) */}
+      {/* Final Endcard / Grand Brand Climax (relFrame >= 70) */}
       <div
         style={{
           position: 'relative',
           zIndex: 30,
           textAlign: 'center',
-          maxWidth: '960px',
+          maxWidth: '1200px',
           opacity: endcardOpacity,
           transform: `scale(${endcardEntrance})`,
         }}
       >
+        {/* Glowing Geometric Emblem */}
         <div
           style={{
             display: 'inline-flex',
             alignItems: 'center',
             justifyContent: 'center',
-            width: '64px',
-            height: '64px',
-            borderRadius: '16px',
-            background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%)',
-            border: `1.5px solid ${BRAND_TOKENS.colors.accentEmerald}`,
-            boxShadow: '0 0 30px rgba(16, 185, 129, 0.35)',
-            marginBottom: '24px',
+            width: '84px',
+            height: '84px',
+            borderRadius: '24px',
+            background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(6, 182, 212, 0.25) 100%)',
+            border: '2px solid #10b981',
+            boxShadow: `0 0 50px rgba(16, 185, 129, ${0.4 * emblemGlow}), inset 0 0 30px rgba(16, 185, 129, 0.3)`,
+            marginBottom: '28px',
           }}
         >
           <span
             style={{
-              fontFamily: BRAND_TOKENS.typography.fontSans,
+              fontFamily: 'system-ui, sans-serif',
               fontWeight: 900,
-              fontSize: '28px',
-              color: BRAND_TOKENS.colors.textPrimary,
+              fontSize: '36px',
+              color: '#ECEEF5',
             }}
           >
             V
@@ -162,13 +164,14 @@ export const SceneSovereignHandover: React.FC = () => {
 
         <h1
           style={{
-            fontFamily: BRAND_TOKENS.typography.fontSans,
-            fontSize: '64px',
+            fontFamily: 'system-ui, -apple-system, sans-serif',
+            fontSize: '84px',
             fontWeight: 900,
-            letterSpacing: '-0.03em',
-            lineHeight: 1.05,
-            color: BRAND_TOKENS.colors.textPrimary,
-            margin: '0 0 16px 0',
+            letterSpacing: '-0.04em',
+            lineHeight: 1.0,
+            color: '#ECEEF5',
+            margin: '0 0 18px 0',
+            textShadow: '0 10px 60px rgba(0, 0, 0, 0.9)',
           }}
         >
           VISTAR.TECH
@@ -176,14 +179,28 @@ export const SceneSovereignHandover: React.FC = () => {
 
         <p
           style={{
-            fontFamily: BRAND_TOKENS.typography.fontMono,
-            fontSize: '18px',
-            color: BRAND_TOKENS.colors.textSecondary,
-            letterSpacing: '0.08em',
-            margin: '0 0 36px 0',
+            fontFamily: 'ui-monospace, monospace',
+            fontSize: '22px',
+            fontWeight: 700,
+            color: '#10b981',
+            letterSpacing: '0.1em',
+            margin: '0 0 14px 0',
+            textShadow: '0 0 30px rgba(16, 185, 129, 0.4)',
           }}
         >
           MAKING ENTERPRISE OPERATIONS EASIER, FASTER, AND HUMANLESS.
+        </p>
+
+        <p
+          style={{
+            fontFamily: 'ui-monospace, monospace',
+            fontSize: '15px',
+            color: 'rgba(255, 255, 255, 0.6)',
+            letterSpacing: '0.06em',
+            margin: '0 0 40px 0',
+          }}
+        >
+          ENTERPRISE AUTOMATION INTELLIGENCE • SOVEREIGN SOFTWARE • AI WORKFLOWS
         </p>
 
         <div
@@ -191,15 +208,15 @@ export const SceneSovereignHandover: React.FC = () => {
             display: 'inline-flex',
             alignItems: 'center',
             gap: '16px',
-            padding: '12px 32px',
+            padding: '16px 40px',
             borderRadius: '999px',
             background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
-            color: '#060709',
-            fontFamily: BRAND_TOKENS.typography.fontMono,
-            fontSize: '14px',
-            fontWeight: 700,
-            letterSpacing: '0.06em',
-            boxShadow: '0 10px 30px rgba(16, 185, 129, 0.4)',
+            color: '#040507',
+            fontFamily: 'ui-monospace, monospace',
+            fontSize: '15px',
+            fontWeight: 800,
+            letterSpacing: '0.08em',
+            boxShadow: '0 12px 40px rgba(16, 185, 129, 0.5)',
           }}
         >
           BOOK AN OPERATIONAL AUDIT // CONTACT@VISTAR.TECH

@@ -41,7 +41,7 @@ const VISTAR_COLUMNS: FooterColumn[] = [
       { label: "Deterministic Multi-Agent Graphs", href: "/blog/deterministic-multi-agent-graphs-vs-probabilistic-drift" },
       { label: "Sovereign Private Cloud Deployment", href: "/blog/sovereign-private-vpc-ai-deployment-guide" },
       { label: "GitHub: Open Source VAYU", href: "https://github.com/Abhishektiwari050/AI-VAYU", isExternal: true },
-      { label: "GitHub: 3axis Arc Platform", href: "https://github.com/Abhishektiwari050/3axisarc", isExternal: true },
+      { label: "Live Showroom: 3axis Arc", href: "https://3axisarc.vercel.app", isExternal: true },
     ],
   },
   {

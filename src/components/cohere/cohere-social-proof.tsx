@@ -10,40 +10,40 @@ interface PartnerLogo {
 
 const LOGOS: PartnerLogo[] = [
   {
-    name: "Amazon Web Services",
-    src: "https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg",
+    name: "Next.js 16",
+    src: "https://upload.wikimedia.org/wikipedia/commons/8/8e/Nextjs-logo.svg",
   },
   {
-    name: "Google Cloud",
-    src: "https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg",
+    name: "React 19",
+    src: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg",
   },
   {
-    name: "Microsoft Azure",
-    src: "https://upload.wikimedia.org/wikipedia/commons/a/a8/Microsoft_Azure_Logo.svg",
+    name: "TypeScript",
+    src: "https://upload.wikimedia.org/wikipedia/commons/4/4c/Typescript_logo_2020.svg",
   },
   {
-    name: "Cloudflare",
-    src: "https://upload.wikimedia.org/wikipedia/commons/4/4b/Cloudflare_Logo.svg",
-  },
-  {
-    name: "Docker",
-    src: "https://upload.wikimedia.org/wikipedia/commons/4/4e/Docker_%28container_engine%29_logo.svg",
-  },
-  {
-    name: "Kubernetes",
-    src: "https://upload.wikimedia.org/wikipedia/commons/3/39/Kubernetes_logo_without_workmark.svg",
+    name: "Python",
+    src: "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg",
   },
   {
     name: "PostgreSQL",
     src: "https://upload.wikimedia.org/wikipedia/commons/2/29/Postgresql_elephant.svg",
   },
   {
-    name: "Next.js",
-    src: "https://upload.wikimedia.org/wikipedia/commons/8/8e/Nextjs-logo.svg",
+    name: "Docker",
+    src: "https://upload.wikimedia.org/wikipedia/commons/4/4e/Docker_%28container_engine%29_logo.svg",
   },
   {
-    name: "Python",
-    src: "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg",
+    name: "Tailwind CSS",
+    src: "https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg",
+  },
+  {
+    name: "Three.js",
+    src: "https://upload.wikimedia.org/wikipedia/commons/3/3f/Three.js_Icon.svg",
+  },
+  {
+    name: "FastAPI",
+    src: "https://cdn.worldvectorlogo.com/logos/fastapi-1.svg",
   },
   {
     name: "Redis",
@@ -62,7 +62,7 @@ export function CohereSocialProof() {
               '"Unica77 Cohere Web", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
           }}
         >
-          Engineered to interface natively with enterprise architectures, private VPCs, and global clouds
+          Core technologies powering our production web applications, automations, and spatial systems
         </p>
       </div>
 

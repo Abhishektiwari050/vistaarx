@@ -29,69 +29,69 @@ interface AgentPod {
 const AGENT_PODS: AgentPod[] = [
   {
     id: "vayu",
-    name: "Aviation NOTAM & GIS Agent",
-    subtitle: "Project VAYU Airspace Safety Pod",
-    badge: "AVIONICS // GIS",
+    name: "Project VAYU: Aviation Briefing Tool",
+    subtitle: "Open-Source Pre-Flight NOTAM & Weather Application",
+    badge: "OPEN SOURCE // GIS",
     badgeColor: "bg-sky-50 text-sky-700 border-sky-200",
-    latency: "<42ms",
-    accuracy: "100% Deterministic",
+    latency: "Sub-50ms Edge",
+    accuracy: "Live NOTAM Feed",
     steps: [
-      { title: "Ingest NOTAM Stream", agent: "Telemetry Ingestion Worker", status: "done", detail: "Parsed ICAO Annex 15 format from FAA & Eurocontrol feeds" },
-      { title: "Compute Spatial Vector Geofence", agent: "Spatial Reasoning Kernel", status: "done", detail: "Calculated 4.2nm buffer on KJFK Runway 04L/22R" },
-      { title: "Validate Conflict Boundaries", agent: "Deterministic Rule Engine", status: "done", detail: "Zero hallucination gate passed, schema strictly typed" },
-      { title: "Dispatch Cockpit Briefing", agent: "VPC State Handover", status: "ready", detail: "Payload emitted to authenticated pilot EFB clients" },
+      { title: "Ingest Live NOTAM Stream", agent: "Aviation Ingestion Worker", status: "done", detail: "Parsed ICAO format NOTAM alerts along selected corridor" },
+      { title: "Compute Geographic Coordinates", agent: "Spatial Reasoning Kernel", status: "done", detail: "Extracted runway closure geofences and airspace hazard bounds" },
+      { title: "Render MapLibre GIS Layer", agent: "Vector Map Renderer", status: "done", detail: "Interactive flight path overlay rendered in-browser at 60 FPS" },
+      { title: "Generate Pre-Flight Summary", agent: "Pilot Briefing Formatter", status: "ready", detail: "Formatted route briefing displayed directly to pilot on web" },
     ],
-    inputPayload: `{\n  "source": "FAA_NOTAM_FEED",\n  "airport": "KJFK",\n  "raw": "A0452/26 NOTAMR A0449/26 KJFK RWY 04L/22R CLSD DUE WIP",\n  "effective_window": "2026-03-17T00:00:00Z/2026-03-17T08:00:00Z"\n}`,
+    inputPayload: `{\n  "route": "DEL-LKO",\n  "departure": "VIDP",\n  "destination": "VILK",\n  "status": "LIVE_METAR_INGEST"\n}`,
     toolCall: {
       tool: "gis_airspace_index.intersect",
-      parameters: `{\n  "airport": "KJFK",\n  "surface": "04L/22R",\n  "lat": 40.6413,\n  "lng": -73.7781\n}`,
-      result: `{\n  "active_runways": ["13L/31R", "13R/31L"],\n  "hazard_level": "WARNING",\n  "reroute_required": false\n}`,
+      parameters: `{\n  "corridor": "DEL_LKO",\n  "airway": "W13",\n  "hazard_type": "TEMPORARY_RESTRICTION"\n}`,
+      result: `{\n  "active_runways": ["09/27"],\n  "weather_condition": "VMC",\n  "open_source": true\n}`,
     },
-    outputPayload: `{\n  "status": "DISPATCH_READY",\n  "flight_hazard_index": 0.84,\n  "hallucination_score": 0.00,\n  "audit_hash": "0x98f2a10b4c81"\n}`,
+    outputPayload: `{\n  "status": "BRIEFING_READY",\n  "repo": "https://github.com/Abhishektiwari050/AI-VAYU",\n  "author": "Abhishek Tiwari"\n}`,
   },
   {
-    id: "aura",
-    name: "Multi-Agent Biometric Anomaly Detector",
-    subtitle: "AURA High-Acuity Telemetry Pod",
-    badge: "HEALTHCARE // ML",
+    id: "3axis",
+    name: "3axis Arc: 60 FPS 3D Showroom",
+    subtitle: "Interactive Architectural Web Platform (Lucknow)",
+    badge: "WEBGL // THREE.JS",
+    badgeColor: "bg-amber-50 text-amber-800 border-amber-200",
+    latency: "60 FPS Native",
+    accuracy: "Zero Layout Shift",
+    steps: [
+      { title: "Stream Compressed GLTF 3D Model", agent: "Asset Hydration Worker", status: "done", detail: "Loaded optimized 3D architectural mesh under 2 seconds" },
+      { title: "Mount Three.js Canvas", agent: "WebGL Viewport Kernel", status: "done", detail: "Initialized orbital camera choreography for mobile & desktop" },
+      { title: "Apply Procedural Material Shaders", agent: "Shader Computation Engine", status: "done", detail: "Real-time lighting reflections and soft shadow mapping" },
+      { title: "Deploy to Vercel Global Edge", agent: "Edge Deployment Pipeline", status: "ready", detail: "Instant interactive 3D spatial exploration with zero app install" },
+    ],
+    inputPayload: `{\n  "client": "3axis Arc",\n  "location": "Lucknow, Uttar Pradesh",\n  "format": "Interactive In-Browser 3D Showroom"\n}`,
+    toolCall: {
+      tool: "three_scene.compileShaders",
+      parameters: `{\n  "target_fps": 60,\n  "viewport": "responsive_mobile_desktop"\n}`,
+      result: `{\n  "draw_calls": 14,\n  "fps": 60.0,\n  "cls": 0.000\n}`,
+    },
+    outputPayload: `{\n  "live_site": "https://3axisarc.vercel.app",\n  "ownership": "100% Client Private GitHub Handover"\n}`,
+  },
+  {
+    id: "autolead",
+    name: "VISTAR AutoLead: WhatsApp Lead Pipeline",
+    subtitle: "Internal Lead Ingestion & WhatsApp Triage Engine",
+    badge: "AUTOMATION // WHATSAPP",
     badgeColor: "bg-emerald-50 text-emerald-700 border-emerald-200",
-    latency: "<18ms",
-    accuracy: "99.8% Precision",
+    latency: "<2s Alert",
+    accuracy: "100% Delivery",
     steps: [
-      { title: "Stream 100Hz Sensor Array", agent: "Sensor Ingestion Agent", status: "done", detail: "Continuous SpO2, HRV, and mean arterial pressure tracking" },
-      { title: "Unsupervised Isolation Forest", agent: "ML Inference Pod", status: "done", detail: "Real-time outlier calculation with rolling 120s sliding window" },
-      { title: "Multi-Agent Alert Consensus", agent: "Clinical Arbiter Agent", status: "done", detail: "Cross-correlated vital drops against ambient noise artifacts" },
-      { title: "Route Emergency Notification", agent: "VPC State Handover", status: "ready", detail: "High-priority WebSocket packet delivered to ICU central station" },
+      { title: "Ingest Web & WhatsApp Inquiries", agent: "Webhook Ingestion Worker", status: "done", detail: "Captured inquiry with name, phone, and project requirements" },
+      { title: "Validate & Parse Project Scope", agent: "Input Sanitization Gate", status: "done", detail: "Structured payload with contact details and timeline request" },
+      { title: "Dispatch WhatsApp Notification", agent: "WhatsApp Notification Dispatcher", status: "done", detail: "Instant alert sent directly to Abhishek Tiwari on WhatsApp" },
+      { title: "Record to Client Dashboard", agent: "CRM Persistence Pipeline", status: "ready", detail: "Logged inquiry with automated follow-up reminder timestamp" },
     ],
-    inputPayload: `{\n  "stream_id": "icu_bed_14",\n  "window_seconds": 120,\n  "sample_rate_hz": 100,\n  "sensor_types": ["spo2", "pulse_rate", "map"]\n}`,
+    inputPayload: `{\n  "inquiry_source": "vistar.tech/contact",\n  "channel": "WhatsApp Cloud API",\n  "recipient": "+91 79857 90432"\n}`,
     toolCall: {
-      tool: "isolation_forest.predict",
-      parameters: `{\n  "window_samples": 12000,\n  "threshold_sigma": 3.2\n}`,
-      result: `{\n  "anomaly_detected": true,\n  "acuity_score": 0.982,\n  "false_positive_risk": 0.002\n}`,
+      tool: "whatsapp_gateway.sendNotification",
+      parameters: `{\n  "template": "new_project_inquiry",\n  "priority": "HIGH"\n}`,
+      result: `{\n  "message_status": "DELIVERED",\n  "delivery_ms": 680\n}`,
     },
-    outputPayload: `{\n  "alert_id": "ALT-94021",\n  "classification": "ACUTE_DESATURATION",\n  "p99_latency_ms": 14.2,\n  "audit_hash": "0x4b7c19e31d02"\n}`,
-  },
-  {
-    id: "competence",
-    name: "Deterministic Schema & Operations Agent",
-    subtitle: "Competence Enterprise Intelligence Pod",
-    badge: "OPERATIONS // POSTGRES",
-    badgeColor: "bg-indigo-50 text-indigo-700 border-indigo-200",
-    latency: "<26ms",
-    accuracy: "Strict Type Safety",
-    steps: [
-      { title: "Ingest Event Streams", agent: "Ledger Observer Agent", status: "done", detail: "Capture state mutations from CRM & financial gateways" },
-      { title: "Validate Schema Contracts", agent: "JSON Schema Validator", status: "done", detail: "Enforce strict relational typing before persistence" },
-      { title: "Execute Atomic Transactions", agent: "Postgres 16 Transaction Pod", status: "done", detail: "Zero-data-loss commit with cryptographically signed logs" },
-      { title: "Sync Private Repository Handover", agent: "Git Handover Pipeline", status: "ready", detail: "Automated mirror to client-owned GitHub Enterprise repository" },
-    ],
-    inputPayload: `{\n  "action": "COMMIT_SETTLEMENT_RECORD",\n  "entity_id": "CORP-8840",\n  "currency": "USD",\n  "amount_cents": 4850000\n}`,
-    toolCall: {
-      tool: "pg_transaction.execute",
-      parameters: `{\n  "isolation_level": "SERIALIZABLE",\n  "table": "settlement_ledger"\n}`,
-      result: `{\n  "tx_status": "COMMITTED",\n  "block_time_ms": 3.8,\n  "rows_affected": 1\n}`,
-    },
-    outputPayload: `{\n  "tx_hash": "0xfe3820a1bc77",\n  "git_commit": "8f03c4a",\n  "codebase_ownership": "100% Client Sovereign"\n}`,
+    outputPayload: `{\n  "status": "ALERT_DISPATCHED",\n  "response_guarantee": "< 24 Hours"\n}`,
   },
 ];
 
@@ -135,7 +135,7 @@ export function AgentOrchestrationConsole() {
             <div className="flex items-center gap-2">
               <Terminal className="w-4 h-4 text-neutral-600" />
               <span className="font-mono text-xs font-semibold text-neutral-800 tracking-tight">
-                VISTAR_AGENT_KERNEL // RUNTIME 4.2
+                VISTAR_VERIFIED_SYSTEMS // RUNTIME CONSOLE
               </span>
             </div>
           </div>
@@ -164,12 +164,12 @@ export function AgentOrchestrationConsole() {
           {/* Live System Badges */}
           <div className="hidden sm:flex items-center gap-4 text-xs font-mono">
             <span className="inline-flex items-center gap-1.5 text-neutral-600">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              Latency: <strong className="text-neutral-900">{activePod.latency}</strong>
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+              Speed: <strong className="text-neutral-900">{activePod.latency}</strong>
             </span>
             <span className="inline-flex items-center gap-1.5 text-neutral-600">
-              <Shield className="w-3.5 h-3.5 text-neutral-600" />
-              VPC Air-Gapped
+              <Shield className="w-3.5 h-3.5 text-emerald-600" />
+              100% Code Handover
             </span>
           </div>
         </div>
@@ -367,10 +367,10 @@ export function AgentOrchestrationConsole() {
                 </span>
                 <span className="inline-flex items-center gap-2">
                   <Cpu className="w-3.5 h-3.5 text-sky-400" />
-                  <span>VPC Cloud: <strong className="text-white">AWS / GCP / Bare Metal</strong></span>
+                  <span>Deployment: <strong className="text-white">Vercel / Cloudflare / GitHub</strong></span>
                 </span>
                 <span className="text-neutral-500">
-                  Sprint Delivery: <strong>14 Days</strong>
+                  Fixed Delivery: <strong>14 Days</strong>
                 </span>
               </div>
             </div>

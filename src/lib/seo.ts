@@ -2,14 +2,14 @@
 export const BASE_URL = "https://www.vistar.tech";
 export const BRAND_NAME = "VISTAR";
 export const BRAND_TAGLINE =
-  "Custom AI Agents, Enterprise Web Engineering & 3D Interactive Development";
+  "Founder-Led Web Engineering, WhatsApp Automation & 3D Spatial Development";
 
 export const DEFAULT_OG_IMAGES = [
   {
     url: "/opengraph-image.jpg",
     width: 1200,
     height: 630,
-    alt: "VISTAR — Custom AI Software & Enterprise Web Engineering",
+    alt: "VISTAR — Founder-Led Web Engineering & Production Software Studio",
   },
 ];
 

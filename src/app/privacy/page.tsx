@@ -120,7 +120,7 @@ export default function PrivacyPage() {
                   <Link href="/start" className="text-[#0E1118] underline font-semibold">
                     /start
                   </Link>{" "}
-                  or email us, we collect your name, work email address, company name, project goals, technical bottlenecks, current technology stack, and budget allocation.
+                  or contact form, we collect your name, phone / WhatsApp number, work email address, company name, project goals, technical bottlenecks, and budget allocation.
                 </div>
               </li>
               <li className="flex items-start gap-3 bg-[#FAF9F5] p-4 rounded-[4px] border border-black/5">
@@ -157,42 +157,56 @@ export default function PrivacyPage() {
             </p>
           </div>
 
-          {/* Card 4 */}
+          {/* Card 4 - Sub-processors */}
           <div className="bg-white/90 border border-black/10 rounded-[6px] p-8 sm:p-10 shadow-sm hover:border-black/15 transition-all">
             <div className="flex items-center gap-3 mb-4">
               <span className="font-mono text-xs font-semibold text-[#FF3823] tracking-wider">04 //</span>
-              <span className="font-mono text-xs uppercase tracking-wider text-neutral-600">Purpose &amp; Use</span>
+              <span className="font-mono text-xs uppercase tracking-wider text-neutral-600">Infrastructure &amp; Sub-Processors</span>
             </div>
-            <h2 className="text-2xl font-sans font-medium text-[#0E1118] mb-4">Engineering Purpose Only</h2>
+            <h2 className="text-2xl font-sans font-medium text-[#0E1118] mb-4">Trusted Technical Service Providers</h2>
             <p className="text-neutral-600 leading-relaxed font-sans text-base mb-4">
-              Your information is utilized solely for:
+              We utilize select, industry-standard infrastructure providers to host our edge endpoints and route communication:
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm font-sans text-neutral-800">
-              <div className="p-3.5 bg-[#FAF9F5] rounded-[4px] border border-black/5 flex items-center gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-[#FF3823] shrink-0" />
-                <span>Formulating architecture &amp; sprint estimates</span>
-              </div>
-              <div className="p-3.5 bg-[#FAF9F5] rounded-[4px] border border-black/5 flex items-center gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-[#FF3823] shrink-0" />
-                <span>Direct engineer communication (&lt; 24h SLA)</span>
-              </div>
-              <div className="p-3.5 bg-[#FAF9F5] rounded-[4px] border border-black/5 flex items-center gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-[#FF3823] shrink-0" />
-                <span>Enforcing edge security &amp; rate limiting</span>
-              </div>
-              <div className="p-3.5 bg-[#FAF9F5] rounded-[4px] border border-black/5 flex items-center gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-[#FF3823] shrink-0" />
-                <span>Executing active client sprint contracts</span>
-              </div>
+            <ul className="space-y-3 font-sans text-sm text-neutral-800">
+              <li className="flex items-start gap-2.5">
+                <CheckCircle2 className="w-4 h-4 text-[#FF3823] shrink-0 mt-0.5" />
+                <span><strong>Vercel Inc.</strong> — Edge hosting, serverless compute, and SSL termination.</span>
+              </li>
+              <li className="flex items-start gap-2.5">
+                <CheckCircle2 className="w-4 h-4 text-[#FF3823] shrink-0 mt-0.5" />
+                <span><strong>Google Workspace (Gmail)</strong> — Encrypted email correspondence and calendar dispatch.</span>
+              </li>
+              <li className="flex items-start gap-2.5">
+                <CheckCircle2 className="w-4 h-4 text-[#FF3823] shrink-0 mt-0.5" />
+                <span><strong>Meta Platforms Inc. (WhatsApp Cloud API)</strong> — Direct conversational consultation and mobile inquiry routing.</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Card 5 - DPDP Rights & Retention */}
+          <div className="bg-white/90 border border-black/10 rounded-[6px] p-8 sm:p-10 shadow-sm hover:border-black/15 transition-all">
+            <div className="flex items-center gap-3 mb-4">
+              <span className="font-mono text-xs font-semibold text-[#FF3823] tracking-wider">05 //</span>
+              <span className="font-mono text-xs uppercase tracking-wider text-neutral-600">DPDP Act 2023 &amp; User Rights</span>
+            </div>
+            <h2 className="text-2xl font-sans font-medium text-[#0E1118] mb-4">Data Retention &amp; Sovereignty Rights</h2>
+            <div className="space-y-3 text-neutral-600 leading-relaxed font-sans text-sm">
+              <p>
+                In compliance with India&apos;s Digital Personal Data Protection Act, 2023 (DPDP Act) and international data sovereignty principles, we retain inquiry data only for as long as necessary to conduct project scoping.
+              </p>
+              <p>
+                You retain complete rights to access, correct, export, or permanently erase your personal and commercial data from our records. To execute an erasure or data inquiry request, email our privacy desk at <a href="mailto:services.vistaar@gmail.com" className="text-[#FF3823] underline font-mono">services.vistaar@gmail.com</a>. Requests are completed within 48 hours.
+              </p>
             </div>
           </div>
 
           {/* Contact Card */}
           <div className="bg-white border border-black/10 rounded-[6px] p-8 sm:p-10 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-6">
             <div>
-              <div className="font-mono text-xs uppercase tracking-wider text-neutral-600 mb-2">05 // Legal &amp; Data Inquiries</div>
+              <div className="font-mono text-xs uppercase tracking-wider text-neutral-600 mb-2">06 // Legal &amp; Data Inquiries</div>
               <h3 className="text-xl font-sans font-medium text-[#0E1118] mb-1">Direct Privacy Officer</h3>
-              <p className="text-sm text-neutral-600 mb-2">Vistar Web Systems &bull; Lucknow, Uttar Pradesh, India</p>
+              <p className="text-sm text-neutral-600 mb-1">Vistar Web Systems &bull; Proprietary Studio of Abhishek Tiwari</p>
+              <p className="text-xs text-neutral-500 mb-1">Lucknow, Uttar Pradesh, India &bull; MSME / Udyam in filing</p>
               <p className="text-xs font-mono text-neutral-500">Phone &amp; WhatsApp: +91 79857 90432 &bull; SLA &lt; 24h</p>
             </div>
             <a

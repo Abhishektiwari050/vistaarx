@@ -18,6 +18,7 @@ import {
   Zap,
   Code2,
   Film,
+  Download,
 } from 'lucide-react';
 
 // Dynamically import Player to avoid SSR hydration mismatches
@@ -127,6 +128,14 @@ export default function BrandFilmPage() {
                 <Smartphone className="w-3.5 h-3.5" /> 9:16 Vertical
               </button>
             </div>
+            <a
+              href="/vistar-brand-film.mp4"
+              download="vistar-brand-film.mp4"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-500/30 text-xs font-mono transition-colors"
+            >
+              <Download className="w-3.5 h-3.5" />
+              <span>Download MP4 (10.2 MB)</span>
+            </a>
           </div>
         </div>
       </header>

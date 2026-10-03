@@ -7,9 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "video:preview": "remotion preview src/video/brand-film/Root.tsx",
-    "video:render": "remotion render src/video/brand-film/Root.tsx VistarBrandFilm out/vistar-brand-film.mp4 --crf=18",
-    "video:still": "remotion still src/video/brand-film/Root.tsx VistarBrandFilm out/vistar-poster.png --frame=360"
+    "video:preview": "remotion preview src/video/brand-film/index.ts",
+    "video:render": "remotion render src/video/brand-film/index.ts VistarBrandFilm out/vistar-brand-film.mp4 --crf=18",
+    "video:still": "remotion still src/video/brand-film/index.ts VistarBrandFilm public/vistar-poster.png --frame=360"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",

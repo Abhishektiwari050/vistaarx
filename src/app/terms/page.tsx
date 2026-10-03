@@ -120,8 +120,15 @@ export default function TermsPage() {
               <li className="flex items-start gap-3 bg-[#FAF9F5] p-4 rounded-[4px] border border-black/5">
                 <CheckCircle2 className="w-5 h-5 text-[#FF3823] shrink-0 mt-0.5" />
                 <div>
-                  <strong className="text-[#0E1118] block font-medium mb-0.5">Total IP Assignment:</strong>
-                  Vistar irrevocably transfers and assigns to the Client all worldwide rights, title, copyright, and interest in all bespoke software, custom code, diagrams, and digital assets engineered under the engagement.
+                  <strong className="text-[#0E1118] block font-medium mb-0.5">Total Bespoke IP Assignment:</strong>
+                  Vistar irrevocably transfers and assigns to the Client all worldwide rights, title, copyright, and interest in all bespoke software, custom business logic, domain models, and client-specific assets engineered under the engagement upon invoice settlement.
+                </div>
+              </li>
+              <li className="flex items-start gap-3 bg-[#FAF9F5] p-4 rounded-[4px] border border-black/5">
+                <CheckCircle2 className="w-5 h-5 text-[#FF3823] shrink-0 mt-0.5" />
+                <div>
+                  <strong className="text-[#0E1118] block font-medium mb-0.5">Reusable Tooling Carve-Out &amp; Perpetual License:</strong>
+                  Vistar retains ownership of its pre-existing utility libraries, generic WebGL shader primitives, UI components, and bot scaffolding. Vistar grants the Client a perpetual, irrevocable, worldwide, royalty-free, non-exclusive license to use, modify, run, and sub-license such foundational components within the delivered system.
                 </div>
               </li>
               <li className="flex items-start gap-3 bg-[#FAF9F5] p-4 rounded-[4px] border border-black/5">
@@ -135,7 +142,7 @@ export default function TermsPage() {
                 <CheckCircle2 className="w-5 h-5 text-[#FF3823] shrink-0 mt-0.5" />
                 <div>
                   <strong className="text-[#0E1118] block font-medium mb-0.5">Open Source Licenses:</strong>
-                  Standard open-source dependencies (e.g. Next.js, React, Tailwind, Lucide) remain subject to their respective permissive licenses (MIT / Apache-2.0).
+                  Standard open-source dependencies (e.g. Next.js, React, Tailwind, Three.js) remain subject to their respective permissive licenses (MIT / Apache-2.0).
                 </div>
               </li>
             </ul>
@@ -159,26 +166,26 @@ export default function TermsPage() {
               <span className="font-mono text-xs font-semibold text-[#FF3823] tracking-wider">04 //</span>
               <span className="font-mono text-xs uppercase tracking-wider text-neutral-600">Sprint Delivery &amp; Acceptance</span>
             </div>
-            <h2 className="text-2xl font-sans font-medium text-[#0E1118] mb-4">14–21 Day Milestone Cycles</h2>
+            <h2 className="text-2xl font-sans font-medium text-[#0E1118] mb-4">Sprint Cycles &amp; Acceptance Milestones</h2>
             <p className="text-neutral-600 leading-relaxed font-sans text-base mb-4">
-              Engagements are delivered in deterministic 14–21 day production cycles. Each milestone concludes with verifiable deliverables:
+              Engagements are delivered in deterministic milestone cycles (typically 5–7 days for MVP automations, 14 days for production systems). Each milestone concludes with verifiable deliverables:
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm font-sans text-neutral-800">
               <div className="p-3.5 bg-[#FAF9F5] rounded-[4px] border border-black/5 flex items-center gap-2.5">
                 <CheckCircle2 className="w-4 h-4 text-[#FF3823] shrink-0" />
-                <span>Deployable code merged to Git</span>
+                <span>Deployable code merged to Client Git</span>
               </div>
               <div className="p-3.5 bg-[#FAF9F5] rounded-[4px] border border-black/5 flex items-center gap-2.5">
                 <CheckCircle2 className="w-4 h-4 text-[#FF3823] shrink-0" />
-                <span>Automated test suites (0 criticals)</span>
+                <span>Verification suites per Statement of Work</span>
               </div>
               <div className="p-3.5 bg-[#FAF9F5] rounded-[4px] border border-black/5 flex items-center gap-2.5">
                 <CheckCircle2 className="w-4 h-4 text-[#FF3823] shrink-0" />
-                <span>Sub-2.5s LCP &amp; WCAG AA compliance</span>
+                <span>Performance benchmarks agreed per SOW</span>
               </div>
               <div className="p-3.5 bg-[#FAF9F5] rounded-[4px] border border-black/5 flex items-center gap-2.5">
                 <CheckCircle2 className="w-4 h-4 text-[#FF3823] shrink-0" />
-                <span>Formal 5-day client review window</span>
+                <span>Formal 5-day client review &amp; signoff window</span>
               </div>
             </div>
           </div>
@@ -187,27 +194,39 @@ export default function TermsPage() {
           <div className="bg-white/90 border border-black/10 rounded-[6px] p-8 sm:p-10 shadow-sm hover:border-black/15 transition-all">
             <div className="flex items-center gap-3 mb-4">
               <span className="font-mono text-xs font-semibold text-[#FF3823] tracking-wider">05 //</span>
-              <span className="font-mono text-xs uppercase tracking-wider text-neutral-600">Warranties &amp; Code Integrity</span>
+              <span className="font-mono text-xs uppercase tracking-wider text-neutral-600">Commercial Terms &amp; Governing Law</span>
             </div>
-            <h2 className="text-2xl font-sans font-medium text-[#0E1118] mb-4">Production-Grade Standards</h2>
-            <p className="text-neutral-600 leading-relaxed font-sans text-base">
-              Vistar warrants that all custom code delivered will be free of malicious programs, built according to modern TypeScript and OWASP security standards, and conform to the technical specifications defined in the applicable SOW. Following handover, Vistar provides a 30-day warranty window for bug remediation at zero additional charge.
-            </p>
+            <h2 className="text-2xl font-sans font-medium text-[#0E1118] mb-4">Payment Schedule, Liability &amp; Jurisdiction</h2>
+            <div className="space-y-4 text-neutral-600 leading-relaxed font-sans text-sm">
+              <p>
+                <strong className="text-[#0E1118]">Payment Milestones:</strong> Standard engagements follow a 50% mobilization deposit upon project kickoff, and 50% balance upon final staging deployment, verification, and private repository handover.
+              </p>
+              <p>
+                <strong className="text-[#0E1118]">Limitation of Liability:</strong> To the maximum extent permitted by law, Vistar&apos;s aggregate liability for any claims arising out of an engagement shall not exceed the total fees paid by Client under the applicable Statement of Work. Neither party shall be liable for indirect, incidental, or consequential damages.
+              </p>
+              <p>
+                <strong className="text-[#0E1118]">Termination:</strong> Either party may terminate an engagement with 7 business days written notice. In the event of early termination, Client pays for completed and verified milestones pro-rata, and receives all code committed up to that date.
+              </p>
+              <p>
+                <strong className="text-[#0E1118]">Governing Law &amp; Jurisdiction:</strong> These Terms and all statements of work are governed by the laws of India. Any disputes shall be subject to the exclusive jurisdiction of the competent courts in Lucknow, Uttar Pradesh, India.
+              </p>
+            </div>
           </div>
 
           {/* Legal Office Contact Card */}
           <div className="bg-white border border-black/10 rounded-[6px] p-8 sm:p-10 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-6">
             <div>
-              <div className="font-mono text-xs uppercase tracking-wider text-neutral-600 mb-2">06 // Legal Office</div>
+              <div className="font-mono text-xs uppercase tracking-wider text-neutral-600 mb-2">06 // Legal &amp; Commercial Contacts</div>
               <h3 className="text-xl font-sans font-medium text-[#0E1118] mb-1">Contract &amp; Vendor Inquiries</h3>
-              <p className="text-sm text-neutral-600">Direct partner response SLA within 24 hours.</p>
+              <p className="text-sm text-neutral-600">Abhishek Tiwari, Founder &amp; Lead Engineer &bull; Vistar Web Systems, Lucknow, India.</p>
+              <p className="text-xs font-mono text-neutral-500 mt-1">Direct inquiries via WhatsApp (+91 79857 90432) or email below.</p>
             </div>
             <a
               href="mailto:services.vistaar@gmail.com"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-white text-black hover:bg-[#ECEEF5] font-sans text-xs uppercase tracking-wider font-semibold transition-all shadow-sm shrink-0"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-white text-black hover:bg-[#ECEEF5] border border-black/15 font-sans text-xs uppercase tracking-wider font-semibold transition-all shadow-sm shrink-0"
             >
               <FileText className="w-4 h-4" />
-              <span>Contact Legal Counsel</span>
+              <span>Email Abhishek</span>
             </a>
           </div>
         </div>

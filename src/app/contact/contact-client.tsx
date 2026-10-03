@@ -142,7 +142,7 @@ export default function ContactPage() {
           </h1>
 
           <p className="text-base sm:text-lg md:text-[19px] text-[#5E605D] max-w-2xl mx-auto leading-relaxed font-normal">
-            Direct access to principal software engineers. We review your requirements, provide honest technical feasibility, and scope working production systems delivered in 14-day sprints.
+            Direct collaboration with Abhishek Tiwari (Founder &amp; Lead Engineer). We review your requirements, provide honest technical feasibility, and scope working production systems delivered in 14-day sprints.
           </p>
         </div>
       </section>
@@ -174,7 +174,7 @@ export default function ContactPage() {
                       Requirements Received
                     </h3>
                     <p className="text-sm text-neutral-600 max-w-md mx-auto leading-relaxed">
-                      Thank you. We have received your technical requirements. A principal engineer will review the brief and respond within 24 hours.
+                      Thank you. We have received your technical requirements. Abhishek Tiwari will personally review the brief and respond within 24 hours.
                     </p>
                   </div>
 
@@ -369,7 +369,7 @@ export default function ContactPage() {
                     {isSubmitting ? (
                       <>
                         <Loader2 className="w-4 h-4 animate-spin" />
-                        <span>Sending to Principal Engineers...</span>
+                        <span>Sending to Abhishek...</span>
                       </>
                     ) : (
                       <>
@@ -408,7 +408,7 @@ export default function ContactPage() {
                     Prefer instant chat?
                   </h4>
                   <p className="text-xs text-emerald-800">
-                    Chat directly with our founding team on WhatsApp.
+                    Chat directly with Abhishek on WhatsApp.
                   </p>
                 </div>
               </div>
@@ -418,7 +418,7 @@ export default function ContactPage() {
               </p>
 
               <a
-                href="https://wa.me/917985790432?text=Hi%20Vistar%20team,%20I'm%20interested%20in%20building%20custom%20software%20or%20AI%20for%20my%20business."
+                href="https://wa.me/917985790432?text=Hi%20Abhishek%2C%20I'm%20interested%20in%20building%20custom%20software%20or%20AI%20for%20my%20business."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full py-3 px-4 bg-emerald-700 hover:bg-emerald-800 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-2 transition-colors shadow-xs"
@@ -468,13 +468,13 @@ export default function ContactPage() {
             {/* Interactive Wireframe Globe */}
             <div className="bg-white border border-black/10 rounded-2xl p-6 shadow-xs text-center space-y-2">
               <span className="font-mono text-[10px] text-neutral-400 uppercase tracking-widest block">
-                GLOBAL CLIENTS &bull; LUCKNOW &bull; INDIA
+                STUDIO LOCATION &bull; LUCKNOW &bull; INDIA
               </span>
               <div className="w-full h-52 flex items-center justify-center">
                 <RotatingEarth />
               </div>
               <p className="text-xs text-neutral-500 font-mono">
-                Serving businesses across India, US, UK, and UAE
+                Founder-led engineering studio based in Lucknow, Uttar Pradesh, India
               </p>
             </div>
 

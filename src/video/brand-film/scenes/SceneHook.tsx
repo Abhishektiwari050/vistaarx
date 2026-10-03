@@ -1,196 +1,252 @@
 import React from 'react';
 import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
-import { BRAND_TOKENS } from '../constants';
-
-const MANUAL_BOTTLENECKS = [
-  { process: 'Lead Triage & Qualification', cost: '4.8h Latency', impact: '38% Drop-off Rate', top: '24%', left: '20%' },
-  { process: 'Cross-Tool Copy-Pasting', cost: '120h / Month', impact: 'Manual Human Errors', top: '34%', left: '74%' },
-  { process: 'Customer Support Escalations', cost: '14m Wait Time', impact: 'High Headcount Cost', top: '65%', left: '23%' },
-  { process: 'Invoice & Data Reconciliation', cost: '3 Days Delay', impact: 'Operational Choke Point', top: '70%', left: '70%' },
-  { process: 'Routine Approval Telephones', cost: 'Stalled Growth', impact: 'Human Dependency Trap', top: '18%', left: '50%' },
-];
+import { CinematicBackground } from '../components/CinematicBackground';
 
 export const SceneHook: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // Entrances
-  const titleOpacity = interpolate(frame, [0, 20], [0, 1], { extrapolateRight: 'clamp' });
-  const titleY = interpolate(frame, [0, 25], [30, 0], { extrapolateRight: 'clamp' });
+  // Kinetic slam entrance
+  const slamSpring = spring({
+    frame,
+    fps,
+    config: { damping: 10, stiffness: 180, mass: 0.8 },
+  });
 
-  // Floating turbulence
-  const driftAmount = Math.sin(frame / 10) * 8;
-  const alertPulse = (Math.sin(frame / 6) + 1) / 2;
+  // Camera shake on impact (frames 0 to 25)
+  const shake =
+    frame < 25 ? Math.sin(frame * 1.5) * Math.max(0, 15 - frame * 0.6) : 0;
+
+  // Staggered line entrances
+  const line1Scale = interpolate(slamSpring, [0, 1], [1.35, 1]);
+  const line1Opacity = interpolate(frame, [0, 8], [0, 1], { extrapolateRight: 'clamp' });
+
+  const line2Spring = spring({
+    frame: frame - 10,
+    fps,
+    config: { damping: 12, stiffness: 160 },
+  });
+
+  // Ticking loss numbers
+  const lossCount = Math.floor(
+    interpolate(frame, [15, 80], [12000, 482600], {
+      extrapolateRight: 'clamp',
+      extrapolateLeft: 'clamp',
+    })
+  );
 
   // Exit transition towards Scene 2
-  const exitScale = interpolate(frame, [75, 90], [1, 0.92], { extrapolateLeft: 'clamp' });
-  const exitOpacity = interpolate(frame, [80, 90], [1, 0], { extrapolateLeft: 'clamp' });
+  const exitZoom = interpolate(frame, [72, 90], [1, 1.15], { extrapolateLeft: 'clamp' });
+  const exitOpacity = interpolate(frame, [78, 90], [1, 0], { extrapolateLeft: 'clamp' });
 
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: BRAND_TOKENS.colors.bg,
+        backgroundColor: '#040507',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         opacity: exitOpacity,
-        transform: `scale(${exitScale})`,
+        transform: `scale(${exitZoom}) translate(${shake}px, ${shake * 0.5}px)`,
+        overflow: 'hidden',
       }}
     >
-      {/* Background subtle technical grid */}
+      <CinematicBackground alertMode />
+
+      {/* Warning HUD Perimeter Box */}
       <div
         style={{
           position: 'absolute',
-          inset: 0,
-          backgroundImage: `
-            linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px)
-          `,
-          backgroundSize: '80px 80px',
-          opacity: 0.6,
+          inset: '60px 80px',
+          border: '1px solid rgba(239, 68, 68, 0.25)',
+          borderRadius: '24px',
+          boxShadow: 'inset 0 0 60px rgba(239, 68, 68, 0.08), 0 0 40px rgba(239, 68, 68, 0.1)',
+          pointerEvents: 'none',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          padding: '28px 36px',
         }}
-      />
+      >
+        {/* Top Warning Strip */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <div
+              style={{
+                width: 10,
+                height: 10,
+                borderRadius: '50%',
+                backgroundColor: '#ef4444',
+                boxShadow: '0 0 16px #ef4444',
+              }}
+            />
+            <span
+              style={{
+                fontFamily: 'ui-monospace, monospace',
+                fontSize: '13px',
+                fontWeight: 800,
+                letterSpacing: '0.2em',
+                color: '#ef4444',
+              }}
+            >
+              CRITICAL SYSTEM WARNING // HUMAN TOIL EXPOSED
+            </span>
+          </div>
 
-      {/* Floating Manual Bottleneck Nodes */}
-      {MANUAL_BOTTLENECKS.map((item, index) => {
-        const nodeEntrance = spring({
-          frame: frame - index * 6,
-          fps,
-          config: { damping: 14, stiffness: 90 },
-        });
-
-        const jitter = Math.sin(frame * 0.3 + index) * 3;
-
-        return (
           <div
-            key={item.process}
             style={{
-              position: 'absolute',
-              top: item.top,
-              left: item.left,
-              transform: `translate(-50%, -50%) translateY(${driftAmount + jitter}px) scale(${nodeEntrance})`,
-              opacity: nodeEntrance,
-              background: 'rgba(20, 22, 34, 0.8)',
-              border: `1px solid rgba(239, 68, 68, ${0.25 + alertPulse * 0.3})`,
-              boxShadow: `0 8px 32px rgba(239, 68, 68, ${0.05 + alertPulse * 0.1})`,
-              borderRadius: '12px',
-              padding: '16px 20px',
-              minWidth: '240px',
-              backdropFilter: 'blur(12px)',
-              pointerEvents: 'none',
+              fontFamily: 'ui-monospace, monospace',
+              fontSize: '12px',
+              color: 'rgba(255, 255, 255, 0.4)',
+              letterSpacing: '0.1em',
             }}
           >
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                marginBottom: '8px',
-              }}
-            >
-              <span
-                style={{
-                  fontFamily: BRAND_TOKENS.typography.fontSans,
-                  fontWeight: 600,
-                  fontSize: '13px',
-                  color: BRAND_TOKENS.colors.textPrimary,
-                }}
-              >
-                {item.process}
-              </span>
-              <div
-                style={{
-                  width: 8,
-                  height: 8,
-                  borderRadius: '50%',
-                  backgroundColor: BRAND_TOKENS.colors.accentCrimson,
-                  boxShadow: `0 0 8px ${BRAND_TOKENS.colors.accentCrimson}`,
-                }}
-              />
-            </div>
+            SYS_FAULT: MANUAL_BOTTLENECK_DETECTED
+          </div>
+        </div>
 
+        {/* Bottom Ticking Metric Telemetry */}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            gap: '24px',
+            borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+            paddingTop: '20px',
+          }}
+        >
+          <div>
             <div
               style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                fontFamily: BRAND_TOKENS.typography.fontMono,
+                fontFamily: 'ui-monospace, monospace',
                 fontSize: '11px',
-                color: BRAND_TOKENS.colors.textTertiary,
+                color: 'rgba(255, 255, 255, 0.4)',
+                letterSpacing: '0.1em',
               }}
             >
-              <span style={{ color: BRAND_TOKENS.colors.accentCrimson, fontWeight: 600 }}>{item.cost}</span>
-              <span>{item.impact}</span>
+              ANNUAL SALARY BURNED ON REPETITIVE TOIL
+            </div>
+            <div
+              style={{
+                fontFamily: 'ui-monospace, monospace',
+                fontSize: '32px',
+                fontWeight: 900,
+                color: '#ef4444',
+                marginTop: '4px',
+                textShadow: '0 0 20px rgba(239, 68, 68, 0.5)',
+              }}
+            >
+              ${lossCount.toLocaleString()}
             </div>
           </div>
-        );
-      })}
 
-      {/* Hero Headline Centerpiece */}
+          <div>
+            <div
+              style={{
+                fontFamily: 'ui-monospace, monospace',
+                fontSize: '11px',
+                color: 'rgba(255, 255, 255, 0.4)',
+                letterSpacing: '0.1em',
+              }}
+            >
+              HUMAN RESPONSE DRAG
+            </div>
+            <div
+              style={{
+                fontFamily: 'ui-monospace, monospace',
+                fontSize: '32px',
+                fontWeight: 900,
+                color: '#f59e0b',
+                marginTop: '4px',
+              }}
+            >
+              +4.8 HOURS
+            </div>
+          </div>
+
+          <div>
+            <div
+              style={{
+                fontFamily: 'ui-monospace, monospace',
+                fontSize: '11px',
+                color: 'rgba(255, 255, 255, 0.4)',
+                letterSpacing: '0.1em',
+              }}
+            >
+              LEAD / REVENUE LOSS RATE
+            </div>
+            <div
+              style={{
+                fontFamily: 'ui-monospace, monospace',
+                fontSize: '32px',
+                fontWeight: 900,
+                color: '#ef4444',
+                marginTop: '4px',
+              }}
+            >
+              42.4% DROPOFF
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Massive Kinetic Hero Headline */}
       <div
         style={{
           position: 'relative',
-          zIndex: 10,
+          zIndex: 20,
           textAlign: 'center',
-          maxWidth: '1100px',
-          opacity: titleOpacity,
-          transform: `translateY(${titleY}px)`,
+          maxWidth: '1300px',
+          padding: '0 40px',
         }}
       >
         <div
           style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '8px',
-            padding: '6px 18px',
-            borderRadius: '999px',
-            backgroundColor: 'rgba(239, 68, 68, 0.1)',
-            border: '1px solid rgba(239, 68, 68, 0.3)',
-            color: BRAND_TOKENS.colors.accentCrimson,
-            fontFamily: BRAND_TOKENS.typography.fontMono,
-            fontSize: '12px',
-            letterSpacing: '0.15em',
-            marginBottom: '28px',
+            fontFamily: 'system-ui, -apple-system, sans-serif',
+            fontSize: '76px',
+            fontWeight: 900,
+            letterSpacing: '-0.04em',
+            lineHeight: 1.02,
+            color: '#ECEEF5',
+            opacity: line1Opacity,
+            transform: `scale(${line1Scale})`,
+            textShadow: '0 10px 40px rgba(0, 0, 0, 0.9)',
           }}
         >
-          <span>OPERATIONAL DIAGNOSTIC // THE HUMAN BOTTLENECK</span>
+          YOUR ENTERPRISE IS BLEEDING
         </div>
 
-        <h1
+        <div
           style={{
-            fontFamily: BRAND_TOKENS.typography.fontSans,
-            fontSize: '56px',
-            fontWeight: 800,
-            letterSpacing: '-0.03em',
-            lineHeight: 1.15,
-            color: BRAND_TOKENS.colors.textPrimary,
-            margin: 0,
-            textShadow: '0 4px 24px rgba(0, 0, 0, 0.8)',
+            fontFamily: 'system-ui, -apple-system, sans-serif',
+            fontSize: '88px',
+            fontWeight: 900,
+            letterSpacing: '-0.04em',
+            lineHeight: 1.02,
+            marginTop: '12px',
+            opacity: line2Spring,
+            transform: `scale(${interpolate(line2Spring, [0, 1], [0.92, 1])})`,
+            background: 'linear-gradient(135deg, #ef4444 0%, #ff6b6b 50%, #f97316 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            textShadow: '0 0 60px rgba(239, 68, 68, 0.6)',
           }}
         >
-          MOST ENTERPRISES EMPLOY HUMANS AS
-          <br />
-          <span
-            style={{
-              background: 'linear-gradient(135deg, #ef4444 0%, #f97316 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            }}
-          >
-            GLUE BETWEEN DISJOINTED SOFTWARE.
-          </span>
-        </h1>
+          ON MANUAL HUMAN TOIL.
+        </div>
 
-        <p
+        <div
           style={{
-            marginTop: '22px',
-            fontFamily: BRAND_TOKENS.typography.fontMono,
-            fontSize: '16px',
-            color: BRAND_TOKENS.colors.textSecondary,
-            letterSpacing: '0.04em',
+            marginTop: '28px',
+            fontFamily: 'ui-monospace, monospace',
+            fontSize: '18px',
+            color: 'rgba(255, 255, 255, 0.7)',
+            letterSpacing: '0.08em',
+            opacity: interpolate(frame, [25, 45], [0, 1], { extrapolateRight: 'clamp' }),
           }}
         >
-          Manual triage. Mechanical copy-pasting. Constant human toil slowing your revenue.
-        </p>
+          HUMANS ARE NOT MEANT TO BE GLUE BETWEEN FRAGMENTED SOFTWARE.
+        </div>
       </div>
     </AbsoluteFill>
   );

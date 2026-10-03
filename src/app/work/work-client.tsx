@@ -19,6 +19,7 @@ import {
   Maximize2,
   Monitor,
   Terminal,
+  MessageCircle,
 } from "lucide-react";
 import { AnswerBlocks, type QAPair } from "@/components/seo/answer-blocks";
 
@@ -26,6 +27,7 @@ interface ProductionSystem {
   id: string;
   category: "all" | "aviation" | "healthcare" | "spatial" | "enterprise";
   tag: string;
+  statusBadge: string;
   title: string;
   sector: string;
   metrics: string[];
@@ -45,14 +47,15 @@ const PRODUCTION_SYSTEMS: ProductionSystem[] = [
     id: "3axisarc",
     category: "spatial",
     tag: "ARCHITECTURE & 3D REAL ESTATE",
-    title: "3axis Arc: High-Performance Spatial 3D Platform",
+    statusBadge: "LIVE CLIENT SHOWROOM",
+    title: "3axis Arc: Spatial 3D Web Showroom",
     sector: "Architecture & Interior Design (Lucknow, UP)",
-    metrics: ["60fps In-Browser WebGL", "Sub-100ms TTFB", "100/100 Lighthouse"],
-    desc: "Interactive 3D architectural visualization platform engineered for real estate developers and architects to showcase spatial walkthroughs in-browser with zero app downloads.",
-    architecture: "Next.js 16 + Three.js / WebGL Custom Shaders + Edge CDN",
+    metrics: ["60 FPS In-Browser WebGL", "Sub-100ms TTFB", "Zero Layout Shift (CLS 0.000)"],
+    desc: "Interactive 3D architectural visualization platform engineered for an architectural design firm in Lucknow to showcase spatial designs in-browser with zero app downloads.",
+    architecture: "Next.js 16 + Three.js / WebGL Custom Shaders + Vercel Edge",
     liveUrl: "https://3axisarc.vercel.app",
     displayUrl: "3axisarc.vercel.app",
-    repoTransfer: "100% Repository Transfer & Custom Shader Assets",
+    repoTransfer: "Client-owned private GitHub repository with custom 3D shader assets",
     accentBg: "bg-[#FFF0EB]",
     accentText: "text-[#9A3412]",
     primaryImage: "/projects/3axisarc.png",
@@ -61,11 +64,12 @@ const PRODUCTION_SYSTEMS: ProductionSystem[] = [
     id: "vayu",
     category: "aviation",
     tag: "OPEN SOURCE AVIATION GIS",
+    statusBadge: "OPEN SOURCE TOOL",
     title: "Project VAYU: Pre-Flight NOTAM & Weather Briefing Tool",
     sector: "Aviation & Geospatial Mapping",
-    metrics: ["Vector GIS Overlay", "Automated NOTAM Parsing", "Open Source Codebase"],
-    desc: "Free web-based situational awareness tool built for pilots and aviation teams to visualize FAA NOTAM hazard alerts along planned flight paths directly on vector maps.",
-    architecture: "Next.js 16 + Python FastAPI + Mapbox GL Vector Tiles",
+    metrics: ["MapLibre Vector GIS", "Automated NOTAM Parsing", "Open Source Codebase"],
+    desc: "Free web-based pre-flight briefing tool built for pilots to visualize live NOTAM alerts and flight hazard corridors directly on vector maps. Free & open-source on GitHub.",
+    architecture: "Next.js 16 + Python FastAPI + MapLibre GL Vector Tiles",
     liveUrl: "https://ai-vayu.vercel.app",
     displayUrl: "ai-vayu.vercel.app",
     repoTransfer: "Open Source on GitHub (Abhishektiwari050/AI-VAYU)",
@@ -81,15 +85,16 @@ const PRODUCTION_SYSTEMS: ProductionSystem[] = [
   {
     id: "autolead",
     category: "enterprise",
-    tag: "SALES & CRM AUTOMATION",
-    title: "VISTAR AutoLead: IndiaMART & WhatsApp Ingestion Pipeline",
-    sector: "Indian SME Sales & Lead Capture",
-    metrics: ["Instant WhatsApp Alert", "Zero Manual Entry", "24/7 Automated Intake"],
-    desc: "Automated lead intake engine ingesting inquiries from IndiaMART, JustDial, and web forms, qualifying intent, notifying business owners on WhatsApp, and syncing to Google Sheets / CRM.",
-    architecture: "Node.js / Python Webhooks + WhatsApp Cloud API + Google Sheets / PostgreSQL",
+    tag: "INTERNAL CRM AUTOMATION",
+    statusBadge: "INTERNAL PIPELINE",
+    title: "VISTAR AutoLead: Internal Lead Triage & WhatsApp Pipeline",
+    sector: "Vistar Internal Operations & Lead Capture",
+    metrics: ["Instant WhatsApp Alert", "Zero Manual Entry", "24/7 Intake Engine"],
+    desc: "Our internal inquiry intake pipeline that captures web form leads, structures project requirements, dispatches instant WhatsApp notifications directly to Abhishek, and logs follow-ups.",
+    architecture: "Next.js Route Handlers + WhatsApp Cloud API + Google Sheets / PostgreSQL",
     liveUrl: "https://vistar.tech/contact",
-    displayUrl: "vistar.tech/autolead",
-    repoTransfer: "100% Private Repository Handover & Setup Runbooks",
+    displayUrl: "vistar.tech/contact",
+    repoTransfer: "Available as custom automation module in Production System package",
     accentBg: "bg-[#E8FCE8]",
     accentText: "text-[#052E16]",
     primaryImage: "/projects/competence-crm.png",
@@ -98,8 +103,9 @@ const PRODUCTION_SYSTEMS: ProductionSystem[] = [
     id: "aura",
     category: "healthcare",
     tag: "RESEARCH ML PROTOTYPE",
+    statusBadge: "RESEARCH PROTOTYPE",
     title: "AURA: Multi-Agent Biometric Anomaly Detection",
-    sector: "Machine Learning & Research Prototype",
+    sector: "Machine Learning & Research Prototype (Synthetic Data)",
     metrics: ["Isolation Forest ML", "Structured Schema Gates", "Zero External Egress"],
     desc: "Experimental anomaly detection prototype testing unsupervised machine learning algorithms over synthetic sensor telemetry with strict Pydantic validation gates.",
     architecture: "Python PyTorch / Scikit-Learn + FastAPI + Pydantic Schema Validation",
@@ -264,87 +270,7 @@ export default function WorkClientPage() {
         </div>
       </section>
 
-      {/* ── FRAME 2: FEATURED LIVE SYSTEM VIDEO SHOWCASE ── */}
-      <section className="w-full py-12 px-4 sm:px-6 bg-white border-b border-black/10">
-        <div className="max-w-6xl mx-auto space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-            <div className="space-y-1">
-              <span className="text-[11px] font-mono uppercase tracking-widest text-[#FF3823] font-semibold flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                LIVE RUNTIME SHOWCASE
-              </span>
-              <h2 className="text-2xl sm:text-4xl font-serif font-normal text-[#141413] tracking-tight">
-                Autonomous Systems in Active Operation
-              </h2>
-            </div>
-            <div className="flex items-center gap-4 text-xs font-mono text-[#5E605D]">
-              <span className="px-2.5 py-1 rounded bg-[#FAF9F5] border border-black/10 text-[#141413] font-semibold">
-                LATENCY: &lt;45MS P95
-              </span>
-              <span className="px-2.5 py-1 rounded bg-[#FAF9F5] border border-black/10 text-emerald-700 font-semibold">
-                TTFB: 18MS
-              </span>
-            </div>
-          </div>
-
-          {/* Interactive Cinematic Video Player Window */}
-          <div className="relative w-full rounded-2xl overflow-hidden border border-black/15 shadow-md bg-[#0C0D12]">
-            {/* macOS Browser Header Bar */}
-            <div className="h-8 px-4 flex items-center justify-between bg-black/80 border-b border-white/10 z-20 relative text-xs">
-              <div className="flex items-center gap-1.5">
-                <div className="w-3 h-3 rounded-full bg-[#ff5f56]" />
-                <div className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
-                <div className="w-3 h-3 rounded-full bg-[#27c93f]" />
-              </div>
-
-              <div className="flex items-center gap-2 px-3 py-0.5 rounded-full bg-white/10 border border-white/10 font-mono text-[11px] text-white/90">
-                <Lock className="w-3 h-3 text-emerald-400" />
-                <span>telemetry.vistar.systems/live-orchestration</span>
-              </div>
-
-              <div className="flex items-center gap-2 font-mono text-[10px] text-emerald-400">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
-                <span>60 FPS HD STREAM</span>
-              </div>
-            </div>
-
-            {/* Video Container */}
-            <div className="relative aspect-[16/9] md:aspect-[21/9] w-full overflow-hidden bg-black">
-              <video
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="auto"
-                className="w-full h-full object-cover"
-                poster="https://cdn.sanity.io/images/rjtqmwfu/web3-prod/1a41717be695e315b008b080ff3ae9e10c43060c-2720x1120.png?auto=format&fit=max&q=80&w=1920"
-              >
-                <source src="/videos/hero-agent-loop.mp4" type="video/mp4" />
-                <source src="/videos/hero-ai-loop.mp4" type="video/mp4" />
-              </video>
-
-              {/* HUD Telemetry Overlay */}
-              <div className="absolute bottom-4 left-4 right-4 flex flex-wrap items-center justify-between gap-3 p-3 bg-black/70 backdrop-blur-md border border-white/10 rounded-xl text-white font-mono text-xs">
-                <div className="flex items-center gap-3">
-                  <div className="flex items-center gap-1.5 text-emerald-400 font-semibold">
-                    <Activity className="w-4 h-4" />
-                    <span>ORCHESTRATOR LIVE</span>
-                  </div>
-                  <span className="text-white/40">|</span>
-                  <span className="text-white/80">Active Pods: 6 Autonomous Nodes</span>
-                </div>
-                <div className="flex items-center gap-3 text-white/70">
-                  <span>Throughput: 1,420 req/s</span>
-                  <span className="text-white/40">&bull;</span>
-                  <span>Isolation: Private VPC Sandbox</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── FRAME 3: VERIFIED PRODUCTION SYSTEMS (BROWSER-FRAMED CASE STUDIES) ── */}
+      {/* ── FRAME 2: VERIFIED PRODUCTION SYSTEMS (BROWSER-FRAMED CASE STUDIES) ── */}
       <section className="w-full py-20 px-4 sm:px-6 bg-[#F6F4ED] border-b border-black/10">
         <div className="max-w-6xl mx-auto space-y-10">
           
@@ -430,10 +356,14 @@ export default function WorkClientPage() {
                         sizes="(max-width: 768px) 100vw, 600px"
                       />
 
-                      {/* Live Badge */}
+                      {/* Status Badge */}
                       <div className="absolute top-3 left-3 px-2 py-0.5 rounded bg-black/75 backdrop-blur-md border border-white/15 text-[10px] font-mono text-white flex items-center gap-1.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                        <span>VERIFIED RUNTIME</span>
+                        <span
+                          className={`w-1.5 h-1.5 rounded-full ${
+                            sys.id === "aura" ? "bg-amber-400" : "bg-emerald-400 animate-pulse"
+                          }`}
+                        />
+                        <span>{sys.statusBadge}</span>
                       </div>
                     </div>
 
@@ -628,7 +558,7 @@ export default function WorkClientPage() {
               </p>
               <div className="pt-4 border-t border-black/10 space-y-1.5 text-xs text-[#5E605D]">
                 <p>&bull; Sub-100ms P99 Edge Latency</p>
-                <p>&bull; Air-Gapped Private Cloud VPC</p>
+                <p>&bull; 100% Client-Owned Git Repository</p>
                 <p>&bull; Full Source Code Handover</p>
               </div>
             </div>
@@ -680,7 +610,7 @@ export default function WorkClientPage() {
             Build your sovereign software with VISTAR
           </h2>
           <p className="text-base text-[#5E605D] max-w-xl mx-auto leading-relaxed">
-            Get direct access to principal software engineers. Ship in 14-day guaranteed sprints with 100% repository handover.
+            Direct collaboration with Abhishek Tiwari (Founder &amp; Lead Engineer). Ship in 14-day guaranteed sprints with 100% repository handover.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 pt-3">
             <Link
@@ -690,12 +620,15 @@ export default function WorkClientPage() {
               Start Free Diagnostic
               <ArrowRight className="w-4 h-4" />
             </Link>
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center px-7 py-3.5 border border-[#141413] text-[#141413] bg-transparent hover:bg-white font-medium text-sm rounded-none transition-colors"
+            <a
+              href="https://wa.me/917985790432?text=Hi%20Abhishek%2C%20I'd%20like%20to%20discuss%20a%20project%20with%20VISTAR."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center px-7 py-3.5 bg-[#25D366] hover:bg-[#20BD5A] text-white font-medium text-sm rounded-none transition-colors shadow-xs gap-2"
             >
-              Request Engineering Review
-            </Link>
+              <MessageCircle className="w-4 h-4" />
+              Chat on WhatsApp
+            </a>
           </div>
         </div>
       </section>

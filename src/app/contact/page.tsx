@@ -3,26 +3,26 @@ import { KEYWORDS, BASE_URL, DEFAULT_OG_IMAGES } from "@/lib/seo";
 import ContactPage from "./contact-client";
 
 export const metadata: Metadata = {
-  title: "Hire Our Software Engineering Team — Free Technical Consultation",
+  title: "Contact Abhishek Tiwari — Founder-Led Technical Consultation",
   description:
-    "Start a technical consultation with VISTAR's principal engineers. Get a custom AI agent, enterprise Next.js app, or interactive 3D platform — built and fully handed over in 14–21 days. Contact us for a free diagnostic.",
+    "Direct engineering consultation with Abhishek Tiwari, Founder & Lead Engineer at VISTAR. Discuss your web application, WhatsApp automation, or 3D spatial project. Response guaranteed within 24 hours.",
   keywords: KEYWORDS.contact,
   alternates: {
     canonical: `${BASE_URL}/contact`,
   },
   openGraph: {
-    title: "Hire Software Engineers — Free Technical Consultation | VISTAR",
+    title: "Contact Abhishek Tiwari — Founder-Led Technical Consultation | VISTAR",
     description:
-      "Direct access to VISTAR principal engineers. Submit your project requirements and receive a production roadmap and pricing within 24 hours.",
+      "Direct collaboration with Abhishek Tiwari. Submit your project requirements or chat on WhatsApp to receive a fixed-scope roadmap and pricing within 24 hours.",
     url: `${BASE_URL}/contact`,
     type: "website",
     images: DEFAULT_OG_IMAGES,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Hire Software Engineers — Free Technical Consultation | VISTAR",
+    title: "Contact Abhishek Tiwari — Founder-Led Technical Consultation | VISTAR",
     description:
-      "Direct access to VISTAR principal engineers. Submit your project requirements and receive a production roadmap within 24 hours.",
+      "Direct collaboration with Abhishek Tiwari. Submit your project requirements to receive a fixed-scope roadmap and pricing within 24 hours.",
     images: [DEFAULT_OG_IMAGES[0].url],
   },
 };
@@ -34,9 +34,9 @@ const contactSchema = {
       "@type": "ContactPage",
       "@id": `${BASE_URL}/contact#webpage`,
       url: `${BASE_URL}/contact`,
-      name: "Hire VISTAR — Free Technical Consultation",
+      name: "Contact VISTAR — Founder-Led Technical Consultation",
       description:
-        "Start a custom AI agent, enterprise Next.js platform, or interactive 3D project with VISTAR. Free technical consultation and project diagnostic.",
+        "Direct collaboration with Abhishek Tiwari at VISTAR for custom web applications, WhatsApp automations, and interactive 3D spatial platforms.",
       isPartOf: { "@id": `${BASE_URL}/#website` },
       mainEntity: { "@id": `${BASE_URL}/#organization` },
     },

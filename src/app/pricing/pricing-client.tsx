@@ -39,7 +39,7 @@ const MATRIX_SECTIONS: MatrixSection[] = [
     headerBg: "bg-[#E0F2FE] text-[#0369A1]",
     rows: [
       { name: "Delivery Timeline", starter: "5–7 Days", sprint: "14 Days Committed", enterprise: "21–30 Days Milestones" },
-      { name: "Direct Founder & Principal Pairing", starter: true, sprint: true, enterprise: true },
+      { name: "Direct Collaboration with Abhishek (Lead Engineer)", starter: true, sprint: true, enterprise: true },
       { name: "Post-Launch Bug Warranty", starter: "14-Day Warranty", sprint: "30-Day Zero-Cost Warranty", enterprise: "60-Day Dedicated SLA" },
       { name: "Mutual Non-Disclosure Agreement (NDA)", starter: true, sprint: true, enterprise: true },
     ],
@@ -49,7 +49,7 @@ const MATRIX_SECTIONS: MatrixSection[] = [
 const FAQS_BASICS = [
   {
     q: "How much does custom software from Vistar cost?",
-    a: "We offer transparent, fixed-scope engineering packages in both Indian Rupees (₹) and US Dollars ($). Our Starter Automation/MVP is ₹49,000 ($600), our full 14-day Production Sprint is ₹1,85,000 ($2,400), and custom enterprise platforms are scoped milestone-by-milestone. No hidden hourly fees or surprise invoices.",
+    a: "We offer transparent, fixed-scope engineering packages in both Indian Rupees (₹) and US Dollars ($). Our Starter MVP is ₹49,000 ($590), our full 14-day Production System is ₹1,85,000 ($2,200), and custom architecture platforms start from ₹3,90,000 ($4,700) scoped milestone-by-milestone. No hidden hourly fees or surprise invoices.",
   },
   {
     q: "What is 100% source code handover?",
@@ -150,7 +150,7 @@ export default function PricingPage() {
                 </div>
                 <div className="text-right">
                   <span className="font-serif text-3xl font-normal text-[#141413]">
-                    {currency === "inr" ? "₹49,000" : "$600"}
+                    {currency === "inr" ? "₹49,000" : "$590"}
                   </span>
                   <span className="text-xs text-neutral-500 block font-mono">one-time</span>
                 </div>
@@ -209,7 +209,7 @@ export default function PricingPage() {
                 Get Started
               </Link>
               <a
-                href="https://wa.me/917985790432?text=Hi%20Vistar,%20I'm%20interested%20in%20the%20Starter%20MVP%20package."
+                href="https://wa.me/917985790432?text=Hi%20Abhishek%2C%20I'm%20interested%20in%20the%20Starter%20MVP%20package."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[11px] text-emerald-700 hover:underline flex items-center justify-center gap-1 font-mono"
@@ -220,7 +220,7 @@ export default function PricingPage() {
             </div>
           </div>
 
-          {/* Tier 2: 14-Day Production Sprint (Most Popular) */}
+          {/* Tier 2: 14-Day Production System (Most Popular) */}
           <div className="bg-white border-2 border-[#FF3823] rounded-2xl shadow-md p-6 sm:p-7 space-y-5 flex flex-col justify-between relative">
             <div className="absolute -top-3 right-6 bg-[#FF3823] text-white text-[10px] font-mono uppercase tracking-widest px-3 py-0.5 rounded font-semibold">
               Most Popular
@@ -230,28 +230,28 @@ export default function PricingPage() {
               <div className="flex items-baseline justify-between">
                 <div>
                   <span className="text-[10px] font-mono uppercase tracking-wider text-[#FF3823] block font-semibold">COMPLETE SYSTEM</span>
-                  <h3 className="font-serif text-2xl font-normal text-[#00063D]">Production Sprint</h3>
+                  <h3 className="font-serif text-2xl font-normal text-[#00063D]">Production System</h3>
                 </div>
                 <div className="text-right">
                   <span className="font-serif text-3xl font-normal text-[#FF3823]">
-                    {currency === "inr" ? "₹1,85,000" : "$2,400"}
+                    {currency === "inr" ? "₹1,85,000" : "$2,200"}
                   </span>
-                  <span className="text-xs text-neutral-500 block font-mono">14-day sprint</span>
+                  <span className="text-xs text-neutral-500 block font-mono">14-day delivery</span>
                 </div>
               </div>
 
               {/* Visual Preview for Tier 2 */}
               <div className="relative w-full h-32 rounded-lg overflow-hidden border border-[#FF3823]/30 bg-neutral-100 group">
                 <Image
-                  src="/projects/vayuways.png"
-                  alt="Production Sprint: Full Next.js 16 Web Application & GIS"
+                  src="/projects/3axisarc.png"
+                  alt="Production System: 3D Spatial & Next.js 16 Web Application"
                   fill
                   sizes="(max-width: 768px) 100vw, 350px"
                   className="object-cover object-top group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-2.5">
                   <span className="text-[10px] font-mono text-white bg-[#FF3823] px-2 py-0.5 rounded font-semibold">
-                    Output: Full Next.js Web App
+                    Output: 3D Web &amp; Next.js App
                   </span>
                 </div>
               </div>
@@ -259,7 +259,7 @@ export default function PricingPage() {
               <div className="w-full h-px bg-black/10" />
 
               <p className="text-xs text-neutral-600 leading-relaxed min-h-[36px]">
-                Full custom web application, operational dashboard, or multi-agent pipeline shipped in 14 days.
+                Full custom web application, 3D architectural showroom, or operational portal shipped in 14 days.
               </p>
 
               <div className="space-y-2 pt-1 text-xs text-neutral-700">
@@ -271,7 +271,7 @@ export default function PricingPage() {
                   </div>
                   <div className="flex items-center gap-2">
                     <Check className="w-3.5 h-3.5 text-[#FF3823] shrink-0" />
-                    <span>Multi-Step AI Workflows &amp; Schema Gates</span>
+                    <span>Interactive 3D WebGL / Three.js Showcase</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Check className="w-3.5 h-3.5 text-[#FF3823] shrink-0" />
@@ -297,7 +297,7 @@ export default function PricingPage() {
                 Start 14-Day Sprint
               </Link>
               <a
-                href="https://wa.me/917985790432?text=Hi%20Vistar,%20I'm%20interested%20in%20the%2014-Day%20Production%20Sprint."
+                href="https://wa.me/917985790432?text=Hi%20Abhishek%2C%20I'm%20interested%20in%20the%20Production%20System%20package."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[11px] text-emerald-700 hover:underline flex items-center justify-center gap-1 font-mono"
@@ -308,17 +308,17 @@ export default function PricingPage() {
             </div>
           </div>
 
-          {/* Tier 3: Enterprise Platform & 3D Spatial */}
+          {/* Tier 3: Custom Architecture */}
           <div className="bg-white border border-black/10 rounded-2xl shadow-xs p-6 sm:p-7 space-y-5 flex flex-col justify-between hover:border-black/30 transition-all">
             <div className="space-y-4">
               <div className="flex items-baseline justify-between">
                 <div>
                   <span className="text-[10px] font-mono uppercase tracking-wider text-[#5E605D] block">BESPOKE SCALE</span>
-                  <h3 className="font-serif text-2xl font-normal text-[#00063D]">Enterprise &amp; 3D</h3>
+                  <h3 className="font-serif text-2xl font-normal text-[#00063D]">Custom Architecture</h3>
                 </div>
                 <div className="text-right">
                   <span className="font-serif text-3xl font-normal text-[#141413]">
-                    {currency === "inr" ? "₹3,90,000+" : "$4,800+"}
+                    {currency === "inr" ? "₹3,90,000+" : "$4,700+"}
                   </span>
                   <span className="text-xs text-neutral-500 block font-mono">custom scope</span>
                 </div>
@@ -327,15 +327,15 @@ export default function PricingPage() {
               {/* Visual Preview for Tier 3 */}
               <div className="relative w-full h-32 rounded-lg overflow-hidden border border-black/10 bg-neutral-100 group">
                 <Image
-                  src="/projects/3axisarc.png"
-                  alt="Enterprise & 3D: 60fps WebGL Spatial Engine"
+                  src="/projects/vayuways.png"
+                  alt="Custom Architecture: Complex GIS & Spatial Systems"
                   fill
                   sizes="(max-width: 768px) 100vw, 350px"
                   className="object-cover object-top group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-2.5">
                   <span className="text-[10px] font-mono text-white bg-black/60 px-2 py-0.5 rounded">
-                    Output: 60fps WebGL Spatial 3D
+                    Output: Complex GIS &amp; Spatial Systems
                   </span>
                 </div>
               </div>
@@ -343,7 +343,7 @@ export default function PricingPage() {
               <div className="w-full h-px bg-black/10" />
 
               <p className="text-xs text-neutral-600 leading-relaxed min-h-[36px]">
-                High-performance 3D spatial platforms (like 3axis Arc), custom ERPs, or distributed microservices.
+                Complex spatial architectures (like Project VAYU), vector GIS engines, or custom distributed platforms in 21–30 day milestones.
               </p>
 
               <div className="space-y-2 pt-1 text-xs text-neutral-700">
@@ -351,15 +351,15 @@ export default function PricingPage() {
                 <div className="space-y-1.5">
                   <div className="flex items-center gap-2">
                     <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                    <span>60fps WebGL / Spatial 3D Engine</span>
+                    <span>Complex GIS / Spatial Vector Architecture</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                    <span>Dedicated Private Cloud Deployment</span>
+                    <span>100% Client-Owned Private Git Repository</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                    <span>Dedicated Slack / WhatsApp Channel</span>
+                    <span>Direct Founder &amp; Lead Engineer Collaboration</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
@@ -377,7 +377,7 @@ export default function PricingPage() {
                 Schedule Architecture Review
               </Link>
               <a
-                href="https://wa.me/917985790432?text=Hi%20Vistar,%20I'd%20like%20to%20discuss%20an%20Enterprise%20or%203D%20Spatial%20project."
+                href="https://wa.me/917985790432?text=Hi%20Abhishek%2C%20I'd%20like%20to%20discuss%20a%20Custom%20Architecture%20project."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[11px] text-emerald-700 hover:underline flex items-center justify-center gap-1 font-mono"

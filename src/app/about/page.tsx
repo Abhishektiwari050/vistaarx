@@ -120,7 +120,7 @@ export default function AboutCompanyPage() {
                 />
                 <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 text-white">
                   <div className="font-serif text-lg font-medium">Abhishek Tiwari</div>
-                  <div className="font-mono text-xs text-neutral-300">Founder &amp; Principal Systems Engineer</div>
+                  <div className="font-mono text-xs text-neutral-300">Founder &amp; Lead Engineer</div>
                 </div>
               </div>
             </div>
@@ -129,7 +129,7 @@ export default function AboutCompanyPage() {
             <div className="md:col-span-7 space-y-6">
               <div>
                 <span className="inline-block font-mono text-xs uppercase tracking-wider text-neutral-500 font-semibold mb-2">
-                  Founder &amp; Lead Systems Engineer
+                  Founder &amp; Lead Engineer
                 </span>
                 <h2 className="font-serif text-3xl sm:text-4xl font-normal text-[#0E1118] tracking-tight leading-tight">
                   Direct engineering without junior telephone games.
@@ -141,10 +141,10 @@ export default function AboutCompanyPage() {
                   I founded VISTAR in Lucknow, Uttar Pradesh, with one core principle: businesses deserve direct collaboration with the engineer writing their code, not layers of account managers, sales intermediaries, and outsourced juniors.
                 </p>
                 <p>
-                  My engineering background spans modern TypeScript, Next.js 16, Python/FastAPI backends, and Three.js/WebGL spatial rendering. Recent work includes <strong>3axis Arc</strong> (a production 60fps 3D architecture platform for Lucknow developers), <strong>Project VAYU</strong> (an open-source pre-flight aviation GIS tool), and automated <strong>AutoLead</strong> intake pipelines that capture IndiaMART and JustDial buyer leads straight to WhatsApp.
+                  My engineering background spans modern TypeScript, Next.js 16, Python/FastAPI backends, and Three.js/WebGL spatial rendering. Recent work includes <strong>3axis Arc</strong> (a production 60fps 3D architecture platform for Lucknow developers), <strong>Project VAYU</strong> (an open-source pre-flight aviation GIS tool), and automated <strong>AutoLead</strong> intake pipelines that capture web inquiries straight to WhatsApp.
                 </p>
                 <p>
-                  When you work with VISTAR, every sprint is planned and executed by senior hands. You receive 100% repository transfer, a clear bilateral NDA, and a 30-day post-delivery bug warranty.
+                  When you work with VISTAR, every sprint is planned and executed by Abhishek directly. You receive 100% repository transfer, a clear bilateral NDA, and a 30-day post-delivery bug warranty.
                 </p>
               </div>
 
@@ -256,7 +256,7 @@ export default function AboutCompanyPage() {
               Production Systems Shipped Under VISTAR
             </h2>
             <p className="text-xs sm:text-sm text-neutral-600">
-              Live software deployed for architecture firms, healthcare prototypes, logistics, and aviation.
+              Live software deployed for architecture firms, open-source aviation pilots, and D2C brands.
             </p>
           </div>
 
@@ -310,20 +310,20 @@ export default function AboutCompanyPage() {
                   className="object-cover object-top group-hover:scale-102 transition-transform duration-300"
                 />
                 <div className="absolute top-3 right-3 bg-emerald-700/80 backdrop-blur-xs text-white text-[11px] font-mono px-2 py-0.5 rounded">
-                  SME Automation &bull; Lead Routing
+                  Internal Pipeline &bull; Lead Routing
                 </div>
               </div>
               <div className="p-6 space-y-3">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-serif text-xl font-normal text-[#0E1118]">AutoLead &amp; WhatsApp CRM</h3>
-                  <span className="text-xs text-neutral-500 font-mono">Operations Portal</span>
+                  <h3 className="font-serif text-xl font-normal text-[#0E1118]">AutoLead &amp; WhatsApp Pipeline</h3>
+                  <span className="text-xs text-neutral-500 font-mono">Operations Pipeline</span>
                 </div>
                 <p className="text-xs text-neutral-600 leading-relaxed">
-                  Automated buyer intake system capturing leads from IndiaMART, JustDial, and web forms into instant WhatsApp conversations and structured PostgreSQL tables.
+                  Our internal inquiry intake pipeline capturing web form leads, structuring project scope, and dispatching instant WhatsApp notifications directly to Abhishek.
                 </p>
                 <div className="pt-1 flex flex-wrap gap-1.5 text-[10px] font-mono text-neutral-500">
                   <span className="px-2 py-0.5 bg-neutral-100 rounded">WhatsApp API</span>
-                  <span className="px-2 py-0.5 bg-neutral-100 rounded">FastAPI</span>
+                  <span className="px-2 py-0.5 bg-neutral-100 rounded">Next.js 16</span>
                   <span className="px-2 py-0.5 bg-neutral-100 rounded">PostgreSQL</span>
                 </div>
               </div>
@@ -334,18 +334,18 @@ export default function AboutCompanyPage() {
               <div className="relative w-full aspect-[16/10] bg-neutral-100 overflow-hidden">
                 <Image
                   src="/projects/vayuways.png"
-                  alt="Project VAYU Aviation Telemetry"
+                  alt="Project VAYU Aviation GIS"
                   fill
                   sizes="(max-width: 768px) 100vw, 550px"
                   className="object-cover object-top group-hover:scale-102 transition-transform duration-300"
                 />
                 <div className="absolute top-3 right-3 bg-[#FF3823]/90 backdrop-blur-xs text-white text-[11px] font-mono px-2 py-0.5 rounded">
-                  Aerospace GIS &bull; Sub-50ms
+                  Open Source GIS &bull; Flight Corridors
                 </div>
               </div>
               <div className="p-6 space-y-3">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-serif text-xl font-normal text-[#0E1118]">Project VAYU — Airspace Telemetry</h3>
+                  <h3 className="font-serif text-xl font-normal text-[#0E1118]">Project VAYU — Pre-Flight Aviation GIS</h3>
                   <a
                     href="https://ai-vayu.vercel.app"
                     target="_blank"
@@ -357,11 +357,11 @@ export default function AboutCompanyPage() {
                   </a>
                 </div>
                 <p className="text-xs text-neutral-600 leading-relaxed">
-                  Airspace advisory intelligence parsing FAA NOTAMs into interactive vector flight corridors with sub-50ms situational latency for pilots and dispatchers.
+                  Free web-based pre-flight briefing tool built for pilots to visualize live NOTAM alerts and flight hazard corridors directly on vector maps. Free and open-source on GitHub.
                 </p>
                 <div className="pt-1 flex flex-wrap gap-1.5 text-[10px] font-mono text-neutral-500">
-                  <span className="px-2 py-0.5 bg-neutral-100 rounded">Mapbox GL</span>
-                  <span className="px-2 py-0.5 bg-neutral-100 rounded">Deterministic Gates</span>
+                  <span className="px-2 py-0.5 bg-neutral-100 rounded">MapLibre GL</span>
+                  <span className="px-2 py-0.5 bg-neutral-100 rounded">Python FastAPI</span>
                   <span className="px-2 py-0.5 bg-neutral-100 rounded">GeoJSON</span>
                 </div>
               </div>

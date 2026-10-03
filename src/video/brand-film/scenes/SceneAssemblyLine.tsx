@@ -1,25 +1,25 @@
 import React from 'react';
 import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
-import { BRAND_TOKENS } from '../constants';
+import { CinematicBackground } from '../components/CinematicBackground';
 
 const METHOD_STAGES = [
   {
     step: 'STAGE 01',
+    metric: '100% VISIBILITY',
     title: 'Operational Deep-Dive & Friction Mapping',
-    details: 'We audit how your company functions: uncovering hidden data choke points, manual toil, and where employees spend hours on mechanical tasks.',
-    status: 'AUDIT COMPLETE',
+    details: 'We embed into your workflows to expose hidden data choke points, redundant human handoffs, and mechanical tasks burning high payroll.',
   },
   {
     step: 'STAGE 02',
-    title: 'Autonomous System & AI Synthesis',
-    details: 'We engineer custom automations, intelligent AI workers, and high-speed software pipelines that execute routine workflows without human delays.',
-    status: 'SYSTEM DEPLOYED',
+    metric: 'AI-DIRECTED',
+    title: 'Autonomous Software & AI Synthesis',
+    details: 'We architect and deploy custom automations, intelligent AI workers, and webhook engines that execute repetitive decisions instantly.',
   },
   {
     step: 'STAGE 03',
-    title: 'Humanless Velocity & Complete Sovereignty',
-    details: 'Your enterprise operates 10x faster and easier. You receive 100% source code ownership, private deployment, and total operational autonomy.',
-    status: 'OPERATIONAL SOVEREIGNTY',
+    metric: '10X SCALE',
+    title: 'Humanless Execution & Sovereignty',
+    details: 'Your enterprise runs faster, smoother, and virtually humanless with 100% private codebase ownership and zero recurring retainer locks.',
   },
 ];
 
@@ -27,18 +27,17 @@ export const SceneAssemblyLine: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // Relative frame (0 to 240)
-  const relFrame = Math.max(0, frame - 480);
+  const relFrame = frame; // 0 to 240
 
   // Entrance
   const entrance = spring({
     frame: relFrame,
     fps,
-    config: { damping: 15, stiffness: 90 },
+    config: { damping: 14, stiffness: 130 },
   });
 
   // Animated progress bar: 0% to 100%
-  const progress = interpolate(relFrame, [20, 180], [0, 100], {
+  const progress = interpolate(relFrame, [10, 160], [0, 100], {
     extrapolateRight: 'clamp',
     extrapolateLeft: 'clamp',
   });
@@ -49,76 +48,95 @@ export const SceneAssemblyLine: React.FC = () => {
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: BRAND_TOKENS.colors.bg,
+        backgroundColor: '#040507',
         opacity: exitOpacity,
         transform: `scale(${entrance})`,
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        padding: '0 100px',
+        padding: '0 80px',
         overflow: 'hidden',
       }}
     >
+      <CinematicBackground accentColor="#10b981" />
+
       {/* Header */}
-      <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+      <div style={{ textAlign: 'center', marginBottom: '44px', zIndex: 20 }}>
         <div
           style={{
             display: 'inline-flex',
             alignItems: 'center',
             gap: '8px',
-            padding: '5px 16px',
+            padding: '6px 18px',
             borderRadius: '999px',
             backgroundColor: 'rgba(16, 185, 129, 0.1)',
-            border: `1px solid ${BRAND_TOKENS.colors.borderActive}`,
-            color: BRAND_TOKENS.colors.accentEmerald,
-            fontFamily: BRAND_TOKENS.typography.fontMono,
-            fontSize: '11px',
+            border: '1px solid rgba(16, 185, 129, 0.35)',
+            color: '#10b981',
+            fontFamily: 'ui-monospace, monospace',
+            fontSize: '12px',
             letterSpacing: '0.15em',
-            marginBottom: '12px',
+            marginBottom: '14px',
           }}
         >
-          THE VISTAR METHOD // HOW WE OPERATE
+          THE VISTAR METHOD // ARCHITECTURAL BLUEPRINT
         </div>
+
         <h2
           style={{
-            fontFamily: BRAND_TOKENS.typography.fontSans,
-            fontSize: '44px',
-            fontWeight: 800,
+            fontFamily: 'system-ui, -apple-system, sans-serif',
+            fontSize: '56px',
+            fontWeight: 900,
             margin: 0,
-            color: BRAND_TOKENS.colors.textPrimary,
-            letterSpacing: '-0.02em',
+            color: '#ECEEF5',
+            letterSpacing: '-0.03em',
+            lineHeight: 1.05,
           }}
         >
-          RE-ENGINEERING ENTERPRISES FOR HUMANLESS SCALE
+          RE-ENGINEERING ENTERPRISES
+          <br />
+          <span
+            style={{
+              background: 'linear-gradient(135deg, #10b981 0%, #06b6d4 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              textShadow: '0 0 50px rgba(16, 185, 129, 0.5)',
+            }}
+          >
+            FOR HUMANLESS SCALE.
+          </span>
         </h2>
+
         <p
           style={{
-            marginTop: '12px',
-            fontFamily: BRAND_TOKENS.typography.fontMono,
-            fontSize: '15px',
-            color: BRAND_TOKENS.colors.textSecondary,
+            marginTop: '16px',
+            fontFamily: 'ui-monospace, monospace',
+            fontSize: '16px',
+            color: 'rgba(255, 255, 255, 0.65)',
+            letterSpacing: '0.04em',
           }}
         >
-          We audit your operations. We build the automations. Software does the work.
+          We audit your operations. We engineer the automations. Software does the work.
         </p>
       </div>
 
-      {/* 3 Chronological Cards */}
+      {/* 3 High-Density Chronological Glass Cyber-Cards */}
       <div
         style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: '24px',
-          maxWidth: '1300px',
+          gap: '28px',
+          maxWidth: '1400px',
           width: '100%',
           margin: '0 auto',
+          position: 'relative',
+          zIndex: 20,
         }}
       >
         {METHOD_STAGES.map((stage, idx) => {
           const cardSpring = spring({
-            frame: relFrame - idx * 15,
+            frame: relFrame - idx * 16,
             fps,
-            config: { damping: 14, stiffness: 90 },
+            config: { damping: 14, stiffness: 120 },
           });
 
           const isActive = relFrame >= idx * 40;
@@ -127,15 +145,18 @@ export const SceneAssemblyLine: React.FC = () => {
             <div
               key={stage.step}
               style={{
-                background: 'rgba(13, 14, 21, 0.85)',
-                border: `1px solid ${
-                  isActive ? BRAND_TOKENS.colors.borderActive : BRAND_TOKENS.colors.border
+                background: 'rgba(13, 14, 21, 0.9)',
+                border: `1.5px solid ${
+                  isActive ? 'rgba(16, 185, 129, 0.5)' : 'rgba(255, 255, 255, 0.08)'
                 }`,
-                borderRadius: '16px',
-                padding: '28px',
+                borderRadius: '20px',
+                padding: '36px',
                 transform: `translateY(${interpolate(cardSpring, [0, 1], [40, 0])}px)`,
                 opacity: cardSpring,
-                boxShadow: isActive ? '0 12px 32px rgba(16, 185, 129, 0.08)' : 'none',
+                boxShadow: isActive
+                  ? '0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(16, 185, 129, 0.15)'
+                  : '0 10px 40px rgba(0, 0, 0, 0.6)',
+                backdropFilter: 'blur(24px)',
                 position: 'relative',
               }}
             >
@@ -144,41 +165,44 @@ export const SceneAssemblyLine: React.FC = () => {
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'center',
-                  marginBottom: '16px',
+                  marginBottom: '20px',
                 }}
               >
                 <span
                   style={{
-                    fontFamily: BRAND_TOKENS.typography.fontMono,
-                    fontSize: '11px',
-                    fontWeight: 700,
-                    color: BRAND_TOKENS.colors.accentEmerald,
-                    letterSpacing: '0.1em',
+                    fontFamily: 'ui-monospace, monospace',
+                    fontSize: '12px',
+                    fontWeight: 800,
+                    color: '#10b981',
+                    letterSpacing: '0.15em',
                   }}
                 >
                   {stage.step}
                 </span>
                 <span
                   style={{
-                    fontFamily: BRAND_TOKENS.typography.fontMono,
-                    fontSize: '10px',
-                    color: BRAND_TOKENS.colors.textTertiary,
-                    border: '1px solid rgba(255,255,255,0.06)',
-                    padding: '3px 8px',
-                    borderRadius: '4px',
+                    fontFamily: 'ui-monospace, monospace',
+                    fontSize: '11px',
+                    fontWeight: 700,
+                    color: '#06b6d4',
+                    background: 'rgba(6, 182, 212, 0.12)',
+                    padding: '4px 10px',
+                    borderRadius: '999px',
+                    border: '1px solid rgba(6, 182, 212, 0.25)',
                   }}
                 >
-                  {stage.status}
+                  {stage.metric}
                 </span>
               </div>
 
               <h3
                 style={{
-                  fontFamily: BRAND_TOKENS.typography.fontSans,
-                  fontSize: '18px',
-                  fontWeight: 700,
-                  color: BRAND_TOKENS.colors.textPrimary,
-                  margin: '0 0 10px 0',
+                  fontFamily: 'system-ui, sans-serif',
+                  fontSize: '22px',
+                  fontWeight: 800,
+                  color: '#ECEEF5',
+                  margin: '0 0 14px 0',
+                  lineHeight: 1.2,
                 }}
               >
                 {stage.title}
@@ -186,10 +210,10 @@ export const SceneAssemblyLine: React.FC = () => {
 
               <p
                 style={{
-                  fontFamily: BRAND_TOKENS.typography.fontMono,
-                  fontSize: '12px',
-                  lineHeight: '1.6',
-                  color: BRAND_TOKENS.colors.textSecondary,
+                  fontFamily: 'ui-monospace, monospace',
+                  fontSize: '13px',
+                  lineHeight: '1.7',
+                  color: 'rgba(255, 255, 255, 0.6)',
                   margin: 0,
                 }}
               >
@@ -200,17 +224,18 @@ export const SceneAssemblyLine: React.FC = () => {
         })}
       </div>
 
-      {/* Global Sprint Progress Meter */}
+      {/* Global Laser Progress Track */}
       <div
         style={{
-          maxWidth: '1300px',
+          maxWidth: '1400px',
           width: '100%',
-          margin: '36px auto 0 auto',
-          background: 'rgba(255, 255, 255, 0.04)',
+          margin: '40px auto 0 auto',
+          background: 'rgba(255, 255, 255, 0.05)',
           borderRadius: '999px',
           height: '6px',
           overflow: 'hidden',
           position: 'relative',
+          zIndex: 20,
         }}
       >
         <div
@@ -221,7 +246,7 @@ export const SceneAssemblyLine: React.FC = () => {
             bottom: 0,
             width: `${progress}%`,
             background: 'linear-gradient(90deg, #10b981 0%, #06b6d4 100%)',
-            boxShadow: '0 0 12px rgba(16, 185, 129, 0.6)',
+            boxShadow: '0 0 20px rgba(16, 185, 129, 0.8)',
           }}
         />
       </div>

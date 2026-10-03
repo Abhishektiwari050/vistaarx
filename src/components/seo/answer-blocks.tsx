@@ -181,16 +181,6 @@ export function AnswerBlocks({
             );
           })}
         </div>
-
-        {/* Machine Metadata Indicator */}
-        <div
-          className={`pt-2 flex flex-wrap items-center justify-between text-xs font-mono border-t gap-2 ${
-            isDark ? "border-white/10 text-[#959CB3]" : "border-black/5 text-neutral-500"
-          }`}
-        >
-          <span>Formatted for Schema.org &bull; FAQPage JSON-LD Validated</span>
-          <span>Indexed via llms.txt &amp; IndexNow Standard</span>
-        </div>
       </div>
     </section>
   );
