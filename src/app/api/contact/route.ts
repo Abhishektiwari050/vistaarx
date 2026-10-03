@@ -369,7 +369,7 @@ export async function POST(request: NextRequest) {
       referenceId: sanitizedData.referenceId,
       sla: "< 24 Hours",
       message:
-        "Project diagnostic received. A principal systems engineer will review your architecture and respond within 24 hours.",
+        "Project inquiry received. Abhishek Tiwari (Founder & Lead Engineer) will review your notes and respond within 24 hours.",
     });
   } catch {
     return NextResponse.json(

@@ -150,8 +150,9 @@ export const organizationSchema = {
   contactPoint: {
     "@type": "ContactPoint",
     email: "services.vistaar@gmail.com",
+    telephone: "+91-88601-10144",
     contactType: "sales",
-    availableLanguage: ["English"],
+    availableLanguage: ["English", "Hindi"],
   },
   sameAs: [],
 };

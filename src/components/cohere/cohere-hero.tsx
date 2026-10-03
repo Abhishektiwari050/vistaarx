@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useEffect, useRef } from "react";
 import Link from "next/link";
@@ -165,8 +165,8 @@ export function CohereHero() {
               loop
               muted
               playsInline
-              preload="auto"
-              poster="https://cdn.sanity.io/images/rjtqmwfu/web3-prod/1a41717be695e315b008b080ff3ae9e10c43060c-2720x1120.png?auto=format&fit=max&q=80&w=1920"
+              preload="none"
+              poster="/og-image.jpg"
               className="w-full h-auto object-cover rounded-[12px] block"
               width={1920}
               height={791}
@@ -176,7 +176,7 @@ export function CohereHero() {
               {/* Fallback GIF */}
               <img
                 src="/videos/hero-agent-loop.gif"
-                alt="VISTAR Custom AI Software & Systems Engineering Platform Interface"
+                alt="VISTAR Custom Software Platform Interface"
                 className="w-full h-auto object-cover rounded-[12px]"
               />
             </video>
@@ -189,8 +189,8 @@ export function CohereHero() {
               loop
               muted
               playsInline
-              preload="auto"
-              poster="https://cdn.sanity.io/images/rjtqmwfu/web3-prod/d6caa02cd2aefe2f9cfa34a2f733cd2b883306b5-1472x1472.png?auto=format&fit=max&q=80&w=1472"
+              preload="none"
+              poster="/og-image.jpg"
               className="w-full h-auto object-cover rounded-[20px] block"
               width={1472}
               height={1472}
@@ -200,7 +200,7 @@ export function CohereHero() {
               {/* Fallback GIF */}
               <img
                 src="/videos/hero-agent-loop.gif"
-                alt="VISTAR Custom AI Software & Systems Engineering Mobile Interface"
+                alt="VISTAR Custom Software Mobile Interface"
                 className="w-full h-auto object-cover rounded-[20px]"
               />
             </video>

@@ -6,24 +6,20 @@ import { VistarLogoMark } from './VistarLogoMark';
 export const TelemetryHud: React.FC = () => {
   const frame = useCurrentFrame();
 
-  // Determine current active phase name
-  let phaseLabel = '01 // OPERATIONAL FRICTION';
-  if (frame >= SCENE_RANGES.audit.start && frame < SCENE_RANGES.audit.end) {
-    phaseLabel = '02 // OPERATIONAL AUDIT';
-  } else if (frame >= SCENE_RANGES.autonomousEngine.start && frame < SCENE_RANGES.autonomousEngine.end) {
-    phaseLabel = '03 // AUTONOMOUS ENGINE';
-  } else if (frame >= SCENE_RANGES.pillars.start && frame < SCENE_RANGES.pillars.end) {
-    phaseLabel = '04 // ARCHITECTURAL PILLARS';
+  let phaseLabel = '01 // GENESIS & FRICTION';
+  if (frame >= SCENE_RANGES.auditEngine.start && frame < SCENE_RANGES.auditEngine.end) {
+    phaseLabel = '02 // OPERATIONAL AUDIT COCKPIT';
+  } else if (frame >= SCENE_RANGES.patternInterrupt.start && frame < SCENE_RANGES.patternInterrupt.end) {
+    phaseLabel = '03 // ARCHITECTURAL CONVICTION';
+  } else if (frame >= SCENE_RANGES.autonomousRuntime.start && frame < SCENE_RANGES.autonomousRuntime.end) {
+    phaseLabel = '04 // AUTONOMOUS KERNEL IN PRODUCTION';
   } else if (frame >= SCENE_RANGES.climax.start) {
-    phaseLabel = '05 // THE HUMANLESS ENTERPRISE';
+    phaseLabel = '05 // THE HUMANLESS HORIZON';
   }
 
-  // Format timecode (00:SS:FF)
   const seconds = Math.floor(frame / 30);
   const subFrames = frame % 30;
   const timecode = `00:${String(seconds).padStart(2, '0')}:${String(subFrames).padStart(2, '0')}`;
-
-  // Progress bar
   const progressPercent = (frame / 900) * 100;
 
   return (
@@ -49,14 +45,14 @@ export const TelemetryHud: React.FC = () => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          borderBottom: '1px solid rgba(0, 0, 0, 0.06)',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.07)',
           paddingBottom: '12px',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
           <VistarLogoMark
             size={18}
-            color="#141413"
+            color="#FFFFFF"
             centerColor="#FF3823"
             pulse={Math.sin(frame * 0.08) * 0.05 + 1}
           />
@@ -83,11 +79,11 @@ export const TelemetryHud: React.FC = () => {
               display: 'flex',
               alignItems: 'center',
               gap: '8px',
-              padding: '4px 12px',
-              backgroundColor: '#FFFFFF',
-              border: '1px solid rgba(0, 0, 0, 0.08)',
+              padding: '4px 14px',
+              backgroundColor: 'rgba(255, 255, 255, 0.04)',
+              border: '1px solid rgba(255, 255, 255, 0.08)',
               borderRadius: '999px',
-              boxShadow: '0 1px 3px rgba(0, 0, 0, 0.03)',
+              backdropFilter: 'blur(12px)',
             }}
           >
             <span
@@ -96,7 +92,7 @@ export const TelemetryHud: React.FC = () => {
                 height: '6px',
                 borderRadius: '50%',
                 backgroundColor: BRAND_TOKENS.colors.accentCoral,
-                display: 'inline-block',
+                boxShadow: '0 0 8px rgba(255, 56, 35, 0.6)',
               }}
             />
             <span style={{ fontWeight: 600, color: BRAND_TOKENS.colors.textPrimary }}>
@@ -116,7 +112,7 @@ export const TelemetryHud: React.FC = () => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          borderTop: '1px solid rgba(0, 0, 0, 0.06)',
+          borderTop: '1px solid rgba(255, 255, 255, 0.07)',
           paddingTop: '12px',
         }}
       >
@@ -126,7 +122,7 @@ export const TelemetryHud: React.FC = () => {
           </span>
           <span style={{ color: BRAND_TOKENS.colors.textTertiary }}>•</span>
           <span>
-            EXECUTION: <strong style={{ color: BRAND_TOKENS.colors.accentEmerald }}>AUTONOMOUS</strong>
+            EXECUTION: <strong style={{ color: BRAND_TOKENS.colors.accentEmerald }}>AUTONOMOUS ZERO-TOIL</strong>
           </span>
         </div>
 
@@ -136,7 +132,7 @@ export const TelemetryHud: React.FC = () => {
             style={{
               width: '180px',
               height: '3px',
-              backgroundColor: 'rgba(0, 0, 0, 0.06)',
+              backgroundColor: 'rgba(255, 255, 255, 0.08)',
               borderRadius: '999px',
               overflow: 'hidden',
             }}
@@ -146,6 +142,7 @@ export const TelemetryHud: React.FC = () => {
                 width: `${progressPercent}%`,
                 height: '100%',
                 backgroundColor: BRAND_TOKENS.colors.accentCoral,
+                boxShadow: '0 0 10px rgba(255, 56, 35, 0.7)',
                 borderRadius: '999px',
               }}
             />

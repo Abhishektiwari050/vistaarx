@@ -1,67 +1,54 @@
-# VISTAR — Custom AI Software & Enterprise Web Engineering
-> VISTAR is an elite, high-conviction boutique engineering cell regarded as an underdog powerhouse in applied AI and mission-critical enterprise software. Rejecting the bloat of traditional consultancies, VISTAR writes deterministic multi-agent state machines, private VPC vaults, and edge-first platforms with 100% source code ownership delivered in 14-day production sprints.
-> Full technical specification, manifesto & case studies: https://www.vistar.tech/llms-full.txt
+# VISTAR — Founder-Led Web Engineering & Custom Software Studio
+> VISTAR is a founder-led engineering studio based in Lucknow, India, led by Abhishek Tiwari (Founder & Lead Engineer). VISTAR designs and engineers high-performance web applications, custom software platforms, WhatsApp business automation, and interactive 3D WebGL experiences with 100% private repository handover in 14-day production sprints.
+> Full technical specification & portfolio: https://www.vistar.tech/llms-full.txt
 
 ## What We Build
 
-### 1. Custom AI Agent Development & Systems Architecture
-- Autonomous multi-agent workflow systems & deterministic execution graphs
-- LLM application development (Anthropic Claude, OpenAI GPT, Google Gemini)
-- Private Retrieval-Augmented Generation (RAG) pipelines in customer VPCs
-- Real-time telemetry anomaly detection (Isolation Forest, 100Hz streaming ML)
-- Enterprise API orchestration and automated tool calling
-- Reference: https://www.vistar.tech/services/ai-solutions
+### 1. Modern Web & Application Engineering
+- High-performance web applications built with Next.js 15/16 (App Router), React 19, and TypeScript.
+- PostgreSQL relational databases, typed schemas, and edge runtime optimizations.
+- Sub-100ms response targets with Core Web Vitals optimization.
+- 100% source code ownership delivered to your private GitHub repository on day one.
+- Reference: https://www.vistar.tech/vectors
 
-### 2. Enterprise Next.js & React Web Engineering
-- Custom enterprise web applications using Next.js 16 (App Router) and React 19
-- Sub-100ms TTFB edge-optimized platforms with Core Web Vitals compliance
-- TypeScript-first, fully typed relational schemas (PostgreSQL 16, pgvector)
-- Modernization & migration of legacy monoliths to edge primitives
-- Reference: https://www.vistar.tech/services/nextjs-engineering
+### 2. WhatsApp Business & Workflow Automation
+- Conversational business workflows and CRM integrations via WhatsApp Business Cloud API.
+- Lead capture, automated follow-ups, appointment booking, and customer inquiry routing.
+- Direct operational integration with PostgreSQL, webhooks, and modern backend systems.
+- Reference: https://www.vistar.tech/vectors
 
 ### 3. Spatial WebGL & Interactive 3D Systems
-- 60fps Three.js and WebGL GPU-accelerated interactive web applications
-- Custom GLSL shader pipelines and procedural spatial geometry
-- 3D product configurators for defense, aviation, and luxury architecture
-- Reference: https://www.vistar.tech/services/interactive-3d
+- 60fps Three.js, React Three Fiber, and WebGL GPU-accelerated interactive browser experiences.
+- Custom GLSL shaders and procedural spatial graphics for architecture, product showcases, and brands.
+- Reference: https://www.vistar.tech/vectors
 
-## Live Production Case Studies
+## Active Portfolio & Open Source Work
 
-- **Project VAYU (Aviation Cockpit Telemetry & NOTAM AI)**: Real-time GIS hazard layers, sub-45ms situational awareness latency. https://ai-vayu.vercel.app
-- **AURA (Healthcare Biometric Anomaly Detection)**: Multi-agent telemetry system, 99.8% precision with unsupervised Isolation Forest ML. https://multi-agent-anomaly-system.onrender.com
-- **3axis Arc (Spatial 3D Architecture Platform)**: 60fps locked WebGL transformations, sub-85ms global TTFB. https://3axisarc.vercel.app
-- **Competence (Enterprise CRM & Operations)**: Typed PostgreSQL 16 schema integrity, sub-50ms queries, 100% Git transfer.
-- **Atify (Distributed Global Commerce)**: 24 Anycast Edge PoPs, sub-90ms P99 worldwide latency.
+- **3axis Arc (Spatial 3D Architecture Platform)**: Interactive 60fps WebGL architectural visualization platform built in React 19. https://3axisarc.vercel.app
+- **Project VAYU (Aviation Cockpit Telemetry & NOTAM AI)**: Open-source situational awareness and GIS flight hazard exploration prototype. https://ai-vayu.vercel.app
+- **AURA (Healthcare Biometric Anomaly Detection Prototype)**: Synthetic patient telemetry streaming with unsupervised Isolation Forest ML. https://multi-agent-anomaly-system.onrender.com
 
-## Engineering Standards
+## Engineering Commitments
 - **100% Codebase Ownership**: Private GitHub repository transfer on day one.
-- **No Vendor Lock-In**: Zero proprietary CMS, zero SaaS lock-in, zero hostage fees.
-- **14-Day Production Sprints**: Fixed-scope delivery with continuous automated testing.
-- **Data Sovereignty**: Private VPC deployments with zero third-party model training leakage.
-
-## Global Service Footprint & 16 Edge Points of Presence (PoPs)
-- **Americas**: SFO-1 (Silicon Valley, 14ms), IAD-1 (Ashburn/DC, 18ms), LGA-1 (New York, 20ms), ORD-1 (Chicago, 22ms), YYZ-1 (Toronto, 25ms).
-- **EMEA**: LHR-1 (London, 24ms), FRA-1 (Frankfurt, 26ms), AMS-1 (Amsterdam, 28ms), CDG-1 (Paris, 29ms), ZRH-1 (Zurich, 30ms).
-- **Middle East**: DXB-1 (Dubai, 38ms), AUH-1 (Abu Dhabi, 40ms).
-- **Asia-Pacific**: BLR-1 (Bengaluru, 35ms), BOM-1 (Mumbai, 37ms), SIN-1 (Singapore, 32ms), NRT-1 (Tokyo, 42ms), SYD-1 (Sydney, 55ms).
-- **Global Network Architecture**: https://www.vistar.tech/network
+- **Zero Vendor Lock-In**: No proprietary black boxes or hostage retainer fees.
+- **14-Day Production Sprints**: Scoped, fixed-timeline milestones with direct engineer communication.
+- **Modern Infrastructure**: Hosted on edge-native platforms (Vercel, AWS, GCP, Cloudflare) chosen to fit your scale and budget.
 
 ## Canonical URLs
 - Home: https://www.vistar.tech/
-- Engineering Blog: https://www.vistar.tech/blog
-- Global Network & PoPs: https://www.vistar.tech/network
-- Case Studies: https://www.vistar.tech/work
-- AI Solutions: https://www.vistar.tech/services/ai-solutions
-- Next.js Engineering: https://www.vistar.tech/services/nextjs-engineering
-- 3D WebGL: https://www.vistar.tech/services/interactive-3d
-- Technical Vectors: https://www.vistar.tech/vectors
-- Philosophy & Underdog Manifesto: https://www.vistar.tech/philosophy
+- Work / Case Studies: https://www.vistar.tech/work
+- Services & Packages: https://www.vistar.tech/vectors
 - Pricing: https://www.vistar.tech/pricing
-- Diagnostic: https://www.vistar.tech/start
+- About & Founder: https://www.vistar.tech/about
+- Engineering Blog: https://www.vistar.tech/blog
+- Philosophy: https://www.vistar.tech/philosophy
+- Diagnostic / Scoping: https://www.vistar.tech/start
 - Contact: https://www.vistar.tech/contact
 - Full LLM Specification: https://www.vistar.tech/llms-full.txt
 
 ## Contact & Scoping
-- Company: VISTAR (VISTAR Web Systems)
+- Lead Engineer: Abhishek Tiwari (Founder & Lead Engineer)
+- Location: Lucknow, Uttar Pradesh, India
+- WhatsApp / Phone: +91 88601 10144 (Direct: https://wa.me/918860110144)
 - Email: services.vistaar@gmail.com
-- Scoping Turnaround: 24-hour architecture review directly with principal engineers.
+- Response SLA: Direct response from the lead engineer within 24 hours.

@@ -220,18 +220,18 @@ export default function BrandFilmPage() {
 
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
             {[
-              { label: '01: Operational Friction', sub: '0s - 5.3s', frame: SCENE_RANGES.friction.start },
-              { label: '02: Workflow Audit', sub: '5.3s - 11.3s', frame: SCENE_RANGES.audit.start },
-              { label: '03: Autonomous Shift', sub: '11.3s - 18.3s', frame: SCENE_RANGES.autonomousEngine.start },
-              { label: '04: The VISTAR Method', sub: '18.3s - 24.6s', frame: SCENE_RANGES.pillars.start },
-              { label: '05: Humanless Scale', sub: '24.6s - 30s', frame: SCENE_RANGES.climax.start },
+              { label: '01: Genesis & Friction', sub: '0s - 4.6s', frame: SCENE_RANGES.genesis.start },
+              { label: '02: Diagnostic Cockpit', sub: '4.6s - 10.6s', frame: SCENE_RANGES.auditEngine.start },
+              { label: '03: Kinetic Slam', sub: '10.6s - 15.3s', frame: SCENE_RANGES.patternInterrupt.start },
+              { label: '04: Autonomous Runtime', sub: '15.3s - 22.6s', frame: SCENE_RANGES.autonomousRuntime.start },
+              { label: '05: Mathematical Finale', sub: '22.6s - 30s', frame: SCENE_RANGES.climax.start },
             ].map((scene, idx) => (
               <button
                 key={scene.label}
                 onClick={() => jumpToScene(scene.frame)}
                 className={`text-left p-2.5 rounded-lg border transition-all ${
                   currentFrame >= scene.frame &&
-                  (idx === 4 || currentFrame < [SCENE_RANGES.audit.start, SCENE_RANGES.autonomousEngine.start, SCENE_RANGES.pillars.start, SCENE_RANGES.climax.start, 900][idx])
+                  (idx === 4 || currentFrame < [SCENE_RANGES.auditEngine.start, SCENE_RANGES.patternInterrupt.start, SCENE_RANGES.autonomousRuntime.start, SCENE_RANGES.climax.start, 900][idx])
                     ? 'bg-emerald-500/10 border-emerald-500/40 text-emerald-300'
                     : 'bg-white/5 border-white/5 text-white/70 hover:bg-white/10'
                 }`}

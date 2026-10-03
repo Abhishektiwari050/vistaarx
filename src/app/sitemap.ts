@@ -27,10 +27,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.95,
     },
     {
-      url: `${baseUrl}/network`,
+      url: `${baseUrl}/about`,
       lastModified,
-      changeFrequency: "weekly",
-      priority: 0.94,
+      changeFrequency: "monthly",
+      priority: 0.93,
     },
     {
       url: `${baseUrl}/blog`,
@@ -45,18 +45,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.92,
     },
     // ── Tier 2: Service landing pages ─────────────────────────────────────────
-    {
-      url: `${baseUrl}/solutions`,
-      lastModified,
-      changeFrequency: "weekly",
-      priority: 0.92,
-    },
-    {
-      url: `${baseUrl}/platform`,
-      lastModified,
-      changeFrequency: "monthly",
-      priority: 0.90,
-    },
     {
       url: `${baseUrl}/services/ai-solutions`,
       lastModified,

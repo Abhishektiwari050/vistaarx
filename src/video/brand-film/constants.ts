@@ -7,44 +7,42 @@ export const VIDEO_CONFIG = {
 } as const;
 
 export const SCENE_RANGES = {
-  friction: { start: 0, end: 160, duration: 160 }, // 0s - 5.3s: The Human Bottleneck & Operational Friction
-  audit: { start: 160, end: 340, duration: 180 }, // 5.3s - 11.3s: The VISTAR Operational Audit
-  autonomousEngine: { start: 340, end: 550, duration: 210 }, // 11.3s - 18.3s: Autonomous Software in Action (Flagship Console)
-  pillars: { start: 550, end: 740, duration: 190 }, // 18.3s - 24.6s: 3 Pillars of Enterprise Autonomy
-  climax: { start: 740, end: 900, duration: 160 }, // 24.6s - 30s: Grand Climax & Brand Lockup
+  genesis: { start: 0, end: 140, duration: 140 }, // 0s - 4.6s: Terminal Spark & The Human Friction Problem
+  auditEngine: { start: 140, end: 320, duration: 180 }, // 4.6s - 10.6s: The Massive Edge-to-Edge Diagnostic Cockpit
+  patternInterrupt: { start: 320, end: 460, duration: 140 }, // 10.6s - 15.3s: Apple-style Kinetic Typography Slam
+  autonomousRuntime: { start: 460, end: 680, duration: 220 }, // 15.3s - 22.6s: Real-time Multi-agent Execution & Latency Crash
+  climax: { start: 680, end: 900, duration: 220 }, // 22.6s - 30s: Grand Mathematical Logo Lockup & Sonic Finale
 } as const;
 
 export const BRAND_TOKENS = {
   colors: {
-    // Editorial warm paper palette (matches actual VISTAR Cohere theme)
-    bg: '#FAF9F5',
-    bgPure: '#FFFFFF',
-    bgStone: '#F3F1EA',
-    surface: '#FFFFFF',
-    surfaceMuted: '#F6F5EE',
+    // Cinematic Obsidian Core (Linear / Cursor / Apple Launch Film Palette)
+    bg: '#05060A',
+    bgSurface: 'rgba(255, 255, 255, 0.035)',
+    bgSurfaceElevated: 'rgba(255, 255, 255, 0.06)',
     
-    // Hairline borders
-    border: 'rgba(0, 0, 0, 0.08)',
-    borderSubtle: 'rgba(0, 0, 0, 0.04)',
-    borderFocus: 'rgba(255, 56, 35, 0.4)',
+    // Specular Glass Borders
+    border: 'rgba(255, 255, 255, 0.09)',
+    borderBright: 'rgba(255, 255, 255, 0.22)',
+    borderFocus: 'rgba(255, 56, 35, 0.5)',
 
-    // Deep editorial typography
-    textPrimary: '#141413',
-    textSecondary: '#5A5A55',
-    textTertiary: '#8E8E86',
+    // Crisp Display Typography
+    textPrimary: '#FFFFFF',
+    textSecondary: '#9499AD',
+    textTertiary: '#5E6375',
 
-    // Signature accents
+    // Signature Accents
     accentCoral: '#FF3823', // VISTAR Coral Red
-    accentCoralSoft: 'rgba(255, 56, 35, 0.08)',
-    accentEmerald: '#059669', // Verified autonomous green
-    accentEmeraldSoft: 'rgba(5, 150, 105, 0.08)',
-    accentAmber: '#D97706', // Friction / bottleneck indicator
-    accentAmberSoft: 'rgba(217, 119, 6, 0.08)',
-    accentIndigo: '#4F46E5', // Pipeline flow
+    accentCoralGlow: 'rgba(255, 56, 35, 0.35)',
+    accentEmerald: '#10B981', // Verified autonomous green
+    accentEmeraldGlow: 'rgba(16, 185, 129, 0.3)',
+    accentCyan: '#06B6D4',
+    accentAmber: '#F59E0B',
+    accentIndigo: '#6366F1',
   },
   typography: {
     fontDisplay: '"CohereText", "Space Grotesk", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
     fontBody: '"Unica77 Cohere Web", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-    fontMono: '"CohereMono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
+    fontMono: '"CohereMono", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
   },
 } as const;

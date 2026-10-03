@@ -3,12 +3,19 @@ import { interpolate, useCurrentFrame } from 'remotion';
 import { BRAND_TOKENS } from '../constants';
 
 export const CinematicBackground: React.FC<{
-  tint?: 'warm' | 'subtle' | 'focus';
-}> = ({ tint = 'warm' }) => {
+  accent?: 'indigo' | 'coral' | 'emerald' | 'amber';
+}> = ({ accent = 'indigo' }) => {
   const frame = useCurrentFrame();
 
-  // Very gentle, imperceptible ambient breathing
-  const ambientPulse = Math.sin(frame * 0.03) * 0.05 + 0.95;
+  // Gentle volumetric aura motion
+  const auraX = Math.sin(frame * 0.02) * 60;
+  const auraY = Math.cos(frame * 0.025) * 40;
+  const auraPulse = Math.sin(frame * 0.04) * 0.1 + 0.9;
+
+  let glowColor = 'rgba(99, 102, 241, 0.12)'; // indigo
+  if (accent === 'coral') glowColor = 'rgba(255, 56, 35, 0.14)';
+  if (accent === 'emerald') glowColor = 'rgba(16, 185, 129, 0.12)';
+  if (accent === 'amber') glowColor = 'rgba(245, 158, 11, 0.13)';
 
   return (
     <div
@@ -20,54 +27,54 @@ export const CinematicBackground: React.FC<{
         pointerEvents: 'none',
       }}
     >
-      {/* Subtle architectural hairline grid */}
+      {/* Deep Volumetric Light Core */}
+      <div
+        style={{
+          position: 'absolute',
+          top: `calc(35% + ${auraY}px)`,
+          left: `calc(50% + ${auraX}px)`,
+          width: '1200px',
+          height: '800px',
+          transform: 'translate(-50%, -50%)',
+          background: `radial-gradient(circle, ${glowColor} 0%, rgba(5, 6, 10, 0) 70%)`,
+          filter: 'blur(100px)',
+          opacity: auraPulse,
+        }}
+      />
+
+      {/* Secondary Ambient Accent Corner */}
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '-10%',
+          right: '-5%',
+          width: '900px',
+          height: '600px',
+          background: 'radial-gradient(circle, rgba(255, 56, 35, 0.07) 0%, rgba(5, 6, 10, 0) 70%)',
+          filter: 'blur(90px)',
+        }}
+      />
+
+      {/* Subtle Specular Architectural Grid */}
       <div
         style={{
           position: 'absolute',
           inset: 0,
           backgroundImage: `
-            linear-gradient(to right, rgba(0, 0, 0, 0.025) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(0, 0, 0, 0.025) 1px, transparent 1px)
+            linear-gradient(to right, rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(255, 255, 255, 0.022) 1px, transparent 1px)
           `,
-          backgroundSize: '48px 48px',
-          opacity: 0.8,
+          backgroundSize: '54px 54px',
+          opacity: 0.85,
         }}
       />
 
-      {/* Gentle warm organic ambient radial warmth (Anthropic editorial aesthetic) */}
+      {/* Precision Perimeter Framing Lines */}
       <div
         style={{
           position: 'absolute',
-          top: '-10%',
-          right: '-5%',
-          width: '1100px',
-          height: '900px',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(255, 237, 225, 0.55) 0%, rgba(250, 249, 245, 0) 70%)',
-          filter: 'blur(100px)',
-          opacity: ambientPulse,
-        }}
-      />
-      <div
-        style={{
-          position: 'absolute',
-          bottom: '-15%',
-          left: '-5%',
-          width: '1000px',
-          height: '800px',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(238, 235, 222, 0.6) 0%, rgba(250, 249, 245, 0) 70%)',
-          filter: 'blur(90px)',
-          opacity: ambientPulse,
-        }}
-      />
-
-      {/* Editorial Frame Borders (Architectural perimeter hairlines) */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: '28px',
-          border: '1px solid rgba(0, 0, 0, 0.05)',
+          inset: '32px',
+          border: '1px solid rgba(255, 255, 255, 0.04)',
           pointerEvents: 'none',
         }}
       />

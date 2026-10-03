@@ -374,40 +374,16 @@ export function CohereSolutions() {
                         transform,
                       }}
                     >
-                      {/* Apple-Style macOS Safari Window Container */}
+                      {/* Full-bleed Software Canvas (Frameless, Zero Safari Chrome) */}
                       <div
-                        className={`relative w-full h-full rounded-[18px] overflow-hidden border border-black/15 bg-[#080d19] transition-all duration-300 ${
+                        className={`relative w-full h-full rounded-[18px] overflow-hidden border border-black/10 bg-[#080d19] transition-all duration-300 ${
                           isHovered
                             ? "shadow-[0_32px_70px_rgba(0,0,0,0.38),0_0_0_1px_rgba(255,255,255,0.2)]"
                             : "shadow-[0_20px_45px_rgba(0,0,0,0.24),0_0_0_1px_rgba(255,255,255,0.08)]"
                         }`}
                       >
-                        {/* ── Sleek Apple macOS Safari Titlebar ── */}
-                        <div className="relative h-8 px-4 flex items-center justify-between border-b border-white/10 bg-[#12131A]/95 backdrop-blur-md z-10 shrink-0">
-                          {/* Traffic Light Dots */}
-                          <div className="flex items-center gap-1.5">
-                            <div className="w-2.5 h-2.5 rounded-full bg-[#FF5F56] border border-black/10" />
-                            <div className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E] border border-black/10" />
-                            <div className="w-2.5 h-2.5 rounded-full bg-[#27C93F] border border-black/10" />
-                          </div>
-
-                          {/* Centered URL Capsule */}
-                          <div className="flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-white/10 border border-white/10 text-[10.5px] font-mono text-white/90 max-w-[200px] truncate shadow-inner">
-                            <Lock className="w-2.5 h-2.5 text-emerald-400 shrink-0" />
-                            <span className="truncate">{card.displayUrl}</span>
-                          </div>
-
-                          {/* Live Status Pill */}
-                          <div className="flex items-center gap-1.5">
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                            <span className="text-[9px] font-mono uppercase tracking-wider text-emerald-400 font-semibold">
-                              {card.id === 3 ? "OPEN SOURCE" : card.id === 4 ? "PROTOTYPE" : "LIVE"}
-                            </span>
-                          </div>
-                        </div>
-
-                        {/* Page Preview Image */}
-                        <div className="relative w-full h-[calc(100%-32px)] overflow-hidden bg-slate-950">
+                        {/* Page Preview Image - 100% full bleed */}
+                        <div className="relative w-full h-full overflow-hidden bg-slate-950">
                           <Image
                             src={card.image}
                             alt={card.alt}
@@ -417,12 +393,18 @@ export function CohereSolutions() {
                             priority={idx < 2}
                           />
 
-                          {/* Dynamic Specular Sheen on Non-hovered cards */}
+                          {/* Subtle Specular Sheen on Non-hovered cards */}
                           <div
-                            className={`absolute inset-0 bg-black/25 transition-opacity duration-200 pointer-events-none ${
+                            className={`absolute inset-0 bg-black/20 transition-opacity duration-200 pointer-events-none ${
                               isAnyHovered && !isHovered ? "opacity-100" : "opacity-0"
                             }`}
                           />
+
+                          {/* Minimal floating system tag pill */}
+                          <div className="absolute top-3 left-3 pointer-events-none z-10 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/10 text-[10px] font-mono text-white/90">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                            <span>{card.title.split(":")[0]}</span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -442,24 +424,7 @@ export function CohereSolutions() {
               onClick={() => handleCardClick(card)}
               className="w-full bg-[#080d19] rounded-[16px] overflow-hidden border border-black/10 shadow-md cursor-pointer transition-transform active:scale-[0.99]"
             >
-              {/* Browser Window Bar */}
-              <div className="h-7 px-3.5 flex items-center justify-between border-b border-white/10 bg-black/75">
-                <div className="flex items-center gap-1.5">
-                  <div className="w-2 h-2 rounded-full bg-[#ff5f56]" />
-                  <div className="w-2 h-2 rounded-full bg-[#ffbd2e]" />
-                  <div className="w-2 h-2 rounded-full bg-[#27c93f]" />
-                </div>
-                <div className="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-white/10 text-[10px] font-mono text-white/80">
-                  <Lock className="w-2.5 h-2.5 text-emerald-400" />
-                  <span className="truncate max-w-[150px]">{card.displayUrl || "vistar.systems"}</span>
-                </div>
-                <div className="flex items-center gap-1 text-[9px] font-mono uppercase text-emerald-400 font-semibold">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  LIVE
-                </div>
-              </div>
-
-              {/* Pure Screenshot Surface without dark overlays */}
+              {/* Pure Screenshot Surface without faux browser headers */}
               <div className="relative w-full aspect-[16/10] bg-slate-950 overflow-hidden">
                 <Image
                   src={card.image}
@@ -468,6 +433,10 @@ export function CohereSolutions() {
                   className="object-cover object-top"
                   sizes="(max-width: 768px) 100vw, 500px"
                 />
+                <div className="absolute top-2.5 left-2.5 pointer-events-none z-10 flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-black/70 backdrop-blur-md border border-white/10 text-[10px] font-mono text-white/90">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span>{card.title.split(":")[0]}</span>
+                </div>
               </div>
 
               {/* Clean Bottom Bar with Title & Action */}
