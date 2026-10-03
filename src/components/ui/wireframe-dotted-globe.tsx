@@ -116,10 +116,12 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
         }
       }
 
-      console.log(
-        `[v0] Generated ${pointsGenerated} points for land feature:`,
-        feature.properties?.featurecla || "Land",
-      )
+      if (process.env.NODE_ENV !== "production") {
+        console.log(
+          `[v0] Generated ${pointsGenerated} points for land feature:`,
+          feature.properties?.featurecla || "Land",
+        )
+      }
       return dots
     }
 
@@ -208,7 +210,9 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
           })
         })
 
-        console.log(`[v0] Total dots generated: ${totalDots} across ${landFeatures.features.length} land features`)
+        if (process.env.NODE_ENV !== "production") {
+          console.log(`[v0] Total dots generated: ${totalDots} across ${landFeatures.features.length} land features`)
+        }
 
         render()
         setIsLoading(false)

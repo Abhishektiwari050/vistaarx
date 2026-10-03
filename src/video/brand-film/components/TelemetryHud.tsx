@@ -1,6 +1,7 @@
 import React from 'react';
 import { interpolate, useCurrentFrame } from 'remotion';
 import { BRAND_TOKENS, SCENE_RANGES } from '../constants';
+import { VistarLogoMark } from './VistarLogoMark';
 
 export const TelemetryHud: React.FC = () => {
   const frame = useCurrentFrame();
@@ -52,7 +53,13 @@ export const TelemetryHud: React.FC = () => {
           paddingBottom: '12px',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <VistarLogoMark
+            size={18}
+            color="#141413"
+            centerColor="#FF3823"
+            pulse={Math.sin(frame * 0.08) * 0.05 + 1}
+          />
           <span
             style={{
               fontFamily: BRAND_TOKENS.typography.fontDisplay,

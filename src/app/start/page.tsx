@@ -34,11 +34,7 @@ export default function StartPage() {
           </div>
 
           <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl font-semibold text-[#0E1118] tracking-tight leading-[1.08]">
-            Start your{" "}
-            <span className="font-serif italic font-normal text-[#FF3823]">
-              project
-            </span>{" "}
-            sprint.
+            Start your <span className="font-serif italic font-normal text-[#FF3823]">project</span> sprint.
           </h1>
 
           <p className="max-w-2xl mx-auto text-base sm:text-lg text-neutral-600 leading-relaxed">

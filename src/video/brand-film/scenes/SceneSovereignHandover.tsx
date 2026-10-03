@@ -2,6 +2,7 @@ import React from 'react';
 import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
 import { CinematicBackground } from '../components/CinematicBackground';
 import { BRAND_TOKENS } from '../constants';
+import { VistarLogoMark } from '../components/VistarLogoMark';
 
 export const SceneSovereignHandover: React.FC = () => {
   const frame = useCurrentFrame();
@@ -15,19 +16,29 @@ export const SceneSovereignHandover: React.FC = () => {
   });
 
   const logoEntrance = spring({
+    frame: frame - 20,
+    fps,
+    config: { damping: 16, stiffness: 90 },
+  });
+
+  // Mathematical convergence of the 4 vectors from fragmented to unified
+  const convergence = spring({
     frame: frame - 25,
     fps,
-    config: { damping: 18, stiffness: 90 },
+    config: { damping: 14, stiffness: 110 },
   });
 
   const sublockEntrance = spring({
-    frame: frame - 40,
+    frame: frame - 42,
     fps,
     config: { damping: 16, stiffness: 85 },
   });
 
   // Slow, regal push-in
   const cameraScale = interpolate(frame, [0, 160], [0.98, 1.02], { extrapolateRight: 'clamp' });
+
+  // Subtle breathing pulse after lockup
+  const pulse = Math.sin(frame * 0.06) * 0.03 + 1;
 
   return (
     <AbsoluteFill
@@ -58,7 +69,7 @@ export const SceneSovereignHandover: React.FC = () => {
         {/* The Climax Statement */}
         <div
           style={{
-            marginBottom: '48px',
+            marginBottom: '42px',
             opacity: interpolate(statementEntrance, [0, 1], [0, 1]),
             transform: `translateY(${interpolate(statementEntrance, [0, 1], [25, 0])}px)`,
           }}
@@ -72,7 +83,7 @@ export const SceneSovereignHandover: React.FC = () => {
               backgroundColor: '#FFFFFF',
               border: '1px solid rgba(0, 0, 0, 0.08)',
               borderRadius: '999px',
-              marginBottom: '24px',
+              marginBottom: '22px',
               boxShadow: '0 2px 6px rgba(0, 0, 0, 0.03)',
             }}
           >
@@ -125,7 +136,7 @@ export const SceneSovereignHandover: React.FC = () => {
           </h2>
         </div>
 
-        {/* Central Brand Lockup */}
+        {/* Central Brand Lockup with Animated Vector Mark */}
         <div
           style={{
             display: 'flex',
@@ -135,31 +146,27 @@ export const SceneSovereignHandover: React.FC = () => {
             transform: `translateY(${interpolate(logoEntrance, [0, 1], [30, 0])}px)`,
           }}
         >
-          {/* Refined Brand Geometric Mark */}
+          {/* Official VISTAR Mathematical Vector Mark */}
           <div
             style={{
-              width: '72px',
-              height: '72px',
-              borderRadius: '20px',
-              backgroundColor: '#141413',
+              marginBottom: '18px',
+              padding: '16px',
+              borderRadius: '24px',
+              backgroundColor: '#FFFFFF',
+              border: '1px solid rgba(0, 0, 0, 0.08)',
+              boxShadow: '0 16px 40px -10px rgba(0, 0, 0, 0.08)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              marginBottom: '20px',
-              boxShadow: '0 16px 36px rgba(20, 20, 19, 0.16)',
             }}
           >
-            <span
-              style={{
-                fontFamily: BRAND_TOKENS.typography.fontDisplay,
-                fontSize: '38px',
-                fontWeight: 700,
-                color: '#FAF9F5',
-                letterSpacing: '-0.05em',
-              }}
-            >
-              V
-            </span>
+            <VistarLogoMark
+              size={64}
+              color="#141413"
+              centerColor="#FF3823"
+              convergence={convergence}
+              pulse={pulse}
+            />
           </div>
 
           {/* Brand Name */}
@@ -186,7 +193,7 @@ export const SceneSovereignHandover: React.FC = () => {
               letterSpacing: '0.2em',
               color: BRAND_TOKENS.colors.textSecondary,
               textTransform: 'uppercase',
-              margin: '0 0 36px 0',
+              margin: '0 0 34px 0',
             }}
           >
             Enterprise Operational Intelligence & Autonomous Systems

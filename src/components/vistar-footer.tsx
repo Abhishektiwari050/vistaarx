@@ -31,7 +31,7 @@ const VISTAR_COLUMNS: FooterColumn[] = [
       { label: "The Underdog Manifesto", href: "/philosophy" },
       { label: "100% Repository Handover", href: "/philosophy" },
       { label: "Engineering Blog & Blueprints", href: "/blog" },
-      { label: "Pricing & Packages (â‚¹ / $)", href: "/pricing" },
+      { label: "Pricing & Packages (₹ / $)", href: "/pricing" },
     ],
   },
   {
@@ -85,7 +85,7 @@ export function VistarFooter() {
 
   return (
     <footer className="w-full bg-[#100F12] text-white select-none relative overflow-hidden font-sans">
-      {/* â”€â”€ 1. VISTAR PRE-FOOTER CTA (TRUE PARALLAX SCROLL) â”€â”€ */}
+      {/* ── 1. VISTAR PRE-FOOTER CTA (TRUE PARALLAX SCROLL) ── */}
       <section
         className="relative w-full py-28 sm:py-36 px-6 lg:px-12 flex flex-col items-center justify-center text-center overflow-hidden border-b border-black/10 bg-fixed bg-cover bg-center"
         style={{
@@ -104,7 +104,7 @@ export function VistarFooter() {
             Custom software &amp; automations, delivered in 14 days.
           </h2>
           <p className="text-base sm:text-lg text-[#100F12]/80 max-w-xl mx-auto leading-relaxed font-normal">
-            WhatsApp sales pipelines, modern Next.js 16 portals, and 3D architectural showcases with 100% private code ownership. Fixed-scope packages from â‚¹49,000 ($600).
+            WhatsApp sales pipelines, modern Next.js 16 portals, and 3D architectural showcases with 100% private code ownership. Fixed-scope packages from ₹49,000 ($600).
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
@@ -112,7 +112,7 @@ export function VistarFooter() {
               href="/pricing"
               className="inline-flex items-center justify-center h-12 px-7 rounded-full bg-[#100F12] hover:bg-[#232227] text-white text-[14.5px] font-medium shadow-md transition-all active:scale-95"
             >
-              View Packages (from â‚¹49k)
+              View Packages (from ₹49k)
             </Link>
 
             <a
@@ -127,7 +127,7 @@ export function VistarFooter() {
         </div>
       </section>
 
-      {/* â”€â”€ 2. VISTAR FOOTER CONTENT â”€â”€ */}
+      {/* ── 2. VISTAR FOOTER CONTENT ── */}
       <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-14 pt-20 pb-12 space-y-16">
         
         {/* Top: Newsletter Subscribe Bar */}
@@ -201,7 +201,7 @@ export function VistarFooter() {
           ))}
         </div>
 
-        {/* â”€â”€ 3. VISTAR SIGNATURE BRAND DISPLAY â”€â”€ */}
+        {/* ── 3. VISTAR SIGNATURE BRAND DISPLAY ── */}
         <div className="pt-10 pb-4 flex items-center justify-start border-t border-white/10">
           <div className="flex flex-col gap-2 select-none">
             <div className="flex items-center gap-4 text-white">
@@ -239,7 +239,7 @@ export function VistarFooter() {
           </div>
         </div>
 
-        {/* â”€â”€ 4. BOTTOM LEGAL & CONTACT ROW â”€â”€ */}
+        {/* ── 4. BOTTOM LEGAL & CONTACT ROW ── */}
         <div className="pt-6 border-t border-white/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 text-xs text-white/50">
           
           {/* Left: Entity & Legal Policies */}

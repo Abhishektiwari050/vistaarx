@@ -25,7 +25,7 @@ export default function ContactPage() {
     phone: "",
     company: "",
     projectType: "WhatsApp & AI Automations",
-    budget: "â‚¹49k â€“ â‚¹1.5L ($600 â€“ $1.8k)",
+    budget: "₹49k – ₹1.5L ($600 – $1.8k)",
     message: "",
     _hp: "",
   });
@@ -44,9 +44,9 @@ export default function ContactPage() {
   ];
 
   const budgetTiers = [
-    "â‚¹49k â€“ â‚¹1.5L ($600 â€“ $1.8k)",
-    "â‚¹1.5L â€“ â‚¹3.5L ($1.8k â€“ $4.2k)",
-    "â‚¹3.5L+ ($4.2k+)",
+    "₹49k – ₹1.5L ($600 – $1.8k)",
+    "₹1.5L – ₹3.5L ($1.8k – $4.2k)",
+    "₹3.5L+ ($4.2k+)",
   ];
 
   const handleFormSubmit = async (e: React.FormEvent) => {
@@ -110,7 +110,7 @@ export default function ContactPage() {
       phone: "",
       company: "",
       projectType: "WhatsApp & AI Automations",
-      budget: "â‚¹49k â€“ â‚¹1.5L ($600 â€“ $1.8k)",
+      budget: "₹49k – ₹1.5L ($600 – $1.8k)",
       message: "",
       _hp: "",
     });
@@ -119,7 +119,7 @@ export default function ContactPage() {
   return (
     <div className="w-full bg-[#FAF9F5] text-[#0E1118] font-sans antialiased selection:bg-[#FF3823] selection:text-white min-h-screen">
       
-      {/* â”€â”€ FRAME 1: EDITORIAL HEADER â”€â”€ */}
+      {/* ── FRAME 1: EDITORIAL HEADER ── */}
       <section className="relative w-full pt-28 pb-12 md:pt-36 md:pb-16 border-b border-black/10 overflow-hidden px-4 sm:px-6">
         <div
           className="absolute inset-0 opacity-40 pointer-events-none"
@@ -147,7 +147,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* â”€â”€ FRAME 2: CONTACT FORM & DIRECT CHANNELS â”€â”€ */}
+      {/* ── FRAME 2: CONTACT FORM & DIRECT CHANNELS ── */}
       <section className="w-full py-16 px-4 sm:px-6 md:px-8">
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           

@@ -76,7 +76,7 @@ export function CohereHero() {
 
   return (
     <div ref={containerRef} className="w-full bg-white text-[#212121]">
-      {/* â”€â”€ 1. HERO TEXT SECTION â”€â”€ */}
+      {/* ── 1. HERO TEXT SECTION ── */}
       <section className="relative w-full px-4 pt-10 sm:pt-14 md:pt-18 pb-6 md:pb-8 text-[#212121]">
         <div className="relative mx-auto w-full max-w-[1400px]">
           <div className="text-center flex flex-col items-center">
@@ -108,7 +108,7 @@ export function CohereHero() {
                     '"Unica77 Cohere Web", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
                 }}
               >
-                Custom software, WhatsApp automations, and interactive 3D web systems built for your business. Shipped by founding engineers in 14-day sprints with 100% source code ownership. Packages start at â‚¹49,000 ($600).
+                Custom software, WhatsApp automations, and interactive 3D web systems built for your business. Shipped by founding engineers in 14-day sprints with 100% source code ownership. Packages start at ₹49,000 ($600).
               </p>
             </div>
 
@@ -122,7 +122,7 @@ export function CohereHero() {
                     '"Unica77 Cohere Web", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
                 }}
               >
-                View Packages (from â‚¹49k / $600)
+                View Packages (from ₹49k / $600)
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <a
@@ -154,7 +154,7 @@ export function CohereHero() {
         </div>
       </section>
 
-      {/* â”€â”€ 2. ORIGINAL COHERE HERO FEATURED GRAPHIC (HARDWARE-ACCELERATED GSAP ENTRANCE) â”€â”€ */}
+      {/* ── 2. ORIGINAL COHERE HERO FEATURED GRAPHIC (HARDWARE-ACCELERATED GSAP ENTRANCE) ── */}
       <section className="gsap-hero-media relative w-full px-4 lg:px-10 pb-12 md:pb-16 bg-white text-[#212121] will-change-transform">
         <div className="relative mx-auto w-full max-w-[1360px]">
           

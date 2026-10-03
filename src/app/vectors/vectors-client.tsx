@@ -44,9 +44,9 @@ const PACKAGES: ServicePackage[] = [
     id: "starter",
     badge: "PACKAGE 01 // RAPID LAUNCH",
     name: "Starter MVP",
-    inrPrice: "â‚¹49,000",
+    inrPrice: "₹49,000",
     usdPrice: "$590",
-    timeline: "5â€“7 Days Delivery",
+    timeline: "5–7 Days Delivery",
     idealFor: "Solopreneurs, direct-to-consumer brands, and businesses needing a fast, high-converting digital storefront or single workflow tool.",
     desc: "A focused, high-speed web application or landing page engineered with sub-second load times and direct WhatsApp inquiry routing to start capturing revenue immediately.",
     included: [
@@ -75,7 +75,7 @@ const PACKAGES: ServicePackage[] = [
     id: "production",
     badge: "PACKAGE 02 // MOST POPULAR",
     name: "Production System",
-    inrPrice: "â‚¹1,85,000",
+    inrPrice: "₹1,85,000",
     usdPrice: "$2,200",
     timeline: "14 Days Guaranteed",
     idealFor: "Funded startups, growing businesses, and architecture/real estate firms needing a full-stack web application or 60 FPS interactive 3D showcase.",
@@ -107,11 +107,11 @@ const PACKAGES: ServicePackage[] = [
     id: "custom",
     badge: "PACKAGE 03 // BESPOKE ENGINEERING",
     name: "Custom Architecture",
-    inrPrice: "â‚¹3,90,000+",
+    inrPrice: "₹3,90,000+",
     usdPrice: "$4,700+",
-    timeline: "21â€“30 Days",
+    timeline: "21–30 Days",
     idealFor: "Enterprises, specialized platforms, and technical teams requiring bespoke data engines, GIS mapping tools, or multi-agent automation workflows.",
-    desc: "Bespoke full-stack software engineering tailored to complex requirementsâ€”such as real-time GIS mapping, asynchronous task queues, and structured validation pipelines.",
+    desc: "Bespoke full-stack software engineering tailored to complex requirements—such as real-time GIS mapping, asynchronous task queues, and structured validation pipelines.",
     included: [
       "Bespoke full-stack architecture with asynchronous worker queues",
       "Automated GIS / vector map layers (MapLibre / PostGIS)",
@@ -141,9 +141,9 @@ const SERVICES_FAQ_ITEMS: QAPair[] = [
     category: "SCOPE & PACKAGES",
     question: "How do your fixed-scope delivery packages work?",
     answer:
-      "We operate exclusively on fixed-scope, fixed-price delivery milestones. Before writing code, we define concrete deliverables, typed interface contracts, and delivery dates. You know exactly what you are paying, when it will be delivered, and what is includedâ€”with zero unexpected hourly billing.",
+      "We operate exclusively on fixed-scope, fixed-price delivery milestones. Before writing code, we define concrete deliverables, typed interface contracts, and delivery dates. You know exactly what you are paying, when it will be delivered, and what is included—with zero unexpected hourly billing.",
     keyPoints: [
-      "Fixed pricing: â‚¹49,000 (Starter), â‚¹1,85,000 (Production), â‚¹3,90,000+ (Custom)",
+      "Fixed pricing: ₹49,000 (Starter), ₹1,85,000 (Production), ₹3,90,000+ (Custom)",
       "Guaranteed timelines ranging from 5 to 30 days",
       "Clear scope boundaries with zero surprise invoices",
     ],
@@ -189,7 +189,7 @@ export function VectorsServicesClient() {
   return (
     <div className="w-full bg-[#FAF9F5] text-[#0E1118] font-sans antialiased selection:bg-[#FF3823] selection:text-white min-h-screen pt-20 pb-32">
       
-      {/* â”€â”€ 1. HERO SECTION â”€â”€ */}
+      {/* ── 1. HERO SECTION ── */}
       <section className="relative w-full pt-16 pb-20 md:pt-24 md:pb-28 border-b border-black/10 overflow-hidden text-center px-4 sm:px-6">
         <div
           className="absolute inset-0 opacity-40 pointer-events-none"
@@ -212,7 +212,7 @@ export function VectorsServicesClient() {
           </h1>
 
           <p className="text-base sm:text-lg md:text-xl text-neutral-600 max-w-2xl mx-auto leading-relaxed font-normal">
-            No open-ended retainers. No junior contractor markups. Choose from three fixed-scope delivery packagesâ€”engineered directly by Abhishek Tiwari with guaranteed timelines and full private GitHub transfer.
+            No open-ended retainers. No junior contractor markups. Choose from three fixed-scope delivery packages—engineered directly by Abhishek Tiwari with guaranteed timelines and full private GitHub transfer.
           </p>
 
           {/* Currency Toggle */}
@@ -226,7 +226,7 @@ export function VectorsServicesClient() {
                   currency === "INR" ? "bg-[#0E1118] text-white font-semibold" : "text-neutral-600 hover:text-neutral-900"
                 }`}
               >
-                â‚¹ INR
+                ₹ INR
               </button>
               <button
                 type="button"
@@ -262,7 +262,7 @@ export function VectorsServicesClient() {
         </div>
       </section>
 
-      {/* â”€â”€ 2. THREE PACKAGES WITH REAL EXAMPLES â”€â”€ */}
+      {/* ── 2. THREE PACKAGES WITH REAL EXAMPLES ── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-20 space-y-24">
         {PACKAGES.map((pkg, idx) => {
           const price = currency === "INR" ? pkg.inrPrice : pkg.usdPrice;
@@ -428,7 +428,7 @@ export function VectorsServicesClient() {
         })}
       </section>
 
-      {/* â”€â”€ 3. HOW WE DELIVER (THE 14-DAY PRODUCTION ENGINE) â”€â”€ */}
+      {/* ── 3. HOW WE DELIVER (THE 14-DAY PRODUCTION ENGINE) ── */}
       <section className="w-full py-20 px-4 sm:px-6 bg-white border-y border-black/10">
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="space-y-3 max-w-2xl">
@@ -479,7 +479,7 @@ export function VectorsServicesClient() {
         </div>
       </section>
 
-      {/* â”€â”€ 4. ANSWER BLOCKS // FAQ â”€â”€ */}
+      {/* ── 4. ANSWER BLOCKS // FAQ ── */}
       <AnswerBlocks
         badge="SERVICES & PACKAGES // FAQ"
         title="Frequently Asked Questions"
@@ -488,14 +488,14 @@ export function VectorsServicesClient() {
         schemaId="services-packages-faq-schema"
       />
 
-      {/* â”€â”€ 5. FINAL DIRECT CONVERSION CTA â”€â”€ */}
+      {/* ── 5. FINAL DIRECT CONVERSION CTA ── */}
       <section className="w-full py-20 px-6 border-t border-black/10 text-center bg-[#FAF9F5]">
         <div className="max-w-3xl mx-auto space-y-6">
           <h2 className="font-serif text-3xl sm:text-5xl font-semibold text-[#0E1118] tracking-tight">
             Ready to build? Discuss your project in 15 minutes.
           </h2>
           <p className="text-neutral-600 text-sm sm:text-base max-w-xl mx-auto">
-            Talk directly to Abhishek Tiwari. Weâ€™ll review your requirements and tell you honestly which package fits your timeline and budget.
+            Talk directly to Abhishek Tiwari. We’ll review your requirements and tell you honestly which package fits your timeline and budget.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
             <a

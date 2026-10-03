@@ -76,8 +76,8 @@ export function CohereDeployment() {
             tagline="HAVE NO FEAR // 14-DAY PRODUCTION SPRINTS"
             ink="#FF3823"
             paper="#FAFAF9"
-            height="90svh"
-            scrollDistance="140svh"
+            height="80svh"
+            scrollDistance="70svh"
           />
         </div>
       </section>
