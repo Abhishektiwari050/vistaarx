@@ -1,177 +1,150 @@
 import React from 'react';
-import { useCurrentFrame, useVideoConfig } from 'remotion';
+import { interpolate, useCurrentFrame } from 'remotion';
 import { BRAND_TOKENS, SCENE_RANGES } from '../constants';
 
 export const TelemetryHud: React.FC = () => {
   const frame = useCurrentFrame();
-  const { fps, width, height } = useVideoConfig();
 
-  // Derive current scene tag
-  let activeScene = '01 // OPERATIONAL FRICTION';
+  // Determine current active phase name
+  let phaseLabel = '01 // OPERATIONAL FRICTION';
   if (frame >= SCENE_RANGES.audit.start && frame < SCENE_RANGES.audit.end) {
-    activeScene = '02 // WORKFLOW DECONSTRUCTION';
-  } else if (frame >= SCENE_RANGES.synthesis.start && frame < SCENE_RANGES.synthesis.end) {
-    activeScene = '03 // AUTONOMOUS AI ARCHITECTURE';
-  } else if (frame >= SCENE_RANGES.impact.start && frame < SCENE_RANGES.impact.end) {
-    activeScene = '04 // HUMANLESS SCALE ENGINE';
+    phaseLabel = '02 // OPERATIONAL AUDIT';
+  } else if (frame >= SCENE_RANGES.autonomousEngine.start && frame < SCENE_RANGES.autonomousEngine.end) {
+    phaseLabel = '03 // AUTONOMOUS ENGINE';
+  } else if (frame >= SCENE_RANGES.pillars.start && frame < SCENE_RANGES.pillars.end) {
+    phaseLabel = '04 // ARCHITECTURAL PILLARS';
   } else if (frame >= SCENE_RANGES.climax.start) {
-    activeScene = '05 // AUTONOMOUS ENTERPRISE';
+    phaseLabel = '05 // THE HUMANLESS ENTERPRISE';
   }
 
-  const seconds = (frame / fps).toFixed(2);
+  // Format timecode (00:SS:FF)
+  const seconds = Math.floor(frame / 30);
+  const subFrames = frame % 30;
+  const timecode = `00:${String(seconds).padStart(2, '0')}:${String(subFrames).padStart(2, '0')}`;
+
+  // Progress bar
+  const progressPercent = (frame / 900) * 100;
 
   return (
     <div
       style={{
         position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
+        inset: 0,
         pointerEvents: 'none',
-        padding: '36px 48px',
+        zIndex: 100,
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
+        padding: '36px 48px',
         fontFamily: BRAND_TOKENS.typography.fontMono,
-        fontSize: '12px',
+        fontSize: '11px',
         letterSpacing: '0.12em',
         color: BRAND_TOKENS.colors.textSecondary,
-        zIndex: 50,
       }}
     >
-      {/* Top Header Row */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      {/* Top Header Bar */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          borderBottom: '1px solid rgba(0, 0, 0, 0.06)',
+          paddingBottom: '12px',
+        }}
+      >
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <span
+            style={{
+              fontFamily: BRAND_TOKENS.typography.fontDisplay,
+              fontWeight: 700,
+              fontSize: '14px',
+              letterSpacing: '-0.02em',
+              color: BRAND_TOKENS.colors.textPrimary,
+            }}
+          >
+            VISTAR
+          </span>
+          <span style={{ color: BRAND_TOKENS.colors.textTertiary }}>/</span>
+          <span style={{ color: BRAND_TOKENS.colors.textSecondary }}>
+            ENTERPRISE OPERATIONAL INTELLIGENCE
+          </span>
+        </div>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
           <div
             style={{
               display: 'flex',
               alignItems: 'center',
               gap: '8px',
-              background: 'rgba(255, 255, 255, 0.04)',
-              border: `1px solid ${BRAND_TOKENS.colors.border}`,
-              padding: '6px 14px',
+              padding: '4px 12px',
+              backgroundColor: '#FFFFFF',
+              border: '1px solid rgba(0, 0, 0, 0.08)',
               borderRadius: '999px',
-              backdropFilter: 'blur(8px)',
+              boxShadow: '0 1px 3px rgba(0, 0, 0, 0.03)',
+            }}
+          >
+            <span
+              style={{
+                width: '6px',
+                height: '6px',
+                borderRadius: '50%',
+                backgroundColor: BRAND_TOKENS.colors.accentCoral,
+                display: 'inline-block',
+              }}
+            />
+            <span style={{ fontWeight: 600, color: BRAND_TOKENS.colors.textPrimary }}>
+              {phaseLabel}
+            </span>
+          </div>
+
+          <span style={{ fontVariantNumeric: 'tabular-nums', color: BRAND_TOKENS.colors.textTertiary }}>
+            {timecode}
+          </span>
+        </div>
+      </div>
+
+      {/* Bottom Telemetry Bar */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          borderTop: '1px solid rgba(0, 0, 0, 0.06)',
+          paddingTop: '12px',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+          <span>
+            TARGET: <strong style={{ color: BRAND_TOKENS.colors.textPrimary }}>ENTERPRISE SCALE</strong>
+          </span>
+          <span style={{ color: BRAND_TOKENS.colors.textTertiary }}>•</span>
+          <span>
+            EXECUTION: <strong style={{ color: BRAND_TOKENS.colors.accentEmerald }}>AUTONOMOUS</strong>
+          </span>
+        </div>
+
+        {/* Global Progress Track */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <div
+            style={{
+              width: '180px',
+              height: '3px',
+              backgroundColor: 'rgba(0, 0, 0, 0.06)',
+              borderRadius: '999px',
+              overflow: 'hidden',
             }}
           >
             <div
               style={{
-                width: 7,
-                height: 7,
-                borderRadius: '50%',
-                backgroundColor: BRAND_TOKENS.colors.accentEmerald,
-                boxShadow: `0 0 10px ${BRAND_TOKENS.colors.accentEmerald}`,
+                width: `${progressPercent}%`,
+                height: '100%',
+                backgroundColor: BRAND_TOKENS.colors.accentCoral,
+                borderRadius: '999px',
               }}
             />
-            <span style={{ fontWeight: 600, color: BRAND_TOKENS.colors.textPrimary }}>
-              VISTAR.TECH
-            </span>
-            <span style={{ opacity: 0.4 }}>|</span>
-            <span style={{ color: BRAND_TOKENS.colors.accentEmerald }}>{activeScene}</span>
           </div>
-
-          <div
-            style={{
-              padding: '6px 12px',
-              background: 'rgba(255, 255, 255, 0.02)',
-              border: `1px solid ${BRAND_TOKENS.colors.border}`,
-              borderRadius: '999px',
-              fontSize: '11px',
-              color: BRAND_TOKENS.colors.textTertiary,
-            }}
-          >
-            ENTERPRISE AUTOMATION INTELLIGENCE
-          </div>
-        </div>
-
-        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-          <span style={{ color: BRAND_TOKENS.colors.textTertiary }}>
-            {width}x{height} @ {fps}FPS
-          </span>
-          <div
-            style={{
-              fontVariantNumeric: 'tabular-nums',
-              background: 'rgba(255, 255, 255, 0.04)',
-              border: `1px solid ${BRAND_TOKENS.colors.border}`,
-              padding: '6px 14px',
-              borderRadius: '999px',
-              color: BRAND_TOKENS.colors.textPrimary,
-              fontWeight: 600,
-            }}
-          >
-            FRM_{String(frame).padStart(4, '0')} {' // '} {seconds}s
-          </div>
-        </div>
-      </div>
-
-      {/* Crosshair accents in corners */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '36px',
-          right: '48px',
-          width: '12px',
-          height: '12px',
-          borderRight: `1px solid ${BRAND_TOKENS.colors.borderActive}`,
-          borderTop: `1px solid ${BRAND_TOKENS.colors.borderActive}`,
-        }}
-      />
-      <div
-        style={{
-          position: 'absolute',
-          bottom: '36px',
-          left: '48px',
-          width: '12px',
-          height: '12px',
-          borderLeft: `1px solid ${BRAND_TOKENS.colors.borderActive}`,
-          borderBottom: `1px solid ${BRAND_TOKENS.colors.borderActive}`,
-        }}
-      />
-
-      {/* Bottom Footer Row */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-          <div style={{ fontSize: '10px', color: BRAND_TOKENS.colors.textTertiary }}>
-            HUMAN FRICTION INDEX
-          </div>
-          <div
-            style={{
-              fontSize: '13px',
-              fontWeight: 600,
-              color:
-                frame < SCENE_RANGES.synthesis.start + 60
-                  ? BRAND_TOKENS.colors.accentCrimson
-                  : BRAND_TOKENS.colors.accentEmerald,
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-            }}
-          >
-            <span>
-              {frame < SCENE_RANGES.synthesis.start + 60
-                ? '84% MANUAL TOIL // DECISION BOTTLENECK'
-                : '94% AUTONOMOUS // ZERO-LATENCY EXECUTION'}
-            </span>
-          </div>
-        </div>
-
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <span style={{ fontSize: '10px', color: BRAND_TOKENS.colors.textTertiary }}>
-            ENTERPRISE POSTURE:
-          </span>
-          <span
-            style={{
-              padding: '3px 8px',
-              borderRadius: '4px',
-              backgroundColor: 'rgba(16, 185, 129, 0.1)',
-              border: '1px solid rgba(16, 185, 129, 0.3)',
-              color: BRAND_TOKENS.colors.accentEmerald,
-              fontSize: '10px',
-              fontWeight: 600,
-            }}
-          >
-            HUMANLESS OPERATIONAL CORE
+          <span style={{ fontVariantNumeric: 'tabular-nums', minWidth: '40px' }}>
+            {Math.floor(progressPercent)}%
           </span>
         </div>
       </div>

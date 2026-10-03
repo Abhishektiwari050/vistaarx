@@ -220,18 +220,18 @@ export default function BrandFilmPage() {
 
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
             {[
-              { label: '01: Operational Friction', sub: '0s - 3s', frame: SCENE_RANGES.diagnostic.start },
-              { label: '02: Workflow Audit', sub: '3s - 8s', frame: SCENE_RANGES.audit.start },
-              { label: '03: Autonomous Shift', sub: '8s - 16s', frame: SCENE_RANGES.synthesis.start },
-              { label: '04: The VISTAR Method', sub: '16s - 24s', frame: SCENE_RANGES.impact.start },
-              { label: '05: Humanless Scale', sub: '24s - 30s', frame: SCENE_RANGES.climax.start },
+              { label: '01: Operational Friction', sub: '0s - 5.3s', frame: SCENE_RANGES.friction.start },
+              { label: '02: Workflow Audit', sub: '5.3s - 11.3s', frame: SCENE_RANGES.audit.start },
+              { label: '03: Autonomous Shift', sub: '11.3s - 18.3s', frame: SCENE_RANGES.autonomousEngine.start },
+              { label: '04: The VISTAR Method', sub: '18.3s - 24.6s', frame: SCENE_RANGES.pillars.start },
+              { label: '05: Humanless Scale', sub: '24.6s - 30s', frame: SCENE_RANGES.climax.start },
             ].map((scene, idx) => (
               <button
                 key={scene.label}
                 onClick={() => jumpToScene(scene.frame)}
                 className={`text-left p-2.5 rounded-lg border transition-all ${
                   currentFrame >= scene.frame &&
-                  (idx === 4 || currentFrame < [SCENE_RANGES.audit.start, SCENE_RANGES.synthesis.start, SCENE_RANGES.impact.start, SCENE_RANGES.climax.start, 900][idx])
+                  (idx === 4 || currentFrame < [SCENE_RANGES.audit.start, SCENE_RANGES.autonomousEngine.start, SCENE_RANGES.pillars.start, SCENE_RANGES.climax.start, 900][idx])
                     ? 'bg-emerald-500/10 border-emerald-500/40 text-emerald-300'
                     : 'bg-white/5 border-white/5 text-white/70 hover:bg-white/10'
                 }`}

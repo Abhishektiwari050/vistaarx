@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import Link from "next/link";
@@ -38,7 +38,7 @@ const MATRIX_SECTIONS: MatrixSection[] = [
     title: "Delivery & Engineering SLA",
     headerBg: "bg-[#E0F2FE] text-[#0369A1]",
     rows: [
-      { name: "Delivery Timeline", starter: "5–7 Days", sprint: "14 Days Committed", enterprise: "21–30 Days Milestones" },
+      { name: "Delivery Timeline", starter: "5â€“7 Days", sprint: "14 Days Committed", enterprise: "21â€“30 Days Milestones" },
       { name: "Direct Collaboration with Abhishek (Lead Engineer)", starter: true, sprint: true, enterprise: true },
       { name: "Post-Launch Bug Warranty", starter: "14-Day Warranty", sprint: "30-Day Zero-Cost Warranty", enterprise: "60-Day Dedicated SLA" },
       { name: "Mutual Non-Disclosure Agreement (NDA)", starter: true, sprint: true, enterprise: true },
@@ -49,7 +49,7 @@ const MATRIX_SECTIONS: MatrixSection[] = [
 const FAQS_BASICS = [
   {
     q: "How much does custom software from Vistar cost?",
-    a: "We offer transparent, fixed-scope engineering packages in both Indian Rupees (₹) and US Dollars ($). Our Starter MVP is ₹49,000 ($590), our full 14-day Production System is ₹1,85,000 ($2,200), and custom architecture platforms start from ₹3,90,000 ($4,700) scoped milestone-by-milestone. No hidden hourly fees or surprise invoices.",
+    a: "We offer transparent, fixed-scope engineering packages in both Indian Rupees (â‚¹) and US Dollars ($). Our Starter MVP is â‚¹49,000 ($590), our full 14-day Production System is â‚¹1,85,000 ($2,200), and custom architecture platforms start from â‚¹3,90,000 ($4,700) scoped milestone-by-milestone. No hidden hourly fees or surprise invoices.",
   },
   {
     q: "What is 100% source code handover?",
@@ -84,7 +84,7 @@ export default function PricingPage() {
   return (
     <div className="w-full bg-[#FAF9F5] text-[#00063D] font-sans antialiased selection:bg-[#FF3823] selection:text-white min-h-screen">
       
-      {/* ── FRAME 1: HEADER & CURRENCY TOGGLE ── */}
+      {/* â”€â”€ FRAME 1: HEADER & CURRENCY TOGGLE â”€â”€ */}
       <section className="relative w-full pt-28 pb-16 md:pt-36 md:pb-20 border-b border-black/10 text-center px-4 bg-[#F2EFE9] [background-image:linear-gradient(to_right,#ffffff_1.5px,transparent_1.5px),linear-gradient(to_bottom,#ffffff_1.5px,transparent_1.5px)] [background-size:46px_46px]">
         <div className="max-w-4xl mx-auto space-y-5">
           <div className="inline-block">
@@ -116,7 +116,7 @@ export default function PricingPage() {
                     : "text-neutral-700 hover:text-black"
                 }`}
               >
-                ₹ INR (India)
+                â‚¹ INR (India)
               </button>
               <button
                 onClick={() => {
@@ -136,7 +136,7 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* ── FRAME 2: 3-TIER PRICING CARDS ── */}
+      {/* â”€â”€ FRAME 2: 3-TIER PRICING CARDS â”€â”€ */}
       <section className="w-full py-16 px-4 sm:px-6 -mt-8">
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
           
@@ -150,7 +150,7 @@ export default function PricingPage() {
                 </div>
                 <div className="text-right">
                   <span className="font-serif text-3xl font-normal text-[#141413]">
-                    {currency === "inr" ? "₹49,000" : "$590"}
+                    {currency === "inr" ? "â‚¹49,000" : "$590"}
                   </span>
                   <span className="text-xs text-neutral-500 block font-mono">one-time</span>
                 </div>
@@ -175,7 +175,7 @@ export default function PricingPage() {
               <div className="w-full h-px bg-black/10" />
 
               <p className="text-xs text-neutral-600 leading-relaxed min-h-[36px]">
-                Rapid automation, WhatsApp lead qualification bot, or focused web tool delivered in 5–7 days.
+                Rapid automation, WhatsApp lead qualification bot, or focused web tool delivered in 5â€“7 days.
               </p>
 
               <div className="space-y-2 pt-1 text-xs text-neutral-700">
@@ -209,7 +209,7 @@ export default function PricingPage() {
                 Get Started
               </Link>
               <a
-                href="https://wa.me/917985790432?text=Hi%20Abhishek%2C%20I'm%20interested%20in%20the%20Starter%20MVP%20package."
+                href="https://wa.me/918860110144?text=Hi%20Abhishek%2C%20I'm%20interested%20in%20the%20Starter%20MVP%20package."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[11px] text-emerald-700 hover:underline flex items-center justify-center gap-1 font-mono"
@@ -234,7 +234,7 @@ export default function PricingPage() {
                 </div>
                 <div className="text-right">
                   <span className="font-serif text-3xl font-normal text-[#FF3823]">
-                    {currency === "inr" ? "₹1,85,000" : "$2,200"}
+                    {currency === "inr" ? "â‚¹1,85,000" : "$2,200"}
                   </span>
                   <span className="text-xs text-neutral-500 block font-mono">14-day delivery</span>
                 </div>
@@ -297,7 +297,7 @@ export default function PricingPage() {
                 Start 14-Day Sprint
               </Link>
               <a
-                href="https://wa.me/917985790432?text=Hi%20Abhishek%2C%20I'm%20interested%20in%20the%20Production%20System%20package."
+                href="https://wa.me/918860110144?text=Hi%20Abhishek%2C%20I'm%20interested%20in%20the%20Production%20System%20package."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[11px] text-emerald-700 hover:underline flex items-center justify-center gap-1 font-mono"
@@ -318,7 +318,7 @@ export default function PricingPage() {
                 </div>
                 <div className="text-right">
                   <span className="font-serif text-3xl font-normal text-[#141413]">
-                    {currency === "inr" ? "₹3,90,000+" : "$4,700+"}
+                    {currency === "inr" ? "â‚¹3,90,000+" : "$4,700+"}
                   </span>
                   <span className="text-xs text-neutral-500 block font-mono">custom scope</span>
                 </div>
@@ -343,7 +343,7 @@ export default function PricingPage() {
               <div className="w-full h-px bg-black/10" />
 
               <p className="text-xs text-neutral-600 leading-relaxed min-h-[36px]">
-                Complex spatial architectures (like Project VAYU), vector GIS engines, or custom distributed platforms in 21–30 day milestones.
+                Complex spatial architectures (like Project VAYU), vector GIS engines, or custom distributed platforms in 21â€“30 day milestones.
               </p>
 
               <div className="space-y-2 pt-1 text-xs text-neutral-700">
@@ -377,7 +377,7 @@ export default function PricingPage() {
                 Schedule Architecture Review
               </Link>
               <a
-                href="https://wa.me/917985790432?text=Hi%20Abhishek%2C%20I'd%20like%20to%20discuss%20a%20Custom%20Architecture%20project."
+                href="https://wa.me/918860110144?text=Hi%20Abhishek%2C%20I'd%20like%20to%20discuss%20a%20Custom%20Architecture%20project."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[11px] text-emerald-700 hover:underline flex items-center justify-center gap-1 font-mono"
@@ -390,7 +390,7 @@ export default function PricingPage() {
 
         </div>
 
-        {/* ── VISUAL PROOF GALLERY: WHAT WE BUILD IN THESE TIERS ── */}
+        {/* â”€â”€ VISUAL PROOF GALLERY: WHAT WE BUILD IN THESE TIERS â”€â”€ */}
         <div className="max-w-6xl mx-auto mt-20 pt-16 border-t border-black/10">
           <div className="text-center max-w-2xl mx-auto mb-10 space-y-2">
             <span className="font-mono text-xs uppercase tracking-wider text-[#FF3823] font-semibold">
@@ -410,7 +410,7 @@ export default function PricingPage() {
               <div className="relative w-full aspect-[16/10] bg-neutral-100 overflow-hidden">
                 <Image
                   src="/projects/3axisarc.png"
-                  alt="3axis Arc — 60 FPS Spatial 3D Engine for Architecture in Lucknow"
+                  alt="3axis Arc â€” 60 FPS Spatial 3D Engine for Architecture in Lucknow"
                   fill
                   sizes="(max-width: 768px) 100vw, 550px"
                   className="object-cover object-top group-hover:scale-102 transition-transform duration-300"
@@ -421,7 +421,7 @@ export default function PricingPage() {
               </div>
               <div className="p-6 space-y-3">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-serif text-xl font-normal text-[#141413]">3axis Arc — Spatial 3D Platform</h3>
+                  <h3 className="font-serif text-xl font-normal text-[#141413]">3axis Arc â€” Spatial 3D Platform</h3>
                   <a
                     href="https://3axisarc.vercel.app"
                     target="_blank"
@@ -478,7 +478,7 @@ export default function PricingPage() {
               <div className="relative w-full aspect-[16/10] bg-neutral-100 overflow-hidden">
                 <Image
                   src="/projects/vayuways.png"
-                  alt="Project VAYU — Airspace Telemetry & GIS Route Engine"
+                  alt="Project VAYU â€” Airspace Telemetry & GIS Route Engine"
                   fill
                   sizes="(max-width: 768px) 100vw, 550px"
                   className="object-cover object-top group-hover:scale-102 transition-transform duration-300"
@@ -489,7 +489,7 @@ export default function PricingPage() {
               </div>
               <div className="p-6 space-y-3">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-serif text-xl font-normal text-[#141413]">Project VAYU — Airspace Telemetry</h3>
+                  <h3 className="font-serif text-xl font-normal text-[#141413]">Project VAYU â€” Airspace Telemetry</h3>
                   <a
                     href="https://ai-vayu.vercel.app"
                     target="_blank"
@@ -516,7 +516,7 @@ export default function PricingPage() {
               <div className="relative w-full aspect-[16/10] bg-neutral-100 overflow-hidden">
                 <Image
                   src="/projects/klherbal.png"
-                  alt="KL Herbal — E-Commerce Storefront & Payment Gateway"
+                  alt="KL Herbal â€” E-Commerce Storefront & Payment Gateway"
                   fill
                   sizes="(max-width: 768px) 100vw, 550px"
                   className="object-cover object-top group-hover:scale-102 transition-transform duration-300"
@@ -527,7 +527,7 @@ export default function PricingPage() {
               </div>
               <div className="p-6 space-y-3">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-serif text-xl font-normal text-[#141413]">KL Herbal — D2C E-Commerce</h3>
+                  <h3 className="font-serif text-xl font-normal text-[#141413]">KL Herbal â€” D2C E-Commerce</h3>
                   <a
                     href="https://klherbal.in"
                     target="_blank"
@@ -552,7 +552,7 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* ── FRAME 3: COMPARISON MATRIX ── */}
+      {/* â”€â”€ FRAME 3: COMPARISON MATRIX â”€â”€ */}
       <section className="w-full py-16 px-4 sm:px-6 bg-[#F6F4ED] border-y border-black/10">
         <div className="max-w-5xl mx-auto space-y-8">
           <div className="space-y-2 text-center">
@@ -618,7 +618,7 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* ── FRAME 4: HONEST PRICING FAQS ── */}
+      {/* â”€â”€ FRAME 4: HONEST PRICING FAQS â”€â”€ */}
       <section className="w-full py-20 px-4 sm:px-6 bg-[#FAF9F5]">
         <div className="max-w-3xl mx-auto space-y-8">
           <div className="text-center space-y-2">
@@ -658,7 +658,7 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* ── FRAME 5: BOTTOM CONVERSION CTA ── */}
+      {/* â”€â”€ FRAME 5: BOTTOM CONVERSION CTA â”€â”€ */}
       <section className="w-full py-16 px-4 bg-[#141413] text-white text-center">
         <div className="max-w-2xl mx-auto space-y-4">
           <h2 className="font-serif text-2xl sm:text-4xl font-normal tracking-tight">
@@ -669,13 +669,13 @@ export default function PricingPage() {
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
             <a
-              href="https://wa.me/917985790432?text=Hi%20Vistar,%20I'd%20like%20to%20discuss%20a%20project."
+              href="https://wa.me/918860110144?text=Hi%20Vistar,%20I'd%20like%20to%20discuss%20a%20project."
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-lg flex items-center gap-2 transition-colors shadow-xs"
             >
               <MessageCircle className="w-4 h-4" />
-              <span>Chat on WhatsApp (+91 79857 90432)</span>
+              <span>Chat on WhatsApp (+91 88601 10144)</span>
             </a>
             <Link
               href="/start"

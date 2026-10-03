@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect } from "react";
 import { Terminal, Shield, Cpu, Activity, Play, CheckCircle2, ArrowRight } from "lucide-react";
@@ -85,7 +85,7 @@ const AGENT_PODS: AgentPod[] = [
       { title: "Dispatch WhatsApp Notification", agent: "WhatsApp Notification Dispatcher", status: "done", detail: "Instant alert sent directly to Abhishek Tiwari on WhatsApp" },
       { title: "Record to Client Dashboard", agent: "CRM Persistence Pipeline", status: "ready", detail: "Logged inquiry with automated follow-up reminder timestamp" },
     ],
-    inputPayload: `{\n  "inquiry_source": "vistar.tech/contact",\n  "channel": "WhatsApp Cloud API",\n  "recipient": "+91 79857 90432"\n}`,
+    inputPayload: `{\n  "inquiry_source": "vistar.tech/contact",\n  "channel": "WhatsApp Cloud API",\n  "recipient": "+91 88601 10144"\n}`,
     toolCall: {
       tool: "whatsapp_gateway.sendNotification",
       parameters: `{\n  "template": "new_project_inquiry",\n  "priority": "HIGH"\n}`,

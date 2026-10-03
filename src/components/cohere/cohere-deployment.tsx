@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { AgentOrchestrationConsole } from "@/components/cohere/agent-orchestration-console";
+import TigerTearReveal from "@/components/ui/tiger-tear-reveal";
 import { ShieldCheck, Code2, Lock, GitBranch, Clock, Zap } from "lucide-react";
 
 const ENGINEERING_GUARANTEES = [
@@ -64,14 +64,21 @@ export function CohereDeployment() {
               href="/contact"
               className="inline-flex items-center justify-center px-6 py-3 border border-[#0B0D17] text-[#0B0D17] bg-transparent hover:bg-neutral-100 font-medium text-sm sm:text-base rounded-none transition-colors"
             >
-              Chat on WhatsApp &bull; Talk to Founders
+              Contact Us
             </Link>
           </div>
         </div>
 
-        {/* Full-width Multi-Agent Orchestration Console */}
-        <div className="w-full pb-16 sm:pb-24">
-          <AgentOrchestrationConsole />
+        {/* Full-width Tiger Tear Interactive Poster Stage */}
+        <div className="w-full relative">
+          <TigerTearReveal
+            word="COURAGE"
+            tagline="HAVE NO FEAR // 14-DAY PRODUCTION SPRINTS"
+            ink="#FF3823"
+            paper="#FAFAF9"
+            height="90svh"
+            scrollDistance="140svh"
+          />
         </div>
       </section>
 

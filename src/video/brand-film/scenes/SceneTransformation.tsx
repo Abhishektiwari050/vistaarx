@@ -1,360 +1,472 @@
 import React from 'react';
 import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
 import { CinematicBackground } from '../components/CinematicBackground';
+import { BRAND_TOKENS } from '../constants';
 
 export const SceneTransformation: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  const relFrame = frame; // 0 to 240
-
-  // Entrance spring
-  const entrance = spring({
-    frame: relFrame,
+  // Entrance springs
+  const headerEntrance = spring({
+    frame,
     fps,
-    config: { damping: 14, stiffness: 120 },
+    config: { damping: 16, stiffness: 90 },
   });
 
-  // Dynamic sweep of the laser divider (starts at 50%, sweeps to reveal the emerald engine)
-  const laserX = interpolate(relFrame, [10, 80, 160], [50, 25, 10], {
-    extrapolateRight: 'clamp',
-    extrapolateLeft: 'clamp',
+  const consoleEntrance = spring({
+    frame: frame - 16,
+    fps,
+    config: { damping: 16, stiffness: 85 },
   });
 
-  // Ticking metrics
-  const humanToil = Math.floor(interpolate(relFrame, [20, 120], [84, 6], { extrapolateRight: 'clamp' }));
-  const speedup = Math.floor(interpolate(relFrame, [20, 140], [1, 180], { extrapolateRight: 'clamp' }));
+  // Step progression across frames 30 -> 180
+  const step1Done = frame >= 30;
+  const step2Done = frame >= 65;
+  const step3Done = frame >= 105;
+  const step4Done = frame >= 145;
 
-  // Exit towards Scene 4
-  const exitOpacity = interpolate(relFrame, [225, 240], [1, 0], { extrapolateLeft: 'clamp' });
+  // Real-time latency & speedup ticker
+  const latency = Math.floor(interpolate(frame, [30, 160], [48000, 144], { extrapolateRight: 'clamp' }));
+  const humanTouch = Math.floor(interpolate(frame, [30, 160], [100, 0], { extrapolateRight: 'clamp' }));
+
+  // Camera drift
+  const scale = interpolate(frame, [0, 210], [0.985, 1.025], { extrapolateRight: 'clamp' });
+  const exitOpacity = interpolate(frame, [195, 210], [1, 0], { extrapolateLeft: 'clamp' });
 
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: '#040507',
+        backgroundColor: BRAND_TOKENS.colors.bg,
         opacity: exitOpacity,
-        transform: `scale(${entrance})`,
+        transform: `scale(${scale})`,
         display: 'flex',
         flexDirection: 'column',
+        alignItems: 'center',
         justifyContent: 'center',
-        padding: '0 80px',
+        padding: '0 100px',
         overflow: 'hidden',
       }}
     >
-      <CinematicBackground accentColor="#10b981" />
+      <CinematicBackground tint="warm" />
 
-      {/* Scene Header */}
-      <div style={{ textAlign: 'center', marginBottom: '36px', zIndex: 20 }}>
+      <div
+        style={{
+          width: '100%',
+          maxWidth: '1400px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          textAlign: 'center',
+          zIndex: 10,
+        }}
+      >
+        {/* Eyebrow */}
         <div
           style={{
+            opacity: interpolate(headerEntrance, [0, 1], [0, 1]),
+            transform: `translateY(${interpolate(headerEntrance, [0, 1], [15, 0])}px)`,
             display: 'inline-flex',
             alignItems: 'center',
             gap: '8px',
-            padding: '6px 18px',
+            padding: '6px 16px',
+            backgroundColor: '#FFFFFF',
+            border: '1px solid rgba(0, 0, 0, 0.08)',
             borderRadius: '999px',
-            backgroundColor: 'rgba(16, 185, 129, 0.1)',
-            border: '1px solid rgba(16, 185, 129, 0.35)',
-            color: '#10b981',
-            fontFamily: 'ui-monospace, monospace',
-            fontSize: '12px',
-            letterSpacing: '0.15em',
-            marginBottom: '14px',
+            marginBottom: '20px',
+            boxShadow: '0 2px 6px rgba(0, 0, 0, 0.03)',
           }}
         >
-          THE TRANSFORMATION // THE MONEY SHOT
-        </div>
-
-        <h2
-          style={{
-            fontFamily: 'system-ui, -apple-system, sans-serif',
-            fontSize: '56px',
-            fontWeight: 900,
-            margin: 0,
-            color: '#ECEEF5',
-            letterSpacing: '-0.03em',
-            lineHeight: 1.1,
-          }}
-        >
-          SOFTWARE DOES THE WORK.
-          <br />
           <span
             style={{
-              background: 'linear-gradient(135deg, #10b981 0%, #06b6d4 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              textShadow: '0 0 50px rgba(16, 185, 129, 0.5)',
+              width: '6px',
+              height: '6px',
+              borderRadius: '50%',
+              backgroundColor: BRAND_TOKENS.colors.accentEmerald,
+            }}
+          />
+          <span
+            style={{
+              fontFamily: BRAND_TOKENS.typography.fontMono,
+              fontSize: '11px',
+              fontWeight: 600,
+              letterSpacing: '0.14em',
+              color: BRAND_TOKENS.colors.textSecondary,
+              textTransform: 'uppercase',
             }}
           >
-            FASTER. EASIER. HUMANLESS.
+            Step 02 // Autonomous Architecture
+          </span>
+        </div>
+
+        {/* Headline */}
+        <h2
+          style={{
+            fontFamily: BRAND_TOKENS.typography.fontDisplay,
+            fontSize: '66px',
+            lineHeight: 1.08,
+            fontWeight: 500,
+            letterSpacing: '-0.035em',
+            color: BRAND_TOKENS.colors.textPrimary,
+            maxWidth: '1100px',
+            margin: '0 auto 16px auto',
+            opacity: interpolate(headerEntrance, [0, 1], [0, 1]),
+            transform: `translateY(${interpolate(headerEntrance, [0, 1], [25, 0])}px)`,
+          }}
+        >
+          Software that executes.{' '}
+          <span style={{ color: BRAND_TOKENS.colors.accentCoral }}>
+            Not another dashboard.
           </span>
         </h2>
-      </div>
 
-      {/* Side-by-Side High-Voltage Comparison */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: '36px',
-          maxWidth: '1400px',
-          width: '100%',
-          margin: '0 auto',
-          position: 'relative',
-          zIndex: 20,
-        }}
-      >
-        {/* Left: The Human-Choked Workflow */}
-        <div
+        {/* Subhead */}
+        <p
           style={{
-            background: 'rgba(239, 68, 68, 0.03)',
-            border: '1px solid rgba(239, 68, 68, 0.25)',
-            borderRadius: '20px',
-            padding: '36px',
-            backdropFilter: 'blur(20px)',
-            boxShadow: '0 20px 60px rgba(0, 0, 0, 0.6), inset 0 0 40px rgba(239, 68, 68, 0.05)',
+            fontFamily: BRAND_TOKENS.typography.fontBody,
+            fontSize: '20px',
+            lineHeight: 1.5,
+            color: BRAND_TOKENS.colors.textSecondary,
+            maxWidth: '820px',
+            margin: '0 auto 36px auto',
+            opacity: interpolate(headerEntrance, [0, 1], [0, 1]),
           }}
         >
+          Autonomous pipelines and custom agents that resolve enterprise operations in milliseconds with zero human toil.
+        </p>
+
+        {/* The Flagship Runtime Console (Matches site's AgentOrchestrationConsole) */}
+        <div
+          style={{
+            width: '100%',
+            backgroundColor: '#FFFFFF',
+            borderRadius: '20px',
+            border: '1px solid rgba(0, 0, 0, 0.08)',
+            boxShadow: '0 20px 50px -12px rgba(0, 0, 0, 0.07)',
+            overflow: 'hidden',
+            opacity: interpolate(consoleEntrance, [0, 1], [0, 1]),
+            transform: `translateY(${interpolate(consoleEntrance, [0, 1], [35, 0])}px)`,
+            textAlign: 'left',
+          }}
+        >
+          {/* Top Console Bar */}
           <div
             style={{
+              padding: '14px 28px',
+              borderBottom: '1px solid rgba(0, 0, 0, 0.06)',
+              backgroundColor: '#FAF9F5',
               display: 'flex',
-              alignItems: 'center',
               justifyContent: 'space-between',
-              marginBottom: '24px',
+              alignItems: 'center',
             }}
           >
-            <span
-              style={{
-                fontFamily: 'ui-monospace, monospace',
-                fontSize: '12px',
-                color: '#ef4444',
-                fontWeight: 800,
-                letterSpacing: '0.15em',
-              }}
-            >
-              HUMAN-CHOKED WORKFLOW
-            </span>
-            <span
-              style={{
-                fontFamily: 'ui-monospace, monospace',
-                fontSize: '13px',
-                fontWeight: 700,
-                color: '#ef4444',
-                background: 'rgba(239, 68, 68, 0.12)',
-                padding: '4px 12px',
-                borderRadius: '999px',
-              }}
-            >
-              {humanToil}% MANUAL TOIL
-            </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+              <div style={{ display: 'flex', gap: '6px' }}>
+                <span style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#FF5F56' }} />
+                <span style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#FFBD2E' }} />
+                <span style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#27C93F' }} />
+              </div>
+              <span
+                style={{
+                  fontFamily: BRAND_TOKENS.typography.fontMono,
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  color: BRAND_TOKENS.colors.textSecondary,
+                  letterSpacing: '0.08em',
+                }}
+              >
+                VISTAR_AUTONOMOUS_KERNEL // PRODUCTION_NODE_01
+              </span>
+            </div>
+
+            <div style={{ display: 'flex', gap: '20px', fontFamily: BRAND_TOKENS.typography.fontMono, fontSize: '11px' }}>
+              <span style={{ color: BRAND_TOKENS.colors.textSecondary }}>
+                SPEED: <strong style={{ color: BRAND_TOKENS.colors.accentEmerald }}>SUB-150MS EDGE</strong>
+              </span>
+              <span style={{ color: BRAND_TOKENS.colors.textSecondary }}>
+                HUMAN INTERVENTION: <strong style={{ color: BRAND_TOKENS.colors.accentCoral }}>{humanTouch}%</strong>
+              </span>
+              <span style={{ color: BRAND_TOKENS.colors.accentEmerald, fontWeight: 600 }}>
+                ● 100% AUTONOMOUS
+              </span>
+            </div>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <div
-              style={{
-                padding: '18px',
-                background: 'rgba(0, 0, 0, 0.5)',
-                borderRadius: '12px',
-                borderLeft: '4px solid #ef4444',
-              }}
-            >
-              <div style={{ fontWeight: 700, color: '#ECEEF5', fontSize: '16px' }}>
-                Manual Customer Inbound & Qualification
+          {/* Console Split: Left Execution Pipeline, Right Tool Payload */}
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '7fr 5fr',
+            }}
+          >
+            {/* Left: Execution Steps */}
+            <div style={{ padding: '28px 32px', backgroundColor: '#FFFFFF' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
+                <span style={{ fontFamily: BRAND_TOKENS.typography.fontDisplay, fontSize: '16px', fontWeight: 600, color: BRAND_TOKENS.colors.textPrimary }}>
+                  Live Operational Stream
+                </span>
+                <span style={{ fontFamily: BRAND_TOKENS.typography.fontMono, fontSize: '11px', color: BRAND_TOKENS.colors.accentEmerald }}>
+                  LATENCY: {latency > 1000 ? `${(latency / 1000).toFixed(1)}s` : `${latency}ms`}
+                </span>
               </div>
+
+              {/* Step 1 */}
               <div
                 style={{
-                  fontSize: '12px',
-                  color: 'rgba(255, 255, 255, 0.5)',
-                  fontFamily: 'ui-monospace, monospace',
-                  marginTop: '6px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '14px',
+                  padding: '12px 16px',
+                  borderRadius: '10px',
+                  backgroundColor: step1Done ? '#F0FDF4' : '#FAF9F5',
+                  border: step1Done ? '1px solid rgba(5, 150, 105, 0.2)' : '1px solid rgba(0, 0, 0, 0.05)',
+                  marginBottom: '10px',
+                  transition: 'all 0.3s ease',
                 }}
               >
-                Human reps typing replies all day • 4.8h response delay • 42% lost leads
+                <div
+                  style={{
+                    width: '20px',
+                    height: '20px',
+                    borderRadius: '50%',
+                    backgroundColor: step1Done ? BRAND_TOKENS.colors.accentEmerald : '#D1D5DB',
+                    color: '#FFFFFF',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '11px',
+                    fontWeight: 700,
+                  }}
+                >
+                  ✓
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontFamily: BRAND_TOKENS.typography.fontDisplay, fontSize: '14px', fontWeight: 600, color: BRAND_TOKENS.colors.textPrimary }}>
+                    01 // Inbound Enterprise Event Ingested
+                  </div>
+                  <div style={{ fontFamily: BRAND_TOKENS.typography.fontBody, fontSize: '11.5px', color: BRAND_TOKENS.colors.textSecondary }}>
+                    WhatsApp & CRM inquiry parsed via webhook bus
+                  </div>
+                </div>
+                <span style={{ fontFamily: BRAND_TOKENS.typography.fontMono, fontSize: '11px', color: BRAND_TOKENS.colors.textTertiary }}>
+                  12ms
+                </span>
+              </div>
+
+              {/* Step 2 */}
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '14px',
+                  padding: '12px 16px',
+                  borderRadius: '10px',
+                  backgroundColor: step2Done ? '#F0FDF4' : '#FAF9F5',
+                  border: step2Done ? '1px solid rgba(5, 150, 105, 0.2)' : '1px solid rgba(0, 0, 0, 0.05)',
+                  marginBottom: '10px',
+                }}
+              >
+                <div
+                  style={{
+                    width: '20px',
+                    height: '20px',
+                    borderRadius: '50%',
+                    backgroundColor: step2Done ? BRAND_TOKENS.colors.accentEmerald : '#D1D5DB',
+                    color: '#FFFFFF',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '11px',
+                    fontWeight: 700,
+                  }}
+                >
+                  {step2Done ? '✓' : '2'}
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontFamily: BRAND_TOKENS.typography.fontDisplay, fontSize: '14px', fontWeight: 600, color: BRAND_TOKENS.colors.textPrimary }}>
+                    02 // Autonomous Reasoning & Policy Validation
+                  </div>
+                  <div style={{ fontFamily: BRAND_TOKENS.typography.fontBody, fontSize: '11.5px', color: BRAND_TOKENS.colors.textSecondary }}>
+                    Business logic verified against enterprise security schema
+                  </div>
+                </div>
+                <span style={{ fontFamily: BRAND_TOKENS.typography.fontMono, fontSize: '11px', color: BRAND_TOKENS.colors.textTertiary }}>
+                  {step2Done ? '48ms' : '...'}
+                </span>
+              </div>
+
+              {/* Step 3 */}
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '14px',
+                  padding: '12px 16px',
+                  borderRadius: '10px',
+                  backgroundColor: step3Done ? '#F0FDF4' : '#FAF9F5',
+                  border: step3Done ? '1px solid rgba(5, 150, 105, 0.2)' : '1px solid rgba(0, 0, 0, 0.05)',
+                  marginBottom: '10px',
+                }}
+              >
+                <div
+                  style={{
+                    width: '20px',
+                    height: '20px',
+                    borderRadius: '50%',
+                    backgroundColor: step3Done ? BRAND_TOKENS.colors.accentEmerald : '#D1D5DB',
+                    color: '#FFFFFF',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '11px',
+                    fontWeight: 700,
+                  }}
+                >
+                  {step3Done ? '✓' : '3'}
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontFamily: BRAND_TOKENS.typography.fontDisplay, fontSize: '14px', fontWeight: 600, color: BRAND_TOKENS.colors.textPrimary }}>
+                    03 // Real-Time System Mutation & Sync
+                  </div>
+                  <div style={{ fontFamily: BRAND_TOKENS.typography.fontBody, fontSize: '11.5px', color: BRAND_TOKENS.colors.textSecondary }}>
+                    ERP records committed, inventory adjusted, notification pushed
+                  </div>
+                </div>
+                <span style={{ fontFamily: BRAND_TOKENS.typography.fontMono, fontSize: '11px', color: BRAND_TOKENS.colors.textTertiary }}>
+                  {step3Done ? '56ms' : '...'}
+                </span>
+              </div>
+
+              {/* Step 4 */}
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '14px',
+                  padding: '12px 16px',
+                  borderRadius: '10px',
+                  backgroundColor: step4Done ? '#F0FDF4' : '#FAF9F5',
+                  border: step4Done ? '1px solid rgba(5, 150, 105, 0.2)' : '1px solid rgba(0, 0, 0, 0.05)',
+                }}
+              >
+                <div
+                  style={{
+                    width: '20px',
+                    height: '20px',
+                    borderRadius: '50%',
+                    backgroundColor: step4Done ? BRAND_TOKENS.colors.accentEmerald : '#D1D5DB',
+                    color: '#FFFFFF',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '11px',
+                    fontWeight: 700,
+                  }}
+                >
+                  {step4Done ? '✓' : '4'}
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontFamily: BRAND_TOKENS.typography.fontDisplay, fontSize: '14px', fontWeight: 600, color: BRAND_TOKENS.colors.textPrimary }}>
+                    04 // Zero-Touch Operational Completion
+                  </div>
+                  <div style={{ fontFamily: BRAND_TOKENS.typography.fontBody, fontSize: '11.5px', color: BRAND_TOKENS.colors.textSecondary }}>
+                    Human toil bypassed completely. Full cryptographic audit logged.
+                  </div>
+                </div>
+                <span style={{ fontFamily: BRAND_TOKENS.typography.fontMono, fontSize: '11px', color: BRAND_TOKENS.colors.textTertiary }}>
+                  {step4Done ? '28ms' : '...'}
+                </span>
               </div>
             </div>
 
-            <div
-              style={{
-                padding: '18px',
-                background: 'rgba(0, 0, 0, 0.5)',
-                borderRadius: '12px',
-                borderLeft: '4px solid #ef4444',
-              }}
-            >
-              <div style={{ fontWeight: 700, color: '#ECEEF5', fontSize: '16px' }}>
-                Mechanical Data Entry & Reconciliation
+            {/* Right: Code & Mutation JSON */}
+            <div style={{ padding: '24px 28px', backgroundColor: '#FAF9F5', borderLeft: '1px solid rgba(0, 0, 0, 0.06)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
+                <span style={{ fontFamily: BRAND_TOKENS.typography.fontMono, fontSize: '11px', color: BRAND_TOKENS.colors.textTertiary }}>
+                  KERNEL_MUTATION.JSON
+                </span>
+                <span
+                  style={{
+                    padding: '2px 8px',
+                    borderRadius: '4px',
+                    backgroundColor: 'rgba(5, 150, 105, 0.1)',
+                    color: BRAND_TOKENS.colors.accentEmerald,
+                    fontFamily: BRAND_TOKENS.typography.fontMono,
+                    fontSize: '10px',
+                    fontWeight: 600,
+                  }}
+                >
+                  DISPATCHED
+                </span>
               </div>
-              <div
-                style={{
-                  fontSize: '12px',
-                  color: 'rgba(255, 255, 255, 0.5)',
-                  fontFamily: 'ui-monospace, monospace',
-                  marginTop: '6px',
-                }}
-              >
-                Copy-pasting between CRMs, ERPs, and Sheets • Frequent human errors
-              </div>
-            </div>
 
-            <div
-              style={{
-                padding: '18px',
-                background: 'rgba(0, 0, 0, 0.5)',
-                borderRadius: '12px',
-                borderLeft: '4px solid #ef4444',
-              }}
-            >
-              <div style={{ fontWeight: 700, color: '#ECEEF5', fontSize: '16px' }}>
-                Growth Requires Adding Headcount
+              <pre
+                style={{
+                  fontFamily: BRAND_TOKENS.typography.fontMono,
+                  fontSize: '12px',
+                  lineHeight: 1.6,
+                  color: BRAND_TOKENS.colors.textPrimary,
+                  backgroundColor: '#FFFFFF',
+                  padding: '16px',
+                  borderRadius: '10px',
+                  border: '1px solid rgba(0, 0, 0, 0.06)',
+                  margin: 0,
+                  overflow: 'hidden',
+                }}
+              >
+{`{
+  "system": "vistar_autonomous_bus",
+  "workflow": "enterprise_triage",
+  "manual_steps": 0,
+  "human_hours_required": 0.0,
+  "execution_time": "144ms",
+  "target_systems": [
+    "whatsapp_cloud_api",
+    "postgresql_ledger",
+    "edge_triage_agent"
+  ],
+  "outcome": "SUCCESS_ZERO_TOIL"
+}`}
+              </pre>
+
+              <div
+                style={{
+                  marginTop: '16px',
+                  padding: '12px 14px',
+                  borderRadius: '8px',
+                  backgroundColor: '#FFFFFF',
+                  border: '1px solid rgba(0, 0, 0, 0.06)',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  fontFamily: BRAND_TOKENS.typography.fontMono,
+                  fontSize: '11px',
+                }}
+              >
+                <span style={{ color: BRAND_TOKENS.colors.textSecondary }}>Old Human Turnaround:</span>
+                <strong style={{ color: '#DC2626' }}>48 Hours</strong>
               </div>
               <div
                 style={{
-                  fontSize: '12px',
-                  color: 'rgba(255, 255, 255, 0.5)',
-                  fontFamily: 'ui-monospace, monospace',
                   marginTop: '6px',
+                  padding: '12px 14px',
+                  borderRadius: '8px',
+                  backgroundColor: '#F0FDF4',
+                  border: '1px solid rgba(5, 150, 105, 0.2)',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  fontFamily: BRAND_TOKENS.typography.fontMono,
+                  fontSize: '11px',
                 }}
               >
-                Scaling volume breaks staff • Massive payroll overhead • Operational gridlock
+                <span style={{ color: BRAND_TOKENS.colors.accentEmerald }}>VISTAR Autonomous Turnaround:</span>
+                <strong style={{ color: BRAND_TOKENS.colors.accentEmerald }}>144 Milliseconds</strong>
               </div>
             </div>
           </div>
         </div>
-
-        {/* Right: The VISTAR Autonomous Architecture */}
-        <div
-          style={{
-            background: 'rgba(16, 185, 129, 0.04)',
-            border: '1.5px solid rgba(16, 185, 129, 0.5)',
-            borderRadius: '20px',
-            padding: '36px',
-            backdropFilter: 'blur(20px)',
-            boxShadow:
-              '0 24px 80px rgba(0, 0, 0, 0.8), 0 0 60px rgba(16, 185, 129, 0.15), inset 0 0 40px rgba(16, 185, 129, 0.08)',
-          }}
-        >
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              marginBottom: '24px',
-            }}
-          >
-            <span
-              style={{
-                fontFamily: 'ui-monospace, monospace',
-                fontSize: '12px',
-                color: '#10b981',
-                fontWeight: 800,
-                letterSpacing: '0.15em',
-              }}
-            >
-              VISTAR AUTONOMOUS SYSTEM
-            </span>
-            <span
-              style={{
-                fontFamily: 'ui-monospace, monospace',
-                fontSize: '13px',
-                fontWeight: 800,
-                color: '#10b981',
-                background: 'rgba(16, 185, 129, 0.15)',
-                padding: '4px 12px',
-                borderRadius: '999px',
-                boxShadow: '0 0 16px rgba(16, 185, 129, 0.4)',
-              }}
-            >
-              {speedup}X EXECUTION VELOCITY
-            </span>
-          </div>
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <div
-              style={{
-                padding: '18px',
-                background: 'rgba(13, 14, 21, 0.85)',
-                borderRadius: '12px',
-                borderLeft: '4px solid #10b981',
-              }}
-            >
-              <div style={{ fontWeight: 700, color: '#ECEEF5', fontSize: '16px' }}>
-                Autonomous AI Lead Execution
-              </div>
-              <div
-                style={{
-                  fontSize: '12px',
-                  color: 'rgba(255, 255, 255, 0.7)',
-                  fontFamily: 'ui-monospace, monospace',
-                  marginTop: '6px',
-                }}
-              >
-                Instant 24/7 AI qualification • Automated WhatsApp closing in 12s • Zero delay
-              </div>
-            </div>
-
-            <div
-              style={{
-                padding: '18px',
-                background: 'rgba(13, 14, 21, 0.85)',
-                borderRadius: '12px',
-                borderLeft: '4px solid #10b981',
-              }}
-            >
-              <div style={{ fontWeight: 700, color: '#ECEEF5', fontSize: '16px' }}>
-                Self-Operating Data Pipelines
-              </div>
-              <div
-                style={{
-                  fontSize: '12px',
-                  color: 'rgba(255, 255, 255, 0.7)',
-                  fontFamily: 'ui-monospace, monospace',
-                  marginTop: '6px',
-                }}
-              >
-                Event-driven synchronization across tools • Zero manual entry • 100% data fidelity
-              </div>
-            </div>
-
-            <div
-              style={{
-                padding: '18px',
-                background: 'rgba(13, 14, 21, 0.85)',
-                borderRadius: '12px',
-                borderLeft: '4px solid #10b981',
-              }}
-            >
-              <div style={{ fontWeight: 700, color: '#ECEEF5', fontSize: '16px' }}>
-                10x Scale Without Headcount
-              </div>
-              <div
-                style={{
-                  fontSize: '12px',
-                  color: 'rgba(255, 255, 255, 0.7)',
-                  fontFamily: 'ui-monospace, monospace',
-                  marginTop: '6px',
-                }}
-              >
-                Software absorbs 100x transaction volume • Humans only supervise strategic growth
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
-
-      {/* Dynamic Laser Wipe Blade */}
-      <div
-        style={{
-          position: 'absolute',
-          top: 0,
-          bottom: 0,
-          left: `${laserX}%`,
-          width: '3px',
-          background: 'linear-gradient(to bottom, transparent, #10b981, #06b6d4, transparent)',
-          boxShadow: '0 0 30px #10b981, 0 0 10px #fff',
-          zIndex: 40,
-          opacity: 0.9,
-          pointerEvents: 'none',
-        }}
-      />
     </AbsoluteFill>
   );
 };

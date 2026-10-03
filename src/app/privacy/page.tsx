@@ -1,18 +1,18 @@
-import React from "react";
+﻿import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Lock, ShieldCheck, Mail, CheckCircle2 } from "lucide-react";
 import { DEFAULT_OG_IMAGES } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy — Data Protection & Confidentiality",
+  title: "Privacy Policy â€” Data Protection & Confidentiality",
   description:
     "Plain-English privacy policy covering diagnostic data collection, confidentiality, technical telemetry, and client data sovereignty at Vistar.",
   alternates: {
     canonical: "/privacy",
   },
   openGraph: {
-    title: "Privacy Policy — Data Protection & Confidentiality | VISTAR",
+    title: "Privacy Policy â€” Data Protection & Confidentiality | VISTAR",
     description:
       "Plain-English privacy policy covering diagnostic data collection, confidentiality, technical telemetry, and client data sovereignty at Vistar.",
     url: "https://www.vistar.tech/privacy",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Privacy Policy — Data Protection & Confidentiality | VISTAR",
+    title: "Privacy Policy â€” Data Protection & Confidentiality | VISTAR",
     description:
       "Plain-English privacy policy covering diagnostic data collection, confidentiality, technical telemetry, and client data sovereignty at Vistar.",
     images: ["/opengraph-image.jpg"],
@@ -45,7 +45,7 @@ export default function PrivacyPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(privacySchema) }}
       />
 
-      {/* ── Hero Banner ── */}
+      {/* â”€â”€ Hero Banner â”€â”€ */}
       <section className="relative jasper-grid-hero border-b border-black/10 pt-16 pb-20 overflow-hidden">
         {/* Top radial glow */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-b from-white/[0.07] via-white/[0.02] to-transparent blur-3xl pointer-events-none" />
@@ -71,9 +71,9 @@ export default function PrivacyPage() {
 
           <div className="inline-flex flex-wrap items-center justify-center gap-4 text-xs font-mono text-neutral-600 bg-white border border-black/10 rounded-full px-5 py-2 shadow-sm">
             <span>EFFECTIVE DATE: SEPTEMBER 2026</span>
-            <span>•</span>
+            <span>â€¢</span>
             <span>VERSION 1.0 (PRODUCTION)</span>
-            <span>•</span>
+            <span>â€¢</span>
             <span className="font-medium text-[#FF3823] flex items-center gap-1.5">
               <ShieldCheck className="w-3.5 h-3.5" />
               STANDARD: ZERO THIRD-PARTY AD TRACKERS
@@ -82,7 +82,7 @@ export default function PrivacyPage() {
         </div>
       </section>
 
-      {/* ── Policy Body in Dark Modular Cards ── */}
+      {/* â”€â”€ Policy Body in Dark Modular Cards â”€â”€ */}
       <section className="max-w-4xl mx-auto px-6 pt-16">
         <div className="space-y-8">
           {/* Card 1 */}
@@ -170,15 +170,15 @@ export default function PrivacyPage() {
             <ul className="space-y-3 font-sans text-sm text-neutral-800">
               <li className="flex items-start gap-2.5">
                 <CheckCircle2 className="w-4 h-4 text-[#FF3823] shrink-0 mt-0.5" />
-                <span><strong>Vercel Inc.</strong> — Edge hosting, serverless compute, and SSL termination.</span>
+                <span><strong>Vercel Inc.</strong> â€” Edge hosting, serverless compute, and SSL termination.</span>
               </li>
               <li className="flex items-start gap-2.5">
                 <CheckCircle2 className="w-4 h-4 text-[#FF3823] shrink-0 mt-0.5" />
-                <span><strong>Google Workspace (Gmail)</strong> — Encrypted email correspondence and calendar dispatch.</span>
+                <span><strong>Google Workspace (Gmail)</strong> â€” Encrypted email correspondence and calendar dispatch.</span>
               </li>
               <li className="flex items-start gap-2.5">
                 <CheckCircle2 className="w-4 h-4 text-[#FF3823] shrink-0 mt-0.5" />
-                <span><strong>Meta Platforms Inc. (WhatsApp Cloud API)</strong> — Direct conversational consultation and mobile inquiry routing.</span>
+                <span><strong>Meta Platforms Inc. (WhatsApp Cloud API)</strong> â€” Direct conversational consultation and mobile inquiry routing.</span>
               </li>
             </ul>
           </div>
@@ -207,7 +207,7 @@ export default function PrivacyPage() {
               <h3 className="text-xl font-sans font-medium text-[#0E1118] mb-1">Direct Privacy Officer</h3>
               <p className="text-sm text-neutral-600 mb-1">Vistar Web Systems &bull; Proprietary Studio of Abhishek Tiwari</p>
               <p className="text-xs text-neutral-500 mb-1">Lucknow, Uttar Pradesh, India &bull; MSME / Udyam in filing</p>
-              <p className="text-xs font-mono text-neutral-500">Phone &amp; WhatsApp: +91 79857 90432 &bull; SLA &lt; 24h</p>
+              <p className="text-xs font-mono text-neutral-500">Phone &amp; WhatsApp: +91 88601 10144 &bull; SLA &lt; 24h</p>
             </div>
             <a
               href="mailto:services.vistaar@gmail.com"

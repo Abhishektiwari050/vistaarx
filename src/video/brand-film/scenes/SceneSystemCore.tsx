@@ -1,299 +1,361 @@
 import React from 'react';
 import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
 import { CinematicBackground } from '../components/CinematicBackground';
-
-const AUDIT_TARGETS = [
-  { id: 'TGT_01', label: 'Manual WhatsApp Lead Triage', fix: 'Autonomous AI Qualification Engine', status: 'AUDITED' },
-  { id: 'TGT_02', label: 'Cross-System Copy-Pasting', fix: 'Real-time Webhook Event Pipeline', status: 'AUTOMATED' },
-  { id: 'TGT_03', label: 'Multi-Day Approval Delays', fix: 'Self-Executing Business Logic Rules', status: 'OPTIMIZED' },
-];
+import { BRAND_TOKENS } from '../constants';
 
 export const SceneSystemCore: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  const relFrame = frame; // In Remotion Sequence, 0 to 150
-
-  // Rotation math for scanner reticles
-  const rot1 = relFrame * 1.2;
-  const rot2 = -relFrame * 0.8;
-  const rot3 = relFrame * 2.2;
-
-  // Scanner sweep laser
-  const laserAngle = (relFrame * 4) % 360;
-
-  // Headline entrance
-  const headlineSpring = spring({
-    frame: relFrame,
+  // Entrance spring
+  const headerEntrance = spring({
+    frame,
     fps,
-    config: { damping: 12, stiffness: 140 },
+    config: { damping: 16, stiffness: 90 },
   });
 
-  // Exit towards Scene 3
-  const exitZoom = interpolate(relFrame, [130, 150], [1, 1.2], { extrapolateLeft: 'clamp' });
-  const exitOpacity = interpolate(relFrame, [135, 150], [1, 0], { extrapolateLeft: 'clamp' });
+  const mapEntrance = spring({
+    frame: frame - 18,
+    fps,
+    config: { damping: 16, stiffness: 85 },
+  });
+
+  // Dynamic audit scanning sweep (0% -> 100% across the pipeline)
+  const scanProgress = interpolate(frame, [25, 140], [0, 100], {
+    extrapolateRight: 'clamp',
+    extrapolateLeft: 'clamp',
+  });
+
+  // Dynamic metrics ticker
+  const manualStepsSaved = Math.floor(interpolate(frame, [35, 120], [0, 14], { extrapolateRight: 'clamp' }));
+  const hoursReclaimed = Math.floor(interpolate(frame, [35, 130], [0, 48], { extrapolateRight: 'clamp' }));
+  const automationFeasibility = Math.floor(interpolate(frame, [40, 140], [20, 96], { extrapolateRight: 'clamp' }));
+
+  // Scene camera drift
+  const scale = interpolate(frame, [0, 180], [0.985, 1.02], { extrapolateRight: 'clamp' });
+  const exitOpacity = interpolate(frame, [165, 180], [1, 0], { extrapolateLeft: 'clamp' });
 
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: '#040507',
+        backgroundColor: BRAND_TOKENS.colors.bg,
+        opacity: exitOpacity,
+        transform: `scale(${scale})`,
         display: 'flex',
+        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        opacity: exitOpacity,
-        transform: `scale(${exitZoom})`,
+        padding: '0 120px',
         overflow: 'hidden',
       }}
     >
-      <CinematicBackground accentColor="#06b6d4" />
+      <CinematicBackground tint="focus" />
 
-      {/* Centerpiece Cybernetic Radar & Scanner */}
       <div
         style={{
-          position: 'absolute',
-          width: '700px',
-          height: '700px',
+          width: '100%',
+          maxWidth: '1360px',
           display: 'flex',
+          flexDirection: 'column',
           alignItems: 'center',
-          justifyContent: 'center',
-          opacity: 0.65,
-        }}
-      >
-        {/* Outer Ring with Compass Ticks */}
-        <div
-          style={{
-            position: 'absolute',
-            width: '640px',
-            height: '640px',
-            borderRadius: '50%',
-            border: '1px dashed rgba(6, 182, 212, 0.4)',
-            transform: `rotate(${rot1}deg)`,
-          }}
-        />
-
-        {/* Counter Ring */}
-        <div
-          style={{
-            position: 'absolute',
-            width: '520px',
-            height: '520px',
-            borderRadius: '50%',
-            border: '2px solid rgba(255, 255, 255, 0.08)',
-            transform: `rotate(${rot2}deg)`,
-          }}
-        >
-          <div
-            style={{
-              position: 'absolute',
-              top: '-8px',
-              left: '50%',
-              width: '16px',
-              height: '16px',
-              borderRadius: '50%',
-              backgroundColor: '#06b6d4',
-              boxShadow: '0 0 20px #06b6d4',
-            }}
-          />
-        </div>
-
-        {/* Inner High Speed Ring */}
-        <div
-          style={{
-            position: 'absolute',
-            width: '360px',
-            height: '360px',
-            borderRadius: '50%',
-            border: '1.5px solid rgba(16, 185, 129, 0.4)',
-            transform: `rotate(${rot3}deg)`,
-          }}
-        />
-
-        {/* Radar Scanner Beam (Conic Gradient) */}
-        <div
-          style={{
-            position: 'absolute',
-            width: '520px',
-            height: '520px',
-            borderRadius: '50%',
-            background: `conic-gradient(from ${laserAngle}deg, rgba(6, 182, 212, 0.3) 0deg, transparent 60deg, transparent 360deg)`,
-            pointerEvents: 'none',
-          }}
-        />
-
-        {/* Center Target Core */}
-        <div
-          style={{
-            width: '120px',
-            height: '120px',
-            borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(6, 182, 212, 0.25) 0%, rgba(4, 5, 7, 0.95) 70%)',
-            border: '2px solid #06b6d4',
-            boxShadow: '0 0 40px rgba(6, 182, 212, 0.5)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexDirection: 'column',
-          }}
-        >
-          <div
-            style={{
-              fontFamily: 'ui-monospace, monospace',
-              fontSize: '11px',
-              fontWeight: 800,
-              color: '#06b6d4',
-              letterSpacing: '0.15em',
-            }}
-          >
-            VISTAR
-          </div>
-          <div
-            style={{
-              fontFamily: 'ui-monospace, monospace',
-              fontSize: '9px',
-              color: 'rgba(255, 255, 255, 0.6)',
-              marginTop: '4px',
-            }}
-          >
-            OPTICAL AUDIT
-          </div>
-        </div>
-      </div>
-
-      {/* Kinetic Headline */}
-      <div
-        style={{
-          position: 'relative',
-          zIndex: 20,
           textAlign: 'center',
-          maxWidth: '1200px',
-          padding: '0 40px',
+          zIndex: 10,
         }}
       >
+        {/* Eyebrow */}
         <div
           style={{
+            opacity: interpolate(headerEntrance, [0, 1], [0, 1]),
+            transform: `translateY(${interpolate(headerEntrance, [0, 1], [15, 0])}px)`,
             display: 'inline-flex',
             alignItems: 'center',
-            gap: '10px',
-            padding: '6px 18px',
+            gap: '8px',
+            padding: '6px 16px',
+            backgroundColor: '#FFFFFF',
+            border: '1px solid rgba(0, 0, 0, 0.08)',
             borderRadius: '999px',
-            background: 'rgba(6, 182, 212, 0.1)',
-            border: '1px solid rgba(6, 182, 212, 0.4)',
-            color: '#06b6d4',
-            fontFamily: 'ui-monospace, monospace',
-            fontSize: '12px',
-            letterSpacing: '0.15em',
             marginBottom: '24px',
+            boxShadow: '0 2px 6px rgba(0, 0, 0, 0.03)',
           }}
         >
-          <span>STAGE 01 // OPERATIONAL DECONSTRUCTION</span>
-        </div>
-
-        <h2
-          style={{
-            fontFamily: 'system-ui, -apple-system, sans-serif',
-            fontSize: '68px',
-            fontWeight: 900,
-            letterSpacing: '-0.03em',
-            lineHeight: 1.05,
-            color: '#ECEEF5',
-            margin: 0,
-            transform: `scale(${headlineSpring})`,
-            textShadow: '0 10px 40px rgba(0, 0, 0, 0.9)',
-          }}
-        >
-          WE EXAMINE HOW YOUR COMPANY
-          <br />
           <span
             style={{
-              background: 'linear-gradient(135deg, #06b6d4 0%, #10b981 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
+              width: '6px',
+              height: '6px',
+              borderRadius: '50%',
+              backgroundColor: BRAND_TOKENS.colors.accentCoral,
+            }}
+          />
+          <span
+            style={{
+              fontFamily: BRAND_TOKENS.typography.fontMono,
+              fontSize: '11px',
+              fontWeight: 600,
+              letterSpacing: '0.14em',
+              color: BRAND_TOKENS.colors.textSecondary,
+              textTransform: 'uppercase',
             }}
           >
-            ACTUALLY FUNCTIONS.
+            Step 01 // Operational Intelligence Audit
+          </span>
+        </div>
+
+        {/* Headline */}
+        <h2
+          style={{
+            fontFamily: BRAND_TOKENS.typography.fontDisplay,
+            fontSize: '68px',
+            lineHeight: 1.08,
+            fontWeight: 500,
+            letterSpacing: '-0.035em',
+            color: BRAND_TOKENS.colors.textPrimary,
+            maxWidth: '1100px',
+            margin: '0 auto 20px auto',
+            opacity: interpolate(headerEntrance, [0, 1], [0, 1]),
+            transform: `translateY(${interpolate(headerEntrance, [0, 1], [25, 0])}px)`,
+          }}
+        >
+          We audit how your company{' '}
+          <span style={{ color: BRAND_TOKENS.colors.accentCoral }}>
+            actually functions.
           </span>
         </h2>
 
+        {/* Subhead */}
         <p
           style={{
-            marginTop: '20px',
-            fontFamily: 'ui-monospace, monospace',
-            fontSize: '17px',
-            color: 'rgba(255, 255, 255, 0.7)',
-            letterSpacing: '0.05em',
+            fontFamily: BRAND_TOKENS.typography.fontBody,
+            fontSize: '21px',
+            lineHeight: 1.5,
+            color: BRAND_TOKENS.colors.textSecondary,
+            maxWidth: '820px',
+            margin: '0 auto 40px auto',
+            opacity: interpolate(headerEntrance, [0, 1], [0, 1]),
           }}
         >
-          Tracing every information pathway. Isolating every human drag point.
+          We map information flows, trace human handoffs, and locate where repetitive friction chokes your velocity.
         </p>
 
-        {/* 3 Staggered Audit Target Pills */}
+        {/* Diagnostic Audit Interface */}
         <div
           style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: '20px',
-            marginTop: '44px',
+            width: '100%',
+            backgroundColor: '#FFFFFF',
+            borderRadius: '20px',
+            border: '1px solid rgba(0, 0, 0, 0.08)',
+            boxShadow: '0 16px 40px -10px rgba(0, 0, 0, 0.05)',
+            overflow: 'hidden',
+            opacity: interpolate(mapEntrance, [0, 1], [0, 1]),
+            transform: `translateY(${interpolate(mapEntrance, [0, 1], [35, 0])}px)`,
             textAlign: 'left',
           }}
         >
-          {AUDIT_TARGETS.map((target, idx) => {
-            const pillSpring = spring({
-              frame: relFrame - 25 - idx * 12,
-              fps,
-              config: { damping: 14, stiffness: 120 },
-            });
-
-            return (
-              <div
-                key={target.id}
+          {/* Header Bar */}
+          <div
+            style={{
+              padding: '16px 28px',
+              borderBottom: '1px solid rgba(0, 0, 0, 0.06)',
+              backgroundColor: '#FAF9F5',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <div style={{ display: 'flex', gap: '6px' }}>
+                <span style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#FF5F56' }} />
+                <span style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#FFBD2E' }} />
+                <span style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#27C93F' }} />
+              </div>
+              <span
                 style={{
-                  background: 'rgba(13, 14, 21, 0.85)',
-                  border: '1px solid rgba(6, 182, 212, 0.3)',
-                  borderRadius: '14px',
-                  padding: '16px 20px',
-                  backdropFilter: 'blur(16px)',
-                  transform: `translateY(${interpolate(pillSpring, [0, 1], [30, 0])}px)`,
-                  opacity: pillSpring,
-                  boxShadow: '0 8px 30px rgba(0, 0, 0, 0.5)',
+                  fontFamily: BRAND_TOKENS.typography.fontMono,
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  color: BRAND_TOKENS.colors.textSecondary,
+                  letterSpacing: '0.08em',
                 }}
               >
-                <div
+                VISTAR_WORKFLOW_TRACER // ENTERPRISE_DIAGNOSTICS
+              </span>
+            </div>
+
+            <div style={{ display: 'flex', gap: '24px', fontFamily: BRAND_TOKENS.typography.fontMono, fontSize: '11px' }}>
+              <span style={{ color: BRAND_TOKENS.colors.textSecondary }}>
+                SCAN PROGRESS: <strong style={{ color: BRAND_TOKENS.colors.accentCoral }}>{Math.floor(scanProgress)}%</strong>
+              </span>
+              <span style={{ color: BRAND_TOKENS.colors.accentEmerald, fontWeight: 600 }}>
+                ● SENSORS ACTIVE
+              </span>
+            </div>
+          </div>
+
+          {/* 3 Interactive Pipeline Audit Nodes */}
+          <div
+            style={{
+              padding: '32px 36px',
+              display: 'grid',
+              gridTemplateColumns: 'repeat(3, 1fr)',
+              gap: '24px',
+              position: 'relative',
+            }}
+          >
+            {/* Stage 1 */}
+            <div
+              style={{
+                backgroundColor: '#FAF9F5',
+                border: '1px solid rgba(0, 0, 0, 0.06)',
+                borderRadius: '14px',
+                padding: '20px 24px',
+                position: 'relative',
+              }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px' }}>
+                <span style={{ fontFamily: BRAND_TOKENS.typography.fontMono, fontSize: '10px', color: BRAND_TOKENS.colors.textTertiary }}>
+                  VECTOR 01
+                </span>
+                <span
                   style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    fontFamily: 'ui-monospace, monospace',
-                    fontSize: '11px',
-                    color: '#06b6d4',
-                    marginBottom: '8px',
-                    fontWeight: 700,
+                    padding: '2px 8px',
+                    borderRadius: '4px',
+                    backgroundColor: 'rgba(5, 150, 105, 0.1)',
+                    color: BRAND_TOKENS.colors.accentEmerald,
+                    fontFamily: BRAND_TOKENS.typography.fontMono,
+                    fontSize: '10px',
+                    fontWeight: 600,
                   }}
                 >
-                  <span>{target.id}</span>
-                  <span style={{ color: '#10b981' }}>{target.status}</span>
-                </div>
-                <div
-                  style={{
-                    fontFamily: 'system-ui, sans-serif',
-                    fontSize: '14px',
-                    fontWeight: 700,
-                    color: '#ECEEF5',
-                  }}
-                >
-                  {target.label}
-                </div>
-                <div
-                  style={{
-                    fontFamily: 'ui-monospace, monospace',
-                    fontSize: '11px',
-                    color: 'rgba(255, 255, 255, 0.5)',
-                    marginTop: '4px',
-                  }}
-                >
-                  → {target.fix}
-                </div>
+                  AUDITED
+                </span>
               </div>
-            );
-          })}
+              <h4 style={{ fontFamily: BRAND_TOKENS.typography.fontDisplay, fontSize: '17px', fontWeight: 600, color: BRAND_TOKENS.colors.textPrimary, marginBottom: '6px' }}>
+                Customer Inbound Routing
+              </h4>
+              <p style={{ fontFamily: BRAND_TOKENS.typography.fontBody, fontSize: '12.5px', color: BRAND_TOKENS.colors.textSecondary, marginBottom: '16px' }}>
+                86% of incoming requests follow 4 deterministic intent patterns.
+              </p>
+              <div style={{ fontFamily: BRAND_TOKENS.typography.fontMono, fontSize: '11px', color: BRAND_TOKENS.colors.accentCoral }}>
+                Target: Autonomous Agent Triage
+              </div>
+            </div>
+
+            {/* Stage 2 */}
+            <div
+              style={{
+                backgroundColor: '#FAF9F5',
+                border: '1px solid rgba(0, 0, 0, 0.06)',
+                borderRadius: '14px',
+                padding: '20px 24px',
+                position: 'relative',
+              }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px' }}>
+                <span style={{ fontFamily: BRAND_TOKENS.typography.fontMono, fontSize: '10px', color: BRAND_TOKENS.colors.textTertiary }}>
+                  VECTOR 02
+                </span>
+                <span
+                  style={{
+                    padding: '2px 8px',
+                    borderRadius: '4px',
+                    backgroundColor: 'rgba(5, 150, 105, 0.1)',
+                    color: BRAND_TOKENS.colors.accentEmerald,
+                    fontFamily: BRAND_TOKENS.typography.fontMono,
+                    fontSize: '10px',
+                    fontWeight: 600,
+                  }}
+                >
+                  AUDITED
+                </span>
+              </div>
+              <h4 style={{ fontFamily: BRAND_TOKENS.typography.fontDisplay, fontSize: '17px', fontWeight: 600, color: BRAND_TOKENS.colors.textPrimary, marginBottom: '6px' }}>
+                Cross-System Data Sync
+              </h4>
+              <p style={{ fontFamily: BRAND_TOKENS.typography.fontBody, fontSize: '12.5px', color: BRAND_TOKENS.colors.textSecondary, marginBottom: '16px' }}>
+                Human staff manually transferring CRM rows into ERP database.
+              </p>
+              <div style={{ fontFamily: BRAND_TOKENS.typography.fontMono, fontSize: '11px', color: BRAND_TOKENS.colors.accentCoral }}>
+                Target: Self-Healing Webhook Bus
+              </div>
+            </div>
+
+            {/* Stage 3 */}
+            <div
+              style={{
+                backgroundColor: '#FAF9F5',
+                border: '1px solid rgba(0, 0, 0, 0.06)',
+                borderRadius: '14px',
+                padding: '20px 24px',
+                position: 'relative',
+              }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px' }}>
+                <span style={{ fontFamily: BRAND_TOKENS.typography.fontMono, fontSize: '10px', color: BRAND_TOKENS.colors.textTertiary }}>
+                  VECTOR 03
+                </span>
+                <span
+                  style={{
+                    padding: '2px 8px',
+                    borderRadius: '4px',
+                    backgroundColor: 'rgba(5, 150, 105, 0.1)',
+                    color: BRAND_TOKENS.colors.accentEmerald,
+                    fontFamily: BRAND_TOKENS.typography.fontMono,
+                    fontSize: '10px',
+                    fontWeight: 600,
+                  }}
+                >
+                  AUDITED
+                </span>
+              </div>
+              <h4 style={{ fontFamily: BRAND_TOKENS.typography.fontDisplay, fontSize: '17px', fontWeight: 600, color: BRAND_TOKENS.colors.textPrimary, marginBottom: '6px' }}>
+                Fulfillment & Alerts
+              </h4>
+              <p style={{ fontFamily: BRAND_TOKENS.typography.fontBody, fontSize: '12.5px', color: BRAND_TOKENS.colors.textSecondary, marginBottom: '16px' }}>
+                Manual status updates causing 24h delays for end clients.
+              </p>
+              <div style={{ fontFamily: BRAND_TOKENS.typography.fontMono, fontSize: '11px', color: BRAND_TOKENS.colors.accentCoral }}>
+                Target: Sub-second Event Dispatch
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Diagnostic Metrics Row */}
+          <div
+            style={{
+              padding: '16px 36px',
+              backgroundColor: '#FFFFFF',
+              borderTop: '1px solid rgba(0, 0, 0, 0.06)',
+              display: 'flex',
+              justifyContent: 'space-around',
+              fontFamily: BRAND_TOKENS.typography.fontMono,
+            }}
+          >
+            <div>
+              <span style={{ fontSize: '10px', color: BRAND_TOKENS.colors.textTertiary, display: 'block' }}>
+                MANUAL STEPS TO AUTOMATE
+              </span>
+              <span style={{ fontSize: '20px', fontWeight: 700, color: BRAND_TOKENS.colors.textPrimary }}>
+                {manualStepsSaved} of 16 Steps
+              </span>
+            </div>
+            <div style={{ width: '1px', backgroundColor: 'rgba(0, 0, 0, 0.08)' }} />
+            <div>
+              <span style={{ fontSize: '10px', color: BRAND_TOKENS.colors.textTertiary, display: 'block' }}>
+                WEEKLY HUMAN TOIL RECLAIMED
+              </span>
+              <span style={{ fontSize: '20px', fontWeight: 700, color: BRAND_TOKENS.colors.accentCoral }}>
+                +{hoursReclaimed} Hours / Team
+              </span>
+            </div>
+            <div style={{ width: '1px', backgroundColor: 'rgba(0, 0, 0, 0.08)' }} />
+            <div>
+              <span style={{ fontSize: '10px', color: BRAND_TOKENS.colors.textTertiary, display: 'block' }}>
+                AUTOMATION FEASIBILITY
+              </span>
+              <span style={{ fontSize: '20px', fontWeight: 700, color: BRAND_TOKENS.colors.accentEmerald }}>
+                {automationFeasibility}% Feasible
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </AbsoluteFill>

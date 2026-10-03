@@ -1,225 +1,237 @@
 import React from 'react';
 import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
 import { CinematicBackground } from '../components/CinematicBackground';
+import { BRAND_TOKENS } from '../constants';
 
 export const SceneSovereignHandover: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  const relFrame = frame; // 0 to 180
-
-  // Terminal entrance
-  const terminalEntrance = spring({
-    frame: relFrame,
+  // Majestic typographic reveal
+  const statementEntrance = spring({
+    frame,
     fps,
-    config: { damping: 14, stiffness: 100 },
+    config: { damping: 18, stiffness: 80, mass: 1 },
   });
 
-  // Endcard entrance at relFrame 75
-  const endcardEntrance = spring({
-    frame: relFrame - 70,
+  const logoEntrance = spring({
+    frame: frame - 25,
     fps,
-    config: { damping: 12, stiffness: 90 },
+    config: { damping: 18, stiffness: 90 },
   });
 
-  const endcardOpacity = interpolate(relFrame, [65, 85], [0, 1], { extrapolateRight: 'clamp' });
-  const terminalOpacity = interpolate(relFrame, [65, 85], [1, 0.08], { extrapolateRight: 'clamp' });
+  const sublockEntrance = spring({
+    frame: frame - 40,
+    fps,
+    config: { damping: 16, stiffness: 85 },
+  });
 
-  // Light pulse on emblem
-  const emblemGlow = Math.sin(relFrame * 0.1) * 0.2 + 0.8;
+  // Slow, regal push-in
+  const cameraScale = interpolate(frame, [0, 160], [0.98, 1.02], { extrapolateRight: 'clamp' });
 
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: '#040507',
+        backgroundColor: BRAND_TOKENS.colors.bg,
+        transform: `scale(${cameraScale})`,
         display: 'flex',
+        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
+        padding: '0 100px',
         overflow: 'hidden',
       }}
     >
-      <CinematicBackground accentColor="#10b981" />
+      <CinematicBackground tint="warm" />
 
-      {/* Terminal View (Frames 0 - 75) */}
       <div
         style={{
-          position: 'absolute',
-          width: '920px',
-          background: 'rgba(10, 12, 18, 0.95)',
-          border: '1.5px solid rgba(16, 185, 129, 0.4)',
-          borderRadius: '18px',
-          boxShadow: '0 30px 80px rgba(0, 0, 0, 0.9), 0 0 50px rgba(16, 185, 129, 0.15)',
-          backdropFilter: 'blur(24px)',
-          overflow: 'hidden',
-          transform: `scale(${terminalEntrance})`,
-          opacity: terminalOpacity,
+          width: '100%',
+          maxWidth: '1280px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          textAlign: 'center',
           zIndex: 10,
         }}
       >
-        {/* Terminal Header */}
+        {/* The Climax Statement */}
         <div
           style={{
-            padding: '14px 22px',
-            background: 'rgba(255, 255, 255, 0.03)',
-            borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+            marginBottom: '48px',
+            opacity: interpolate(statementEntrance, [0, 1], [0, 1]),
+            transform: `translateY(${interpolate(statementEntrance, [0, 1], [25, 0])}px)`,
+          }}
+        >
+          <div
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '6px 18px',
+              backgroundColor: '#FFFFFF',
+              border: '1px solid rgba(0, 0, 0, 0.08)',
+              borderRadius: '999px',
+              marginBottom: '24px',
+              boxShadow: '0 2px 6px rgba(0, 0, 0, 0.03)',
+            }}
+          >
+            <span
+              style={{
+                width: '6px',
+                height: '6px',
+                borderRadius: '50%',
+                backgroundColor: BRAND_TOKENS.colors.accentCoral,
+              }}
+            />
+            <span
+              style={{
+                fontFamily: BRAND_TOKENS.typography.fontMono,
+                fontSize: '11px',
+                fontWeight: 600,
+                letterSpacing: '0.14em',
+                color: BRAND_TOKENS.colors.textSecondary,
+                textTransform: 'uppercase',
+              }}
+            >
+              The Next Evolution of Enterprise Work
+            </span>
+          </div>
+
+          <h2
+            style={{
+              fontFamily: BRAND_TOKENS.typography.fontDisplay,
+              fontSize: '68px',
+              lineHeight: 1.1,
+              fontWeight: 500,
+              letterSpacing: '-0.04em',
+              color: BRAND_TOKENS.colors.textPrimary,
+              maxWidth: '1040px',
+              margin: '0 auto',
+            }}
+          >
+            Make your enterprise work{' '}
+            <span style={{ color: BRAND_TOKENS.colors.accentCoral }}>easier</span>,{' '}
+            <span style={{ color: BRAND_TOKENS.colors.accentCoral }}>faster</span>, and{' '}
+            <span
+              style={{
+                color: BRAND_TOKENS.colors.textPrimary,
+                borderBottom: '3px solid #141413',
+                paddingBottom: '2px',
+              }}
+            >
+              humanless.
+            </span>
+          </h2>
+        </div>
+
+        {/* Central Brand Lockup */}
+        <div
+          style={{
             display: 'flex',
+            flexDirection: 'column',
             alignItems: 'center',
-            justifyContent: 'space-between',
+            opacity: interpolate(logoEntrance, [0, 1], [0, 1]),
+            transform: `translateY(${interpolate(logoEntrance, [0, 1], [30, 0])}px)`,
           }}
         >
-          <div style={{ display: 'flex', gap: '8px' }}>
-            <div style={{ width: 11, height: 11, borderRadius: '50%', background: '#ef4444' }} />
-            <div style={{ width: 11, height: 11, borderRadius: '50%', background: '#f59e0b' }} />
-            <div style={{ width: 11, height: 11, borderRadius: '50%', background: '#10b981' }} />
-          </div>
+          {/* Refined Brand Geometric Mark */}
           <div
             style={{
-              fontFamily: 'ui-monospace, monospace',
-              fontSize: '12px',
-              color: 'rgba(255, 255, 255, 0.4)',
-              letterSpacing: '0.1em',
+              width: '72px',
+              height: '72px',
+              borderRadius: '20px',
+              backgroundColor: '#141413',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginBottom: '20px',
+              boxShadow: '0 16px 36px rgba(20, 20, 19, 0.16)',
             }}
           >
-            vistar-terminal // autonomous-deployment.sh
+            <span
+              style={{
+                fontFamily: BRAND_TOKENS.typography.fontDisplay,
+                fontSize: '38px',
+                fontWeight: 700,
+                color: '#FAF9F5',
+                letterSpacing: '-0.05em',
+              }}
+            >
+              V
+            </span>
           </div>
-          <div style={{ width: 40 }} />
-        </div>
 
-        {/* Terminal Body */}
-        <div
-          style={{
-            padding: '28px 32px',
-            fontFamily: 'ui-monospace, monospace',
-            fontSize: '14px',
-            lineHeight: 1.85,
-            color: '#ECEEF5',
-          }}
-        >
-          <div style={{ color: 'rgba(255, 255, 255, 0.5)' }}>
-            $ vistar audit --analyze enterprise/workflows
-          </div>
-          <div style={{ color: '#06b6d4' }}>
-            [scan] 38 manual friction points isolated • 420 human hours/month burned
-          </div>
-          <div style={{ color: 'rgba(255, 255, 255, 0.5)', marginTop: '8px' }}>
-            $ vistar deploy --automations --ai-orchestrator
-          </div>
-          <div style={{ color: '#10b981', marginTop: '4px' }}>
-            ✓ Autonomous AI pipelines deployed across communications & data.
-          </div>
-          <div style={{ color: '#10b981' }}>
-            ✓ 94% Human Toil Eliminated • Real-time Zero-Latency Execution.
-          </div>
+          {/* Brand Name */}
+          <h1
+            style={{
+              fontFamily: BRAND_TOKENS.typography.fontDisplay,
+              fontSize: '84px',
+              fontWeight: 700,
+              letterSpacing: '-0.04em',
+              color: BRAND_TOKENS.colors.textPrimary,
+              margin: '0 0 10px 0',
+              lineHeight: 1,
+            }}
+          >
+            VISTAR
+          </h1>
+
+          {/* Subtitle */}
+          <p
+            style={{
+              fontFamily: BRAND_TOKENS.typography.fontMono,
+              fontSize: '13px',
+              fontWeight: 600,
+              letterSpacing: '0.2em',
+              color: BRAND_TOKENS.colors.textSecondary,
+              textTransform: 'uppercase',
+              margin: '0 0 36px 0',
+            }}
+          >
+            Enterprise Operational Intelligence & Autonomous Systems
+          </p>
+
+          {/* Action & Link Bar */}
           <div
             style={{
-              color: 'rgba(255, 255, 255, 0.4)',
-              fontSize: '12px',
-              marginTop: '10px',
-              borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-              paddingTop: '10px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '24px',
+              opacity: interpolate(sublockEntrance, [0, 1], [0, 1]),
             }}
           >
-            OPERATIONS RUNNING EASIER, FASTER, AND HUMANLESS. 100% SOVEREIGN OWNERSHIP.
+            <div
+              style={{
+                padding: '14px 32px',
+                backgroundColor: BRAND_TOKENS.colors.accentCoral,
+                color: '#FFFFFF',
+                borderRadius: '0px',
+                fontFamily: BRAND_TOKENS.typography.fontBody,
+                fontSize: '15px',
+                fontWeight: 600,
+                letterSpacing: '-0.01em',
+                boxShadow: '0 8px 24px rgba(255, 56, 35, 0.25)',
+              }}
+            >
+              Schedule an Operational Audit &rarr;
+            </div>
+
+            <div
+              style={{
+                padding: '14px 28px',
+                backgroundColor: '#FFFFFF',
+                border: '1px solid rgba(0, 0, 0, 0.12)',
+                color: BRAND_TOKENS.colors.textPrimary,
+                borderRadius: '0px',
+                fontFamily: BRAND_TOKENS.typography.fontMono,
+                fontSize: '14px',
+                fontWeight: 600,
+              }}
+            >
+              vistar.tech
+            </div>
           </div>
-        </div>
-      </div>
-
-      {/* Final Endcard / Grand Brand Climax (relFrame >= 70) */}
-      <div
-        style={{
-          position: 'relative',
-          zIndex: 30,
-          textAlign: 'center',
-          maxWidth: '1200px',
-          opacity: endcardOpacity,
-          transform: `scale(${endcardEntrance})`,
-        }}
-      >
-        {/* Glowing Geometric Emblem */}
-        <div
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '84px',
-            height: '84px',
-            borderRadius: '24px',
-            background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(6, 182, 212, 0.25) 100%)',
-            border: '2px solid #10b981',
-            boxShadow: `0 0 50px rgba(16, 185, 129, ${0.4 * emblemGlow}), inset 0 0 30px rgba(16, 185, 129, 0.3)`,
-            marginBottom: '28px',
-          }}
-        >
-          <span
-            style={{
-              fontFamily: 'system-ui, sans-serif',
-              fontWeight: 900,
-              fontSize: '36px',
-              color: '#ECEEF5',
-            }}
-          >
-            V
-          </span>
-        </div>
-
-        <h1
-          style={{
-            fontFamily: 'system-ui, -apple-system, sans-serif',
-            fontSize: '84px',
-            fontWeight: 900,
-            letterSpacing: '-0.04em',
-            lineHeight: 1.0,
-            color: '#ECEEF5',
-            margin: '0 0 18px 0',
-            textShadow: '0 10px 60px rgba(0, 0, 0, 0.9)',
-          }}
-        >
-          VISTAR.TECH
-        </h1>
-
-        <p
-          style={{
-            fontFamily: 'ui-monospace, monospace',
-            fontSize: '22px',
-            fontWeight: 700,
-            color: '#10b981',
-            letterSpacing: '0.1em',
-            margin: '0 0 14px 0',
-            textShadow: '0 0 30px rgba(16, 185, 129, 0.4)',
-          }}
-        >
-          MAKING ENTERPRISE OPERATIONS EASIER, FASTER, AND HUMANLESS.
-        </p>
-
-        <p
-          style={{
-            fontFamily: 'ui-monospace, monospace',
-            fontSize: '15px',
-            color: 'rgba(255, 255, 255, 0.6)',
-            letterSpacing: '0.06em',
-            margin: '0 0 40px 0',
-          }}
-        >
-          ENTERPRISE AUTOMATION INTELLIGENCE • SOVEREIGN SOFTWARE • AI WORKFLOWS
-        </p>
-
-        <div
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '16px',
-            padding: '16px 40px',
-            borderRadius: '999px',
-            background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
-            color: '#040507',
-            fontFamily: 'ui-monospace, monospace',
-            fontSize: '15px',
-            fontWeight: 800,
-            letterSpacing: '0.08em',
-            boxShadow: '0 12px 40px rgba(16, 185, 129, 0.5)',
-          }}
-        >
-          BOOK AN OPERATIONAL AUDIT // CONTACT@VISTAR.TECH
         </div>
       </div>
     </AbsoluteFill>

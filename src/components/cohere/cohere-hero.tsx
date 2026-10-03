@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useEffect, useRef } from "react";
 import Link from "next/link";
@@ -76,7 +76,7 @@ export function CohereHero() {
 
   return (
     <div ref={containerRef} className="w-full bg-white text-[#212121]">
-      {/* ── 1. HERO TEXT SECTION ── */}
+      {/* â”€â”€ 1. HERO TEXT SECTION â”€â”€ */}
       <section className="relative w-full px-4 pt-10 sm:pt-14 md:pt-18 pb-6 md:pb-8 text-[#212121]">
         <div className="relative mx-auto w-full max-w-[1400px]">
           <div className="text-center flex flex-col items-center">
@@ -108,7 +108,7 @@ export function CohereHero() {
                     '"Unica77 Cohere Web", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
                 }}
               >
-                Custom software, WhatsApp automations, and interactive 3D web systems built for your business. Shipped by founding engineers in 14-day sprints with 100% source code ownership. Packages start at ₹49,000 ($600).
+                Custom software, WhatsApp automations, and interactive 3D web systems built for your business. Shipped by founding engineers in 14-day sprints with 100% source code ownership. Packages start at â‚¹49,000 ($600).
               </p>
             </div>
 
@@ -122,11 +122,11 @@ export function CohereHero() {
                     '"Unica77 Cohere Web", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
                 }}
               >
-                View Packages (from ₹49k / $600)
+                View Packages (from â‚¹49k / $600)
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <a
-                href="https://wa.me/917985790432?text=Hi%20Abhishek%2C%20I%20would%20like%20to%20discuss%20a%20software%2Fautomation%20project%20for%20my%20business."
+                href="https://wa.me/918860110144?text=Hi%20Abhishek%2C%20I%20would%20like%20to%20discuss%20a%20software%2Fautomation%20project%20for%20my%20business."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center px-7 py-3.5 bg-[#25D366] hover:bg-[#20BD5A] text-white font-medium text-sm sm:text-base rounded-none transition-all active:scale-95 gap-2 shadow-xs"
@@ -154,7 +154,7 @@ export function CohereHero() {
         </div>
       </section>
 
-      {/* ── 2. ORIGINAL COHERE HERO FEATURED GRAPHIC (HARDWARE-ACCELERATED GSAP ENTRANCE) ── */}
+      {/* â”€â”€ 2. ORIGINAL COHERE HERO FEATURED GRAPHIC (HARDWARE-ACCELERATED GSAP ENTRANCE) â”€â”€ */}
       <section className="gsap-hero-media relative w-full px-4 lg:px-10 pb-12 md:pb-16 bg-white text-[#212121] will-change-transform">
         <div className="relative mx-auto w-full max-w-[1360px]">
           

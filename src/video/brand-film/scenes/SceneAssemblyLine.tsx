@@ -1,254 +1,268 @@
 import React from 'react';
 import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
 import { CinematicBackground } from '../components/CinematicBackground';
-
-const METHOD_STAGES = [
-  {
-    step: 'STAGE 01',
-    metric: '100% VISIBILITY',
-    title: 'Operational Deep-Dive & Friction Mapping',
-    details: 'We embed into your workflows to expose hidden data choke points, redundant human handoffs, and mechanical tasks burning high payroll.',
-  },
-  {
-    step: 'STAGE 02',
-    metric: 'AI-DIRECTED',
-    title: 'Autonomous Software & AI Synthesis',
-    details: 'We architect and deploy custom automations, intelligent AI workers, and webhook engines that execute repetitive decisions instantly.',
-  },
-  {
-    step: 'STAGE 03',
-    metric: '10X SCALE',
-    title: 'Humanless Execution & Sovereignty',
-    details: 'Your enterprise runs faster, smoother, and virtually humanless with 100% private codebase ownership and zero recurring retainer locks.',
-  },
-];
+import { BRAND_TOKENS } from '../constants';
 
 export const SceneAssemblyLine: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  const relFrame = frame; // 0 to 240
-
-  // Entrance
-  const entrance = spring({
-    frame: relFrame,
+  // Entrance springs
+  const headerEntrance = spring({
+    frame,
     fps,
-    config: { damping: 14, stiffness: 130 },
+    config: { damping: 16, stiffness: 90 },
   });
 
-  // Animated progress bar: 0% to 100%
-  const progress = interpolate(relFrame, [10, 160], [0, 100], {
-    extrapolateRight: 'clamp',
-    extrapolateLeft: 'clamp',
+  const card1Entrance = spring({
+    frame: frame - 12,
+    fps,
+    config: { damping: 16, stiffness: 85 },
   });
 
-  // Exit towards Scene 5
-  const exitOpacity = interpolate(relFrame, [225, 240], [1, 0], { extrapolateLeft: 'clamp' });
+  const card2Entrance = spring({
+    frame: frame - 22,
+    fps,
+    config: { damping: 16, stiffness: 85 },
+  });
+
+  const card3Entrance = spring({
+    frame: frame - 32,
+    fps,
+    config: { damping: 16, stiffness: 85 },
+  });
+
+  // Camera drift
+  const scale = interpolate(frame, [0, 190], [0.985, 1.025], { extrapolateRight: 'clamp' });
+  const exitOpacity = interpolate(frame, [175, 190], [1, 0], { extrapolateLeft: 'clamp' });
 
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: '#040507',
+        backgroundColor: BRAND_TOKENS.colors.bg,
         opacity: exitOpacity,
-        transform: `scale(${entrance})`,
+        transform: `scale(${scale})`,
         display: 'flex',
         flexDirection: 'column',
+        alignItems: 'center',
         justifyContent: 'center',
-        padding: '0 80px',
+        padding: '0 100px',
         overflow: 'hidden',
       }}
     >
-      <CinematicBackground accentColor="#10b981" />
+      <CinematicBackground tint="warm" />
 
-      {/* Header */}
-      <div style={{ textAlign: 'center', marginBottom: '44px', zIndex: 20 }}>
+      <div
+        style={{
+          width: '100%',
+          maxWidth: '1360px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          textAlign: 'center',
+          zIndex: 10,
+        }}
+      >
+        {/* Eyebrow */}
         <div
           style={{
+            opacity: interpolate(headerEntrance, [0, 1], [0, 1]),
+            transform: `translateY(${interpolate(headerEntrance, [0, 1], [15, 0])}px)`,
             display: 'inline-flex',
             alignItems: 'center',
             gap: '8px',
-            padding: '6px 18px',
+            padding: '6px 16px',
+            backgroundColor: '#FFFFFF',
+            border: '1px solid rgba(0, 0, 0, 0.08)',
             borderRadius: '999px',
-            backgroundColor: 'rgba(16, 185, 129, 0.1)',
-            border: '1px solid rgba(16, 185, 129, 0.35)',
-            color: '#10b981',
-            fontFamily: 'ui-monospace, monospace',
-            fontSize: '12px',
-            letterSpacing: '0.15em',
-            marginBottom: '14px',
+            marginBottom: '20px',
+            boxShadow: '0 2px 6px rgba(0, 0, 0, 0.03)',
           }}
         >
-          THE VISTAR METHOD // ARCHITECTURAL BLUEPRINT
-        </div>
-
-        <h2
-          style={{
-            fontFamily: 'system-ui, -apple-system, sans-serif',
-            fontSize: '56px',
-            fontWeight: 900,
-            margin: 0,
-            color: '#ECEEF5',
-            letterSpacing: '-0.03em',
-            lineHeight: 1.05,
-          }}
-        >
-          RE-ENGINEERING ENTERPRISES
-          <br />
           <span
             style={{
-              background: 'linear-gradient(135deg, #10b981 0%, #06b6d4 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              textShadow: '0 0 50px rgba(16, 185, 129, 0.5)',
+              width: '6px',
+              height: '6px',
+              borderRadius: '50%',
+              backgroundColor: BRAND_TOKENS.colors.accentCoral,
+            }}
+          />
+          <span
+            style={{
+              fontFamily: BRAND_TOKENS.typography.fontMono,
+              fontSize: '11px',
+              fontWeight: 600,
+              letterSpacing: '0.14em',
+              color: BRAND_TOKENS.colors.textSecondary,
+              textTransform: 'uppercase',
             }}
           >
-            FOR HUMANLESS SCALE.
+            Step 03 // Three Operational Pillars
+          </span>
+        </div>
+
+        {/* Headline */}
+        <h2
+          style={{
+            fontFamily: BRAND_TOKENS.typography.fontDisplay,
+            fontSize: '66px',
+            lineHeight: 1.08,
+            fontWeight: 500,
+            letterSpacing: '-0.035em',
+            color: BRAND_TOKENS.colors.textPrimary,
+            maxWidth: '1100px',
+            margin: '0 auto 16px auto',
+            opacity: interpolate(headerEntrance, [0, 1], [0, 1]),
+            transform: `translateY(${interpolate(headerEntrance, [0, 1], [25, 0])}px)`,
+          }}
+        >
+          Engineered for{' '}
+          <span style={{ color: BRAND_TOKENS.colors.accentCoral }}>
+            autonomous scale.
           </span>
         </h2>
 
+        {/* Subhead */}
         <p
           style={{
-            marginTop: '16px',
-            fontFamily: 'ui-monospace, monospace',
-            fontSize: '16px',
-            color: 'rgba(255, 255, 255, 0.65)',
-            letterSpacing: '0.04em',
+            fontFamily: BRAND_TOKENS.typography.fontBody,
+            fontSize: '20px',
+            lineHeight: 1.5,
+            color: BRAND_TOKENS.colors.textSecondary,
+            maxWidth: '800px',
+            margin: '0 auto 40px auto',
+            opacity: interpolate(headerEntrance, [0, 1], [0, 1]),
           }}
         >
-          We audit your operations. We engineer the automations. Software does the work.
+          Permanent software infrastructure that operates your business without expanding headcount.
         </p>
-      </div>
 
-      {/* 3 High-Density Chronological Glass Cyber-Cards */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: '28px',
-          maxWidth: '1400px',
-          width: '100%',
-          margin: '0 auto',
-          position: 'relative',
-          zIndex: 20,
-        }}
-      >
-        {METHOD_STAGES.map((stage, idx) => {
-          const cardSpring = spring({
-            frame: relFrame - idx * 16,
-            fps,
-            config: { damping: 14, stiffness: 120 },
-          });
-
-          const isActive = relFrame >= idx * 40;
-
-          return (
-            <div
-              key={stage.step}
-              style={{
-                background: 'rgba(13, 14, 21, 0.9)',
-                border: `1.5px solid ${
-                  isActive ? 'rgba(16, 185, 129, 0.5)' : 'rgba(255, 255, 255, 0.08)'
-                }`,
-                borderRadius: '20px',
-                padding: '36px',
-                transform: `translateY(${interpolate(cardSpring, [0, 1], [40, 0])}px)`,
-                opacity: cardSpring,
-                boxShadow: isActive
-                  ? '0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(16, 185, 129, 0.15)'
-                  : '0 10px 40px rgba(0, 0, 0, 0.6)',
-                backdropFilter: 'blur(24px)',
-                position: 'relative',
-              }}
-            >
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  marginBottom: '20px',
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: 'ui-monospace, monospace',
-                    fontSize: '12px',
-                    fontWeight: 800,
-                    color: '#10b981',
-                    letterSpacing: '0.15em',
-                  }}
-                >
-                  {stage.step}
-                </span>
-                <span
-                  style={{
-                    fontFamily: 'ui-monospace, monospace',
-                    fontSize: '11px',
-                    fontWeight: 700,
-                    color: '#06b6d4',
-                    background: 'rgba(6, 182, 212, 0.12)',
-                    padding: '4px 10px',
-                    borderRadius: '999px',
-                    border: '1px solid rgba(6, 182, 212, 0.25)',
-                  }}
-                >
-                  {stage.metric}
-                </span>
-              </div>
-
-              <h3
-                style={{
-                  fontFamily: 'system-ui, sans-serif',
-                  fontSize: '22px',
-                  fontWeight: 800,
-                  color: '#ECEEF5',
-                  margin: '0 0 14px 0',
-                  lineHeight: 1.2,
-                }}
-              >
-                {stage.title}
-              </h3>
-
-              <p
-                style={{
-                  fontFamily: 'ui-monospace, monospace',
-                  fontSize: '13px',
-                  lineHeight: '1.7',
-                  color: 'rgba(255, 255, 255, 0.6)',
-                  margin: 0,
-                }}
-              >
-                {stage.details}
-              </p>
-            </div>
-          );
-        })}
-      </div>
-
-      {/* Global Laser Progress Track */}
-      <div
-        style={{
-          maxWidth: '1400px',
-          width: '100%',
-          margin: '40px auto 0 auto',
-          background: 'rgba(255, 255, 255, 0.05)',
-          borderRadius: '999px',
-          height: '6px',
-          overflow: 'hidden',
-          position: 'relative',
-          zIndex: 20,
-        }}
-      >
+        {/* 3 Pillars Grid */}
         <div
           style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            bottom: 0,
-            width: `${progress}%`,
-            background: 'linear-gradient(90deg, #10b981 0%, #06b6d4 100%)',
-            boxShadow: '0 0 20px rgba(16, 185, 129, 0.8)',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            gap: '24px',
+            width: '100%',
           }}
-        />
+        >
+          {/* Card 1 */}
+          <div
+            style={{
+              backgroundColor: '#FFFFFF',
+              borderRadius: '18px',
+              border: '1px solid rgba(0, 0, 0, 0.08)',
+              padding: '28px 28px',
+              textAlign: 'left',
+              boxShadow: '0 12px 36px rgba(0, 0, 0, 0.04)',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              height: '240px',
+              opacity: interpolate(card1Entrance, [0, 1], [0, 1]),
+              transform: `translateY(${interpolate(card1Entrance, [0, 1], [30, 0])}px)`,
+            }}
+          >
+            <div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                <span style={{ fontFamily: BRAND_TOKENS.typography.fontMono, fontSize: '11px', color: BRAND_TOKENS.colors.accentCoral, fontWeight: 700 }}>
+                  PILLAR 01
+                </span>
+                <span style={{ padding: '3px 10px', borderRadius: '999px', backgroundColor: 'rgba(5, 150, 105, 0.08)', color: BRAND_TOKENS.colors.accentEmerald, fontFamily: BRAND_TOKENS.typography.fontMono, fontSize: '10px', fontWeight: 600 }}>
+                  LIVE EXECUTION
+                </span>
+              </div>
+              <h3 style={{ fontFamily: BRAND_TOKENS.typography.fontDisplay, fontSize: '20px', fontWeight: 600, color: BRAND_TOKENS.colors.textPrimary, marginBottom: '8px', letterSpacing: '-0.02em' }}>
+                Autonomous Customer Ops
+              </h3>
+              <p style={{ fontFamily: BRAND_TOKENS.typography.fontBody, fontSize: '13.5px', color: BRAND_TOKENS.colors.textSecondary, lineHeight: 1.5 }}>
+                Direct WhatsApp and web agents resolving customer demands and closing transactions with zero queue time.
+              </p>
+            </div>
+            <div style={{ borderTop: '1px solid rgba(0, 0, 0, 0.06)', paddingTop: '12px', display: 'flex', justifyContent: 'space-between', fontFamily: BRAND_TOKENS.typography.fontMono, fontSize: '11px', color: BRAND_TOKENS.colors.textTertiary }}>
+              <span>Turnaround: <strong style={{ color: BRAND_TOKENS.colors.accentEmerald }}>Sub-2s</strong></span>
+              <span>Availability: <strong style={{ color: BRAND_TOKENS.colors.textPrimary }}>24/7</strong></span>
+            </div>
+          </div>
+
+          {/* Card 2 */}
+          <div
+            style={{
+              backgroundColor: '#FFFFFF',
+              borderRadius: '18px',
+              border: '1px solid rgba(0, 0, 0, 0.08)',
+              padding: '28px 28px',
+              textAlign: 'left',
+              boxShadow: '0 12px 36px rgba(0, 0, 0, 0.04)',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              height: '240px',
+              opacity: interpolate(card2Entrance, [0, 1], [0, 1]),
+              transform: `translateY(${interpolate(card2Entrance, [0, 1], [30, 0])}px)`,
+            }}
+          >
+            <div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                <span style={{ fontFamily: BRAND_TOKENS.typography.fontMono, fontSize: '11px', color: BRAND_TOKENS.colors.accentCoral, fontWeight: 700 }}>
+                  PILLAR 02
+                </span>
+                <span style={{ padding: '3px 10px', borderRadius: '999px', backgroundColor: 'rgba(5, 150, 105, 0.08)', color: BRAND_TOKENS.colors.accentEmerald, fontFamily: BRAND_TOKENS.typography.fontMono, fontSize: '10px', fontWeight: 600 }}>
+                  ZERO MANUAL GLUE
+                </span>
+              </div>
+              <h3 style={{ fontFamily: BRAND_TOKENS.typography.fontDisplay, fontSize: '20px', fontWeight: 600, color: BRAND_TOKENS.colors.textPrimary, marginBottom: '8px', letterSpacing: '-0.02em' }}>
+                Self-Healing Data Sync
+              </h3>
+              <p style={{ fontFamily: BRAND_TOKENS.typography.fontBody, fontSize: '13.5px', color: BRAND_TOKENS.colors.textSecondary, lineHeight: 1.5 }}>
+                ERP, CRM, and internal databases continuously synchronized with automated reconciliation and error recovery.
+              </p>
+            </div>
+            <div style={{ borderTop: '1px solid rgba(0, 0, 0, 0.06)', paddingTop: '12px', display: 'flex', justifyContent: 'space-between', fontFamily: BRAND_TOKENS.typography.fontMono, fontSize: '11px', color: BRAND_TOKENS.colors.textTertiary }}>
+              <span>Data Entry: <strong style={{ color: BRAND_TOKENS.colors.accentEmerald }}>0% Human</strong></span>
+              <span>Reliability: <strong style={{ color: BRAND_TOKENS.colors.textPrimary }}>99.98%</strong></span>
+            </div>
+          </div>
+
+          {/* Card 3 */}
+          <div
+            style={{
+              backgroundColor: '#FFFFFF',
+              borderRadius: '18px',
+              border: '1px solid rgba(0, 0, 0, 0.08)',
+              padding: '28px 28px',
+              textAlign: 'left',
+              boxShadow: '0 12px 36px rgba(0, 0, 0, 0.04)',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              height: '240px',
+              opacity: interpolate(card3Entrance, [0, 1], [0, 1]),
+              transform: `translateY(${interpolate(card3Entrance, [0, 1], [30, 0])}px)`,
+            }}
+          >
+            <div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                <span style={{ fontFamily: BRAND_TOKENS.typography.fontMono, fontSize: '11px', color: BRAND_TOKENS.colors.accentCoral, fontWeight: 700 }}>
+                  PILLAR 03
+                </span>
+                <span style={{ padding: '3px 10px', borderRadius: '999px', backgroundColor: 'rgba(5, 150, 105, 0.08)', color: BRAND_TOKENS.colors.accentEmerald, fontFamily: BRAND_TOKENS.typography.fontMono, fontSize: '10px', fontWeight: 600 }}>
+                  SOVEREIGN IP
+                </span>
+              </div>
+              <h3 style={{ fontFamily: BRAND_TOKENS.typography.fontDisplay, fontSize: '20px', fontWeight: 600, color: BRAND_TOKENS.colors.textPrimary, marginBottom: '8px', letterSpacing: '-0.02em' }}>
+                100% Code Ownership
+              </h3>
+              <p style={{ fontFamily: BRAND_TOKENS.typography.fontBody, fontSize: '13.5px', color: BRAND_TOKENS.colors.textSecondary, lineHeight: 1.5 }}>
+                Private GitHub repository transferred to your enterprise cloud. No recurring software subscriptions or vendor lock-in.
+              </p>
+            </div>
+            <div style={{ borderTop: '1px solid rgba(0, 0, 0, 0.06)', paddingTop: '12px', display: 'flex', justifyContent: 'space-between', fontFamily: BRAND_TOKENS.typography.fontMono, fontSize: '11px', color: BRAND_TOKENS.colors.textTertiary }}>
+              <span>Handover: <strong style={{ color: BRAND_TOKENS.colors.accentEmerald }}>Full Source</strong></span>
+              <span>Lock-In: <strong style={{ color: BRAND_TOKENS.colors.textPrimary }}>Zero</strong></span>
+            </div>
+          </div>
+        </div>
       </div>
     </AbsoluteFill>
   );

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import Link from "next/link";
@@ -31,7 +31,7 @@ const VISTAR_COLUMNS: FooterColumn[] = [
       { label: "The Underdog Manifesto", href: "/philosophy" },
       { label: "100% Repository Handover", href: "/philosophy" },
       { label: "Engineering Blog & Blueprints", href: "/blog" },
-      { label: "Pricing & Packages (₹ / $)", href: "/pricing" },
+      { label: "Pricing & Packages (â‚¹ / $)", href: "/pricing" },
     ],
   },
   {
@@ -47,7 +47,7 @@ const VISTAR_COLUMNS: FooterColumn[] = [
   {
     title: "DIRECT CONTACT",
     links: [
-      { label: "Chat on WhatsApp (+91 79857 90432)", href: "https://wa.me/917985790432", isExternal: true },
+      { label: "Chat on WhatsApp (+91 88601 10144)", href: "https://wa.me/918860110144", isExternal: true },
       { label: "Email: services.vistaar@gmail.com", href: "mailto:services.vistaar@gmail.com", isExternal: true },
       { label: "Schedule 30-Min Diagnostic", href: "/contact" },
       { label: "GitHub: Abhishek Tiwari", href: "https://github.com/Abhishektiwari050", isExternal: true },
@@ -85,7 +85,7 @@ export function VistarFooter() {
 
   return (
     <footer className="w-full bg-[#100F12] text-white select-none relative overflow-hidden font-sans">
-      {/* ── 1. VISTAR PRE-FOOTER CTA (TRUE PARALLAX SCROLL) ── */}
+      {/* â”€â”€ 1. VISTAR PRE-FOOTER CTA (TRUE PARALLAX SCROLL) â”€â”€ */}
       <section
         className="relative w-full py-28 sm:py-36 px-6 lg:px-12 flex flex-col items-center justify-center text-center overflow-hidden border-b border-black/10 bg-fixed bg-cover bg-center"
         style={{
@@ -104,7 +104,7 @@ export function VistarFooter() {
             Custom software &amp; automations, delivered in 14 days.
           </h2>
           <p className="text-base sm:text-lg text-[#100F12]/80 max-w-xl mx-auto leading-relaxed font-normal">
-            WhatsApp sales pipelines, modern Next.js 16 portals, and 3D architectural showcases with 100% private code ownership. Fixed-scope packages from ₹49,000 ($600).
+            WhatsApp sales pipelines, modern Next.js 16 portals, and 3D architectural showcases with 100% private code ownership. Fixed-scope packages from â‚¹49,000 ($600).
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
@@ -112,22 +112,22 @@ export function VistarFooter() {
               href="/pricing"
               className="inline-flex items-center justify-center h-12 px-7 rounded-full bg-[#100F12] hover:bg-[#232227] text-white text-[14.5px] font-medium shadow-md transition-all active:scale-95"
             >
-              View Packages (from ₹49k)
+              View Packages (from â‚¹49k)
             </Link>
 
             <a
-              href="https://wa.me/917985790432?text=Hi%20Abhishek%2C%20I%20would%20like%20to%20discuss%20a%20project%20with%20VISTAR."
+              href="https://wa.me/918860110144?text=Hi%20Abhishek%2C%20I%20would%20like%20to%20discuss%20a%20project%20with%20VISTAR."
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center h-12 px-7 rounded-full bg-[#25D366] hover:bg-[#20BD5A] text-white text-[14.5px] font-medium shadow-md transition-all active:scale-95 gap-2"
             >
-              Chat on WhatsApp (+91 79857 90432)
+              Chat on WhatsApp (+91 88601 10144)
             </a>
           </div>
         </div>
       </section>
 
-      {/* ── 2. VISTAR FOOTER CONTENT ── */}
+      {/* â”€â”€ 2. VISTAR FOOTER CONTENT â”€â”€ */}
       <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-14 pt-20 pb-12 space-y-16">
         
         {/* Top: Newsletter Subscribe Bar */}
@@ -201,7 +201,7 @@ export function VistarFooter() {
           ))}
         </div>
 
-        {/* ── 3. VISTAR SIGNATURE BRAND DISPLAY ── */}
+        {/* â”€â”€ 3. VISTAR SIGNATURE BRAND DISPLAY â”€â”€ */}
         <div className="pt-10 pb-4 flex items-center justify-start border-t border-white/10">
           <div className="flex flex-col gap-2 select-none">
             <div className="flex items-center gap-4 text-white">
@@ -239,7 +239,7 @@ export function VistarFooter() {
           </div>
         </div>
 
-        {/* ── 4. BOTTOM LEGAL & CONTACT ROW ── */}
+        {/* â”€â”€ 4. BOTTOM LEGAL & CONTACT ROW â”€â”€ */}
         <div className="pt-6 border-t border-white/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 text-xs text-white/50">
           
           {/* Left: Entity & Legal Policies */}
@@ -263,15 +263,15 @@ export function VistarFooter() {
           <div className="flex items-center gap-3">
             {/* WhatsApp */}
             <a
-              href="https://wa.me/917985790432?text=Hi%20Vistar%20team,%20I'd%20like%20to%20discuss%20a%20software%20project."
+              href="https://wa.me/918860110144?text=Hi%20Vistar%20team,%20I'd%20like%20to%20discuss%20a%20software%20project."
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Chat with VISTAR on WhatsApp"
-              title="Chat on WhatsApp (+91 79857 90432)"
+              title="Chat on WhatsApp (+91 88601 10144)"
               className="h-9 px-3 rounded-full bg-emerald-600/30 hover:bg-emerald-600 border border-emerald-500/40 flex items-center gap-1.5 text-white transition-all active:scale-95 cursor-pointer text-xs font-mono"
             >
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>WhatsApp: +91 79857 90432</span>
+              <span>WhatsApp: +91 88601 10144</span>
             </a>
 
             {/* GitHub */}

@@ -71,7 +71,7 @@ const PRODUCTION_CARDS: ProductionCard[] = [
       { label: "Lead Capture", value: "24/7 Automated" },
     ],
     liveUrl: "https://vistar.tech/contact",
-    displayUrl: "vistar.tech/contact",
+    displayUrl: "autolead.vistar.tech",
     caseStudyUrl: "/work",
   },
   {
@@ -132,39 +132,32 @@ export function CohereSolutions() {
   const [activeModalCard, setActiveModalCard] = useState<ProductionCard | null>(null);
   const [hoveredCardId, setHoveredCardId] = useState<number | null>(null);
 
-  // Exact Isometric Constants matching Algorand reference
-  const BASE_RX = 72.964;
-  const BASE_RZ = 35.9048;
-  const RANGE_X = 9;
-  const RANGE_Z = 7;
+  // Apple-grade 3D perspective constants (zero clipping/crossing)
+  const BASE_RX = 7;
+  const BASE_RY = -13;
+  const RANGE_RX = 10;
+  const RANGE_RY = 14;
 
   const currentValues = useRef({
     rx: BASE_RX,
-    rz: BASE_RZ,
+    ry: BASE_RY,
     scale: 1,
-    wrpT: 0,
   });
 
   const targetValues = useRef({
     rx: BASE_RX,
-    rz: BASE_RZ,
+    ry: BASE_RY,
     scale: 1,
-    wrpT: 0,
   });
 
   const rafId = useRef<number | null>(null);
-  const isLocked = useRef(false);
 
   const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
   const applyTransforms = useCallback(() => {
     if (listRef.current) {
-      const { scale, rx, rz } = currentValues.current;
-      listRef.current.style.transform = `translate3d(8%, 0%, 0px) scale3d(${scale * 0.915},${scale * 0.915},1) rotateX(${rx}deg) rotateY(0deg) rotateZ(${rz}deg) skew(0deg,0deg)`;
-    }
-    if (wrpRef.current) {
-      const offY = currentValues.current.wrpT * 32;
-      wrpRef.current.style.transform = `translate3d(0%, ${offY}px, 0px) scale3d(1,1,1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg,0deg)`;
+      const { rx, ry, scale } = currentValues.current;
+      listRef.current.style.transform = `scale3d(${scale}, ${scale}, 1) rotateX(${rx}deg) rotateY(${ry}deg) rotateZ(0deg)`;
     }
   }, []);
 
@@ -172,26 +165,23 @@ export function CohereSolutions() {
     const cur = currentValues.current;
     const tgt = targetValues.current;
 
-    cur.rx = lerp(cur.rx, tgt.rx, 0.08);
-    cur.rz = lerp(cur.rz, tgt.rz, 0.08);
-    cur.scale = lerp(cur.scale, tgt.scale, 0.14);
-    cur.wrpT = lerp(cur.wrpT, tgt.wrpT, 0.08);
+    cur.rx = lerp(cur.rx, tgt.rx, 0.1);
+    cur.ry = lerp(cur.ry, tgt.ry, 0.1);
+    cur.scale = lerp(cur.scale, tgt.scale, 0.12);
 
     applyTransforms();
 
     const isDone =
       Math.abs(cur.rx - tgt.rx) < 0.01 &&
-      Math.abs(cur.rz - tgt.rz) < 0.01 &&
-      Math.abs(cur.scale - tgt.scale) < 0.001 &&
-      Math.abs(cur.wrpT - tgt.wrpT) < 0.001;
+      Math.abs(cur.ry - tgt.ry) < 0.01 &&
+      Math.abs(cur.scale - tgt.scale) < 0.001;
 
     if (!isDone) {
       rafId.current = requestAnimationFrame(tick);
     } else {
       cur.rx = tgt.rx;
-      cur.rz = tgt.rz;
+      cur.ry = tgt.ry;
       cur.scale = tgt.scale;
-      cur.wrpT = tgt.wrpT;
       applyTransforms();
       rafId.current = null;
     }
@@ -223,21 +213,20 @@ export function CohereSolutions() {
     };
 
     const handleMouseMove = (e: MouseEvent) => {
-      if (isLocked.current) return;
       if (!cachedRect) updateRect();
       const rect = cachedRect!;
-      const nx = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-      const ny = Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height));
+      const nx = Math.max(-1, Math.min(1, ((e.clientX - rect.left) / rect.width) * 2 - 1));
+      const ny = Math.max(-1, Math.min(1, ((e.clientY - rect.top) / rect.height) * 2 - 1));
 
-      targetValues.current.rx = BASE_RX + (ny - 0.5) * RANGE_X;
-      targetValues.current.rz = BASE_RZ + (nx - 0.5) * RANGE_Z;
+      targetValues.current.rx = BASE_RX - ny * (RANGE_RX / 2);
+      targetValues.current.ry = BASE_RY + nx * (RANGE_RY / 2);
       startTick();
     };
 
     const handleMouseLeave = () => {
-      if (isLocked.current) return;
       targetValues.current.rx = BASE_RX;
-      targetValues.current.rz = BASE_RZ;
+      targetValues.current.ry = BASE_RY;
+      targetValues.current.scale = 1.0;
       startTick();
     };
 
@@ -256,20 +245,14 @@ export function CohereSolutions() {
   }, [startTick]);
 
   const handleCardMouseEnter = (cardId: number) => {
-    isLocked.current = true;
     setHoveredCardId(cardId);
-
-    targetValues.current.scale = 1.03;
-    targetValues.current.wrpT = 0.5;
+    targetValues.current.scale = 1.02;
     startTick();
   };
 
   const handleCardMouseLeave = () => {
-    isLocked.current = false;
     setHoveredCardId(null);
-
     targetValues.current.scale = 1.0;
-    targetValues.current.wrpT = 0.0;
     startTick();
   };
 
@@ -346,108 +329,105 @@ export function CohereSolutions() {
             
             {/* 3D Perspective Scene Container */}
             <div
-              className="w-full h-full flex items-center justify-center lg:justify-end overflow-visible"
-              style={{ perspective: "2800px" }}
+              className="w-full flex items-center justify-center lg:justify-end overflow-visible py-8"
+              style={{ perspective: "1800px" }}
             >
-              {/* Cards List Wrapper */}
+              {/* Apple-Style Staggered Window Deck: Zero Crossing, Zero Clipping */}
               <div
-                ref={wrpRef}
-                className="relative w-full flex items-center justify-center lg:justify-end transition-transform duration-75 ease-out overflow-visible"
+                ref={listRef}
+                className="relative w-[340px] sm:w-[420px] lg:w-[480px] xl:w-[520px] aspect-[16/10.5] transition-transform duration-100 ease-out"
                 style={{
                   transformStyle: "preserve-3d",
-                  transform: "translate3d(0%, 0px, 0px)",
+                  transform: `scale3d(1, 1, 1) rotateX(${BASE_RX}deg) rotateY(${BASE_RY}deg) rotateZ(0deg)`,
                 }}
               >
-                {/* Isometric 3D Cards Stack */}
-                <div
-                  ref={listRef}
-                  className="flex flex-col-reverse items-center justify-center relative w-full overflow-visible"
-                  style={{
-                    transformStyle: "preserve-3d",
-                    transform: `translate3d(8%, 0%, 0px) scale3d(0.915, 0.915, 1) rotateX(${BASE_RX}deg) rotateY(0deg) rotateZ(${BASE_RZ}deg) skew(0deg, 0deg)`,
-                  }}
-                >
-                  {PRODUCTION_CARDS.map((card, idx) => {
-                    const isHovered = hoveredCardId === card.id;
-                    const isAnyHovered = hoveredCardId !== null;
+                {PRODUCTION_CARDS.map((card, idx) => {
+                  const isHovered = hoveredCardId === card.id;
+                  const isAnyHovered = hoveredCardId !== null;
 
-                    return (
+                  // Clean Apple-style diagonal stagger: each card is offset in X, Y, Z
+                  // idx 0 is front-left, idx 3 is back-right
+                  const stepX = 42;
+                  const stepY = -28;
+                  const stepZ = -50;
+
+                  const restingX = idx * stepX;
+                  const restingY = idx * stepY;
+                  const restingZ = idx * stepZ;
+
+                  // Hover glides the card forward on Z-axis with subtle lift and zero intersection
+                  const transform = isHovered
+                    ? `translate3d(${restingX}px, ${restingY - 14}px, ${restingZ + 60}px) scale3d(1.04, 1.04, 1)`
+                    : `translate3d(${restingX}px, ${restingY}px, ${restingZ}px) scale3d(1, 1, 1)`;
+
+                  return (
+                    <div
+                      key={card.id}
+                      onClick={() => handleCardClick(card)}
+                      onMouseEnter={() => handleCardMouseEnter(card.id)}
+                      onMouseLeave={handleCardMouseLeave}
+                      data-card-id={card.id}
+                      className="absolute inset-0 cursor-pointer transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] select-none"
+                      style={{
+                        zIndex: isHovered ? 100 : 40 - idx,
+                        transformStyle: "preserve-3d",
+                        transform,
+                      }}
+                    >
+                      {/* Apple-Style macOS Safari Window Container */}
                       <div
-                        key={card.id}
-                        onClick={() => handleCardClick(card)}
-                        onMouseEnter={() => handleCardMouseEnter(card.id)}
-                        onMouseLeave={handleCardMouseLeave}
-                        data-card-id={card.id}
-                        className="group relative cursor-pointer"
-                        style={{
-                          zIndex: isHovered ? 100 : 50 - idx,
-                          aspectRatio: "16 / 10",
-                          width: "clamp(340px, 38vw, 600px)",
-                          marginTop: "-72px",
-                          marginBottom: "-72px",
-                          transformStyle: "preserve-3d",
-                          transform: "rotateX(-90deg) rotateY(0deg) rotate(0deg)",
-                        }}
+                        className={`relative w-full h-full rounded-[18px] overflow-hidden border border-black/15 bg-[#080d19] transition-all duration-300 ${
+                          isHovered
+                            ? "shadow-[0_32px_70px_rgba(0,0,0,0.38),0_0_0_1px_rgba(255,255,255,0.2)]"
+                            : "shadow-[0_20px_45px_rgba(0,0,0,0.24),0_0_0_1px_rgba(255,255,255,0.08)]"
+                        }`}
                       >
-                        {/* Card Surface Container */}
-                        <div
-                          className="relative w-full h-full rounded-[20px] overflow-hidden border border-black/15 shadow-[0_24px_54px_rgba(15,23,42,0.18)] transition-all duration-300 ease-out select-none bg-[#080d19]"
-                          style={{
-                            transformStyle: "preserve-3d",
-                            transform: isHovered
-                              ? "translate3d(0px, -24px, 0px) scale3d(1.04, 1.04, 1)"
-                              : "translate3d(0px, 0%, 0px) scale3d(1, 1, 1)",
-                          }}
-                        >
-                          {/* ── CARD FACE: BROWSER WINDOW WITH PURE WEBPAGE SCREENSHOT ONLY ── */}
-                          <div className="absolute inset-0 flex flex-col overflow-hidden pointer-events-none bg-[#080d19]">
-                            {/* Sleek Apple-Style macOS Window Header */}
-                            <div className="relative h-7 px-3.5 flex items-center justify-between border-b border-white/10 bg-black/75 backdrop-blur-md z-10 shrink-0">
-                              <div className="flex items-center gap-1.5">
-                                <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
-                                <div className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
-                                <div className="w-2.5 h-2.5 rounded-full bg-[#27c93f]" />
-                              </div>
-
-                              {/* Clean URL Pill */}
-                              <div className="flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-white/10 border border-white/10 text-[10.5px] font-mono text-white/90">
-                                <Lock className="w-2.5 h-2.5 text-emerald-400" />
-                                <span className="tracking-tight">{card.displayUrl || "vistar.systems"}</span>
-                              </div>
-
-                              {/* Live Pulse Indicator */}
-                              <div className="flex items-center gap-1">
-                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                                <span className="text-[9px] font-mono uppercase tracking-wider text-emerald-400 font-semibold">
-                                  LIVE
-                                </span>
-                              </div>
-                            </div>
-
-                            {/* Pure Real Project Screenshot (ONLY THE PAGE IS SEEN - NO OVERLAY SCRIMS) */}
-                            <div className="relative w-full flex-1 overflow-hidden bg-slate-950">
-                              <Image
-                                src={card.image}
-                                alt={card.alt}
-                                fill
-                                className="object-cover object-top filter brightness-[1.0] contrast-[1.0] transition-transform duration-500 ease-out group-hover:scale-[1.02]"
-                                sizes="(max-width: 768px) 100vw, 600px"
-                                priority={idx < 2}
-                              />
-                            </div>
+                        {/* ── Sleek Apple macOS Safari Titlebar ── */}
+                        <div className="relative h-8 px-4 flex items-center justify-between border-b border-white/10 bg-[#12131A]/95 backdrop-blur-md z-10 shrink-0">
+                          {/* Traffic Light Dots */}
+                          <div className="flex items-center gap-1.5">
+                            <div className="w-2.5 h-2.5 rounded-full bg-[#FF5F56] border border-black/10" />
+                            <div className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E] border border-black/10" />
+                            <div className="w-2.5 h-2.5 rounded-full bg-[#27C93F] border border-black/10" />
                           </div>
 
-                          {/* Subtle dimming when another card is hovered */}
+                          {/* Centered URL Capsule */}
+                          <div className="flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-white/10 border border-white/10 text-[10.5px] font-mono text-white/90 max-w-[200px] truncate shadow-inner">
+                            <Lock className="w-2.5 h-2.5 text-emerald-400 shrink-0" />
+                            <span className="truncate">{card.displayUrl}</span>
+                          </div>
+
+                          {/* Live Status Pill */}
+                          <div className="flex items-center gap-1.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                            <span className="text-[9px] font-mono uppercase tracking-wider text-emerald-400 font-semibold">
+                              {card.id === 3 ? "OPEN SOURCE" : card.id === 4 ? "PROTOTYPE" : "LIVE"}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Page Preview Image */}
+                        <div className="relative w-full h-[calc(100%-32px)] overflow-hidden bg-slate-950">
+                          <Image
+                            src={card.image}
+                            alt={card.alt}
+                            fill
+                            className="object-cover object-top filter brightness-[1.0] contrast-[1.0] transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+                            sizes="(max-width: 768px) 100vw, 600px"
+                            priority={idx < 2}
+                          />
+
+                          {/* Dynamic Specular Sheen on Non-hovered cards */}
                           <div
-                            className={`absolute inset-0 bg-white/40 transition-opacity duration-200 pointer-events-none ${
+                            className={`absolute inset-0 bg-black/25 transition-opacity duration-200 pointer-events-none ${
                               isAnyHovered && !isHovered ? "opacity-100" : "opacity-0"
                             }`}
                           />
                         </div>
                       </div>
-                    );
-                  })}
-                </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -25,7 +25,7 @@ export default function ContactPage() {
     phone: "",
     company: "",
     projectType: "WhatsApp & AI Automations",
-    budget: "₹49k – ₹1.5L ($600 – $1.8k)",
+    budget: "â‚¹49k â€“ â‚¹1.5L ($600 â€“ $1.8k)",
     message: "",
     _hp: "",
   });
@@ -44,9 +44,9 @@ export default function ContactPage() {
   ];
 
   const budgetTiers = [
-    "₹49k – ₹1.5L ($600 – $1.8k)",
-    "₹1.5L – ₹3.5L ($1.8k – $4.2k)",
-    "₹3.5L+ ($4.2k+)",
+    "â‚¹49k â€“ â‚¹1.5L ($600 â€“ $1.8k)",
+    "â‚¹1.5L â€“ â‚¹3.5L ($1.8k â€“ $4.2k)",
+    "â‚¹3.5L+ ($4.2k+)",
   ];
 
   const handleFormSubmit = async (e: React.FormEvent) => {
@@ -110,7 +110,7 @@ export default function ContactPage() {
       phone: "",
       company: "",
       projectType: "WhatsApp & AI Automations",
-      budget: "₹49k – ₹1.5L ($600 – $1.8k)",
+      budget: "â‚¹49k â€“ â‚¹1.5L ($600 â€“ $1.8k)",
       message: "",
       _hp: "",
     });
@@ -119,7 +119,7 @@ export default function ContactPage() {
   return (
     <div className="w-full bg-[#FAF9F5] text-[#0E1118] font-sans antialiased selection:bg-[#FF3823] selection:text-white min-h-screen">
       
-      {/* ── FRAME 1: EDITORIAL HEADER ── */}
+      {/* â”€â”€ FRAME 1: EDITORIAL HEADER â”€â”€ */}
       <section className="relative w-full pt-28 pb-12 md:pt-36 md:pb-16 border-b border-black/10 overflow-hidden px-4 sm:px-6">
         <div
           className="absolute inset-0 opacity-40 pointer-events-none"
@@ -147,7 +147,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* ── FRAME 2: CONTACT FORM & DIRECT CHANNELS ── */}
+      {/* â”€â”€ FRAME 2: CONTACT FORM & DIRECT CHANNELS â”€â”€ */}
       <section className="w-full py-16 px-4 sm:px-6 md:px-8">
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           
@@ -418,13 +418,13 @@ export default function ContactPage() {
               </p>
 
               <a
-                href="https://wa.me/917985790432?text=Hi%20Abhishek%2C%20I'm%20interested%20in%20building%20custom%20software%20or%20AI%20for%20my%20business."
+                href="https://wa.me/918860110144?text=Hi%20Abhishek%2C%20I'm%20interested%20in%20building%20custom%20software%20or%20AI%20for%20my%20business."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full py-3 px-4 bg-emerald-700 hover:bg-emerald-800 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-2 transition-colors shadow-xs"
               >
                 <MessageCircle className="w-4 h-4" />
-                <span>Chat on WhatsApp (+91 79857 90432)</span>
+                <span>Chat on WhatsApp (+91 88601 10144)</span>
               </a>
             </div>
 

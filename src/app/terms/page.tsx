@@ -1,18 +1,18 @@
-import React from "react";
+﻿import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ShieldCheck, Lock, FileText, CheckCircle2 } from "lucide-react";
 import { DEFAULT_OG_IMAGES } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Terms of Service — Sovereign IP & Engagement Standards",
+  title: "Terms of Service â€” Sovereign IP & Engagement Standards",
   description:
     "Plain-English terms of service for Vistar engineering engagements. Establishing 100% client code ownership, mutual confidentiality, and milestone-based sprint delivery.",
   alternates: {
     canonical: "/terms",
   },
   openGraph: {
-    title: "Terms of Service — Sovereign IP & Engagement Standards | VISTAR",
+    title: "Terms of Service â€” Sovereign IP & Engagement Standards | VISTAR",
     description:
       "Plain-English terms of service for Vistar engineering engagements. Establishing 100% client code ownership, mutual confidentiality, and milestone-based sprint delivery.",
     url: "https://www.vistar.tech/terms",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Terms of Service — Sovereign IP & Engagement Standards | VISTAR",
+    title: "Terms of Service â€” Sovereign IP & Engagement Standards | VISTAR",
     description:
       "Plain-English terms of service for Vistar engineering engagements. Establishing 100% client code ownership, mutual confidentiality, and milestone-based sprint delivery.",
     images: ["/opengraph-image.jpg"],
@@ -45,7 +45,7 @@ export default function TermsPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(termsSchema) }}
       />
 
-      {/* ── Hero Banner ── */}
+      {/* â”€â”€ Hero Banner â”€â”€ */}
       <section className="relative jasper-grid-hero border-b border-black/10 pt-16 pb-20 overflow-hidden">
         {/* Top radial glow */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-b from-white/[0.07] via-white/[0.02] to-transparent blur-3xl pointer-events-none" />
@@ -71,9 +71,9 @@ export default function TermsPage() {
 
           <div className="inline-flex flex-wrap items-center justify-center gap-4 text-xs font-mono text-neutral-600 bg-white border border-black/10 rounded-full px-5 py-2 shadow-sm">
             <span>EFFECTIVE DATE: SEPTEMBER 2026</span>
-            <span>•</span>
+            <span>â€¢</span>
             <span>VERSION 1.0 (PRODUCTION)</span>
-            <span>•</span>
+            <span>â€¢</span>
             <span className="font-medium text-[#FF3823] flex items-center gap-1.5">
               <CheckCircle2 className="w-3.5 h-3.5" />
               CORE AXIOM: 100% CODE OWNERSHIP
@@ -82,7 +82,7 @@ export default function TermsPage() {
         </div>
       </section>
 
-      {/* ── Terms Body in Dark Modular Cards ── */}
+      {/* â”€â”€ Terms Body in Dark Modular Cards â”€â”€ */}
       <section className="max-w-4xl mx-auto px-6 pt-16">
         <div className="space-y-8">
           {/* Card 1 */}
@@ -168,7 +168,7 @@ export default function TermsPage() {
             </div>
             <h2 className="text-2xl font-sans font-medium text-[#0E1118] mb-4">Sprint Cycles &amp; Acceptance Milestones</h2>
             <p className="text-neutral-600 leading-relaxed font-sans text-base mb-4">
-              Engagements are delivered in deterministic milestone cycles (typically 5–7 days for MVP automations, 14 days for production systems). Each milestone concludes with verifiable deliverables:
+              Engagements are delivered in deterministic milestone cycles (typically 5â€“7 days for MVP automations, 14 days for production systems). Each milestone concludes with verifiable deliverables:
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm font-sans text-neutral-800">
               <div className="p-3.5 bg-[#FAF9F5] rounded-[4px] border border-black/5 flex items-center gap-2.5">
@@ -219,7 +219,7 @@ export default function TermsPage() {
               <div className="font-mono text-xs uppercase tracking-wider text-neutral-600 mb-2">06 // Legal &amp; Commercial Contacts</div>
               <h3 className="text-xl font-sans font-medium text-[#0E1118] mb-1">Contract &amp; Vendor Inquiries</h3>
               <p className="text-sm text-neutral-600">Abhishek Tiwari, Founder &amp; Lead Engineer &bull; Vistar Web Systems, Lucknow, India.</p>
-              <p className="text-xs font-mono text-neutral-500 mt-1">Direct inquiries via WhatsApp (+91 79857 90432) or email below.</p>
+              <p className="text-xs font-mono text-neutral-500 mt-1">Direct inquiries via WhatsApp (+91 88601 10144) or email below.</p>
             </div>
             <a
               href="mailto:services.vistaar@gmail.com"

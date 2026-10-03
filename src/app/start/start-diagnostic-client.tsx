@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import { ArrowRight, CheckCircle2, MessageSquare, Send, ShieldCheck, Clock, User, Phone, FileText } from "lucide-react";
@@ -6,7 +6,7 @@ import { ArrowRight, CheckCircle2, MessageSquare, Send, ShieldCheck, Clock, User
 export function StartDiagnosticClient() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [selectedPackage, setSelectedPackage] = useState("Production System (₹1,85,000 / $2,200)");
+  const [selectedPackage, setSelectedPackage] = useState("Production System (â‚¹1,85,000 / $2,200)");
   const [details, setDetails] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -47,7 +47,7 @@ export function StartDiagnosticClient() {
     }
   };
 
-  const whatsappPrefilledUrl = `https://wa.me/917985790432?text=${encodeURIComponent(
+  const whatsappPrefilledUrl = `https://wa.me/918860110144?text=${encodeURIComponent(
     `Hi Abhishek, my name is ${name || "[Name]"}. I'm interested in the ${selectedPackage}.\n\nWhat I need built:\n${
       details || "I'd like to discuss a project."
     }`
@@ -55,7 +55,7 @@ export function StartDiagnosticClient() {
 
   return (
     <div className="w-full max-w-3xl mx-auto space-y-8">
-      {/* ── FAST-TRACK WHATSAPP BANNER ── */}
+      {/* â”€â”€ FAST-TRACK WHATSAPP BANNER â”€â”€ */}
       <div className="p-4 sm:p-5 rounded-xl bg-emerald-50 border border-emerald-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-2xs">
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 rounded-full bg-emerald-600 text-white flex items-center justify-center shrink-0">
@@ -72,17 +72,17 @@ export function StartDiagnosticClient() {
         </div>
 
         <a
-          href="https://wa.me/917985790432?text=Hi%20Abhishek,%20I'd%20like%20to%20discuss%20a%20project%20with%20VISTAR."
+          href="https://wa.me/918860110144?text=Hi%20Abhishek,%20I'd%20like%20to%20discuss%20a%20project%20with%20VISTAR."
           target="_blank"
           rel="noopener noreferrer"
           className="shrink-0 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-md shadow-2xs transition-all inline-flex items-center gap-1.5 cursor-pointer"
         >
           <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
-          Chat on WhatsApp (+91 79857 90432)
+          Chat on WhatsApp (+91 88601 10144)
         </a>
       </div>
 
-      {/* ── 3-FIELD DIAGNOSTIC CARD ── */}
+      {/* â”€â”€ 3-FIELD DIAGNOSTIC CARD â”€â”€ */}
       <div className="bg-white border border-black/15 rounded-2xl shadow-sm overflow-hidden">
         <div className="p-6 sm:p-8 border-b border-black/10 bg-[#FAF9F5] space-y-1">
           <div className="flex items-center gap-2">
@@ -181,9 +181,9 @@ export function StartDiagnosticClient() {
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-mono">
                 {[
-                  "Starter MVP (₹49,000 / $590)",
-                  "Production System (₹1,85,000 / $2,200)",
-                  "Custom Architecture (₹3,90,000+ / $4,700+)",
+                  "Starter MVP (â‚¹49,000 / $590)",
+                  "Production System (â‚¹1,85,000 / $2,200)",
+                  "Custom Architecture (â‚¹3,90,000+ / $4,700+)",
                 ].map((pkg) => (
                   <button
                     key={pkg}
@@ -238,7 +238,7 @@ export function StartDiagnosticClient() {
         )}
       </div>
 
-      {/* ── GUARANTEES STRIP ── */}
+      {/* â”€â”€ GUARANTEES STRIP â”€â”€ */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 text-xs font-mono text-neutral-600">
         <div className="p-3 bg-white border border-black/10 rounded-lg flex items-center gap-2.5">
           <Clock className="w-4 h-4 text-[#FF3823] shrink-0" />

@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
@@ -6,14 +6,14 @@ import { ArrowRight, CheckCircle2, Shield, Code2, Sparkles, MessageCircle, MapPi
 import { DEFAULT_OG_IMAGES } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "About VISTAR — Founder-Led Software & AI Studio in Lucknow, India",
+  title: "About VISTAR â€” Founder-Led Software & AI Studio in Lucknow, India",
   description:
     "VISTAR is a founder-led digital engineering studio based in Lucknow, India, founded by Abhishek Tiwari. We engineer custom web apps, WhatsApp automation engines, and 3D spatial platforms with 100% repository ownership.",
   alternates: {
     canonical: "https://www.vistar.tech/about",
   },
   openGraph: {
-    title: "About VISTAR — Founder-Led Software & AI Studio in Lucknow, India",
+    title: "About VISTAR â€” Founder-Led Software & AI Studio in Lucknow, India",
     description:
       "VISTAR is a founder-led digital engineering studio based in Lucknow, India, founded by Abhishek Tiwari. We engineer custom web apps, WhatsApp automation engines, and 3D spatial platforms with 100% repository ownership.",
     url: "https://www.vistar.tech/about",
@@ -33,7 +33,7 @@ const ENGINEERING_PILLARS = [
     icon: Code2,
     tag: "PILLAR 01",
     title: "100% Source Code Sovereignty",
-    desc: "Every line of TypeScript, Python, Docker configurations, and PostgreSQL schemas is committed directly to your private GitHub repository. You own your IP completely—zero vendor lock-in, zero CMS hostage retainers.",
+    desc: "Every line of TypeScript, Python, Docker configurations, and PostgreSQL schemas is committed directly to your private GitHub repository. You own your IP completelyâ€”zero vendor lock-in, zero CMS hostage retainers.",
   },
   {
     icon: Shield,
@@ -45,7 +45,7 @@ const ENGINEERING_PILLARS = [
     icon: Sparkles,
     tag: "PILLAR 03",
     title: "Transparent Fixed Pricing",
-    desc: "Transparent scope and upfront dual-currency pricing starting at ₹49,000 ($600). No surprise invoices, no phantom hours, and no junior-developer telephone games.",
+    desc: "Transparent scope and upfront dual-currency pricing starting at â‚¹49,000 ($600). No surprise invoices, no phantom hours, and no junior-developer telephone games.",
   },
 ];
 
@@ -53,7 +53,7 @@ export default function AboutCompanyPage() {
   return (
     <div className="w-full bg-[#FAF9F5] text-[#0E1118] font-sans antialiased selection:bg-[#FF3823] selection:text-white min-h-screen">
       
-      {/* ── FRAME 1: EDITORIAL HERO ── */}
+      {/* â”€â”€ FRAME 1: EDITORIAL HERO â”€â”€ */}
       <section className="relative w-full pt-24 pb-16 md:pt-32 md:pb-24 border-b border-black/10 bg-[#FAF9F5] text-center px-4">
         <div className="max-w-4xl mx-auto space-y-6">
           <div className="flex items-center justify-center gap-2">
@@ -78,12 +78,12 @@ export default function AboutCompanyPage() {
               href="/pricing"
               className="inline-flex items-center justify-center h-12 px-7 rounded-[4px] bg-[#FF3823] hover:bg-[#E0301C] text-white text-[14px] font-medium shadow-sm transition-all active:scale-95 gap-2"
             >
-              View Packages (from ₹49k / $600)
+              View Packages (from â‚¹49k / $600)
               <ArrowRight className="w-4 h-4" />
             </Link>
 
             <a
-              href="https://wa.me/917985790432?text=Hi%20Abhishek%2C%20I%20would%20like%20to%20discuss%20a%20project%20with%20VISTAR."
+              href="https://wa.me/918860110144?text=Hi%20Abhishek%2C%20I%20would%20like%20to%20discuss%20a%20project%20with%20VISTAR."
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center h-12 px-7 rounded-[4px] bg-[#25D366] hover:bg-[#20BD5A] text-white text-[14px] font-medium shadow-sm transition-all active:scale-95 gap-2"
@@ -102,7 +102,7 @@ export default function AboutCompanyPage() {
         </div>
       </section>
 
-      {/* ── FRAME 2: FOUNDER PROFILE & STUDIO IDENTITY ── */}
+      {/* â”€â”€ FRAME 2: FOUNDER PROFILE & STUDIO IDENTITY â”€â”€ */}
       <section className="relative w-full py-20 md:py-28 px-6 bg-white border-b border-black/10">
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
@@ -112,7 +112,7 @@ export default function AboutCompanyPage() {
               <div className="relative w-full max-w-[340px] aspect-[4/5] rounded-[8px] overflow-hidden border border-black/15 shadow-lg bg-[#FAF9F5]">
                 <Image
                   src="/images/headshot_primary.png"
-                  alt="Abhishek Tiwari — Founder & Lead Engineer at VISTAR"
+                  alt="Abhishek Tiwari â€” Founder & Lead Engineer at VISTAR"
                   fill
                   sizes="(max-width: 768px) 100vw, 340px"
                   className="object-cover object-top filter grayscale contrast-110 hover:grayscale-0 transition-all duration-500"
@@ -185,7 +185,7 @@ export default function AboutCompanyPage() {
         </div>
       </section>
 
-      {/* ── FRAME 3: STATS STRIP ── */}
+      {/* â”€â”€ FRAME 3: STATS STRIP â”€â”€ */}
       <section className="w-full py-16 px-6 bg-[#FAF9F5] border-b border-black/10">
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -206,7 +206,7 @@ export default function AboutCompanyPage() {
         </div>
       </section>
 
-      {/* ── FRAME 4: ARCHITECTURAL PILLARS ── */}
+      {/* â”€â”€ FRAME 4: ARCHITECTURAL PILLARS â”€â”€ */}
       <section className="w-full py-20 px-6 bg-white border-b border-black/10">
         <div className="max-w-5xl mx-auto space-y-12">
           <div className="space-y-2 text-center">
@@ -245,7 +245,7 @@ export default function AboutCompanyPage() {
         </div>
       </section>
 
-      {/* ── FRAME 4.5: SYSTEMS SHIPPED UNDER VISTAR DIRECTION ── */}
+      {/* â”€â”€ FRAME 4.5: SYSTEMS SHIPPED UNDER VISTAR DIRECTION â”€â”€ */}
       <section className="w-full py-20 px-6 bg-[#FAF9F5] border-b border-black/10">
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="space-y-2 text-center max-w-2xl mx-auto">
@@ -277,7 +277,7 @@ export default function AboutCompanyPage() {
               </div>
               <div className="p-6 space-y-3">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-serif text-xl font-normal text-[#0E1118]">3axis Arc — Spatial 3D Engine</h3>
+                  <h3 className="font-serif text-xl font-normal text-[#0E1118]">3axis Arc â€” Spatial 3D Engine</h3>
                   <a
                     href="https://3axisarc.vercel.app"
                     target="_blank"
@@ -289,7 +289,7 @@ export default function AboutCompanyPage() {
                   </a>
                 </div>
                 <p className="text-xs text-neutral-600 leading-relaxed">
-                  Real-time 3D spatial architectural walk-through engine built for Lucknow’s premier design firm, delivering fluid 60fps orbital rendering across desktop and mobile devices.
+                  Real-time 3D spatial architectural walk-through engine built for Lucknowâ€™s premier design firm, delivering fluid 60fps orbital rendering across desktop and mobile devices.
                 </p>
                 <div className="pt-1 flex flex-wrap gap-1.5 text-[10px] font-mono text-neutral-500">
                   <span className="px-2 py-0.5 bg-neutral-100 rounded">Three.js</span>
@@ -345,7 +345,7 @@ export default function AboutCompanyPage() {
               </div>
               <div className="p-6 space-y-3">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-serif text-xl font-normal text-[#0E1118]">Project VAYU — Pre-Flight Aviation GIS</h3>
+                  <h3 className="font-serif text-xl font-normal text-[#0E1118]">Project VAYU â€” Pre-Flight Aviation GIS</h3>
                   <a
                     href="https://ai-vayu.vercel.app"
                     target="_blank"
@@ -383,7 +383,7 @@ export default function AboutCompanyPage() {
               </div>
               <div className="p-6 space-y-3">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-serif text-xl font-normal text-[#0E1118]">KL Herbal — D2C E-Commerce</h3>
+                  <h3 className="font-serif text-xl font-normal text-[#0E1118]">KL Herbal â€” D2C E-Commerce</h3>
                   <a
                     href="https://klherbal.in"
                     target="_blank"
@@ -408,7 +408,7 @@ export default function AboutCompanyPage() {
         </div>
       </section>
 
-      {/* ── FRAME 5: BOTTOM CONVERSION CTA ── */}
+      {/* â”€â”€ FRAME 5: BOTTOM CONVERSION CTA â”€â”€ */}
       <section className="w-full py-24 px-6 bg-[#141413] text-center text-white">
         <div className="max-w-3xl mx-auto space-y-6">
           <span className="inline-block font-mono text-xs uppercase tracking-widest text-neutral-400 bg-white/10 px-3 py-1 rounded-full">
@@ -425,13 +425,13 @@ export default function AboutCompanyPage() {
 
           <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
             <a
-              href="https://wa.me/917985790432?text=Hi%20Abhishek%2C%20I%20would%20like%20to%20discuss%20a%20project%20with%20VISTAR."
+              href="https://wa.me/918860110144?text=Hi%20Abhishek%2C%20I%20would%20like%20to%20discuss%20a%20project%20with%20VISTAR."
               target="_blank"
               rel="noopener noreferrer"
               className="bg-[#25D366] hover:bg-[#20BD5A] text-white font-medium text-sm px-8 py-3.5 rounded-[4px] transition-colors shadow-sm inline-flex items-center gap-2"
             >
               <MessageCircle className="w-4 h-4" />
-              Chat on WhatsApp (+91 79857 90432)
+              Chat on WhatsApp (+91 88601 10144)
             </a>
             <Link
               href="/contact"

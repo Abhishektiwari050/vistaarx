@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import Link from "next/link";
@@ -192,7 +192,7 @@ const WORK_FAQ_ITEMS: QAPair[] = [
     category: "SPRINT DELIVERY TIMELINE",
     question: "What is the delivery timeline for custom software projects?",
     answer:
-      "VISTAR operates on fixed 14-day production sprints (and 5–7 day starter MVP sprints). Following an initial 48-hour scoping diagnostic, founding engineers build and ship functional production software in focused cycles, eliminating the multi-month delays common with traditional agencies.",
+      "VISTAR operates on fixed 14-day production sprints (and 5â€“7 day starter MVP sprints). Following an initial 48-hour scoping diagnostic, founding engineers build and ship functional production software in focused cycles, eliminating the multi-month delays common with traditional agencies.",
     keyPoints: [
       "48-hour architecture diagnostic and system scoping",
       "14-day iterative production sprints with deployable staging releases",
@@ -227,7 +227,7 @@ export default function WorkClientPage() {
   return (
     <div className="w-full bg-[#FAF9F5] text-[#141413] font-sans antialiased selection:bg-[#FF3823] selection:text-white min-h-screen">
       
-      {/* ── FRAME 1: WARM EDITORIAL HERO ── */}
+      {/* â”€â”€ FRAME 1: WARM EDITORIAL HERO â”€â”€ */}
       <section className="relative w-full pt-28 pb-16 md:pt-36 md:pb-20 border-b border-black/10 overflow-hidden px-4 sm:px-6">
         <div
           className="absolute inset-0 opacity-40 pointer-events-none"
@@ -250,7 +250,7 @@ export default function WorkClientPage() {
           </h1>
 
           <p className="text-base sm:text-lg md:text-[19px] text-[#5E605D] max-w-2xl mx-auto leading-relaxed font-normal">
-            Inspect live software engineered by VISTAR—from real-time cockpit GIS and multi-agent anomaly detection to spatial 3D platforms delivered with complete source code ownership.
+            Inspect live software engineered by VISTARâ€”from real-time cockpit GIS and multi-agent anomaly detection to spatial 3D platforms delivered with complete source code ownership.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 pt-3">
@@ -271,7 +271,7 @@ export default function WorkClientPage() {
         </div>
       </section>
 
-      {/* ── FRAME 2: VERIFIED PRODUCTION SYSTEMS (BROWSER-FRAMED CASE STUDIES) ── */}
+      {/* â”€â”€ FRAME 2: VERIFIED PRODUCTION SYSTEMS (BROWSER-FRAMED CASE STUDIES) â”€â”€ */}
       <section className="w-full py-20 px-4 sm:px-6 bg-[#F6F4ED] border-b border-black/10">
         <div className="max-w-6xl mx-auto space-y-10">
           
@@ -322,7 +322,7 @@ export default function WorkClientPage() {
                   key={sys.id}
                   className="bg-white border border-black/10 rounded-2xl overflow-hidden shadow-xs hover:border-black/30 hover:shadow-lg transition-all duration-300 flex flex-col justify-between group"
                 >
-                  {/* ── SLEEK MACOS BROWSER FRAME SHOWING REAL SCREENSHOT ── */}
+                  {/* â”€â”€ SLEEK MACOS BROWSER FRAME SHOWING REAL SCREENSHOT â”€â”€ */}
                   <div className="w-full bg-[#0F172A] border-b border-black/10 overflow-hidden flex flex-col">
                     {/* Browser Address Bar */}
                     <div className="h-8 px-3.5 flex items-center justify-between bg-black/60 border-b border-white/10 text-xs">
@@ -391,7 +391,7 @@ export default function WorkClientPage() {
                     )}
                   </div>
 
-                  {/* ── CARD CONTENT & DETAILS ── */}
+                  {/* â”€â”€ CARD CONTENT & DETAILS â”€â”€ */}
                   <div className="p-6 sm:p-7 space-y-4 flex-1 flex flex-col justify-between">
                     <div className="space-y-3">
                       <div className="flex items-center justify-between gap-2">
@@ -466,7 +466,7 @@ export default function WorkClientPage() {
         </div>
       </section>
 
-      {/* ── FRAME 3: INTERACTIVE ATMOSPHERIC WEBGL SIMULATION (PROJECT VAYU) ── */}
+      {/* â”€â”€ FRAME 3: INTERACTIVE ATMOSPHERIC WEBGL SIMULATION (PROJECT VAYU) â”€â”€ */}
       <section className="w-full py-16 px-4 sm:px-6 bg-white border-b border-black/10">
         <div className="max-w-6xl mx-auto space-y-6">
           <div className="space-y-1">
@@ -485,7 +485,7 @@ export default function WorkClientPage() {
         </div>
       </section>
 
-      {/* ── FRAME 4: SOLUTIONS BY LEADERSHIP ROLE ── */}
+      {/* â”€â”€ FRAME 4: SOLUTIONS BY LEADERSHIP ROLE â”€â”€ */}
       <section className="w-full py-20 px-4 sm:px-6 bg-[#FAF9F5] border-b border-black/10">
         <div className="max-w-6xl mx-auto space-y-10">
           <div className="space-y-2">
@@ -549,7 +549,7 @@ export default function WorkClientPage() {
         </div>
       </section>
 
-      {/* ── FRAME 5: SOLUTIONS BY INDUSTRY ── */}
+      {/* â”€â”€ FRAME 5: SOLUTIONS BY INDUSTRY â”€â”€ */}
       <section className="w-full py-20 px-4 sm:px-6 bg-[#F6F4ED] border-b border-black/10">
         <div className="max-w-6xl mx-auto space-y-10">
           <div className="space-y-2">
@@ -613,7 +613,7 @@ export default function WorkClientPage() {
         </div>
       </section>
 
-      {/* ── FRAME 6: TECHNICAL ANSWER BLOCKS (LIGHT THEME) ── */}
+      {/* â”€â”€ FRAME 6: TECHNICAL ANSWER BLOCKS (LIGHT THEME) â”€â”€ */}
       <AnswerBlocks
         title="Software Engineering & Portfolio Specifications"
         subtitle="Answers regarding our production deliverables, intellectual property transfer, and engineering standards."
@@ -623,7 +623,7 @@ export default function WorkClientPage() {
         theme="light"
       />
 
-      {/* ── FRAME 7: BOTTOM CONVERSION CTA ── */}
+      {/* â”€â”€ FRAME 7: BOTTOM CONVERSION CTA â”€â”€ */}
       <section className="w-full py-20 px-4 sm:px-6 bg-[#FAF9F5] border-t border-black/10 text-center">
         <div className="max-w-3xl mx-auto space-y-5">
           <h2 className="font-serif text-3xl sm:text-5xl font-normal text-[#141413] tracking-tight">
@@ -641,7 +641,7 @@ export default function WorkClientPage() {
               <ArrowRight className="w-4 h-4" />
             </Link>
             <a
-              href="https://wa.me/917985790432?text=Hi%20Abhishek%2C%20I'd%20like%20to%20discuss%20a%20project%20with%20VISTAR."
+              href="https://wa.me/918860110144?text=Hi%20Abhishek%2C%20I'd%20like%20to%20discuss%20a%20project%20with%20VISTAR."
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center px-7 py-3.5 bg-[#25D366] hover:bg-[#20BD5A] text-white font-medium text-sm rounded-none transition-colors shadow-xs gap-2"
