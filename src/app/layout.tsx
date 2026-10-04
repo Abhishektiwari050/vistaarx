@@ -238,6 +238,8 @@ export default function RootLayout({
         <link rel="alternate" type="text/markdown" href="https://www.vistar.tech/llms.txt" title="LLM Summary" />
         <link rel="help" type="text/markdown" href="https://www.vistar.tech/llms-full.txt" title="Full LLM Specification" />
         <link rel="alternate" type="application/rss+xml" href="https://www.vistar.tech/feed.xml" title="VISTAR Engineering RSS Feed" />
+        {/* Preload Jasper Interactive Rive Stage Asset for Instant 0-lag Paint */}
+        <link rel="preload" href="/home_hero.riv" as="fetch" crossOrigin="anonymous" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSchema) }}
