@@ -91,16 +91,16 @@ export function CohereHero() {
                 }}
               >
                 <span className="gsap-hero-title-line block overflow-hidden will-change-transform">
-                  Your AI.
+                  Stop losing time
                 </span>
                 <span className="gsap-hero-title-line block overflow-hidden will-change-transform">
-                  Your rules.
+                  to manual work.
                 </span>
               </h1>
             </div>
 
             {/* 02: Polished Authoritative Subhead */}
-            <div className="gsap-hero-subhead w-full max-w-[720px] px-4 mx-auto mb-7 will-change-transform">
+            <div className="gsap-hero-subhead w-full max-w-[760px] px-4 mx-auto mb-7 will-change-transform">
               <p
                 className="text-base sm:text-lg md:text-[18.5px] font-normal leading-[1.55] text-neutral-600"
                 style={{
@@ -108,25 +108,25 @@ export function CohereHero() {
                     '"Unica77 Cohere Web", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
                 }}
               >
-                Custom software, WhatsApp automations, and interactive 3D web systems built for your business. Shipped by founding engineers in 14-day sprints with 100% source code ownership. Packages start at ₹49,000 ($600).
+                Vistar builds practical software and automation that helps growing businesses manage enquiries, streamline operations, and make better decisions—with direct engineering involvement from discovery to deployment.
               </p>
             </div>
 
             {/* 03: Clear Conversion CTA Row */}
             <div className="gsap-hero-cta flex flex-wrap items-center justify-center gap-3 sm:gap-4 will-change-transform">
               <Link
-                href="/pricing"
+                href="/contact"
                 className="inline-flex items-center justify-center px-7 py-3.5 bg-[#FF3823] hover:bg-[#E02F1C] text-white font-medium text-sm sm:text-base rounded-none transition-all shadow-xs hover:shadow-sm active:scale-95 gap-2"
                 style={{
                   fontFamily:
                     '"Unica77 Cohere Web", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
                 }}
               >
-                View Packages (from ₹49k / $600)
+                Discuss a workflow
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <a
-                href="https://wa.me/918860110144?text=Hi%20Abhishek%2C%20I%20would%20like%20to%20discuss%20a%20software%2Fautomation%20project%20for%20my%20business."
+                href="https://wa.me/918860110144?text=Hi%20Abhishek%2C%20I%20would%20like%20to%20discuss%20an%20automation%20workflow%20for%20our%20business."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center px-7 py-3.5 bg-[#25D366] hover:bg-[#20BD5A] text-white font-medium text-sm sm:text-base rounded-none transition-all active:scale-95 gap-2 shadow-xs"
@@ -135,7 +135,7 @@ export function CohereHero() {
                     '"Unica77 Cohere Web", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
                 }}
               >
-                Chat on WhatsApp
+                Chat on WhatsApp (+91 88601 10144)
                 <ArrowRight className="w-4 h-4" />
               </a>
               <Link
@@ -146,7 +146,7 @@ export function CohereHero() {
                     '"Unica77 Cohere Web", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
                 }}
               >
-                Inspect Real Work &rarr;
+                Explore our engineering work &rarr;
               </Link>
             </div>
 

@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
 import { BASE_URL, DEFAULT_OG_IMAGES } from "@/lib/seo";
-import { VistarHeroSection } from "@/components/home/vistar-hero-section";
+import { CohereHero } from "@/components/cohere/cohere-hero";
+import { InteractiveWorkflowSimulator } from "@/components/home/interactive-workflow-simulator";
+import { CohereSocialProof } from "@/components/cohere/cohere-social-proof";
 import { OperationalProblemSection } from "@/components/home/operational-problem-section";
-import { WhatVistarBuildsSection } from "@/components/home/what-vistar-builds-section";
-import { DemonstrableWorkSection } from "@/components/home/demonstrable-work-section";
+import { JasperAgentsSection } from "@/components/home/jasper-agents-section";
+import { CohereSolutions } from "@/components/cohere/cohere-solutions";
+import { CohereEmpowerment } from "@/components/cohere/cohere-empowerment";
 import { HowEngagementWorksSection } from "@/components/home/how-engagement-works-section";
-import { WhyVistarSection } from "@/components/home/why-vistar-section";
-import { EngagementOptionsSection } from "@/components/home/engagement-options-section";
-import { FinalCtaSection } from "@/components/home/final-cta-section";
+import { CohereDeployment } from "@/components/cohere/cohere-deployment";
+import { CourageRevealSection } from "@/components/home/courage-reveal-section";
 import { AnswerBlocks, type QAPair } from "@/components/seo/answer-blocks";
+import { FinalCtaSection } from "@/components/home/final-cta-section";
 
 // ─── Page-level metadata ──────────────────────────────────────────────────────
 export const metadata: Metadata = {
@@ -212,29 +215,40 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(homePageSchema) }}
       />
-      <div className="relative min-h-screen bg-white text-[#121316] w-full selection:bg-[#E1341E] selection:text-white">
-        {/* Section A: Hero & Interactive Workflow Simulator */}
-        <VistarHeroSection />
+      <div className="relative min-h-screen bg-white text-[#212121] w-full selection:bg-[#FF3823] selection:text-white">
+        {/* 01: HERO (BEAUTIFUL EDITORIAL TYPOGRAPHY + GROUNDED B2B COPY + VIDEO LOOP) */}
+        <CohereHero />
 
-        {/* Section B: The Operational Problem */}
+        {/* 02: INTERACTIVE WORKFLOW SIMULATOR (PRACTICAL ENQUIRY TRIAGE DEMO) */}
+        <section className="relative w-full max-w-[1360px] mx-auto px-4 lg:px-10 -mt-6 sm:-mt-8 mb-16 z-20">
+          <InteractiveWorkflowSimulator />
+        </section>
+
+        {/* 03: VERIFIED TECH MARQUEE (CONTINUOUS SMOOTH TICKER) */}
+        <CohereSocialProof />
+
+        {/* 04: THE OPERATIONAL PROBLEM (WHERE BUSINESSES LOSE TIME & MARGIN) */}
         <OperationalProblemSection />
 
-        {/* Section C: What Vistar Builds */}
-        <WhatVistarBuildsSection />
+        {/* 05: JASPER INTERACTIVE 3D RIVE STAGE (SYSTEM CAPABILITY MATRIX) */}
+        <JasperAgentsSection />
 
-        {/* Section D: Demonstrable Work */}
-        <DemonstrableWorkSection />
+        {/* 06: SOLUTIONS (APPLE-STYLE 3D WINDOW DECK: 3AXIS ARC, AUTOLEAD, VAYU, AURA) */}
+        <CohereSolutions />
 
-        {/* Section E: How Engagement Works */}
+        {/* 07: DATA SOVEREIGNTY (EDITORIAL TEXTURE + VIDEO BANNER) */}
+        <CohereEmpowerment />
+
+        {/* 08: HOW WE WORK (6-STAGE TRANSPARENT ENGINEERING LIFECYCLE) */}
         <HowEngagementWorksSection />
 
-        {/* Section F: Why a Founder-Led Studio */}
-        <WhyVistarSection />
+        {/* 09: SECURITY & DEPLOYMENT (ENGINEERING COMMITMENTS & SPRINT CADENCE) */}
+        <CohereDeployment />
 
-        {/* Section G: Engagement Options & Pricing Principles */}
-        <EngagementOptionsSection />
+        {/* 10: FOUNDER CONVICTION (COURAGE TIGER TEAR REVEAL) */}
+        <CourageRevealSection />
 
-        {/* Section H: Technical FAQ & Answer Blocks */}
+        {/* 11: TECHNICAL ANSWER BLOCKS (GOOGLE SEO & REAL BUYING FAQS) */}
         <AnswerBlocks
           title="Frequently Asked Questions"
           subtitle="Direct, practical answers about our engineering process, pricing, data privacy, and source code ownership."
@@ -244,7 +258,7 @@ export default function Home() {
           theme="light"
         />
 
-        {/* Section I: Final Low-Friction Invitation */}
+        {/* 12: FINAL LOW-FRICTION INVITATION */}
         <FinalCtaSection />
       </div>
     </>

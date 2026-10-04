@@ -43,28 +43,30 @@ export function CohereDeployment() {
           <h2
             className="text-4xl sm:text-5xl md:text-6xl font-normal leading-[1.08] tracking-[-0.02em] text-[#0B0D17] mb-5 font-serif"
           >
-            Custom software built for your business.<br className="hidden sm:inline" /> Shipped in 14 days.
+            Practical software built for your business.<br className="hidden sm:inline" /> Direct founder involvement.
           </h2>
 
           {/* Subtitle */}
           <p className="text-base sm:text-lg md:text-[18px] text-[#4A4D57] leading-relaxed max-w-[660px] mx-auto mb-8 font-normal">
-            From WhatsApp automations and client dashboards to high-performance 3D web applications. Direct senior engineering with 100% source code ownership.
+            From WhatsApp enquiry automations and internal portals to high-performance 3D web applications. Direct engineering by Abhishek Tiwari with 100% source code ownership.
           </p>
 
           {/* Buttons */}
           <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
             <Link
-              href="/start"
+              href="/contact"
               className="inline-flex items-center justify-center px-6 py-3 bg-[#FF3823] hover:bg-[#E02F1C] text-white font-medium text-sm sm:text-base rounded-none transition-colors shadow-xs"
             >
-              Start Free Scoping Sprint
+              Discuss a workflow
             </Link>
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center px-6 py-3 border border-[#0B0D17] text-[#0B0D17] bg-transparent hover:bg-neutral-100 font-medium text-sm sm:text-base rounded-none transition-colors"
+            <a
+              href="https://wa.me/918860110144?text=Hi%20Abhishek%2C%20I%20would%20like%20to%20discuss%20an%20automation%20project%20with%20VISTAR."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center px-6 py-3 bg-[#25D366] hover:bg-[#20BD5A] text-white font-medium text-sm sm:text-base rounded-none transition-colors shadow-xs"
             >
-              Contact Us
-            </Link>
+              Chat on WhatsApp (+91 88601 10144)
+            </a>
           </div>
         </div>
       </section>
