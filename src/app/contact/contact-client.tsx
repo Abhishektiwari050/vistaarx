@@ -1,32 +1,31 @@
-﻿"use client";
+"use client";
 
 import React, { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import RotatingEarth from "@/components/ui/wireframe-dotted-globe";
+import Link from "next/link";
 import {
+  MessageSquare,
+  Mail,
+  Phone,
   ArrowRight,
   CheckCircle2,
   ShieldCheck,
-  Mail,
-  Terminal,
-  Clock,
-  Lock,
-  Loader2,
   AlertCircle,
-  Building2,
-  Phone,
-  MessageCircle,
+  Loader2,
+  Clock,
+  Building,
+  User,
+  Globe,
+  FileText,
 } from "lucide-react";
 
-export default function ContactPage() {
+export default function ContactClient() {
   const [formState, setFormState] = useState({
     name: "",
-    email: "",
-    phone: "",
     company: "",
-    projectType: "WhatsApp & AI Automations",
-    budget: "₹49k – ₹1.5L ($600 – $1.8k)",
-    message: "",
+    contactMethod: "whatsapp" as "whatsapp" | "email" | "phone",
+    contactValue: "",
+    problemDescription: "",
+    websiteUrl: "",
     _hp: "",
   });
 
@@ -35,452 +34,401 @@ export default function ContactPage() {
   const [referenceId, setReferenceId] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const categories = [
-    "WhatsApp & AI Automations",
-    "Custom Web App / Portal",
-    "3D Spatial / Interactive Website",
-    "Enterprise Systems & Integrations",
-    "14-Day Production Sprint",
-  ];
-
-  const budgetTiers = [
-    "₹49k – ₹1.5L ($600 – $1.8k)",
-    "₹1.5L – ₹3.5L ($1.8k – $4.2k)",
-    "₹3.5L+ ($4.2k+)",
-  ];
-
-  const handleFormSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formState.name || !formState.email || !formState.message) return;
+    if (!formState.name.trim() || !formState.contactValue.trim() || !formState.problemDescription.trim()) {
+      setErrorMessage("Please complete all required fields so we can follow up with you.");
+      return;
+    }
 
     setIsSubmitting(true);
     setErrorMessage(null);
+
+    // Format email or contact payload for API compatibility
+    const isEmail = formState.contactValue.includes("@");
+    const emailVal = isEmail ? formState.contactValue.trim() : `${formState.name.toLowerCase().replace(/\s+/g, "")}@inquiry.vistar.tech`;
+    const phoneVal = !isEmail ? formState.contactValue.trim() : "";
+
+    const combinedNotes = `
+PREFERRED CONTACT METHOD: ${formState.contactMethod.toUpperCase()} (${formState.contactValue})
+COMPANY WEBSITE: ${formState.websiteUrl || "Not provided"}
+
+PROCESS / PROBLEM TO IMPROVE:
+${formState.problemDescription}
+    `.trim();
 
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: formState.name,
-          email: formState.email,
-          phone: formState.phone,
-          company: formState.company,
-          brief: formState.message,
-          notes: formState.message,
-          budget: formState.budget,
-          projectType: formState.projectType,
-          goal: formState.projectType,
+          name: formState.name.trim(),
+          email: emailVal,
+          phone: phoneVal || (formState.contactMethod === "whatsapp" ? formState.contactValue : ""),
+          company: formState.company.trim() || "Independent",
+          notes: combinedNotes,
+          brief: combinedNotes,
+          goal: "Workflow Assessment & Automation",
           _hp: formState._hp,
           date: new Date().toISOString(),
-          timezone:
-            typeof Intl !== "undefined"
-              ? Intl.DateTimeFormat().resolvedOptions().timeZone
-              : "Not specified",
         }),
       });
 
       const data = await res.json();
 
       if (res.ok && data.success) {
-        setReferenceId(data.referenceId || "VST-CONFIRMED");
+        setReferenceId(data.referenceId || "VST-RECEIVED");
         setIsSubmitted(true);
       } else {
         setErrorMessage(
           (data.errors && data.errors[0]) ||
-            "Unable to submit requirements right now. Please email us directly at services.vistaar@gmail.com."
+            "Unable to submit right now. Please reach out directly on WhatsApp (+91 88601 10144) or email services.vistaar@gmail.com."
         );
       }
-    } catch (err) {
-      console.error("Failed to submit contact brief:", err);
+    } catch {
       setErrorMessage(
-        "Network connection error. Please try again or reach out directly to services.vistaar@gmail.com."
+        "Network connection error. Please WhatsApp us at +91 88601 10144 or email services.vistaar@gmail.com directly."
       );
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const handleResetForm = () => {
-    setIsSubmitted(false);
-    setReferenceId(null);
-    setErrorMessage(null);
-    setFormState({
-      name: "",
-      email: "",
-      phone: "",
-      company: "",
-      projectType: "WhatsApp & AI Automations",
-      budget: "₹49k – ₹1.5L ($600 – $1.8k)",
-      message: "",
-      _hp: "",
-    });
-  };
-
   return (
-    <div className="w-full bg-[#FAF9F5] text-[#0E1118] font-sans antialiased selection:bg-[#FF3823] selection:text-white min-h-screen">
-      
-      {/* ── FRAME 1: EDITORIAL HEADER ── */}
-      <section className="relative w-full pt-28 pb-12 md:pt-36 md:pb-16 border-b border-black/10 overflow-hidden px-4 sm:px-6">
-        <div
-          className="absolute inset-0 opacity-40 pointer-events-none"
-          style={{
-            backgroundImage:
-              "linear-gradient(to right, rgba(0,0,0,0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.03) 1px, transparent 1px)",
-            backgroundSize: "48px 48px",
-          }}
-        />
-
-        <div className="relative z-10 max-w-4xl mx-auto text-center space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-white border border-black/10 rounded-full text-xs font-medium text-[#5E605D] shadow-xs">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span>DIRECT FOUNDER CONSULTATION &bull; 24H SLA</span>
+    <div className="w-full bg-[#FAF9F6] text-[#121316] min-h-screen pt-24 sm:pt-32 pb-20">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        
+        {/* Header */}
+        <div className="max-w-3xl space-y-4 border-b border-black/8 pb-10">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/5 border border-black/8 text-neutral-700 text-xs font-mono font-semibold uppercase tracking-wider">
+            Direct Founder Access
           </div>
 
-          <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl font-normal text-[#0E1118] tracking-tight leading-[1.08]">
-            Let&apos;s talk about your <br />
-            <span className="text-[#5E605D] italic">software or AI project.</span>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[#121316] leading-[1.08]">
+            Let’s discuss your workflow bottleneck.
           </h1>
 
-          <p className="text-base sm:text-lg md:text-[19px] text-[#5E605D] max-w-2xl mx-auto leading-relaxed font-normal">
-            Direct collaboration with Abhishek Tiwari (Founder &amp; Lead Engineer). We review your requirements, provide honest technical feasibility, and scope working production systems delivered in 14-day sprints.
+          <p className="text-lg sm:text-xl text-neutral-600 leading-relaxed font-normal">
+            Whether you want to automate incoming WhatsApp enquiries, build a custom operational portal, or replace manual spreadsheets, tell us what process is slowing you down.
           </p>
         </div>
-      </section>
 
-      {/* ── FRAME 2: CONTACT FORM & DIRECT CHANNELS ── */}
-      <section className="w-full py-16 px-4 sm:px-6 md:px-8">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+        {/* Dual Paths Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           
-          {/* Left Column: Form (7 cols) */}
-          <div className="lg:col-span-7 bg-white border border-black/10 rounded-2xl p-6 sm:p-10 shadow-xs">
-            <AnimatePresence mode="wait">
-              {isSubmitted ? (
-                <motion.div
-                  key="submitted"
-                  initial={{ opacity: 0, scale: 0.98 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.98 }}
-                  className="space-y-6 text-center py-10"
-                >
-                  <div className="w-16 h-16 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center mx-auto">
-                    <CheckCircle2 className="w-8 h-8" />
-                  </div>
-
-                  <div className="space-y-2">
-                    <span className="font-mono text-xs text-neutral-400 uppercase tracking-widest">
-                      REF ID: {referenceId}
-                    </span>
-                    <h3 className="font-serif text-2xl sm:text-3xl font-normal text-[#0E1118]">
-                      Requirements Received
-                    </h3>
-                    <p className="text-sm text-neutral-600 max-w-md mx-auto leading-relaxed">
-                      Thank you. We have received your technical requirements. Abhishek Tiwari will personally review the brief and respond within 24 hours.
-                    </p>
-                  </div>
-
-                  <div className="pt-4 flex justify-center">
-                    <button
-                      onClick={handleResetForm}
-                      className="px-6 py-2.5 text-xs font-semibold text-neutral-700 bg-neutral-100 hover:bg-neutral-200 rounded transition-colors cursor-pointer"
-                    >
-                      Submit Another Requirement
-                    </button>
-                  </div>
-                </motion.div>
-              ) : (
-                <form
-                  onSubmit={handleFormSubmit}
-                  className="space-y-6"
-                >
-                  {/* Category Selection */}
-                  <div className="space-y-2.5">
-                    <label className="block font-mono text-xs uppercase tracking-wider text-neutral-500">
-                      Requirement Category
-                    </label>
-                    <div className="flex flex-wrap gap-2">
-                      {categories.map((cat) => (
-                        <button
-                          key={cat}
-                          type="button"
-                          disabled={isSubmitting}
-                          onClick={() => {
-                            setFormState({ ...formState, projectType: cat });
-                          }}
-                          className={`px-3.5 py-1.5 text-xs font-medium rounded-[4px] border transition-colors cursor-pointer ${
-                            formState.projectType === cat
-                              ? "bg-[#141413] text-white border-[#141413]"
-                              : "bg-[#FAF9F5] text-neutral-700 border-black/10 hover:border-black/25"
-                          }`}
-                        >
-                          {cat}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Name & Email */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <label className="block font-mono text-xs uppercase tracking-wider text-neutral-500">
-                        Full Name <span className="text-[#FF3823]">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        disabled={isSubmitting}
-                        value={formState.name}
-                        onChange={(e) =>
-                          setFormState({ ...formState, name: e.target.value })
-                        }
-                        placeholder="Abhishek Tiwari"
-                        className="w-full bg-[#FAF9F5] border border-black/15 rounded-[4px] px-4 py-3 text-sm text-neutral-900 focus:outline-none focus:border-[#FF3823] focus:bg-white transition-colors disabled:opacity-60"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="block font-mono text-xs uppercase tracking-wider text-neutral-500">
-                        Work / Personal Email <span className="text-[#FF3823]">*</span>
-                      </label>
-                      <input
-                        type="email"
-                        required
-                        disabled={isSubmitting}
-                        value={formState.email}
-                        onChange={(e) =>
-                          setFormState({ ...formState, email: e.target.value })
-                        }
-                        placeholder="abhishek@example.com"
-                        className="w-full bg-[#FAF9F5] border border-black/15 rounded-[4px] px-4 py-3 text-sm text-neutral-900 focus:outline-none focus:border-[#FF3823] focus:bg-white transition-colors disabled:opacity-60"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Phone / WhatsApp & Company */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <label className="block font-mono text-xs uppercase tracking-wider text-neutral-500 flex items-center gap-1.5">
-                        <Phone className="w-3.5 h-3.5 text-neutral-400" />
-                        Phone / WhatsApp (Recommended)
-                      </label>
-                      <input
-                        type="tel"
-                        disabled={isSubmitting}
-                        value={formState.phone}
-                        onChange={(e) =>
-                          setFormState({ ...formState, phone: e.target.value })
-                        }
-                        placeholder="+91 98765 43210"
-                        className="w-full bg-[#FAF9F5] border border-black/15 rounded-[4px] px-4 py-3 text-sm text-neutral-900 focus:outline-none focus:border-[#FF3823] focus:bg-white transition-colors disabled:opacity-60"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="block font-mono text-xs uppercase tracking-wider text-neutral-500 flex items-center gap-1.5">
-                        <Building2 className="w-3.5 h-3.5 text-neutral-400" />
-                        Company / Business Name (Optional)
-                      </label>
-                      <input
-                        type="text"
-                        disabled={isSubmitting}
-                        value={formState.company}
-                        onChange={(e) =>
-                          setFormState({ ...formState, company: e.target.value })
-                        }
-                        placeholder="Business / Startup Name"
-                        className="w-full bg-[#FAF9F5] border border-black/15 rounded-[4px] px-4 py-3 text-sm text-neutral-900 focus:outline-none focus:border-[#FF3823] focus:bg-white transition-colors disabled:opacity-60"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Budget Tier */}
-                  <div className="space-y-2.5">
-                    <label className="block font-mono text-xs uppercase tracking-wider text-neutral-500">
-                      Estimated Budget Range
-                    </label>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                      {budgetTiers.map((tier) => (
-                        <button
-                          key={tier}
-                          type="button"
-                          disabled={isSubmitting}
-                          onClick={() => {
-                            setFormState({ ...formState, budget: tier });
-                          }}
-                          className={`py-2 px-2 text-xs font-semibold rounded-[4px] border text-center transition-colors cursor-pointer ${
-                            formState.budget === tier
-                              ? "bg-[#141413] text-white border-[#141413]"
-                              : "bg-[#FAF9F5] text-neutral-700 border-black/10 hover:border-black/25"
-                          }`}
-                        >
-                          {tier}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Message / Brief */}
-                  <div className="space-y-2">
-                    <label className="block font-mono text-xs uppercase tracking-wider text-neutral-500">
-                      What are you looking to build? <span className="text-[#FF3823]">*</span>
-                    </label>
-                    <textarea
-                      required
-                      rows={4}
-                      disabled={isSubmitting}
-                      value={formState.message}
-                      onChange={(e) =>
-                        setFormState({ ...formState, message: e.target.value })
-                      }
-                      placeholder="Tell us about the problem you need solved: e.g. a WhatsApp bot to qualify leads from IndiaMART, a custom internal CRM, a fast Next.js website, or an interactive 3D model viewer..."
-                      className="w-full bg-[#FAF9F5] border border-black/15 rounded-[4px] p-4 text-sm text-neutral-900 focus:outline-none focus:border-[#FF3823] focus:bg-white transition-colors disabled:opacity-60"
-                    />
-                  </div>
-
-                  {/* Hidden Anti-Spam Honeypot */}
-                  <input
-                    type="text"
-                    name="_hp"
-                    tabIndex={-1}
-                    autoComplete="off"
-                    value={formState._hp}
-                    onChange={(e) =>
-                      setFormState({ ...formState, _hp: e.target.value })
-                    }
-                    className="hidden"
-                    aria-hidden="true"
-                  />
-
-                  {/* Error Notification */}
-                  {errorMessage && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -6 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="p-3.5 rounded-[4px] bg-red-50 border border-red-200 text-red-700 text-xs flex items-start gap-2.5"
-                    >
-                      <AlertCircle className="w-4 h-4 shrink-0 text-red-600 mt-0.5" />
-                      <div>{errorMessage}</div>
-                    </motion.div>
-                  )}
-
-                  {/* Submit Button */}
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full bg-[#FF3823] hover:bg-[#E02F1C] text-white font-medium text-sm py-4 rounded-[4px] shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
-                  >
-                    {isSubmitting ? (
-                      <>
-                        <Loader2 className="w-4 h-4 animate-spin" />
-                        <span>Sending to Abhishek...</span>
-                      </>
-                    ) : (
-                      <>
-                        <span>Submit Project Specification</span>
-                        <ArrowRight className="w-4 h-4" />
-                      </>
-                    )}
-                  </button>
-
-                  <div className="flex items-center justify-between text-xs text-neutral-500 pt-1 font-mono">
-                    <span className="flex items-center gap-1">
-                      <Clock className="w-3.5 h-3.5 text-neutral-400" />
-                      Guaranteed reply within 24h
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Lock className="w-3.5 h-3.5 text-neutral-400" />
-                      Bilateral NDA Protected
-                    </span>
-                  </div>
-                </form>
-              )}
-            </AnimatePresence>
-          </div>
-
-          {/* Right Column: Direct Channels & WhatsApp CTA (5 cols) */}
-          <div className="lg:col-span-5 space-y-6">
-            
-            {/* Direct WhatsApp Callout Card */}
-            <div className="bg-[#E8FCE8] border border-emerald-300 rounded-2xl p-6 sm:p-7 space-y-4 shadow-xs">
-              <div className="flex items-center gap-2.5">
-                <div className="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-xs">
-                  <MessageCircle className="w-5 h-5" />
+          {/* Path 1: Short Form (7 Cols) */}
+          <div className="lg:col-span-7 bg-white border border-black/10 rounded-2xl p-6 sm:p-8 shadow-[0_2px_16px_rgba(0,0,0,0.02)]">
+            {isSubmitted ? (
+              <div className="space-y-6 py-6 text-center sm:text-left">
+                <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto sm:mx-0">
+                  <CheckCircle2 className="w-6 h-6" />
                 </div>
-                <div>
-                  <h4 className="font-serif text-lg font-normal text-emerald-950">
-                    Prefer instant chat?
-                  </h4>
-                  <p className="text-xs text-emerald-800">
-                    Chat directly with Abhishek on WhatsApp.
+
+                <div className="space-y-2">
+                  <div className="inline-block px-2.5 py-0.5 rounded text-[11px] font-mono font-bold bg-neutral-100 text-neutral-800">
+                    REFERENCE: {referenceId}
+                  </div>
+                  <h3 className="text-2xl font-bold text-[#121316]">
+                    Workflow inquiry received.
+                  </h3>
+                  <p className="text-sm text-neutral-600 leading-relaxed max-w-lg">
+                    Abhishek Tiwari (Founder &amp; Principal Systems Engineer) will review your notes and reply with initial thoughts and questions within 1 business day.
                   </p>
                 </div>
+
+                <div className="p-4 rounded-xl bg-neutral-50 border border-black/6 text-xs text-neutral-600 space-y-2">
+                  <div className="font-semibold text-neutral-900">What happens next?</div>
+                  <ul className="space-y-1.5 list-disc pl-4">
+                    <li>We evaluate your process bottleneck against existing software options.</li>
+                    <li>We schedule a brief 20-minute video or phone call to walk through the workflow.</li>
+                    <li>If it’s a good fit, we provide a fixed-scope statement of work and quotation.</li>
+                  </ul>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsSubmitted(false);
+                    setFormState({
+                      name: "",
+                      company: "",
+                      contactMethod: "whatsapp",
+                      contactValue: "",
+                      problemDescription: "",
+                      websiteUrl: "",
+                      _hp: "",
+                    });
+                  }}
+                  className="text-xs font-semibold text-[#121316] underline hover:text-[#E1341E]"
+                >
+                  Submit another inquiry
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <div>
+                  <h3 className="text-xl font-bold text-[#121316]">
+                    Short Project Brief
+                  </h3>
+                  <p className="text-xs text-neutral-500 mt-0.5">
+                    No 6-step questionnaires. Just the basics so we can prepare before speaking.
+                  </p>
+                </div>
+
+                {errorMessage && (
+                  <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-xs text-red-700 flex items-start gap-2">
+                    <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                    <span>{errorMessage}</span>
+                  </div>
+                )}
+
+                {/* Honeypot hidden input */}
+                <input
+                  type="text"
+                  name="_hp"
+                  value={formState._hp}
+                  onChange={(e) => setFormState({ ...formState, _hp: e.target.value })}
+                  className="hidden"
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {/* Name */}
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-semibold text-neutral-700 flex items-center gap-1">
+                      <span>Your Name</span>
+                      <span className="text-red-500">*</span>
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="text"
+                        required
+                        value={formState.name}
+                        onChange={(e) => setFormState({ ...formState, name: e.target.value })}
+                        placeholder="e.g. Ramesh Kumar"
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-black/10 focus:border-black/30 focus:ring-1 focus:ring-black/10 text-xs font-sans bg-neutral-50/50 outline-none"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Company */}
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-semibold text-neutral-700 flex items-center gap-1">
+                      <span>Company / Business</span>
+                      <span className="text-red-500">*</span>
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="text"
+                        required
+                        value={formState.company}
+                        onChange={(e) => setFormState({ ...formState, company: e.target.value })}
+                        placeholder="e.g. Acme Industrial Corp"
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-black/10 focus:border-black/30 focus:ring-1 focus:ring-black/10 text-xs font-sans bg-neutral-50/50 outline-none"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Preferred Contact Method */}
+                <div className="space-y-1.5">
+                  <label className="text-xs font-semibold text-neutral-700">
+                    Preferred Contact Method
+                  </label>
+                  <div className="grid grid-cols-3 gap-2">
+                    {[
+                      { id: "whatsapp", label: "WhatsApp", icon: MessageSquare },
+                      { id: "email", label: "Email", icon: Mail },
+                      { id: "phone", label: "Phone Call", icon: Phone },
+                    ].map((m) => {
+                      const Icon = m.icon;
+                      const isSel = formState.contactMethod === m.id;
+                      return (
+                        <button
+                          key={m.id}
+                          type="button"
+                          onClick={() => setFormState({ ...formState, contactMethod: m.id as any })}
+                          className={`flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg border text-xs font-medium transition-colors ${
+                            isSel
+                              ? "bg-[#121316] text-white border-[#121316]"
+                              : "bg-neutral-50 border-black/8 text-neutral-600 hover:bg-neutral-100"
+                          }`}
+                        >
+                          <Icon className="w-3.5 h-3.5" />
+                          <span>{m.label}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Contact Value (Email or Phone / WhatsApp) */}
+                <div className="space-y-1.5">
+                  <label className="text-xs font-semibold text-neutral-700 flex items-center gap-1">
+                    <span>
+                      {formState.contactMethod === "email"
+                        ? "Email Address"
+                        : formState.contactMethod === "whatsapp"
+                        ? "WhatsApp Phone Number"
+                        : "Phone Number"}
+                    </span>
+                    <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type={formState.contactMethod === "email" ? "email" : "text"}
+                    required
+                    value={formState.contactValue}
+                    onChange={(e) => setFormState({ ...formState, contactValue: e.target.value })}
+                    placeholder={
+                      formState.contactMethod === "email"
+                        ? "name@company.com"
+                        : "+91 98765 43210"
+                    }
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-black/10 focus:border-black/30 focus:ring-1 focus:ring-black/10 text-xs font-sans bg-neutral-50/50 outline-none"
+                  />
+                </div>
+
+                {/* Problem Description */}
+                <div className="space-y-1.5">
+                  <label className="text-xs font-semibold text-neutral-700 flex items-center gap-1">
+                    <span>What process or bottleneck do you want to improve?</span>
+                    <span className="text-red-500">*</span>
+                  </label>
+                  <textarea
+                    required
+                    rows={4}
+                    value={formState.problemDescription}
+                    onChange={(e) => setFormState({ ...formState, problemDescription: e.target.value })}
+                    placeholder="e.g. We get about 30 quote requests daily across WhatsApp and web forms. Our sales reps take 24 hours to respond because they have to manually calculate pricing in Excel and copy details back and forth."
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-black/10 focus:border-black/30 focus:ring-1 focus:ring-black/10 text-xs font-sans bg-neutral-50/50 outline-none leading-relaxed"
+                  />
+                </div>
+
+                {/* Optional Website URL */}
+                <div className="space-y-1.5">
+                  <label className="text-xs font-semibold text-neutral-700 flex items-center justify-between">
+                    <span>Company Website</span>
+                    <span className="text-neutral-400 font-normal text-[11px]">Optional</span>
+                  </label>
+                  <input
+                    type="url"
+                    value={formState.websiteUrl}
+                    onChange={(e) => setFormState({ ...formState, websiteUrl: e.target.value })}
+                    placeholder="https://yourcompany.com"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-black/10 focus:border-black/30 focus:ring-1 focus:ring-black/10 text-xs font-sans bg-neutral-50/50 outline-none"
+                  />
+                </div>
+
+                {/* Submit Action */}
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full py-3 px-6 rounded-xl bg-[#121316] hover:bg-[#282A2E] text-white text-xs font-semibold transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <span>Submitting brief...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>Send Workflow Brief &rarr;</span>
+                    </>
+                  )}
+                </button>
+
+                <p className="text-[11px] text-neutral-400 text-center font-mono">
+                  Protected under mutual bilateral confidentiality &bull; No marketing spam
+                </p>
+              </form>
+            )}
+          </div>
+
+          {/* Path 2: Direct Contact & FAQ (5 Cols) */}
+          <div className="lg:col-span-5 space-y-6">
+            
+            {/* Direct WhatsApp Card */}
+            <div className="bg-[#121316] text-white rounded-2xl p-6 sm:p-7 space-y-4 shadow-md">
+              <div className="flex items-center gap-2 text-xs font-mono text-emerald-400">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                <span>FASTEST ROUTE</span>
               </div>
 
-              <p className="text-xs text-emerald-900 leading-relaxed">
-                Skip forms. Send us your requirements, voice notes, or website links on WhatsApp for a fast reply and initial estimate.
-              </p>
+              <div>
+                <h3 className="text-xl font-bold text-white">
+                  Prefer a quick chat on WhatsApp?
+                </h3>
+                <p className="text-xs text-neutral-300 mt-1 leading-relaxed">
+                  Have a quick question or want to discuss feasibility right away? Message Abhishek directly.
+                </p>
+              </div>
 
+              <div className="pt-2">
+                <a
+                  href="https://wa.me/918860110144?text=Hi%20Abhishek%2C%20I%20would%20like%20to%20discuss%20a%20process%20automation%20project%20with%20Vistar."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[#25D366] hover:bg-[#20BD5A] text-white text-xs font-semibold transition-all shadow-xs"
+                >
+                  <MessageSquare className="w-4 h-4 fill-white" />
+                  <span>WhatsApp: +91 88601 10144</span>
+                </a>
+              </div>
+
+              <div className="pt-2 border-t border-white/10 text-[11.5px] text-neutral-400 flex items-center justify-between">
+                <span>Direct to Founder</span>
+                <span>Lucknow, UP, India</span>
+              </div>
+            </div>
+
+            {/* Email Alternative Card */}
+            <div className="bg-white border border-black/10 rounded-2xl p-6 space-y-3 shadow-xs">
+              <div className="w-8 h-8 rounded-lg bg-neutral-50 border border-black/8 flex items-center justify-center text-neutral-700">
+                <Mail className="w-4 h-4" />
+              </div>
+              <div>
+                <h4 className="text-sm font-bold text-[#121316]">
+                  Direct Email Inquiries
+                </h4>
+                <p className="text-xs text-neutral-500 mt-0.5">
+                  Send RFPs, architecture diagrams, or workflow specs to:
+                </p>
+              </div>
               <a
-                href="https://wa.me/918860110144?text=Hi%20Abhishek%2C%20I'm%20interested%20in%20building%20custom%20software%20or%20AI%20for%20my%20business."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full py-3 px-4 bg-emerald-700 hover:bg-emerald-800 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-2 transition-colors shadow-xs"
+                href="mailto:services.vistaar@gmail.com"
+                className="text-xs font-mono font-semibold text-[#E1341E] hover:underline block"
               >
-                <MessageCircle className="w-4 h-4" />
-                <span>Chat on WhatsApp (+91 88601 10144)</span>
+                services.vistaar@gmail.com
               </a>
             </div>
 
-            {/* Direct Channels Card */}
-            <div className="bg-white border border-black/10 rounded-2xl p-6 sm:p-7 space-y-5 shadow-xs">
-              <h4 className="font-serif text-lg font-normal text-[#0E1118]">
-                Direct Founder Contact
+            {/* Reassurance Checklist */}
+            <div className="bg-white border border-black/10 rounded-2xl p-6 space-y-3 shadow-xs">
+              <h4 className="text-xs font-bold font-mono uppercase tracking-wider text-neutral-400">
+                What to expect from Vistar:
               </h4>
-              <div className="space-y-4 text-xs text-neutral-600">
-                <div className="flex items-start gap-3">
-                  <Mail className="w-4 h-4 text-[#FF3823] shrink-0 mt-0.5" />
-                  <div>
-                    <span className="block font-medium text-[#0E1118]">Direct Email</span>
-                    <a
-                      href="mailto:services.vistaar@gmail.com"
-                      className="hover:underline font-mono text-[#FF3823] font-semibold"
-                    >
-                      services.vistaar@gmail.com
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                  <div>
-                    <span className="block font-medium text-[#0E1118]">Confidentiality First</span>
-                    <span className="text-neutral-500">Mutual Non-Disclosure Agreement (NDA) signed before codebase inspection.</span>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <Terminal className="w-4 h-4 text-[#1E60E6] shrink-0 mt-0.5" />
-                  <div>
-                    <span className="block font-medium text-[#0E1118]">100% Code Handover</span>
-                    <span className="text-neutral-500">Day-one private GitHub transfer with Dockerfiles and complete documentation.</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Interactive Wireframe Globe */}
-            <div className="bg-white border border-black/10 rounded-2xl p-6 shadow-xs text-center space-y-2">
-              <span className="font-mono text-[10px] text-neutral-400 uppercase tracking-widest block">
-                STUDIO LOCATION &bull; LUCKNOW &bull; INDIA
-              </span>
-              <div className="w-full h-52 flex items-center justify-center">
-                <RotatingEarth />
-              </div>
-              <p className="text-xs text-neutral-500 font-mono">
-                Founder-led engineering studio based in Lucknow, Uttar Pradesh, India
-              </p>
+              <ul className="space-y-2 text-xs text-neutral-700">
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-[#16A34A] shrink-0 mt-0.5" />
+                  <span>Direct reply from Abhishek, not a commissioned sales rep.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-[#16A34A] shrink-0 mt-0.5" />
+                  <span>Bilateral NDA signed before scoping proprietary details.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-[#16A34A] shrink-0 mt-0.5" />
+                  <span>Fixed-scope quotes with guaranteed 100% repository handover.</span>
+                </li>
+              </ul>
             </div>
 
           </div>
+
         </div>
-      </section>
+
+      </div>
     </div>
   );
 }

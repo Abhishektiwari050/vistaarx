@@ -25,8 +25,8 @@ import {
 const Player = dynamic(() => import('@remotion/player').then((mod) => mod.Player), {
   ssr: false,
   loading: () => (
-    <div className="w-full aspect-video bg-[#0D0E15] border border-white/10 rounded-xl flex items-center justify-center text-white/40 font-mono text-sm">
-      Initializing Remotion Engine...
+    <div className="w-full aspect-video bg-[#060709] border border-white/10 rounded-xl flex items-center justify-center text-white/40 font-mono text-sm">
+      Initializing Remotion Motion Graphics Engine...
     </div>
   ),
 });
@@ -86,35 +86,43 @@ export default function BrandFilmPage() {
 
   const currentSeconds = (currentFrame / VIDEO_CONFIG.fps).toFixed(2);
 
+  const sceneBookmarks = [
+    { label: '01: Entropy & Friction', sub: '0.0s - 5.3s', frame: SCENE_RANGES.entropy.start },
+    { label: '02: Caliper Audit', sub: '5.3s - 11.3s', frame: SCENE_RANGES.auditConvergence.start },
+    { label: '03: Typographic Slam', sub: '11.3s - 17.3s', frame: SCENE_RANGES.typographicSlam.start },
+    { label: '04: Operational Velocity', sub: '17.3s - 24.0s', frame: SCENE_RANGES.operationalVelocity.start },
+    { label: '05: Sovereign Lockup', sub: '24.0s - 30.0s', frame: SCENE_RANGES.grandMonogram.start },
+  ];
+
   return (
-    <div className="min-h-screen bg-[#060709] text-[#ECEEF5] font-sans selection:bg-emerald-500/30 selection:text-white">
+    <div className="min-h-screen bg-[#000000] text-[#ECEEF5] font-sans selection:bg-white/20 selection:text-white">
       {/* Top Header */}
-      <header className="border-b border-white/10 bg-[#060709]/80 backdrop-blur-md sticky top-0 z-50">
+      <header className="border-b border-white/10 bg-[#060709]/90 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Link
               href="/"
-              className="p-2 rounded-lg bg-white/5 border border-white/10 text-white/70 hover:text-white transition-colors"
+              className="p-2 rounded bg-white/5 border border-white/10 text-white/70 hover:text-white transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
             </Link>
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-bold text-base tracking-tight text-white">VISTAR.TECH</span>
+                <span className="font-bold text-base tracking-tight text-white">VISTAR</span>
                 <span className="text-white/30">/</span>
-                <span className="font-mono text-xs text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
-                  BRAND FILM STUDIO
+                <span className="font-mono text-xs text-white/80 bg-white/5 px-2 py-0.5 rounded border border-white/15">
+                  MOTION GRAPHICS FILM
                 </span>
               </div>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="hidden sm:flex items-center bg-white/5 border border-white/10 rounded-lg p-1 text-xs font-mono">
+            <div className="hidden sm:flex items-center bg-white/5 border border-white/10 rounded p-1 text-xs font-mono">
               <button
                 onClick={() => setAspectMode('16:9')}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded transition-colors ${
-                  aspectMode === '16:9' ? 'bg-emerald-500 text-black font-semibold' : 'text-white/60 hover:text-white'
+                  aspectMode === '16:9' ? 'bg-white text-black font-semibold' : 'text-white/60 hover:text-white'
                 }`}
               >
                 <Monitor className="w-3.5 h-3.5" /> 16:9 Master
@@ -122,7 +130,7 @@ export default function BrandFilmPage() {
               <button
                 onClick={() => setAspectMode('9:16')}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded transition-colors ${
-                  aspectMode === '9:16' ? 'bg-emerald-500 text-black font-semibold' : 'text-white/60 hover:text-white'
+                  aspectMode === '9:16' ? 'bg-white text-black font-semibold' : 'text-white/60 hover:text-white'
                 }`}
               >
                 <Smartphone className="w-3.5 h-3.5" /> 9:16 Vertical
@@ -131,10 +139,10 @@ export default function BrandFilmPage() {
             <a
               href="/vistar-brand-film.mp4"
               download="vistar-brand-film.mp4"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-500/30 text-xs font-mono transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-white/10 border border-white/25 text-white hover:bg-white/20 text-xs font-mono transition-colors"
             >
               <Download className="w-3.5 h-3.5" />
-              <span>Download MP4 (10.2 MB)</span>
+              <span>Download Master MP4</span>
             </a>
           </div>
         </div>
@@ -142,25 +150,25 @@ export default function BrandFilmPage() {
 
       {/* Main Studio Viewport */}
       <main className="max-w-7xl mx-auto px-6 py-8">
-        {/* Title & Badge */}
+        {/* Title & Controls */}
         <div className="mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 font-mono text-xs text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-full mb-3">
-              <Film className="w-3.5 h-3.5" />
-              <span>30-SECOND CINEMATIC BRAND FILM // REMOTION ENGINE</span>
+            <div className="inline-flex items-center gap-2 font-mono text-xs text-white/70 bg-white/5 border border-white/10 px-3 py-1 rounded mb-3">
+              <Film className="w-3.5 h-3.5 text-white" />
+              <span>BESPOKE LUXURY MONOCHROME // 30-SECOND MOTION GRAPHICS</span>
             </div>
             <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-white">
-              Making Enterprise Operations Easier, Faster & Humanless
+              Enterprise Operational Intelligence & Autonomous Systems
             </h1>
             <p className="text-white/60 font-mono text-sm mt-1">
-              We audit how companies function and engineer autonomous software & AI pipelines to eliminate human toil.
+              We audit how companies function and engineer autonomous software to make work easier, faster, and humanless.
             </p>
           </div>
 
           <div className="flex items-center gap-3">
             <button
               onClick={togglePlay}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-mono text-xs hover:bg-emerald-500/30 transition-colors"
+              className="flex items-center gap-1.5 px-4 py-2 rounded bg-white text-black font-mono text-xs font-semibold hover:bg-white/90 transition-colors"
             >
               {isPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
               <span>{isPlaying ? 'PAUSE' : 'PLAY'}</span>
@@ -168,22 +176,22 @@ export default function BrandFilmPage() {
             <button
               onClick={restartVideo}
               title="Restart Video"
-              className="p-2 rounded-lg bg-white/5 border border-white/10 text-white/70 hover:text-white transition-colors"
+              className="p-2 rounded bg-white/5 border border-white/10 text-white/70 hover:text-white transition-colors"
             >
               <RotateCcw className="w-3.5 h-3.5" />
             </button>
-            <div className="flex items-center gap-2 font-mono text-xs text-white/50 bg-white/5 border border-white/10 px-3 py-2 rounded-lg">
+            <div className="flex items-center gap-2 font-mono text-xs text-white/50 bg-white/5 border border-white/10 px-3 py-2 rounded">
               <span>FRAME:</span>
               <span className="text-white font-semibold">{currentFrame}</span>
               <span className="text-white/20">|</span>
               <span>TIME:</span>
-              <span className="text-emerald-400 font-semibold">{currentSeconds}s / 30.00s</span>
+              <span className="text-white font-semibold">{currentSeconds}s / 30.00s</span>
             </div>
           </div>
         </div>
 
         {/* Video Player Container */}
-        <div className="relative rounded-2xl overflow-hidden border border-white/15 bg-black shadow-2xl shadow-emerald-500/5 mb-6 flex justify-center">
+        <div className="relative rounded-xl overflow-hidden border border-white/15 bg-black shadow-2xl mb-6 flex justify-center">
           <div
             className="w-full flex items-center justify-center transition-all duration-300"
             style={{
@@ -210,29 +218,23 @@ export default function BrandFilmPage() {
         </div>
 
         {/* Scene Navigation Bar */}
-        <div className="bg-[#0D0E15] border border-white/10 rounded-xl p-4 mb-10">
+        <div className="bg-[#060709] border border-white/10 rounded-xl p-4 mb-10">
           <div className="flex items-center justify-between mb-3 text-xs font-mono text-white/60">
             <span className="flex items-center gap-1.5 text-white/80">
-              <Code2 className="w-3.5 h-3.5 text-emerald-400" /> TIMELINE SCENE BOOKMARKS
+              <Code2 className="w-3.5 h-3.5 text-white" /> TIMELINE SCENE BOOKMARKS
             </span>
-            <span>Click any marker to inspect scene</span>
+            <span>Jump directly to any motion graphics act</span>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
-            {[
-              { label: '01: Genesis & Friction', sub: '0s - 4.6s', frame: SCENE_RANGES.genesis.start },
-              { label: '02: Diagnostic Cockpit', sub: '4.6s - 10.6s', frame: SCENE_RANGES.auditEngine.start },
-              { label: '03: Kinetic Slam', sub: '10.6s - 15.3s', frame: SCENE_RANGES.patternInterrupt.start },
-              { label: '04: Autonomous Runtime', sub: '15.3s - 22.6s', frame: SCENE_RANGES.autonomousRuntime.start },
-              { label: '05: Mathematical Finale', sub: '22.6s - 30s', frame: SCENE_RANGES.climax.start },
-            ].map((scene, idx) => (
+            {sceneBookmarks.map((scene, idx) => (
               <button
                 key={scene.label}
                 onClick={() => jumpToScene(scene.frame)}
-                className={`text-left p-2.5 rounded-lg border transition-all ${
+                className={`text-left p-2.5 rounded border transition-all ${
                   currentFrame >= scene.frame &&
-                  (idx === 4 || currentFrame < [SCENE_RANGES.auditEngine.start, SCENE_RANGES.patternInterrupt.start, SCENE_RANGES.autonomousRuntime.start, SCENE_RANGES.climax.start, 900][idx])
-                    ? 'bg-emerald-500/10 border-emerald-500/40 text-emerald-300'
+                  (idx === 4 || currentFrame < [SCENE_RANGES.auditConvergence.start, SCENE_RANGES.typographicSlam.start, SCENE_RANGES.operationalVelocity.start, SCENE_RANGES.grandMonogram.start, 900][idx])
+                    ? 'bg-white/15 border-white/50 text-white'
                     : 'bg-white/5 border-white/5 text-white/70 hover:bg-white/10'
                 }`}
               >
@@ -243,97 +245,78 @@ export default function BrandFilmPage() {
           </div>
         </div>
 
-        {/* Narrative Arc & Claude Methodology Breakdown */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-          {/* Card 1: How Claude Does It Perfectly */}
-          <div className="bg-[#0D0E15] border border-white/10 rounded-2xl p-6">
+        {/* Motion Graphics Architecture Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
+          {/* Card 1: Vector Choreography */}
+          <div className="bg-[#060709] border border-white/10 rounded-xl p-6">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+              <div className="w-10 h-10 rounded bg-white/5 border border-white/15 flex items-center justify-center text-white">
                 <Zap className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-bold text-white text-base">The Claude Standard</h3>
-                <p className="text-white/50 text-xs font-mono">Repos, Reddit & Community Research</p>
+                <h3 className="font-bold text-white text-base">Pure Motion Graphics</h3>
+                <p className="text-white/50 text-xs font-mono">Vector Math & Kinetic Type</p>
               </div>
             </div>
             <p className="text-white/70 text-xs leading-relaxed mb-4">
-              Community powerhouses like <span className="text-emerald-400">EveryInc/product-launch-video</span> and <span className="text-emerald-400">noamdorr/saas-product-demo-video</span> proved that top-tier launch videos avoid drag-and-drop editors in favor of <strong>Remotion frame math</strong>.
+              Zero web cards or slide templates. Dynamic SVG oscilloscope waveforms, parametric 4-vector cardinal convergence, laser caliper reticles, and high-frequency code velocities.
             </p>
             <ul className="text-xs space-y-2 text-white/60 font-mono">
               <li className="flex items-start gap-2">
-                <CheckCircle className="w-3.5 h-3.5 text-emerald-400 mt-0.5 shrink-0" />
-                <span>Hook under 3s (a16z Speedrun rule)</span>
+                <CheckCircle className="w-3.5 h-3.5 text-white mt-0.5 shrink-0" />
+                <span>Strict monochrome (Obsidian, Liquid Platinum, Aerospace Titanium)</span>
               </li>
               <li className="flex items-start gap-2">
-                <CheckCircle className="w-3.5 h-3.5 text-emerald-400 mt-0.5 shrink-0" />
-                <span>Real UI copy & latency metrics (no fake labels)</span>
+                <CheckCircle className="w-3.5 h-3.5 text-white mt-0.5 shrink-0" />
+                <span>Parametric SVG VistarLogoMark with dynamic docking physics</span>
               </li>
               <li className="flex items-start gap-2">
-                <CheckCircle className="w-3.5 h-3.5 text-emerald-400 mt-0.5 shrink-0" />
-                <span>Burned-in captions for 85%+ muted mobile views</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle className="w-3.5 h-3.5 text-emerald-400 mt-0.5 shrink-0" />
-                <span>Before/after comparison as the emotional money shot</span>
+                <CheckCircle className="w-3.5 h-3.5 text-white mt-0.5 shrink-0" />
+                <span>Typographic slam: INSTANT / AUTONOMOUS / HUMANLESS</span>
               </li>
             </ul>
           </div>
 
-          {/* Card 2: 4-Critic Multi-Agent Scorecard */}
-          <div className="bg-[#0D0E15] border border-white/10 rounded-2xl p-6">
+          {/* Card 2: Strategic Positioning */}
+          <div className="bg-[#060709] border border-white/10 rounded-xl p-6">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
+              <div className="w-10 h-10 rounded bg-white/5 border border-white/15 flex items-center justify-center text-white">
                 <ShieldCheck className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-bold text-white text-base">4-Critic Quality Gate</h3>
-                <p className="text-white/50 text-xs font-mono">Automated Multi-Agent Audit</p>
+                <h3 className="font-bold text-white text-base">Core Value Proposition</h3>
+                <p className="text-white/50 text-xs font-mono">Enterprise Autonomous Systems</p>
               </div>
             </div>
-            <div className="space-y-3 text-xs">
-              <div className="p-2.5 rounded-lg bg-white/5 border border-white/5">
-                <div className="flex justify-between font-mono text-[11px] mb-1">
-                  <span className="text-white/80">Critic 1: Design & Typography</span>
-                  <span className="text-emerald-400 font-semibold">100 / 100</span>
-                </div>
-                <div className="text-white/50 text-[10px]">Strict monochrome, Celestial Obsidian, Aerospace Titanium tokens.</div>
-              </div>
-              <div className="p-2.5 rounded-lg bg-white/5 border border-white/5">
-                <div className="flex justify-between font-mono text-[11px] mb-1">
-                  <span className="text-white/80">Critic 2: Readability @ 720p</span>
-                  <span className="text-emerald-400 font-semibold">100 / 100</span>
-                </div>
-                <div className="text-white/50 text-[10px]">High contrast text, no clipped containers, legible on small mobile screens.</div>
-              </div>
-              <div className="p-2.5 rounded-lg bg-white/5 border border-white/5">
-                <div className="flex justify-between font-mono text-[11px] mb-1">
-                  <span className="text-white/80">Critic 3: Narrative Pacing</span>
-                  <span className="text-emerald-400 font-semibold">98 / 100</span>
-                </div>
-                <div className="text-white/50 text-[10px]">Problem defined at 0.5s, core revealed at 3.0s, money shot at 8.0s.</div>
-              </div>
+            <p className="text-white/70 text-xs leading-relaxed mb-4">
+              VISTAR audits enterprise operational topology, identifies high-friction manual bottlenecks, and engineers autonomous software & AI to eliminate human toil entirely.
+            </p>
+            <div className="p-3 rounded bg-white/5 border border-white/10 font-mono text-[11px] text-white/80 space-y-1">
+              <div>TARGET: Enterprise Scale</div>
+              <div>TOIL ELIMINATION: 100% Zero-Touch</div>
+              <div>LATENCY CRASH: 48.0h &rarr; 144ms</div>
             </div>
           </div>
 
-          {/* Card 3: CLI Headless Rendering */}
-          <div className="bg-[#0D0E15] border border-white/10 rounded-2xl p-6">
+          {/* Card 3: CLI Production Rendering */}
+          <div className="bg-[#060709] border border-white/10 rounded-xl p-6">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400">
+              <div className="w-10 h-10 rounded bg-white/5 border border-white/15 flex items-center justify-center text-white">
                 <Code2 className="w-5 h-5" />
               </div>
               <div>
                 <h3 className="font-bold text-white text-base">Production Export</h3>
-                <p className="text-white/50 text-xs font-mono">Headless CLI Commands</p>
+                <p className="text-white/50 text-xs font-mono">Remotion CLI Commands</p>
               </div>
             </div>
             <p className="text-white/70 text-xs leading-relaxed mb-3">
-              Render the master MP4 directly with frame-accurate h264 CRF 18 quality:
+              Render master video or individual frames via headless terminal:
             </p>
-            <div className="bg-black/60 border border-white/10 rounded-lg p-3 font-mono text-[11px] text-emerald-400 leading-relaxed overflow-x-auto">
-              <code>npx remotion render VistarBrandFilm out/vistar-brand-film.mp4 --crf=18</code>
+            <div className="bg-black border border-white/10 rounded p-3 font-mono text-[11px] text-white/90 leading-relaxed overflow-x-auto">
+              <code>npx remotion render src/video/brand-film/index.ts VistarBrandFilm public/vistar-brand-film.mp4 --crf=18</code>
             </div>
-            <div className="mt-3 bg-black/60 border border-white/10 rounded-lg p-3 font-mono text-[11px] text-cyan-400 leading-relaxed overflow-x-auto">
-              <code>npx remotion still VistarBrandFilm out/poster.png --frame=360</code>
+            <div className="mt-2 bg-black border border-white/10 rounded p-3 font-mono text-[11px] text-white/60 leading-relaxed overflow-x-auto">
+              <code>npx remotion still src/video/brand-film/index.ts VistarBrandFilm public/poster.png --frame=750</code>
             </div>
           </div>
         </div>

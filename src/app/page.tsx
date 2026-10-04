@@ -1,49 +1,74 @@
 import type { Metadata } from "next";
-import { KEYWORDS, BASE_URL, DEFAULT_OG_IMAGES } from "@/lib/seo";
-import { CohereHero } from "@/components/cohere/cohere-hero";
-import { CohereSocialProof } from "@/components/cohere/cohere-social-proof";
-import { CohereEmpowerment } from "@/components/cohere/cohere-empowerment";
-import { JasperAgentsSection } from "@/components/home/jasper-agents-section";
-import { CohereSolutions } from "@/components/cohere/cohere-solutions";
-import { CohereDeployment } from "@/components/cohere/cohere-deployment";
-import { CourageRevealSection } from "@/components/home/courage-reveal-section";
+import { BASE_URL, DEFAULT_OG_IMAGES } from "@/lib/seo";
+import { VistarHeroSection } from "@/components/home/vistar-hero-section";
+import { OperationalProblemSection } from "@/components/home/operational-problem-section";
+import { WhatVistarBuildsSection } from "@/components/home/what-vistar-builds-section";
+import { DemonstrableWorkSection } from "@/components/home/demonstrable-work-section";
+import { HowEngagementWorksSection } from "@/components/home/how-engagement-works-section";
+import { WhyVistarSection } from "@/components/home/why-vistar-section";
+import { EngagementOptionsSection } from "@/components/home/engagement-options-section";
+import { FinalCtaSection } from "@/components/home/final-cta-section";
 import { AnswerBlocks, type QAPair } from "@/components/seo/answer-blocks";
 
-// ─── Page-level metadata (Google Search Essentials / SEO Starter Guide compliant) ───────
+// ─── Page-level metadata ──────────────────────────────────────────────────────
 export const metadata: Metadata = {
-  title: "VISTAR — Custom Software, AI & WhatsApp Automations Studio",
+  title: "VISTAR — Founder-Led Software Engineering & Business Automation Studio",
   description:
-    "VISTAR is a founder-led engineering studio in Lucknow, India. We build WhatsApp sales automations, high-speed Next.js web apps, and 3D spatial platforms in fixed 14-day sprints with 100% repository handover.",
-  keywords: KEYWORDS.home,
+    "Vistar builds practical software, WhatsApp enquiry automations, internal portals, and custom web applications to help growing businesses eliminate manual work and scale.",
   alternates: {
     canonical: BASE_URL,
   },
   openGraph: {
-    title: "VISTAR — Custom Software, AI & WhatsApp Automations Studio",
+    title: "VISTAR — Founder-Led Software Engineering & Business Automation Studio",
     description:
-      "Custom software, WhatsApp sales automations, and interactive 3D web systems shipped in 14 days by founding engineers with 100% source code ownership.",
+      "Practical software engineering, WhatsApp automations, and operational portals for growing businesses. Direct founder involvement from discovery to 100% source code handover.",
     url: BASE_URL,
     images: DEFAULT_OG_IMAGES,
   },
   twitter: {
-    title: "VISTAR — Custom Software, AI & WhatsApp Automations Studio",
+    title: "VISTAR — Founder-Led Software Engineering & Business Automation Studio",
     description:
-      "Custom software, WhatsApp sales automations, and interactive 3D web systems shipped in 14 days by founding engineers with 100% source code ownership.",
+      "Practical software engineering, WhatsApp automations, and operational portals for growing businesses. Direct founder involvement from discovery to 100% source code handover.",
     images: [DEFAULT_OG_IMAGES[0].url],
   },
 };
 
-// ─── Homepage JSON-LD: WebPage + BreadcrumbList ───────────────────────────────
+// ─── Homepage JSON-LD: WebPage + Organization + Breadcrumbs ───────────────────
 const homePageSchema = {
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": "Organization",
+      "@id": `${BASE_URL}/#organization`,
+      name: "VISTAR Web Systems",
+      url: BASE_URL,
+      logo: `${BASE_URL}/icon.svg`,
+      founder: {
+        "@type": "Person",
+        name: "Abhishek Tiwari",
+        jobTitle: "Founder & Principal Systems Engineer",
+        sameAs: "https://github.com/Abhishektiwari050",
+      },
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Lucknow",
+        addressRegion: "Uttar Pradesh",
+        addressCountry: "IN",
+      },
+      contactPoint: {
+        "@type": "ContactPoint",
+        telephone: "+91-8860110144",
+        contactType: "customer service",
+        availableLanguage: ["English", "Hindi"],
+      },
+    },
+    {
       "@type": "WebPage",
       "@id": `${BASE_URL}/#webpage`,
       url: BASE_URL,
-      name: "VISTAR — Custom Software, AI & WhatsApp Automations Studio",
+      name: "VISTAR — Founder-Led Software Engineering & Business Automation Studio",
       description:
-        "VISTAR builds WhatsApp sales automations, high-performance Next.js 16 web applications, and interactive 3D platforms with 100% source code ownership.",
+        "Practical software and automation that helps growing businesses manage enquiries, streamline operations, and make better decisions.",
       isPartOf: { "@id": `${BASE_URL}/#website` },
       about: { "@id": `${BASE_URL}/#organization` },
       primaryImageOfPage: {
@@ -69,47 +94,113 @@ const homePageSchema = {
 
 const HOME_FAQ_ITEMS: QAPair[] = [
   {
-    category: "FOUNDER-LED STUDIO",
-    question: "Who is VISTAR and what makes your engineering approach different?",
+    category: "AUDIENCE & FIT",
+    question: "What kind of businesses does Vistar work with?",
     answer:
-      "VISTAR is a founder-led software engineering studio based in Lucknow, India, directed by Abhishek Tiwari. We work directly with business owners, founders, and CTOs to ship production software without layers of agency account managers or outsourced junior contractors. Every sprint delivers 100% source code ownership with zero retainer hostage lock-in.",
+      "We primarily partner with B2B distributors, wholesalers, small and mid-sized manufacturers, and service companies dealing with high enquiry volumes, manual quotation prep, or scattered operational data. We also partner with software startups needing full-stack Next.js delivery, architecture firms seeking interactive 3D WebGL showcases, and organizations with specialized GIS or data requirements.",
     keyPoints: [
-      "Direct collaboration with founding systems engineers",
-      "Fixed 14-day production delivery cycles with transparent pricing",
-      "Live verified deployments in 3D architecture (3axis Arc) and sales automation (AutoLead)",
+      "B2B distributors, wholesalers, and manufacturers with enquiry or quoting bottlenecks",
+      "Early-stage startups needing high-velocity Next.js web application delivery",
+      "Architecture & design firms needing interactive 3D WebGL showrooms without app downloads",
     ],
   },
   {
-    category: "PRODUCTION VELOCITY",
-    question: "How does VISTAR deliver production software in 14-day sprints?",
+    category: "FIRST STEPS",
+    question: "What is a good first project to start with?",
     answer:
-      "Traditional agencies introduce multi-month delays with junior developer telephone games and billable hourly padding. VISTAR operates on focused, milestone-driven sprints (5–7 days for MVPs and WhatsApp bots; 14 days for full Next.js web applications). We pair directly with leadership, scope tightly, and ship production-ready code with automated tests.",
+      "A focused operational bottleneck where manual work creates delays or mistakes. Common starting points include: an automated WhatsApp enquiry intake pipeline that alerts sales reps in seconds; an internal quoting tool that turns raw inputs into standardized PDF proposals; or an order status dashboard that replaces back-and-forth phone calls. Starting with a bounded pilot proves value quickly before undertaking larger systems.",
     keyPoints: [
-      "14-day fixed-scope production sprints with deployable staging releases",
-      "No agency markups, phantom hours, or maintenance retainer traps",
-      "Comprehensive 30-day post-delivery bug warranty included at no extra cost",
+      "WhatsApp & web form enquiry qualification and team routing",
+      "Automated quotation or invoice generation from spreadsheets",
+      "Single-purpose internal portal or order tracking dashboard",
     ],
   },
   {
-    category: "CODE SOVEREIGNTY",
-    question: "What does 100% source code ownership mean for my business?",
+    category: "INVESTMENT & PRICING",
+    question: "How does project pricing work?",
     answer:
-      "On delivery day, full ownership of the private GitHub repository transfers directly to your organization. You receive all TypeScript, Next.js 16, Python, Docker, and PostgreSQL schema files. You own your IP completely—no licensing fees, no recurring agency subscriptions, and full freedom to maintain or extend the codebase.",
+      "We quote fixed-scope milestone pricing upfront after our discovery discussion. Focused automation pilots typically start at ₹49,000 ($600 USD); comprehensive multi-user operational portals or custom web applications start from ₹1,49,000 ($1,800 USD). You never face unexpected billable hours, hidden cloud markups, or surprise change-order fees.",
     keyPoints: [
-      "100% private GitHub repository rights transferred directly to you",
-      "Zero recurring software licensing fees, subscription markup, or vendor lock-in",
+      "Fixed-scope quotes with clear inclusions and exclusions",
+      "Dual-currency invoicing in INR (₹) or USD ($)",
+      "Zero hidden hourly markups or surprise change orders",
+    ],
+  },
+  {
+    category: "INTEGRATIONS",
+    question: "Can Vistar work with our existing tools?",
+    answer:
+      "Yes. We avoid forcing you to abandon tools your staff already knows. We integrate directly with WhatsApp Business Cloud API, Google Sheets, PostgreSQL, Supabase, Zoho, Tally, Gmail, Slack, and standard REST/webhook APIs. If your existing tool provides an API or exportable format, we can connect it to your new workflow.",
+    keyPoints: [
+      "Direct WhatsApp Business API and automated customer notifications",
+      "Bi-directional sync with Google Sheets, PostgreSQL, Zoho, or Tally",
+      "Connects to legacy accounting and CRM software without forcing migrations",
+    ],
+  },
+  {
+    category: "CODE OWNERSHIP",
+    question: "Who owns the source code?",
+    answer:
+      "You do. 100%. On deployment day, full administrative ownership of the private GitHub repository transfers directly to your organization. You receive all TypeScript, Next.js, Python, Docker configs, and database schemas. There are zero recurring software license fees from Vistar, zero proprietary lock-in, and you have complete freedom to maintain or extend the system.",
+    keyPoints: [
+      "100% private GitHub repository rights transferred to your organization",
+      "Zero recurring licensing fees or vendor lock-in",
       "Complete deployment documentation enabling internal team maintainability",
     ],
   },
   {
-    category: "DATA PRIVACY & DPDP",
-    question: "How does VISTAR protect client business data and proprietary secrets?",
+    category: "CONFIDENTIALITY & PRIVACY",
+    question: "How is confidential business data handled?",
     answer:
-      "Every project is protected under a mutual bilateral Non-Disclosure Agreement (NDA). All credentials, databases, and customer records stay within your private cloud environment (AWS, GCP, or bare-metal). We never train public AI models on your proprietary data, fully upholding India's Digital Personal Data Protection Act 2023 (DPDP Act) and international privacy standards.",
+      "We sign a bilateral Non-Disclosure Agreement (NDA) before reviewing sensitive operational workflows or proprietary records. All credentials, API secrets, customer databases, and files remain within your private cloud environment (AWS, GCP, Supabase, or bare-metal). We never train public AI models on your proprietary business records.",
     keyPoints: [
-      "Bilateral NDA executed before reviewing proprietary specifications",
+      "Mutual bilateral NDA executed prior to scoping proprietary details",
       "Client-owned private cloud deployment with zero external model training",
-      "Full compliance with India's DPDP Act 2023 and GDPR data protection standards",
+      "Strict data privacy standards adhering to DPDP Act 2023 regulations",
+    ],
+  },
+  {
+    category: "DEPLOYMENT & WARRANTY",
+    question: "What happens after deployment?",
+    answer:
+      "Every project includes clear documentation, an environment runbook, a live walkthrough for your team, and a 30-day post-delivery bug warranty at zero additional charge. If any defect appears in the agreed scope during those 30 days, we fix it immediately.",
+    keyPoints: [
+      "Comprehensive environment runbook and user documentation",
+      "Live team training and administrative walkthrough",
+      "30-day bug warranty included in every fixed project fee",
+    ],
+  },
+  {
+    category: "MAINTENANCE & RETAINERS",
+    question: "Is ongoing support mandatory?",
+    answer:
+      "No. Because you own 100% of the clean source code and runbooks, you have zero obligation to retain us. Many clients run their deployed systems independently for years. However, if you prefer dedicated availability for monthly feature additions, routine security updates, or workflow expansions, we offer flexible month-to-month retainers.",
+    keyPoints: [
+      "Zero ongoing maintenance hostage retainers",
+      "Run your systems autonomously or with internal engineers",
+      "Optional month-to-month partnership retainers available if desired",
+    ],
+  },
+  {
+    category: "TIMELINES & CADENCE",
+    question: "How long does a typical project take?",
+    answer:
+      "Focused automation pilots and enquiry pipelines typically take 5 to 10 business days. Custom multi-user operational portals, web apps, or 3D spatial showcases typically take 2 to 4 weeks. Exact timelines depend on scope boundaries, third-party API keys, data readiness, and how quickly your team can review staging milestones.",
+    keyPoints: [
+      "Focused automation pilots: 5–10 business days",
+      "Custom portals and web applications: 2–4 weeks",
+      "Timelines explicitly agreed upon in writing before billing begins",
+    ],
+  },
+  {
+    category: "GETTING STARTED",
+    question: "What does Vistar need from the client to begin?",
+    answer:
+      "Very little technical knowledge is needed. We only need: (1) A 30-minute conversation explaining your current manual process; (2) Access or sample exports of the forms, spreadsheets, or messages currently used; and (3) A designated point of contact who can test staging milestones and confirm business requirements.",
+    keyPoints: [
+      "A 30-minute discovery conversation explaining your current bottleneck",
+      "Sample spreadsheets or workflow examples to understand data fields",
+      "One team point of contact to review milestone demos",
     ],
   },
 ];
@@ -121,37 +212,40 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(homePageSchema) }}
       />
-      <div className="relative min-h-screen bg-white text-[#212121] w-full selection:bg-[#212121] selection:text-white">
-        {/* 01: HERO (RESTORED ORIGINAL COHERE VIDEO / DASHBOARD LOOP) */}
-        <CohereHero />
+      <div className="relative min-h-screen bg-white text-[#121316] w-full selection:bg-[#E1341E] selection:text-white">
+        {/* Section A: Hero & Interactive Workflow Simulator */}
+        <VistarHeroSection />
 
-        {/* 02: SOCIAL PROOF (CLOUD & INFRASTRUCTURE INTEGRATIONS) */}
-        <CohereSocialProof />
+        {/* Section B: The Operational Problem */}
+        <OperationalProblemSection />
 
-        {/* 03: EMPOWERMENT (DATA SOVEREIGNTY & EDITORIAL VIDEO BANNER) */}
-        <CohereEmpowerment />
+        {/* Section C: What Vistar Builds */}
+        <WhatVistarBuildsSection />
 
-        {/* 04: JASPER AUTONOMOUS AGENTS SECTION (INTERACTIVE 3D STAGE & CAPABILITY MATRIX) */}
-        <JasperAgentsSection />
+        {/* Section D: Demonstrable Work */}
+        <DemonstrableWorkSection />
 
-        {/* 05: SOLUTIONS (4 VERIFIED ISOMETRIC PRODUCTION CARDS) */}
-        <CohereSolutions />
+        {/* Section E: How Engagement Works */}
+        <HowEngagementWorksSection />
 
-        {/* 06: SECURITY & DEPLOYMENT (ENGINEERING GUARANTEES & SPRINT CADENCE) */}
-        <CohereDeployment />
+        {/* Section F: Why a Founder-Led Studio */}
+        <WhyVistarSection />
 
-        {/* 07: FOUNDER CONVICTION (COURAGE TEAR REVEAL POSTER) */}
-        <CourageRevealSection />
+        {/* Section G: Engagement Options & Pricing Principles */}
+        <EngagementOptionsSection />
 
-        {/* 08: TECHNICAL ANSWER BLOCKS (GOOGLE SEO & KNOWLEDGE GRAPH CITATIONS) */}
+        {/* Section H: Technical FAQ & Answer Blocks */}
         <AnswerBlocks
           title="Frequently Asked Questions"
-          subtitle="Clear answers on our 14-day production sprints, dual-currency pricing, WhatsApp automations, and complete source code ownership."
-          badge="FAQ"
+          subtitle="Direct, practical answers about our engineering process, pricing, data privacy, and source code ownership."
+          badge="COMMON QUESTIONS"
           items={HOME_FAQ_ITEMS}
           schemaId="home-faq-schema"
           theme="light"
         />
+
+        {/* Section I: Final Low-Friction Invitation */}
+        <FinalCtaSection />
       </div>
     </>
   );

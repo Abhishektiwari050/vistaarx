@@ -1,228 +1,268 @@
 import React from 'react';
 import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
 import { CinematicBackground } from '../components/CinematicBackground';
-import { CinematicCamera } from '../components/CinematicCamera';
-import { MaskedKineticText } from '../components/MaskedKineticText';
-import { VistarLogoMark } from '../components/VistarLogoMark';
 import { BRAND_TOKENS } from '../constants';
 
 export const SceneSovereignHandover: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // Mathematical vector convergence: starts separated, snaps together
-  const convergence = spring({
-    frame: frame - 25,
+  // Violent kinetic collision of 4 vectors from offscreen
+  // They start off-screen and slam together at frame 35
+  const collisionProgress = spring({
+    frame: frame - 10,
     fps,
-    config: { damping: 14, stiffness: 110 },
+    config: { damping: 12, stiffness: 120, mass: 0.8 },
   });
 
-  const pulse = Math.sin(frame * 0.05) * 0.03 + 1;
+  // Clamped 0 to 1
+  const convergence = Math.min(1, Math.max(0, collisionProgress));
 
-  // Specular light sweep on settled logo
-  const sheenProgress = interpolate(frame, [50, 110], [-100, 200], {
-    extrapolateRight: 'clamp',
+  // Impact frame shake at moment of collision (around frame 30-45)
+  let collisionShake = 0;
+  if (frame >= 28 && frame < 44) {
+    const localF = frame - 28;
+    collisionShake = Math.sin(localF * 3.5) * (16 - localF) * 1.8;
+  }
+
+  // Impact white flash ring
+  const impactFlash = interpolate(frame, [30, 34, 45], [0, 0.9, 0], {
     extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
   });
+
+  // Expanding shockwave ring
+  const ringScale = interpolate(frame, [32, 70], [0.2, 5.0], {
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+  });
+  const ringOpacity = interpolate(frame, [32, 45, 70], [0, 0.8, 0], {
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+  });
+
+  // Camera slow pull-back for sovereign majesty
+  const cameraScale = interpolate(frame, [35, 180], [1.18, 1.0], {
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+  });
+
+  // Wordmark tracking expansion
+  const tracking = interpolate(frame, [35, 120], [0.08, 0.32], {
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+  });
+  const wordmarkOpacity = interpolate(frame, [32, 50], [0, 1], { extrapolateLeft: 'clamp' });
+
+  // Outward displacement of the 4 vectors before collision
+  // At convergence = 0, offset is 260px (off the central emblem area)
+  const offset = (1 - convergence) * 260;
 
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: BRAND_TOKENS.colors.bg,
+        backgroundColor: BRAND_TOKENS.colors.bgVoid,
         overflow: 'hidden',
+        transform: `scale(${cameraScale}) translate(${collisionShake}px, ${collisionShake * 0.5}px)`,
       }}
     >
-      <CinematicCamera durationInFrames={220} startScale={1.05} endScale={1.0} tiltX={2} panY={-8}>
-        <CinematicBackground accent="coral" />
+      <CinematicBackground intensity={1.8} />
 
+      {/* Collision Shockwave Ring */}
+      {ringOpacity > 0 && (
+        <div
+          style={{
+            position: 'absolute',
+            top: '42%',
+            left: '50%',
+            width: '300px',
+            height: '300px',
+            transform: `translate(-50%, -50%) scale(${ringScale})`,
+            borderRadius: '50%',
+            border: '2px solid #FFFFFF',
+            boxShadow: '0 0 50px #FFFFFF',
+            opacity: ringOpacity,
+            pointerEvents: 'none',
+          }}
+        />
+      )}
+
+      {/* Central Sovereign Logo & Wordmark Lockup */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 10,
+        }}
+      >
+        {/* Kinetic 4-Vector Collision Emblem */}
+        <div
+          style={{
+            width: '180px',
+            height: '180px',
+            position: 'relative',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginBottom: '44px',
+          }}
+        >
+          <svg
+            width="180"
+            height="180"
+            viewBox="0 0 100 100"
+            fill="none"
+            style={{ overflow: 'visible' }}
+          >
+            <defs>
+              <linearGradient id="vistarSovereignChrome" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#FFFFFF" />
+                <stop offset="50%" stopColor="#D6DAE8" />
+                <stop offset="100%" stopColor="#959CB3" />
+              </linearGradient>
+            </defs>
+
+            {/* Central Pure White Core (ignites on impact) */}
+            <rect
+              x="34"
+              y="34"
+              width="32"
+              height="32"
+              fill="#FFFFFF"
+              stroke="#FFFFFF"
+              strokeWidth="0.5"
+              style={{
+                opacity: convergence,
+                transform: `scale(${0.2 + convergence * 0.8})`,
+                transformOrigin: '50px 50px',
+                filter: convergence > 0.85 ? 'drop-shadow(0 0 25px #FFFFFF)' : 'none',
+              }}
+            />
+
+            {/* Top Triangle (dives down) */}
+            <polygon
+              points="50,2 66,34 34,34"
+              fill="url(#vistarSovereignChrome)"
+              stroke="#FFFFFF"
+              strokeWidth="0.8"
+              style={{
+                transform: `translateY(${-offset}px)`,
+                transformOrigin: '50px 18px',
+                filter: 'drop-shadow(0 0 12px rgba(255, 255, 255, 0.4))',
+              }}
+            />
+
+            {/* Right Triangle (shoots left) */}
+            <polygon
+              points="98,50 66,66 66,34"
+              fill="url(#vistarSovereignChrome)"
+              stroke="#FFFFFF"
+              strokeWidth="0.8"
+              style={{
+                transform: `translateX(${offset}px)`,
+                transformOrigin: '82px 50px',
+                filter: 'drop-shadow(0 0 12px rgba(255, 255, 255, 0.4))',
+              }}
+            />
+
+            {/* Bottom Triangle (shoots up) */}
+            <polygon
+              points="50,98 34,66 66,66"
+              fill="url(#vistarSovereignChrome)"
+              stroke="#FFFFFF"
+              strokeWidth="0.8"
+              style={{
+                transform: `translateY(${offset}px)`,
+                transformOrigin: '50px 82px',
+                filter: 'drop-shadow(0 0 12px rgba(255, 255, 255, 0.4))',
+              }}
+            />
+
+            {/* Left Triangle (shoots right) */}
+            <polygon
+              points="2,50 34,34 34,66"
+              fill="url(#vistarSovereignChrome)"
+              stroke="#FFFFFF"
+              strokeWidth="0.8"
+              style={{
+                transform: `translateX(${-offset}px)`,
+                transformOrigin: '18px 50px',
+                filter: 'drop-shadow(0 0 12px rgba(255, 255, 255, 0.4))',
+              }}
+            />
+          </svg>
+        </div>
+
+        {/* Wordmark Expanding In */}
+        <h1
+          style={{
+            fontFamily: BRAND_TOKENS.typography.fontDisplay,
+            fontSize: '120px',
+            fontWeight: 900,
+            letterSpacing: `${tracking}em`,
+            lineHeight: 1,
+            margin: 0,
+            opacity: wordmarkOpacity,
+            background: BRAND_TOKENS.colors.gradients.chromeText,
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            filter: 'drop-shadow(0 0 50px rgba(255, 255, 255, 0.5))',
+            textTransform: 'uppercase',
+          }}
+        >
+          VISTAR
+        </h1>
+
+        {/* Brand Mission Tagline */}
+        <div
+          style={{
+            fontFamily: BRAND_TOKENS.typography.fontMono,
+            fontSize: '14px',
+            fontWeight: 600,
+            letterSpacing: '0.4em',
+            color: BRAND_TOKENS.colors.titaniumLight,
+            marginTop: '22px',
+            opacity: wordmarkOpacity,
+            textTransform: 'uppercase',
+          }}
+        >
+          ENTERPRISE OPERATIONAL INTELLIGENCE // AUTONOMOUS SYSTEMS
+        </div>
+
+        {/* Sovereign Domain Reveal */}
+        <div
+          style={{
+            fontFamily: BRAND_TOKENS.typography.fontMono,
+            fontSize: '18px',
+            fontWeight: 800,
+            letterSpacing: '0.3em',
+            color: '#FFFFFF',
+            marginTop: '40px',
+            opacity: wordmarkOpacity,
+            textShadow: '0 0 20px #FFFFFF',
+          }}
+        >
+          VISTAR.TECH
+        </div>
+      </div>
+
+      {/* Collision Impact White Screen Flash */}
+      {impactFlash > 0 && (
         <div
           style={{
             position: 'absolute',
             inset: 0,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '0 80px',
-            textAlign: 'center',
-            zIndex: 10,
+            backgroundColor: '#FFFFFF',
+            opacity: impactFlash,
+            zIndex: 999,
+            pointerEvents: 'none',
           }}
-        >
-          {/* Eyebrow Pill */}
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              padding: '6px 20px',
-              backgroundColor: 'rgba(255, 255, 255, 0.05)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              borderRadius: '999px',
-              marginBottom: '28px',
-            }}
-          >
-            <span
-              style={{
-                width: '6px',
-                height: '6px',
-                borderRadius: '50%',
-                backgroundColor: BRAND_TOKENS.colors.accentCoral,
-                boxShadow: '0 0 10px rgba(255, 56, 35, 0.9)',
-              }}
-            />
-            <span
-              style={{
-                fontFamily: BRAND_TOKENS.typography.fontMono,
-                fontSize: '11px',
-                fontWeight: 600,
-                letterSpacing: '0.18em',
-                color: BRAND_TOKENS.colors.textSecondary,
-                textTransform: 'uppercase',
-              }}
-            >
-              The Autonomous Horizon
-            </span>
-          </div>
-
-          {/* Climax Statement */}
-          <h2
-            style={{
-              fontFamily: BRAND_TOKENS.typography.fontDisplay,
-              fontSize: '68px',
-              lineHeight: 1.1,
-              fontWeight: 600,
-              letterSpacing: '-0.04em',
-              color: '#FFFFFF',
-              maxWidth: '1120px',
-              margin: '0 auto 40px auto',
-            }}
-          >
-            <MaskedKineticText delay={5}>Make your enterprise work</MaskedKineticText>{' '}
-            <MaskedKineticText delay={14}>
-              <span style={{ color: BRAND_TOKENS.colors.accentCoral }}>easier</span>,{' '}
-              <span style={{ color: BRAND_TOKENS.colors.accentCoral }}>faster</span>, and{' '}
-              <span style={{ color: '#FFFFFF', textDecoration: 'underline', textDecorationColor: BRAND_TOKENS.colors.accentCoral }}>
-                humanless.
-              </span>
-            </MaskedKineticText>
-          </h2>
-
-          {/* Mathematical Logo Reveal Lockup */}
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-          >
-            {/* Logo Emblem Glass Card */}
-            <div
-              style={{
-                position: 'relative',
-                marginBottom: '20px',
-                padding: '20px',
-                borderRadius: '24px',
-                backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                border: '1px solid rgba(255, 255, 255, 0.12)',
-                boxShadow: '0 20px 60px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                overflow: 'hidden',
-              }}
-            >
-              <VistarLogoMark
-                size={76}
-                color="#FFFFFF"
-                centerColor="#FF3823"
-                convergence={convergence}
-                pulse={pulse}
-              />
-
-              {/* Specular Sheen Sweep */}
-              <div
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  background: 'linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.25) 50%, transparent 60%)',
-                  transform: `translateX(${sheenProgress}%)`,
-                  pointerEvents: 'none',
-                }}
-              />
-            </div>
-
-            {/* Brand Title */}
-            <h1
-              style={{
-                fontFamily: BRAND_TOKENS.typography.fontDisplay,
-                fontSize: '84px',
-                fontWeight: 700,
-                letterSpacing: '0.12em',
-                color: '#FFFFFF',
-                margin: '0 0 10px 0',
-                lineHeight: 1,
-              }}
-            >
-              VISTAR
-            </h1>
-
-            {/* Brand Subtitle */}
-            <p
-              style={{
-                fontFamily: BRAND_TOKENS.typography.fontMono,
-                fontSize: '13px',
-                fontWeight: 600,
-                letterSpacing: '0.22em',
-                color: BRAND_TOKENS.colors.textSecondary,
-                textTransform: 'uppercase',
-                margin: '0 0 36px 0',
-              }}
-            >
-              Enterprise Operational Intelligence & Autonomous Systems
-            </p>
-
-            {/* Conversion CTA Group */}
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '24px',
-              }}
-            >
-              <div
-                style={{
-                  padding: '16px 36px',
-                  backgroundColor: BRAND_TOKENS.colors.accentCoral,
-                  color: '#FFFFFF',
-                  borderRadius: '10px',
-                  fontFamily: BRAND_TOKENS.typography.fontBody,
-                  fontSize: '15px',
-                  fontWeight: 600,
-                  letterSpacing: '-0.01em',
-                  boxShadow: '0 8px 30px rgba(255, 56, 35, 0.45)',
-                }}
-              >
-                Schedule an Operational Audit &rarr;
-              </div>
-
-              <div
-                style={{
-                  padding: '16px 30px',
-                  backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                  border: '1px solid rgba(255, 255, 255, 0.15)',
-                  color: '#FFFFFF',
-                  borderRadius: '10px',
-                  fontFamily: BRAND_TOKENS.typography.fontMono,
-                  fontSize: '14px',
-                  fontWeight: 600,
-                }}
-              >
-                vistar.tech
-              </div>
-            </div>
-          </div>
-        </div>
-      </CinematicCamera>
+        />
+      )}
     </AbsoluteFill>
   );
 };

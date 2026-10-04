@@ -1,7 +1,6 @@
 import React from 'react';
 import { AbsoluteFill, Sequence } from 'remotion';
 import { BRAND_TOKENS, SCENE_RANGES } from './constants';
-import { TelemetryHud } from './components/TelemetryHud';
 import { SceneHook } from './scenes/SceneHook';
 import { SceneSystemCore } from './scenes/SceneSystemCore';
 import { SceneTransformation } from './scenes/SceneTransformation';
@@ -12,48 +11,48 @@ export const BrandFilmComposition: React.FC = () => {
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: BRAND_TOKENS.colors.bg,
-        color: BRAND_TOKENS.colors.textPrimary,
+        backgroundColor: BRAND_TOKENS.colors.bgVoid,
+        color: BRAND_TOKENS.colors.platinumPure,
         overflow: 'hidden',
-        fontFamily: BRAND_TOKENS.typography.fontBody,
+        fontFamily: BRAND_TOKENS.typography.fontDisplay,
       }}
     >
-      {/* Scene 01: Genesis & The Human Friction Reality (0 - 4.6s / 0 - 140 frames) */}
-      <Sequence from={SCENE_RANGES.genesis.start} durationInFrames={SCENE_RANGES.genesis.duration}>
+      {/* Act 01: Entropy & The Sonic Fracture (0 - 5.3s / 0 - 160 frames) */}
+      <Sequence from={SCENE_RANGES.entropy.start} durationInFrames={SCENE_RANGES.entropy.duration}>
         <SceneHook />
       </Sequence>
 
-      {/* Scene 02: Full-Bleed Edge-to-Edge Diagnostic Cockpit (4.6 - 10.6s / 140 - 320 frames) */}
-      <Sequence from={SCENE_RANGES.auditEngine.start} durationInFrames={SCENE_RANGES.auditEngine.duration}>
+      {/* Act 02: The Caliper Dissection & Kinetic Audit (5.3 - 11.3s / 160 - 340 frames) */}
+      <Sequence
+        from={SCENE_RANGES.auditConvergence.start}
+        durationInFrames={SCENE_RANGES.auditConvergence.duration}
+      >
         <SceneSystemCore />
       </Sequence>
 
-      {/* Scene 03: Apple-Style Pattern Interrupt Typography Slam (10.6 - 15.3s / 320 - 460 frames) */}
+      {/* Act 03: Pure Kinetic Typographic Slam (11.3 - 17.3s / 340 - 520 frames) */}
       <Sequence
-        from={SCENE_RANGES.patternInterrupt.start}
-        durationInFrames={SCENE_RANGES.patternInterrupt.duration}
+        from={SCENE_RANGES.typographicSlam.start}
+        durationInFrames={SCENE_RANGES.typographicSlam.duration}
       >
         <SceneTransformation />
       </Sequence>
 
-      {/* Scene 04: The Autonomous Kernel in Production (15.3 - 22.6s / 460 - 680 frames) */}
+      {/* Act 04: Hyper-Velocity Operational Warp & Latency Crash (17.3 - 24s / 520 - 720 frames) */}
       <Sequence
-        from={SCENE_RANGES.autonomousRuntime.start}
-        durationInFrames={SCENE_RANGES.autonomousRuntime.duration}
+        from={SCENE_RANGES.operationalVelocity.start}
+        durationInFrames={SCENE_RANGES.operationalVelocity.duration}
       >
         <SceneAssemblyLine />
       </Sequence>
 
-      {/* Scene 05: Mathematical Logo Lockup & Grand Finale (22.6 - 30s / 680 - 900 frames) */}
+      {/* Act 05: Mathematical Vector Collision & Grand Sovereign Lockup (24 - 30s / 720 - 900 frames) */}
       <Sequence
-        from={SCENE_RANGES.climax.start}
-        durationInFrames={SCENE_RANGES.climax.duration}
+        from={SCENE_RANGES.grandMonogram.start}
+        durationInFrames={SCENE_RANGES.grandMonogram.duration}
       >
         <SceneSovereignHandover />
       </Sequence>
-
-      {/* Global Dark Glass Telemetry HUD */}
-      <TelemetryHud />
     </AbsoluteFill>
   );
 };

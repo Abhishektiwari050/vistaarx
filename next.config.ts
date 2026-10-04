@@ -71,17 +71,37 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/platform",
-        destination: "/vectors",
+        destination: "/solutions",
         permanent: true,
       },
       {
-        source: "/solutions",
-        destination: "/work",
+        source: "/vectors",
+        destination: "/solutions",
         permanent: true,
       },
       {
         source: "/network",
-        destination: "/vectors",
+        destination: "/solutions",
+        permanent: true,
+      },
+      {
+        source: "/services/ai-solutions",
+        destination: "/solutions/lead-automation",
+        permanent: true,
+      },
+      {
+        source: "/services/interactive-3d",
+        destination: "/solutions/3d-and-gis",
+        permanent: true,
+      },
+      {
+        source: "/services/nextjs-engineering",
+        destination: "/solutions/custom-software",
+        permanent: true,
+      },
+      {
+        source: "/philosophy",
+        destination: "/how-we-work",
         permanent: true,
       },
     ];

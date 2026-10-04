@@ -1,35 +1,49 @@
 import React from 'react';
 import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
 import { CinematicBackground } from '../components/CinematicBackground';
-import { CinematicCamera } from '../components/CinematicCamera';
-import { MaskedKineticText } from '../components/MaskedKineticText';
+import { VistarLogoMark } from '../components/VistarLogoMark';
 import { BRAND_TOKENS } from '../constants';
 
 export const SceneSystemCore: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // Pipe electrical data pulse offset
-  const pipeDash = (frame * 6) % 100;
+  // 3 fast-paced kinetic acts:
+  // f0 - 55: "WE AUDIT."
+  // f55 - 110: "EVERY PROCESS."
+  // f110 - 180: "DISSECTED INTO CODE." + 3D Orbiting VISTAR Vectors
+  const isBeat1 = frame < 55;
+  const isBeat2 = frame >= 55 && frame < 110;
+  const isBeat3 = frame >= 110;
 
-  // Real-time telemetry climbing
-  const auditPoints = Math.min(142, Math.floor(interpolate(frame, [20, 140], [12, 142], { extrapolateRight: 'clamp' })));
-  const frictionScore = Math.min(88, Math.floor(interpolate(frame, [30, 150], [10, 88], { extrapolateRight: 'clamp' })));
-  const hoursReclaimed = Math.min(52, Math.floor(interpolate(frame, [30, 160], [0, 52], { extrapolateRight: 'clamp' })));
+  // Beat 1: Slam scale & tracking expansion
+  const scale1 = interpolate(frame, [0, 16, 55], [2.1, 1.0, 0.98], { extrapolateRight: 'clamp' });
+  const tracking1 = interpolate(frame, [0, 50], [-0.08, 0.22], { extrapolateRight: 'clamp' });
+  const shake1 = frame < 12 ? Math.sin(frame * 3) * (12 - frame) : 0;
 
-  const exitOpacity = interpolate(frame, [160, 180], [1, 0], { extrapolateLeft: 'clamp' });
+  // Beat 2: Angled dynamic push
+  const localF2 = frame - 55;
+  const scale2 = interpolate(localF2, [0, 15, 55], [1.9, 1.0, 0.98], { extrapolateRight: 'clamp' });
+  const tracking2 = interpolate(localF2, [0, 50], [-0.06, 0.14], { extrapolateRight: 'clamp' });
+  const shake2 = localF2 < 12 ? Math.sin(localF2 * 3) * (12 - localF2) : 0;
+
+  // Beat 3: Vector Dissection in 3D Space
+  const localF3 = frame - 110;
+  const compassAngle = localF3 * 1.5;
+  const convergence = interpolate(localF3, [0, 60], [0.1, 0.8], { extrapolateRight: 'clamp' });
+  const logoScale = interpolate(localF3, [0, 20, 70], [0.6, 1.1, 1.0], { extrapolateRight: 'clamp' });
 
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: BRAND_TOKENS.colors.bg,
-        opacity: exitOpacity,
+        backgroundColor: BRAND_TOKENS.colors.bgVoid,
         overflow: 'hidden',
       }}
     >
-      <CinematicCamera durationInFrames={180} startScale={0.96} endScale={1.035} tiltX={5} panY={-10}>
-        <CinematicBackground accent="indigo" />
+      <CinematicBackground intensity={1.5} />
 
+      {/* BEAT 1: "WE AUDIT." */}
+      {isBeat1 && (
         <div
           style={{
             position: 'absolute',
@@ -38,319 +52,164 @@ export const SceneSystemCore: React.FC = () => {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '0 80px',
+            transform: `scale(${scale1}) translate(${shake1}px, ${shake1 * 0.5}px)`,
             zIndex: 10,
           }}
         >
-          {/* Headline Bar */}
-          <div style={{ textAlign: 'center', marginBottom: '28px' }}>
-            <div
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                padding: '4px 16px',
-                backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                borderRadius: '999px',
-                marginBottom: '16px',
-              }}
-            >
-              <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: BRAND_TOKENS.colors.accentIndigo }} />
-              <span
-                style={{
-                  fontFamily: BRAND_TOKENS.typography.fontMono,
-                  fontSize: '11px',
-                  fontWeight: 600,
-                  letterSpacing: '0.14em',
-                  color: BRAND_TOKENS.colors.textSecondary,
-                  textTransform: 'uppercase',
-                }}
-              >
-                Operational Architecture Audit
-              </span>
-            </div>
-
-            <h2
-              style={{
-                fontFamily: BRAND_TOKENS.typography.fontDisplay,
-                fontSize: '60px',
-                lineHeight: 1.1,
-                fontWeight: 600,
-                letterSpacing: '-0.035em',
-                color: '#FFFFFF',
-                margin: 0,
-              }}
-            >
-              <MaskedKineticText delay={5}>
-                We audit how your enterprise
-              </MaskedKineticText>{' '}
-              <MaskedKineticText delay={12}>
-                <span style={{ color: BRAND_TOKENS.colors.accentCoral }}>functions.</span>
-              </MaskedKineticText>
-            </h2>
-          </div>
-
-          {/* Full-Bleed 1560px Edge-to-Edge Architectural Diagnostic Cockpit */}
           <div
             style={{
-              width: '100%',
-              maxWidth: '1560px',
-              backgroundColor: 'rgba(12, 14, 22, 0.75)',
-              backdropFilter: 'blur(30px)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              borderRadius: '20px',
-              boxShadow: '0 30px 80px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
-              overflow: 'hidden',
+              fontFamily: BRAND_TOKENS.typography.fontMono,
+              fontSize: '14px',
+              letterSpacing: '0.45em',
+              color: BRAND_TOKENS.colors.titaniumMid,
+              marginBottom: '20px',
+              textTransform: 'uppercase',
             }}
           >
-            {/* Top Cockpit Chrome */}
-            <div
-              style={{
-                padding: '14px 28px',
-                borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                backgroundColor: 'rgba(255, 255, 255, 0.02)',
-              }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <div style={{ display: 'flex', gap: '6px' }}>
-                  <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#FF5F56' }} />
-                  <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#FFBD2E' }} />
-                  <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#27C93F' }} />
-                </div>
-                <span
-                  style={{
-                    fontFamily: BRAND_TOKENS.typography.fontMono,
-                    fontSize: '11px',
-                    fontWeight: 600,
-                    color: BRAND_TOKENS.colors.textSecondary,
-                    letterSpacing: '0.08em',
-                  }}
-                >
-                  VISTAR_TELEMETRY_TRACER // WORKFLOW_SCANNER
-                </span>
-              </div>
+            [ ACT 02 // REVERSE ENGINEERING THE ENTERPRISE ]
+          </div>
+          <h1
+            style={{
+              fontFamily: BRAND_TOKENS.typography.fontDisplay,
+              fontSize: '200px',
+              fontWeight: 900,
+              letterSpacing: `${tracking1}em`,
+              lineHeight: 0.85,
+              margin: 0,
+              background: BRAND_TOKENS.colors.gradients.chromeText,
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              filter: 'drop-shadow(0 0 70px rgba(255, 255, 255, 0.5))',
+              textTransform: 'uppercase',
+            }}
+          >
+            WE AUDIT.
+          </h1>
+        </div>
+      )}
 
-              <div style={{ display: 'flex', gap: '24px', fontFamily: BRAND_TOKENS.typography.fontMono, fontSize: '11px' }}>
-                <span style={{ color: BRAND_TOKENS.colors.textSecondary }}>
-                  AUDIT DISCOVERY: <strong style={{ color: BRAND_TOKENS.colors.accentCoral }}>{auditPoints} NODES</strong>
-                </span>
-                <span style={{ color: BRAND_TOKENS.colors.accentEmerald, fontWeight: 600 }}>
-                  ● SENSORS ONLINE
-                </span>
-              </div>
-            </div>
+      {/* BEAT 2: "EVERY PROCESS." */}
+      {isBeat2 && (
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transform: `scale(${scale2}) translate(${shake2}px, ${shake2 * 0.5}px) rotate(-3deg)`,
+            zIndex: 10,
+          }}
+        >
+          <div
+            style={{
+              fontFamily: BRAND_TOKENS.typography.fontMono,
+              fontSize: '13px',
+              letterSpacing: '0.35em',
+              color: BRAND_TOKENS.colors.titaniumLight,
+              marginBottom: '18px',
+            }}
+          >
+            MAPPING SILOS // STRIPPING BOTTLENECKS // PURGING REDUNDANCY
+          </div>
+          <h1
+            style={{
+              fontFamily: BRAND_TOKENS.typography.fontDisplay,
+              fontSize: '175px',
+              fontWeight: 900,
+              letterSpacing: `${tracking2}em`,
+              lineHeight: 0.9,
+              margin: 0,
+              color: '#FFFFFF',
+              textShadow: '0 0 90px rgba(255, 255, 255, 0.8)',
+              textTransform: 'uppercase',
+            }}
+          >
+            EVERY
+            <br />
+            PROCESS.
+          </h1>
+        </div>
+      )}
 
-            {/* 3 Active Vector Pipelines with Dynamic Connecting SVG Bus */}
-            <div style={{ padding: '32px 36px', position: 'relative' }}>
-              {/* Dynamic SVG Animated Wire Conduits */}
-              <svg
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  width: '100%',
-                  height: '100%',
-                  pointerEvents: 'none',
-                  zIndex: 0,
-                }}
-              >
-                <line
-                  x1="22%"
-                  y1="50%"
-                  x2="48%"
-                  y2="50%"
-                  stroke="rgba(255, 56, 35, 0.4)"
-                  strokeWidth="2"
-                  strokeDasharray="6 6"
-                  strokeDashoffset={-pipeDash}
-                />
-                <line
-                  x1="52%"
-                  y1="50%"
-                  x2="78%"
-                  y2="50%"
-                  stroke="rgba(16, 185, 129, 0.4)"
-                  strokeWidth="2"
-                  strokeDasharray="6 6"
-                  strokeDashoffset={-pipeDash}
-                />
-              </svg>
+      {/* BEAT 3: "DISSECTED INTO CODE." + Converging 3D VISTAR Cardinal Vectors */}
+      {isBeat3 && (
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 10,
+          }}
+        >
+          {/* Radial Caliper Reticle Ring */}
+          <div
+            style={{
+              position: 'absolute',
+              width: '560px',
+              height: '560px',
+              transform: `rotate(${compassAngle}deg)`,
+              pointerEvents: 'none',
+              opacity: 0.35,
+            }}
+          >
+            <svg width="560" height="560">
+              <circle cx="280" cy="280" r="260" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeDasharray="8 12" />
+              <circle cx="280" cy="280" r="180" fill="none" stroke="#FFFFFF" strokeWidth="1" strokeDasharray="4 8" />
+              <line x1="280" y1="10" x2="280" y2="40" stroke="#FFFFFF" strokeWidth="3" />
+              <line x1="280" y1="520" x2="280" y2="550" stroke="#FFFFFF" strokeWidth="3" />
+              <line x1="10" y1="280" x2="40" y2="280" stroke="#FFFFFF" strokeWidth="3" />
+              <line x1="520" y1="280" x2="550" y2="280" stroke="#FFFFFF" strokeWidth="3" />
+            </svg>
+          </div>
 
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(3, 1fr)',
-                  gap: '28px',
-                  position: 'relative',
-                  zIndex: 1,
-                }}
-              >
-                {/* Node 1 */}
-                <div
-                  style={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
-                    borderRadius: '16px',
-                    padding: '24px',
-                    boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)',
-                  }}
-                >
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '14px' }}>
-                    <span style={{ fontFamily: BRAND_TOKENS.typography.fontMono, fontSize: '11px', color: BRAND_TOKENS.colors.textTertiary }}>
-                      INGESTION VECTOR
-                    </span>
-                    <span
-                      style={{
-                        padding: '2px 8px',
-                        borderRadius: '999px',
-                        backgroundColor: 'rgba(239, 68, 68, 0.15)',
-                        border: '1px solid rgba(239, 68, 68, 0.3)',
-                        color: '#EF4444',
-                        fontFamily: BRAND_TOKENS.typography.fontMono,
-                        fontSize: '10px',
-                        fontWeight: 600,
-                      }}
-                    >
-                      FRICTION DETECTED
-                    </span>
-                  </div>
-                  <h3 style={{ fontFamily: BRAND_TOKENS.typography.fontDisplay, fontSize: '20px', fontWeight: 600, color: '#FFFFFF', marginBottom: '6px' }}>
-                    Inbound WhatsApp & Web
-                  </h3>
-                  <p style={{ fontFamily: BRAND_TOKENS.typography.fontBody, fontSize: '13px', color: BRAND_TOKENS.colors.textSecondary, marginBottom: '20px' }}>
-                    Manual triage creates 4.8h latency on customer transactions.
-                  </p>
-                  <div style={{ fontFamily: BRAND_TOKENS.typography.fontMono, fontSize: '11px', color: BRAND_TOKENS.colors.accentCoral }}>
-                    Solution: Autonomous Ingestion Agent
-                  </div>
-                </div>
+          {/* Converging VISTAR Geometry */}
+          <div
+            style={{
+              transform: `scale(${logoScale})`,
+              marginBottom: '36px',
+            }}
+          >
+            <VistarLogoMark
+              size={240}
+              convergence={convergence}
+              wireframe={false}
+              strokeWidth={1.5}
+            />
+          </div>
 
-                {/* Node 2 */}
-                <div
-                  style={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
-                    borderRadius: '16px',
-                    padding: '24px',
-                    boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)',
-                  }}
-                >
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '14px' }}>
-                    <span style={{ fontFamily: BRAND_TOKENS.typography.fontMono, fontSize: '11px', color: BRAND_TOKENS.colors.textTertiary }}>
-                      RECONCILIATION VECTOR
-                    </span>
-                    <span
-                      style={{
-                        padding: '2px 8px',
-                        borderRadius: '999px',
-                        backgroundColor: 'rgba(245, 158, 11, 0.15)',
-                        border: '1px solid rgba(245, 158, 11, 0.3)',
-                        color: '#F59E0B',
-                        fontFamily: BRAND_TOKENS.typography.fontMono,
-                        fontSize: '10px',
-                        fontWeight: 600,
-                      }}
-                    >
-                      DATA DRIFT FOUND
-                    </span>
-                  </div>
-                  <h3 style={{ fontFamily: BRAND_TOKENS.typography.fontDisplay, fontSize: '20px', fontWeight: 600, color: '#FFFFFF', marginBottom: '6px' }}>
-                    CRM ↔ ERP Bridge
-                  </h3>
-                  <p style={{ fontFamily: BRAND_TOKENS.typography.fontBody, fontSize: '13px', color: BRAND_TOKENS.colors.textSecondary, marginBottom: '20px' }}>
-                    Staff manually copying records across disconnected databases.
-                  </p>
-                  <div style={{ fontFamily: BRAND_TOKENS.typography.fontMono, fontSize: '11px', color: BRAND_TOKENS.colors.accentCoral }}>
-                    Solution: Self-Healing Webhook Bus
-                  </div>
-                </div>
+          <h2
+            style={{
+              fontFamily: BRAND_TOKENS.typography.fontDisplay,
+              fontSize: '68px',
+              fontWeight: 900,
+              letterSpacing: '0.12em',
+              margin: 0,
+              color: '#FFFFFF',
+              textShadow: '0 0 40px rgba(255, 255, 255, 0.6)',
+              textTransform: 'uppercase',
+            }}
+          >
+            DISSECTED INTO CODE.
+          </h2>
 
-                {/* Node 3 */}
-                <div
-                  style={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
-                    borderRadius: '16px',
-                    padding: '24px',
-                    boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)',
-                  }}
-                >
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '14px' }}>
-                    <span style={{ fontFamily: BRAND_TOKENS.typography.fontMono, fontSize: '11px', color: BRAND_TOKENS.colors.textTertiary }}>
-                      EXECUTION VECTOR
-                    </span>
-                    <span
-                      style={{
-                        padding: '2px 8px',
-                        borderRadius: '999px',
-                        backgroundColor: 'rgba(16, 185, 129, 0.15)',
-                        border: '1px solid rgba(16, 185, 129, 0.3)',
-                        color: BRAND_TOKENS.colors.accentEmerald,
-                        fontFamily: BRAND_TOKENS.typography.fontMono,
-                        fontSize: '10px',
-                        fontWeight: 600,
-                      }}
-                    >
-                      AUTOMATION READY
-                    </span>
-                  </div>
-                  <h3 style={{ fontFamily: BRAND_TOKENS.typography.fontDisplay, fontSize: '20px', fontWeight: 600, color: '#FFFFFF', marginBottom: '6px' }}>
-                    Instant Fulfillment
-                  </h3>
-                  <p style={{ fontFamily: BRAND_TOKENS.typography.fontBody, fontSize: '13px', color: BRAND_TOKENS.colors.textSecondary, marginBottom: '20px' }}>
-                    Operations resolved autonomously in sub-200ms edge time.
-                  </p>
-                  <div style={{ fontFamily: BRAND_TOKENS.typography.fontMono, fontSize: '11px', color: BRAND_TOKENS.colors.accentEmerald }}>
-                    Target: Zero-Touch Scale
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Bottom Real-time Telemetry Stats */}
-            <div
-              style={{
-                padding: '18px 36px',
-                borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-                backgroundColor: 'rgba(255, 255, 255, 0.02)',
-                display: 'flex',
-                justifyContent: 'space-around',
-                fontFamily: BRAND_TOKENS.typography.fontMono,
-              }}
-            >
-              <div>
-                <span style={{ fontSize: '11px', color: BRAND_TOKENS.colors.textTertiary, display: 'block' }}>
-                  MANUAL TOIL IDENTIFIED
-                </span>
-                <span style={{ fontSize: '22px', fontWeight: 700, color: BRAND_TOKENS.colors.accentCoral }}>
-                  {frictionScore}% Redundant
-                </span>
-              </div>
-              <div style={{ width: '1px', backgroundColor: 'rgba(255, 255, 255, 0.08)' }} />
-              <div>
-                <span style={{ fontSize: '11px', color: BRAND_TOKENS.colors.textTertiary, display: 'block' }}>
-                  TIME RECLAIMED PER TEAM
-                </span>
-                <span style={{ fontSize: '22px', fontWeight: 700, color: '#FFFFFF' }}>
-                  +{hoursReclaimed} Hours / Week
-                </span>
-              </div>
-              <div style={{ width: '1px', backgroundColor: 'rgba(255, 255, 255, 0.08)' }} />
-              <div>
-                <span style={{ fontSize: '11px', color: BRAND_TOKENS.colors.textTertiary, display: 'block' }}>
-                  HUMAN INTERVENTION
-                </span>
-                <span style={{ fontSize: '22px', fontWeight: 700, color: BRAND_TOKENS.colors.accentEmerald }}>
-                  Target: 0% (Humanless)
-                </span>
-              </div>
-            </div>
+          <div
+            style={{
+              fontFamily: BRAND_TOKENS.typography.fontMono,
+              fontSize: '13px',
+              letterSpacing: '0.3em',
+              color: BRAND_TOKENS.colors.titaniumLight,
+              marginTop: '16px',
+            }}
+          >
+            AUTONOMOUS ARCHITECTURE // COMPILING RUNTIME
           </div>
         </div>
-      </CinematicCamera>
+      )}
     </AbsoluteFill>
   );
 };

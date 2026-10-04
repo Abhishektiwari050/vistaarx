@@ -1,20 +1,20 @@
 import React from 'react';
-import { interpolate, useCurrentFrame } from 'remotion';
+import { useCurrentFrame } from 'remotion';
 import { BRAND_TOKENS, SCENE_RANGES } from '../constants';
 import { VistarLogoMark } from './VistarLogoMark';
 
 export const TelemetryHud: React.FC = () => {
   const frame = useCurrentFrame();
 
-  let phaseLabel = '01 // GENESIS & FRICTION';
-  if (frame >= SCENE_RANGES.auditEngine.start && frame < SCENE_RANGES.auditEngine.end) {
-    phaseLabel = '02 // OPERATIONAL AUDIT COCKPIT';
-  } else if (frame >= SCENE_RANGES.patternInterrupt.start && frame < SCENE_RANGES.patternInterrupt.end) {
+  let phaseLabel = '01 // ENTROPY & FRICTION';
+  if (frame >= SCENE_RANGES.auditConvergence.start && frame < SCENE_RANGES.auditConvergence.end) {
+    phaseLabel = '02 // CALIPER AUDIT & CONVERGENCE';
+  } else if (frame >= SCENE_RANGES.typographicSlam.start && frame < SCENE_RANGES.typographicSlam.end) {
     phaseLabel = '03 // ARCHITECTURAL CONVICTION';
-  } else if (frame >= SCENE_RANGES.autonomousRuntime.start && frame < SCENE_RANGES.autonomousRuntime.end) {
-    phaseLabel = '04 // AUTONOMOUS KERNEL IN PRODUCTION';
-  } else if (frame >= SCENE_RANGES.climax.start) {
-    phaseLabel = '05 // THE HUMANLESS HORIZON';
+  } else if (frame >= SCENE_RANGES.operationalVelocity.start && frame < SCENE_RANGES.operationalVelocity.end) {
+    phaseLabel = '04 // OPERATIONAL VELOCITY';
+  } else if (frame >= SCENE_RANGES.grandMonogram.start) {
+    phaseLabel = '05 // SOVEREIGN LOCKUP';
   }
 
   const seconds = Math.floor(frame / 30);
@@ -32,11 +32,11 @@ export const TelemetryHud: React.FC = () => {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        padding: '36px 48px',
+        padding: '32px 48px',
         fontFamily: BRAND_TOKENS.typography.fontMono,
         fontSize: '11px',
-        letterSpacing: '0.12em',
-        color: BRAND_TOKENS.colors.textSecondary,
+        letterSpacing: '0.14em',
+        color: BRAND_TOKENS.colors.titaniumMid,
       }}
     >
       {/* Top Header Bar */}
@@ -45,62 +45,67 @@ export const TelemetryHud: React.FC = () => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.07)',
-          paddingBottom: '12px',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+          paddingBottom: '14px',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
           <VistarLogoMark
             size={18}
-            color="#FFFFFF"
-            centerColor="#FF3823"
-            pulse={Math.sin(frame * 0.08) * 0.05 + 1}
+            convergence={1}
+            wireframe={false}
           />
           <span
             style={{
               fontFamily: BRAND_TOKENS.typography.fontDisplay,
-              fontWeight: 700,
+              fontWeight: 800,
               fontSize: '14px',
-              letterSpacing: '-0.02em',
-              color: BRAND_TOKENS.colors.textPrimary,
+              letterSpacing: '0.08em',
+              color: BRAND_TOKENS.colors.platinumPure,
             }}
           >
             VISTAR
           </span>
-          <span style={{ color: BRAND_TOKENS.colors.textTertiary }}>/</span>
-          <span style={{ color: BRAND_TOKENS.colors.textSecondary }}>
+          <span style={{ color: BRAND_TOKENS.colors.titaniumDark }}>/</span>
+          <span style={{ color: BRAND_TOKENS.colors.titaniumLight, fontSize: '10px' }}>
             ENTERPRISE OPERATIONAL INTELLIGENCE
           </span>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '28px' }}>
           <div
             style={{
               display: 'flex',
               alignItems: 'center',
               gap: '8px',
-              padding: '4px 14px',
-              backgroundColor: 'rgba(255, 255, 255, 0.04)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              borderRadius: '999px',
-              backdropFilter: 'blur(12px)',
+              padding: '5px 16px',
+              backgroundColor: 'rgba(255, 255, 255, 0.03)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              borderRadius: '2px',
+              backdropFilter: 'blur(16px)',
             }}
           >
             <span
               style={{
-                width: '6px',
-                height: '6px',
-                borderRadius: '50%',
-                backgroundColor: BRAND_TOKENS.colors.accentCoral,
-                boxShadow: '0 0 8px rgba(255, 56, 35, 0.6)',
+                width: '5px',
+                height: '5px',
+                backgroundColor: BRAND_TOKENS.colors.platinumPure,
+                boxShadow: '0 0 8px rgba(255, 255, 255, 0.8)',
               }}
             />
-            <span style={{ fontWeight: 600, color: BRAND_TOKENS.colors.textPrimary }}>
+            <span style={{ fontWeight: 600, color: BRAND_TOKENS.colors.platinumPure, fontSize: '10px' }}>
               {phaseLabel}
             </span>
           </div>
 
-          <span style={{ fontVariantNumeric: 'tabular-nums', color: BRAND_TOKENS.colors.textTertiary }}>
+          <span
+            style={{
+              fontVariantNumeric: 'tabular-nums',
+              color: BRAND_TOKENS.colors.platinumLiquid,
+              fontSize: '12px',
+              fontWeight: 600,
+            }}
+          >
             {timecode}
           </span>
         </div>
@@ -112,17 +117,21 @@ export const TelemetryHud: React.FC = () => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          borderTop: '1px solid rgba(255, 255, 255, 0.07)',
-          paddingTop: '12px',
+          borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+          paddingTop: '14px',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '20px', fontSize: '10px' }}>
           <span>
-            TARGET: <strong style={{ color: BRAND_TOKENS.colors.textPrimary }}>ENTERPRISE SCALE</strong>
+            SCOPE: <strong style={{ color: BRAND_TOKENS.colors.platinumPure }}>ENTERPRISE TOPOLOGY</strong>
           </span>
-          <span style={{ color: BRAND_TOKENS.colors.textTertiary }}>•</span>
+          <span style={{ color: BRAND_TOKENS.colors.titaniumDark }}>|</span>
           <span>
-            EXECUTION: <strong style={{ color: BRAND_TOKENS.colors.accentEmerald }}>AUTONOMOUS ZERO-TOIL</strong>
+            STATUS: <strong style={{ color: BRAND_TOKENS.colors.titaniumLight }}>AUTONOMOUS EXECUTION</strong>
+          </span>
+          <span style={{ color: BRAND_TOKENS.colors.titaniumDark }}>|</span>
+          <span>
+            HUMAN FRICTION: <strong style={{ color: BRAND_TOKENS.colors.platinumPure }}>ZERO</strong>
           </span>
         </div>
 
@@ -130,24 +139,35 @@ export const TelemetryHud: React.FC = () => {
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
           <div
             style={{
-              width: '180px',
-              height: '3px',
+              width: '160px',
+              height: '2px',
               backgroundColor: 'rgba(255, 255, 255, 0.08)',
-              borderRadius: '999px',
-              overflow: 'hidden',
+              position: 'relative',
             }}
           >
             <div
               style={{
                 width: `${progressPercent}%`,
                 height: '100%',
-                backgroundColor: BRAND_TOKENS.colors.accentCoral,
-                boxShadow: '0 0 10px rgba(255, 56, 35, 0.7)',
-                borderRadius: '999px',
+                background: 'linear-gradient(90deg, #6E768E, #FFFFFF)',
+                boxShadow: '0 0 10px rgba(255, 255, 255, 0.5)',
+              }}
+            />
+            {/* Diamond Head */}
+            <div
+              style={{
+                position: 'absolute',
+                left: `${progressPercent}%`,
+                top: '-3px',
+                width: '8px',
+                height: '8px',
+                backgroundColor: BRAND_TOKENS.colors.platinumPure,
+                transform: 'translateX(-50%) rotate(45deg)',
+                boxShadow: '0 0 8px rgba(255, 255, 255, 0.9)',
               }}
             />
           </div>
-          <span style={{ fontVariantNumeric: 'tabular-nums', minWidth: '40px' }}>
+          <span style={{ fontVariantNumeric: 'tabular-nums', minWidth: '38px', color: BRAND_TOKENS.colors.platinumPure }}>
             {Math.floor(progressPercent)}%
           </span>
         </div>

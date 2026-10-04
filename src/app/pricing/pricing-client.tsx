@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState } from "react";
 import Link from "next/link";
@@ -99,7 +99,7 @@ export default function PricingPage() {
           </h1>
 
           <p className="text-base sm:text-lg text-neutral-600 max-w-xl mx-auto leading-relaxed">
-            Fixed scope. Guaranteed 14-day production delivery. 100% source code ownership from day one.
+            Fixed scope. Bounded milestone sprints. 100% source code ownership from day one.
           </p>
 
           {/* Currency Switcher: INR vs USD */}

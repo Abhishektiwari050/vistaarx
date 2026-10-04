@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
@@ -23,8 +23,8 @@ export const metadata: Metadata = {
 };
 
 const STATS = [
-  { value: "100%", label: "Repository Ownership", detail: "Day-one private GitHub transfer with zero retainers" },
-  { value: "14 Days", label: "Production Sprint Cadence", detail: "Guaranteed fixed-scope engineering cycles" },
+  { value: "100%", label: "Repository Ownership", detail: "Private GitHub transfer with zero retainers" },
+  { value: "Direct", label: "Founder Collaboration", detail: "Engineering involvement from discovery to launch" },
   { value: "30 Days", label: "Post-Delivery Warranty", detail: "Zero-cost bug fixes and deployment support" },
 ];
 
@@ -65,12 +65,12 @@ export default function AboutCompanyPage() {
           <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl font-normal text-[#0E1118] tracking-tight leading-[1.08]">
             Founder-led software studio.{" "}
             <span className="font-serif italic font-normal text-[#FF3823]">
-              Shipped in 14 days.
+              Built for practical scale.
             </span>
           </h1>
 
           <p className="max-w-2xl mx-auto text-base sm:text-lg text-neutral-600 leading-relaxed font-normal">
-            We eliminate agency bloat and unmaintainable templates. VISTAR builds production WhatsApp sales automations, high-performance Next.js 16 portals, and interactive 3D WebGL showcases with 100% private code ownership from day one.
+            We eliminate agency bloat and unmaintainable templates. VISTAR builds production WhatsApp sales automations, high-performance Next.js portals, and interactive 3D WebGL showcases with 100% private code ownership from day one.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-4 pt-2">

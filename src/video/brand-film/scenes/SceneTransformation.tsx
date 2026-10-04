@@ -1,214 +1,237 @@
 import React from 'react';
-import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
+import { AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig } from 'remotion';
 import { CinematicBackground } from '../components/CinematicBackground';
-import { MaskedKineticText } from '../components/MaskedKineticText';
 import { BRAND_TOKENS } from '../constants';
 
 export const SceneTransformation: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // 3 distinct musical beat hits:
-  // Beat 1: Frames 0 - 45 ("INSTANT.")
-  // Beat 2: Frames 45 - 90 ("AUTONOMOUS.")
-  // Beat 3: Frames 90 - 140 ("HUMANLESS.")
-  const isBeat1 = frame < 45;
-  const isBeat2 = frame >= 45 && frame < 90;
-  const isBeat3 = frame >= 90;
+  // 3 distinct staccato kinetic beats (60 frames each = 2.0s per beat)
+  const isBeat1 = frame < 60;
+  const isBeat2 = frame >= 60 && frame < 120;
+  const isBeat3 = frame >= 120;
 
-  // Micro screen-shake impact on each beat
+  // Violent screen-punch on each beat transition
+  let punchScale = 1.0;
   let shake = 0;
-  if (frame < 8) shake = Math.sin(frame * 2) * (8 - frame);
-  else if (frame >= 45 && frame < 53) shake = Math.sin((frame - 45) * 2) * (53 - frame);
-  else if (frame >= 90 && frame < 98) shake = Math.sin((frame - 90) * 2) * (98 - frame);
 
-  // Dynamic scale punch on each beat
-  let scale = 1.0;
   if (isBeat1) {
-    scale = interpolate(frame, [0, 45], [1.12, 1.0], { extrapolateRight: 'clamp' });
+    const localF = frame;
+    punchScale = interpolate(localF, [0, 15, 60], [1.35, 1.0, 0.96], { extrapolateRight: 'clamp' });
+    if (localF < 12) shake = Math.sin(localF * 3.8) * (12 - localF) * 2;
   } else if (isBeat2) {
-    scale = interpolate(frame, [45, 90], [1.15, 1.0], { extrapolateRight: 'clamp' });
+    const localF = frame - 60;
+    punchScale = interpolate(localF, [0, 15, 60], [1.4, 1.0, 0.96], { extrapolateRight: 'clamp' });
+    if (localF < 12) shake = Math.sin(localF * 3.8) * (12 - localF) * 2;
   } else {
-    scale = interpolate(frame, [90, 140], [1.18, 1.02], { extrapolateRight: 'clamp' });
+    const localF = frame - 120;
+    punchScale = interpolate(localF, [0, 18, 60], [1.5, 1.0, 0.95], { extrapolateRight: 'clamp' });
+    if (localF < 16) shake = Math.sin(localF * 4) * (16 - localF) * 2.4;
   }
 
-  // Laser line sweep on beat 3
-  const laserProgress = interpolate(frame, [95, 135], [0, 100], {
-    extrapolateRight: 'clamp',
+  // Laser caliper sweep line on Beat 3
+  const laserWidth = interpolate(frame - 120, [4, 40], [0, 1600], {
     extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
   });
 
-  const exitOpacity = interpolate(frame, [128, 140], [1, 0], { extrapolateLeft: 'clamp' });
+  // Tracking animation for each beat
+  const tracking1 = interpolate(frame, [0, 50], [-0.08, 0.12], { extrapolateRight: 'clamp' });
+  const tracking2 = interpolate(frame - 60, [0, 50], [-0.06, 0.1], { extrapolateRight: 'clamp' });
+  const tracking3 = interpolate(frame - 120, [0, 50], [-0.07, 0.15], { extrapolateRight: 'clamp' });
 
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: '#05060A',
-        opacity: exitOpacity,
-        transform: `scale(${scale}) translate(${shake}px, ${shake * 0.5}px)`,
+        backgroundColor: BRAND_TOKENS.colors.bgVoid,
+        transform: `scale(${punchScale}) translate(${shake}px, ${shake * 0.5}px)`,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         overflow: 'hidden',
       }}
     >
-      <CinematicBackground accent={isBeat3 ? 'coral' : isBeat2 ? 'indigo' : 'amber'} />
+      <CinematicBackground intensity={isBeat3 ? 1.6 : 1.2} />
 
-      {/* Full-Bleed Kinetic Word Displays */}
-      <div
-        style={{
-          width: '100%',
-          maxWidth: '1400px',
-          textAlign: 'center',
-          zIndex: 10,
-          padding: '0 40px',
-        }}
-      >
-        {isBeat1 && (
-          <div>
-            <div
-              style={{
-                fontFamily: BRAND_TOKENS.typography.fontMono,
-                fontSize: '14px',
-                letterSpacing: '0.25em',
-                color: BRAND_TOKENS.colors.accentAmber,
-                marginBottom: '16px',
-                textTransform: 'uppercase',
-              }}
-            >
-              01 // SUB-200MS EDGE EXECUTION
-            </div>
-            <h1
-              style={{
-                fontFamily: BRAND_TOKENS.typography.fontDisplay,
-                fontSize: '140px',
-                fontWeight: 800,
-                letterSpacing: '-0.05em',
-                color: '#FFFFFF',
-                lineHeight: 0.95,
-                margin: 0,
-                textShadow: '0 0 80px rgba(245, 158, 11, 0.4)',
-              }}
-            >
-              INSTANT.
-            </h1>
-            <p
-              style={{
-                fontFamily: BRAND_TOKENS.typography.fontBody,
-                fontSize: '24px',
-                color: BRAND_TOKENS.colors.textSecondary,
-                marginTop: '20px',
-              }}
-            >
-              Zero human waiting queues. Customers served in real-time.
-            </p>
+      {/* BEAT 1: "INSTANT." (Screen-Filling Kinetic Typography) */}
+      {isBeat1 && (
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 10,
+          }}
+        >
+          <div
+            style={{
+              fontFamily: BRAND_TOKENS.typography.fontMono,
+              fontSize: '16px',
+              letterSpacing: '0.45em',
+              color: BRAND_TOKENS.colors.titaniumLight,
+              marginBottom: '20px',
+              textTransform: 'uppercase',
+            }}
+          >
+            [ 01 // ZERO LATENCY EXECUTION ]
           </div>
-        )}
-
-        {isBeat2 && (
-          <div>
-            <div
-              style={{
-                fontFamily: BRAND_TOKENS.typography.fontMono,
-                fontSize: '14px',
-                letterSpacing: '0.25em',
-                color: BRAND_TOKENS.colors.accentIndigo,
-                marginBottom: '16px',
-                textTransform: 'uppercase',
-              }}
-            >
-              02 // SELF-HEALING ARCHITECTURE
-            </div>
-            <h1
-              style={{
-                fontFamily: BRAND_TOKENS.typography.fontDisplay,
-                fontSize: '140px',
-                fontWeight: 800,
-                letterSpacing: '-0.05em',
-                color: '#FFFFFF',
-                lineHeight: 0.95,
-                margin: 0,
-                textShadow: '0 0 80px rgba(99, 102, 241, 0.4)',
-              }}
-            >
-              AUTONOMOUS.
-            </h1>
-            <p
-              style={{
-                fontFamily: BRAND_TOKENS.typography.fontBody,
-                fontSize: '24px',
-                color: BRAND_TOKENS.colors.textSecondary,
-                marginTop: '20px',
-              }}
-            >
-              Systems that diagnose, validate, and execute operations on their own.
-            </p>
+          <h1
+            style={{
+              fontFamily: BRAND_TOKENS.typography.fontDisplay,
+              fontSize: '220px',
+              fontWeight: 900,
+              letterSpacing: `${tracking1}em`,
+              lineHeight: 0.85,
+              margin: 0,
+              background: BRAND_TOKENS.colors.gradients.chromeText,
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              filter: 'drop-shadow(0 0 80px rgba(255, 255, 255, 0.5))',
+              textTransform: 'uppercase',
+            }}
+          >
+            INSTANT.
+          </h1>
+          <div
+            style={{
+              fontFamily: BRAND_TOKENS.typography.fontMono,
+              fontSize: '14px',
+              letterSpacing: '0.3em',
+              color: BRAND_TOKENS.colors.titaniumMid,
+              marginTop: '28px',
+              textTransform: 'uppercase',
+            }}
+          >
+            LINE-RATE SPEED // ZERO HUMAN QUEUES
           </div>
-        )}
+        </div>
+      )}
 
-        {isBeat3 && (
-          <div>
-            <div
-              style={{
-                fontFamily: BRAND_TOKENS.typography.fontMono,
-                fontSize: '14px',
-                letterSpacing: '0.25em',
-                color: BRAND_TOKENS.colors.accentCoral,
-                marginBottom: '16px',
-                textTransform: 'uppercase',
-              }}
-            >
-              03 // THE ULTIMATE SHIFT
-            </div>
-            <h1
-              style={{
-                fontFamily: BRAND_TOKENS.typography.fontDisplay,
-                fontSize: '140px',
-                fontWeight: 800,
-                letterSpacing: '-0.05em',
-                color: BRAND_TOKENS.colors.accentCoral,
-                lineHeight: 0.95,
-                margin: 0,
-                textShadow: '0 0 90px rgba(255, 56, 35, 0.6)',
-              }}
-            >
-              HUMANLESS.
-            </h1>
-            <p
-              style={{
-                fontFamily: BRAND_TOKENS.typography.fontBody,
-                fontSize: '24px',
-                color: '#FFFFFF',
-                marginTop: '20px',
-              }}
-            >
-              10x scale without expanding headcount.
-            </p>
-
-            {/* Precision Laser Line Sweep */}
-            <div
-              style={{
-                width: '600px',
-                height: '2px',
-                backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                margin: '28px auto 0 auto',
-                position: 'relative',
-                overflow: 'hidden',
-                borderRadius: '999px',
-              }}
-            >
-              <div
-                style={{
-                  width: `${laserProgress}%`,
-                  height: '100%',
-                  backgroundColor: BRAND_TOKENS.colors.accentCoral,
-                  boxShadow: '0 0 14px rgba(255, 56, 35, 0.9)',
-                }}
-              />
-            </div>
+      {/* BEAT 2: "AUTONOMOUS." (3D Angled Kinetic Typography) */}
+      {isBeat2 && (
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transform: 'skewX(-6deg) rotate(-2deg)',
+            zIndex: 10,
+          }}
+        >
+          <div
+            style={{
+              fontFamily: BRAND_TOKENS.typography.fontMono,
+              fontSize: '16px',
+              letterSpacing: '0.45em',
+              color: BRAND_TOKENS.colors.titaniumLight,
+              marginBottom: '20px',
+              textTransform: 'uppercase',
+            }}
+          >
+            [ 02 // SELF-HEALING RUNTIME ]
           </div>
-        )}
-      </div>
+          <h1
+            style={{
+              fontFamily: BRAND_TOKENS.typography.fontDisplay,
+              fontSize: '190px',
+              fontWeight: 900,
+              letterSpacing: `${tracking2}em`,
+              lineHeight: 0.85,
+              margin: 0,
+              color: '#FFFFFF',
+              textShadow: '0 0 90px rgba(255, 255, 255, 0.8), 0 0 30px rgba(214, 218, 232, 0.9)',
+              textTransform: 'uppercase',
+            }}
+          >
+            AUTONOMOUS.
+          </h1>
+          <div
+            style={{
+              fontFamily: BRAND_TOKENS.typography.fontMono,
+              fontSize: '14px',
+              letterSpacing: '0.3em',
+              color: BRAND_TOKENS.colors.titaniumMid,
+              marginTop: '28px',
+              textTransform: 'uppercase',
+            }}
+          >
+            RESOLVING WORKFLOWS WITHOUT HUMAN INTERVENTION
+          </div>
+        </div>
+      )}
+
+      {/* BEAT 3: "HUMANLESS." (Maximum Impact Full-Screen Slam) */}
+      {isBeat3 && (
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 10,
+          }}
+        >
+          <div
+            style={{
+              fontFamily: BRAND_TOKENS.typography.fontMono,
+              fontSize: '16px',
+              letterSpacing: '0.45em',
+              color: BRAND_TOKENS.colors.platinumLiquid,
+              marginBottom: '20px',
+              textTransform: 'uppercase',
+            }}
+          >
+            [ 03 // THE ULTIMATE OBJECTIVE ]
+          </div>
+          <h1
+            style={{
+              fontFamily: BRAND_TOKENS.typography.fontDisplay,
+              fontSize: '210px',
+              fontWeight: 900,
+              letterSpacing: `${tracking3}em`,
+              lineHeight: 0.85,
+              margin: 0,
+              color: '#FFFFFF',
+              textShadow: '0 0 100px rgba(255, 255, 255, 0.95), 0 0 40px rgba(255, 255, 255, 0.8)',
+              textTransform: 'uppercase',
+            }}
+          >
+            HUMANLESS.
+          </h1>
+          <div
+            style={{
+              fontFamily: BRAND_TOKENS.typography.fontMono,
+              fontSize: '15px',
+              letterSpacing: '0.3em',
+              color: BRAND_TOKENS.colors.platinumLiquid,
+              marginTop: '28px',
+              textTransform: 'uppercase',
+            }}
+          >
+            10X SCALE // ZERO EXTRA HEADCOUNT
+          </div>
+
+          {/* Full-width laser slice */}
+          <div
+            style={{
+              width: `${laserWidth}px`,
+              height: '3px',
+              background: 'linear-gradient(90deg, transparent, #FFFFFF, transparent)',
+              boxShadow: '0 0 20px #FFFFFF',
+              marginTop: '36px',
+            }}
+          />
+        </div>
+      )}
     </AbsoluteFill>
   );
 };

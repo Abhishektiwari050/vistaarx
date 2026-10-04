@@ -1,48 +1,127 @@
 import React from 'react';
 import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
 import { CinematicBackground } from '../components/CinematicBackground';
-import { CinematicCamera } from '../components/CinematicCamera';
-import { MaskedKineticText } from '../components/MaskedKineticText';
 import { BRAND_TOKENS } from '../constants';
 
 export const SceneHook: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // Active terminal prompt typing
-  const fullCommand = 'npx vistar-audit --target=enterprise --locate-human-friction';
-  const charsShown = Math.floor(
-    interpolate(frame, [38, 95], [0, fullCommand.length], {
-      extrapolateRight: 'clamp',
-      extrapolateLeft: 'clamp',
-    })
-  );
-  const typedCommand = fullCommand.slice(0, charsShown);
-  const cursorBlink = Math.sin(frame * 0.4) > 0;
+  // Sub-beat 1: Frames 0 - 50 ("ENTERPRISE")
+  // Sub-beat 2: Frames 50 - 105 ("DROWNING IN TOIL")
+  // Sub-beat 3: Frames 105 - 160 (Violent Oscilloscope -> Razor Laser Snap)
+  const isBeat1 = frame < 50;
+  const isBeat2 = frame >= 50 && frame < 105;
+  const isBeat3 = frame >= 105;
 
-  // Expanding transition ring at end of scene
-  const ringScale = interpolate(frame, [110, 140], [0, 4], {
+  // Beat 1: Slam zoom from 2.4x down to 1.0x with impact shake
+  const scale1 = interpolate(frame, [0, 18, 50], [2.4, 1.0, 0.96], {
+    extrapolateRight: 'clamp',
+  });
+  const shake1 = frame < 16 ? Math.sin(frame * 3.5) * (16 - frame) * 1.5 : 0;
+  const tracking1 = interpolate(frame, [0, 45], [-0.08, 0.04], { extrapolateRight: 'clamp' });
+
+  // Beat 2: Slam zoom and skew punch
+  const localF2 = frame - 50;
+  const scale2 = interpolate(localF2, [0, 16, 55], [1.8, 1.0, 0.98], {
+    extrapolateRight: 'clamp',
+  });
+  const shake2 = localF2 < 14 ? Math.sin(localF2 * 3.5) * (14 - localF2) * 1.8 : 0;
+  const tracking2 = interpolate(localF2, [0, 50], [-0.05, 0.02], { extrapolateRight: 'clamp' });
+
+  // Beat 3: Chaotic Oscilloscope into Laser Caliper Snap
+  const localF3 = frame - 105;
+  const pointsCount = 64;
+  const wavePoints: string[] = [];
+  const waveWidth = 1600;
+  const waveHeight = 220;
+
+  // Chaos damping down as caliper locks it at frame 135
+  const chaosDamp = interpolate(localF3, [0, 30, 45], [1.0, 0.8, 0.0], {
+    extrapolateRight: 'clamp',
+  });
+
+  for (let i = 0; i <= pointsCount; i++) {
+    const x = (i / pointsCount) * waveWidth;
+    const noise =
+      (Math.sin(i * 0.5 + frame * 0.45) * 60 +
+        Math.cos(i * 1.1 - frame * 0.3) * 40 +
+        Math.sin(i * 2.2 + frame * 0.6) * 20) *
+      chaosDamp;
+    const y = waveHeight / 2 + noise;
+    wavePoints.push(`${x},${y}`);
+  }
+  const wavePath = `M ${wavePoints.join(' L ')}`;
+
+  // Laser Caliper Clamp position
+  const caliperScan = interpolate(localF3, [10, 35], [-200, 1800], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
-  const ringOpacity = interpolate(frame, [110, 125, 140], [0, 0.9, 0], {
+
+  // End of Act 1: Blinding impact flash
+  const exitFlash = interpolate(frame, [150, 158, 160], [0, 0.95, 0], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
-
-  const exitOpacity = interpolate(frame, [125, 140], [1, 0], { extrapolateLeft: 'clamp' });
 
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: BRAND_TOKENS.colors.bg,
-        opacity: exitOpacity,
+        backgroundColor: BRAND_TOKENS.colors.bgVoid,
         overflow: 'hidden',
       }}
     >
-      <CinematicCamera durationInFrames={140} startScale={1.1} endScale={1.0} tiltX={3} panY={-10}>
-        <CinematicBackground accent="coral" />
+      <CinematicBackground intensity={1.4} />
 
+      {/* BEAT 1: "ENTERPRISE" (Aggressive Scale Slam) */}
+      {isBeat1 && (
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transform: `scale(${scale1}) translate(${shake1}px, ${shake1 * 0.6}px)`,
+            zIndex: 10,
+          }}
+        >
+          <div
+            style={{
+              position: 'absolute',
+              top: '18%',
+              fontFamily: BRAND_TOKENS.typography.fontMono,
+              fontSize: '14px',
+              letterSpacing: '0.4em',
+              color: BRAND_TOKENS.colors.titaniumMid,
+              textTransform: 'uppercase',
+            }}
+          >
+            [ ACT 01 // CRITICAL FRICTION ]
+          </div>
+          <h1
+            style={{
+              fontFamily: BRAND_TOKENS.typography.fontDisplay,
+              fontSize: '220px',
+              fontWeight: 900,
+              letterSpacing: `${tracking1}em`,
+              lineHeight: 0.85,
+              margin: 0,
+              background: BRAND_TOKENS.colors.gradients.chromeText,
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              filter: 'drop-shadow(0 0 60px rgba(255, 255, 255, 0.4))',
+              textTransform: 'uppercase',
+            }}
+          >
+            ENTERPRISE
+          </h1>
+        </div>
+      )}
+
+      {/* BEAT 2: "DROWNING IN TOIL" (Skewed High-Impact Typography) */}
+      {isBeat2 && (
         <div
           style={{
             position: 'absolute',
@@ -51,166 +130,143 @@ export const SceneHook: React.FC = () => {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '0 120px',
-            textAlign: 'center',
+            transform: `scale(${scale2}) translate(${shake2}px, ${shake2 * 0.5}px) skewX(-5deg)`,
             zIndex: 10,
           }}
         >
-          {/* Status Badge Pop */}
           <div
             style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              padding: '6px 18px',
-              backgroundColor: 'rgba(255, 255, 255, 0.05)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              borderRadius: '999px',
-              marginBottom: '32px',
-              backdropFilter: 'blur(12px)',
+              fontFamily: BRAND_TOKENS.typography.fontMono,
+              fontSize: '13px',
+              letterSpacing: '0.35em',
+              color: BRAND_TOKENS.colors.titaniumLight,
+              marginBottom: '16px',
             }}
           >
-            <span
-              style={{
-                width: '6px',
-                height: '6px',
-                borderRadius: '50%',
-                backgroundColor: BRAND_TOKENS.colors.accentCoral,
-                boxShadow: '0 0 8px rgba(255, 56, 35, 0.8)',
-              }}
-            />
-            <span
-              style={{
-                fontFamily: BRAND_TOKENS.typography.fontMono,
-                fontSize: '11px',
-                fontWeight: 600,
-                letterSpacing: '0.16em',
-                color: BRAND_TOKENS.colors.textSecondary,
-                textTransform: 'uppercase',
-              }}
-            >
-              The Operational Reality // Genesis
-            </span>
+            FRAGMENTED TOOLS // MANUAL COORDINATION // 94% STALL
           </div>
+          <h1
+            style={{
+              fontFamily: BRAND_TOKENS.typography.fontDisplay,
+              fontSize: '170px',
+              fontWeight: 900,
+              letterSpacing: `${tracking2}em`,
+              lineHeight: 0.9,
+              margin: 0,
+              color: '#FFFFFF',
+              textShadow: '0 0 80px rgba(255, 255, 255, 0.75), 0 0 20px rgba(214, 218, 232, 0.9)',
+              textAlign: 'center',
+              textTransform: 'uppercase',
+            }}
+          >
+            DROWNING
+            <br />
+            IN TOIL.
+          </h1>
+        </div>
+      )}
 
-          {/* Masked Hero Typography */}
-          <div style={{ marginBottom: '24px' }}>
-            <h1
-              style={{
-                fontFamily: BRAND_TOKENS.typography.fontDisplay,
-                fontSize: '84px',
-                lineHeight: 1.05,
-                fontWeight: 600,
-                letterSpacing: '-0.04em',
-                color: BRAND_TOKENS.colors.textPrimary,
-                margin: 0,
-              }}
-            >
-              <MaskedKineticText delay={5}>
-                Most enterprises run on
-              </MaskedKineticText>
-              <br />
-              <MaskedKineticText delay={15}>
-                <span
-                  style={{
-                    color: BRAND_TOKENS.colors.accentCoral,
-                    textShadow: '0 0 40px rgba(255, 56, 35, 0.4)',
-                  }}
-                >
-                  HUMAN GLUE.
-                </span>
-              </MaskedKineticText>
-            </h1>
-          </div>
-
-          {/* Masked Subtitle */}
-          <div style={{ maxWidth: '780px', marginBottom: '44px' }}>
-            <p
-              style={{
-                fontFamily: BRAND_TOKENS.typography.fontBody,
-                fontSize: '22px',
-                lineHeight: 1.5,
-                color: BRAND_TOKENS.colors.textSecondary,
-                margin: 0,
-              }}
-            >
-              <MaskedKineticText delay={24}>
-                Valuable minds trapped in manual spreadsheet entry, fragmented tools, and slow coordination.
-              </MaskedKineticText>
-            </p>
-          </div>
-
-          {/* Living Interactive Terminal Prompt */}
+      {/* BEAT 3: Dynamic Oscilloscope Waveform Clamped to Zero Line */}
+      {isBeat3 && (
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 10,
+          }}
+        >
           <div
             style={{
-              width: '100%',
-              maxWidth: '820px',
-              backgroundColor: 'rgba(10, 12, 18, 0.85)',
-              border: '1px solid rgba(255, 255, 255, 0.12)',
-              borderRadius: '14px',
-              padding: '16px 24px',
-              boxShadow: '0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+              fontFamily: BRAND_TOKENS.typography.fontMono,
+              fontSize: '16px',
+              letterSpacing: '0.3em',
+              color: BRAND_TOKENS.colors.platinumPure,
+              marginBottom: '36px',
+              textTransform: 'uppercase',
+            }}
+          >
+            {chaosDamp > 0.1 ? 'CALIPER SCAN: MEASURING OPERATIONAL CHAOS' : 'CHAOS CLAMPED // CONVERGING INTO CODE'}
+          </div>
+
+          <div
+            style={{
+              position: 'relative',
+              width: `${waveWidth}px`,
+              height: `${waveHeight}px`,
               display: 'flex',
               alignItems: 'center',
-              gap: '14px',
-              textAlign: 'left',
-              fontFamily: BRAND_TOKENS.typography.fontMono,
-              fontSize: '15px',
+              justifyContent: 'center',
             }}
           >
-            <div style={{ display: 'flex', gap: '6px' }}>
-              <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#FF5F56' }} />
-              <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#FFBD2E' }} />
-              <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#27C93F' }} />
-            </div>
-            <span style={{ color: BRAND_TOKENS.colors.accentCoral, fontWeight: 700 }}>&gt;</span>
-            <span style={{ color: '#FFFFFF', flex: 1, letterSpacing: '0.02em' }}>
-              {typedCommand}
-              <span
-                style={{
-                  display: 'inline-block',
-                  width: '8px',
-                  height: '16px',
-                  backgroundColor: BRAND_TOKENS.colors.accentCoral,
-                  marginLeft: '4px',
-                  verticalAlign: 'middle',
-                  opacity: cursorBlink ? 1 : 0,
-                }}
-              />
-            </span>
-            <span
+            {/* Center Razor Axis */}
+            <div
               style={{
-                fontSize: '11px',
-                color: BRAND_TOKENS.colors.textTertiary,
-                backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                padding: '4px 10px',
-                borderRadius: '6px',
+                position: 'absolute',
+                left: 0,
+                right: 0,
+                height: '2px',
+                background: 'linear-gradient(90deg, transparent, #FFFFFF, transparent)',
+                boxShadow: '0 0 15px #FFFFFF',
+              }}
+            />
+
+            <svg
+              width={waveWidth}
+              height={waveHeight}
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                overflow: 'visible',
               }}
             >
-              RETURN ↵
-            </span>
+              <path
+                d={wavePath}
+                fill="none"
+                stroke="rgba(255, 255, 255, 0.3)"
+                strokeWidth="6"
+                filter="drop-shadow(0 0 12px #FFFFFF)"
+              />
+              <path
+                d={wavePath}
+                fill="none"
+                stroke="#FFFFFF"
+                strokeWidth="2.5"
+              />
+
+              {/* Sweeping Caliper Beam */}
+              <line
+                x1={caliperScan}
+                y1="-40"
+                x2={caliperScan}
+                y2={waveHeight + 40}
+                stroke="#FFFFFF"
+                strokeWidth="3"
+                opacity="0.9"
+                filter="drop-shadow(0 0 8px #FFFFFF)"
+              />
+            </svg>
           </div>
         </div>
+      )}
 
-        {/* Transition Detonation Ring */}
-        {ringOpacity > 0 && (
-          <div
-            style={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              width: '400px',
-              height: '400px',
-              borderRadius: '50%',
-              border: `2px solid ${BRAND_TOKENS.colors.accentCoral}`,
-              boxShadow: `0 0 80px ${BRAND_TOKENS.colors.accentCoralGlow}`,
-              transform: `translate(-50%, -50%) scale(${ringScale})`,
-              opacity: ringOpacity,
-              pointerEvents: 'none',
-            }}
-          />
-        )}
-      </CinematicCamera>
+      {/* Impact White Transition Flash */}
+      {exitFlash > 0 && (
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            backgroundColor: '#FFFFFF',
+            opacity: exitFlash,
+            zIndex: 999,
+            pointerEvents: 'none',
+          }}
+        />
+      )}
     </AbsoluteFill>
   );
 };
