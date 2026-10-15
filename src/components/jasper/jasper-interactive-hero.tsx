@@ -130,7 +130,7 @@ export function JasperInteractiveHero() {
         src: "/home_hero.riv",
         canvas: canvasRef.current,
         artboard: artboard,
-        stateMachines: [artboard, "State Machine 1"],
+        stateMachines: [artboard],
         layout: layout,
         isTouchScrollEnabled: true,
         autoplay: true,
