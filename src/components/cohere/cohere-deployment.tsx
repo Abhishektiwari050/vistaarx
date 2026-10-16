@@ -7,26 +7,36 @@ import { ShieldCheck, Code2, Lock, GitBranch, Clock, Zap } from "lucide-react";
 const ENGINEERING_GUARANTEES = [
   {
     icon: Code2,
+    number: "01",
+    tag: "SOVEREIGNTY",
     title: "100% Repository Handover",
     desc: "Complete private GitHub transfer with clean Next.js, Python, and Docker code. You own every commit.",
   },
   {
     icon: Zap,
+    number: "02",
+    tag: "VELOCITY",
     title: "14-Day Sprint Cadence",
     desc: "Direct pairing with founder and senior engineers. Working production software delivered in two-week cycles.",
   },
   {
     icon: Lock,
+    number: "03",
+    tag: "CONFIDENTIALITY",
     title: "Strict Data Privacy",
     desc: "Protected under bilateral NDA. Environment keys encrypted with zero third-party training on your data.",
   },
   {
     icon: GitBranch,
+    number: "04",
+    tag: "INDEPENDENCE",
     title: "Zero Hostage Retainers",
     desc: "No proprietary platform lock-in or recurring monthly maintenance fees. Full deployment documentation included.",
   },
   {
     icon: Clock,
+    number: "05",
+    tag: "ASSURANCE",
     title: "30-Day Bug Warranty",
     desc: "Every release is backed by a 30-day zero-cost bug fix guarantee and automated regression test suites.",
   },
@@ -72,9 +82,8 @@ export function CohereDeployment() {
       </section>
 
       {/* ── 2. ENGINEERING COMMITMENTS & DELIVERABLES (CLEAN PINE BG #152717) ── */}
-      <section className="relative w-full py-16 sm:py-24 bg-[#152717] text-white">
-        <div className="max-w-[1300px] mx-auto px-6 lg:px-10 space-y-12">
-          
+      <section className="relative w-full py-16 sm:py-24 bg-[#152717] text-white overflow-hidden select-none">
+        <div className="max-w-[1300px] mx-auto px-6 lg:px-10 mb-10 sm:mb-14">
           <div className="max-w-2xl mx-auto text-center space-y-3">
             <span className="text-xs font-mono uppercase tracking-widest text-[#FF8A7A] font-semibold">
               ENGINEERING STANDARDS
@@ -86,30 +95,78 @@ export function CohereDeployment() {
               No agency games, no junior developer handoffs, and zero hostage retainers.
             </p>
           </div>
+        </div>
 
-          {/* Clean 5-Pillar Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-4">
+        {/* ── CONTINUOUS INFINITE SMOOTH MARQUEE TICKER ── */}
+        <div className="relative w-full overflow-hidden flex items-center">
+          {/* Left & Right Subtle Fade Gradient Masks matching pine bg #152717 */}
+          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-r from-[#152717] via-[#152717]/90 to-transparent z-10" />
+          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-l from-[#152717] via-[#152717]/90 to-transparent z-10" />
+
+          {/* Marquee Track with Duplicate for Seamless Infinite Loop */}
+          <div
+            className="flex shrink-0 items-center gap-5 sm:gap-6 hover:[animation-play-state:paused]"
+            style={{
+              animation: "marquee-scroll 32s linear infinite",
+              width: "max-content",
+            }}
+          >
+            {/* Loop 1 */}
             {ENGINEERING_GUARANTEES.map((item, idx) => {
               const Icon = item.icon;
               return (
                 <div
-                  key={idx}
-                  className="bg-white/5 border border-white/10 rounded-xl p-6 space-y-3 hover:bg-white/10 transition-colors"
+                  key={`commit-1-${idx}`}
+                  className="bg-white/5 border border-white/10 rounded-xl p-6 sm:p-7 space-y-4 hover:bg-white/10 hover:border-white/20 transition-all duration-200 w-[300px] sm:w-[360px] shrink-0 text-left cursor-default shadow-xs"
                 >
-                  <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center text-[#FF8A7A]">
-                    <Icon className="w-5 h-5" />
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center text-[#FF8A7A]">
+                      <Icon className="w-5 h-5" />
+                    </div>
+                    <span className="text-[10px] font-mono tracking-wider text-white/40 uppercase">
+                      {item.number} // {item.tag}
+                    </span>
                   </div>
-                  <h3 className="font-serif text-xl font-normal text-white">
-                    {item.title}
-                  </h3>
-                  <p className="text-sm text-white/70 leading-relaxed font-sans">
-                    {item.desc}
-                  </p>
+                  <div>
+                    <h3 className="font-serif text-xl sm:text-[22px] font-normal text-white">
+                      {item.title}
+                    </h3>
+                    <p className="text-sm text-white/70 leading-relaxed font-sans mt-2">
+                      {item.desc}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+
+            {/* Loop 2 (Duplicate for seamless continuous loop) */}
+            {ENGINEERING_GUARANTEES.map((item, idx) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={`commit-2-${idx}`}
+                  className="bg-white/5 border border-white/10 rounded-xl p-6 sm:p-7 space-y-4 hover:bg-white/10 hover:border-white/20 transition-all duration-200 w-[300px] sm:w-[360px] shrink-0 text-left cursor-default shadow-xs"
+                >
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center text-[#FF8A7A]">
+                      <Icon className="w-5 h-5" />
+                    </div>
+                    <span className="text-[10px] font-mono tracking-wider text-white/40 uppercase">
+                      {item.number} // {item.tag}
+                    </span>
+                  </div>
+                  <div>
+                    <h3 className="font-serif text-xl sm:text-[22px] font-normal text-white">
+                      {item.title}
+                    </h3>
+                    <p className="text-sm text-white/70 leading-relaxed font-sans mt-2">
+                      {item.desc}
+                    </p>
+                  </div>
                 </div>
               );
             })}
           </div>
-
         </div>
       </section>
     </>

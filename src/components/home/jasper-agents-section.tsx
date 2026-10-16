@@ -27,7 +27,7 @@ export function JasperAgentsSection() {
                 '"Unica77 Cohere Web", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
             }}
           >
-            From automated lead intake and instant WhatsApp founder notifications to high-frequency 3D WebGL rendering. Click keys or drag to interact, and explore engineering capabilities in the live marquee.
+            From automated lead intake and instant WhatsApp founder notifications to high-frequency 3D WebGL rendering. Click keys or select capabilities below to interact with the stage.
           </p>
         </div>
 

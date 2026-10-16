@@ -3,70 +3,48 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import { playClick } from "@/lib/sound";
 
-interface CapabilityItem {
+interface PersonaInfo {
   id: number;
-  number: string;
   role: string;
   metric: string;
   metricLabel: string;
+  quote: string;
   badgeColor: string;
-  description: string;
 }
 
-const CAPABILITIES: CapabilityItem[] = [
+// VISTAR engineering capabilities matching the 4 interactive canvas states
+const PERSONAS: PersonaInfo[] = [
   {
     id: 0,
-    number: "01",
     role: "Lead Capture & WhatsApp Bots",
     metric: "< 10s",
     metricLabel: "Lead Response Time",
+    quote: "Automated ingestion from IndiaMART, JustDial, and web forms to WhatsApp & CRM",
     badgeColor: "#22C55E",
-    description: "Automated ingestion from IndiaMART, JustDial & web forms to WhatsApp & CRM",
   },
   {
     id: 1,
-    number: "02",
     role: "Custom Next.js Web Apps",
     metric: "14 Days",
     metricLabel: "Production Sprint",
+    quote: "Fast full-stack web applications and portals delivered with typed schemas",
     badgeColor: "#3B82F6",
-    description: "Full-stack web portals delivered with typed schemas & zero SaaS seat taxes",
   },
   {
     id: 2,
-    number: "03",
     role: "Spatial WebGL & 3D Web",
     metric: "60 FPS",
     metricLabel: "In-Browser WebGL",
+    quote: "High-density architectural walkthroughs and interactive spatial models (3axis Arc)",
     badgeColor: "#F59E0B",
-    description: "High-density architectural walkthroughs & interactive 3D spatial models",
   },
   {
     id: 3,
-    number: "04",
     role: "100% Source Code Sovereignty",
     metric: "100%",
     metricLabel: "Private Git Transfer",
+    quote: "Full private GitHub repo handover with bilateral NDA and 30-day bug warranty",
     badgeColor: "#FF3823",
-    description: "Full private GitHub repo handover with bilateral NDA & 30-day bug warranty",
-  },
-  {
-    id: 4,
-    number: "05",
-    role: "Internal Operations Portals",
-    metric: "Zero Fee",
-    metricLabel: "No SaaS Seat Tax",
-    badgeColor: "#8B5CF6",
-    description: "Custom dispatch, billing, and operational cockpits running in your own cloud",
-  },
-  {
-    id: 5,
-    number: "06",
-    role: "Deterministic AI Workflows",
-    metric: "99.8%",
-    metricLabel: "Triage Accuracy",
-    badgeColor: "#06B6D4",
-    description: "Structured multi-agent graphs with strict schemas and zero hallucination drift",
   },
 ];
 
@@ -81,6 +59,7 @@ export function JasperInteractiveHero() {
   const initialTimersRef = useRef<NodeJS.Timeout[]>([]);
 
   const [loaded, setLoaded] = useState(false);
+  const [activeSlide, setActiveSlide] = useState(1);
 
   // Advance to next slide in state machine
   const advanceToNext = useCallback(() => {
@@ -88,7 +67,8 @@ export function JasperInteractiveHero() {
     try {
       isAnimatingRef.current = true;
       nextSlideRef.current.fire();
-      currentSlideRef.current = (currentSlideRef.current + 1) % 4;
+      currentSlideRef.current = (currentSlideRef.current + 1) % PERSONAS.length;
+      setActiveSlide(currentSlideRef.current);
       playClick(1050, 0.03);
       setTimeout(() => {
         isAnimatingRef.current = false;
@@ -96,6 +76,30 @@ export function JasperInteractiveHero() {
     } catch (_) {
       isAnimatingRef.current = false;
     }
+  }, []);
+
+  // Jump to specific slide
+  const goToSlide = useCallback((targetIndex: number) => {
+    if (!nextSlideRef.current || isAnimatingRef.current) return;
+    const diff = (targetIndex - currentSlideRef.current + PERSONAS.length) % PERSONAS.length;
+    if (diff === 0) return;
+
+    isAnimatingRef.current = true;
+    let step = 0;
+    const interval = setInterval(() => {
+      if (nextSlideRef.current && step < diff) {
+        nextSlideRef.current.fire();
+        playClick(1000 + step * 50, 0.02);
+        step++;
+      } else {
+        clearInterval(interval);
+        currentSlideRef.current = targetIndex;
+        setActiveSlide(targetIndex);
+        setTimeout(() => {
+          isAnimatingRef.current = false;
+        }, 1200);
+      }
+    }, 280);
   }, []);
 
   // Initialize Rive instance using @rive-app/canvas matching Jasper production embed
@@ -162,6 +166,7 @@ export function JasperInteractiveHero() {
                   const t2 = setTimeout(() => {
                     if (nextSlide) {
                       nextSlide.fire();
+                      setActiveSlide(1);
                     }
                   }, 2000);
                   initialTimersRef.current.push(t2);
@@ -272,88 +277,47 @@ export function JasperInteractiveHero() {
         />
       </div>
 
-      {/* ── CONTINUOUS INFINITE CAPABILITY MARQUEE TICKER ── */}
-      <div className="relative w-full overflow-hidden bg-white border-t border-black/[0.08] py-3 sm:py-3.5 select-none">
-        {/* Left & Right Smooth Edge Fade Masks */}
-        <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-12 sm:w-24 bg-gradient-to-r from-white via-white/80 to-transparent z-10" />
-        <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-12 sm:w-24 bg-gradient-to-l from-white via-white/80 to-transparent z-10" />
-
-        {/* Marquee Track with Duplicate for Seamless Infinite Loop */}
-        <div
-          className="flex shrink-0 items-center gap-2.5 sm:gap-3.5 hover:[animation-play-state:paused]"
-          style={{
-            animation: "marquee-scroll 30s linear infinite",
-            width: "max-content",
-          }}
-        >
-          {/* Loop A */}
-          {CAPABILITIES.map((cap, idx) => (
-            <div
-              key={`cap-a-${cap.id}-${idx}`}
+      {/* ── BOTTOM CAPABILITY SELECTOR BUTTONS ── */}
+      <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-1.5 p-2.5 sm:p-3 bg-white border-t border-black/[0.08]">
+        {PERSONAS.map((p) => {
+          const isActive = activeSlide === p.id;
+          return (
+            <button
+              key={p.id}
+              type="button"
               onClick={(e) => {
                 e.stopPropagation();
-                advanceToNext();
+                goToSlide(p.id);
               }}
-              className="group flex flex-col justify-between p-2.5 sm:p-3 w-[260px] sm:w-[290px] rounded-lg border border-black/[0.07] bg-[#FAF9F5] hover:bg-white hover:border-black/[0.18] hover:shadow-xs transition-all duration-150 cursor-pointer text-left shrink-0"
-              title="Click to cycle 3D stage"
+              className={`p-2.5 sm:p-3 rounded-lg text-left transition-all duration-150 cursor-pointer flex flex-col justify-between border ${
+                isActive
+                  ? "bg-[#FAF9F5] border-[#141413] shadow-xs"
+                  : "bg-transparent border-transparent hover:bg-neutral-50 hover:border-black/[0.06]"
+              }`}
             >
-              <div className="flex items-center justify-between gap-1.5 mb-1">
+              <div className="flex items-center justify-between gap-1 mb-1">
                 <span className="text-[10px] font-mono uppercase tracking-wider text-[#5E605D]">
-                  {cap.number} // CAPABILITY
+                  0{p.id + 1} // CAPABILITY
                 </span>
                 <span
-                  className="text-[11px] font-bold font-mono px-2 py-0.5 rounded"
+                  className="text-xs font-bold font-mono px-1.5 py-0.5 rounded"
                   style={{
-                    backgroundColor: `${cap.badgeColor}15`,
-                    color: cap.badgeColor,
+                    backgroundColor: isActive ? `${p.badgeColor}15` : "transparent",
+                    color: p.badgeColor,
                   }}
                 >
-                  {cap.metric}
+                  {p.metric}
                 </span>
               </div>
-              <div className="text-xs sm:text-[13px] font-medium text-[#141413] tracking-tight group-hover:text-black transition-colors truncate">
-                {cap.role}
+              <div className="text-xs sm:text-[13px] font-medium text-[#141413] truncate">
+                {p.role}
               </div>
               <div className="text-[10px] sm:text-[11px] text-[#5E605D] truncate mt-0.5">
-                {cap.description}
+                {p.metricLabel}
               </div>
-            </div>
-          ))}
-
-          {/* Loop B (Duplicate for seamless continuous loop) */}
-          {CAPABILITIES.map((cap, idx) => (
-            <div
-              key={`cap-b-${cap.id}-${idx}`}
-              onClick={(e) => {
-                e.stopPropagation();
-                advanceToNext();
-              }}
-              className="group flex flex-col justify-between p-2.5 sm:p-3 w-[260px] sm:w-[290px] rounded-lg border border-black/[0.07] bg-[#FAF9F5] hover:bg-white hover:border-black/[0.18] hover:shadow-xs transition-all duration-150 cursor-pointer text-left shrink-0"
-              title="Click to cycle 3D stage"
-            >
-              <div className="flex items-center justify-between gap-1.5 mb-1">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-[#5E605D]">
-                  {cap.number} // CAPABILITY
-                </span>
-                <span
-                  className="text-[11px] font-bold font-mono px-2 py-0.5 rounded"
-                  style={{
-                    backgroundColor: `${cap.badgeColor}15`,
-                    color: cap.badgeColor,
-                  }}
-                >
-                  {cap.metric}
-                </span>
-              </div>
-              <div className="text-xs sm:text-[13px] font-medium text-[#141413] tracking-tight group-hover:text-black transition-colors truncate">
-                {cap.role}
-              </div>
-              <div className="text-[10px] sm:text-[11px] text-[#5E605D] truncate mt-0.5">
-                {cap.description}
-              </div>
-            </div>
-          ))}
-        </div>
+            </button>
+          );
+        })}
       </div>
     </div>
   );
