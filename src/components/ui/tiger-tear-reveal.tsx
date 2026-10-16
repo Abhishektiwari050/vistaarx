@@ -61,11 +61,11 @@ export function easeOutBack(t: number) {
 
 export function stages(p: number) {
   return {
-    crack: smooth(0.02, 0.22, p),
-    open: smooth(0.15, 0.65, p),
-    rise: smooth(0.25, 0.78, p),
-    pop: smooth(0.55, 0.90, p),
-    shake: smooth(0.12, 0.22, p) * (1 - smooth(0.24, 0.38, p)),
+    crack: smooth(0.0, 0.12, p),
+    open: smooth(0.02, 0.42, p),
+    rise: smooth(0.06, 0.52, p),
+    pop: smooth(0.12, 0.58, p),
+    shake: smooth(0.04, 0.15, p) * (1 - smooth(0.15, 0.28, p)),
   };
 }
 
@@ -107,6 +107,28 @@ const EYES: Pt[] = [
 
 const d = (pts: Pt[], close = true) =>
   "M" + pts.map(([x, y]) => x.toFixed(1) + " " + y.toFixed(1)).join("L") + (close ? "Z" : "");
+
+// Precomputed static geometry for zero-allocation 60-120fps rendering
+const STATIC_LINE: Pt[] = tearLine();
+const STATIC_LINE_D: string = d(STATIC_LINE, false);
+const TOP_SHAPE_D: string = d([
+  [STATIC_LINE[0][0], -FAR] as Pt,
+  [STATIC_LINE[STATIC_LINE.length - 1][0], -FAR] as Pt,
+  ...[...STATIC_LINE].reverse(),
+]);
+const BOTTOM_SHAPE_D: string = d([
+  ...STATIC_LINE,
+  [STATIC_LINE[STATIC_LINE.length - 1][0], FAR] as Pt,
+  [STATIC_LINE[0][0], FAR] as Pt,
+]);
+
+function precomputeBaseWidths(n: number, seed: number) {
+  const r = rng(seed);
+  return Array.from({ length: n }, (_, i) => 2.5 + 6 * (0.5 + 0.5 * Math.sin(i * 0.37 + seed)) * (0.6 + r() * 0.8));
+}
+
+const BASE_WIDTHS_TOP = precomputeBaseWidths(STATIC_LINE.length, 5);
+const BASE_WIDTHS_BOTTOM = precomputeBaseWidths(STATIC_LINE.length, 8);
 
 function stripe(p0: Pt, p1: Pt, p2: Pt, w: number, n = 14) {
   const left: Pt[] = [];
@@ -270,28 +292,41 @@ const CURLS: Record<"top" | "bottom", [number, number, number][]> = {
   ],
 };
 
+const PRECOMPUTED_CURLS = {
+  top: CURLS.top.map(([cx, hw, depth]) => ({
+    cx,
+    hw,
+    depth,
+    pts: STATIC_LINE.filter(([x]) => Math.abs(x - cx) <= hw),
+  })),
+  bottom: CURLS.bottom.map(([cx, hw, depth]) => ({
+    cx,
+    hw,
+    depth,
+    pts: STATIC_LINE.filter(([x]) => Math.abs(x - cx) <= hw),
+  })),
+};
+
 function Half({
   id,
   side,
-  line,
   open,
   children,
 }: {
   id: string;
   side: "top" | "bottom";
-  line: Pt[];
   open: number;
   children: React.ReactNode;
 }) {
   const up = side === "top";
   const m = pieceMotion(open)[side];
-  const shape = up
-    ? [[line[0][0], -FAR] as Pt, [line[line.length - 1][0], -FAR] as Pt, ...[...line].reverse()]
-    : [...line, [line[line.length - 1][0], FAR] as Pt, [line[0][0], FAR] as Pt];
-  const widths = fibreWidths(line.length, open, up ? 5 : 8);
-  const core = line.concat(line.map(([x, y], i) => [x, y + (up ? -widths[i] : widths[i])] as Pt).reverse());
-  const curls = CURLS[side].map(([cx, hw, depth]) => {
-    const pts = line.filter(([x]) => Math.abs(x - cx) <= hw);
+  const shapeD = up ? TOP_SHAPE_D : BOTTOM_SHAPE_D;
+  const k = Math.min(1, open * 4);
+  const baseWidths = up ? BASE_WIDTHS_TOP : BASE_WIDTHS_BOTTOM;
+  const core = STATIC_LINE.concat(
+    STATIC_LINE.map(([x, y], i) => [x, y + (up ? -k * baseWidths[i] : k * baseWidths[i])] as Pt).reverse()
+  );
+  const curls = PRECOMPUTED_CURLS[side].map(({ cx, hw, depth, pts }) => {
     const back = pts.map(([x, y]) => {
       const s = Math.cos(((x - cx) / hw) * (Math.PI / 2));
       return [x + (up ? 6 : -6) * s * open, y + (up ? 1 : -1) * depth * s * s * Math.min(1, open * 2.5)] as Pt;
@@ -301,21 +336,41 @@ function Half({
   const transform =
     "translate(" + m.dx.toFixed(2) + " " + m.dy.toFixed(2) + ") rotate(" + m.rot.toFixed(3) + " " + CX + " " + CY + ")";
   const clip = id + "-" + side;
+  const shadowAlpha = Math.min(1, open * 2.5);
+
   return (
     <g transform={transform}>
+      {/* Zero-filter GPU-accelerated multi-stop soft tear shadow */}
       {open > 0 ? (
-        <path
-          d={d(line, false)}
-          fill="none"
-          stroke="#000"
-          strokeOpacity={0.45 * Math.min(1, open * 3)}
-          strokeWidth={18}
-          transform={"translate(0 " + (up ? 10 : -10) + ")"}
-          filter={"url(#" + id + "-soft)"}
-        />
+        <g transform={"translate(0 " + (up ? 8 : -8) + ")"}>
+          <path
+            d={STATIC_LINE_D}
+            fill="none"
+            stroke="#000"
+            strokeOpacity={0.06 * shadowAlpha}
+            strokeWidth={26}
+            strokeLinecap="round"
+          />
+          <path
+            d={STATIC_LINE_D}
+            fill="none"
+            stroke="#000"
+            strokeOpacity={0.14 * shadowAlpha}
+            strokeWidth={14}
+            strokeLinecap="round"
+          />
+          <path
+            d={STATIC_LINE_D}
+            fill="none"
+            stroke="#000"
+            strokeOpacity={0.28 * shadowAlpha}
+            strokeWidth={6}
+            strokeLinecap="round"
+          />
+        </g>
       ) : null}
       <clipPath id={clip}>
-        <path d={d(shape)} />
+        <path d={shapeD} />
       </clipPath>
       <g clipPath={"url(#" + clip + ")"}>{children}</g>
       {open > 0 ? (
@@ -365,12 +420,13 @@ export default function TigerTearReveal({
   const reduced = usePrefersReducedMotion();
   const id = "ttr" + React.useId().replace(/[^a-zA-Z0-9]/g, "");
   const fibres = React.useMemo(buildFibres, []);
-  const line = React.useMemo(() => tearLine(), []);
+  const line = STATIC_LINE;
   const [f, setF] = React.useState<Frame>({ p: progress ?? 0, look: [0, 0], blink: 0, squint: 0 });
 
   const controlled = progress !== undefined;
   const cfg = React.useRef({ progress, controlled, reduced, mode });
   cfg.current = { progress, controlled, reduced, mode };
+  const isHovered = React.useRef(false);
   const pointer = React.useRef<{ x: number; y: number } | null>(null);
   const squintAt = React.useRef(-1e9);
 
@@ -404,10 +460,14 @@ export default function TigerTearReveal({
         const range = root.offsetHeight - stage.offsetHeight;
         targetP = range <= 0 ? (rect.top <= 0 ? 1 : 0) : clamp01(-rect.top / range);
       } else {
-        // Natural viewport reveal: tears open as the card travels through viewport
-        const start = vh * 0.88; // starts tearing as top enters bottom 88%
-        const end = vh * 0.18;   // fully torn open when top reaches upper 18%
-        targetP = clamp01((start - rect.top) / (start - end));
+        // High-velocity reveal: tears open rapidly and decisively
+        // Starts as top enters viewport (95% vh), fully open and centered by 38% vh
+        const start = vh * 0.95;
+        const end = vh * 0.38;
+        const rawScrollP = clamp01((start - rect.top) / (start - end));
+
+        // When hovered, boost reveal immediately so user experiences instant response
+        targetP = isHovered.current ? Math.max(rawScrollP, 0.98) : rawScrollP;
       }
     };
 
@@ -434,9 +494,9 @@ export default function TigerTearReveal({
       if (!visible) return;
       const c = cfg.current;
 
-      // Smooth lerp progress towards target
-      const lerpSpeed = c.reduced ? 1 : 0.16;
-      p = c.reduced ? (targetP > 0.3 ? 1 : 0) : p + (targetP - p) * lerpSpeed;
+      // Ultra-responsive, smooth lerp (0.40 for swift tracking, 1 for reduced motion)
+      const lerpSpeed = c.reduced ? 1 : 0.40;
+      p = c.reduced ? (targetP > 0.2 ? 1 : 0) : p + (targetP - p) * lerpSpeed;
       if (Math.abs(targetP - p) < 0.001) p = targetP;
 
       // Eye gaze tracking
@@ -455,7 +515,7 @@ export default function TigerTearReveal({
         }
         want = c.reduced ? [0, 0] : idle;
       }
-      look = [look[0] + (want[0] - look[0]) * 0.14, look[1] + (want[1] - look[1]) * 0.14];
+      look = [look[0] + (want[0] - look[0]) * 0.18, look[1] + (want[1] - look[1]) * 0.18];
 
       // Natural blinks
       let blink = 0;
@@ -553,9 +613,30 @@ export default function TigerTearReveal({
         ref={stageRef}
         className={`${isPinned ? "sticky top-0" : "relative"} w-full h-full overflow-hidden flex items-center justify-center`}
         style={{ height, cursor: s.pop > 0.9 ? "crosshair" : undefined }}
-        onPointerMove={(e) => (pointer.current = { x: e.clientX, y: e.clientY })}
-        onPointerLeave={() => (pointer.current = null)}
-        onPointerDown={() => s.pop > 0.5 && (squintAt.current = performance.now())}
+        onPointerEnter={() => {
+          isHovered.current = true;
+          const root = rootRef.current;
+          if (root) {
+            const rect = root.getBoundingClientRect();
+            const vh = window.innerHeight || 800;
+            const start = vh * 0.95;
+            const end = vh * 0.38;
+            const rawScrollP = clamp01((start - rect.top) / (start - end));
+            // Trigger rapid smooth tear on hover
+            if (rawScrollP > 0.05) {
+              setF((prev) => ({ ...prev, p: Math.max(prev.p, 0.4) }));
+            }
+          }
+        }}
+        onPointerMove={(e) => {
+          isHovered.current = true;
+          pointer.current = { x: e.clientX, y: e.clientY };
+        }}
+        onPointerLeave={() => {
+          isHovered.current = false;
+          pointer.current = null;
+        }}
+        onPointerDown={() => s.pop > 0.3 && (squintAt.current = performance.now())}
       >
         <svg
           viewBox={FRAME}
@@ -580,6 +661,11 @@ export default function TigerTearReveal({
               <stop offset="0.8" stopColor="#b8570f" />
               <stop offset="1" stopColor="#4d1f03" />
             </radialGradient>
+            <radialGradient id={id + "-eye-glow"} cx="0.5" cy="0.5" r="0.5">
+              <stop offset="0%" stopColor="#ffb03a" stopOpacity={0.5} />
+              <stop offset="60%" stopColor="#ff7700" stopOpacity={0.18} />
+              <stop offset="100%" stopColor="#ff7700" stopOpacity={0} />
+            </radialGradient>
             <linearGradient id={id + "-lid"} x1="0" y1="0" x2="0" y2="1">
               <stop offset="0" stopColor="#000" stopOpacity={0.75} />
               <stop offset="1" stopColor="#000" stopOpacity={0} />
@@ -595,33 +681,38 @@ export default function TigerTearReveal({
             <filter id={id + "-soft"} x="-20%" y="-50%" width="140%" height="200%">
               <feGaussianBlur stdDeviation="8" />
             </filter>
-            <filter id={id + "-glow"} x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="9" result="b" />
-              <feMerge>
-                <feMergeNode in="b" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
-            </filter>
           </defs>
 
           <g transform={"translate(" + shake.toFixed(2) + " " + (shake * 0.4).toFixed(2) + ")"}>
             {s.open > 0 ? (
               <g transform={tiger}>
                 <Fur id={id} fur={furColor} />
-                <g filter={s.pop > 0.02 ? "url(#" + id + "-glow)" : undefined}>
+                <g>
                   {EYES.map(([x, y], i) => (
-                    <Eye
-                      key={i}
-                      id={id}
-                      x={x}
-                      y={y}
-                      flip={i === 0}
-                      look={f.look}
-                      blink={blink}
-                      pupil={pupil}
-                      scale={eyeScale}
-                      fibres={fibres}
-                    />
+                    <React.Fragment key={i}>
+                      {s.pop > 0.05 ? (
+                        <ellipse
+                          cx={x}
+                          cy={y}
+                          rx={95}
+                          ry={65}
+                          fill={"url(#" + id + "-eye-glow)"}
+                          opacity={s.pop * 0.85}
+                        />
+                      ) : null}
+                      <Eye
+                        key={i}
+                        id={id}
+                        x={x}
+                        y={y}
+                        flip={i === 0}
+                        look={f.look}
+                        blink={blink}
+                        pupil={pupil}
+                        scale={eyeScale}
+                        fibres={fibres}
+                      />
+                    </React.Fragment>
                   ))}
                 </g>
               </g>
@@ -629,10 +720,10 @@ export default function TigerTearReveal({
 
             {s.open > 0 ? (
               <>
-                <Half id={id} side="top" line={line} open={s.open}>
+                <Half id={id} side="top" open={s.open}>
                   {sheet}
                 </Half>
-                <Half id={id} side="bottom" line={line} open={s.open}>
+                <Half id={id} side="bottom" open={s.open}>
                   {sheet}
                 </Half>
               </>
@@ -660,3 +751,4 @@ export default function TigerTearReveal({
     </section>
   );
 }
+

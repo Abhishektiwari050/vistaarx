@@ -27,7 +27,7 @@ export function CourageRevealSection() {
             paper="#FAFAF9"
             taglineColor="#5E605D"
             fontFamily='"Anton", Impact, "Bebas Neue", "Arial Black", sans-serif'
-            height="520px"
+            height="clamp(360px, 50vh, 520px)"
             mode="scroll-reveal"
           />
         </div>
