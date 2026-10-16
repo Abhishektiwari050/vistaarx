@@ -3,51 +3,6 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import { playClick } from "@/lib/sound";
 
-interface PersonaInfo {
-  id: number;
-  role: string;
-  metric: string;
-  metricLabel: string;
-  quote: string;
-  badgeColor: string;
-}
-
-// VISTAR engineering capabilities matching the 4 interactive canvas states
-const PERSONAS: PersonaInfo[] = [
-  {
-    id: 0,
-    role: "Lead Capture & WhatsApp Bots",
-    metric: "< 10s",
-    metricLabel: "Lead Response Time",
-    quote: "Automated ingestion from IndiaMART, JustDial, and web forms to WhatsApp & CRM",
-    badgeColor: "#22C55E",
-  },
-  {
-    id: 1,
-    role: "Custom Next.js Web Apps",
-    metric: "14 Days",
-    metricLabel: "Production Sprint",
-    quote: "Fast full-stack web applications and portals delivered with typed schemas",
-    badgeColor: "#3B82F6",
-  },
-  {
-    id: 2,
-    role: "Spatial WebGL & 3D Web",
-    metric: "60 FPS",
-    metricLabel: "In-Browser WebGL",
-    quote: "High-density architectural walkthroughs and interactive spatial models (3axis Arc)",
-    badgeColor: "#F59E0B",
-  },
-  {
-    id: 3,
-    role: "100% Source Code Sovereignty",
-    metric: "100%",
-    metricLabel: "Private Git Transfer",
-    quote: "Full private GitHub repo handover with bilateral NDA and 30-day bug warranty",
-    badgeColor: "#FF3823",
-  },
-];
-
 export function JasperInteractiveHero() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -59,7 +14,6 @@ export function JasperInteractiveHero() {
   const initialTimersRef = useRef<NodeJS.Timeout[]>([]);
 
   const [loaded, setLoaded] = useState(false);
-  const [activeSlide, setActiveSlide] = useState(1);
 
   // Advance to next slide in state machine
   const advanceToNext = useCallback(() => {
@@ -67,8 +21,7 @@ export function JasperInteractiveHero() {
     try {
       isAnimatingRef.current = true;
       nextSlideRef.current.fire();
-      currentSlideRef.current = (currentSlideRef.current + 1) % PERSONAS.length;
-      setActiveSlide(currentSlideRef.current);
+      currentSlideRef.current = (currentSlideRef.current + 1) % 4;
       playClick(1050, 0.03);
       setTimeout(() => {
         isAnimatingRef.current = false;
@@ -76,30 +29,6 @@ export function JasperInteractiveHero() {
     } catch (_) {
       isAnimatingRef.current = false;
     }
-  }, []);
-
-  // Jump to specific slide
-  const goToSlide = useCallback((targetIndex: number) => {
-    if (!nextSlideRef.current || isAnimatingRef.current) return;
-    const diff = (targetIndex - currentSlideRef.current + PERSONAS.length) % PERSONAS.length;
-    if (diff === 0) return;
-
-    isAnimatingRef.current = true;
-    let step = 0;
-    const interval = setInterval(() => {
-      if (nextSlideRef.current && step < diff) {
-        nextSlideRef.current.fire();
-        playClick(1000 + step * 50, 0.02);
-        step++;
-      } else {
-        clearInterval(interval);
-        currentSlideRef.current = targetIndex;
-        setActiveSlide(targetIndex);
-        setTimeout(() => {
-          isAnimatingRef.current = false;
-        }, 1200);
-      }
-    }, 280);
   }, []);
 
   // Initialize Rive instance using @rive-app/canvas matching Jasper production embed
@@ -166,7 +95,6 @@ export function JasperInteractiveHero() {
                   const t2 = setTimeout(() => {
                     if (nextSlide) {
                       nextSlide.fire();
-                      setActiveSlide(1);
                     }
                   }, 2000);
                   initialTimersRef.current.push(t2);
@@ -275,49 +203,6 @@ export function JasperInteractiveHero() {
             loaded ? "opacity-100" : "opacity-0"
           }`}
         />
-      </div>
-
-      {/* ── BOTTOM CAPABILITY SELECTOR BUTTONS ── */}
-      <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-1.5 p-2.5 sm:p-3 bg-white border-t border-black/[0.08]">
-        {PERSONAS.map((p) => {
-          const isActive = activeSlide === p.id;
-          return (
-            <button
-              key={p.id}
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                goToSlide(p.id);
-              }}
-              className={`p-2.5 sm:p-3 rounded-lg text-left transition-all duration-150 cursor-pointer flex flex-col justify-between border ${
-                isActive
-                  ? "bg-[#FAF9F5] border-[#141413] shadow-xs"
-                  : "bg-transparent border-transparent hover:bg-neutral-50 hover:border-black/[0.06]"
-              }`}
-            >
-              <div className="flex items-center justify-between gap-1 mb-1">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-[#5E605D]">
-                  0{p.id + 1} // CAPABILITY
-                </span>
-                <span
-                  className="text-xs font-bold font-mono px-1.5 py-0.5 rounded"
-                  style={{
-                    backgroundColor: isActive ? `${p.badgeColor}15` : "transparent",
-                    color: p.badgeColor,
-                  }}
-                >
-                  {p.metric}
-                </span>
-              </div>
-              <div className="text-xs sm:text-[13px] font-medium text-[#141413] truncate">
-                {p.role}
-              </div>
-              <div className="text-[10px] sm:text-[11px] text-[#5E605D] truncate mt-0.5">
-                {p.metricLabel}
-              </div>
-            </button>
-          );
-        })}
       </div>
     </div>
   );
