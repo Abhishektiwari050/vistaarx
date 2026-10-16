@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState } from "react";
 import Link from "next/link";
@@ -50,9 +50,9 @@ const PRODUCTION_SYSTEMS: ProductionSystem[] = [
     tag: "ARCHITECTURE & 3D REAL ESTATE",
     statusBadge: "LIVE CLIENT SHOWROOM",
     title: "3axis Arc: Spatial 3D Web Showroom",
-    sector: "Architecture & Interior Design (Lucknow, UP)",
+    sector: "Architecture & Interior Design",
     metrics: ["60 FPS In-Browser WebGL", "Sub-100ms TTFB", "Zero Layout Shift (CLS 0.000)"],
-    desc: "Interactive 3D architectural visualization platform engineered for an architectural design firm in Lucknow to showcase spatial designs in-browser with zero app downloads.",
+    desc: "Interactive 3D architectural visualization platform engineered for an architectural design firm to showcase spatial designs in-browser with zero app downloads.",
     architecture: "Next.js 16 + Three.js / WebGL Custom Shaders + Vercel Edge",
     liveUrl: "https://3axisarc.vercel.app",
     displayUrl: "3axisarc.vercel.app",
@@ -73,7 +73,7 @@ const PRODUCTION_SYSTEMS: ProductionSystem[] = [
     architecture: "Next.js 16 + Python FastAPI + MapLibre GL Vector Tiles",
     liveUrl: "https://ai-vayu.vercel.app",
     displayUrl: "ai-vayu.vercel.app",
-    repoTransfer: "Open Source on GitHub (Abhishektiwari050/AI-VAYU)",
+    repoTransfer: "Open Source on GitHub (Project VAYU)",
     accentBg: "bg-[#EBF3FF]",
     accentText: "text-[#1E3A8A]",
     primaryImage: "/projects/vayuways.png",
@@ -91,7 +91,7 @@ const PRODUCTION_SYSTEMS: ProductionSystem[] = [
     title: "VISTAR AutoLead: Internal Lead Triage & WhatsApp Pipeline",
     sector: "Vistar Internal Operations & Lead Capture",
     metrics: ["Instant WhatsApp Alert", "Zero Manual Entry", "24/7 Intake Engine"],
-    desc: "Our internal inquiry intake pipeline that captures web form leads, structures project requirements, dispatches instant WhatsApp notifications directly to Abhishek, and logs follow-ups.",
+    desc: "Our internal inquiry intake pipeline that captures web form leads, structures project requirements, dispatches instant WhatsApp notifications directly to our lead engineers, and logs follow-ups.",
     architecture: "Next.js Route Handlers + WhatsApp Cloud API + Google Sheets / PostgreSQL",
     liveUrl: "https://vistar.tech/contact",
     displayUrl: "vistar.tech/contact",
@@ -112,7 +112,7 @@ const PRODUCTION_SYSTEMS: ProductionSystem[] = [
     architecture: "Python PyTorch / Scikit-Learn + FastAPI + Pydantic Schema Validation",
     liveUrl: "https://multi-agent-anomaly-system.onrender.com",
     displayUrl: "aura-anomaly.onrender.com",
-    repoTransfer: "Open Source Research Code (Abhishektiwari050/multi-agent-anomaly-system)",
+    repoTransfer: "Open Source Research Code (VISTAR Systems / AURA)",
     accentBg: "bg-[#F3E8FF]",
     accentText: "text-[#581C87]",
     primaryImage: "/projects/aura-results.png",
@@ -146,7 +146,7 @@ const INDUSTRIES = [
   {
     name: "Real Estate & Architecture",
     summary: "60fps WebGL spatial models, interactive walkthroughs, and architectural portfolios.",
-    detail: "Next.js 16 and Three.js pipelines delivering smooth spatial exploration across mobile and desktop (e.g. 3axis Arc in Lucknow).",
+    detail: "Next.js 16 and Three.js pipelines delivering smooth spatial exploration across mobile and desktop (e.g. 3axis Arc).",
   },
   {
     name: "Manufacturing & SME Trade",
@@ -170,7 +170,7 @@ const WORK_FAQ_ITEMS: QAPair[] = [
     category: "PRODUCTION SYSTEMS",
     question: "What production systems has VISTAR engineered?",
     answer:
-      "VISTAR has engineered real-world production systems including 3axis Arc (a 60fps WebGL spatial architectural platform for a Lucknow architecture firm), VISTAR AutoLead (automated lead intake and WhatsApp notification pipeline for Indian SMEs), Project VAYU (an open-source aviation GIS tool for flight planning and NOTAM parsing), and AURA (an open-source machine learning anomaly detection research prototype).",
+      "VISTAR has engineered real-world production systems including 3axis Arc (a 60fps WebGL spatial architectural platform for an architectural design firm), VISTAR AutoLead (automated lead intake and WhatsApp notification pipeline for Indian businesses), Project VAYU (an open-source aviation GIS tool for flight planning and NOTAM parsing), and AURA (an open-source machine learning anomaly detection research prototype).",
     keyPoints: [
       "Live verified deployments with public links and performance benchmarks",
       "Sub-100ms response times and 100/100 Lighthouse performance",
@@ -630,7 +630,7 @@ export default function WorkClientPage() {
             Build your sovereign software with VISTAR
           </h2>
           <p className="text-base text-[#5E605D] max-w-xl mx-auto leading-relaxed">
-            Direct collaboration with Abhishek Tiwari (Founder &amp; Lead Engineer). Ship in 14-day guaranteed sprints with 100% repository handover.
+            Direct collaboration with our Founder &amp; Lead Engineer. Ship in 14-day guaranteed sprints with 100% repository handover.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 pt-3">
             <Link
@@ -641,7 +641,7 @@ export default function WorkClientPage() {
               <ArrowRight className="w-4 h-4" />
             </Link>
             <a
-              href="https://wa.me/918860110144?text=Hi%20Abhishek%2C%20I'd%20like%20to%20discuss%20a%20project%20with%20VISTAR."
+              href="https://wa.me/918860110144?text=Hi%20VISTAR%2C%20I'd%20like%20to%20discuss%20a%20project%20with%20VISTAR."
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center px-7 py-3.5 bg-[#25D366] hover:bg-[#20BD5A] text-white font-medium text-sm rounded-none transition-colors shadow-xs gap-2"

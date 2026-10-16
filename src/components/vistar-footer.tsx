@@ -40,7 +40,7 @@ const FOOTER_COLUMNS: FooterColumn[] = [
       { label: "Our 6-Stage Engineering Process", href: "/how-we-work" },
       { label: "100% Client Code Ownership", href: "/how-we-work#ownership" },
       { label: "Pricing & Engagement Options", href: "/pricing" },
-      { label: "About Abhishek Tiwari & Studio", href: "/about" },
+      { label: "About VISTAR Studio & Team", href: "/about" },
       { label: "Engineering Insights & Blog", href: "/blog" },
     ],
   },
@@ -50,7 +50,7 @@ const FOOTER_COLUMNS: FooterColumn[] = [
       { label: "Chat on WhatsApp (+91 88601 10144)", href: "https://wa.me/918860110144", isExternal: true },
       { label: "Email: services.vistaar@gmail.com", href: "mailto:services.vistaar@gmail.com", isExternal: true },
       { label: "Discuss a Workflow", href: "/contact" },
-      { label: "GitHub: Abhishek Tiwari", href: "https://github.com/Abhishektiwari050", isExternal: true },
+      { label: "GitHub: VISTAR Systems", href: "https://github.com/Abhishektiwari050", isExternal: true },
     ],
   },
 ];
@@ -98,7 +98,7 @@ export function VistarFooter() {
               Ready to eliminate manual friction from your business?
             </h3>
             <p className="text-sm text-neutral-400 leading-relaxed">
-              Book a 30-minute discovery conversation with Abhishek to review one workflow bottleneck.
+              Book a 30-minute discovery conversation with our lead engineer to review one workflow bottleneck.
             </p>
           </div>
 
@@ -112,7 +112,7 @@ export function VistarFooter() {
             </Link>
 
             <a
-              href="https://wa.me/918860110144?text=Hi%20Abhishek%2C%20I%20would%20like%20to%20discuss%20a%20software%20project%20with%20VISTAR."
+              href="https://wa.me/918860110144?text=Hi%20VISTAR%2C%20I%20would%20like%20to%20discuss%20a%20software%20project."
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center h-11 px-5 rounded-xl bg-[#25D366] hover:bg-[#20BD5A] text-white text-xs font-semibold transition-all shadow-sm active:scale-95 gap-2"
@@ -212,7 +212,7 @@ export function VistarFooter() {
         {/* Bottom Legal & Identity Row */}
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-xs text-neutral-500">
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-            <span>&copy; {currentYear} Vistar Web Systems. Lucknow, UP, India.</span>
+            <span>&copy; {currentYear} Vistar Web Systems. New Delhi, India.</span>
             <span>&bull;</span>
             <Link href="/privacy" className="hover:text-white transition-colors">
               Privacy Policy
@@ -224,7 +224,7 @@ export function VistarFooter() {
           </div>
 
           <div className="flex items-center gap-4 text-neutral-400">
-            <span>Directed by Abhishek Tiwari</span>
+            <span>Engineered by VISTAR</span>
             <a
               href="https://github.com/Abhishektiwari050"
               target="_blank"

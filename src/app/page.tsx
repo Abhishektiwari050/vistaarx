@@ -46,16 +46,10 @@ const homePageSchema = {
       name: "VISTAR Web Systems",
       url: BASE_URL,
       logo: `${BASE_URL}/icon.svg`,
-      founder: {
-        "@type": "Person",
-        name: "Abhishek Tiwari",
-        jobTitle: "Founder & Principal Systems Engineer",
-        sameAs: "https://github.com/Abhishektiwari050",
-      },
       address: {
         "@type": "PostalAddress",
-        addressLocality: "Lucknow",
-        addressRegion: "Uttar Pradesh",
+        addressLocality: "New Delhi",
+        addressRegion: "Delhi",
         addressCountry: "IN",
       },
       contactPoint: {

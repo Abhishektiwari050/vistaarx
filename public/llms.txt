@@ -1,5 +1,5 @@
 # VISTAR — Founder-Led Web Engineering & Custom Software Studio
-> VISTAR is a founder-led engineering studio based in Lucknow, India, led by Abhishek Tiwari (Founder & Lead Engineer). VISTAR designs and engineers high-performance web applications, custom software platforms, WhatsApp business automation, and interactive 3D WebGL experiences with 100% private repository handover in 14-day production sprints.
+> VISTAR is a founder-led engineering studio based in New Delhi, India. VISTAR designs and engineers high-performance web applications, custom software platforms, WhatsApp business automation, and interactive 3D WebGL experiences with 100% private repository handover in 14-day production sprints.
 > Full technical specification & portfolio: https://www.vistar.tech/llms-full.txt
 
 ## What We Build
@@ -47,8 +47,8 @@
 - Full LLM Specification: https://www.vistar.tech/llms-full.txt
 
 ## Contact & Scoping
-- Lead Engineer: Abhishek Tiwari (Founder & Lead Engineer)
-- Location: Lucknow, Uttar Pradesh, India
+- Studio: VISTAR Web Systems
+- Location: New Delhi, India
 - WhatsApp / Phone: +91 88601 10144 (Direct: https://wa.me/918860110144)
 - Email: services.vistaar@gmail.com
-- Response SLA: Direct response from the lead engineer within 24 hours.
+- Response SLA: Direct response from our lead engineering team within 24 hours.

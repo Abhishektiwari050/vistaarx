@@ -8,7 +8,7 @@ import WorkSolutionsPage from "./work-client";
 export const metadata: Metadata = {
   title: "Production Software & Web Engineering Case Studies",
   description:
-    "Inspect production systems engineered by VISTAR: 3axis Arc (interactive 3D spatial showroom for Lucknow architecture), Project VAYU (open-source aviation NOTAM GIS tool), and automated WhatsApp CRM pipelines. 100% source code handover.",
+    "Inspect production systems engineered by VISTAR: 3axis Arc (interactive 3D spatial showroom for architecture), Project VAYU (open-source aviation NOTAM GIS tool), and automated WhatsApp CRM pipelines. 100% source code handover.",
   keywords: KEYWORDS.work,
   alternates: {
     canonical: `${BASE_URL}/work`,

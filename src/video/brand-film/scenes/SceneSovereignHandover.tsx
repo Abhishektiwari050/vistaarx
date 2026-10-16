@@ -1,6 +1,7 @@
 import React from 'react';
 import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
 import { CinematicBackground } from '../components/CinematicBackground';
+import { VistarLogoMark } from '../components/VistarLogoMark';
 import { BRAND_TOKENS } from '../constants';
 
 export const SceneSovereignHandover: React.FC = () => {
@@ -102,99 +103,17 @@ export const SceneSovereignHandover: React.FC = () => {
         {/* Kinetic 4-Vector Collision Emblem */}
         <div
           style={{
-            width: '180px',
-            height: '180px',
-            position: 'relative',
+            marginBottom: '44px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            marginBottom: '44px',
           }}
         >
-          <svg
-            width="180"
-            height="180"
-            viewBox="0 0 100 100"
-            fill="none"
-            style={{ overflow: 'visible' }}
-          >
-            <defs>
-              <linearGradient id="vistarSovereignChrome" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#FFFFFF" />
-                <stop offset="50%" stopColor="#D6DAE8" />
-                <stop offset="100%" stopColor="#959CB3" />
-              </linearGradient>
-            </defs>
-
-            {/* Central Pure White Core (ignites on impact) */}
-            <rect
-              x="34"
-              y="34"
-              width="32"
-              height="32"
-              fill="#FFFFFF"
-              stroke="#FFFFFF"
-              strokeWidth="0.5"
-              style={{
-                opacity: convergence,
-                transform: `scale(${0.2 + convergence * 0.8})`,
-                transformOrigin: '50px 50px',
-                filter: convergence > 0.85 ? 'drop-shadow(0 0 25px #FFFFFF)' : 'none',
-              }}
-            />
-
-            {/* Top Triangle (dives down) */}
-            <polygon
-              points="50,2 66,34 34,34"
-              fill="url(#vistarSovereignChrome)"
-              stroke="#FFFFFF"
-              strokeWidth="0.8"
-              style={{
-                transform: `translateY(${-offset}px)`,
-                transformOrigin: '50px 18px',
-                filter: 'drop-shadow(0 0 12px rgba(255, 255, 255, 0.4))',
-              }}
-            />
-
-            {/* Right Triangle (shoots left) */}
-            <polygon
-              points="98,50 66,66 66,34"
-              fill="url(#vistarSovereignChrome)"
-              stroke="#FFFFFF"
-              strokeWidth="0.8"
-              style={{
-                transform: `translateX(${offset}px)`,
-                transformOrigin: '82px 50px',
-                filter: 'drop-shadow(0 0 12px rgba(255, 255, 255, 0.4))',
-              }}
-            />
-
-            {/* Bottom Triangle (shoots up) */}
-            <polygon
-              points="50,98 34,66 66,66"
-              fill="url(#vistarSovereignChrome)"
-              stroke="#FFFFFF"
-              strokeWidth="0.8"
-              style={{
-                transform: `translateY(${offset}px)`,
-                transformOrigin: '50px 82px',
-                filter: 'drop-shadow(0 0 12px rgba(255, 255, 255, 0.4))',
-              }}
-            />
-
-            {/* Left Triangle (shoots right) */}
-            <polygon
-              points="2,50 34,34 34,66"
-              fill="url(#vistarSovereignChrome)"
-              stroke="#FFFFFF"
-              strokeWidth="0.8"
-              style={{
-                transform: `translateX(${-offset}px)`,
-                transformOrigin: '18px 50px',
-                filter: 'drop-shadow(0 0 12px rgba(255, 255, 255, 0.4))',
-              }}
-            />
-          </svg>
+          <VistarLogoMark
+            size={220}
+            convergence={convergence}
+            strokeWidth={1}
+          />
         </div>
 
         {/* Wordmark Expanding In */}

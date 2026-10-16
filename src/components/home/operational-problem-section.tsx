@@ -9,136 +9,158 @@ import {
   Split,
   TrendingDown,
   ArrowRight,
+  AlertCircle,
 } from "lucide-react";
 import Link from "next/link";
 
 const PROBLEMS = [
   {
     icon: MessageSquareWarning,
-    tag: "01 / SCATTERED ENQUIRIES",
-    title: "Leads scattered across WhatsApp, phone, and inboxes",
+    tag: "01 / SCATTERED LEADS",
+    title: "Leads scattered across WhatsApp & inboxes",
     description:
-      "A customer asks for pricing on WhatsApp, another fills a website form, and three call your sales reps. Without a unified intake system, messages sit unseen, reps double-contact the same lead, or lucrative enquiries slip away unnoticed.",
-    example: "Example: 20–30% of incoming B2B quotation requests go unanswered for more than 24 hours.",
+      "Without a unified intake pipeline, enquiries sit unseen, reps double-contact leads, and high-value requests slip away unnoticed.",
+    impact: "20–30% Leads Unanswered >24h",
   },
   {
     icon: BrainCircuit,
-    tag: "02 / MEMORY-BASED FOLLOW-UPS",
-    title: "Follow-ups dependent on human memory and sticky notes",
+    tag: "02 / MEMORY FOLLOW-UPS",
+    title: "Follow-ups dependent on memory & sticky notes",
     description:
-      "Quotes get prepared, sent via email or PDF, and then forgotten. When closing a deal depends on whether a busy sales rep remembers to check in three days later, revenue leaks through the cracks every single week.",
-    example: "Example: High-margin commercial deals lost simply because nobody sent the follow-up reminder.",
+      "Quotes get prepared, emailed, and forgotten. When closing relies on human memory rather than scheduled automation, revenue leaks weekly.",
+    impact: "High-Margin Quotes Abandoned",
   },
   {
     icon: FileSpreadsheet,
     tag: "03 / REPETITIVE DATA ENTRY",
-    title: "Copy-pasting the same numbers across four spreadsheets",
+    title: "Copy-pasting across four spreadsheets",
     description:
-      "Customer details copied from WhatsApp into a lead sheet, re-typed into an invoice generator, and manually pasted into an inventory ledger. Skilled employees spend hours on clerical busywork instead of closing deals.",
-    example: "Example: Over 15 hours per week wasted per manager on manual copy-paste reconciliation.",
+      "Customer details copied from WhatsApp into a lead sheet, re-typed into invoices, and pasted into inventory. Skilled managers waste hours on clerical busywork.",
+    impact: "15+ Hrs/Week Clerical Waste",
   },
   {
     icon: Clock,
     tag: "04 / MIDNIGHT REPORTING",
-    title: "Operational reporting assembled manually late at night",
+    title: "Operational reports stitched by hand",
     description:
-      "When business owners want to know 'how many orders are pending' or 'what was our margin on this batch,' someone has to download three CSVs, fix broken formulas, and stitch them together by hand.",
-    example: "Example: Leadership makes strategic inventory decisions using numbers that are three days old.",
+      "When leadership asks for batch margins or pending orders, staff spend hours downloading disjointed CSVs and fixing broken formulas late at night.",
+    impact: "Decisions on 3-Day Old Numbers",
   },
   {
     icon: Split,
     tag: "05 / DISCONNECTED TOOLS",
-    title: "Tools that don't speak to each other",
+    title: "Tools that refuse to speak to each other",
     description:
-      "You might use Tally or Zoho for accounts, WhatsApp for customer chats, Google Sheets for tracking, and Gmail for quotes. None of them share data automatically, creating blind spots across your business.",
-    example: "Example: Operations, accounts, and sales teams operating on three conflicting sets of numbers.",
+      "Tally, WhatsApp, Google Sheets, and Gmail running in complete isolation with zero synchronization, creating conflicting operational records.",
+    impact: "Conflicting Operational Silos",
   },
   {
     icon: TrendingDown,
     tag: "06 / PROCESSES BREAK AT SCALE",
-    title: "Workflows that crumble as order volume increases",
+    title: "Workflows crumbling as order volume scales",
     description:
-      "Informal systems that worked when you handled 20 orders a month start buckling when volume hits 100. Disorganization causes delivery delays, customer frustration, and staff burnout.",
-    example: "Example: Increasing sales volume leads to more errors and complaints instead of healthy profit.",
+      "Informal systems that worked for 20 orders/month buckle when volume hits 100. Disorganization causes fulfillment delays and customer churn.",
+    impact: "Margin Loss Under Volume",
   },
 ];
 
 export function OperationalProblemSection() {
+  // Duplicated for gapless continuous infinite marquee loop (-50% translation)
+  const marqueeItems = [...PROBLEMS, ...PROBLEMS];
+
   return (
-    <section className="w-full py-16 sm:py-24 bg-[#FAF9F6] border-y border-black/8 text-[#121316]">
+    <section className="w-full py-14 sm:py-18 bg-[#FAF9F6] border-y border-black/8 text-[#121316] overflow-hidden">
       <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-10">
         
-        {/* Section Header */}
-        <div className="max-w-3xl space-y-4">
+        {/* Section Header - Compact and Direct */}
+        <div className="max-w-2xl space-y-3">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/5 border border-black/8 text-neutral-700 text-xs font-mono font-semibold uppercase tracking-wider">
             Operational Reality
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#121316] leading-[1.12]">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-[#121316] leading-[1.15]">
             Where businesses lose time, margin, and momentum.
           </h2>
-          <p className="text-base sm:text-lg text-neutral-600 leading-relaxed font-normal">
+          <p className="text-sm sm:text-base text-neutral-600 leading-relaxed font-normal">
             Most operational friction isn’t caused by bad employees—it’s caused by disconnected tools, manual spreadsheets, and workflows that rely on memory instead of automated systems.
           </p>
         </div>
 
-        {/* 6 Problem Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 mt-12">
-          {PROBLEMS.map((item) => {
+      </div>
+
+      {/* Continuous Smooth Horizontal Friction Marquee */}
+      <div className="relative w-full mt-8 sm:mt-10 group overflow-hidden">
+        {/* Subtle Edge Fade Masks */}
+        <div 
+          aria-hidden="true" 
+          className="pointer-events-none absolute left-0 top-0 bottom-0 w-12 sm:w-24 z-10 bg-gradient-to-r from-[#FAF9F6] to-transparent" 
+        />
+        <div 
+          aria-hidden="true" 
+          className="pointer-events-none absolute right-0 top-0 bottom-0 w-12 sm:w-24 z-10 bg-gradient-to-l from-[#FAF9F6] to-transparent" 
+        />
+
+        {/* Marquee Track with Pause-on-Hover */}
+        <div className="flex w-max gap-4 sm:gap-5 [animation:marquee-scroll_36s_linear_infinite] group-hover:[animation-play-state:paused] py-2 px-4 will-change-transform">
+          {marqueeItems.map((item, index) => {
             const Icon = item.icon;
             return (
               <div
-                key={item.tag}
-                className="bg-white border border-black/8 rounded-2xl p-6 sm:p-7 shadow-[0_2px_12px_rgba(0,0,0,0.02)] flex flex-col justify-between hover:border-black/20 transition-all group"
+                key={`${item.tag}-${index}`}
+                className="w-[310px] sm:w-[350px] shrink-0 bg-white border border-black/8 rounded-xl p-5 shadow-[0_2px_10px_rgba(0,0,0,0.02)] flex flex-col justify-between hover:border-black/20 hover:shadow-md transition-all group/card select-none"
               >
-                <div className="space-y-4">
+                <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-mono font-semibold tracking-wider text-neutral-400 group-hover:text-[#E1341E] transition-colors">
+                    <span className="text-[10.5px] font-mono font-semibold tracking-wider text-neutral-400 group-hover/card:text-[#FF3823] transition-colors">
                       {item.tag}
                     </span>
-                    <div className="w-8 h-8 rounded-lg bg-neutral-50 border border-black/6 flex items-center justify-center text-neutral-600 group-hover:bg-[#E1341E]/10 group-hover:text-[#E1341E] transition-colors">
-                      <Icon className="w-4 h-4" />
+                    <div className="w-7 h-7 rounded-lg bg-neutral-50 border border-black/6 flex items-center justify-center text-neutral-500 group-hover/card:bg-[#FF3823]/10 group-hover/card:text-[#FF3823] transition-colors">
+                      <Icon className="w-3.5 h-3.5" />
                     </div>
                   </div>
 
-                  <h3 className="text-lg sm:text-[19px] font-semibold text-[#121316] leading-snug">
+                  <h3 className="text-base font-semibold text-[#121316] leading-snug">
                     {item.title}
                   </h3>
 
-                  <p className="text-sm text-neutral-600 leading-relaxed font-normal">
+                  <p className="text-xs sm:text-[13px] text-neutral-600 leading-relaxed font-normal">
                     {item.description}
                   </p>
                 </div>
 
-                <div className="mt-5 pt-4 border-t border-black/6">
-                  <p className="text-xs font-mono text-neutral-500 bg-neutral-50 p-2.5 rounded-lg border border-black/4">
-                    {item.example}
-                  </p>
+                {/* High-Contrast Impact Badge */}
+                <div className="mt-4 pt-3 border-t border-black/6 flex items-center gap-1.5">
+                  <AlertCircle className="w-3.5 h-3.5 text-[#FF3823] shrink-0" />
+                  <span className="text-[11px] font-mono font-medium text-neutral-700">
+                    {item.impact}
+                  </span>
                 </div>
               </div>
             );
           })}
         </div>
+      </div>
 
-        {/* Bridge Statement */}
-        <div className="mt-12 p-6 sm:p-8 rounded-2xl bg-white border border-black/10 flex flex-col sm:flex-row sm:items-center justify-between gap-6 shadow-xs">
+      {/* Bridge Statement Banner */}
+      <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-10 mt-8 sm:mt-10">
+        <div className="p-5 sm:p-6 rounded-xl bg-white border border-black/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xs">
           <div className="space-y-1 max-w-2xl">
-            <h4 className="text-lg font-semibold text-[#121316]">
+            <h4 className="text-sm sm:text-base font-semibold text-[#121316]">
               Recognize any of these bottlenecks in your current operations?
             </h4>
-            <p className="text-sm text-neutral-600">
-              You don&rsquo;t need to rebuild your entire business overnight. A single focused automation or intake system can unlock immediate time savings.
+            <p className="text-xs sm:text-sm text-neutral-600">
+              You don&rsquo;t need to rebuild your entire business overnight. A single focused automation or intake system unlocks immediate time savings.
             </p>
           </div>
           <Link
             href="/contact"
-            className="inline-flex items-center justify-center h-11 px-6 rounded-xl bg-[#121316] hover:bg-[#282A2E] text-white text-sm font-medium transition-all shrink-0 gap-2 shadow-xs"
+            className="inline-flex items-center justify-center h-10 px-5 rounded-lg bg-[#121316] hover:bg-[#282A2E] text-white text-xs sm:text-sm font-medium transition-all shrink-0 gap-2 shadow-xs"
           >
             <span>Audit a bottleneck with us</span>
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
-
       </div>
+
     </section>
   );
 }

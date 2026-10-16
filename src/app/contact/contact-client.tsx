@@ -132,7 +132,7 @@ ${formState.problemDescription}
                     Workflow inquiry received.
                   </h3>
                   <p className="text-sm text-neutral-600 leading-relaxed max-w-lg">
-                    Abhishek Tiwari (Founder &amp; Principal Systems Engineer) will review your notes and reply with initial thoughts and questions within 1 business day.
+                    Our lead engineering team will review your notes and reply with initial thoughts and questions within 1 business day.
                   </p>
                 </div>
 
@@ -360,13 +360,13 @@ ${formState.problemDescription}
                   Prefer a quick chat on WhatsApp?
                 </h3>
                 <p className="text-xs text-neutral-300 mt-1 leading-relaxed">
-                  Have a quick question or want to discuss feasibility right away? Message Abhishek directly.
+                  Have a quick question or want to discuss feasibility right away? Message our engineering team directly.
                 </p>
               </div>
 
               <div className="pt-2">
                 <a
-                  href="https://wa.me/918860110144?text=Hi%20Abhishek%2C%20I%20would%20like%20to%20discuss%20a%20process%20automation%20project%20with%20Vistar."
+                  href="https://wa.me/918860110144?text=Hi%20VISTAR%2C%20I%20would%20like%20to%20discuss%20a%20process%20automation%20project."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[#25D366] hover:bg-[#20BD5A] text-white text-xs font-semibold transition-all shadow-xs"
@@ -377,8 +377,8 @@ ${formState.problemDescription}
               </div>
 
               <div className="pt-2 border-t border-white/10 text-[11.5px] text-neutral-400 flex items-center justify-between">
-                <span>Direct to Founder</span>
-                <span>Lucknow, UP, India</span>
+                <span>Direct Engineering</span>
+                <span>New Delhi, India</span>
               </div>
             </div>
 
@@ -411,7 +411,7 @@ ${formState.problemDescription}
               <ul className="space-y-2 text-xs text-neutral-700">
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="w-4 h-4 text-[#16A34A] shrink-0 mt-0.5" />
-                  <span>Direct reply from Abhishek, not a commissioned sales rep.</span>
+                  <span>Direct reply from our senior engineering team, not a commissioned sales rep.</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="w-4 h-4 text-[#16A34A] shrink-0 mt-0.5" />

@@ -20,7 +20,7 @@ const ADVANTAGES = [
     icon: User,
     title: "Direct Access to the Lead Engineer",
     description:
-      "You speak directly with Abhishek Tiwari, the founder and senior engineer building your system. No account executives translating your words into inaccurate tickets, and no junior contractors learning on your budget.",
+      "You speak directly with the founder and senior engineers building your system. No account executives translating your words into inaccurate tickets, and no junior contractors learning on your budget.",
   },
   {
     icon: ShieldCheck,
@@ -99,12 +99,12 @@ export function WhyVistarSection() {
           })}
         </div>
 
-        {/* Founder Bio Card */}
+        {/* Studio Leadership Card */}
         <div className="mt-12 bg-white border border-black/10 rounded-2xl p-6 sm:p-8 flex flex-col md:flex-row items-center gap-6 shadow-xs">
           <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden border border-black/10 shrink-0 bg-neutral-100">
             <Image
               src="/images/headshot_primary.png"
-              alt="Abhishek Tiwari — Founder & Lead Engineer at VISTAR"
+              alt="VISTAR — Founder & Lead Engineer"
               fill
               className="object-cover"
               sizes="112px"
@@ -114,17 +114,17 @@ export function WhyVistarSection() {
           <div className="space-y-2 flex-1 text-center md:text-left">
             <div className="flex flex-wrap items-center justify-center md:justify-start gap-2">
               <h4 className="text-xl font-bold text-[#121316]">
-                Abhishek Tiwari
+                Founder &amp; Principal Systems Engineer
               </h4>
               <span className="px-2 py-0.5 rounded text-[11px] font-mono bg-neutral-100 text-neutral-700">
-                Founder &amp; Principal Systems Engineer
+                VISTAR Studio
               </span>
             </div>
             <p className="text-sm text-neutral-600 leading-relaxed max-w-2xl">
-              &ldquo;I lead discovery, architecture, and core engineering on every engagement. My goal is to build software that quietly does its job every single day, so you can stop wrestling with spreadsheets and focus on growing your business.&rdquo;
+              &ldquo;We lead discovery, architecture, and core engineering on every engagement. Our goal is to build software that quietly does its job every single day, so you can stop wrestling with spreadsheets and focus on growing your business.&rdquo;
             </p>
             <div className="pt-2 flex flex-wrap items-center justify-center md:justify-start gap-4 text-xs font-mono text-neutral-500">
-              <span>📍 Lucknow, UP, India</span>
+              <span>📍 New Delhi, India</span>
               <span>&bull;</span>
               <span>📞 +91 88601 10144</span>
               <span>&bull;</span>
@@ -134,13 +134,13 @@ export function WhyVistarSection() {
 
           <div className="shrink-0 flex flex-col sm:flex-row md:flex-col gap-2 w-full md:w-auto">
             <a
-              href="https://wa.me/918860110144?text=Hi%20Abhishek%2C%20I%20would%20like%20to%20discuss%20a%20software%20project%20with%20Vistar."
+              href="https://wa.me/918860110144?text=Hi%20VISTAR%2C%20I%20would%20like%20to%20discuss%20a%20software%20project."
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center h-10 px-5 rounded-xl bg-[#25D366] hover:bg-[#20BD5A] text-white text-xs font-semibold gap-1.5 transition-colors shadow-2xs"
             >
               <MessageSquare className="w-3.5 h-3.5 fill-white" />
-              <span>WhatsApp Abhishek</span>
+              <span>WhatsApp Engineering</span>
             </a>
             <Link
               href="/about"

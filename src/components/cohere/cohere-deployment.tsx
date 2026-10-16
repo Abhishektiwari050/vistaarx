@@ -58,7 +58,7 @@ export function CohereDeployment() {
 
           {/* Subtitle */}
           <p className="text-base sm:text-lg md:text-[18px] text-[#4A4D57] leading-relaxed max-w-[660px] mx-auto mb-8 font-normal">
-            From WhatsApp enquiry automations and internal portals to high-performance 3D web applications. Direct engineering by Abhishek Tiwari with 100% source code ownership.
+            From WhatsApp enquiry automations and internal portals to high-performance 3D web applications. Direct engineering by VISTAR Studio with 100% source code ownership.
           </p>
 
           {/* Buttons */}
@@ -70,7 +70,7 @@ export function CohereDeployment() {
               Discuss a workflow
             </Link>
             <a
-              href="https://wa.me/918860110144?text=Hi%20Abhishek%2C%20I%20would%20like%20to%20discuss%20an%20automation%20project%20with%20VISTAR."
+              href="https://wa.me/918860110144?text=Hi%20VISTAR%2C%20I%20would%20like%20to%20discuss%20an%20automation%20project."
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center px-6 py-3 bg-[#25D366] hover:bg-[#20BD5A] text-white font-medium text-sm sm:text-base rounded-none transition-colors shadow-xs"

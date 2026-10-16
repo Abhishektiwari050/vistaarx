@@ -90,7 +90,7 @@ export default function ThreeDAndGisPage() {
               3axis Arc: Architectural 3D Showroom
             </h3>
             <p className="text-xs text-neutral-600 leading-relaxed">
-              Engineered for an architecture firm in Lucknow to present interior spatial layouts to commercial clients. Allows buyers to dynamically rotate perspectives, examine material finishes, and visualize scale in-browser.
+              Engineered for an architectural design firm to present interior spatial layouts to commercial clients. Allows buyers to dynamically rotate perspectives, examine material finishes, and visualize scale in-browser.
             </p>
             <ul className="space-y-2 text-xs text-neutral-700 pt-2 border-t border-black/6">
               <li className="flex items-center gap-2">

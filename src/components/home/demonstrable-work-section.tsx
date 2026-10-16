@@ -34,7 +34,7 @@ const CASE_STUDIES: CaseStudy[] = [
     badge: "PRODUCTION CLIENT SHOWROOM",
     badgeStyle: "bg-emerald-100 text-emerald-800 border-emerald-300",
     title: "3axis Arc: Interactive 3D Spatial Showroom",
-    client: "Architecture & Interior Design Firm (Lucknow, UP)",
+    client: "Architecture & Interior Design Firm",
     problem:
       "High-end architecture clients struggled to understand spatial floorplans from static 2D PDFs, leading to prolonged approval cycles and hesitation on commercial interior projects.",
     whatBuilt:
@@ -56,7 +56,7 @@ const CASE_STUDIES: CaseStudy[] = [
     problem:
       "Inbound web form inquiries and client messages often sit in email inboxes for hours, allowing hot leads to cool down and delaying quotation delivery.",
     whatBuilt:
-      "An automated intake engine that validates incoming client briefs, verifies against honeypots, extracts structured parameters, dispatches instant WhatsApp alerts directly to Abhishek, and maintains a local JSONL audit trail.",
+      "An automated intake engine that validates incoming client briefs, verifies against honeypots, extracts structured parameters, dispatches instant WhatsApp alerts directly to our engineering lead, and maintains a local JSONL audit trail.",
     vistarContribution:
       "End-to-end architecture, API route security, rate-limiting algorithms, email SMTP dispatchers, and automated WhatsApp alert triggers.",
     technologies: ["Next.js Route Handlers", "WhatsApp Cloud API", "JSONL Audit Stream", "TypeScript"],

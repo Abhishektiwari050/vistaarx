@@ -68,7 +68,7 @@ export default function LeadAutomationPage() {
             </Link>
 
             <a
-              href="https://wa.me/918860110144?text=Hi%20Abhishek%2C%20I%20am%20interested%20in%20a%20WhatsApp%20lead%20automation%20pipeline%20for%20my%20business."
+              href="https://wa.me/918860110144?text=Hi%20VISTAR%2C%20I%20am%20interested%20in%20a%20WhatsApp%20lead%20automation%20pipeline%20for%20my%20business."
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center h-11 px-6 rounded-xl bg-[#25D366] hover:bg-[#20BD5A] text-white text-xs font-semibold transition-all shadow-xs gap-2"

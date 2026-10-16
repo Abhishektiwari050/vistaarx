@@ -220,7 +220,7 @@ export default function SolutionsOverviewPage() {
               Not sure which solution matches your bottleneck?
             </h3>
             <p className="text-sm text-neutral-600">
-              Schedule a 30-minute discovery conversation with Abhishek. We&rsquo;ll review your current workflow, inspect your spreadsheets, and outline the simplest effective system.
+              Schedule a 30-minute discovery conversation with our lead engineering team. We&rsquo;ll review your current workflow, inspect your spreadsheets, and outline the simplest effective system.
             </p>
           </div>
           <Link

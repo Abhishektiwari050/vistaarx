@@ -39,7 +39,7 @@ const STAGES = [
     num: "STAGE 01",
     title: "Discovery & Workflow Mapping",
     tagline: "Uncover the real bottleneck before proposing code",
-    desc: "We start with a 30-minute structured discovery conversation directly with Abhishek. We map how data flows through your business today: where messages enter, who processes them, which spreadsheets or tools are used, and where delays occur. If software is not the right answer, we will tell you plainly.",
+    desc: "We start with a 30-minute structured discovery conversation directly with our lead engineering team. We map how data flows through your business today: where messages enter, who processes them, which spreadsheets or tools are used, and where delays occur. If software is not the right answer, we will tell you plainly.",
     deliverables: [
       "Process map of current vs. proposed automated workflow",
       "List of third-party APIs needed (e.g. WhatsApp, Google Sheets, Tally)",
@@ -61,7 +61,7 @@ const STAGES = [
     num: "STAGE 03",
     title: "Milestone-Driven Engineering",
     tagline: "Visible, iterative progress with private staging access",
-    desc: "Engineering happens in visible sprints. You receive private staging links to test real working screens as they are completed. You have direct WhatsApp and email access to Abhishek for prompt clarifications without agency account manager delays.",
+    desc: "Engineering happens in visible sprints. You receive private staging links to test real working screens as they are completed. You have direct WhatsApp and email access to our lead engineers for prompt clarifications without agency account manager delays.",
     deliverables: [
       "Private GitHub repository initialized for your organization",
       "Staging URLs with real database interactions for testing",
@@ -245,7 +245,7 @@ export default function HowWeWorkPage() {
               Have a process you&rsquo;d like to walk through?
             </h4>
             <p className="text-xs text-neutral-300 leading-relaxed">
-              Schedule a 30-minute discovery conversation with Abhishek to review your workflow and receive an honest engineering assessment.
+              Schedule a 30-minute discovery conversation with our lead engineer to review your workflow and receive an honest engineering assessment.
             </p>
           </div>
 

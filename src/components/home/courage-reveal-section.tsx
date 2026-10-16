@@ -32,9 +32,9 @@ export function CourageRevealSection() {
           />
         </div>
 
-        {/* Grounded Founder Signature */}
+        {/* Grounded Studio Signature */}
         <div className="mt-6 text-center text-xs font-mono text-neutral-500">
-          Direct engineering by Abhishek Tiwari &bull; Lucknow, Uttar Pradesh, India &bull; 100% Repository Sovereignty
+          Direct engineering by VISTAR &bull; New Delhi, India &bull; 100% Repository Sovereignty
         </div>
 
       </div>

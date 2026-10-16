@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState } from "react";
 import Link from "next/link";
@@ -96,7 +96,7 @@ const PACKAGES: ServicePackage[] = [
     example: {
       name: "3axis Arc: 60 FPS 3D Showroom",
       tag: "ARCHITECTURE & 3D SPATIAL",
-      desc: "Interactive WebGL architectural showcase built for an architectural design firm in Lucknow, replacing slow static PDFs with real-time 3D spatial exploration on mobile & desktop.",
+      desc: "Interactive WebGL architectural showcase built for an architectural design firm, replacing slow static PDFs with real-time 3D spatial exploration on mobile & desktop.",
       image: "/projects/3axisarc.png",
       liveUrl: "https://3axisarc.vercel.app",
       githubUrl: "https://github.com/Abhishektiwari050/3axisarc",
@@ -152,9 +152,9 @@ const SERVICES_FAQ_ITEMS: QAPair[] = [
     category: "ENGINEERING & EXECUTION",
     question: "Who writes and deploys the software?",
     answer:
-      "Every project is built directly by Abhishek Tiwari, Founder & Lead Engineer at VISTAR. We do not use account managers, junior offshore subcontractors, or non-technical intermediaries. You communicate directly with the engineer writing your code via WhatsApp, Slack, or Google Meet.",
+      "Every project is built directly by our Founder & Lead Engineer at VISTAR. We do not use account managers, junior offshore subcontractors, or non-technical intermediaries. You communicate directly with the engineer writing your code via WhatsApp, Slack, or Google Meet.",
     keyPoints: [
-      "Direct collaboration with founding engineer Abhishek Tiwari",
+      "Direct collaboration with founding lead engineer",
       "Zero communication overhead or junior developer telephone games",
       "Daily staging updates and transparent technical progress",
     ],
@@ -212,7 +212,7 @@ export function VectorsServicesClient() {
           </h1>
 
           <p className="text-base sm:text-lg md:text-xl text-neutral-600 max-w-2xl mx-auto leading-relaxed font-normal">
-            No open-ended retainers. No junior contractor markups. Choose from three fixed-scope delivery packages—engineered directly by Abhishek Tiwari with guaranteed timelines and full private GitHub transfer.
+            No open-ended retainers. No junior contractor markups. Choose from three fixed-scope delivery packages—engineered directly by our Lead Engineer with guaranteed timelines and full private GitHub transfer.
           </p>
 
           {/* Currency Toggle */}
@@ -243,7 +243,7 @@ export function VectorsServicesClient() {
           {/* Primary Action Buttons */}
           <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
             <a
-              href="https://wa.me/918860110144?text=Hi%20Abhishek,%20I'm%20interested%20in%20VISTAR%20engineering%20packages."
+              href="https://wa.me/918860110144?text=Hi%20VISTAR,%20I'm%20interested%20in%20VISTAR%20engineering%20packages."
               target="_blank"
               rel="noopener noreferrer"
               className="bg-emerald-600 hover:bg-emerald-700 text-white px-7 py-3.5 font-semibold text-sm rounded-[4px] shadow-sm transition-all inline-flex items-center gap-2 cursor-pointer"
@@ -344,7 +344,7 @@ export function VectorsServicesClient() {
 
                   <div className="pt-6 border-t border-black/10 flex flex-wrap items-center gap-3">
                     <a
-                      href={`https://wa.me/918860110144?text=Hi%20Abhishek,%20I'd%20like%20to%20book%20the%20${encodeURIComponent(
+                      href={`https://wa.me/918860110144?text=Hi%20VISTAR,%20I'd%20like%20to%20book%20the%20${encodeURIComponent(
                         pkg.name
                       )}%20package.`}
                       target="_blank"
@@ -448,7 +448,7 @@ export function VectorsServicesClient() {
               <span className="text-[10px] font-mono text-[#FF3823] font-bold">STAGE 01</span>
               <h4 className="font-serif text-lg font-bold text-[#0E1118]">48-Hour Architecture Scoping</h4>
               <p className="text-xs text-neutral-600 leading-relaxed">
-                Direct pairing call with Abhishek. We define clear interface contracts, data models, and bounded scope with zero ambiguity.
+                Direct pairing call with our lead engineer. We define clear interface contracts, data models, and bounded scope with zero ambiguity.
               </p>
             </div>
 
@@ -495,11 +495,11 @@ export function VectorsServicesClient() {
             Ready to build? Discuss your project in 15 minutes.
           </h2>
           <p className="text-neutral-600 text-sm sm:text-base max-w-xl mx-auto">
-            Talk directly to Abhishek Tiwari. We’ll review your requirements and tell you honestly which package fits your timeline and budget.
+            Talk directly to our lead engineering team. We’ll review your requirements and tell you honestly which package fits your timeline and budget.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
             <a
-              href="https://wa.me/918860110144?text=Hi%20Abhishek,%20I'd%20like%20to%20discuss%20a%20project%20for%20my%20business."
+              href="https://wa.me/918860110144?text=Hi%20VISTAR,%20I'd%20like%20to%20discuss%20a%20project%20for%20my%20business."
               target="_blank"
               rel="noopener noreferrer"
               className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 font-semibold text-sm rounded-[4px] shadow-sm inline-flex items-center gap-2 cursor-pointer"

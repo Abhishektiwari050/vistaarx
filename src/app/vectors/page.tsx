@@ -5,7 +5,7 @@ import VectorsPage from "./vectors-client";
 export const metadata: Metadata = {
   title: "Engineering Services & Packages — 14-Day Production Sprints | VISTAR",
   description:
-    "Explore VISTAR's fixed-scope software packages: Starter MVP (₹49,000), Production System (₹1,85,000), and Custom Architecture (₹3,90,000+). Engineered directly by Abhishek Tiwari with 100% source code ownership.",
+    "Explore VISTAR's fixed-scope software packages: Starter MVP (₹49,000), Production System (₹1,85,000), and Custom Architecture (₹3,90,000+). Engineered directly by VISTAR with 100% source code ownership.",
   keywords: KEYWORDS.vectors,
   alternates: {
     canonical: `${BASE_URL}/vectors`,
@@ -37,10 +37,9 @@ const vectorsSchema = {
       description:
         "Fixed-scope software engineering packages for businesses: Starter MVP (₹49k), Production System (₹1.85L), and Custom Architecture (₹3.9L+). Built with 100% private GitHub repository transfer.",
       provider: {
-        "@type": "Person",
-        name: "Abhishek Tiwari",
-        jobTitle: "Founder & Lead Engineer",
-        url: "https://www.linkedin.com/in/abhishektiwari-vistar/",
+        "@type": "Organization",
+        name: "VISTAR Web Systems",
+        url: BASE_URL,
       },
       offers: [
         {

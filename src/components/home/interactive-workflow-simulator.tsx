@@ -507,7 +507,7 @@ export function InteractiveWorkflowSimulator() {
         </div>
         <div className="flex items-center gap-3">
           <a
-            href="https://wa.me/918860110144?text=Hi%20Abhishek%2C%20I%20saw%20the%20workflow%20simulator%20on%20Vistar%20and%20want%20to%20automate%20our%20enquiry%20process."
+            href="https://wa.me/918860110144?text=Hi%20VISTAR%2C%20I%20saw%20the%20workflow%20simulator%20on%20Vistar%20and%20want%20to%20automate%20our%20enquiry%20process."
             target="_blank"
             rel="noopener noreferrer"
             className="text-emerald-700 hover:text-emerald-800 font-medium inline-flex items-center gap-1"

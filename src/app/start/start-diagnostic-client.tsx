@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState } from "react";
 import { ArrowRight, CheckCircle2, MessageSquare, Send, ShieldCheck, Clock, User, Phone, FileText } from "lucide-react";
@@ -48,7 +48,7 @@ export function StartDiagnosticClient() {
   };
 
   const whatsappPrefilledUrl = `https://wa.me/918860110144?text=${encodeURIComponent(
-    `Hi Abhishek, my name is ${name || "[Name]"}. I'm interested in the ${selectedPackage}.\n\nWhat I need built:\n${
+    `Hi VISTAR, my name is ${name || "[Name]"}. I'm interested in the ${selectedPackage}.\n\nWhat I need built:\n${
       details || "I'd like to discuss a project."
     }`
   )}`;
@@ -66,13 +66,13 @@ export function StartDiagnosticClient() {
               Want an immediate answer?
             </h4>
             <p className="text-xs text-emerald-800">
-              Skip the form and chat directly with Abhishek Tiwari on WhatsApp.
+              Skip the form and chat directly with our engineering team on WhatsApp.
             </p>
           </div>
         </div>
 
         <a
-          href="https://wa.me/918860110144?text=Hi%20Abhishek,%20I'd%20like%20to%20discuss%20a%20project%20with%20VISTAR."
+          href="https://wa.me/918860110144?text=Hi%20VISTAR,%20I'd%20like%20to%20discuss%20a%20project."
           target="_blank"
           rel="noopener noreferrer"
           className="shrink-0 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-md shadow-2xs transition-all inline-flex items-center gap-1.5 cursor-pointer"
@@ -95,7 +95,7 @@ export function StartDiagnosticClient() {
             Tell us about your project
           </h2>
           <p className="text-xs sm:text-sm text-neutral-600">
-            Three simple fields. Evaluated directly by Abhishek Tiwari (Founder &amp; Lead Engineer).
+            Three simple fields. Evaluated directly by our Founder &amp; Lead Engineer.
           </p>
         </div>
 
@@ -110,7 +110,7 @@ export function StartDiagnosticClient() {
                 Inquiry received
               </h3>
               <p className="text-sm text-neutral-600 max-w-md mx-auto leading-relaxed">
-                Thank you, <strong>{name}</strong>. Abhishek will personally review your notes and reach out within 24 hours on WhatsApp ({phone}).
+                Thank you, <strong>{name}</strong>. Our engineering lead will personally review your notes and reach out within 24 hours on WhatsApp ({phone}).
               </p>
             </div>
 
@@ -222,7 +222,7 @@ export function StartDiagnosticClient() {
             <div className="pt-4 border-t border-black/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div className="flex items-center gap-2 text-xs font-mono text-neutral-500">
                 <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
-                <span>Direct review by Abhishek Tiwari &bull; 100% Private</span>
+                <span>Direct review by Lead Engineer &bull; 100% Private</span>
               </div>
 
               <button

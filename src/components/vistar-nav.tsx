@@ -240,7 +240,7 @@ export function VistarNav() {
         {/* Right: Clean CTAs (Desktop & Tablet) */}
         <div className="hidden md:flex items-center gap-2.5 text-[13px] font-medium shrink-0">
           <a
-            href="https://wa.me/918860110144?text=Hi%20Abhishek%2C%20I%20would%20like%20to%20discuss%20a%20project%20with%20VISTAR."
+            href="https://wa.me/918860110144?text=Hi%20VISTAR%2C%20I%20would%20like%20to%20discuss%20a%20project."
             target="_blank"
             rel="noopener noreferrer"
             className="text-emerald-700 hover:text-emerald-800 transition-colors py-1.5 px-3 rounded-full hover:bg-emerald-50 font-medium inline-flex items-center gap-1.5"
@@ -262,7 +262,7 @@ export function VistarNav() {
         <div className="flex md:hidden items-center gap-2">
           {/* Quick WhatsApp Pill on Mobile */}
           <a
-            href="https://wa.me/918860110144?text=Hi%20Abhishek%2C%20I%20would%20like%20to%20discuss%20a%20project%20with%20VISTAR."
+            href="https://wa.me/918860110144?text=Hi%20VISTAR%2C%20I%20would%20like%20to%20discuss%20a%20project."
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#25D366] text-white text-[12px] font-medium active:scale-95 transition-transform shadow-xs"
@@ -342,7 +342,7 @@ export function VistarNav() {
           {/* Mobile Direct Action Buttons */}
           <div className="pt-6 pb-4 space-y-2.5 border-t border-black/[0.06] mt-4">
             <a
-              href="https://wa.me/918860110144?text=Hi%20Abhishek%2C%20I%20would%20like%20to%20discuss%20a%20project%20with%20VISTAR."
+              href="https://wa.me/918860110144?text=Hi%20VISTAR%2C%20I%20would%20like%20to%20discuss%20a%20project."
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMobileMenuOpen(false)}
@@ -361,7 +361,7 @@ export function VistarNav() {
             </Link>
 
             <p className="text-center text-[11px] font-mono text-neutral-400 pt-2">
-              VISTAR &bull; Lucknow, India &bull; Founder-Led Engineering
+              VISTAR &bull; New Delhi, India &bull; Founder-Led Engineering
             </p>
           </div>
         </div>

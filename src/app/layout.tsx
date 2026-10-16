@@ -23,9 +23,10 @@ export const metadata: Metadata = {
     template: "%s | VISTAR",
   },
   description:
-    "VISTAR is a founder-led engineering studio based in Lucknow, India, led by Abhishek Tiwari. We engineer custom web applications, WhatsApp lead automations, and interactive 3D WebGL platforms with 100% repository ownership.",
+    "VISTAR is a founder-led engineering studio based in New Delhi, India. We engineer custom web applications, WhatsApp lead automations, and interactive 3D WebGL platforms with 100% repository ownership.",
   keywords: [
-    "custom software engineering Lucknow",
+    "custom software engineering Delhi",
+    "software development studio Delhi NCR",
     "WhatsApp automation development India",
     "Next.js web development company",
     "WebGL Three.js development studio",
@@ -35,8 +36,8 @@ export const metadata: Metadata = {
     "interactive 3D architecture website",
     "fastapi python web development",
   ],
-  authors: [{ name: "Abhishek Tiwari", url: "https://www.vistar.tech/about" }],
-  creator: "Abhishek Tiwari",
+  authors: [{ name: "VISTAR Engineering", url: "https://www.vistar.tech/about" }],
+  creator: "VISTAR Web Systems",
   publisher: "VISTAR",
   alternates: {
     canonical: "https://www.vistar.tech",
@@ -55,7 +56,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "VISTAR — Custom Web Apps, WhatsApp Automations & 3D Spatial Systems",
     description:
-      "Founder-led digital engineering studio in Lucknow, India. Custom web apps, WhatsApp sales automations, and interactive 3D platforms shipped in 14 days with 100% repository ownership.",
+      "Founder-led digital engineering studio in New Delhi, India. Custom web apps, WhatsApp sales automations, and interactive 3D platforms shipped in 14 days with 100% repository ownership.",
     type: "website",
     locale: "en_US",
     url: "https://www.vistar.tech",
@@ -73,7 +74,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "VISTAR — Custom Web Apps, WhatsApp Automations & 3D Spatial Systems",
     description:
-      "Founder-led digital engineering studio in Lucknow, India. Shipped in 14 days with 100% repository ownership.",
+      "Founder-led digital engineering studio in New Delhi, India. Shipped in 14 days with 100% repository ownership.",
     creator: "@vistartech",
     images: ["/opengraph-image.jpg"],
   },
@@ -110,7 +111,7 @@ const jsonLdSchema = {
         height: 512,
       },
       description:
-        "VISTAR is a founder-led digital engineering studio based in Lucknow, India, led by Abhishek Tiwari. We engineer high-performance web applications, WhatsApp lead automations, and interactive 3D WebGL spatial platforms with 100% repository ownership.",
+        "VISTAR is a founder-led digital engineering studio based in New Delhi, India. We engineer high-performance web applications, WhatsApp lead automations, and interactive 3D WebGL spatial platforms with 100% repository ownership.",
       foundingDate: "2024",
       knowsAbout: [
         "Full-Stack Web Development",

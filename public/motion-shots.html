@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VISTAR Motion Reel — After Effects Pastel Edition</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html, body {
+      width: 1920px;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #0F172A;
+      color: #0F172A;
+    }
+    
+    .shot-container {
+      width: 1920px;
+      height: 1080px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #FFFFFF;
+      margin: 0;
+    }
+
+    /* Ambient Pastel Gradient Backgrounds */
+    .bg-shot-1 {
+      background: 
+        radial-gradient(at 15% 20%, rgba(224, 231, 255, 0.85) 0px, transparent 55%),
+        radial-gradient(at 85% 25%, rgba(254, 226, 226, 0.8) 0px, transparent 50%),
+        radial-gradient(at 50% 85%, rgba(254, 243, 199, 0.75) 0px, transparent 55%),
+        #F8FAFC;
+    }
+    .bg-shot-2 {
+      background: 
+        radial-gradient(at 18% 22%, rgba(255, 237, 213, 0.9) 0px, transparent 50%),
+        radial-gradient(at 82% 20%, rgba(209, 250, 229, 0.85) 0px, transparent 50%),
+        radial-gradient(at 50% 80%, rgba(224, 242, 254, 0.75) 0px, transparent 55%),
+        #FAFBFD;
+    }
+    .bg-shot-3 {
+      background: 
+        radial-gradient(at 22% 18%, rgba(238, 242, 255, 0.9) 0px, transparent 50%),
+        radial-gradient(at 78% 28%, rgba(224, 242, 254, 0.85) 0px, transparent 50%),
+        radial-gradient(at 50% 85%, rgba(254, 243, 199, 0.7) 0px, transparent 55%),
+        #F8FAFC;
+    }
+    .bg-shot-4 {
+      background: 
+        radial-gradient(at 20% 20%, rgba(209, 250, 229, 0.85) 0px, transparent 50%),
+        radial-gradient(at 80% 25%, rgba(243, 232, 255, 0.85) 0px, transparent 50%),
+        radial-gradient(at 50% 80%, rgba(255, 237, 213, 0.75) 0px, transparent 55%),
+        #F7FAF9;
+    }
+    .bg-shot-5 {
+      background: 
+        radial-gradient(at 25% 20%, rgba(224, 242, 254, 0.9) 0px, transparent 50%),
+        radial-gradient(at 80% 25%, rgba(252, 231, 243, 0.85) 0px, transparent 50%),
+        radial-gradient(at 50% 80%, rgba(220, 252, 231, 0.75) 0px, transparent 55%),
+        #F8FAFC;
+    }
+
+    /* Kinetic Typographic Header */
+    .header-block {
+      text-align: center;
+      margin-bottom: 56px;
+      z-index: 10;
+    }
+    .eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #64748B;
+      margin-bottom: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .eyebrow-pill {
+      background: rgba(15, 23, 42, 0.06);
+      padding: 4px 12px;
+      border-radius: 9999px;
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      color: #334155;
+    }
+    .main-title {
+      font-size: 68px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      color: #0F172A;
+    }
+
+    /* Motion Graphics Floating UI Cards */
+    .card-stage {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card-aura {
+      position: absolute;
+      width: 580px;
+      height: 380px;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.65;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .aura-blue { background: radial-gradient(circle, #38BDF8 0%, rgba(56, 189, 248, 0) 70%); }
+    .aura-peach { background: radial-gradient(circle, #FB923C 0%, rgba(251, 146, 60, 0) 70%); }
+    .aura-green { background: radial-gradient(circle, #34D399 0%, rgba(52, 211, 153, 0) 70%); }
+    .aura-purple { background: radial-gradient(circle, #A855F7 0%, rgba(168, 85, 247, 0) 70%); }
+    .aura-cyan { background: radial-gradient(circle, #06B6D4 0%, rgba(6, 182, 212, 0) 70%); }
+
+    .ui-card {
+      position: relative;
+      z-index: 1;
+      background: #FFFFFF;
+      border-radius: 28px;
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      box-shadow: 
+        0 4px 6px -1px rgba(0, 0, 0, 0.02),
+        0 30px 60px -12px rgba(15, 23, 42, 0.12),
+        0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+      padding: 36px 44px;
+      width: 780px;
+    }
+
+    /* Micro-UI Elements */
+    .notification-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 20px 0;
+      border-bottom: 1px solid #F1F5F9;
+    }
+    .notification-item:last-child {
+      border-bottom: none;
+      padding-bottom: 4px;
+    }
+    .app-icon-box {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 24px;
+      color: white;
+      shrink: 0;
+    }
+    .icon-whatsapp { background: #25D366; }
+    .icon-indiamart { background: #003B73; }
+    .icon-pdf { background: #EF4444; }
+
+    .notif-content {
+      flex: 1;
+    }
+    .notif-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .notif-sender {
+      font-size: 20px;
+      font-weight: 700;
+      color: #0F172A;
+    }
+    .notif-time {
+      font-size: 14px;
+      font-weight: 500;
+      color: #94A3B8;
+    }
+    .notif-preview {
+      font-size: 16px;
+      color: #475569;
+      line-height: 1.45;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .pill-green { background: #ECFDF5; color: #059669; }
+    .pill-blue { background: #EFF6FF; color: #2563EB; }
+    .pill-amber { background: #FFFBEB; color: #D97706; }
+
+    /* Key-Value Breakdown Table (Shot 2) */
+    .field-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+      border-bottom: 1px solid #F1F5F9;
+    }
+    .field-row:last-child {
+      border-bottom: none;
+    }
+    .field-label {
+      font-size: 17px;
+      font-weight: 600;
+      color: #64748B;
+    }
+    .field-value {
+      font-size: 20px;
+      font-weight: 700;
+      color: #0F172A;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Outbound Chat Box (Shot 3) */
+    .chat-bubble {
+      background: #F0FDF4;
+      border: 1px solid #DCFCE7;
+      border-radius: 20px;
+      border-top-left-radius: 4px;
+      padding: 24px;
+      margin-top: 14px;
+    }
+    .pdf-card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 14px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 16px;
+    }
+
+    /* Split Pipeline Grid (Shot 4) */
+    .split-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .split-card-inner {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 18px;
+      padding: 24px;
+    }
+
+    /* Metrics Bar (Shot 5) */
+    .metrics-bar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+    .metric-stat-box {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 18px;
+      padding: 22px;
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #0F172A;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .stat-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #64748B;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================== -->
+  <!-- SHOT 1: ENQUIRIES ARRIVE EVERYWHERE -->
+  <!-- ========================================== -->
+  <section id="shot-1" class="shot-container bg-shot-1">
+    <div class="header-block">
+      <div class="eyebrow">
+        <span class="eyebrow-pill">01 // INTAKE</span>
+        <span>OMNICHANNEL PIPELINE</span>
+      </div>
+      <h1 class="main-title">Enquiries arrive everywhere.</h1>
+    </div>
+
+    <div class="card-stage">
+      <div class="card-aura aura-blue"></div>
+      <div class="ui-card">
+        <!-- WhatsApp Item -->
+        <div class="notification-item">
+          <div class="app-icon-box icon-whatsapp">💬</div>
+          <div class="notif-content">
+            <div class="notif-header">
+              <span class="notif-sender">Rahul Gupta (Gupta Hardware)</span>
+              <span class="notif-time">21:03 <span class="pill pill-green">Online</span></span>
+            </div>
+            <p class="notif-preview">"Hello! We need urgent pricing for 250 units of the 50mm valve fittings. Delivery to Surat."</p>
+          </div>
+        </div>
+
+        <!-- IndiaMART Item -->
+        <div class="notification-item">
+          <div class="app-icon-box icon-indiamart">🏢</div>
+          <div class="notif-content">
+            <div class="notif-header">
+              <span class="notif-sender">Suraj Petrochemicals Ltd</span>
+              <span class="notif-time">20:58 <span class="pill pill-blue">Commercial RFQ</span></span>
+            </div>
+            <p class="notif-preview">"Commercial Request: Bulk Industrial Solvent (Grade A). Requirement: 5,000 Liters."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================================== -->
+  <!-- SHOT 2: PARSED & QUALIFIED IN SECONDS -->
+  <!-- ========================================== -->
+  <section id="shot-2" class="shot-container bg-shot-2">
+    <div class="header-block">
+      <div class="eyebrow">
+        <span class="eyebrow-pill">02 // TRIAGE</span>
+        <span>DETERMINISTIC EXTRACTION</span>
+      </div>
+      <h1 class="main-title">Parsed and qualified in seconds.</h1>
+    </div>
+
+    <div class="card-stage">
+      <div class="card-aura aura-peach"></div>
+      <div class="ui-card">
+        <div class="field-row">
+          <span class="field-label">Verified Client</span>
+          <span class="field-value">Suraj Petrochemicals <span class="pill pill-green">GSTIN Verified</span></span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Requested Material</span>
+          <span class="field-value">Grade-A Industrial Solvent (5,000L)</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Automated Deal Estimate</span>
+          <span class="field-value" style="color: #0284C7; font-size: 26px;">₹4,20,000</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Priority Routing</span>
+          <span class="field-value"><span class="pill pill-amber">★ High Priority Wholesale Lead</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================================== -->
+  <!-- SHOT 3: INSTANT QUOTATION DISPATCHED -->
+  <!-- ========================================== -->
+  <section id="shot-3" class="shot-container bg-shot-3">
+    <div class="header-block">
+      <div class="eyebrow">
+        <span class="eyebrow-pill">03 // DISPATCH</span>
+        <span>ZERO MANUAL BOTTLENECK</span>
+      </div>
+      <h1 class="main-title">Instant quotation dispatched.</h1>
+    </div>
+
+    <div class="card-stage">
+      <div class="card-aura aura-green"></div>
+      <div class="ui-card">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <div class="app-icon-box icon-whatsapp" style="width: 36px; height: 36px; font-size: 16px;">✓</div>
+            <span style="font-weight: 700; font-size: 16px; color: #0F172A;">VISTAR Automated Agent &bull; Outbound WhatsApp</span>
+          </div>
+          <span class="pill pill-green">Delivered in 42s</span>
+        </div>
+
+        <div class="chat-bubble">
+          <p style="font-size: 17px; color: #1E293B; line-height: 1.5; margin-bottom: 12px;">
+            "Hello Mr. Suraj! Here is your standardized quote for 5,000 Liters of Grade-A Industrial Solvent with wholesale freight included."
+          </p>
+          
+          <div class="pdf-card">
+            <div style="display: flex; align-items: center; gap: 14px;">
+              <div class="app-icon-box icon-pdf" style="width: 44px; height: 44px; font-size: 18px;">PDF</div>
+              <div>
+                <div style="font-weight: 700; font-size: 15px; color: #0F172A;">Quotation_#1042_SurajPetro.pdf</div>
+                <div style="font-size: 13px; color: #64748B;">240 KB &bull; Valid for 7 Days</div>
+              </div>
+            </div>
+            <span style="font-weight: 700; color: #0284C7; font-size: 14px;">✓ Generated</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================================== -->
+  <!-- SHOT 4: SYNCED TO YOUR TEAM IN REAL TIME -->
+  <!-- ========================================== -->
+  <section id="shot-4" class="shot-container bg-shot-4">
+    <div class="header-block">
+      <div class="eyebrow">
+        <span class="eyebrow-pill">04 // SYNCHRONIZATION</span>
+        <span>TALLY / CRM / SLACK SYNC</span>
+      </div>
+      <h1 class="main-title">Synced to your team in real time.</h1>
+    </div>
+
+    <div class="card-stage">
+      <div class="card-aura aura-purple"></div>
+      <div class="ui-card">
+        <div class="split-grid">
+          <!-- Team Rep Alert -->
+          <div class="split-card-inner">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;">
+              <span class="pill pill-blue">Sales Rep Alert</span>
+              <span style="font-size: 13px; color: #94A3B8;">Instant Ping</span>
+            </div>
+            <div style="font-size: 18px; font-weight: 700; color: #0F172A; margin-bottom: 6px;">Vivek Sharma</div>
+            <p style="font-size: 14px; color: #475569; line-height: 1.45;">"High-value RFQ ₹4.20L from Suraj Petrochemicals claimed & ready for closing call."</p>
+          </div>
+
+          <!-- ERP Inventory Allocation -->
+          <div class="split-card-inner">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;">
+              <span class="pill pill-green">ERP / Tally Sync</span>
+              <span style="font-size: 13px; color: #94A3B8;">Auto-Reserved</span>
+            </div>
+            <div style="font-size: 18px; font-weight: 700; color: #0F172A; margin-bottom: 6px;">Batch #B-408 Reserved</div>
+            <p style="font-size: 14px; color: #475569; line-height: 1.45;">"5,000L stock locked for 48h. Zero double-booking or inventory conflict."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================================== -->
+  <!-- SHOT 5: ZERO LOST DEALS. ZERO MANUAL DRAG. -->
+  <!-- ========================================== -->
+  <section id="shot-5" class="shot-container bg-shot-5">
+    <div class="header-block">
+      <div class="eyebrow">
+        <span class="eyebrow-pill">05 // OUTCOME</span>
+        <span>PROVABLE BUSINESS ROI</span>
+      </div>
+      <h1 class="main-title">Zero lost deals. Zero manual drag.</h1>
+    </div>
+
+    <div class="card-stage">
+      <div class="card-aura aura-cyan"></div>
+      <div class="ui-card">
+        <div class="metrics-bar">
+          <div class="metric-stat-box">
+            <div class="stat-number" style="color: #059669;">100%</div>
+            <div class="stat-label">Enquiries Captured</div>
+          </div>
+          <div class="metric-stat-box">
+            <div class="stat-number" style="color: #0284C7;">&lt; 60s</div>
+            <div class="stat-label">Avg. Response Time</div>
+          </div>
+          <div class="metric-stat-box">
+            <div class="stat-number" style="color: #7C3AED;">₹38.4L</div>
+            <div class="stat-label">Monthly Pipeline Won</div>
+          </div>
+        </div>
+
+        <div style="display: flex; align-items: center; justify-content: space-between; padding-top: 16px; border-top: 1px solid #F1F5F9;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="width: 10px; height: 10px; border-radius: 50%; background: #10B981;"></div>
+            <span style="font-weight: 700; font-size: 15px; color: #0F172A;">VISTAR Custom Engineering &bull; Handover Complete</span>
+          </div>
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; color: #64748B;">100% SOURCE CODE TRANSFERRED</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

@@ -6,14 +6,14 @@ import { DEFAULT_OG_IMAGES } from "@/lib/seo";
 export const metadata: Metadata = {
   title: "Start a Project — 14-Day Production Sprints | VISTAR",
   description:
-    "Outline what you need built. Inquiries are evaluated directly by Abhishek Tiwari (Founder & Lead Engineer) with guaranteed response within 24 hours.",
+    "Outline what you need built. Inquiries are evaluated directly by our Founder & Lead Engineer with guaranteed response within 24 hours.",
   alternates: {
     canonical: "/start",
   },
   openGraph: {
     title: "Start a Project — 14-Day Production Sprints | VISTAR",
     description:
-      "Outline what you need built. Inquiries are evaluated directly by Abhishek Tiwari (Founder & Lead Engineer) with guaranteed response within 24 hours.",
+      "Outline what you need built. Inquiries are evaluated directly by our Founder & Lead Engineer with guaranteed response within 24 hours.",
     url: "https://www.vistar.tech/start",
     type: "website",
     images: DEFAULT_OG_IMAGES,
@@ -38,7 +38,7 @@ export default function StartPage() {
           </h1>
 
           <p className="max-w-2xl mx-auto text-base sm:text-lg text-neutral-600 leading-relaxed">
-            Outline what is slow, broken, or what you need built. Every inquiry is evaluated directly by Abhishek Tiwari (Founder &amp; Lead Engineer) with zero sales fluff.
+            Outline what is slow, broken, or what you need built. Every inquiry is evaluated directly by our Founder &amp; Lead Engineer with zero sales fluff.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-4 text-xs font-mono text-neutral-500 pt-2">

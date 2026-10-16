@@ -1,6 +1,7 @@
 import React from 'react';
 import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
 import { CinematicBackground } from '../components/CinematicBackground';
+import { SelectionBoundingBox } from '../components/SelectionBoundingBox';
 import { BRAND_TOKENS } from '../constants';
 
 export const SceneHook: React.FC = () => {
@@ -134,17 +135,19 @@ export const SceneHook: React.FC = () => {
             zIndex: 10,
           }}
         >
-          <div
-            style={{
-              fontFamily: BRAND_TOKENS.typography.fontMono,
-              fontSize: '13px',
-              letterSpacing: '0.35em',
-              color: BRAND_TOKENS.colors.titaniumLight,
-              marginBottom: '16px',
-            }}
-          >
-            FRAGMENTED TOOLS // MANUAL COORDINATION // 94% STALL
-          </div>
+          <SelectionBoundingBox label="STATE: FRICTION" padding="6px 14px" style={{ marginBottom: '20px' }}>
+            <span
+              style={{
+                fontFamily: BRAND_TOKENS.typography.fontMono,
+                fontSize: '12px',
+                letterSpacing: '0.3em',
+                color: '#FFFFFF',
+                textTransform: 'uppercase',
+              }}
+            >
+              FRAGMENTED TOOLS // 94% MANUAL TOIL
+            </span>
+          </SelectionBoundingBox>
           <h1
             style={{
               fontFamily: BRAND_TOKENS.typography.fontDisplay,

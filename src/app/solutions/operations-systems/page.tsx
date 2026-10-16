@@ -68,7 +68,7 @@ export default function OperationsSystemsPage() {
             </Link>
 
             <a
-              href="https://wa.me/918860110144?text=Hi%20Abhishek%2C%20I%20would%20like%20to%20discuss%20building%20an%20internal%20operations%20portal%20for%20our%20business."
+              href="https://wa.me/918860110144?text=Hi%20VISTAR%2C%20I%20would%20like%20to%20discuss%20building%20an%20internal%20operations%20portal%20for%20our%20business."
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center h-11 px-6 rounded-xl bg-white border border-black/10 hover:bg-neutral-50 text-[#121316] text-xs font-semibold transition-all shadow-xs gap-2"

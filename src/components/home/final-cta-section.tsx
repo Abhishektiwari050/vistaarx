@@ -45,7 +45,7 @@ export function FinalCtaSection() {
           </Link>
 
           <a
-            href="https://wa.me/918860110144?text=Hi%20Abhishek%2C%20I%20would%20like%20to%20discuss%20improving%20a%20process%20at%20our%20business."
+            href="https://wa.me/918860110144?text=Hi%20VISTAR%2C%20I%20would%20like%20to%20discuss%20improving%20a%20process%20at%20our%20business."
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center h-12 px-6 rounded-xl bg-[#25D366] hover:bg-[#20BD5A] text-white text-[14.5px] font-semibold transition-all shadow-md active:scale-95 gap-2"
@@ -66,7 +66,7 @@ export function FinalCtaSection() {
         <div className="pt-6 border-t border-white/10 flex flex-wrap items-center justify-center gap-6 text-xs text-neutral-400 font-mono">
           <span className="flex items-center gap-1.5">
             <CheckCircle2 className="w-3.5 h-3.5 text-[#16A34A]" />
-            Direct reply from Abhishek within 24h
+            Direct reply from lead engineer within 24h
           </span>
           <span className="hidden sm:inline text-white/20">&bull;</span>
           <span className="flex items-center gap-1.5">

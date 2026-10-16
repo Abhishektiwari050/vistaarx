@@ -3,26 +3,26 @@ import { KEYWORDS, BASE_URL, DEFAULT_OG_IMAGES } from "@/lib/seo";
 import ContactPage from "./contact-client";
 
 export const metadata: Metadata = {
-  title: "Contact Abhishek Tiwari — Founder-Led Technical Consultation",
+  title: "Contact VISTAR — Founder-Led Technical Consultation",
   description:
-    "Direct engineering consultation with Abhishek Tiwari, Founder & Lead Engineer at VISTAR. Discuss your web application, WhatsApp automation, or 3D spatial project. Response guaranteed within 24 hours.",
+    "Direct engineering consultation with VISTAR's lead engineering team. Discuss your web application, WhatsApp automation, or 3D spatial project. Response guaranteed within 24 hours.",
   keywords: KEYWORDS.contact,
   alternates: {
     canonical: `${BASE_URL}/contact`,
   },
   openGraph: {
-    title: "Contact Abhishek Tiwari — Founder-Led Technical Consultation | VISTAR",
+    title: "Contact VISTAR — Founder-Led Technical Consultation | VISTAR",
     description:
-      "Direct collaboration with Abhishek Tiwari. Submit your project requirements or chat on WhatsApp to receive a fixed-scope roadmap and pricing within 24 hours.",
+      "Direct collaboration with VISTAR lead engineers. Submit your project requirements or chat on WhatsApp to receive a fixed-scope roadmap and pricing within 24 hours.",
     url: `${BASE_URL}/contact`,
     type: "website",
     images: DEFAULT_OG_IMAGES,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Contact Abhishek Tiwari — Founder-Led Technical Consultation | VISTAR",
+    title: "Contact VISTAR — Founder-Led Technical Consultation | VISTAR",
     description:
-      "Direct collaboration with Abhishek Tiwari. Submit your project requirements to receive a fixed-scope roadmap and pricing within 24 hours.",
+      "Direct collaboration with VISTAR lead engineers. Submit your project requirements to receive a fixed-scope roadmap and pricing within 24 hours.",
     images: [DEFAULT_OG_IMAGES[0].url],
   },
 };
@@ -36,7 +36,7 @@ const contactSchema = {
       url: `${BASE_URL}/contact`,
       name: "Contact VISTAR — Founder-Led Technical Consultation",
       description:
-        "Direct collaboration with Abhishek Tiwari at VISTAR for custom web applications, WhatsApp automations, and interactive 3D spatial platforms.",
+        "Direct collaboration with VISTAR engineering team for custom web applications, WhatsApp automations, and interactive 3D spatial platforms.",
       isPartOf: { "@id": `${BASE_URL}/#website` },
       mainEntity: { "@id": `${BASE_URL}/#organization` },
     },

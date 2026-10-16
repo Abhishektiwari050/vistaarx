@@ -89,7 +89,7 @@ const OPTIONS: EngagementOption[] = [
     deliverables: [
       "Guaranteed monthly engineering hours for features and optimizations",
       "Uptime monitoring, security dependency patches, and cloud maintenance",
-      "Direct priority WhatsApp and Slack channel access to Abhishek",
+      "Direct priority WhatsApp and Slack channel access to lead engineers",
       "No long-term lock-in; renew or pause on a monthly basis",
     ],
     ctaText: "Inquire About Retainers",

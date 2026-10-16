@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Lock, ShieldCheck, Mail, CheckCircle2 } from "lucide-react";
@@ -93,7 +93,7 @@ export default function PrivacyPage() {
             </div>
             <h2 className="text-2xl font-sans font-medium text-[#0E1118] mb-4">Who We Are</h2>
             <p className="text-neutral-600 leading-relaxed font-sans text-base">
-              Vistar Web Systems (&quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) is an independent digital engineering studio operating from Lucknow, Uttar Pradesh, India, accessible at{" "}
+              Vistar Web Systems (&quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) is an independent digital engineering studio operating from New Delhi, India, accessible at{" "}
               <Link href="/" className="text-[#0E1118] underline underline-offset-4 hover:text-[#FF3823] transition-colors">
                 vistar.tech
               </Link>
@@ -205,8 +205,8 @@ export default function PrivacyPage() {
             <div>
               <div className="font-mono text-xs uppercase tracking-wider text-neutral-600 mb-2">06 // Legal &amp; Data Inquiries</div>
               <h3 className="text-xl font-sans font-medium text-[#0E1118] mb-1">Direct Privacy Officer</h3>
-              <p className="text-sm text-neutral-600 mb-1">Vistar Web Systems &bull; Proprietary Studio of Abhishek Tiwari</p>
-              <p className="text-xs text-neutral-500 mb-1">Lucknow, Uttar Pradesh, India &bull; MSME / Udyam in filing</p>
+              <p className="text-sm text-neutral-600 mb-1">Vistar Web Systems &bull; Digital Engineering Studio</p>
+              <p className="text-xs text-neutral-500 mb-1">New Delhi, India &bull; MSME / Udyam in filing</p>
               <p className="text-xs font-mono text-neutral-500">Phone &amp; WhatsApp: +91 88601 10144 &bull; SLA &lt; 24h</p>
             </div>
             <a

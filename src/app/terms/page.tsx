@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ShieldCheck, Lock, FileText, CheckCircle2 } from "lucide-react";
@@ -208,7 +208,7 @@ export default function TermsPage() {
                 <strong className="text-[#0E1118]">Termination:</strong> Either party may terminate an engagement with 7 business days written notice. In the event of early termination, Client pays for completed and verified milestones pro-rata, and receives all code committed up to that date.
               </p>
               <p>
-                <strong className="text-[#0E1118]">Governing Law &amp; Jurisdiction:</strong> These Terms and all statements of work are governed by the laws of India. Any disputes shall be subject to the exclusive jurisdiction of the competent courts in Lucknow, Uttar Pradesh, India.
+                <strong className="text-[#0E1118]">Governing Law &amp; Jurisdiction:</strong> These Terms and all statements of work are governed by the laws of India. Any disputes shall be subject to the exclusive jurisdiction of the competent courts in New Delhi, India.
               </p>
             </div>
           </div>
@@ -218,7 +218,7 @@ export default function TermsPage() {
             <div>
               <div className="font-mono text-xs uppercase tracking-wider text-neutral-600 mb-2">06 // Legal &amp; Commercial Contacts</div>
               <h3 className="text-xl font-sans font-medium text-[#0E1118] mb-1">Contract &amp; Vendor Inquiries</h3>
-              <p className="text-sm text-neutral-600">Abhishek Tiwari, Founder &amp; Lead Engineer &bull; Vistar Web Systems, Lucknow, India.</p>
+              <p className="text-sm text-neutral-600">Legal &amp; Engineering Operations &bull; Vistar Web Systems, New Delhi, India.</p>
               <p className="text-xs font-mono text-neutral-500 mt-1">Direct inquiries via WhatsApp (+91 88601 10144) or email below.</p>
             </div>
             <a
@@ -226,7 +226,7 @@ export default function TermsPage() {
               className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-white text-black hover:bg-[#ECEEF5] border border-black/15 font-sans text-xs uppercase tracking-wider font-semibold transition-all shadow-sm shrink-0"
             >
               <FileText className="w-4 h-4" />
-              <span>Email Abhishek</span>
+              <span>Email Commercial Desk</span>
             </a>
           </div>
         </div>

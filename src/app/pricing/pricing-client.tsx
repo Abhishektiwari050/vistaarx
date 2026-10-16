@@ -39,7 +39,7 @@ const MATRIX_SECTIONS: MatrixSection[] = [
     headerBg: "bg-[#E0F2FE] text-[#0369A1]",
     rows: [
       { name: "Delivery Timeline", starter: "5–7 Days", sprint: "14 Days Committed", enterprise: "21–30 Days Milestones" },
-      { name: "Direct Collaboration with Abhishek (Lead Engineer)", starter: true, sprint: true, enterprise: true },
+      { name: "Direct Collaboration with Founding Lead Engineer", starter: true, sprint: true, enterprise: true },
       { name: "Post-Launch Bug Warranty", starter: "14-Day Warranty", sprint: "30-Day Zero-Cost Warranty", enterprise: "60-Day Dedicated SLA" },
       { name: "Mutual Non-Disclosure Agreement (NDA)", starter: true, sprint: true, enterprise: true },
     ],
@@ -57,7 +57,7 @@ const FAQS_BASICS = [
   },
   {
     q: "How are you different from typical agencies?",
-    a: "Agencies charge high monthly retainers, hire junior contractors behind account executives, and take months to deliver slide decks. Vistar is a lean engineering studio led by Abhishek Tiwari. You pair directly with the engineers writing the code, shipping working production software in 14 days.",
+    a: "Agencies charge high monthly retainers, hire junior contractors behind account executives, and take months to deliver slide decks. Vistar is a lean engineering studio based in New Delhi. You pair directly with the founding engineers writing the code, shipping working production software in 14 days.",
   },
 ];
 
@@ -209,7 +209,7 @@ export default function PricingPage() {
                 Get Started
               </Link>
               <a
-                href="https://wa.me/918860110144?text=Hi%20Abhishek%2C%20I'm%20interested%20in%20the%20Starter%20MVP%20package."
+                href="https://wa.me/918860110144?text=Hi%20VISTAR%2C%20I'm%20interested%20in%20the%20Starter%20MVP%20package."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[11px] text-emerald-700 hover:underline flex items-center justify-center gap-1 font-mono"
@@ -297,7 +297,7 @@ export default function PricingPage() {
                 Start 14-Day Sprint
               </Link>
               <a
-                href="https://wa.me/918860110144?text=Hi%20Abhishek%2C%20I'm%20interested%20in%20the%20Production%20System%20package."
+                href="https://wa.me/918860110144?text=Hi%20VISTAR%2C%20I'm%20interested%20in%20the%20Production%20System%20package."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[11px] text-emerald-700 hover:underline flex items-center justify-center gap-1 font-mono"
@@ -377,7 +377,7 @@ export default function PricingPage() {
                 Schedule Architecture Review
               </Link>
               <a
-                href="https://wa.me/918860110144?text=Hi%20Abhishek%2C%20I'd%20like%20to%20discuss%20a%20Custom%20Architecture%20project."
+                href="https://wa.me/918860110144?text=Hi%20VISTAR%2C%20I'd%20like%20to%20discuss%20a%20Custom%20Architecture%20project."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[11px] text-emerald-700 hover:underline flex items-center justify-center gap-1 font-mono"
@@ -410,7 +410,7 @@ export default function PricingPage() {
               <div className="relative w-full aspect-[16/10] bg-neutral-100 overflow-hidden">
                 <Image
                   src="/projects/3axisarc.png"
-                  alt="3axis Arc — 60 FPS Spatial 3D Engine for Architecture in Lucknow"
+                  alt="3axis Arc — 60 FPS Spatial 3D Engine for Architecture"
                   fill
                   sizes="(max-width: 768px) 100vw, 550px"
                   className="object-cover object-top group-hover:scale-102 transition-transform duration-300"
@@ -433,7 +433,7 @@ export default function PricingPage() {
                   </a>
                 </div>
                 <p className="text-xs text-neutral-600 leading-relaxed">
-                  Interactive real-time 3D architectural visualization engine built for premier Lucknow architecture studio. Zero lag, buttery smooth 60fps orbital camera controls.
+                  Interactive real-time 3D architectural visualization engine built for premier architectural design firm. Zero lag, buttery smooth 60fps orbital camera controls.
                 </p>
                 <div className="pt-2 flex flex-wrap gap-1.5 text-[10px] font-mono text-neutral-600">
                   <span className="px-2 py-0.5 bg-neutral-100 rounded">Three.js / WebGL</span>
@@ -665,7 +665,7 @@ export default function PricingPage() {
             Have a project in mind?
           </h2>
           <p className="text-xs sm:text-sm text-neutral-400 max-w-md mx-auto leading-relaxed">
-            Message us on WhatsApp with your requirements or schedule a free diagnostic scoping call with Abhishek Tiwari.
+            Message us on WhatsApp with your requirements or schedule a free diagnostic scoping call with our lead engineering team.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
             <a

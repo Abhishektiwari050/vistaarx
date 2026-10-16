@@ -34,7 +34,7 @@ const PRODUCTION_CARDS: ProductionCard[] = [
     tag: "SYSTEM 01 // ARCHITECTURE & REAL ESTATE",
     category: "Spatial WebGL & Architectural Systems",
     title: "3axis Arc: High-Performance Spatial 3D Platform",
-    shortDesc: "Interactive 3D architectural platform for Lucknow developers and architects, rendering 60fps WebGL in-browser.",
+    shortDesc: "Interactive 3D architectural platform for developers and architects, rendering 60fps WebGL in-browser.",
     fullDesc:
       "Engineered for high-end architectural and interior firms, rendering 60fps WebGL spatial models and blueprint walkthroughs directly in modern mobile and desktop browsers with 100% Lighthouse performance.",
     image: "/projects/3axisarc.png",

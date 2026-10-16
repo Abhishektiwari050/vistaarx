@@ -30,7 +30,7 @@ const STEPS: Step[] = [
     title: "Understand",
     tagline: "Uncover the real operational bottleneck",
     description:
-      "We begin with a focused 30-minute discovery conversation directly with Abhishek. We review your current workflow, who touches it, where data lives, what tools you already pay for, and what tangible business outcome you want to achieve.",
+      "We begin with a focused 30-minute discovery conversation directly with our lead engineer. We review your current workflow, who touches it, where data lives, what tools you already pay for, and what tangible business outcome you want to achieve.",
     deliverables: [
       "Process map of current vs. desired workflow",
       "Identification of tool integrations needed",
@@ -60,7 +60,7 @@ const STEPS: Step[] = [
     deliverables: [
       "Private GitHub repository commits from day one",
       "Live interactive staging environment for testing",
-      "Direct WhatsApp and email channel with Abhishek",
+      "Direct WhatsApp and email channel with your dedicated engineer",
     ],
     icon: Hammer,
   },

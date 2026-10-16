@@ -1,6 +1,7 @@
 import React from 'react';
 import { AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig } from 'remotion';
 import { CinematicBackground } from '../components/CinematicBackground';
+import { SelectionBoundingBox } from '../components/SelectionBoundingBox';
 import { BRAND_TOKENS } from '../constants';
 
 export const SceneAssemblyLine: React.FC = () => {
@@ -99,31 +100,33 @@ export const SceneAssemblyLine: React.FC = () => {
         <div
           style={{
             fontFamily: BRAND_TOKENS.typography.fontMono,
-            fontSize: '16px',
+            fontSize: '15px',
             letterSpacing: '0.45em',
             color: BRAND_TOKENS.colors.titaniumLight,
-            marginBottom: '16px',
+            marginBottom: '24px',
             textTransform: 'uppercase',
           }}
         >
           [ ACT 04 // OPERATIONAL VELOCITY CRASH ]
         </div>
 
-        {/* Massive 220px Latency Number Display */}
-        <div
-          style={{
-            fontFamily: BRAND_TOKENS.typography.fontMono,
-            fontSize: '220px',
-            fontWeight: 900,
-            letterSpacing: '-0.06em',
-            lineHeight: 0.85,
-            color: '#FFFFFF',
-            fontVariantNumeric: 'tabular-nums',
-            textShadow: '0 0 90px rgba(255, 255, 255, 0.85), 0 0 30px #FFFFFF',
-          }}
-        >
-          {latencyMs > 999 ? `${(latencyMs / 1000).toFixed(1)}s` : `${latencyMs}ms`}
-        </div>
+        {/* Latency Number Wrapped in Interactive Selection Box */}
+        <SelectionBoundingBox label="LINE-RATE RUNTIME" padding="20px 48px">
+          <div
+            style={{
+              fontFamily: BRAND_TOKENS.typography.fontMono,
+              fontSize: '200px',
+              fontWeight: 900,
+              letterSpacing: '-0.06em',
+              lineHeight: 0.85,
+              color: '#FFFFFF',
+              fontVariantNumeric: 'tabular-nums',
+              textShadow: '0 0 90px rgba(255, 255, 255, 0.85), 0 0 30px #FFFFFF',
+            }}
+          >
+            {latencyMs > 999 ? `${(latencyMs / 1000).toFixed(1)}s` : `${latencyMs}ms`}
+          </div>
+        </SelectionBoundingBox>
 
         {/* Flashing Kinetic Staccato Word */}
         <div

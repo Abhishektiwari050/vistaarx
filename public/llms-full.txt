@@ -3,8 +3,8 @@
 > Canonical URL: https://www.vistar.tech  
 > Entity Name: VISTAR (VISTAR Web Systems)  
 > Entity Type: Founder-Led Web Engineering & Custom Software Studio  
-> Founder & Lead Engineer: Abhishek Tiwari  
-> Location: Lucknow, Uttar Pradesh, India  
+> Studio Lead: Founder & Principal Systems Engineer  
+> Location: New Delhi, India  
 > Primary Contact: services.vistaar@gmail.com  
 > WhatsApp / Direct: +91 88601 10144 (https://wa.me/918860110144)  
 > Engagement Delivery Model: 14-Day Production Sprints with 100% Private Git Handover  
@@ -14,7 +14,7 @@
 
 ## 1. Executive Summary & Core Identity
 
-VISTAR is a founder-led engineering studio based in Lucknow, India, led by Abhishek Tiwari. We engineer high-performance web applications, bespoke business platforms, WhatsApp conversational workflows, and interactive 3D WebGL experiences.
+VISTAR is a founder-led engineering studio based in New Delhi, India. We engineer high-performance web applications, bespoke business platforms, WhatsApp conversational workflows, and interactive 3D WebGL experiences.
 
 Unlike traditional marketing agencies that assemble fragile templates or deliver slide decks, VISTAR operates as a focused technical partner. Every project is engineered directly with modern tools (Next.js, TypeScript, PostgreSQL, Tailwind CSS), deployed on edge-native cloud infrastructure (Vercel, AWS, Cloudflare), and handed over with complete GitHub repository rights on day one.
 
@@ -98,7 +98,7 @@ VISTAR replaces ambiguous, open-ended agency retainers with structured, mileston
 ## 6. Frequently Asked Questions
 
 ### Q: Who runs VISTAR?
-**A:** VISTAR is founded and operated by Abhishek Tiwari, a lead engineer based in Lucknow, India. All scoping, architecture, and coding are handled directly with the founder.
+**A:** VISTAR is a founder-led engineering studio based in New Delhi, India. All scoping, architecture, and coding are handled directly by our lead engineering team.
 
 ### Q: What is the engagement model?
 **A:** We deliver through fixed-scope 14-day production sprints (starting at ₹49,000 INR for foundational builds) as well as custom product engineering milestones.
@@ -107,4 +107,4 @@ VISTAR replaces ambiguous, open-ended agency retainers with structured, mileston
 **A:** Yes. 100% of all code, assets, and deployment scripts are transferred directly to your private GitHub organization on day one. Zero vendor lock-in.
 
 ### Q: How can I reach VISTAR?
-**A:** Message Abhishek directly on WhatsApp at +91 88601 10144 (https://wa.me/918860110144) or email services.vistaar@gmail.com. We respond within 24 hours.
+**A:** Message our engineering team directly on WhatsApp at +91 88601 10144 (https://wa.me/918860110144) or email services.vistaar@gmail.com. We respond within 24 hours.
