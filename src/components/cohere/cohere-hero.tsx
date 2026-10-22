@@ -8,6 +8,29 @@ import gsap from "gsap";
 
 export function CohereHero() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    // Viewport-aware autoplay/pause: saves CPU/GPU battery and keeps site fast
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            video.play().catch(() => {});
+          } else {
+            video.pause();
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -154,56 +177,44 @@ export function CohereHero() {
         </div>
       </section>
 
-      {/* ── 2. ORIGINAL COHERE HERO FEATURED GRAPHIC (HARDWARE-ACCELERATED GSAP ENTRANCE) ── */}
-      <section className="gsap-hero-media relative w-full px-4 lg:px-10 pb-12 md:pb-16 bg-white text-[#212121] will-change-transform">
-        <div className="relative mx-auto w-full max-w-[1360px]">
+      {/* ── 2. HIGH-CRAFT MOTION SHOWREEL VISUAL (ZERO-LAG GIF-STYLE SILENT HD LOOP) ── */}
+      <section className="gsap-hero-media relative w-full px-4 lg:px-10 pb-16 md:pb-24 bg-white text-[#212121] will-change-transform">
+        <div className="relative mx-auto w-full max-w-[1240px]">
           
-          {/* Desktop & Tablet Video Loop (Aspect Ratio 2720/1120 = 2.428) */}
-          <div className="hidden md:block w-full overflow-hidden rounded-[12px] shadow-sm bg-[#0C0D12] border border-black/[0.06]">
+          {/* Hardware-Accelerated 16:9 Showcase Frame */}
+          <div className="relative w-full aspect-[16/9] overflow-hidden rounded-xl sm:rounded-2xl md:rounded-3xl shadow-[0_24px_70px_-20px_rgba(0,0,0,0.18)] bg-[#0C0D12] border border-black/[0.08]">
             <video
+              ref={videoRef}
               autoPlay
               loop
               muted
               playsInline
-              preload="none"
-              poster="/og-image.jpg"
-              className="w-full h-auto object-cover rounded-[12px] block"
-              width={1920}
-              height={791}
+              preload="metadata"
+              poster="/videos/hero-showreel-poster.webp"
+              className="w-full h-full object-cover block"
+              width={1280}
+              height={720}
+              aria-label="VISTAR Engineering Showreel — Stop losing time to manual work"
             >
-              <source src="/videos/hero-agent-loop.mp4" type="video/mp4" />
-              <source src="/videos/hero-agent-loop.webm" type="video/webm" />
-              {/* Fallback GIF */}
+              <source src="/videos/hero-showreel-loop.webm" type="video/webm" />
+              <source src="/videos/hero-showreel-loop.mp4" type="video/mp4" />
+              {/* Fallback image */}
               <img
-                src="/videos/hero-agent-loop.gif"
-                alt="VISTAR Custom Software Platform Interface"
-                className="w-full h-auto object-cover rounded-[12px]"
+                src="/videos/hero-showreel-poster.webp"
+                alt="VISTAR — Stop losing time to manual work"
+                className="w-full h-full object-cover"
+                loading="eager"
               />
             </video>
-          </div>
 
-          {/* Mobile Video / GIF Loop (Square 1472x1472 Aspect Ratio) */}
-          <div className="block md:hidden w-full overflow-hidden rounded-[20px] shadow-sm bg-[#0C0D12] border border-black/[0.06]">
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="none"
-              poster="/og-image.jpg"
-              className="w-full h-auto object-cover rounded-[20px] block"
-              width={1472}
-              height={1472}
-            >
-              <source src="/videos/hero-agent-loop.mp4" type="video/mp4" />
-              <source src="/videos/hero-agent-loop.webm" type="video/webm" />
-              {/* Fallback GIF */}
-              <img
-                src="/videos/hero-agent-loop.gif"
-                alt="VISTAR Custom Software Mobile Interface"
-                className="w-full h-auto object-cover rounded-[20px]"
-              />
-            </video>
+            {/* Subtle Inner Bevel Accent */}
+            <div className="pointer-events-none absolute inset-0 rounded-xl sm:rounded-2xl md:rounded-3xl ring-1 ring-inset ring-white/10" />
+
+            {/* Status Pill Badge (Minimal, Non-Intrusive) */}
+            <div className="absolute top-3 left-3 sm:top-5 sm:left-5 z-10 flex items-center gap-2 px-2.5 sm:px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-[10px] sm:text-[11px] font-mono text-neutral-300 select-none">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span>VISTAR // MOTION SHOWREEL</span>
+            </div>
           </div>
 
         </div>

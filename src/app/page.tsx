@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { BASE_URL, DEFAULT_OG_IMAGES } from "@/lib/seo";
 import { CohereHero } from "@/components/cohere/cohere-hero";
-import { InteractiveWorkflowSimulator } from "@/components/home/interactive-workflow-simulator";
 import { CohereSocialProof } from "@/components/cohere/cohere-social-proof";
 import { OperationalProblemSection } from "@/components/home/operational-problem-section";
 import { JasperAgentsSection } from "@/components/home/jasper-agents-section";
@@ -210,15 +209,10 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(homePageSchema) }}
       />
       <div className="relative min-h-screen bg-white text-[#212121] w-full selection:bg-[#FF3823] selection:text-white">
-        {/* 01: HERO (BEAUTIFUL EDITORIAL TYPOGRAPHY + GROUNDED B2B COPY + VIDEO LOOP) */}
+        {/* 01: HERO (BEAUTIFUL EDITORIAL TYPOGRAPHY + GROUNDED B2B COPY + SHOWREEL LOOP) */}
         <CohereHero />
 
-        {/* 02: INTERACTIVE WORKFLOW SIMULATOR (PRACTICAL ENQUIRY TRIAGE DEMO) */}
-        <section className="relative w-full max-w-[1360px] mx-auto px-4 lg:px-10 -mt-6 sm:-mt-8 mb-16 z-20">
-          <InteractiveWorkflowSimulator />
-        </section>
-
-        {/* 03: VERIFIED TECH MARQUEE (CONTINUOUS SMOOTH TICKER) */}
+        {/* 02: VERIFIED TECH MARQUEE (CONTINUOUS SMOOTH TICKER) */}
         <CohereSocialProof />
 
         {/* 04: THE OPERATIONAL PROBLEM (WHERE BUSINESSES LOSE TIME & MARGIN) */}
