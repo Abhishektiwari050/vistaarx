@@ -220,6 +220,12 @@ const jsonLdSchema = {
 };
 
 import { MagneticCursor } from "@/components/ui/magnetic-cursor";
+import { Archivo, Geist } from "next/font/google";
+import { PageCurtain } from "@/components/tds/page-curtain/PageCurtain";
+import { VistarLogo } from "@/components/vistar-logo";
+
+const display = Archivo({ subsets: ["latin"], axes: ["wdth"], variable: "--tds-display" });
+const sans = Geist({ subsets: ["latin"], variable: "--tds-sans" });
 
 export default function RootLayout({
   children,
@@ -265,12 +271,14 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-screen bg-white text-[#212121] selection:bg-[#212121] selection:text-white antialiased font-sans">
-        <MagneticCursor />
-        <LenisProvider>
-          <VistarTelemetryListener />
-          <LayoutShell>{children}</LayoutShell>
-        </LenisProvider>
+      <body className={`min-h-screen bg-white text-[#212121] selection:bg-[#212121] selection:text-white antialiased font-sans ${display.variable} ${sans.variable}`}>
+        <PageCurtain mark={<VistarLogo size={52} showText={false} className="text-white" />}>
+          <MagneticCursor />
+          <LenisProvider>
+            <VistarTelemetryListener />
+            <LayoutShell>{children}</LayoutShell>
+          </LenisProvider>
+        </PageCurtain>
       </body>
     </html>
   );

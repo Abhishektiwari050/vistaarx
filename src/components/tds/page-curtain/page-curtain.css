@@ -1,0 +1,27 @@
+.tds-pcurtain {
+  position: fixed;
+  inset: 0;
+  will-change: transform;
+}
+
+.tds-pcurtain--back {
+  z-index: 9998;
+  background: var(--tds-curtain-back, #d71212);
+}
+
+.tds-pcurtain--front {
+  z-index: 9999;
+  background: var(--tds-curtain-front, #0a0a0a);
+  color: var(--tds-curtain-text, #ffffff);
+}
+
+.tds-pcurtain--off {
+  pointer-events: none;
+}
+
+.tds-pcurtain__mark {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+}

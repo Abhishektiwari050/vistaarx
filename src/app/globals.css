@@ -55,6 +55,11 @@
   --text-secondary: #5E605D;
   --text-white: #FFFFFF;
 
+  /* Curtain Page Transition Tokens */
+  --tds-curtain-back: #FF3823;
+  --tds-curtain-front: #0C0D12;
+  --tds-curtain-text: #FFFFFF;
+
   /* Typography Font Families */
   --font-family-display: 'CohereText', 'Space Grotesk', Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-family-heading: 'CohereText', 'Space Grotesk', Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;

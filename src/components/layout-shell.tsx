@@ -7,7 +7,7 @@ import { VistarFooter } from "@/components/vistar-footer";
 
 export function LayoutShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const isCatalogue = pathname === "/catalogue";
+  const isCatalogue = pathname === "/catalogue" || pathname.startsWith("/curtain-demo");
 
   if (isCatalogue) {
     return <>{children}</>;
