@@ -177,12 +177,11 @@ export function CohereHero() {
         </div>
       </section>
 
-      {/* ── 2. HIGH-CRAFT MOTION SHOWREEL VISUAL (ZERO-LAG GIF-STYLE SILENT HD LOOP) ── */}
-      <section className="gsap-hero-media relative w-full px-4 lg:px-10 pb-16 md:pb-24 bg-white text-[#212121] will-change-transform">
-        <div className="relative mx-auto w-full max-w-[1240px]">
-          
-          {/* Hardware-Accelerated 16:9 Showcase Frame */}
-          <div className="relative w-full aspect-[16/9] overflow-hidden rounded-xl sm:rounded-2xl md:rounded-3xl shadow-[0_24px_70px_-20px_rgba(0,0,0,0.18)] bg-[#0C0D12] border border-black/[0.08]">
+      {/* ── 2. HIGH-CRAFT MOTION SHOWREEL VISUAL (FULL-WIDTH CINEMATIC BLEED) ── */}
+      <section className="gsap-hero-media relative w-full pb-14 md:pb-20 bg-white text-[#212121] will-change-transform">
+        <div className="relative w-full">
+          {/* Full-Bleed Hardware-Accelerated Showcase Frame: zero side gaps, occupies space edge-to-edge */}
+          <div className="relative w-full aspect-[16/9] max-h-[82vh] overflow-hidden bg-[#0C0D12] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.22)] border-y border-black/[0.08]">
             <video
               ref={videoRef}
               autoPlay
@@ -190,33 +189,26 @@ export function CohereHero() {
               muted
               playsInline
               preload="metadata"
-              poster="/videos/hero-showreel-poster.webp"
-              className="w-full h-full object-cover block"
+              poster="/videos/hero-showreel-poster.webp?v=2"
+              className="w-full h-full object-cover object-center block"
               width={1280}
               height={720}
               aria-label="VISTAR Engineering Showreel — Stop losing time to manual work"
             >
-              <source src="/videos/hero-showreel-loop.webm" type="video/webm" />
-              <source src="/videos/hero-showreel-loop.mp4" type="video/mp4" />
+              <source src="/videos/hero-showreel-loop.webm?v=2" type="video/webm" />
+              <source src="/videos/hero-showreel-loop.mp4?v=2" type="video/mp4" />
               {/* Fallback image */}
               <img
-                src="/videos/hero-showreel-poster.webp"
+                src="/videos/hero-showreel-poster.webp?v=2"
                 alt="VISTAR — Stop losing time to manual work"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover object-center"
                 loading="eager"
               />
             </video>
 
             {/* Subtle Inner Bevel Accent */}
-            <div className="pointer-events-none absolute inset-0 rounded-xl sm:rounded-2xl md:rounded-3xl ring-1 ring-inset ring-white/10" />
-
-            {/* Status Pill Badge (Minimal, Non-Intrusive) */}
-            <div className="absolute top-3 left-3 sm:top-5 sm:left-5 z-10 flex items-center gap-2 px-2.5 sm:px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-[10px] sm:text-[11px] font-mono text-neutral-300 select-none">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              <span>VISTAR // MOTION SHOWREEL</span>
-            </div>
+            <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/10" />
           </div>
-
         </div>
       </section>
     </div>
