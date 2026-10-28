@@ -439,8 +439,7 @@ export default function TigerTearReveal({
 
     let raf = 0;
     let visible = false;
-    let hasRevealed = false;
-    let p = cfg.current.progress ?? (cfg.current.mode === "scroll-reveal" ? 0 : 0);
+    let p = cfg.current.progress ?? 0;
     let targetP = p;
     let look: Pt = [0, 0];
     let idle: Pt = [0, 0];
@@ -448,67 +447,69 @@ export default function TigerTearReveal({
     let nextBlink = performance.now() + 2500;
     let last: Frame | null = null;
 
+    const computeTargetFromScroll = () => {
+      if (cfg.current.controlled) {
+        targetP = clamp01(cfg.current.progress ?? 0);
+        return;
+      }
+      if (!root) return;
+
+      const rect = root.getBoundingClientRect();
+      const vh = window.innerHeight || 800;
+
+      if (cfg.current.mode === "pinned") {
+        const range = root.offsetHeight - stage.offsetHeight;
+        targetP = range <= 0 ? (rect.top <= 0 ? 1 : 0) : clamp01(-rect.top / range);
+      } else {
+        // Starts tearing as section enters lower third (88% vh), fully open when centered (36% vh)
+        const start = vh * 0.88;
+        const end = vh * 0.36;
+        const raw = clamp01((start - rect.top) / (start - end));
+        targetP = isHovered.current ? Math.max(raw, 0.95) : raw;
+      }
+    };
+
     const requestTick = () => {
       if (!raf) raf = requestAnimationFrame(tick);
     };
 
-    // IntersectionObserver triggers reveal smoothly without forced synchronous scroll reflows
-    const io = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
-        visible = entry.isIntersecting;
-
-        if (cfg.current.mode === "scroll-reveal") {
-          // As soon as the section enters the viewport, smoothly tear open and latch
-          if (entry.isIntersecting && !hasRevealed) {
-            hasRevealed = true;
-            targetP = 1.0;
-            requestTick();
-          } else if (!entry.isIntersecting && entry.boundingClientRect.top > (window.innerHeight || 800)) {
-            // Only re-arm if the user has scrolled all the way back to the top of the page
-            hasRevealed = false;
-            targetP = 0;
-            p = 0;
-            requestTick();
-          }
-        } else if (cfg.current.mode === "pinned") {
-          if (visible) {
-            const rect = root.getBoundingClientRect();
-            const range = root.offsetHeight - stage.offsetHeight;
-            targetP = range <= 0 ? (rect.top <= 0 ? 1 : 0) : clamp01(-rect.top / range);
-            requestTick();
-          }
-        } else if (cfg.current.controlled) {
-          targetP = clamp01(cfg.current.progress ?? 0);
-          requestTick();
-        }
-
-        if (visible) requestTick();
-      },
-      { threshold: [0, 0.1, 0.3] }
-    );
-    io.observe(root);
-
-    // If pinned mode is active, handle scroll passively
-    const onScroll = () => {
-      if (!visible || cfg.current.mode !== "pinned") return;
-      const rect = root.getBoundingClientRect();
-      const range = root.offsetHeight - stage.offsetHeight;
-      targetP = range <= 0 ? (rect.top <= 0 ? 1 : 0) : clamp01(-rect.top / range);
+    const onScrollOrResize = () => {
+      if (!visible) return;
       requestTick();
     };
 
-    if (cfg.current.mode === "pinned") {
-      window.addEventListener("scroll", onScroll, { passive: true });
+    // IntersectionObserver tracks visibility to avoid running tick when completely offscreen
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        visible = entry.isIntersecting;
+        if (visible) {
+          computeTargetFromScroll();
+          requestTick();
+        }
+      },
+      { threshold: [0, 0.1, 0.25, 0.5, 0.75, 1.0] }
+    );
+    io.observe(root);
+
+    window.addEventListener("scroll", onScrollOrResize, { passive: true });
+    window.addEventListener("resize", onScrollOrResize, { passive: true });
+
+    // Hook into Lenis smooth scrolling if present for sub-pixel liquid interpolation
+    const lenisInstance = (window as unknown as { lenis?: { on?: (event: string, cb: () => void) => () => void } })
+      .lenis;
+    let unsubscribeLenis: (() => void) | undefined;
+    if (lenisInstance && typeof lenisInstance.on === "function") {
+      unsubscribeLenis = lenisInstance.on("scroll", onScrollOrResize);
     }
 
     function tick(now: number) {
       raf = 0;
-      if (!visible && hasRevealed && Math.abs(targetP - p) < 0.001) return;
+      if (!visible) return;
+      computeTargetFromScroll();
       const c = cfg.current;
 
-      // Ultra-fluid smooth spring/lerp (0.28 per frame creates a buttery ~0.45s reveal)
-      const lerpSpeed = c.reduced ? 1 : 0.28;
+      // Organic liquid damping (0.20 absorbs discrete mouse wheel steps into fluid cinematic tear)
+      const lerpSpeed = c.reduced ? 1 : 0.20;
       p = c.reduced ? (targetP > 0.2 ? 1 : 0) : p + (targetP - p) * lerpSpeed;
       if (Math.abs(targetP - p) < 0.001) p = targetP;
 
@@ -552,7 +553,7 @@ export default function TigerTearReveal({
         setF(next);
       }
 
-      // Automatically sleep rAF when everything has settled (0% CPU / 0% GPU when idle)
+      // Automatically sleep rAF when stationary (0% CPU overhead)
       const isProgressSettled = Math.abs(targetP - p) < 0.001;
       const isEyesSettled =
         Math.abs(look[0] - want[0]) < 0.01 && Math.abs(look[1] - want[1]) < 0.01 && blink === 0 && squint === 0;
@@ -562,12 +563,13 @@ export default function TigerTearReveal({
       }
     }
 
+    computeTargetFromScroll();
     requestTick();
 
     return () => {
-      if (cfg.current.mode === "pinned") {
-        window.removeEventListener("scroll", onScroll);
-      }
+      window.removeEventListener("scroll", onScrollOrResize);
+      window.removeEventListener("resize", onScrollOrResize);
+      if (unsubscribeLenis) unsubscribeLenis();
       cancelAnimationFrame(raf);
       io.disconnect();
     };

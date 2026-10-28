@@ -1,5 +1,6 @@
 /* ─── COHERE & JASPER REPLICA FONT FACES & TOKENS ────────────────────────────────────────── */
 @import "tailwindcss";
+@import "lenis/dist/lenis.css";
 
 @font-face {
   font-family: 'CohereText';

@@ -2,39 +2,35 @@
 
 import React, { useEffect } from "react";
 import Lenis from "lenis";
-import gsap from "gsap";
 
 export function LenisProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
-    // Disable on touch devices to preserve native 120Hz hardware momentum
-    const isTouch =
-      typeof window !== "undefined" &&
-      (window.matchMedia("(pointer: coarse)").matches || "ontouchstart" in window);
     const prefersReducedMotion =
       typeof window !== "undefined" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    if (isTouch || prefersReducedMotion) return;
+    if (prefersReducedMotion) return;
 
-    // Initialize ultra-responsive desktop momentum scrolling
+    // Initialize luxury momentum scrolling for high-craft studio feel
     const lenis = new Lenis({
-      lerp: 0.1, // Responsive damping without artificial lag
-      wheelMultiplier: 1.0,
-      syncTouch: false,
-      smoothWheel: true,
+      duration: 1.15,
+      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // signature exponential ease
       orientation: "vertical",
       gestureOrientation: "vertical",
+      smoothWheel: true,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 1.5,
+      syncTouch: false, // Keeps native hardware touch gesture feel on mobile, while giving silky smooth wheel/trackpad
     });
 
     (window as unknown as { lenis?: Lenis }).lenis = lenis;
 
-    // Harmonize GSAP RAF ticker with Lenis loop for 100% stutter-free rendering
-    const updateTicker = (time: number) => {
-      lenis.raf(time * 1000);
-    };
-
-    gsap.ticker.add(updateTicker);
-    gsap.ticker.lagSmoothing(0);
+    let rafId: number;
+    function raf(time: number) {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
+    }
+    rafId = requestAnimationFrame(raf);
 
     // Smooth anchor link click interceptor
     const handleAnchorClick = (e: MouseEvent) => {
@@ -57,7 +53,7 @@ export function LenisProvider({ children }: { children: React.ReactNode }) {
     document.addEventListener("click", handleAnchorClick, { passive: false });
 
     return () => {
-      gsap.ticker.remove(updateTicker);
+      cancelAnimationFrame(rafId);
       document.removeEventListener("click", handleAnchorClick);
       delete (window as unknown as { lenis?: Lenis }).lenis;
       lenis.destroy();
@@ -66,3 +62,5 @@ export function LenisProvider({ children }: { children: React.ReactNode }) {
 
   return <>{children}</>;
 }
+
+export default LenisProvider;
