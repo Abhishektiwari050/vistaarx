@@ -86,40 +86,67 @@ export function VistarFooter() {
   return (
     <footer className="w-full bg-[#121316] text-white select-none relative overflow-hidden font-sans border-t border-black/10">
       
-      {/* ── 1. PRE-FOOTER INVITATION BAR ── */}
-      <section className="relative w-full py-16 sm:py-20 px-6 lg:px-12 border-b border-white/10 bg-[#16181C]">
-        <div className="max-w-[1360px] mx-auto flex flex-col md:flex-row md:items-center justify-between gap-8">
-          <div className="space-y-2 max-w-2xl">
-            <div className="inline-flex items-center gap-2 text-xs font-mono text-emerald-400">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>DIRECT FOUNDER COLLABORATION</span>
+      {/* ── 1. UNIFIED TERMINAL PRE-FOOTER INVITATION ── */}
+      <section className="relative w-full py-16 sm:py-24 px-6 lg:px-12 border-b border-white/10 bg-[#16181C]">
+        <div className="max-w-[1360px] mx-auto space-y-8">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+            <div className="space-y-3 max-w-2xl">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15 text-xs font-mono font-medium text-white/90">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#FF3823] animate-pulse" />
+                <span>DIRECT FOUNDER COLLABORATION // LOW FRICTION</span>
+              </div>
+              <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-[1.12] text-balance">
+                Tell us about one process you want to improve.
+              </h3>
+              <p className="text-sm sm:text-base text-neutral-300 leading-relaxed font-normal text-pretty">
+                Every system starts with a 30-minute discovery conversation directly with our lead engineer. We audit your workflow, confirm whether software will genuinely save your team time, and quote an upfront fixed fee. Zero sales pressure, zero corporate runarounds.
+              </p>
             </div>
-            <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
-              Ready to eliminate manual friction from your business?
-            </h3>
-            <p className="text-sm text-neutral-400 leading-relaxed">
-              Book a 30-minute discovery conversation with our lead engineer to review one workflow bottleneck.
-            </p>
+
+            <div className="flex flex-wrap items-center gap-3 shrink-0">
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center h-12 px-6 rounded-xl bg-white hover:bg-neutral-100 text-[#121316] text-xs sm:text-sm font-semibold transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] shadow-md active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#16181C] gap-2 group"
+              >
+                <span>Start with a brief message</span>
+                <ArrowRight className="w-3.5 h-3.5 text-[#121316] group-hover:translate-x-0.5 transition-transform" />
+              </Link>
+
+              <a
+                href="https://wa.me/918860110144?text=Hi%20VISTAR%2C%20I%20would%20like%20to%20discuss%20improving%20a%20process%20at%20our%20business."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center h-12 px-6 rounded-xl bg-[#25D366] hover:bg-[#20BD5A] text-white text-xs sm:text-sm font-semibold transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] shadow-md active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2 focus-visible:ring-offset-[#16181C] gap-2"
+              >
+                <MessageSquare className="w-4 h-4 fill-white" />
+                <span>Chat on WhatsApp (+91 88601 10144)</span>
+              </a>
+
+              <Link
+                href="/work"
+                className="inline-flex items-center justify-center h-12 px-5 rounded-xl border border-white/20 hover:bg-white/10 text-white text-xs sm:text-sm font-medium transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] active:scale-[0.98]"
+              >
+                <span>Inspect systems</span>
+              </Link>
+            </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3 shrink-0">
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center h-11 px-6 rounded-xl bg-white hover:bg-neutral-100 text-[#121316] text-xs font-semibold transition-all shadow-sm active:scale-95 gap-2"
-            >
-              <span>Discuss a Workflow</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-
-            <a
-              href="https://wa.me/918860110144?text=Hi%20VISTAR%2C%20I%20would%20like%20to%20discuss%20a%20software%20project."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center h-11 px-5 rounded-xl bg-[#25D366] hover:bg-[#20BD5A] text-white text-xs font-semibold transition-all shadow-sm active:scale-95 gap-2"
-            >
-              <MessageSquare className="w-3.5 h-3.5 fill-white" />
-              <span>WhatsApp (+91 88601 10144)</span>
-            </a>
+          {/* Reassurance Guarantees Strip with Tabular Metrics */}
+          <div className="pt-6 border-t border-white/10 flex flex-wrap items-center justify-start sm:justify-between gap-4 text-xs text-neutral-400 font-mono tabular-nums">
+            <span className="flex items-center gap-1.5">
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+              Direct reply from lead engineer within 24h
+            </span>
+            <span className="hidden sm:inline text-white/20">&bull;</span>
+            <span className="flex items-center gap-1.5">
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+              Bilateral NDA before detailed scoping
+            </span>
+            <span className="hidden sm:inline text-white/20">&bull;</span>
+            <span className="flex items-center gap-1.5">
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+              100% private GitHub repository handover
+            </span>
           </div>
         </div>
       </section>

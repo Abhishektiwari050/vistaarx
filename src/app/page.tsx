@@ -6,11 +6,9 @@ import { OperationalProblemSection } from "@/components/home/operational-problem
 import { JasperAgentsSection } from "@/components/home/jasper-agents-section";
 import { CohereSolutions } from "@/components/cohere/cohere-solutions";
 import { CohereEmpowerment } from "@/components/cohere/cohere-empowerment";
-import { HowEngagementWorksSection } from "@/components/home/how-engagement-works-section";
 import { CohereDeployment } from "@/components/cohere/cohere-deployment";
 import { CourageRevealSection } from "@/components/home/courage-reveal-section";
 import { AnswerBlocks, type QAPair } from "@/components/seo/answer-blocks";
-import { FinalCtaSection } from "@/components/home/final-cta-section";
 
 // ─── Page-level metadata ──────────────────────────────────────────────────────
 export const metadata: Metadata = {
@@ -90,28 +88,6 @@ const homePageSchema = {
 
 const HOME_FAQ_ITEMS: QAPair[] = [
   {
-    category: "AUDIENCE & FIT",
-    question: "What kind of businesses does Vistar work with?",
-    answer:
-      "We primarily partner with B2B distributors, wholesalers, small and mid-sized manufacturers, and service companies dealing with high enquiry volumes, manual quotation prep, or scattered operational data. We also partner with software startups needing full-stack Next.js delivery, architecture firms seeking interactive 3D WebGL showcases, and organizations with specialized GIS or data requirements.",
-    keyPoints: [
-      "B2B distributors, wholesalers, and manufacturers with enquiry or quoting bottlenecks",
-      "Early-stage startups needing high-velocity Next.js web application delivery",
-      "Architecture & design firms needing interactive 3D WebGL showrooms without app downloads",
-    ],
-  },
-  {
-    category: "FIRST STEPS",
-    question: "What is a good first project to start with?",
-    answer:
-      "A focused operational bottleneck where manual work creates delays or mistakes. Common starting points include: an automated WhatsApp enquiry intake pipeline that alerts sales reps in seconds; an internal quoting tool that turns raw inputs into standardized PDF proposals; or an order status dashboard that replaces back-and-forth phone calls. Starting with a bounded pilot proves value quickly before undertaking larger systems.",
-    keyPoints: [
-      "WhatsApp & web form enquiry qualification and team routing",
-      "Automated quotation or invoice generation from spreadsheets",
-      "Single-purpose internal portal or order tracking dashboard",
-    ],
-  },
-  {
     category: "INVESTMENT & PRICING",
     question: "How does project pricing work?",
     answer:
@@ -123,14 +99,14 @@ const HOME_FAQ_ITEMS: QAPair[] = [
     ],
   },
   {
-    category: "INTEGRATIONS",
-    question: "Can Vistar work with our existing tools?",
+    category: "TIMELINES & CADENCE",
+    question: "How long does a typical project take?",
     answer:
-      "Yes. We avoid forcing you to abandon tools your staff already knows. We integrate directly with WhatsApp Business Cloud API, Google Sheets, PostgreSQL, Supabase, Zoho, Tally, Gmail, Slack, and standard REST/webhook APIs. If your existing tool provides an API or exportable format, we can connect it to your new workflow.",
+      "Focused automation pilots and enquiry pipelines typically take 5 to 10 business days. Custom multi-user operational portals, web apps, or 3D spatial showcases typically take 2 to 4 weeks. Exact timelines depend on scope boundaries, third-party API keys, data readiness, and how quickly your team can review staging milestones.",
     keyPoints: [
-      "Direct WhatsApp Business API and automated customer notifications",
-      "Bi-directional sync with Google Sheets, PostgreSQL, Zoho, or Tally",
-      "Connects to legacy accounting and CRM software without forcing migrations",
+      "Focused automation pilots: 5–10 business days",
+      "Custom portals and web applications: 2–4 weeks",
+      "Timelines explicitly agreed upon in writing before billing begins",
     ],
   },
   {
@@ -156,6 +132,39 @@ const HOME_FAQ_ITEMS: QAPair[] = [
     ],
   },
   {
+    category: "AUDIENCE & FIT",
+    question: "What kind of businesses does Vistar work with?",
+    answer:
+      "We primarily partner with B2B distributors, wholesalers, small and mid-sized manufacturers, and service companies dealing with high enquiry volumes, manual quotation prep, or scattered operational data. We also partner with software startups needing full-stack Next.js delivery, architecture firms seeking interactive 3D WebGL showcases, and organizations with specialized GIS or data requirements.",
+    keyPoints: [
+      "B2B distributors, wholesalers, and manufacturers with enquiry or quoting bottlenecks",
+      "Early-stage startups needing high-velocity Next.js web application delivery",
+      "Architecture & design firms needing interactive 3D WebGL showrooms without app downloads",
+    ],
+  },
+  {
+    category: "FIRST STEPS",
+    question: "What is a good first project to start with?",
+    answer:
+      "A focused operational bottleneck where manual work creates delays or mistakes. Common starting points include: an automated WhatsApp enquiry intake pipeline that alerts sales reps in seconds; an internal quoting tool that turns raw inputs into standardized PDF proposals; or an order status dashboard that replaces back-and-forth phone calls. Starting with a bounded pilot proves value quickly before undertaking larger systems.",
+    keyPoints: [
+      "WhatsApp & web form enquiry qualification and team routing",
+      "Automated quotation or invoice generation from spreadsheets",
+      "Single-purpose internal portal or order tracking dashboard",
+    ],
+  },
+  {
+    category: "INTEGRATIONS",
+    question: "Can Vistar work with our existing tools?",
+    answer:
+      "Yes. We avoid forcing you to abandon tools your staff already knows. We integrate directly with WhatsApp Business Cloud API, Google Sheets, PostgreSQL, Supabase, Zoho, Tally, Gmail, Slack, and standard REST/webhook APIs. If your existing tool provides an API or exportable format, we can connect it to your new workflow.",
+    keyPoints: [
+      "Direct WhatsApp Business API and automated customer notifications",
+      "Bi-directional sync with Google Sheets, PostgreSQL, Zoho, or Tally",
+      "Connects to legacy accounting and CRM software without forcing migrations",
+    ],
+  },
+  {
     category: "DEPLOYMENT & WARRANTY",
     question: "What happens after deployment?",
     answer:
@@ -175,17 +184,6 @@ const HOME_FAQ_ITEMS: QAPair[] = [
       "Zero ongoing maintenance hostage retainers",
       "Run your systems autonomously or with internal engineers",
       "Optional month-to-month partnership retainers available if desired",
-    ],
-  },
-  {
-    category: "TIMELINES & CADENCE",
-    question: "How long does a typical project take?",
-    answer:
-      "Focused automation pilots and enquiry pipelines typically take 5 to 10 business days. Custom multi-user operational portals, web apps, or 3D spatial showcases typically take 2 to 4 weeks. Exact timelines depend on scope boundaries, third-party API keys, data readiness, and how quickly your team can review staging milestones.",
-    keyPoints: [
-      "Focused automation pilots: 5–10 business days",
-      "Custom portals and web applications: 2–4 weeks",
-      "Timelines explicitly agreed upon in writing before billing begins",
     ],
   },
   {
@@ -215,28 +213,25 @@ export default function Home() {
         {/* 02: VERIFIED TECH MARQUEE (CONTINUOUS SMOOTH TICKER) */}
         <CohereSocialProof />
 
-        {/* 04: THE OPERATIONAL PROBLEM (WHERE BUSINESSES LOSE TIME & MARGIN) */}
+        {/* 03: OPERATIONAL TELEMETRY BENCHMARK (HIGH-DENSITY COMPARISON) */}
         <OperationalProblemSection />
 
-        {/* 05: JASPER INTERACTIVE 3D RIVE STAGE (SYSTEM CAPABILITY MATRIX) */}
+        {/* 04: JASPER INTERACTIVE 3D RIVE STAGE (SYSTEM CAPABILITY MATRIX) */}
         <JasperAgentsSection />
 
-        {/* 06: SOLUTIONS (APPLE-STYLE 3D WINDOW DECK: 3AXIS ARC, AUTOLEAD, VAYU, AURA) */}
+        {/* 05: SOLUTIONS (APPLE-STYLE 3D WINDOW DECK: 3AXIS ARC, AUTOLEAD, VAYU, AURA) */}
         <CohereSolutions />
 
-        {/* 07: DATA SOVEREIGNTY (EDITORIAL TEXTURE + VIDEO BANNER) */}
+        {/* 06: DATA SOVEREIGNTY (EDITORIAL TEXTURE + VIDEO BANNER) */}
         <CohereEmpowerment />
 
-        {/* 08: HOW WE WORK (6-STAGE TRANSPARENT ENGINEERING LIFECYCLE) */}
-        <HowEngagementWorksSection />
-
-        {/* 09: SECURITY & DEPLOYMENT (ENGINEERING COMMITMENTS & SPRINT CADENCE) */}
+        {/* 07: SECURITY & DEPLOYMENT (ENGINEERING COMMITMENTS & SPRINT CADENCE) */}
         <CohereDeployment />
 
-        {/* 10: FOUNDER CONVICTION (COURAGE TIGER TEAR REVEAL) */}
+        {/* 08: FOUNDER CONVICTION (COURAGE TIGER TEAR REVEAL) */}
         <CourageRevealSection />
 
-        {/* 11: TECHNICAL ANSWER BLOCKS (GOOGLE SEO & REAL BUYING FAQS) */}
+        {/* 09: TECHNICAL ANSWER BLOCKS (PRIORITIZED TOP 4 FOUNDER QUESTIONS + EXPANDABLE) */}
         <AnswerBlocks
           title="Frequently Asked Questions"
           subtitle="Direct, practical answers about our engineering process, pricing, data privacy, and source code ownership."
@@ -244,10 +239,8 @@ export default function Home() {
           items={HOME_FAQ_ITEMS}
           schemaId="home-faq-schema"
           theme="light"
+          initialLimit={4}
         />
-
-        {/* 12: FINAL LOW-FRICTION INVITATION */}
-        <FinalCtaSection />
       </div>
     </>
   );
