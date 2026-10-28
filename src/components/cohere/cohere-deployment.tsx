@@ -2,7 +2,52 @@
 
 import React from "react";
 import Link from "next/link";
-import { ShieldCheck, Code2, Lock, GitBranch, Clock, Zap } from "lucide-react";
+import { ShieldCheck, Code2, Lock, GitBranch, Clock, Zap, Check, X, ArrowRight } from "lucide-react";
+
+const SPEC_COMPARISON = [
+  {
+    feature: "Codebase Ownership",
+    vistar: "100% Private GitHub Transfer",
+    vistarHighlight: true,
+    agency: "Proprietary Platform Lock-in",
+    agencyBad: true,
+  },
+  {
+    feature: "Direct Team Access",
+    vistar: "Direct Pairing with Lead Engineer",
+    vistarHighlight: true,
+    agency: "Unvetted Junior Handoffs",
+    agencyBad: true,
+  },
+  {
+    feature: "Delivery Cadence",
+    vistar: "14-Day Production Sprints",
+    vistarHighlight: true,
+    agency: "3 to 6-Month Open Deadlines",
+    agencyBad: true,
+  },
+  {
+    feature: "Pricing Model",
+    vistar: "Fixed-Milestone Upfront Quotes",
+    vistarHighlight: true,
+    agency: "Uncapped Hourly Billing Meters",
+    agencyBad: true,
+  },
+  {
+    feature: "Data Privacy & NDA",
+    vistar: "Bilateral Mutual NDA + Client Cloud",
+    vistarHighlight: true,
+    agency: "Shared Multi-Tenant Platforms",
+    agencyBad: true,
+  },
+  {
+    feature: "Post-Launch Warranty",
+    vistar: "30-Day Defect Warranty Included",
+    vistarHighlight: true,
+    agency: "Forced Monthly Retainer Fees",
+    agencyBad: true,
+  },
+];
 
 const ENGINEERING_GUARANTEES = [
   {
@@ -45,65 +90,93 @@ const ENGINEERING_GUARANTEES = [
 export function CohereDeployment() {
   return (
     <>
-      <section className="relative w-full pt-8 sm:pt-12 md:pt-14 pb-0 bg-white border-t border-black/[0.06] overflow-hidden">
-        {/* Header & CTAs */}
-        <div className="max-w-[840px] mx-auto px-4 text-center mb-8 sm:mb-12">
+      {/* ── 1. SOVEREIGNTY SPEC SHEET (TASTE-SKILL HIGH-DENSITY COMPARISON) ── */}
+      <section className="relative w-full py-16 sm:py-20 bg-white border-t border-black/[0.08] overflow-hidden">
+        <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 sm:mb-10">
+            <div className="max-w-2xl space-y-3">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 font-mono text-[11px] uppercase tracking-wider font-semibold rounded-full bg-black/5 border border-black/8 text-neutral-800">
+                <ShieldCheck className="w-3.5 h-3.5 text-[#FF3823]" />
+                ENGINEERING SPEC SHEET
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#181818] leading-[1.12] text-balance">
+                Built for ownership. Not ongoing dependence.
+              </h2>
+              <p className="text-sm sm:text-base text-neutral-600 leading-relaxed font-normal text-pretty">
+                How VISTAR studio delivery compares against traditional agencies and no-code builders.
+              </p>
+            </div>
 
-          {/* Headline */}
-          <h2
-            className="text-4xl sm:text-5xl md:text-6xl font-normal leading-[1.08] tracking-[-0.02em] text-[#0B0D17] mb-5 font-serif"
-          >
-            Practical software built for your business.<br className="hidden sm:inline" /> Direct founder involvement.
-          </h2>
-
-          {/* Subtitle */}
-          <p className="text-base sm:text-lg md:text-[18px] text-[#4A4D57] leading-relaxed max-w-[660px] mx-auto mb-8 font-normal">
-            From WhatsApp enquiry automations and internal portals to high-performance 3D web applications. Direct engineering by VISTAR Studio with 100% source code ownership.
-          </p>
-
-          {/* Buttons */}
-          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
             <Link
-              href="/contact"
-              className="inline-flex items-center justify-center px-6 py-3 bg-[#FF3823] hover:bg-[#E02F1C] text-white font-medium text-sm sm:text-base rounded-none transition-colors shadow-xs"
+              href="/how-we-work"
+              className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-[#181818] hover:text-[#FF3823] transition-colors self-start md:self-auto"
             >
-              Discuss a workflow
+              <span>Explore our full lifecycle</span>
+              <ArrowRight className="w-4 h-4" />
             </Link>
-            <a
-              href="https://wa.me/918860110144?text=Hi%20VISTAR%2C%20I%20would%20like%20to%20discuss%20an%20automation%20project."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center px-6 py-3 bg-[#25D366] hover:bg-[#20BD5A] text-white font-medium text-sm sm:text-base rounded-none transition-colors shadow-xs"
-            >
-              Chat on WhatsApp (+91 88601 10144)
-            </a>
           </div>
+
+          {/* High-Density Monospace Comparison Matrix */}
+          <div className="w-full overflow-x-auto rounded-xl border border-black/10 bg-[#FAF9F6] shadow-xs">
+            <table className="w-full text-left border-collapse text-xs sm:text-sm font-sans min-w-[620px]">
+              <thead>
+                <tr className="border-b border-black/10 bg-black/[0.03] text-neutral-500 font-mono text-[11px] uppercase tracking-wider">
+                  <th className="py-3 px-4 sm:px-6 font-semibold">Standard</th>
+                  <th className="py-3 px-4 sm:px-6 font-bold text-neutral-900 bg-emerald-50/60 border-x border-emerald-200/60">
+                    VISTAR Studio
+                  </th>
+                  <th className="py-3 px-4 sm:px-6 font-semibold">Traditional Agency</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-black/8 font-normal text-neutral-700">
+                {SPEC_COMPARISON.map((row, i) => (
+                  <tr key={i} className="hover:bg-white/80 transition-colors">
+                    <td className="py-3.5 px-4 sm:px-6 font-medium text-neutral-900">
+                      {row.feature}
+                    </td>
+                    <td className="py-3.5 px-4 sm:px-6 bg-emerald-50/40 border-x border-emerald-200/50 font-semibold text-neutral-900">
+                      <div className="flex items-center gap-2 text-emerald-800">
+                        <Check className="w-4 h-4 text-emerald-600 shrink-0" />
+                        <span>{row.vistar}</span>
+                      </div>
+                    </td>
+                    <td className="py-3.5 px-4 sm:px-6 text-neutral-500">
+                      <div className="flex items-center gap-2 text-neutral-500">
+                        <X className="w-4 h-4 text-red-400 shrink-0" />
+                        <span>{row.agency}</span>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
         </div>
       </section>
 
-      {/* ── 2. ENGINEERING COMMITMENTS & DELIVERABLES (CLEAN PINE BG #152717) ── */}
+      {/* ── 2. ENGINEERING COMMITMENTS MARQUEE (PINE BG #152717) ── */}
       <section className="relative w-full py-16 sm:py-24 bg-[#152717] text-white overflow-hidden select-none">
         <div className="max-w-[1300px] mx-auto px-6 lg:px-10 mb-10 sm:mb-14">
           <div className="max-w-2xl mx-auto text-center space-y-3">
             <span className="text-xs font-mono uppercase tracking-widest text-[#FF8A7A] font-semibold">
               ENGINEERING STANDARDS
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-normal text-white tracking-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight text-balance">
               Our Commitments to Every Client
             </h2>
-            <p className="text-base sm:text-lg text-white/80 font-normal">
+            <p className="text-base sm:text-lg text-white/80 font-normal text-pretty">
               No agency games, no junior developer handoffs, and zero hostage retainers.
             </p>
           </div>
         </div>
 
-        {/* ── CONTINUOUS INFINITE SMOOTH MARQUEE TICKER ── */}
+        {/* Continuous Infinite Smooth Marquee Ticker */}
         <div className="relative w-full overflow-hidden flex items-center">
-          {/* Left & Right Subtle Fade Gradient Masks matching pine bg #152717 */}
           <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-r from-[#152717] via-[#152717]/90 to-transparent z-10" />
           <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-l from-[#152717] via-[#152717]/90 to-transparent z-10" />
 
-          {/* Marquee Track with Duplicate for Seamless Infinite Loop */}
           <div
             className="flex shrink-0 items-center gap-5 sm:gap-6 hover:[animation-play-state:paused]"
             style={{
@@ -128,10 +201,10 @@ export function CohereDeployment() {
                     </span>
                   </div>
                   <div>
-                    <h3 className="font-serif text-xl sm:text-[22px] font-normal text-white">
+                    <h3 className="text-xl sm:text-[22px] font-bold text-white">
                       {item.title}
                     </h3>
-                    <p className="text-sm text-white/70 leading-relaxed font-sans mt-2">
+                    <p className="text-sm text-white/70 leading-relaxed font-normal mt-2 text-pretty">
                       {item.desc}
                     </p>
                   </div>
@@ -139,7 +212,7 @@ export function CohereDeployment() {
               );
             })}
 
-            {/* Loop 2 (Duplicate for seamless continuous loop) */}
+            {/* Loop 2 for Seamless Continuation */}
             {ENGINEERING_GUARANTEES.map((item, idx) => {
               const Icon = item.icon;
               return (
@@ -156,10 +229,10 @@ export function CohereDeployment() {
                     </span>
                   </div>
                   <div>
-                    <h3 className="font-serif text-xl sm:text-[22px] font-normal text-white">
+                    <h3 className="text-xl sm:text-[22px] font-bold text-white">
                       {item.title}
                     </h3>
-                    <p className="text-sm text-white/70 leading-relaxed font-sans mt-2">
+                    <p className="text-sm text-white/70 leading-relaxed font-normal mt-2 text-pretty">
                       {item.desc}
                     </p>
                   </div>
