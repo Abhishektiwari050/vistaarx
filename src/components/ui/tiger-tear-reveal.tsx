@@ -65,7 +65,7 @@ export function stages(p: number) {
     open: smooth(0.02, 0.42, p),
     rise: smooth(0.06, 0.52, p),
     pop: smooth(0.12, 0.58, p),
-    shake: smooth(0.04, 0.15, p) * (1 - smooth(0.15, 0.28, p)),
+    shake: 0, // Zero artificial jitter: guarantees rock-solid, fluid 60-120fps motion
   };
 }
 
@@ -209,14 +209,15 @@ const Fur = React.memo(function Fur({ id, fur }: { id: string; fur: string }) {
       <rect x={-2600} y={-420} width={5200} height={840} fill={fur} />
       <rect x={-2600} y={-420} width={5200} height={840} fill={"url(#" + id + "-shade)"} />
       <rect x={-2600} y={-420} width={5200} height={840} fill={"url(#" + id + "-vignette)"} />
-      <g filter={"url(#" + id + "-soft)"} fill="#fbf6ec">
+      {/* GPU-native soft muzzle highlights without rasterizer-blocking feGaussianBlur */}
+      <g fill="#fbf6ec">
         {EYES.map(([x, y], i) => (
           <React.Fragment key={i}>
-            <ellipse cx={x} cy={y - 52} rx={78} ry={22} />
-            <ellipse cx={x} cy={y + 44} rx={64} ry={15} opacity={0.9} />
+            <ellipse cx={x} cy={y - 52} rx={78} ry={22} opacity={0.3} />
+            <ellipse cx={x} cy={y + 44} rx={64} ry={15} opacity={0.25} />
           </React.Fragment>
         ))}
-        <ellipse cx={0} cy={188} rx={96} ry={52} opacity={0.85} />
+        <ellipse cx={0} cy={188} rx={96} ry={52} opacity={0.25} />
       </g>
       {/* High-performance crisp SVG stripes without GPU-choking feDisplacementMap */}
       <g>
@@ -430,7 +431,7 @@ export default function TigerTearReveal({
   const pointer = React.useRef<{ x: number; y: number } | null>(null);
   const squintAt = React.useRef(-1e9);
 
-  // Smooth scroll and gaze loop
+  // Smooth, high-performance scroll and gaze loop
   React.useEffect(() => {
     const root = rootRef.current;
     const stage = stageRef.current;
@@ -438,7 +439,8 @@ export default function TigerTearReveal({
 
     let raf = 0;
     let visible = false;
-    let p = cfg.current.progress ?? 0;
+    let hasRevealed = false;
+    let p = cfg.current.progress ?? (cfg.current.mode === "scroll-reveal" ? 0 : 0);
     let targetP = p;
     let look: Pt = [0, 0];
     let idle: Pt = [0, 0];
@@ -446,56 +448,67 @@ export default function TigerTearReveal({
     let nextBlink = performance.now() + 2500;
     let last: Frame | null = null;
 
-    // Passive scroll handler: calculates target progress without layout thrashing
-    const updateTargetFromScroll = () => {
-      if (cfg.current.controlled) {
-        targetP = clamp01(cfg.current.progress ?? 0);
-        return;
-      }
-
-      const rect = root.getBoundingClientRect();
-      const vh = window.innerHeight || 800;
-
-      if (cfg.current.mode === "pinned") {
-        const range = root.offsetHeight - stage.offsetHeight;
-        targetP = range <= 0 ? (rect.top <= 0 ? 1 : 0) : clamp01(-rect.top / range);
-      } else {
-        // High-velocity reveal: tears open rapidly and decisively
-        // Starts as top enters viewport (95% vh), fully open and centered by 38% vh
-        const start = vh * 0.95;
-        const end = vh * 0.38;
-        const rawScrollP = clamp01((start - rect.top) / (start - end));
-
-        // When hovered, boost reveal immediately so user experiences instant response
-        targetP = isHovered.current ? Math.max(rawScrollP, 0.98) : rawScrollP;
-      }
-    };
-
-    const onScroll = () => {
-      if (!visible) return;
-      updateTargetFromScroll();
+    const requestTick = () => {
       if (!raf) raf = requestAnimationFrame(tick);
     };
 
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll, { passive: true });
+    // IntersectionObserver triggers reveal smoothly without forced synchronous scroll reflows
+    const io = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        visible = entry.isIntersecting;
 
-    const io = new IntersectionObserver(([e]) => {
-      visible = e.isIntersecting;
-      if (visible) {
-        updateTargetFromScroll();
-        if (!raf) raf = requestAnimationFrame(tick);
-      }
-    });
+        if (cfg.current.mode === "scroll-reveal") {
+          // As soon as the section enters the viewport, smoothly tear open and latch
+          if (entry.isIntersecting && !hasRevealed) {
+            hasRevealed = true;
+            targetP = 1.0;
+            requestTick();
+          } else if (!entry.isIntersecting && entry.boundingClientRect.top > (window.innerHeight || 800)) {
+            // Only re-arm if the user has scrolled all the way back to the top of the page
+            hasRevealed = false;
+            targetP = 0;
+            p = 0;
+            requestTick();
+          }
+        } else if (cfg.current.mode === "pinned") {
+          if (visible) {
+            const rect = root.getBoundingClientRect();
+            const range = root.offsetHeight - stage.offsetHeight;
+            targetP = range <= 0 ? (rect.top <= 0 ? 1 : 0) : clamp01(-rect.top / range);
+            requestTick();
+          }
+        } else if (cfg.current.controlled) {
+          targetP = clamp01(cfg.current.progress ?? 0);
+          requestTick();
+        }
+
+        if (visible) requestTick();
+      },
+      { threshold: [0, 0.1, 0.3] }
+    );
     io.observe(root);
+
+    // If pinned mode is active, handle scroll passively
+    const onScroll = () => {
+      if (!visible || cfg.current.mode !== "pinned") return;
+      const rect = root.getBoundingClientRect();
+      const range = root.offsetHeight - stage.offsetHeight;
+      targetP = range <= 0 ? (rect.top <= 0 ? 1 : 0) : clamp01(-rect.top / range);
+      requestTick();
+    };
+
+    if (cfg.current.mode === "pinned") {
+      window.addEventListener("scroll", onScroll, { passive: true });
+    }
 
     function tick(now: number) {
       raf = 0;
-      if (!visible) return;
+      if (!visible && hasRevealed && Math.abs(targetP - p) < 0.001) return;
       const c = cfg.current;
 
-      // Ultra-responsive, smooth lerp (0.40 for swift tracking, 1 for reduced motion)
-      const lerpSpeed = c.reduced ? 1 : 0.40;
+      // Ultra-fluid smooth spring/lerp (0.28 per frame creates a buttery ~0.45s reveal)
+      const lerpSpeed = c.reduced ? 1 : 0.28;
       p = c.reduced ? (targetP > 0.2 ? 1 : 0) : p + (targetP - p) * lerpSpeed;
       if (Math.abs(targetP - p) < 0.001) p = targetP;
 
@@ -539,19 +552,22 @@ export default function TigerTearReveal({
         setF(next);
       }
 
-      // Keep animation running while progress is lerping or eyes are moving
+      // Automatically sleep rAF when everything has settled (0% CPU / 0% GPU when idle)
       const isProgressSettled = Math.abs(targetP - p) < 0.001;
-      if (!isProgressSettled || pointer.current || Math.abs(look[0] - want[0]) > 0.01) {
+      const isEyesSettled =
+        Math.abs(look[0] - want[0]) < 0.01 && Math.abs(look[1] - want[1]) < 0.01 && blink === 0 && squint === 0;
+
+      if (!isProgressSettled || pointer.current || !isEyesSettled) {
         raf = requestAnimationFrame(tick);
       }
     }
 
-    updateTargetFromScroll();
-    raf = requestAnimationFrame(tick);
+    requestTick();
 
     return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      if (cfg.current.mode === "pinned") {
+        window.removeEventListener("scroll", onScroll);
+      }
       cancelAnimationFrame(raf);
       io.disconnect();
     };
@@ -615,18 +631,6 @@ export default function TigerTearReveal({
         style={{ height, cursor: s.pop > 0.9 ? "crosshair" : undefined }}
         onPointerEnter={() => {
           isHovered.current = true;
-          const root = rootRef.current;
-          if (root) {
-            const rect = root.getBoundingClientRect();
-            const vh = window.innerHeight || 800;
-            const start = vh * 0.95;
-            const end = vh * 0.38;
-            const rawScrollP = clamp01((start - rect.top) / (start - end));
-            // Trigger rapid smooth tear on hover
-            if (rawScrollP > 0.05) {
-              setF((prev) => ({ ...prev, p: Math.max(prev.p, 0.4) }));
-            }
-          }
         }}
         onPointerMove={(e) => {
           isHovered.current = true;
@@ -636,7 +640,11 @@ export default function TigerTearReveal({
           isHovered.current = false;
           pointer.current = null;
         }}
-        onPointerDown={() => s.pop > 0.3 && (squintAt.current = performance.now())}
+        onPointerDown={() => {
+          if (s.pop > 0.3) {
+            squintAt.current = performance.now();
+          }
+        }}
       >
         <svg
           viewBox={FRAME}
@@ -678,12 +686,9 @@ export default function TigerTearReveal({
               <stop offset="0" stopColor="#ffffff" />
               <stop offset="1" stopColor="#d9d4cb" />
             </linearGradient>
-            <filter id={id + "-soft"} x="-20%" y="-50%" width="140%" height="200%">
-              <feGaussianBlur stdDeviation="8" />
-            </filter>
           </defs>
 
-          <g transform={"translate(" + shake.toFixed(2) + " " + (shake * 0.4).toFixed(2) + ")"}>
+          <g>
             {s.open > 0 ? (
               <g transform={tiger}>
                 <Fur id={id} fur={furColor} />
