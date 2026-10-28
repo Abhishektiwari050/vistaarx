@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { ArrowRight, MessageSquare, Mail, ShieldCheck, CheckCircle2 } from "lucide-react";
+import { ArrowRight, MessageSquare, CheckCircle2 } from "lucide-react";
 
 export function FinalCtaSection() {
   return (
@@ -20,25 +20,25 @@ export function FinalCtaSection() {
         
         {/* Subtle pill */}
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15 text-xs font-mono font-medium text-white/80">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#E1341E] animate-pulse" />
+          <span className="w-1.5 h-1.5 rounded-full bg-[#FF3823] animate-pulse" />
           <span>Low-Friction Initial Conversation</span>
         </div>
 
         {/* Primary Invitation Headline */}
-        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-bold tracking-tight text-white leading-[1.12]">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.12] text-balance">
           Tell us about one process you want to improve.
         </h2>
 
         {/* Explanatory Context */}
-        <p className="text-base sm:text-lg text-neutral-300 leading-relaxed max-w-2xl mx-auto font-normal">
-          The first conversation is strictly to understand fit, explore whether software will genuinely save your team time, and outline potential solutions. No sales pressure, no multi-thousand-dollar commitments, and no corporate runarounds.
+        <p className="text-base sm:text-lg text-neutral-300 leading-relaxed max-w-2xl mx-auto font-normal text-pretty">
+          The first conversation is strictly to understand fit, explore whether software will genuinely save your team time, and outline potential solutions. No sales pressure, no high commitments, and no corporate runarounds.
         </p>
 
-        {/* Action Row */}
+        {/* Action Row with Tactile Feedback and Accessibility Rings */}
         <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 pt-2">
           <Link
             href="/contact"
-            className="inline-flex items-center justify-center h-12 px-7 rounded-xl bg-white hover:bg-neutral-100 text-[#121316] text-[14.5px] font-semibold transition-all shadow-md active:scale-95 gap-2 group"
+            className="inline-flex items-center justify-center h-12 px-6 rounded-xl bg-white hover:bg-neutral-100 text-[#121316] text-sm sm:text-base font-semibold transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] shadow-md active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#121316] gap-2 group"
           >
             <span>Start with a brief message</span>
             <ArrowRight className="w-4 h-4 text-[#121316] group-hover:translate-x-0.5 transition-transform" />
@@ -48,7 +48,7 @@ export function FinalCtaSection() {
             href="https://wa.me/918860110144?text=Hi%20VISTAR%2C%20I%20would%20like%20to%20discuss%20improving%20a%20process%20at%20our%20business."
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center h-12 px-6 rounded-xl bg-[#25D366] hover:bg-[#20BD5A] text-white text-[14.5px] font-semibold transition-all shadow-md active:scale-95 gap-2"
+            className="inline-flex items-center justify-center h-12 px-6 rounded-xl bg-[#25D366] hover:bg-[#20BD5A] text-white text-sm sm:text-base font-semibold transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] shadow-md active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2 focus-visible:ring-offset-[#121316] gap-2"
           >
             <MessageSquare className="w-4 h-4 fill-white" />
             <span>Chat on WhatsApp (+91 88601 10144)</span>
@@ -56,14 +56,14 @@ export function FinalCtaSection() {
 
           <Link
             href="/work"
-            className="inline-flex items-center justify-center h-12 px-6 rounded-xl border border-white/20 hover:bg-white/10 text-white text-[14.5px] font-medium transition-all active:scale-95"
+            className="inline-flex items-center justify-center h-12 px-6 rounded-xl border border-white/20 hover:bg-white/10 text-white text-sm sm:text-base font-medium transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#121316]"
           >
             <span>Inspect working systems</span>
           </Link>
         </div>
 
-        {/* Reassurance points */}
-        <div className="pt-6 border-t border-white/10 flex flex-wrap items-center justify-center gap-6 text-xs text-neutral-400 font-mono">
+        {/* Reassurance points with Tabular Numbers */}
+        <div className="pt-6 border-t border-white/10 flex flex-wrap items-center justify-center gap-6 text-xs text-neutral-400 font-mono tabular-nums">
           <span className="flex items-center gap-1.5">
             <CheckCircle2 className="w-3.5 h-3.5 text-[#16A34A]" />
             Direct reply from lead engineer within 24h

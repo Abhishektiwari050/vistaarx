@@ -77,11 +77,11 @@ export function OperationalProblemSection() {
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/5 border border-black/8 text-neutral-700 text-xs font-mono font-semibold uppercase tracking-wider">
             Operational Reality
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-[#121316] leading-[1.15]">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-[#121316] leading-[1.15] text-balance">
             Where businesses lose time, margin, and momentum.
           </h2>
-          <p className="text-sm sm:text-base text-neutral-600 leading-relaxed font-normal">
-            Most operational friction isn’t caused by bad employees—it’s caused by disconnected tools, manual spreadsheets, and workflows that rely on memory instead of automated systems.
+          <p className="text-sm sm:text-base text-neutral-600 leading-relaxed font-normal text-pretty">
+            Most operational friction is not caused by team members. It is caused by disconnected tools, manual spreadsheets, and workflows that rely on memory instead of automated systems.
           </p>
         </div>
 
@@ -127,10 +127,10 @@ export function OperationalProblemSection() {
                   </p>
                 </div>
 
-                {/* High-Contrast Impact Badge */}
+                {/* High-Contrast Impact Badge with Tabular Numbers */}
                 <div className="mt-4 pt-3 border-t border-black/6 flex items-center gap-1.5">
                   <AlertCircle className="w-3.5 h-3.5 text-[#FF3823] shrink-0" />
-                  <span className="text-[11px] font-mono font-medium text-neutral-700">
+                  <span className="text-[11px] font-mono font-medium text-neutral-700 tabular-nums">
                     {item.impact}
                   </span>
                 </div>
@@ -144,16 +144,16 @@ export function OperationalProblemSection() {
       <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-10 mt-8 sm:mt-10">
         <div className="p-5 sm:p-6 rounded-xl bg-white border border-black/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xs">
           <div className="space-y-1 max-w-2xl">
-            <h4 className="text-sm sm:text-base font-semibold text-[#121316]">
+            <h4 className="text-sm sm:text-base font-semibold text-[#121316] text-balance">
               Recognize any of these bottlenecks in your current operations?
             </h4>
-            <p className="text-xs sm:text-sm text-neutral-600">
-              You don&rsquo;t need to rebuild your entire business overnight. A single focused automation or intake system unlocks immediate time savings.
+            <p className="text-xs sm:text-sm text-neutral-600 text-pretty">
+              You do not need to rebuild your entire business overnight. A single focused automation or intake system unlocks immediate time savings.
             </p>
           </div>
           <Link
             href="/contact"
-            className="inline-flex items-center justify-center h-10 px-5 rounded-lg bg-[#121316] hover:bg-[#282A2E] text-white text-xs sm:text-sm font-medium transition-all shrink-0 gap-2 shadow-xs"
+            className="inline-flex items-center justify-center h-10 px-5 rounded-lg bg-[#121316] hover:bg-[#282A2E] text-white text-xs sm:text-sm font-medium transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] shrink-0 gap-2 shadow-xs active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF3823] focus-visible:ring-offset-2"
           >
             <span>Audit a bottleneck with us</span>
             <ArrowRight className="w-3.5 h-3.5" />

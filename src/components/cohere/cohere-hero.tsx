@@ -104,46 +104,30 @@ export function CohereHero() {
         <div className="relative mx-auto w-full max-w-[1400px]">
           <div className="text-center flex flex-col items-center">
             
-            {/* 01: Headline matching original Cohere aesthetic */}
-            <div className="mb-5 break-words max-w-[1020px] mx-auto overflow-hidden px-2">
-              <h1
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-[72px] xl:text-[80px] font-normal leading-[1.05] tracking-[-0.035em] text-[#141413]"
-                style={{
-                  fontFamily:
-                    '"CohereText", "Space Grotesk", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-                }}
-              >
-                <span className="gsap-hero-title-line block overflow-hidden will-change-transform">
+            {/* 01: Headline with Light-Theme Gradient per Redesign Protocol */}
+            <div className="mb-5 break-words max-w-[780px] mx-auto overflow-hidden px-2">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-normal leading-[1.05] tracking-tight text-balance">
+                <span className="gsap-hero-title-line block overflow-hidden will-change-transform bg-gradient-to-r from-[#000000] via-[#1A1A1A] to-[#555555] bg-clip-text text-transparent">
                   Stop losing time
                 </span>
-                <span className="gsap-hero-title-line block overflow-hidden will-change-transform">
+                <span className="gsap-hero-title-line block overflow-hidden will-change-transform bg-gradient-to-r from-[#000000] via-[#1A1A1A] to-[#555555] bg-clip-text text-transparent">
                   to manual work.
                 </span>
               </h1>
             </div>
 
-            {/* 02: Polished Authoritative Subhead */}
-            <div className="gsap-hero-subhead w-full max-w-[760px] px-4 mx-auto mb-7 will-change-transform">
-              <p
-                className="text-base sm:text-lg md:text-[18.5px] font-normal leading-[1.55] text-neutral-600"
-                style={{
-                  fontFamily:
-                    '"Unica77 Cohere Web", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-                }}
-              >
-                Vistar builds practical software and automation that helps growing businesses manage enquiries, streamline operations, and make better decisions—with direct engineering involvement from discovery to deployment.
+            {/* 02: Polished Authoritative Subhead capped at 640px measure */}
+            <div className="gsap-hero-subhead w-full max-w-[640px] px-4 mx-auto mb-7 will-change-transform">
+              <p className="text-base sm:text-lg md:text-xl font-normal leading-[1.55] text-neutral-600 text-pretty">
+                Vistar builds practical software and automation to help growing businesses capture enquiries, automate operations, and scale with direct engineering involvement from discovery to production.
               </p>
             </div>
 
-            {/* 03: Clear Conversion CTA Row */}
+            {/* 03: Clear Conversion CTA Row with Tactile Feedback */}
             <div className="gsap-hero-cta flex flex-wrap items-center justify-center gap-3 sm:gap-4 will-change-transform">
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center px-7 py-3.5 bg-[#FF3823] hover:bg-[#E02F1C] text-white font-medium text-sm sm:text-base rounded-none transition-all shadow-xs hover:shadow-sm active:scale-95 gap-2"
-                style={{
-                  fontFamily:
-                    '"Unica77 Cohere Web", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-                }}
+                className="inline-flex items-center justify-center px-6 py-3 bg-[#FF3823] hover:bg-[#E02F1C] text-white font-medium text-sm sm:text-base rounded-none transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] shadow-xs hover:shadow-sm active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF3823] focus-visible:ring-offset-2 gap-2"
               >
                 Discuss a workflow
                 <ArrowRight className="w-4 h-4" />
@@ -152,22 +136,14 @@ export function CohereHero() {
                 href="https://wa.me/918860110144?text=Hi%20VISTAR%2C%20I%20would%20like%20to%20discuss%20an%20automation%20workflow."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center px-7 py-3.5 bg-[#25D366] hover:bg-[#20BD5A] text-white font-medium text-sm sm:text-base rounded-none transition-all active:scale-95 gap-2 shadow-xs"
-                style={{
-                  fontFamily:
-                    '"Unica77 Cohere Web", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-                }}
+                className="inline-flex items-center justify-center px-6 py-3 bg-[#25D366] hover:bg-[#20BD5A] text-white font-medium text-sm sm:text-base rounded-none transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2 gap-2 shadow-xs"
               >
                 Chat on WhatsApp (+91 88601 10144)
                 <ArrowRight className="w-4 h-4" />
               </a>
               <Link
                 href="/work"
-                className="inline-flex items-center justify-center px-6 py-3.5 border border-[#141413] text-[#141413] bg-transparent hover:bg-neutral-100 font-medium text-sm sm:text-base rounded-none transition-all active:scale-95"
-                style={{
-                  fontFamily:
-                    '"Unica77 Cohere Web", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-                }}
+                className="inline-flex items-center justify-center px-6 py-3 border border-[#181818] text-[#181818] bg-transparent hover:bg-neutral-100 font-medium text-sm sm:text-base rounded-none transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#181818] focus-visible:ring-offset-2"
               >
                 Explore our engineering work &rarr;
               </Link>

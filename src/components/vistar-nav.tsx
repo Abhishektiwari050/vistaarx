@@ -63,22 +63,31 @@ export function VistarNav() {
   const [solutionsDropdownOpen, setSolutionsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Track scroll position for subtle background blur / border styling
+  // Track scroll position via high-performance IntersectionObserver instead of per-frame scroll events
   useEffect(() => {
-    let ticking = false;
+    let sentinel = document.getElementById("vistar-scroll-sentinel");
+    if (!sentinel) {
+      sentinel = document.createElement("div");
+      sentinel.id = "vistar-scroll-sentinel";
+      sentinel.style.position = "absolute";
+      sentinel.style.top = "0";
+      sentinel.style.left = "0";
+      sentinel.style.width = "1px";
+      sentinel.style.height = "16px";
+      sentinel.style.pointerEvents = "none";
+      sentinel.style.visibility = "hidden";
+      document.body.prepend(sentinel);
+    }
 
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          setIsScrolled(window.scrollY > 12);
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsScrolled(!entry.isIntersecting);
+      },
+      { threshold: 0 }
+    );
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    observer.observe(sentinel);
+    return () => observer.disconnect();
   }, []);
 
   // Close menus on route change
@@ -243,7 +252,7 @@ export function VistarNav() {
             href="https://wa.me/918860110144?text=Hi%20VISTAR%2C%20I%20would%20like%20to%20discuss%20a%20project."
             target="_blank"
             rel="noopener noreferrer"
-            className="text-emerald-700 hover:text-emerald-800 transition-colors py-1.5 px-3 rounded-full hover:bg-emerald-50 font-medium inline-flex items-center gap-1.5"
+            className="text-emerald-700 hover:text-emerald-800 transition-colors py-1.5 px-3 rounded-full hover:bg-emerald-50 font-medium inline-flex items-center gap-1.5 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
             title="Chat on WhatsApp (+91 88601 10144)"
           >
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
@@ -252,9 +261,9 @@ export function VistarNav() {
 
           <Link
             href="/contact"
-            className="inline-flex items-center justify-center h-8 sm:h-9 px-4 rounded-xl bg-[#121316] hover:bg-[#282A2E] text-white text-[13px] font-medium transition-all active:scale-95 shadow-xs"
+            className="inline-flex items-center justify-center h-8 sm:h-9 px-4 rounded-xl bg-[#121316] hover:bg-[#282A2E] text-white text-[13px] font-medium transition-all active:scale-[0.98] shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF3823] focus-visible:ring-offset-2"
           >
-            Discuss a Workflow
+            Discuss a workflow
           </Link>
         </div>
 

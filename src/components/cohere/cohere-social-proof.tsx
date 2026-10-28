@@ -55,13 +55,7 @@ export function CohereSocialProof() {
   return (
     <section className="relative w-full py-14 sm:py-20 bg-white border-b border-black/[0.06] text-[#212121] overflow-hidden select-none">
       <div className="max-w-[1400px] mx-auto px-4 lg:px-10 mb-8 sm:mb-10">
-        <p
-          className="text-center text-sm sm:text-base md:text-[17px] text-[#212121] font-normal"
-          style={{
-            fontFamily:
-              '"Unica77 Cohere Web", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-          }}
-        >
+        <p className="text-center text-sm sm:text-base text-neutral-600 font-normal text-balance">
           Core technologies powering our production web applications, automations, and spatial systems
         </p>
       </div>

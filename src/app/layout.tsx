@@ -220,12 +220,13 @@ const jsonLdSchema = {
 };
 
 import { MagneticCursor } from "@/components/ui/magnetic-cursor";
-import { Archivo, Geist } from "next/font/google";
+import { Archivo, Geist, Geist_Mono } from "next/font/google";
 import { PageCurtain } from "@/components/tds/page-curtain/PageCurtain";
 import { VistarLogo } from "@/components/vistar-logo";
 
 const display = Archivo({ subsets: ["latin"], axes: ["wdth"], variable: "--tds-display" });
-const sans = Geist({ subsets: ["latin"], variable: "--tds-sans" });
+const sans = Geist({ subsets: ["latin"], variable: "--font-geist-sans" });
+const mono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
 
 export default function RootLayout({
   children,
@@ -235,12 +236,6 @@ export default function RootLayout({
   return (
     <html lang="en" className="min-h-screen antialiased">
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=JetBrains+Mono:wght@400;500;600&display=swap"
-          rel="stylesheet"
-        />
         {/* Machine-Readable AI & LLM Discovery Feeds */}
         <link rel="alternate" type="text/markdown" href="https://www.vistar.tech/llms.txt" title="LLM Summary" />
         <link rel="help" type="text/markdown" href="https://www.vistar.tech/llms-full.txt" title="Full LLM Specification" />
@@ -271,7 +266,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`min-h-screen bg-white text-[#212121] selection:bg-[#212121] selection:text-white antialiased font-sans ${display.variable} ${sans.variable}`}>
+      <body className={`min-h-screen bg-white text-[#181818] selection:bg-[#181818] selection:text-white antialiased font-sans ${display.variable} ${sans.variable} ${mono.variable}`}>
         <PageCurtain mark={<VistarLogo size={52} showText={false} className="text-white" />}>
           <MagneticCursor />
           <LenisProvider>
