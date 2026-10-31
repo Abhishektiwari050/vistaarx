@@ -2,42 +2,44 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { MessageSquare, Mail, ArrowRight, CheckCircle2 } from "lucide-react";
+import { MessageSquare, ArrowRight, Check, Copy, CheckCircle2, ArrowUpRight } from "lucide-react";
+
+interface FooterLink {
+  label: string;
+  href: string;
+  isExternal?: boolean;
+}
 
 interface FooterColumn {
   title: string;
-  links: Array<{
-    label: string;
-    href: string;
-    isExternal?: boolean;
-  }>;
+  links: FooterLink[];
 }
 
 const FOOTER_COLUMNS: FooterColumn[] = [
   {
-    title: "SOLUTIONS & SYSTEMS",
+    title: "SYSTEMS & CAPABILITIES",
     links: [
       { label: "Capture & Convert (WhatsApp CRM)", href: "/solutions/lead-automation" },
-      { label: "Run Operations (Internal Portals)", href: "/solutions/operations-systems" },
-      { label: "Build Custom Software (Next.js & APIs)", href: "/solutions/custom-software" },
-      { label: "Specialist 3D & GIS Platforms", href: "/solutions/3d-and-gis" },
-      { label: "All Solutions Overview", href: "/solutions" },
+      { label: "Internal Operations Portals", href: "/solutions/operations-systems" },
+      { label: "Custom Next.js & Python Web Apps", href: "/solutions/custom-software" },
+      { label: "Specialist 3D & Spatial WebGL", href: "/solutions/3d-and-gis" },
+      { label: "All Engineering Solutions", href: "/solutions" },
     ],
   },
   {
-    title: "ENGINEERING PROOF",
+    title: "VERIFIED PROOF",
     links: [
       { label: "3axis Arc (3D Spatial Showroom)", href: "https://3axisarc.vercel.app", isExternal: true },
-      { label: "Project VAYU (Aviation GIS Tool)", href: "https://ai-vayu.vercel.app", isExternal: true },
-      { label: "AutoLead (Internal Intake Engine)", href: "/work" },
-      { label: "AURA (Biometric ML Prototype)", href: "https://multi-agent-anomaly-system.onrender.com", isExternal: true },
-      { label: "View All Engineering Case Studies", href: "/work" },
+      { label: "Project VAYU (GIS Telemetry)", href: "https://ai-vayu.vercel.app", isExternal: true },
+      { label: "AutoLead Engine (Intake System)", href: "/work" },
+      { label: "AURA (Biometric Prototype)", href: "https://multi-agent-anomaly-system.onrender.com", isExternal: true },
+      { label: "Inspect All Case Studies", href: "/work" },
     ],
   },
   {
     title: "HOW WE WORK",
     links: [
-      { label: "Our 6-Stage Engineering Process", href: "/how-we-work" },
+      { label: "6-Stage Engineering Process", href: "/how-we-work" },
       { label: "100% Client Code Ownership", href: "/how-we-work#ownership" },
       { label: "Pricing & Engagement Options", href: "/pricing" },
       { label: "About VISTAR Studio & Team", href: "/about" },
@@ -45,7 +47,7 @@ const FOOTER_COLUMNS: FooterColumn[] = [
     ],
   },
   {
-    title: "DIRECT CONTACT",
+    title: "STUDIO TELEMETRY",
     links: [
       { label: "Chat on WhatsApp (+91 88601 10144)", href: "https://wa.me/918860110144", isExternal: true },
       { label: "Email: services.vistaar@gmail.com", href: "mailto:services.vistaar@gmail.com", isExternal: true },
@@ -57,81 +59,101 @@ const FOOTER_COLUMNS: FooterColumn[] = [
 
 export function VistarFooter() {
   const currentYear = new Date().getFullYear();
-  const [email, setEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [copied, setCopied] = useState(false);
 
-  const handleSubscribe = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email || !email.includes("@")) return;
+  const copyEmail = () => {
+    navigator.clipboard.writeText("services.vistaar@gmail.com");
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2400);
+  };
 
-    setLoading(true);
-
-    try {
-      await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, type: "newsletter" }),
-      });
-      setSubscribed(true);
-      setEmail("");
-    } catch {
-      setSubscribed(true);
-      setEmail("");
-    } finally {
-      setLoading(false);
-    }
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
-    <footer className="w-full bg-[#121316] text-white select-none relative overflow-hidden font-sans border-t border-black/10">
+    <footer className="w-full bg-[#08090C] text-white select-none relative overflow-hidden font-sans border-t border-white/10">
       
-      {/* ── 1. UNIFIED TERMINAL PRE-FOOTER INVITATION ── */}
-      <section className="relative w-full py-16 sm:py-24 px-6 lg:px-12 border-b border-white/10 bg-[#16181C]">
-        <div className="max-w-[1360px] mx-auto space-y-8">
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
-            <div className="space-y-3 max-w-2xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15 text-xs font-mono font-medium text-white/90">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#FF3823] animate-pulse" />
-                <span>DIRECT FOUNDER COLLABORATION // LOW FRICTION</span>
-              </div>
-              <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-[1.12] text-balance">
-                Tell us about one process you want to improve.
-              </h3>
-              <p className="text-sm sm:text-base text-neutral-300 leading-relaxed font-normal text-pretty">
-                Every system starts with a 30-minute discovery conversation directly with our lead engineer. We audit your workflow, confirm whether software will genuinely save your team time, and quote an upfront fixed fee. Zero sales pressure, zero corporate runarounds.
-              </p>
+      {/* ── 1. THE GRAND INVITATION (AWWWARDS / PINTEREST DESIGNED SCENE) ── */}
+      <section className="relative w-full pt-20 sm:pt-28 pb-16 px-6 lg:px-12 border-b border-white/10">
+        
+        {/* Subtle Ambient Radial Highlight */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-b from-[#FF3823]/10 to-transparent blur-3xl opacity-60"
+        />
+
+        <div className="relative max-w-[1340px] mx-auto space-y-12 sm:space-y-16">
+          
+          {/* Top Status & Kicker */}
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-mono font-medium text-white/90">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span>LEAD ENGINEER ONLINE // NEW DELHI &bull; IST (UTC+5:30)</span>
             </div>
 
-            <div className="flex flex-wrap items-center gap-3 shrink-0">
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center h-12 px-6 rounded-xl bg-white hover:bg-neutral-100 text-[#121316] text-xs sm:text-sm font-semibold transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] shadow-md active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#16181C] gap-2 group"
-              >
-                <span>Start with a brief message</span>
-                <ArrowRight className="w-3.5 h-3.5 text-[#121316] group-hover:translate-x-0.5 transition-transform" />
-              </Link>
-
-              <a
-                href="https://wa.me/918860110144?text=Hi%20VISTAR%2C%20I%20would%20like%20to%20discuss%20improving%20a%20process%20at%20our%20business."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center h-12 px-6 rounded-xl bg-[#25D366] hover:bg-[#20BD5A] text-white text-xs sm:text-sm font-semibold transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] shadow-md active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2 focus-visible:ring-offset-[#16181C] gap-2"
-              >
-                <MessageSquare className="w-4 h-4 fill-white" />
-                <span>Chat on WhatsApp (+91 88601 10144)</span>
-              </a>
-
-              <Link
-                href="/work"
-                className="inline-flex items-center justify-center h-12 px-5 rounded-xl border border-white/20 hover:bg-white/10 text-white text-xs sm:text-sm font-medium transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] active:scale-[0.98]"
-              >
-                <span>Inspect systems</span>
-              </Link>
-            </div>
+            <span className="text-xs font-mono text-neutral-400">
+              Direct founder collaboration &bull; 100% Repository Sovereignty
+            </span>
           </div>
 
-          {/* Reassurance Guarantees Strip with Tabular Metrics */}
+          {/* Massive Typographic Headline */}
+          <div className="max-w-4xl space-y-4">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.04] text-balance">
+              Have a process to automate? <br />
+              <span className="text-neutral-400">Let&apos;s build something practical.</span>
+            </h2>
+            <p className="text-base sm:text-lg text-neutral-400 leading-relaxed font-normal max-w-2xl text-pretty pt-2">
+              Every system starts with a 30-minute discovery conversation directly with our lead engineer. We audit your workflow, confirm whether software will genuinely save your team time, and quote an upfront fixed fee.
+            </p>
+          </div>
+
+          {/* Interactive Direct Contact Terminal Gateway */}
+          <div className="flex flex-wrap items-center gap-4 pt-2">
+            
+            {/* Primary Action Button */}
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center h-14 px-8 rounded-2xl bg-white hover:bg-neutral-100 text-[#08090C] text-sm sm:text-base font-bold transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] shadow-lg active:scale-[0.98] gap-2.5 group"
+            >
+              <span>Discuss a workflow</span>
+              <ArrowRight className="w-4 h-4 text-[#08090C] group-hover:translate-x-1 transition-transform" />
+            </Link>
+
+            {/* Direct WhatsApp Channel */}
+            <a
+              href="https://wa.me/918860110144?text=Hi%20VISTAR%2C%20I%20would%20like%20to%20discuss%20a%20process%20at%20our%20business."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center h-14 px-6 rounded-2xl bg-[#25D366] hover:bg-[#20BD5A] text-white text-sm sm:text-base font-semibold transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] shadow-md active:scale-[0.98] gap-2.5"
+            >
+              <MessageSquare className="w-4 h-4 fill-white" />
+              <span>WhatsApp (+91 88601 10144)</span>
+            </a>
+
+            {/* Click-to-Copy Founder Email Pill */}
+            <button
+              type="button"
+              onClick={copyEmail}
+              className="inline-flex items-center justify-center h-14 px-5 rounded-2xl border border-white/15 bg-white/5 hover:bg-white/10 text-white text-xs sm:text-sm font-mono transition-all duration-300 active:scale-[0.98] cursor-pointer gap-2"
+              title="Click to copy email address"
+            >
+              {copied ? (
+                <>
+                  <Check className="w-4 h-4 text-emerald-400" />
+                  <span className="text-emerald-400 font-semibold">Email copied to clipboard!</span>
+                </>
+              ) : (
+                <>
+                  <Copy className="w-3.5 h-3.5 text-neutral-400" />
+                  <span>services.vistaar@gmail.com</span>
+                </>
+              )}
+            </button>
+
+          </div>
+
+          {/* Reassurance Strip */}
           <div className="pt-6 border-t border-white/10 flex flex-wrap items-center justify-start sm:justify-between gap-4 text-xs text-neutral-400 font-mono tabular-nums">
             <span className="flex items-center gap-1.5">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
@@ -140,73 +162,31 @@ export function VistarFooter() {
             <span className="hidden sm:inline text-white/20">&bull;</span>
             <span className="flex items-center gap-1.5">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-              Bilateral NDA before detailed scoping
+              Bilateral NDA executed before detailed scoping
             </span>
             <span className="hidden sm:inline text-white/20">&bull;</span>
             <span className="flex items-center gap-1.5">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-              100% private GitHub repository handover
+              100% private GitHub repository rights handover
+            </span>
+            <span className="hidden sm:inline text-white/20">&bull;</span>
+            <span className="flex items-center gap-1.5">
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+              Dual-currency milestone invoicing (INR ₹ / USD $)
             </span>
           </div>
+
         </div>
       </section>
 
-      {/* ── 2. MAIN FOOTER GRID ── */}
-      <div className="max-w-[1360px] mx-auto px-6 sm:px-10 lg:px-12 pt-16 pb-12 space-y-14">
+      {/* ── 2. ARCHITECTURAL STUDIO DIRECTORY (THE NAVIGATION GRID) ── */}
+      <div className="max-w-[1340px] mx-auto px-6 lg:px-12 pt-16 pb-12 space-y-16">
         
-        {/* Top: Brand Description & Newsletter */}
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 pb-10 border-b border-white/10">
-          <div className="space-y-2 max-w-md">
-            <div className="flex items-center gap-2">
-              <span className="font-bold text-xl tracking-tight text-white font-mono">
-                VISTAR
-              </span>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/10 text-neutral-300">
-                FOUNDER-LED STUDIO
-              </span>
-            </div>
-            <p className="text-xs text-neutral-400 leading-relaxed">
-              We engineer practical software, WhatsApp enquiry automations, and operational internal portals that help growing businesses manage sales, streamline workflows, and scale.
-            </p>
-          </div>
-
-          {/* Newsletter Input */}
-          <div className="max-w-md w-full">
-            {subscribed ? (
-              <div className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-xs font-medium">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                <span>Thank you. You will receive our technical publications.</span>
-              </div>
-            ) : (
-              <form
-                onSubmit={handleSubscribe}
-                className="flex items-center w-full rounded-xl border border-white/12 bg-white/5 p-1 focus-within:border-white/30 transition-all"
-              >
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter email for technical notes & case studies"
-                  required
-                  className="bg-transparent text-white placeholder:text-neutral-500 text-xs px-3.5 py-2 flex-1 outline-none font-sans"
-                />
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="px-4 py-2 rounded-lg bg-white hover:bg-neutral-100 text-[#121316] text-xs font-semibold transition-all shrink-0 cursor-pointer disabled:opacity-50"
-                >
-                  {loading ? "..." : "Subscribe"}
-                </button>
-              </form>
-            )}
-          </div>
-        </div>
-
-        {/* Middle: 4 Navigation Columns */}
+        {/* Navigation Columns */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
           {FOOTER_COLUMNS.map((col) => (
             <div key={col.title} className="space-y-4">
-              <div className="text-[11px] font-mono font-semibold tracking-wider uppercase text-neutral-400">
+              <div className="text-[11px] font-mono font-semibold tracking-wider uppercase text-neutral-500">
                 {col.title}
               </div>
               <ul className="space-y-2.5">
@@ -217,14 +197,15 @@ export function VistarFooter() {
                         href={link.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-xs text-neutral-400 hover:text-white transition-colors inline-flex items-center gap-1 group"
+                        className="text-xs sm:text-[13px] text-neutral-400 hover:text-white transition-colors inline-flex items-center gap-1 group"
                       >
                         <span>{link.label}</span>
+                        <ArrowUpRight className="w-3 h-3 text-neutral-600 group-hover:text-white transition-colors" />
                       </a>
                     ) : (
                       <Link
                         href={link.href}
-                        className="text-xs text-neutral-400 hover:text-white transition-colors"
+                        className="text-xs sm:text-[13px] text-neutral-400 hover:text-white transition-colors"
                       >
                         {link.label}
                       </Link>
@@ -236,10 +217,37 @@ export function VistarFooter() {
           ))}
         </div>
 
-        {/* Bottom Legal & Identity Row */}
-        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-xs text-neutral-500">
+        {/* ── 3. MONUMENTAL FULL-WIDTH VISTAR ARCHITECTURAL WORDMARK ── */}
+        <div className="pt-8 border-t border-white/10 select-none overflow-hidden">
+          <div className="flex items-center justify-between pb-4">
+            <span className="text-[11px] font-mono text-neutral-500 uppercase tracking-widest">
+              VISTAR WEB SYSTEMS // FOUNDER-LED ENGINEERING STUDIO
+            </span>
+            <button
+              type="button"
+              onClick={scrollToTop}
+              className="text-[11px] font-mono text-neutral-400 hover:text-white transition-colors cursor-pointer inline-flex items-center gap-1"
+            >
+              <span>Back to top</span>
+              <ArrowRight className="w-3 h-3 -rotate-90" />
+            </button>
+          </div>
+
+          {/* Monumental Kinetic Typographic Horizon */}
+          <div className="w-full text-center py-4">
+            <span
+              className="font-bold tracking-[0.16em] sm:tracking-[0.22em] text-[#161820] text-[18vw] leading-none block select-none pointer-events-none transition-colors duration-500 hover:text-[#1F222C]"
+              style={{ fontFamily: '"Geist", sans-serif' }}
+            >
+              VISTAR
+            </span>
+          </div>
+        </div>
+
+        {/* ── 4. BASELINE LEGAL & JURISDICTION ROW ── */}
+        <div className="pt-6 border-t border-white/8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-xs text-neutral-500 font-mono">
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-            <span>&copy; {currentYear} Vistar Web Systems. New Delhi, India.</span>
+            <span>&copy; {currentYear} VISTAR Web Systems. New Delhi, India.</span>
             <span>&bull;</span>
             <Link href="/privacy" className="hover:text-white transition-colors">
               Privacy Policy
@@ -248,25 +256,17 @@ export function VistarFooter() {
             <Link href="/terms" className="hover:text-white transition-colors">
               Terms of Engagement
             </Link>
+            <span>&bull;</span>
+            <span>Bilateral NDA Standard</span>
           </div>
 
-          <div className="flex items-center gap-4 text-neutral-400">
-            <span>Engineered by VISTAR</span>
-            <a
-              href="https://github.com/Abhishektiwari050"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="GitHub Profile"
-              className="hover:text-white transition-colors"
-            >
-              <svg className="w-4 h-4 fill-currentColor" viewBox="0 0 24 24">
-                <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
-              </svg>
-            </a>
+          <div>
+            <span>Sovereign software &bull; 100% repository handover</span>
           </div>
         </div>
 
       </div>
+
     </footer>
   );
 }
