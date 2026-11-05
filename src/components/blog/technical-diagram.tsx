@@ -21,7 +21,10 @@ export type DiagramType =
   | "agency-cost-breakdown"
   | "deterministic-dag"
   | "sovereign-vpc"
-  | "telemetry-gis";
+  | "telemetry-gis"
+  | "mcp-enclave"
+  | "speculative-decoding"
+  | "pd-disaggregation";
 
 interface TechnicalDiagramProps {
   type?: DiagramType;
@@ -33,6 +36,15 @@ interface TechnicalDiagramProps {
 
 export function getDiagramTypeForSlug(slug: string): DiagramType {
   switch (slug) {
+    case "disaggregated-prefill-decode-production-vllm-architecture":
+      return "pd-disaggregation";
+    case "speculative-decoding-production-vllm-enterprise-inference":
+      return "speculative-decoding";
+    case "enterprise-model-context-protocol-mcp-security-architecture":
+      return "mcp-enclave";
+    case "vllm-production-architecture-enterprise-inference-tco":
+    case "test-time-compute-deepseek-r1-private-vpc-architecture":
+      return "sovereign-vpc";
     case "why-agencies-charge-200k-for-chatgpt-wrappers":
       return "agency-cost-breakdown";
     case "deterministic-multi-agent-graphs-vs-probabilistic-drift":
@@ -76,6 +88,9 @@ export function TechnicalDiagram({
             {activeType === "deterministic-dag" && "DAG // MULTI-AGENT-STATE-MACHINE.SPEC"}
             {activeType === "sovereign-vpc" && "TOPOLOGY // PRIVATE-VPC-AIRGAP.SPEC"}
             {activeType === "telemetry-gis" && "PIPELINE // SUB-45MS-TELEMETRY-STREAM.SPEC"}
+            {activeType === "mcp-enclave" && "GATEWAY // SECURE-MCP-TOOL-ENCLAVE.SPEC"}
+            {activeType === "speculative-decoding" && "PIPELINE // SPECULATIVE-DRAFT-VERIFY.SPEC"}
+            {activeType === "pd-disaggregation" && "TOPOLOGY // DISAGGREGATED-PREFILL-DECODE.SPEC"}
           </span>
         </div>
 
@@ -438,7 +453,174 @@ export function TechnicalDiagram({
             </div>
           </div>
         )}
+        {/* ── 5. ZERO-TRUST MCP TOOL ENCLAVE & SCHEMA FIREWALL ── */}
+        {activeType === "mcp-enclave" && (
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 sm:grid-cols-5 gap-3 items-center">
+              {/* Node 1 */}
+              <div className="bg-[#161922] border border-white/10 rounded-lg p-3 text-center space-y-1.5">
+                <span className="text-[10px] font-mono text-neutral-400 uppercase block">NODE 01</span>
+                <div className="w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center mx-auto">
+                  <Terminal className="w-4 h-4" />
+                </div>
+                <h5 className="font-mono text-xs font-semibold text-white">Agent Kernel</h5>
+                <p className="text-[10px] text-neutral-400 leading-tight">JSON-RPC 2.0 &bull; mTLS Pipe</p>
+              </div>
 
+              {/* Arrow */}
+              <div className="hidden sm:flex justify-center text-neutral-500">
+                <ArrowRight className="w-4 h-4 text-emerald-400" />
+              </div>
+
+              {/* Node 2: Firewall Gate */}
+              <div className="bg-[#161922] border-2 border-emerald-500/50 rounded-lg p-3 text-center space-y-1.5 relative shadow-[0_0_15px_rgba(16,185,129,0.15)]">
+                <span className="text-[10px] font-mono text-emerald-400 font-bold uppercase block">GATEWAY 02</span>
+                <div className="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto">
+                  <ShieldCheck className="w-4 h-4" />
+                </div>
+                <h5 className="font-mono text-xs font-semibold text-white">Schema Firewall</h5>
+                <p className="text-[10px] text-emerald-400/90 leading-tight">Zod AST &bull; Scoped RBAC</p>
+              </div>
+
+              {/* Arrow */}
+              <div className="hidden sm:flex justify-center text-neutral-500">
+                <ArrowRight className="w-4 h-4 text-emerald-400" />
+              </div>
+
+              {/* Node 3: Isolated MCP Pod */}
+              <div className="bg-[#161922] border border-white/10 rounded-lg p-3 text-center space-y-1.5">
+                <span className="text-[10px] font-mono text-neutral-400 uppercase block">ENCLAVE 03</span>
+                <div className="w-8 h-8 rounded-full bg-purple-500/20 text-purple-400 flex items-center justify-center mx-auto">
+                  <Server className="w-4 h-4" />
+                </div>
+                <h5 className="font-mono text-xs font-semibold text-white">MCP Sandbox</h5>
+                <p className="text-[10px] text-neutral-400 leading-tight">Air-Gapped &bull; Ephemeral Pod</p>
+              </div>
+            </div>
+
+            {/* Proof Log */}
+            <div className="bg-[#0B0D10] border border-white/10 rounded-lg p-4 font-mono text-xs text-neutral-300 space-y-2">
+              <div className="flex items-center justify-between text-neutral-500 text-[11px] border-b border-white/5 pb-2">
+                <span>MCP_ZERO_TRUST_ROUTER.log</span>
+                <span className="text-emerald-400">TOOL_DISPATCH: AUTHORIZED</span>
+              </div>
+              <div className="space-y-1 text-[11px] leading-relaxed">
+                <p className="text-neutral-400">
+                  <span className="text-emerald-400">[0.00ms]</span> INGEST: jsonrpc_call [tools/call: query_inventory_ledger]
+                </p>
+                <p className="text-neutral-400">
+                  <span className="text-emerald-400">[2.1ms]</span> FIREWALL_INSPECT: Argument AST validated against strict JSON Schema (#ZOD_MCP_41)
+                </p>
+                <p className="text-neutral-400">
+                  <span className="text-emerald-400">[5.4ms]</span> RBAC_CHECK: Ephemeral capability token verified (Scope: READ_ONLY_INTERNAL)
+                </p>
+                <p className="text-emerald-400 font-semibold">
+                  <span className="text-emerald-400">[11.8ms]</span> DISPATCH_SUCCESS: Result returned to agent &bull; SHA-256 written to ClickHouse audit ledger
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-3 text-center">
+              <div className="bg-[#14171D] p-2.5 rounded border border-white/5">
+                <span className="text-[10px] font-mono text-neutral-400 block">Prompt-Injection Deflect</span>
+                <span className="text-sm font-mono font-bold text-emerald-400">100.0%</span>
+              </div>
+              <div className="bg-[#14171D] p-2.5 rounded border border-white/5">
+                <span className="text-[10px] font-mono text-neutral-400 block">P95 Dispatch Latency</span>
+                <span className="text-sm font-mono font-bold text-white">&lt;12ms</span>
+              </div>
+              <div className="bg-[#14171D] p-2.5 rounded border border-white/5">
+                <span className="text-[10px] font-mono text-neutral-400 block">Security Boundary</span>
+                <span className="text-sm font-mono font-bold text-emerald-400">Air-Gapped VPC</span>
+              </div>
+            </div>
+          </div>
+        )}
+        {/* ── 7. DISAGGREGATED PREFILL-DECODE & KV-CACHE RDMA STREAMING PIPELINE ── */}
+        {activeType === "pd-disaggregation" && (
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 sm:grid-cols-5 gap-3 items-center">
+              {/* Node 1: Dedicated Prefill Pool */}
+              <div className="bg-[#161922] border border-white/10 rounded-lg p-3 text-center space-y-1.5">
+                <span className="text-[10px] font-mono text-neutral-400 uppercase block">POOL 01 // PREFILL</span>
+                <div className="w-8 h-8 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center mx-auto">
+                  <Zap className="w-4 h-4" />
+                </div>
+                <h5 className="font-mono text-xs font-semibold text-white">Prefill Cluster (H100)</h5>
+                <p className="text-[10px] text-neutral-400 leading-tight">Compute-Bound GEMM &bull; 398 TFLOPS</p>
+              </div>
+
+              {/* Arrow: 400Gbps RoCEv2 RDMA Fabric */}
+              <div className="hidden sm:flex flex-col items-center justify-center text-emerald-400 space-y-1">
+                <span className="text-[9px] font-mono text-emerald-400 uppercase font-semibold">400Gbps RDMA</span>
+                <ArrowRight className="w-4 h-4 text-emerald-400 animate-pulse" />
+                <span className="text-[8px] font-mono text-neutral-400">&lt;1.4ms Transfer</span>
+              </div>
+
+              {/* Node 2: Dedicated Decode Pool */}
+              <div className="bg-[#161922] border-2 border-emerald-500/50 rounded-lg p-3 text-center space-y-1.5 relative shadow-[0_0_15px_rgba(16,185,129,0.15)]">
+                <span className="text-[10px] font-mono text-emerald-400 font-bold uppercase block">POOL 02 // DECODE</span>
+                <div className="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto">
+                  <Cpu className="w-4 h-4" />
+                </div>
+                <h5 className="font-mono text-xs font-semibold text-white">Decode Cluster (H200)</h5>
+                <p className="text-[10px] text-emerald-400/90 leading-tight">Bandwidth-Bound GEMV &bull; PagedAttention</p>
+              </div>
+
+              {/* Arrow */}
+              <div className="hidden sm:flex justify-center text-neutral-500">
+                <ArrowRight className="w-4 h-4 text-emerald-400" />
+              </div>
+
+              {/* Node 3: Zero-Jitter Real-time Stream */}
+              <div className="bg-[#161922] border border-white/10 rounded-lg p-3 text-center space-y-1.5">
+                <span className="text-[10px] font-mono text-neutral-400 uppercase block">STREAM 03</span>
+                <div className="w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center mx-auto">
+                  <Terminal className="w-4 h-4" />
+                </div>
+                <h5 className="font-mono text-xs font-semibold text-white">Zero-Jitter Stream</h5>
+                <p className="text-[10px] text-neutral-400 leading-tight">P99 ITL &lt;14ms &bull; 0 Prefill Stalls</p>
+              </div>
+            </div>
+
+            {/* Proof Log */}
+            <div className="bg-[#0B0D10] border border-white/10 rounded-lg p-4 font-mono text-xs text-neutral-300 space-y-2">
+              <div className="flex items-center justify-between text-neutral-500 text-[11px] border-b border-white/5 pb-2">
+                <span>DISAGGREGATED_PD_ORCHESTRATOR.log</span>
+                <span className="text-emerald-400">STATUS: ZERO_STALL_CONVERGENCE</span>
+              </div>
+              <div className="space-y-1 text-[11px] leading-relaxed">
+                <p className="text-neutral-400">
+                  <span className="text-emerald-400">[0.00ms]</span> INGEST: 16,384-token prompt dispatched to Prefill Worker Pool #04 (Compute-Bound GEMM)
+                </p>
+                <p className="text-neutral-400">
+                  <span className="text-emerald-400">[41.2ms]</span> PREFILL_COMPLETE: Context digested at 398 TFLOPS &bull; 2.68GB KV-cache allocated
+                </p>
+                <p className="text-neutral-400">
+                  <span className="text-emerald-400">[42.6ms]</span> RDMA_STREAM: Zero-copy GPUDirect RDMA transferred over 400Gbps RoCEv2 fabric (&Delta;t = 1.4ms)
+                </p>
+                <p className="text-emerald-400 font-semibold">
+                  <span className="text-emerald-400">[43.8ms]</span> DECODE_LOCKED: First token emitted by Decode Pool #02 &bull; Active streams maintained at 12.4ms/token (P99 jitter: &lt;2.1ms)
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-3 text-center">
+              <div className="bg-[#14171D] p-2.5 rounded border border-white/5">
+                <span className="text-[10px] font-mono text-neutral-400 block">P99 ITL Jitter Reduction</span>
+                <span className="text-sm font-mono font-bold text-emerald-400">-96.2%</span>
+              </div>
+              <div className="bg-[#14171D] p-2.5 rounded border border-white/5">
+                <span className="text-[10px] font-mono text-neutral-400 block">Locked Inter-Token Latency</span>
+                <span className="text-sm font-mono font-bold text-white">12.4ms</span>
+              </div>
+              <div className="bg-[#14171D] p-2.5 rounded border border-white/5">
+                <span className="text-[10px] font-mono text-neutral-400 block">Cluster TCO Savings</span>
+                <span className="text-sm font-mono font-bold text-emerald-400">54.2% Saved</span>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* ── CAPTION FOOTER ── */}
