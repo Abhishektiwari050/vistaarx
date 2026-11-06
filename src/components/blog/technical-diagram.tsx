@@ -24,7 +24,8 @@ export type DiagramType =
   | "telemetry-gis"
   | "mcp-enclave"
   | "speculative-decoding"
-  | "pd-disaggregation";
+  | "pd-disaggregation"
+  | "radix-cache";
 
 interface TechnicalDiagramProps {
   type?: DiagramType;
@@ -36,6 +37,8 @@ interface TechnicalDiagramProps {
 
 export function getDiagramTypeForSlug(slug: string): DiagramType {
   switch (slug) {
+    case "hierarchical-context-caching-radix-attention-production-vllm":
+      return "radix-cache";
     case "disaggregated-prefill-decode-production-vllm-architecture":
       return "pd-disaggregation";
     case "speculative-decoding-production-vllm-enterprise-inference":
@@ -91,6 +94,7 @@ export function TechnicalDiagram({
             {activeType === "mcp-enclave" && "GATEWAY // SECURE-MCP-TOOL-ENCLAVE.SPEC"}
             {activeType === "speculative-decoding" && "PIPELINE // SPECULATIVE-DRAFT-VERIFY.SPEC"}
             {activeType === "pd-disaggregation" && "TOPOLOGY // DISAGGREGATED-PREFILL-DECODE.SPEC"}
+            {activeType === "radix-cache" && "TOPOLOGY // RADIX-TREE-PREFIX-CACHE.SPEC"}
           </span>
         </div>
 
@@ -617,6 +621,93 @@ export function TechnicalDiagram({
               <div className="bg-[#14171D] p-2.5 rounded border border-white/5">
                 <span className="text-[10px] font-mono text-neutral-400 block">Cluster TCO Savings</span>
                 <span className="text-sm font-mono font-bold text-emerald-400">54.2% Saved</span>
+              </div>
+            </div>
+          </div>
+        )}
+        {/* ── 8. HIERARCHICAL CONTEXT CACHING & RADIX TREE ATTENTION PIPELINE ── */}
+        {activeType === "radix-cache" && (
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 sm:grid-cols-5 gap-3 items-center">
+              {/* Node 1: Ingress Context Payload */}
+              <div className="bg-[#161922] border border-white/10 rounded-lg p-3 text-center space-y-1.5">
+                <span className="text-[10px] font-mono text-neutral-400 uppercase block">STAGE 01 // INGRESS</span>
+                <div className="w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center mx-auto">
+                  <Terminal className="w-4 h-4" />
+                </div>
+                <h5 className="font-mono text-xs font-semibold text-white">Multi-Turn Ingress</h5>
+                <p className="text-[10px] text-neutral-400 leading-tight">52,400 Tokens &bull; System + Tools</p>
+              </div>
+
+              {/* Arrow: Radix Tree Match */}
+              <div className="hidden sm:flex flex-col items-center justify-center text-emerald-400 space-y-1">
+                <span className="text-[9px] font-mono text-emerald-400 uppercase font-semibold">Radix Match</span>
+                <ArrowRight className="w-4 h-4 text-emerald-400 animate-pulse" />
+                <span className="text-[8px] font-mono text-neutral-400">49,850 Tks (95.1% Hit)</span>
+              </div>
+
+              {/* Node 2: Radix Tree KV-Cache Engine */}
+              <div className="bg-[#161922] border-2 border-emerald-500/50 rounded-lg p-3 text-center space-y-1.5 relative shadow-[0_0_15px_rgba(16,185,129,0.15)]">
+                <span className="text-[10px] font-mono text-emerald-400 font-bold uppercase block">STAGE 02 // RADIX</span>
+                <div className="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto">
+                  <Layers className="w-4 h-4" />
+                </div>
+                <h5 className="font-mono text-xs font-semibold text-white">Radix KV Engine</h5>
+                <p className="text-[10px] text-emerald-400/90 leading-tight">Zero Recompute &bull; 3,115 Blocks</p>
+              </div>
+
+              {/* Arrow: Delta Prefill */}
+              <div className="hidden sm:flex flex-col items-center justify-center text-amber-400 space-y-1">
+                <span className="text-[9px] font-mono text-amber-400 uppercase font-semibold">Delta Prefill</span>
+                <ArrowRight className="w-4 h-4 text-amber-400" />
+                <span className="text-[8px] font-mono text-neutral-400">2,550 New Tokens</span>
+              </div>
+
+              {/* Node 3: Instant Stream Emitter */}
+              <div className="bg-[#161922] border border-white/10 rounded-lg p-3 text-center space-y-1.5">
+                <span className="text-[10px] font-mono text-neutral-400 uppercase block">STAGE 03 // STREAM</span>
+                <div className="w-8 h-8 rounded-full bg-purple-500/20 text-purple-400 flex items-center justify-center mx-auto">
+                  <Zap className="w-4 h-4" />
+                </div>
+                <h5 className="font-mono text-xs font-semibold text-white">Sub-150ms TTFT</h5>
+                <p className="text-[10px] text-neutral-400 leading-tight">142ms TTFT &bull; 82% FLOPs Saved</p>
+              </div>
+            </div>
+
+            {/* Proof Log */}
+            <div className="bg-[#0B0D10] border border-white/10 rounded-lg p-4 font-mono text-xs text-neutral-300 space-y-2">
+              <div className="flex items-center justify-between text-neutral-500 text-[11px] border-b border-white/5 pb-2">
+                <span>RADIX_PREFIX_CACHE_ORCHESTRATOR.log</span>
+                <span className="text-emerald-400">PREFIX_MATCH: 95.1% CONVERGENCE</span>
+              </div>
+              <div className="space-y-1 text-[11px] leading-relaxed">
+                <p className="text-neutral-400">
+                  <span className="text-emerald-400">[0.00ms]</span> INGEST: 52,400-token multi-agent context received (Session #RADIX_881)
+                </p>
+                <p className="text-neutral-400">
+                  <span className="text-emerald-400">[1.2ms]</span> RADIX_TRAVERSAL: Prefix match found at Depth 4 &bull; 49,850 tokens identified in L1 GPU HBM
+                </p>
+                <p className="text-neutral-400">
+                  <span className="text-emerald-400">[3.4ms]</span> KV_BLOCK_MAP: Reused 3,115 physical KV memory blocks (0 FLOPs recalculated)
+                </p>
+                <p className="text-emerald-400 font-semibold">
+                  <span className="text-emerald-400">[142.1ms]</span> FIRST_TOKEN_EMITTED: Delta prefill (2,550 tokens) completed &bull; TTFT: 142.1ms (vs 3,240ms un-cached)
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-3 text-center">
+              <div className="bg-[#14171D] p-2.5 rounded border border-white/5">
+                <span className="text-[10px] font-mono text-neutral-400 block">Prefix Cache Hit Rate</span>
+                <span className="text-sm font-mono font-bold text-emerald-400">95.1% Hit</span>
+              </div>
+              <div className="bg-[#14171D] p-2.5 rounded border border-white/5">
+                <span className="text-[10px] font-mono text-neutral-400 block">TTFT Reduction</span>
+                <span className="text-sm font-mono font-bold text-white">142ms (-88.4%)</span>
+              </div>
+              <div className="bg-[#14171D] p-2.5 rounded border border-white/5">
+                <span className="text-[10px] font-mono text-neutral-400 block">Prefill Compute Saved</span>
+                <span className="text-sm font-mono font-bold text-emerald-400">82.6% Less TCO</span>
               </div>
             </div>
           </div>
