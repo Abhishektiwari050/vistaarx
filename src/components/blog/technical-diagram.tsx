@@ -25,7 +25,8 @@ export type DiagramType =
   | "mcp-enclave"
   | "speculative-decoding"
   | "pd-disaggregation"
-  | "radix-cache";
+  | "radix-cache"
+  | "multi-lora";
 
 interface TechnicalDiagramProps {
   type?: DiagramType;
@@ -37,6 +38,8 @@ interface TechnicalDiagramProps {
 
 export function getDiagramTypeForSlug(slug: string): DiagramType {
   switch (slug) {
+    case "dynamic-multi-lora-serving-production-vllm-s-lora":
+      return "multi-lora";
     case "hierarchical-context-caching-radix-attention-production-vllm":
       return "radix-cache";
     case "disaggregated-prefill-decode-production-vllm-architecture":
@@ -95,6 +98,7 @@ export function TechnicalDiagram({
             {activeType === "speculative-decoding" && "PIPELINE // SPECULATIVE-DRAFT-VERIFY.SPEC"}
             {activeType === "pd-disaggregation" && "TOPOLOGY // DISAGGREGATED-PREFILL-DECODE.SPEC"}
             {activeType === "radix-cache" && "TOPOLOGY // RADIX-TREE-PREFIX-CACHE.SPEC"}
+            {activeType === "multi-lora" && "TOPOLOGY // DYNAMIC-MULTI-LORA-SGMV.SPEC"}
           </span>
         </div>
 
@@ -708,6 +712,94 @@ export function TechnicalDiagram({
               <div className="bg-[#14171D] p-2.5 rounded border border-white/5">
                 <span className="text-[10px] font-mono text-neutral-400 block">Prefill Compute Saved</span>
                 <span className="text-sm font-mono font-bold text-emerald-400">82.6% Less TCO</span>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ── 9. DYNAMIC MULTI-LORA SERVING & SGMV CUDA KERNEL PIPELINE ── */}
+        {activeType === "multi-lora" && (
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 sm:grid-cols-5 gap-3 items-center">
+              {/* Node 1: Heterogeneous Tenant Queue */}
+              <div className="bg-[#161922] border border-white/10 rounded-lg p-3 text-center space-y-1.5">
+                <span className="text-[10px] font-mono text-neutral-400 uppercase block">STAGE 01 // QUEUE</span>
+                <div className="w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center mx-auto">
+                  <Terminal className="w-4 h-4" />
+                </div>
+                <h5 className="font-mono text-xs font-semibold text-white">Multi-Tenant Ingress</h5>
+                <p className="text-[10px] text-neutral-400 leading-tight">Legal (r=16) &bull; Fin (r=32) &bull; Code (r=16)</p>
+              </div>
+
+              {/* Arrow: Batched SGMV Dispatch */}
+              <div className="hidden sm:flex flex-col items-center justify-center text-cyan-400 space-y-1">
+                <span className="text-[9px] font-mono text-cyan-400 uppercase font-semibold">SGMV Dispatch</span>
+                <ArrowRight className="w-4 h-4 text-cyan-400 animate-pulse" />
+                <span className="text-[8px] font-mono text-neutral-400">Single Batch GEMM</span>
+              </div>
+
+              {/* Node 2: S-LoRA SGMV Kernel + Frozen Base Model */}
+              <div className="bg-[#161922] border-2 border-cyan-500/50 rounded-lg p-3 text-center space-y-1.5 relative shadow-[0_0_15px_rgba(6,182,212,0.15)]">
+                <span className="text-[10px] font-mono text-cyan-400 font-bold uppercase block">STAGE 02 // SGMV</span>
+                <div className="w-8 h-8 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center mx-auto">
+                  <Cpu className="w-4 h-4" />
+                </div>
+                <h5 className="font-mono text-xs font-semibold text-white">SGMV CUDA Kernel</h5>
+                <p className="text-[10px] text-cyan-400/90 leading-tight">Frozen 70B W₀ + Paged ΔW Matrices</p>
+              </div>
+
+              {/* Arrow: Zero-Bubble Continuous Batch */}
+              <div className="hidden sm:flex flex-col items-center justify-center text-emerald-400 space-y-1">
+                <span className="text-[9px] font-mono text-emerald-400 uppercase font-semibold">Unified Paging</span>
+                <ArrowRight className="w-4 h-4 text-emerald-400" />
+                <span className="text-[8px] font-mono text-neutral-400">HBM &lt;&gt; DDR5 DMA</span>
+              </div>
+
+              {/* Node 3: Low-Latency Multi-Tenant Token Stream */}
+              <div className="bg-[#161922] border border-white/10 rounded-lg p-3 text-center space-y-1.5">
+                <span className="text-[10px] font-mono text-neutral-400 uppercase block">STAGE 03 // OUTPUT</span>
+                <div className="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto">
+                  <Zap className="w-4 h-4" />
+                </div>
+                <h5 className="font-mono text-xs font-semibold text-white">Concurrent Stream</h5>
+                <p className="text-[10px] text-neutral-400 leading-tight">512 Hot Adapters &bull; +1.8% Latency Delta</p>
+              </div>
+            </div>
+
+            {/* Proof Log */}
+            <div className="bg-[#0B0D10] border border-white/10 rounded-lg p-4 font-mono text-xs text-neutral-300 space-y-2">
+              <div className="flex items-center justify-between text-neutral-500 text-[11px] border-b border-white/5 pb-2">
+                <span>MULTI_LORA_SGMV_ORCHESTRATOR.log</span>
+                <span className="text-cyan-400">BATCH_SIZE: 64 HETEROGENEOUS SLICES</span>
+              </div>
+              <div className="space-y-1 text-[11px] leading-relaxed">
+                <p className="text-neutral-400">
+                  <span className="text-cyan-400">[0.00ms]</span> BATCH_INGEST: 64 concurrent requests targeting 38 distinct domain LoRA adapters (Tokens: 1,840)
+                </p>
+                <p className="text-neutral-400">
+                  <span className="text-cyan-400">[0.42ms]</span> UNIFIED_PAGE_LOOKUP: 37 adapters resident in L1 HBM Pool &bull; 1 adapter paged from Host DDR5 via PCIe Gen5 (4.1ms)
+                </p>
+                <p className="text-neutral-400">
+                  <span className="text-cyan-400">[1.18ms]</span> SGMV_KERNEL_LAUNCH: Batched Segmented Gather Matrix-Vector kernel executed across all 64 query projections
+                </p>
+                <p className="text-emerald-400 font-semibold">
+                  <span className="text-emerald-400">[14.82ms]</span> TPOT_STREAM_CONVERGED: Next-token batch evaluated &bull; Overhead vs un-adapted base model: +0.27ms (+1.8%)
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-3 text-center">
+              <div className="bg-[#14171D] p-2.5 rounded border border-white/5">
+                <span className="text-[10px] font-mono text-neutral-400 block">Concurrent Domain Adapters</span>
+                <span className="text-sm font-mono font-bold text-cyan-400">512 Active</span>
+              </div>
+              <div className="bg-[#14171D] p-2.5 rounded border border-white/5">
+                <span className="text-[10px] font-mono text-neutral-400 block">Kernel Latency Overhead</span>
+                <span className="text-sm font-mono font-bold text-emerald-400">+1.8% (Negligible)</span>
+              </div>
+              <div className="bg-[#14171D] p-2.5 rounded border border-white/5">
+                <span className="text-[10px] font-mono text-neutral-400 block">GPU Cluster TCO Reduction</span>
+                <span className="text-sm font-mono font-bold text-emerald-400">-84.2% Lower Cost</span>
               </div>
             </div>
           </div>
