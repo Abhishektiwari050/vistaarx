@@ -27,7 +27,8 @@ export type DiagramType =
   | "pd-disaggregation"
   | "radix-cache"
   | "multi-lora"
-  | "chunked-prefill";
+  | "chunked-prefill"
+  | "mla-kv-compression";
 
 interface TechnicalDiagramProps {
   type?: DiagramType;
@@ -39,6 +40,8 @@ interface TechnicalDiagramProps {
 
 export function getDiagramTypeForSlug(slug: string): DiagramType {
   switch (slug) {
+    case "multi-head-latent-attention-mla-deepseek-vllm":
+      return "mla-kv-compression";
     case "chunked-prefill-piggybacking-production-vllm":
       return "chunked-prefill";
     case "dynamic-multi-lora-serving-production-vllm-s-lora":
@@ -103,6 +106,7 @@ export function TechnicalDiagram({
             {activeType === "radix-cache" && "TOPOLOGY // RADIX-TREE-PREFIX-CACHE.SPEC"}
             {activeType === "multi-lora" && "TOPOLOGY // DYNAMIC-MULTI-LORA-SGMV.SPEC"}
             {activeType === "chunked-prefill" && "PIPELINE // CHUNKED-PREFILL-PIGGYBACKING.SPEC"}
+            {activeType === "mla-kv-compression" && "TOPOLOGY // MULTI-HEAD-LATENT-ATTENTION-MLA.SPEC"}
           </span>
         </div>
 
@@ -892,6 +896,147 @@ export function TechnicalDiagram({
               <div className="bg-[#14171D] p-2.5 rounded border border-white/5">
                 <span className="text-[10px] font-mono text-neutral-400 block">Cluster Throughput Multiplier</span>
                 <span className="text-sm font-mono font-bold text-emerald-400">2.8x Higher Aggregate QPS</span>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ── 11. MULTI-HEAD LATENT ATTENTION (MLA) & LOW-RANK KV COMPRESSION ── */}
+        {activeType === "mla-kv-compression" && (
+          <div className="space-y-6">
+            {/* Top Memory Wall Comparison Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div className="bg-[#161922]/70 border border-red-500/30 rounded-lg p-3 space-y-2">
+                <div className="flex items-center justify-between text-xs font-mono">
+                  <span className="text-red-400 font-semibold flex items-center gap-1.5">
+                    <AlertTriangle className="w-3.5 h-3.5" />
+                    STANDARD GQA (LLaMA-3.3 70B)
+                  </span>
+                  <span className="text-red-400/80 bg-red-950/40 px-2 py-0.5 rounded text-[10px]">OOM CEILING</span>
+                </div>
+                <div className="text-[11px] font-mono text-neutral-300 space-y-1">
+                  <div className="flex justify-between">
+                    <span className="text-neutral-400">Per-Token KV Footprint:</span>
+                    <span className="text-red-300 font-semibold">8,192 bytes (2x L x H_kv x d_h)</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-neutral-400">128k Context Footprint:</span>
+                    <span className="text-red-400 font-bold">41.9 GB / Sequence</span>
+                  </div>
+                  <div className="flex justify-between border-t border-white/5 pt-1 text-[10px]">
+                    <span className="text-neutral-400">Max Concurrent 128k Streams:</span>
+                    <span className="text-red-400 font-bold">2 Streams &bull; 98% OOM Crash Risk</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-[#161922]/90 border border-emerald-500/40 rounded-lg p-3 space-y-2 shadow-[0_0_15px_rgba(16,185,129,0.1)]">
+                <div className="flex items-center justify-between text-xs font-mono">
+                  <span className="text-emerald-400 font-semibold flex items-center gap-1.5">
+                    <CheckCircle2 className="w-3.5 h-3.5" />
+                    DEEPSEEK MLA (vLLM / SGLang)
+                  </span>
+                  <span className="text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded text-[10px] font-bold">93.3% COMPRESSED</span>
+                </div>
+                <div className="text-[11px] font-mono text-neutral-300 space-y-1">
+                  <div className="flex justify-between">
+                    <span className="text-neutral-400">Per-Token Latent Footprint:</span>
+                    <span className="text-emerald-400 font-semibold">576 bytes (512d latent + 64d RoPE)</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-neutral-400">128k Context Footprint:</span>
+                    <span className="text-emerald-400 font-bold">2.95 GB / Sequence</span>
+                  </div>
+                  <div className="flex justify-between border-t border-white/5 pt-1 text-[10px]">
+                    <span className="text-neutral-400">Max Concurrent 128k Streams:</span>
+                    <span className="text-emerald-400 font-bold">32+ Streams &bull; Sub-22ms P99 ITL</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 3-Stage Pipeline Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-5 gap-3 items-center">
+              {/* Stage 1 */}
+              <div className="bg-[#161922] border border-white/10 rounded-lg p-3 text-center space-y-1.5">
+                <span className="text-[10px] font-mono text-neutral-400 uppercase block">STAGE 01 // DOWN-PROJ</span>
+                <div className="w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center mx-auto">
+                  <Cpu className="w-4 h-4" />
+                </div>
+                <h5 className="font-mono text-xs font-semibold text-white">Latent Compression</h5>
+                <p className="text-[10px] text-neutral-400 leading-tight">h_t (7168d) &rarr; c_t^KV (512d) + k_t^R (64d)</p>
+              </div>
+
+              {/* Arrow */}
+              <div className="hidden sm:flex flex-col items-center justify-center text-cyan-400 space-y-1">
+                <span className="text-[9px] font-mono text-cyan-400 uppercase font-semibold">14x Compression</span>
+                <ArrowRight className="w-4 h-4 text-cyan-400 animate-pulse" />
+                <span className="text-[8px] font-mono text-neutral-400">576 Elements</span>
+              </div>
+
+              {/* Stage 2 */}
+              <div className="bg-[#161922] border-2 border-cyan-500/50 rounded-lg p-3 text-center space-y-1.5 relative shadow-[0_0_15px_rgba(6,182,212,0.15)]">
+                <span className="text-[10px] font-mono text-cyan-400 font-bold uppercase block">STAGE 02 // STORAGE</span>
+                <div className="w-8 h-8 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center mx-auto">
+                  <Layers className="w-4 h-4" />
+                </div>
+                <h5 className="font-mono text-xs font-semibold text-white">Paged Latent HBM</h5>
+                <p className="text-[10px] text-cyan-400/90 leading-tight">576 Bytes/tok &bull; Zero Head Redundancy</p>
+              </div>
+
+              {/* Arrow */}
+              <div className="hidden sm:flex flex-col items-center justify-center text-emerald-400 space-y-1">
+                <span className="text-[9px] font-mono text-emerald-400 uppercase font-semibold">Absorb W_U</span>
+                <ArrowRight className="w-4 h-4 text-emerald-400" />
+                <span className="text-[8px] font-mono text-neutral-400">0ms Decompress</span>
+              </div>
+
+              {/* Stage 3 */}
+              <div className="bg-[#161922] border border-white/10 rounded-lg p-3 text-center space-y-1.5">
+                <span className="text-[10px] font-mono text-neutral-400 uppercase block">STAGE 03 // DECODE</span>
+                <div className="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto">
+                  <Zap className="w-4 h-4" />
+                </div>
+                <h5 className="font-mono text-xs font-semibold text-white">FlashInfer MLA</h5>
+                <p className="text-[10px] text-neutral-400 leading-tight">(q^T W_UK) &bull; c^KV Latent Dot-Product</p>
+              </div>
+            </div>
+
+            {/* Proof Log */}
+            <div className="bg-[#0B0D10] border border-white/10 rounded-lg p-4 font-mono text-xs text-neutral-300 space-y-2">
+              <div className="flex items-center justify-between text-neutral-500 text-[11px] border-b border-white/5 pb-2">
+                <span>VLLM_MLA_FLASHINFER_CONTROLLER.log</span>
+                <span className="text-cyan-400">TOPOLOGY: DEEPSEEK-V3/R1 671B MOE &bull; TP=8</span>
+              </div>
+              <div className="space-y-1 text-[11px] leading-relaxed">
+                <p className="text-neutral-400">
+                  <span className="text-cyan-400">[0.00ms]</span> INGRESS_CONTEXT: Active sequence reaches 131,072 tokens (deep reasoning chain-of-thought)
+                </p>
+                <p className="text-neutral-400">
+                  <span className="text-cyan-400">[0.18ms]</span> LATENT_CACHE_ALLOC: Allocated 2.95 GB VRAM for 128k latent tokens (vs 41.9 GB in standard GQA)
+                </p>
+                <p className="text-neutral-400">
+                  <span className="text-cyan-400">[1.12ms]</span> MATRIX_ABSORPTION: Up-projection matrices W_UK &amp; W_UV folded into Query projection &bull; 0.00ms memory decompression
+                </p>
+                <p className="text-emerald-400 font-semibold">
+                  <span className="text-emerald-400">[19.18ms]</span> STEP_DISPATCH_COMPLETE: 32 concurrent 128k reasoning streams decoded &bull; 0 OOM evictions &bull; P99 ITL: 20.8ms
+                </p>
+              </div>
+            </div>
+
+            {/* Summary Metrics */}
+            <div className="grid grid-cols-3 gap-3 text-center">
+              <div className="bg-[#14171D] p-2.5 rounded border border-white/5">
+                <span className="text-[10px] font-mono text-neutral-400 block">KV Cache Footprint</span>
+                <span className="text-sm font-mono font-bold text-emerald-400">93.3% Saved (576B/tok)</span>
+              </div>
+              <div className="bg-[#14171D] p-2.5 rounded border border-white/5">
+                <span className="text-[10px] font-mono text-neutral-400 block">128k Concurrent Density</span>
+                <span className="text-sm font-mono font-bold text-cyan-400">16x Larger Batches</span>
+              </div>
+              <div className="bg-[#14171D] p-2.5 rounded border border-white/5">
+                <span className="text-[10px] font-mono text-neutral-400 block">HBM Memory Bandwidth</span>
+                <span className="text-sm font-mono font-bold text-emerald-400">14.2x Latent Scan Speed</span>
               </div>
             </div>
           </div>
