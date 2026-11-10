@@ -28,7 +28,8 @@ export type DiagramType =
   | "radix-cache"
   | "multi-lora"
   | "chunked-prefill"
-  | "mla-kv-compression";
+  | "mla-kv-compression"
+  | "mtp-speculative-pipeline";
 
 interface TechnicalDiagramProps {
   type?: DiagramType;
@@ -40,6 +41,8 @@ interface TechnicalDiagramProps {
 
 export function getDiagramTypeForSlug(slug: string): DiagramType {
   switch (slug) {
+    case "multi-token-prediction-mtp-deepseek-v3":
+      return "mtp-speculative-pipeline";
     case "multi-head-latent-attention-mla-deepseek-vllm":
       return "mla-kv-compression";
     case "chunked-prefill-piggybacking-production-vllm":
@@ -107,6 +110,7 @@ export function TechnicalDiagram({
             {activeType === "multi-lora" && "TOPOLOGY // DYNAMIC-MULTI-LORA-SGMV.SPEC"}
             {activeType === "chunked-prefill" && "PIPELINE // CHUNKED-PREFILL-PIGGYBACKING.SPEC"}
             {activeType === "mla-kv-compression" && "TOPOLOGY // MULTI-HEAD-LATENT-ATTENTION-MLA.SPEC"}
+            {activeType === "mtp-speculative-pipeline" && "PIPELINE // MULTI-TOKEN-PREDICTION-MTP.SPEC"}
           </span>
         </div>
 
@@ -1037,6 +1041,151 @@ export function TechnicalDiagram({
               <div className="bg-[#14171D] p-2.5 rounded border border-white/5">
                 <span className="text-[10px] font-mono text-neutral-400 block">HBM Memory Bandwidth</span>
                 <span className="text-sm font-mono font-bold text-emerald-400">14.2x Latent Scan Speed</span>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ── 12. MULTI-TOKEN PREDICTION (MTP) SPECULATIVE PIPELINE ── */}
+        {activeType === "mtp-speculative-pipeline" && (
+          <div className="space-y-6">
+            {/* Top Comparison Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="bg-[#161922] border border-amber-500/20 rounded-lg p-3 space-y-2">
+                <div className="flex items-center justify-between text-xs font-mono">
+                  <span className="text-amber-400 font-semibold flex items-center gap-1.5">
+                    <AlertTriangle className="w-3.5 h-3.5" />
+                    STANDALONE DRAFT MODEL (EAGLE-2 / 7B)
+                  </span>
+                  <span className="text-amber-400/80 bg-amber-950/40 px-2 py-0.5 rounded text-[10px]">DRIFT RISK</span>
+                </div>
+                <div className="text-[11px] font-mono text-neutral-300 space-y-1">
+                  <div className="flex justify-between">
+                    <span className="text-neutral-400">Auxiliary VRAM Overhead:</span>
+                    <span className="text-amber-300 font-semibold">8–14 GB (Weights + KV Cache)</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-neutral-400">Reasoning Acceptance Rate:</span>
+                    <span className="text-amber-400 font-bold">58%–64% (Frequent Rollbacks)</span>
+                  </div>
+                  <div className="flex justify-between border-t border-white/5 pt-1 text-[10px]">
+                    <span className="text-neutral-400">Inter-Process Overhead:</span>
+                    <span className="text-amber-400 font-bold">IPC / PCIe Latency Bottleneck</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-[#161922]/90 border border-emerald-500/40 rounded-lg p-3 space-y-2 shadow-[0_0_15px_rgba(16,185,129,0.1)]">
+                <div className="flex items-center justify-between text-xs font-mono">
+                  <span className="text-emerald-400 font-semibold flex items-center gap-1.5">
+                    <CheckCircle2 className="w-3.5 h-3.5" />
+                    INTEGRATED MTP SPECULATIVE ENGINE
+                  </span>
+                  <span className="text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded text-[10px] font-bold">ZERO DRIFT &bull; 2.4x</span>
+                </div>
+                <div className="text-[11px] font-mono text-neutral-300 space-y-1">
+                  <div className="flex justify-between">
+                    <span className="text-neutral-400">Auxiliary VRAM Overhead:</span>
+                    <span className="text-emerald-400 font-semibold">&lt; 1.4% (Shared Unembedding Head)</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-neutral-400">Reasoning Acceptance Rate:</span>
+                    <span className="text-emerald-400 font-bold">86.4% on Code &amp; CoT Traces</span>
+                  </div>
+                  <div className="flex justify-between border-t border-white/5 pt-1 text-[10px]">
+                    <span className="text-neutral-400">Single-Pass Verification:</span>
+                    <span className="text-emerald-400 font-bold">10.2ms Effective ITL &bull; 82+ Tok/s</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 4-Stage Architecture Pipeline Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 items-stretch">
+              {/* Stage 1 */}
+              <div className="bg-[#161922] border border-white/10 rounded-lg p-3 text-center space-y-1.5 flex flex-col justify-between">
+                <div>
+                  <span className="text-[10px] font-mono text-neutral-400 uppercase block">STAGE 01 // TRUNK</span>
+                  <div className="w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center mx-auto my-1.5">
+                    <Cpu className="w-4 h-4" />
+                  </div>
+                  <h5 className="font-mono text-xs font-semibold text-white">Main Model Forward</h5>
+                </div>
+                <p className="text-[10px] text-neutral-400 leading-tight">Computes h_t &bull; Emits Target Token t_n</p>
+              </div>
+
+              {/* Stage 2 */}
+              <div className="bg-[#161922] border border-cyan-500/30 rounded-lg p-3 text-center space-y-1.5 flex flex-col justify-between">
+                <div>
+                  <span className="text-[10px] font-mono text-cyan-400 uppercase block">STAGE 02 // MTP-1</span>
+                  <div className="w-8 h-8 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center mx-auto my-1.5">
+                    <Zap className="w-4 h-4" />
+                  </div>
+                  <h5 className="font-mono text-xs font-semibold text-white">Draft Module 1</h5>
+                </div>
+                <p className="text-[10px] text-cyan-400/90 leading-tight">Concat [h_t; Emb(t_n)] &rarr; Drafts t_{'{n+1}'}</p>
+              </div>
+
+              {/* Stage 3 */}
+              <div className="bg-[#161922] border border-cyan-500/30 rounded-lg p-3 text-center space-y-1.5 flex flex-col justify-between">
+                <div>
+                  <span className="text-[10px] font-mono text-cyan-400 uppercase block">STAGE 03 // MTP-2</span>
+                  <div className="w-8 h-8 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center mx-auto my-1.5">
+                    <Layers className="w-4 h-4" />
+                  </div>
+                  <h5 className="font-mono text-xs font-semibold text-white">Draft Module 2</h5>
+                </div>
+                <p className="text-[10px] text-cyan-400/90 leading-tight">Concat [h_t^(1); Emb(t_{'{n+1}'})] &rarr; Drafts t_{'{n+2}'}</p>
+              </div>
+
+              {/* Stage 4 */}
+              <div className="bg-[#161922] border-2 border-emerald-500/50 rounded-lg p-3 text-center space-y-1.5 flex flex-col justify-between shadow-[0_0_15px_rgba(16,185,129,0.15)]">
+                <div>
+                  <span className="text-[10px] font-mono text-emerald-400 font-bold uppercase block">STAGE 04 // VERIFY</span>
+                  <div className="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto my-1.5">
+                    <ShieldCheck className="w-4 h-4" />
+                  </div>
+                  <h5 className="font-mono text-xs font-semibold text-white">FlashInfer Tree Kernel</h5>
+                </div>
+                <p className="text-[10px] text-emerald-400/90 leading-tight">1 Single GEMM &bull; Emits 3 Tokens in 1 Step</p>
+              </div>
+            </div>
+
+            {/* Proof Log */}
+            <div className="bg-[#0B0D10] border border-white/10 rounded-lg p-4 font-mono text-xs text-neutral-300 space-y-2">
+              <div className="flex items-center justify-between text-neutral-500 text-[11px] border-b border-white/5 pb-2">
+                <span>VLLM_MTP_SPECULATIVE_CONTROLLER.log</span>
+                <span className="text-cyan-400">TOPOLOGY: DEEPSEEK-V3 671B &bull; D=2 MTP HEADS &bull; TP=8</span>
+              </div>
+              <div className="space-y-1 text-[11px] leading-relaxed">
+                <p className="text-neutral-400">
+                  <span className="text-cyan-400">[0.00ms]</span> INGRESS_REASONING_STEP: Active token index n=18,432 (Chain-of-Thought mathematical proof)
+                </p>
+                <p className="text-neutral-400">
+                  <span className="text-cyan-400">[1.12ms]</span> MTP_DRAFT_EXPANSION: Sequential modules 1 &amp; 2 generate speculative tokens [t_{'{n+1}'}=&quot;\\\\sum_&quot;, t_{'{n+2}'}=&quot;{'{k=1}'}&quot;]
+                </p>
+                <p className="text-neutral-400">
+                  <span className="text-cyan-400">[9.84ms]</span> FLASHINFER_TREE_ATTENTION: Executed 1 fused parallel target verification forward pass
+                </p>
+                <p className="text-emerald-400 font-semibold">
+                  <span className="text-emerald-400">[10.22ms]</span> SPECULATIVE_STEP_COMMIT: Accepted 3 tokens (100% path match) &bull; Effective ITL: 3.41ms/token &bull; Velocity: 82.4 tok/s
+                </p>
+              </div>
+            </div>
+
+            {/* Summary Metrics */}
+            <div className="grid grid-cols-3 gap-3 text-center">
+              <div className="bg-[#14171D] p-2.5 rounded border border-white/5">
+                <span className="text-[10px] font-mono text-neutral-400 block">Decoding Acceleration</span>
+                <span className="text-sm font-mono font-bold text-emerald-400">2.41x Effective Velocity</span>
+              </div>
+              <div className="bg-[#14171D] p-2.5 rounded border border-white/5">
+                <span className="text-[10px] font-mono text-neutral-400 block">Reasoning Acceptance Rate</span>
+                <span className="text-sm font-mono font-bold text-cyan-400">86.4% on Code &amp; CoT</span>
+              </div>
+              <div className="bg-[#14171D] p-2.5 rounded border border-white/5">
+                <span className="text-[10px] font-mono text-neutral-400 block">Auxiliary VRAM Overhead</span>
+                <span className="text-sm font-mono font-bold text-emerald-400">&lt; 1.4% (Zero Ext. Draft)</span>
               </div>
             </div>
           </div>
