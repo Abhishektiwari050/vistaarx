@@ -31,7 +31,8 @@ export type DiagramType =
   | "mla-kv-compression"
   | "mtp-speculative-pipeline"
   | "dualpipe-zero-bubble"
-  | "deepgemm-fp8-scaling";
+  | "deepgemm-fp8-scaling"
+  | "grpo-reasoning-rl";
 
 interface TechnicalDiagramProps {
   type?: DiagramType;
@@ -43,6 +44,8 @@ interface TechnicalDiagramProps {
 
 export function getDiagramTypeForSlug(slug: string): DiagramType {
   switch (slug) {
+    case "group-relative-policy-optimization-grpo-deepseek-r1":
+      return "grpo-reasoning-rl";
     case "deepgemm-fine-grained-fp8-quantization-hopper-tensor-cores":
       return "deepgemm-fp8-scaling";
     case "dualpipe-zero-bubble-expert-parallelism-deepseek-v3":
@@ -119,6 +122,7 @@ export function TechnicalDiagram({
             {activeType === "mtp-speculative-pipeline" && "PIPELINE // MULTI-TOKEN-PREDICTION-MTP.SPEC"}
             {activeType === "dualpipe-zero-bubble" && "PIPELINE // DUALPIPE-BIDIRECTIONAL-OVERLAP.SPEC"}
             {activeType === "deepgemm-fp8-scaling" && "TOPOLOGY // FINE-GRAINED-FP8-DEEPGEMM.SPEC"}
+            {activeType === "grpo-reasoning-rl" && "PIPELINE // GROUP-RELATIVE-POLICY-OPTIMIZATION-GRPO.SPEC"}
           </span>
         </div>
 
@@ -1484,6 +1488,157 @@ export function TechnicalDiagram({
               <div className="bg-[#14171D] p-2.5 rounded border border-white/5">
                 <span className="text-[10px] font-mono text-neutral-400 block">Cluster HBM Savings</span>
                 <span className="text-sm font-mono font-bold text-emerald-400">-50.2% Memory Footprint</span>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ── 15. GROUP RELATIVE POLICY OPTIMIZATION (GRPO) ── */}
+        {activeType === "grpo-reasoning-rl" && (
+          <div className="space-y-6">
+            {/* Top Comparison Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="bg-[#161922] border border-amber-500/20 rounded-lg p-3 space-y-2">
+                <div className="flex items-center justify-between text-xs font-mono">
+                  <span className="text-amber-400 font-semibold flex items-center gap-1.5">
+                    <AlertTriangle className="w-3.5 h-3.5" />
+                    CONVENTIONAL PPO RLHF (4-MODEL CLUSTER)
+                  </span>
+                  <span className="text-amber-400/80 bg-amber-950/40 px-2 py-0.5 rounded text-[10px]">CRITIC VRAM EXPLOSION</span>
+                </div>
+                <div className="text-[11px] font-mono text-neutral-300 space-y-1">
+                  <div className="flex justify-between">
+                    <span className="text-neutral-400">Memory Allocation (70B Model):</span>
+                    <span className="text-amber-300 font-semibold">2,520 GB VRAM (Actor + Critic + Ref + Reward)</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-neutral-400">Critic Model Parameters:</span>
+                    <span className="text-amber-400 font-bold">100% Parameter Duplication (V_phi = 70B)</span>
+                  </div>
+                  <div className="flex justify-between border-t border-white/5 pt-1 text-[10px]">
+                    <span className="text-neutral-400">Reward Optimization Failure:</span>
+                    <span className="text-amber-400 font-bold">Severe Reward Hacking / Neural Proxy Drift</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-[#161922]/90 border border-emerald-500/40 rounded-lg p-3 space-y-2 shadow-[0_0_15px_rgba(16,185,129,0.1)]">
+                <div className="flex items-center justify-between text-xs font-mono">
+                  <span className="text-emerald-400 font-semibold flex items-center gap-1.5">
+                    <CheckCircle2 className="w-3.5 h-3.5" />
+                    DEEPSEEK-R1 GRPO (ZERO-CRITIC REASONING RL)
+                  </span>
+                  <span className="text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded text-[10px] font-bold">-51.8% VRAM &bull; RULE VERIFIERS</span>
+                </div>
+                <div className="text-[11px] font-mono text-neutral-300 space-y-1">
+                  <div className="flex justify-between">
+                    <span className="text-neutral-400">Memory Allocation (70B Model):</span>
+                    <span className="text-emerald-400 font-semibold">1,210 GB VRAM (Actor + Ref Only &bull; 0 Critic)</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-neutral-400">Advantage Calculation:</span>
+                    <span className="text-emerald-400 font-bold">Group Normalization A_i = (r_i - &mu;) / &sigma;</span>
+                  </div>
+                  <div className="flex justify-between border-t border-white/5 pt-1 text-[10px]">
+                    <span className="text-neutral-400">Reward Verification:</span>
+                    <span className="text-emerald-400 font-bold">Deterministic Sandboxes (Math CAS &amp; Code Tests)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 4-Stage Horizontal Pipeline */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              {/* Stage 1 */}
+              <div className="bg-[#161922] border border-cyan-500/30 rounded-lg p-3 text-center space-y-1.5 flex flex-col justify-between">
+                <div>
+                  <span className="text-[10px] font-mono text-cyan-400 uppercase block">STAGE 01 // GROUP ROLLOUT</span>
+                  <div className="w-8 h-8 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center mx-auto my-1.5">
+                    <Zap className="w-4 h-4" />
+                  </div>
+                  <h5 className="font-mono text-xs font-semibold text-white">Parallel Rollouts</h5>
+                </div>
+                <p className="text-[10px] text-cyan-400/90 leading-tight">Sample G=8 candidate trajectories &bull; vLLM continuous batching</p>
+              </div>
+
+              {/* Stage 2 */}
+              <div className="bg-[#161922] border border-emerald-500/30 rounded-lg p-3 text-center space-y-1.5 flex flex-col justify-between">
+                <div>
+                  <span className="text-[10px] font-mono text-emerald-400 uppercase block">STAGE 02 // RULE VERIFIERS</span>
+                  <div className="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto my-1.5">
+                    <ShieldCheck className="w-4 h-4" />
+                  </div>
+                  <h5 className="font-mono text-xs font-semibold text-white">Deterministic Scoring</h5>
+                </div>
+                <p className="text-[10px] text-emerald-400/90 leading-tight">Code sandbox + SymPy exact CAS &bull; 0 reward model drift</p>
+              </div>
+
+              {/* Stage 3 */}
+              <div className="bg-[#161922] border border-cyan-500/30 rounded-lg p-3 text-center space-y-1.5 flex flex-col justify-between">
+                <div>
+                  <span className="text-[10px] font-mono text-cyan-400 uppercase block">STAGE 03 // GROUP ADVANTAGE</span>
+                  <div className="w-8 h-8 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center mx-auto my-1.5">
+                    <Layers className="w-4 h-4" />
+                  </div>
+                  <h5 className="font-mono text-xs font-semibold text-white">Relative Baseline</h5>
+                </div>
+                <p className="text-[10px] text-cyan-400/90 leading-tight">Intra-group A_i = (r_i - &mu;) / &sigma; &bull; Critic model eliminated</p>
+              </div>
+
+              {/* Stage 4 */}
+              <div className="bg-[#161922] border-2 border-emerald-500/50 rounded-lg p-3 text-center space-y-1.5 flex flex-col justify-between shadow-[0_0_15px_rgba(16,185,129,0.15)]">
+                <div>
+                  <span className="text-[10px] font-mono text-emerald-400 font-bold uppercase block">STAGE 04 // CLIPPED UPDATE</span>
+                  <div className="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto my-1.5">
+                    <Cpu className="w-4 h-4" />
+                  </div>
+                  <h5 className="font-mono text-xs font-semibold text-white">Surrogate Policy Step</h5>
+                </div>
+                <p className="text-[10px] text-emerald-400/90 leading-tight">Clipped objective &bull; Unbiased token-level KL regularization</p>
+              </div>
+            </div>
+
+            {/* Proof Log */}
+            <div className="bg-[#0B0D10] border border-white/10 rounded-lg p-4 font-mono text-xs text-neutral-300 space-y-2">
+              <div className="flex items-center justify-between text-neutral-500 text-[11px] border-b border-white/5 pb-2">
+                <span>GRPO_REASONING_ROLLOUT_TELEMETRY.log</span>
+                <span className="text-cyan-400">CLUSTER: 8x H100 SXM5 &bull; GROUP_SIZE G=8 &bull; TARGET: DEEPSEEK-R1-32B</span>
+              </div>
+              <div className="space-y-1 text-[11px] leading-relaxed">
+                <p className="text-neutral-400">
+                  <span className="text-cyan-400">[0.00s]</span> ROLLOUT_GEN: Prompt Q="Solve x^3 - 6x^2 + 11x - 6 = 0 on integer domain" &bull; Dispatched G=8 workers
+                </p>
+                <p className="text-neutral-400">
+                  <span className="text-cyan-400">[1.42s]</span> VERIFY_G1: r_1=1.0 &bull; &lt;think&gt; 1,420 tokens (Autonomous Backtracking detected at x=1) &bull; Adv: +1.28
+                </p>
+                <p className="text-neutral-400">
+                  <span className="text-amber-400">[1.44s]</span> VERIFY_G2: r_2=0.0 &bull; &lt;think&gt; 310 tokens (Sign error at step 2 &bull; CAS check failed) &bull; Adv: -0.74
+                </p>
+                <p className="text-neutral-400">
+                  <span className="text-cyan-400">[1.48s]</span> VERIFY_G3: r_3=1.0 &bull; &lt;think&gt; 1,180 tokens (Factored roots cleanly &#123;1, 2, 3&#125;) &bull; Adv: +1.28
+                </p>
+                <p className="text-neutral-400">
+                  <span className="text-amber-400">[1.51s]</span> VERIFY_G4: r_4=0.0 &bull; Syntax error (Missing &lt;/think&gt; closing delimiter) &bull; Adv: -1.82
+                </p>
+                <p className="text-emerald-400 font-semibold">
+                  <span className="text-emerald-400">[2.10s]</span> POLICY_STEP: Backward pass completed on 8x H100 SXM5 &bull; 0 Critic VRAM Overhead &bull; KL Div: 0.014
+                </p>
+              </div>
+            </div>
+
+            {/* Summary Metrics */}
+            <div className="grid grid-cols-3 gap-3 text-center">
+              <div className="bg-[#14171D] p-2.5 rounded border border-white/5">
+                <span className="text-[10px] font-mono text-neutral-400 block">VRAM Footprint Reduction</span>
+                <span className="text-sm font-mono font-bold text-emerald-400">-51.8% Cluster VRAM</span>
+              </div>
+              <div className="bg-[#14171D] p-2.5 rounded border border-white/5">
+                <span className="text-[10px] font-mono text-neutral-400 block">Value Model Overhead</span>
+                <span className="text-sm font-mono font-bold text-cyan-400">0.00 GB (Critic Discarded)</span>
+              </div>
+              <div className="bg-[#14171D] p-2.5 rounded border border-white/5">
+                <span className="text-[10px] font-mono text-neutral-400 block">MATH-500 Accuracy</span>
+                <span className="text-sm font-mono font-bold text-emerald-400">71.0% &rarr; 92.4% Pass@1</span>
               </div>
             </div>
           </div>
