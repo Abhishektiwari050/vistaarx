@@ -16,19 +16,19 @@ const SPEC_COMPARISON = [
     feature: "Direct Team Access",
     vistar: "Direct Pairing with Lead Engineer",
     vistarHighlight: true,
-    agency: "Unvetted Junior Handoffs",
+    agency: "Multi-layered Account Handlers",
     agencyBad: true,
   },
   {
     feature: "Delivery Cadence",
-    vistar: "14-Day Production Sprints",
+    vistar: "Agreed Milestone Sprints",
     vistarHighlight: true,
-    agency: "3 to 6-Month Open Deadlines",
+    agency: "Uncertain, Drifting Deadlines",
     agencyBad: true,
   },
   {
     feature: "Pricing Model",
-    vistar: "Fixed-Milestone Upfront Quotes",
+    vistar: "Fixed-Milestone Scoped Quotes",
     vistarHighlight: true,
     agency: "Uncapped Hourly Billing Meters",
     agencyBad: true,
@@ -42,9 +42,9 @@ const SPEC_COMPARISON = [
   },
   {
     feature: "Post-Launch Warranty",
-    vistar: "30-Day Defect Warranty Included",
+    vistar: "30-Day Defect Support Included",
     vistarHighlight: true,
-    agency: "Forced Monthly Retainer Fees",
+    agency: "Mandatory Recurring Retainers",
     agencyBad: true,
   },
 ];
@@ -53,16 +53,16 @@ const ENGINEERING_GUARANTEES = [
   {
     icon: Code2,
     number: "01",
-    tag: "SOVEREIGNTY",
-    title: "100% Repository Handover",
+    tag: "HANDOVER",
+    title: "Repository Handover",
     desc: "Complete private GitHub transfer with clean Next.js, Python, and Docker code. You own every commit.",
   },
   {
     icon: Zap,
     number: "02",
-    tag: "VELOCITY",
-    title: "14-Day Sprint Cadence",
-    desc: "Direct pairing with founder and senior engineers. Working production software delivered in two-week cycles.",
+    tag: "MILESTONES",
+    title: "Scoped Milestone Sprints",
+    desc: "Direct pairing with lead engineers. Working production software delivered in agreed sprint milestones.",
   },
   {
     icon: Lock,
@@ -75,15 +75,15 @@ const ENGINEERING_GUARANTEES = [
     icon: GitBranch,
     number: "04",
     tag: "INDEPENDENCE",
-    title: "Zero Hostage Retainers",
-    desc: "No proprietary platform lock-in or recurring monthly maintenance fees. Full deployment documentation included.",
+    title: "No Mandatory Retainers",
+    desc: "No proprietary platform lock-in. Full deployment documentation and operational runbooks included.",
   },
   {
     icon: Clock,
     number: "05",
     tag: "ASSURANCE",
     title: "30-Day Bug Warranty",
-    desc: "Every release is backed by a 30-day zero-cost bug fix guarantee and automated regression test suites.",
+    desc: "Every release includes 30 days of post-launch bug fixes and deployment configuration support.",
   },
 ];
 
@@ -162,11 +162,11 @@ export function CohereDeployment() {
                 OUR COMMITMENTS
               </span>
               <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#141518]">
-                Five guarantees backing every engagement.
+                Principles backing every project.
               </h3>
             </div>
             <p className="text-xs sm:text-sm text-neutral-500 max-w-md font-normal">
-              Direct engineering partnership with zero agency games, zero junior developer handoffs, and zero hostage retainers.
+              Direct engineering partnership with clear milestone scope, direct access to builders, and complete code ownership.
             </p>
           </div>
 
@@ -197,7 +197,7 @@ export function CohereDeployment() {
                   </div>
                   <div className="pt-3 border-t border-black/6">
                     <span className="text-[10px] font-mono uppercase tracking-wider font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200/60">
-                      GUARANTEED
+                      INCLUDED
                     </span>
                   </div>
                 </div>

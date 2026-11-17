@@ -8,14 +8,14 @@ import { RosterAndDates } from "@/components/portal/roster-and-dates";
 import { PortalClose } from "@/components/portal/portal-close";
 
 export const metadata: Metadata = {
-  title: "CATALOGUE // Shipped Software Releases & Physical Deck | VISTAR",
+  title: "Catalogue: Shipped Software Releases & Physical Deck | VISTAR",
   description:
-    "Explore VISTAR's physical catalogue of shipped software releases, autonomous AI architectures, and verified production systems through a scroll-bound parting portal hero.",
+    "Explore VISTAR's catalogue of shipped software releases, web applications, and verified production systems.",
   alternates: {
     canonical: "/catalogue",
   },
   openGraph: {
-    title: "CATALOGUE // Shipped Software Releases | VISTAR",
+    title: "Catalogue: Shipped Software Releases | VISTAR",
     description:
       "Physical sleeve deck and parting portal hero uncovering verified production systems engineered by VISTAR.",
     url: "https://www.vistar.tech/catalogue",

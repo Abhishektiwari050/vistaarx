@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { MessageSquare, ArrowRight, Check, Copy, CheckCircle2, ArrowUpRight } from "lucide-react";
+import { VistarLogo } from "./vistar-logo";
 
 interface FooterLink {
   label: string;
@@ -27,13 +28,13 @@ const FOOTER_COLUMNS: FooterColumn[] = [
     ],
   },
   {
-    title: "VERIFIED PROOF",
+    title: "PROJECTS & PROOF",
     links: [
-      { label: "3axis Arc (3D Spatial Showroom)", href: "https://3axisarc.vercel.app", isExternal: true },
-      { label: "Project VAYU (GIS Telemetry)", href: "https://ai-vayu.vercel.app", isExternal: true },
-      { label: "AutoLead Engine (Intake System)", href: "/work" },
-      { label: "AURA (Biometric Prototype)", href: "https://multi-agent-anomaly-system.onrender.com", isExternal: true },
-      { label: "Inspect All Case Studies", href: "/work" },
+      { label: "3axis Arc (Client Project: 3D WebGL)", href: "https://3axisarc.vercel.app", isExternal: true },
+      { label: "Project VAYU (Open Source: Aviation GIS)", href: "https://ai-vayu.vercel.app", isExternal: true },
+      { label: "AutoLead Engine (Workflow Template)", href: "/work" },
+      { label: "AURA (Research Prototype: Anomaly ML)", href: "https://multi-agent-anomaly-system.onrender.com", isExternal: true },
+      { label: "View All Projects", href: "/work" },
     ],
   },
   {
@@ -89,11 +90,11 @@ export function VistarFooter() {
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-mono font-medium text-white/90">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>LEAD ENGINEER ONLINE // NEW DELHI &bull; IST (UTC+5:30)</span>
+              <span>Lead engineer online &bull; New Delhi (IST, UTC+5:30)</span>
             </div>
 
             <span className="text-xs font-mono text-neutral-400">
-              Direct founder collaboration &bull; 100% Repository Sovereignty
+              Direct engineering collaboration &bull; Full private repository handover
             </span>
           </div>
 
@@ -219,10 +220,14 @@ export function VistarFooter() {
 
         {/* ── 3. MONUMENTAL FULL-WIDTH VISTAR ARCHITECTURAL WORDMARK ── */}
         <div className="pt-8 border-t border-white/10 select-none overflow-hidden">
-          <div className="flex items-center justify-between pb-4">
-            <span className="text-[11px] font-mono text-neutral-500 uppercase tracking-widest">
-              VISTAR WEB SYSTEMS // FOUNDER-LED ENGINEERING STUDIO
-            </span>
+          <div className="flex items-center justify-between pb-6">
+            <div className="flex items-center gap-3">
+              <VistarLogo size={24} showText={false} className="text-white" />
+              <span className="w-[1px] h-3.5 bg-white/20" />
+              <span className="text-[11px] font-mono text-neutral-400 uppercase tracking-widest">
+                INTELLIGENCE FOR WHAT&apos;S NEXT
+              </span>
+            </div>
             <button
               type="button"
               onClick={scrollToTop}
@@ -261,7 +266,7 @@ export function VistarFooter() {
           </div>
 
           <div>
-            <span>Sovereign software &bull; 100% repository handover</span>
+            <span>Private code repository and data handover</span>
           </div>
         </div>
 

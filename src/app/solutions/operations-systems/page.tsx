@@ -181,7 +181,7 @@ export default function OperationsSystemsPage() {
               FIXED SCOPE &bull; TYPICALLY 2–4 WEEKS
             </div>
             <h4 className="text-2xl font-bold text-white">
-              Starting from ₹1,49,000 ($1,800 USD).
+              Starting from ₹1,85,000 ($2,200 USD).
             </h4>
             <p className="text-xs text-neutral-300 leading-relaxed">
               Includes database schema design, role-based login, quotation generator, custom reporting views, deployment to your cloud, and 100% source code repository handover.

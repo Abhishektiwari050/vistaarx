@@ -51,11 +51,11 @@ export default function LeadAutomationPage() {
           </div>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[#121316] leading-[1.08]">
-            Capture every enquiry. Alert your team in 15 seconds.
+            Turn WhatsApp enquiries into qualified leads.
           </h1>
 
           <p className="text-lg sm:text-xl text-neutral-600 leading-relaxed font-normal max-w-3xl">
-            In B2B distribution and services, fast response times win orders. We replace scattered personal WhatsApp chats and unmonitored inboxes with an automated intake engine that structures incoming leads, notifies the right person immediately, and guarantees customer follow-up.
+            In B2B distribution and services, fast response times win orders. We replace scattered personal WhatsApp chats with an automated intake engine that qualifies incoming leads, notifies the right person immediately, and enables prompt team follow-up.
           </p>
 
           <div className="flex flex-wrap items-center gap-4 pt-3">
@@ -112,7 +112,7 @@ export default function LeadAutomationPage() {
               </li>
               <li className="flex items-start gap-3 text-xs text-neutral-700">
                 <CheckCircle2 className="w-4 h-4 text-[#16A34A] shrink-0" />
-                <span><strong>Customer auto-reassurance:</strong> Immediately replies to the buyer with a branded confirmation and unique reference ID.</span>
+                <span><strong>Automated confirmation:</strong> Replies to the customer with a structured acknowledgement and appropriate next step (such as booking link, catalog, or team handoff).</span>
               </li>
             </ul>
           </div>
@@ -140,7 +140,7 @@ export default function LeadAutomationPage() {
                 Official Meta Cloud API
               </strong>
               <p className="text-neutral-600 leading-relaxed">
-                We register your official Meta business account with verified green badge eligibility. No risk of phone number bans from unapproved scraping scripts.
+                We integrate using the official Meta WhatsApp Business Platform / Cloud API, avoiding fragile scraping scripts and unofficial browser extensions.
               </p>
             </div>
 
@@ -174,7 +174,7 @@ export default function LeadAutomationPage() {
               Shipped in 5–10 business days.
             </h4>
             <p className="text-xs text-neutral-300 leading-relaxed">
-              Fixed fee of ₹49,000 ($600 USD). Includes discovery, Meta WhatsApp Cloud setup, lead routing logic, database sync, team training, and 30 days of bug warranty.
+              Fixed fee of ₹49,000 ($590 USD). Includes discovery, Meta WhatsApp Cloud setup, lead routing logic, database sync, team training, and 30 days of bug warranty.
             </p>
           </div>
 

@@ -29,7 +29,7 @@ export default function StartPage() {
         <div className="max-w-4xl mx-auto space-y-4">
           <div>
             <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-black/5 border border-black/10 text-neutral-800 font-mono text-xs uppercase tracking-wider font-semibold rounded-[2px]">
-              Direct Inquiry // 24-Hour Evaluation
+              Direct Inquiry &bull; 24-Hour Scoping
             </span>
           </div>
 

@@ -154,7 +154,7 @@ export function VistarNav() {
           className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#121316] rounded-sm transition-transform active:scale-95 flex items-center shrink-0"
           aria-label="VISTAR Homepage"
         >
-          <VistarLogo size={22} textColor="text-[#121316]" />
+          <VistarLogo size={24} textColor="text-[#121316]" />
         </Link>
 
         {/* Center: Clean Primary Links (Desktop & Tablet) */}

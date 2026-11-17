@@ -54,7 +54,7 @@ export default function PrivacyPage() {
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-[2px] bg-white border border-black/15 shadow-2xs mb-8">
             <Lock className="w-3.5 h-3.5 text-[#FF3823]" />
             <span className="font-mono text-xs uppercase tracking-widest text-neutral-600">
-              Legal // Data Protection Standards
+              Legal: Data Protection Standards
             </span>
           </div>
 
@@ -88,7 +88,7 @@ export default function PrivacyPage() {
           {/* Card 1 */}
           <div className="bg-white/90 border border-black/10 rounded-[6px] p-8 sm:p-10 shadow-sm hover:border-black/15 transition-all">
             <div className="flex items-center gap-3 mb-4">
-              <span className="font-mono text-xs font-semibold text-[#FF3823] tracking-wider">01 //</span>
+              <span className="font-mono text-xs font-semibold text-[#FF3823] tracking-wider">01.</span>
               <span className="font-mono text-xs uppercase tracking-wider text-neutral-600">Operating Entity &amp; Scope</span>
             </div>
             <h2 className="text-2xl font-sans font-medium text-[#0E1118] mb-4">Who We Are</h2>
@@ -104,7 +104,7 @@ export default function PrivacyPage() {
           {/* Card 2 */}
           <div className="bg-white/90 border border-black/10 rounded-[6px] p-8 sm:p-10 shadow-sm hover:border-black/15 transition-all">
             <div className="flex items-center gap-3 mb-4">
-              <span className="font-mono text-xs font-semibold text-[#FF3823] tracking-wider">02 //</span>
+              <span className="font-mono text-xs font-semibold text-[#FF3823] tracking-wider">02.</span>
               <span className="font-mono text-xs uppercase tracking-wider text-neutral-600">Information We Collect</span>
             </div>
             <h2 className="text-2xl font-sans font-medium text-[#0E1118] mb-4">Direct Submissions &amp; Infrastructure Telemetry</h2>
@@ -146,7 +146,7 @@ export default function PrivacyPage() {
               Protected
             </div>
             <div className="flex items-center gap-3 mb-4">
-              <span className="font-mono text-xs font-semibold text-[#FF3823] tracking-wider">03 //</span>
+              <span className="font-mono text-xs font-semibold text-[#FF3823] tracking-wider">03.</span>
               <span className="font-mono text-xs uppercase tracking-wider text-[#0E1118] font-bold">Confidentiality &amp; NDA</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-sans font-medium text-[#0E1118] mb-4">
@@ -160,7 +160,7 @@ export default function PrivacyPage() {
           {/* Card 4 - Sub-processors */}
           <div className="bg-white/90 border border-black/10 rounded-[6px] p-8 sm:p-10 shadow-sm hover:border-black/15 transition-all">
             <div className="flex items-center gap-3 mb-4">
-              <span className="font-mono text-xs font-semibold text-[#FF3823] tracking-wider">04 //</span>
+              <span className="font-mono text-xs font-semibold text-[#FF3823] tracking-wider">04.</span>
               <span className="font-mono text-xs uppercase tracking-wider text-neutral-600">Infrastructure &amp; Sub-Processors</span>
             </div>
             <h2 className="text-2xl font-sans font-medium text-[#0E1118] mb-4">Trusted Technical Service Providers</h2>
@@ -186,7 +186,7 @@ export default function PrivacyPage() {
           {/* Card 5 - DPDP Rights & Retention */}
           <div className="bg-white/90 border border-black/10 rounded-[6px] p-8 sm:p-10 shadow-sm hover:border-black/15 transition-all">
             <div className="flex items-center gap-3 mb-4">
-              <span className="font-mono text-xs font-semibold text-[#FF3823] tracking-wider">05 //</span>
+              <span className="font-mono text-xs font-semibold text-[#FF3823] tracking-wider">05.</span>
               <span className="font-mono text-xs uppercase tracking-wider text-neutral-600">DPDP Act 2023 &amp; User Rights</span>
             </div>
             <h2 className="text-2xl font-sans font-medium text-[#0E1118] mb-4">Data Retention &amp; Sovereignty Rights</h2>
@@ -203,7 +203,7 @@ export default function PrivacyPage() {
           {/* Contact Card */}
           <div className="bg-white border border-black/10 rounded-[6px] p-8 sm:p-10 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-6">
             <div>
-              <div className="font-mono text-xs uppercase tracking-wider text-neutral-600 mb-2">06 // Legal &amp; Data Inquiries</div>
+              <div className="font-mono text-xs uppercase tracking-wider text-neutral-600 mb-2">06. Legal &amp; Data Inquiries</div>
               <h3 className="text-xl font-sans font-medium text-[#0E1118] mb-1">Direct Privacy Officer</h3>
               <p className="text-sm text-neutral-600 mb-1">Vistar Web Systems &bull; Digital Engineering Studio</p>
               <p className="text-xs text-neutral-500 mb-1">New Delhi, India &bull; MSME / Udyam in filing</p>

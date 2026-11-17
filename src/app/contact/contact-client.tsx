@@ -113,7 +113,7 @@ ${formState.problemDescription.trim()}
         <div className="max-w-3xl space-y-3.5 border-b border-black/8 pb-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-black/8 text-[11px] font-mono font-semibold uppercase tracking-wider text-neutral-800 shadow-xs">
             <span className="w-1.5 h-1.5 rounded-full bg-[#FF3823] animate-pulse" />
-            <span>DIRECT FOUNDER COLLABORATION // NEW DELHI</span>
+            <span>Direct engineering collaboration &bull; New Delhi</span>
           </div>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[#141518] leading-[1.08] text-balance">
@@ -358,7 +358,7 @@ ${formState.problemDescription.trim()}
             <div className="bg-[#141518] text-white rounded-[28px] p-7 space-y-5 shadow-lg">
               <div className="flex items-center gap-2 text-xs font-mono text-emerald-400">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span>FASTEST ROUTE // FOUNDER ON DUTY</span>
+                <span>Direct WhatsApp channel</span>
               </div>
 
               <div className="space-y-1.5">

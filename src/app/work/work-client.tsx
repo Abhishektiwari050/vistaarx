@@ -48,7 +48,7 @@ const PRODUCTION_SYSTEMS: ProductionSystem[] = [
     id: "3axisarc",
     category: "spatial",
     tag: "ARCHITECTURE & 3D REAL ESTATE",
-    statusBadge: "LIVE CLIENT SHOWROOM",
+    statusBadge: "CLIENT PROJECT",
     title: "3axis Arc: Spatial 3D Web Showroom",
     sector: "Architecture & Interior Design",
     metrics: ["60 FPS In-Browser WebGL", "Sub-100ms TTFB", "Zero Layout Shift (CLS 0.000)"],
@@ -65,7 +65,7 @@ const PRODUCTION_SYSTEMS: ProductionSystem[] = [
     id: "vayu",
     category: "aviation",
     tag: "OPEN SOURCE AVIATION GIS",
-    statusBadge: "OPEN SOURCE TOOL",
+    statusBadge: "OPEN-SOURCE TOOL",
     title: "Project VAYU: Pre-Flight NOTAM & Weather Briefing Tool",
     sector: "Aviation & Geospatial Mapping",
     metrics: ["MapLibre Vector GIS", "Automated NOTAM Parsing", "Open Source Codebase"],
@@ -86,14 +86,14 @@ const PRODUCTION_SYSTEMS: ProductionSystem[] = [
   {
     id: "autolead",
     category: "enterprise",
-    tag: "INTERNAL CRM AUTOMATION",
-    statusBadge: "INTERNAL PIPELINE",
-    title: "VISTAR AutoLead: Internal Lead Triage & WhatsApp Pipeline",
-    sector: "Vistar Internal Operations & Lead Capture",
+    tag: "LEAD & WHATSAPP PIPELINE",
+    statusBadge: "INTERNAL WORKFLOW TEMPLATE",
+    title: "VISTAR AutoLead: WhatsApp Lead Pipeline",
+    sector: "Lead Capture & Operations Dashboard",
     metrics: ["Instant WhatsApp Alert", "Zero Manual Entry", "24/7 Intake Engine"],
-    desc: "Our internal inquiry intake pipeline that captures web form leads, structures project requirements, dispatches instant WhatsApp notifications directly to our lead engineers, and logs follow-ups.",
+    desc: "A lead capture and qualification pipeline that ingests enquiries from web forms and WhatsApp, structures project requirements, dispatches instant team notifications, and syncs to an operations dashboard.",
     architecture: "Next.js Route Handlers + WhatsApp Cloud API + Google Sheets / PostgreSQL",
-    liveUrl: "https://vistar.tech/contact",
+    liveUrl: "/contact",
     displayUrl: "vistar.tech/contact",
     repoTransfer: "Available as custom automation module in Production System package",
     accentBg: "bg-[#E8FCE8]",
@@ -127,8 +127,8 @@ const ROLES = [
   },
   {
     role: "Startups & Growth Companies",
-    summary: "Launch high-performance web applications and customer portals in a guaranteed 14-day sprint.",
-    detail: "Direct collaboration with founding engineers with 100% private GitHub repository transfer and zero lock-in retainers.",
+    summary: "Launch high-performance web applications and customer portals in focused sprint milestones.",
+    detail: "Direct collaboration with lead engineers with 100% private GitHub repository transfer and zero lock-in retainers.",
   },
   {
     role: "Architects & Real Estate Developers",
@@ -192,11 +192,11 @@ const WORK_FAQ_ITEMS: QAPair[] = [
     category: "SPRINT DELIVERY TIMELINE",
     question: "What is the delivery timeline for custom software projects?",
     answer:
-      "VISTAR operates on fixed 14-day production sprints (and 5–7 day starter MVP sprints). Following an initial 48-hour scoping diagnostic, founding engineers build and ship functional production software in focused cycles, eliminating the multi-month delays common with traditional agencies.",
+      "VISTAR operates on agreed milestone sprint cycles (typically 1–2 weeks for focused pilots, 2–4 weeks for comprehensive production systems). Following an initial scoping discussion, engineers build and ship functional production software in visible cycles.",
     keyPoints: [
-      "48-hour architecture diagnostic and system scoping",
-      "14-day iterative production sprints with deployable staging releases",
-      "Direct pairing with founding engineers rather than outsourced junior teams",
+      "Initial architecture scoping and system boundaries",
+      "Iterative production sprints with deployable staging releases",
+      "Direct collaboration with lead engineers",
     ],
   },
   {
@@ -339,11 +339,11 @@ export default function WorkClientPage() {
 
                       <a
                         href={sys.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        target={sys.id === "autolead" ? undefined : "_blank"}
+                        rel={sys.id === "autolead" ? undefined : "noopener noreferrer"}
                         className="text-[10px] font-mono text-emerald-400 hover:text-emerald-300 flex items-center gap-1 underline underline-offset-2"
                       >
-                        Visit <ExternalLink className="w-2.5 h-2.5" />
+                        {sys.id === "autolead" ? "Contact" : "Visit"} <ExternalLink className="w-2.5 h-2.5" />
                       </a>
                     </div>
 
@@ -415,7 +415,7 @@ export default function WorkClientPage() {
                     {/* Verified Metrics Chips */}
                     <div className="space-y-2 pt-4 border-t border-black/10">
                       <span className="text-[10px] uppercase tracking-wider text-[#5E605D] font-semibold">
-                        Verified Production Benchmarks:
+                        Technical Highlights:
                       </span>
                       <div className="flex flex-wrap gap-1.5">
                         {sys.metrics.map((m, mIdx) => (
@@ -444,11 +444,11 @@ export default function WorkClientPage() {
                     <div className="pt-4 border-t border-black/10 flex items-center justify-between">
                       <a
                         href={sys.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        target={sys.id === "autolead" ? undefined : "_blank"}
+                        rel={sys.id === "autolead" ? undefined : "noopener noreferrer"}
                         className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#141413] group-hover:text-[#FF3823] transition-colors"
                       >
-                        Inspect Live Deployment
+                        {sys.id === "autolead" ? "Enquire About System" : "Inspect Live Deployment"}
                         <ArrowRight className="w-3.5 h-3.5" />
                       </a>
                       <Link

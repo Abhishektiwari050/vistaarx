@@ -16,34 +16,34 @@ interface PersonaInfo {
 const PERSONAS: PersonaInfo[] = [
   {
     id: 0,
-    role: "Lead Capture & WhatsApp Bots",
-    metric: "< 10s",
-    metricLabel: "Lead Response Time",
-    quote: "Automated ingestion from IndiaMART, JustDial, and web forms to WhatsApp & CRM",
+    role: "WhatsApp Intake & Bots",
+    metric: "Instant",
+    metricLabel: "Lead Response",
+    quote: "Automated ingestion from WhatsApp, website forms, and marketplaces directly into your pipeline",
     badgeColor: "#22C55E",
   },
   {
     id: 1,
-    role: "Custom Next.js Web Apps",
-    metric: "14 Days",
-    metricLabel: "Production Sprint",
-    quote: "Fast full-stack web applications and portals delivered with typed schemas",
+    role: "Operations Dashboards",
+    metric: "Live",
+    metricLabel: "Pipeline View",
+    quote: "Internal portals for sales and operations teams to track leads, quotes, and fulfillment",
     badgeColor: "#3B82F6",
   },
   {
     id: 2,
-    role: "Spatial WebGL & 3D Web",
+    role: "Spatial 3D Showcases",
     metric: "60 FPS",
     metricLabel: "In-Browser WebGL",
-    quote: "High-density architectural walkthroughs and interactive spatial models (3axis Arc)",
+    quote: "Interactive spatial viewers and configurators for architecture and products (3axis Arc)",
     badgeColor: "#F59E0B",
   },
   {
     id: 3,
-    role: "100% Source Code Sovereignty",
+    role: "Full Source Code Handover",
     metric: "100%",
     metricLabel: "Private Git Transfer",
-    quote: "Full private GitHub repo handover with bilateral NDA and 30-day bug warranty",
+    quote: "Private GitHub repository transfer, deployment runbook, and 30-day bug warranty",
     badgeColor: "#FF3823",
   },
 ];
@@ -297,7 +297,7 @@ export function JasperInteractiveHero() {
             >
               <div className="flex items-center justify-between gap-1 mb-1">
                 <span className="text-[10px] font-mono uppercase tracking-wider text-[#5E605D]">
-                  0{p.id + 1} // CAPABILITY
+                  Module 0{p.id + 1}
                 </span>
                 <span
                   className="text-xs font-bold font-mono px-1.5 py-0.5 rounded"

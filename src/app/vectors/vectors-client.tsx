@@ -42,7 +42,7 @@ interface ServicePackage {
 const PACKAGES: ServicePackage[] = [
   {
     id: "starter",
-    badge: "PACKAGE 01 // RAPID LAUNCH",
+    badge: "STARTER PILOT",
     name: "Starter MVP",
     inrPrice: "₹49,000",
     usdPrice: "$590",
@@ -64,7 +64,7 @@ const PACKAGES: ServicePackage[] = [
     ],
     example: {
       name: "KL Herbal Storefront & Lead Pipeline",
-      tag: "E-COMMERCE // WHATSAPP AUTOMATION",
+      tag: "E-COMMERCE & WHATSAPP AUTOMATION",
       desc: "Fast, mobile-optimized catalog with instant WhatsApp order routing, replacing sluggish third-party plugins with sub-second page loads.",
       image: "/projects/klherbal.png",
       liveUrl: "https://klherbal.in",
@@ -73,11 +73,11 @@ const PACKAGES: ServicePackage[] = [
   },
   {
     id: "production",
-    badge: "PACKAGE 02 // MOST POPULAR",
+    badge: "PRODUCTION SYSTEM",
     name: "Production System",
     inrPrice: "₹1,85,000",
     usdPrice: "$2,200",
-    timeline: "14 Days Guaranteed",
+    timeline: "14-Day Sprint Milestone",
     idealFor: "Funded startups, growing businesses, and architecture/real estate firms needing a full-stack web application or 60 FPS interactive 3D showcase.",
     desc: "A comprehensive production platform built with Next.js 16, relational PostgreSQL database architecture, automated WhatsApp/CRM lead pipelines, or 60 FPS WebGL spatial models.",
     included: [
@@ -105,7 +105,7 @@ const PACKAGES: ServicePackage[] = [
   },
   {
     id: "custom",
-    badge: "PACKAGE 03 // BESPOKE ENGINEERING",
+    badge: "CUSTOM ARCHITECTURE",
     name: "Custom Architecture",
     inrPrice: "₹3,90,000+",
     usdPrice: "$4,700+",
@@ -126,7 +126,7 @@ const PACKAGES: ServicePackage[] = [
     ],
     example: {
       name: "Project VAYU Aviation Pre-Flight Tool",
-      tag: "OPEN SOURCE // AVIATION GIS",
+      tag: "OPEN SOURCE & AVIATION GIS",
       desc: "Real-time situational awareness and NOTAM mapping tool built for pilots with Next.js, MapLibre GIS, and automated weather parsing. Free & open-source on GitHub.",
       image: "/projects/vayu-briefing.png",
       liveUrl: "https://ai-vayu.vercel.app",
@@ -203,7 +203,7 @@ export function VectorsServicesClient() {
         <div className="relative z-10 max-w-4xl mx-auto space-y-6">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-white border border-black/10 rounded-full text-xs font-mono font-medium text-neutral-700 shadow-2xs">
             <span className="w-2 h-2 rounded-full bg-[#FF3823] animate-pulse" />
-            <span>ENGINEERING PACKAGES // FIXED 14-DAY SPRINTS</span>
+            <span>ENGINEERING PACKAGES &bull; SCOPED MILESTONE SPRINTS</span>
           </div>
 
           <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl font-normal text-[#0E1118] tracking-tight leading-[1.08]">
@@ -481,7 +481,7 @@ export function VectorsServicesClient() {
 
       {/* ── 4. ANSWER BLOCKS // FAQ ── */}
       <AnswerBlocks
-        badge="SERVICES & PACKAGES // FAQ"
+        badge="FREQUENTLY ASKED QUESTIONS"
         title="Frequently Asked Questions"
         subtitle="Clear, honest answers about scope, pricing, code ownership, and post-launch support."
         items={SERVICES_FAQ_ITEMS}

@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "How We Work — Engineering Process, Contracts & Code Handover | VISTAR",
     description:
-      "Direct founder access, fixed milestones, bilateral NDAs, and 100% repository handover. How Vistar delivers software with zero agency bloat.",
+      "Direct engineering access, fixed milestones, bilateral NDAs, and full repository handover. How Vistar delivers practical software for growing businesses.",
     url: `${BASE_URL}/how-we-work`,
     images: DEFAULT_OG_IMAGES,
   },
@@ -126,7 +126,7 @@ const CONTRACT_POLICIES = [
     desc: "Every fixed-scope project includes 30 days of warranty support post-deployment. If any defect or error appears within the agreed scope, we fix it promptly at zero additional charge.",
   },
   {
-    title: "100% Intellectual Property Sovereignty",
+    title: "Full Source Code & IP Handover",
     desc: "Upon final payment, all custom code, schemas, and assets developed for your system belong exclusively to you. You hold the master repository, the database, and the right to commercialize or modify the system freely.",
   },
 ];
@@ -147,7 +147,7 @@ export default function HowWeWorkPage() {
           </h1>
 
           <p className="text-lg sm:text-xl text-neutral-600 leading-relaxed font-normal max-w-3xl">
-            Software projects fail when scopes are vague, timelines are unrealistic, and communication gets lost in agency bureaucracy. Here is exactly how an engagement with Vistar unfolds from first conversation to full repository handover.
+            Software projects fail when scopes are vague, timelines are unrealistic, and communication gets lost between layers of non-technical account managers. Here is exactly how an engagement with Vistar unfolds from first conversation to full repository handover.
           </p>
         </div>
 

@@ -12,10 +12,10 @@ export function CourageRevealSection() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-black/8 pb-6">
           <div className="space-y-2 max-w-xl">
             <span className="text-[11px] font-mono uppercase tracking-widest text-[#FF3823] font-bold block">
-              FOUNDER CONVICTION
+              ENGINEERING FOCUS
             </span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#141518] leading-[1.10] text-balance">
-              Built with speed, conviction, and zero hesitation.
+              Focused execution on real operational workflows.
             </h2>
           </div>
           <p className="text-xs sm:text-sm text-neutral-500 max-w-sm font-normal text-pretty">
@@ -27,7 +27,7 @@ export function CourageRevealSection() {
         <div className="relative w-full rounded-[24px] sm:rounded-[32px] overflow-hidden border border-black/10 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.06)] bg-[#FAFAF9]">
           <TigerTearReveal
             word="COURAGE"
-            tagline="HAVE NO FEAR // 14-DAY PRODUCTION SPRINTS"
+            tagline="DELIVERED IN FOCUSED PRODUCTION SPRINTS"
             ink="#FF3823"
             paper="#FAFAF9"
             taglineColor="#5E605D"
@@ -43,7 +43,7 @@ export function CourageRevealSection() {
           <span className="hidden sm:inline text-neutral-300">&bull;</span>
           <span>New Delhi, India</span>
           <span className="hidden sm:inline text-neutral-300">&bull;</span>
-          <span className="text-neutral-700 font-semibold">100% Repository Sovereignty Guaranteed</span>
+          <span className="text-neutral-700 font-semibold">Full Repository &amp; Data Handover</span>
         </div>
 
       </div>

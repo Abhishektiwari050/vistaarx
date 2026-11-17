@@ -191,7 +191,7 @@ export default function GrowPage() {
           {/* Overline & System Breadcrumb */}
           <div className="space-y-4 max-w-4xl">
             <div className="flex items-center gap-3">
-              <span className="type-label text-[#0284C7]">03 // LAYER 03: GROW</span>
+              <span className="type-label text-[#0284C7]">LAYER 03: GROW</span>
               <span className="text-xs text-[#94A3B8] font-mono">BUILD → DISCOVER → <strong>GROW</strong></span>
             </div>
             <h1 className="type-display">
@@ -224,7 +224,7 @@ export default function GrowPage() {
       <section id="capabilities" className="vistar-section border-b border-[rgba(56, 189, 248, 0.15)]">
         <div className="vistar-container space-y-12">
           <div className="space-y-3 max-w-3xl">
-            <p className="type-label text-[#0284C7]">02 // CAPABILITIES</p>
+            <p className="type-label text-[#0284C7]">CAPABILITIES</p>
             <h2 className="type-h2">Retention Primitives</h2>
             <p className="type-body text-[#475569]">
               Sustainable enterprise growth requires an operational engine that monitors customer health and systematically closes the product feedback loop.
@@ -236,7 +236,7 @@ export default function GrowPage() {
               <Card key={cap.number} className="p-6 md:p-8 flex flex-col justify-between space-y-6">
                 <div className="space-y-4">
                   <div className="flex items-baseline justify-between border-b border-[rgba(56, 189, 248, 0.15)] pb-3">
-                    <span className="font-mono text-xs text-[#0284C7] font-semibold">{cap.number} // LIFECYCLE VECTOR</span>
+                    <span className="font-mono text-xs text-[#0284C7] font-semibold">{cap.number} &bull; LIFECYCLE VECTOR</span>
                     <span className="font-mono text-[11px] text-[#94A3B8] truncate max-w-[200px]">{cap.stack}</span>
                   </div>
                   <h3 className="type-h3">{cap.title}</h3>
@@ -264,7 +264,7 @@ export default function GrowPage() {
       <section className="vistar-section border-b border-[rgba(56, 189, 248, 0.15)] bg-[#F0F7FD]/60">
         <div className="vistar-container space-y-12">
           <div className="space-y-3 max-w-3xl">
-            <p className="type-label text-[#0284C7]">03 // DELIVERABLES</p>
+            <p className="type-label text-[#0284C7]">DELIVERABLES</p>
             <h2 className="type-h2">The Retention Operations Engine</h2>
             <p className="type-body text-[#475569]">
               We deliver complete lifecycle and telemetry infrastructure that runs continuously on your cloud environment, maintaining customer relationships without manual overhead.
@@ -287,7 +287,7 @@ export default function GrowPage() {
       <section className="vistar-section border-b border-[rgba(56, 189, 248, 0.15)]">
         <div className="vistar-container space-y-12">
           <div className="space-y-3 max-w-3xl">
-            <p className="type-label text-[#0284C7]">04 // METHODOLOGY</p>
+            <p className="type-label text-[#0284C7]">METHODOLOGY</p>
             <h2 className="type-h2">14-Day Retention Sprint</h2>
             <p className="type-body text-[#475569]">
               A disciplined operational sprint deploying event telemetry, automated engagement pipelines, and cohort dashboards.
@@ -313,7 +313,7 @@ export default function GrowPage() {
       <section className="vistar-section border-b border-[rgba(56, 189, 248, 0.15)] bg-[#F0F7FD]/60">
         <div className="vistar-container flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
           <div className="space-y-3 max-w-2xl">
-            <span className="type-label text-[#0284C7]">SYSTEM CONTINUITY // CLOSING THE LOOP</span>
+            <span className="type-label text-[#0284C7]">SYSTEM CONTINUITY: CLOSING THE LOOP</span>
             <h3 className="type-h3">
               Telemetry Informs the Next Construction Sprint.
             </h3>
@@ -332,7 +332,7 @@ export default function GrowPage() {
       {/* 6. FINAL ACTION */}
       <section className="vistar-section">
         <div className="vistar-container text-center space-y-8 max-w-3xl mx-auto">
-          <p className="type-label text-[#0284C7]">05 // START</p>
+          <p className="type-label text-[#0284C7]">START</p>
           <h2 className="type-h2">Ready to Automate Your Retention Engine?</h2>
           <p className="type-body text-[#475569]">
             Take our 6-step project diagnostic to evaluate your event architecture, churn points, and telemetry pipelines.

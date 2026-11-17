@@ -191,7 +191,7 @@ export default function DiscoverPage() {
           {/* Overline & System Breadcrumb */}
           <div className="space-y-4 max-w-4xl">
             <div className="flex items-center gap-3">
-              <span className="type-label text-[#0284C7]">02 // LAYER 02: DISCOVER</span>
+              <span className="type-label text-[#0284C7]">LAYER 02: DISCOVER</span>
               <span className="text-xs text-[#94A3B8] font-mono">BUILD → <strong>DISCOVER</strong> → GROW</span>
             </div>
             <h1 className="type-display">
@@ -224,7 +224,7 @@ export default function DiscoverPage() {
       <section id="capabilities" className="vistar-section border-b border-[rgba(56, 189, 248, 0.15)]">
         <div className="vistar-container space-y-12">
           <div className="space-y-3 max-w-3xl">
-            <p className="type-label text-[#0284C7]">02 // CAPABILITIES</p>
+            <p className="type-label text-[#0284C7]">CAPABILITIES</p>
             <h2 className="type-h2">Distribution Primitives</h2>
             <p className="type-body text-[#475569]">
               Organic visibility is achieved by satisfying the exact technical heuristics of search algorithms and AI citation crawlers.
@@ -236,7 +236,7 @@ export default function DiscoverPage() {
               <Card key={cap.number} className="p-6 md:p-8 flex flex-col justify-between space-y-6">
                 <div className="space-y-4">
                   <div className="flex items-baseline justify-between border-b border-[rgba(56, 189, 248, 0.15)] pb-3">
-                    <span className="font-mono text-xs text-[#0284C7] font-semibold">{cap.number} // REACH VECTOR</span>
+                    <span className="font-mono text-xs text-[#0284C7] font-semibold">{cap.number} &bull; REACH VECTOR</span>
                     <span className="font-mono text-[11px] text-[#94A3B8] truncate max-w-[200px]">{cap.stack}</span>
                   </div>
                   <h3 className="type-h3">{cap.title}</h3>
@@ -264,7 +264,7 @@ export default function DiscoverPage() {
       <section className="vistar-section border-b border-[rgba(56, 189, 248, 0.15)] bg-[#F0F7FD]/60">
         <div className="vistar-container space-y-12">
           <div className="space-y-3 max-w-3xl">
-            <p className="type-label text-[#0284C7]">03 // DELIVERABLES</p>
+            <p className="type-label text-[#0284C7]">DELIVERABLES</p>
             <h2 className="type-h2">The Distribution Infrastructure</h2>
             <p className="type-body text-[#475569]">
               We hand over permanent algorithmic assets. Once deployed into your code repository, your distribution systems continue indexing and generating organic leverage automatically.
@@ -287,7 +287,7 @@ export default function DiscoverPage() {
       <section className="vistar-section border-b border-[rgba(56, 189, 248, 0.15)]">
         <div className="vistar-container space-y-12">
           <div className="space-y-3 max-w-3xl">
-            <p className="type-label text-[#0284C7]">04 // METHODOLOGY</p>
+            <p className="type-label text-[#0284C7]">METHODOLOGY</p>
             <h2 className="type-h2">14-Day Distribution Sprint</h2>
             <p className="type-body text-[#475569]">
               A rapid, highly focused technical sprint establishing search dominance and sub-second edge distribution for your digital assets.
@@ -313,7 +313,7 @@ export default function DiscoverPage() {
       <section className="vistar-section border-b border-[rgba(56, 189, 248, 0.15)] bg-[#F0F7FD]/60">
         <div className="vistar-container flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
           <div className="space-y-3 max-w-2xl">
-            <span className="type-label text-[#0284C7]">SYSTEM CONTINUITY // LAYER HANDOFF</span>
+            <span className="type-label text-[#0284C7]">SYSTEM CONTINUITY: LAYER HANDOFF</span>
             <h3 className="type-h3">
               Traffic Without Retention Is A Leaky Bucket.
             </h3>
@@ -332,7 +332,7 @@ export default function DiscoverPage() {
       {/* 6. FINAL ACTION */}
       <section className="vistar-section">
         <div className="vistar-container text-center space-y-8 max-w-3xl mx-auto">
-          <p className="type-label text-[#0284C7]">05 // START</p>
+          <p className="type-label text-[#0284C7]">START</p>
           <h2 className="type-h2">Ready to Scale Your Technical Reach?</h2>
           <p className="type-body text-[#475569]">
             Take our 6-step project diagnostic to analyze your search surface, performance profile, and distribution architecture.

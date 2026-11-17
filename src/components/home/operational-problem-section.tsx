@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Clock, RefreshCw, Zap, CheckCircle2 } from "lucide-react";
+import { VistarEmblem } from "@/components/vistar-logo";
 
 export function OperationalProblemSection() {
   const [mode, setMode] = useState<"before" | "after">("before");
@@ -30,7 +31,7 @@ export function OperationalProblemSection() {
           <div className="max-w-2xl space-y-3.5">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/90 border border-black/8 text-[11px] font-mono font-semibold uppercase tracking-wider text-neutral-700 shadow-xs">
               <span className="w-1.5 h-1.5 rounded-full bg-[#FF3823] animate-pulse" />
-              <span>OPERATIONAL REALITY // BENCHMARK</span>
+              <span>OPERATIONAL REALITY</span>
             </div>
 
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#141518] leading-[1.12] text-balance">
@@ -228,12 +229,12 @@ export function OperationalProblemSection() {
                       : "bg-[#EDFBF2] text-[#16A34A] border-[#C6F2D4]"
                   }`}
                 >
-                  {isBefore ? "REVENUE LEAK" : "INSTANT CONVERSION"}
+                  {isBefore ? "MANUAL INTAKE" : "INSTANT QUALIFICATION"}
                 </span>
               </div>
 
               <h3 className="text-lg sm:text-[19px] font-bold text-[#141518] leading-tight">
-                Enquiry Intake &amp; Lead Dispatch
+                WhatsApp Enquiry Intake &amp; Qualification
               </h3>
             </div>
 
@@ -316,9 +317,9 @@ export function OperationalProblemSection() {
                   </div>
 
                   <div className="mt-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 font-mono text-xs font-bold">
-                    <span>Speed: &lt; 10s Automated Dispatch</span>
+                    <span>Speed: Instant qualification &amp; routing</span>
                   </div>
-                  <span className="text-[11px] font-mono text-neutral-500 mt-1">100% Leads Routed Instantly</span>
+                  <span className="text-[11px] font-mono text-neutral-500 mt-1">Enquiries captured and routed directly to team</span>
                 </div>
               )}
             </div>
@@ -334,8 +335,8 @@ export function OperationalProblemSection() {
               </div>
               <span className="text-xs sm:text-[13px] font-sans font-medium text-neutral-700">
                 {isBefore
-                  ? "20%–30% of incoming enquiries lost silently"
-                  : "Zero missed leads • Instant sales notification"}
+                  ? "Slow response times and enquiries missed in chat"
+                  : "Immediate automated response and team notification"}
               </span>
             </div>
           </div>
@@ -365,12 +366,12 @@ export function OperationalProblemSection() {
                       : "bg-[#EDFBF2] text-[#16A34A] border-[#C6F2D4]"
                   }`}
                 >
-                  {isBefore ? "CLERICAL CHURN" : "BI-DIRECTIONAL SYNC"}
+                  {isBefore ? "MANUAL RE-ENTRY" : "PIPELINE SYNC"}
                 </span>
               </div>
 
               <h3 className="text-lg sm:text-[19px] font-bold text-[#141518] leading-tight">
-                Spreadsheet &amp; Tool Synchronization
+                Spreadsheet &amp; CRM Synchronization
               </h3>
             </div>
 
@@ -419,9 +420,9 @@ export function OperationalProblemSection() {
                   </div>
 
                   <div className="mt-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 font-mono text-xs font-bold">
-                    <span>100% Automated Bidirectional Sync</span>
+                    <span>Automated pipeline sync</span>
                   </div>
-                  <span className="text-[11px] font-mono text-neutral-500 mt-1">15+ Manager Hours Recaptured Weekly</span>
+                  <span className="text-[11px] font-mono text-neutral-500 mt-1">Replaces manual copy-pasting across sheets</span>
                 </div>
               )}
             </div>
@@ -438,7 +439,7 @@ export function OperationalProblemSection() {
               <span className="text-xs sm:text-[13px] font-sans font-medium text-neutral-700">
                 {isBefore
                   ? "Frequent copy-paste errors and fulfillment delays"
-                  : "Zero manual re-entry • Real-time DB sync"}
+                  : "Eliminates manual re-entry across tools"}
               </span>
             </div>
           </div>
@@ -464,16 +465,16 @@ export function OperationalProblemSection() {
                 <span
                   className={`text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${
                     isBefore
-                      ? "bg-[#EDFBF2] text-[#16A34A] border-[#C6F2D4]"
+                      ? "bg-[#FFF0ED] text-[#FF3823] border-[#FFD5CC]"
                       : "bg-[#EDFBF2] text-[#16A34A] border-[#C6F2D4]"
                   }`}
                 >
-                  {isBefore ? "REPORTING BLINDNESS" : "LIVE TELEMETRY"}
+                  {isBefore ? "DELAYED REPORTING" : "LIVE DASHBOARD"}
                 </span>
               </div>
 
               <h3 className="text-lg sm:text-[19px] font-bold text-[#141518] leading-tight">
-                Operational Telemetry &amp; Dashboards
+                Operations Dashboard &amp; Lead Pipeline
               </h3>
             </div>
 
@@ -487,7 +488,7 @@ export function OperationalProblemSection() {
                     <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                   </div>
-                  <span className="text-[9px] font-mono text-emerald-700 font-bold">LIVE TELEMETRY</span>
+                  <span className="text-[9px] font-mono text-emerald-700 font-bold">LIVE PIPELINE</span>
                 </div>
 
                 {/* Vector Trendline Chart */}
@@ -523,12 +524,8 @@ export function OperationalProblemSection() {
 
               {/* Floating Metallic VISTAR Emblem Disc (Exact replica from render) */}
               <div className="absolute -bottom-2 right-4 sm:right-6 w-16 h-16 rounded-full bg-gradient-to-tr from-[#121316] via-[#22242B] to-[#3C3E49] border border-white/20 shadow-xl flex flex-col items-center justify-center text-white [transform:perspective(600px)_rotateY(-12deg)] z-10">
-                <div className="w-4 h-4 text-white">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                    <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" fill="white" />
-                  </svg>
-                </div>
-                <span className="text-[7.5px] font-mono tracking-widest uppercase font-bold mt-0.5">VISTAR</span>
+                <VistarEmblem size={20} className="text-white" />
+                <span className="text-[7.5px] font-mono tracking-widest uppercase font-bold mt-1">VISTAR</span>
 
                 {/* Delicate outer orbital glass ring around emblem */}
                 <div
@@ -544,7 +541,7 @@ export function OperationalProblemSection() {
                 <Clock className="w-3.5 h-3.5" />
               </div>
               <span className="text-xs sm:text-[13px] font-sans font-medium text-neutral-700">
-                {isBefore ? "3-Day CSV Delay" : "Sub-second production telemetry • Zero stale numbers"}
+                {isBefore ? "Stale spreadsheets and manual status checks" : "Real-time pipeline view from enquiry to conversion"}
               </span>
             </div>
           </div>
@@ -566,7 +563,7 @@ export function OperationalProblemSection() {
             href="/contact"
             className="inline-flex items-center gap-1.5 font-sans font-semibold text-xs sm:text-sm text-[#141518] hover:text-[#FF3823] transition-colors group"
           >
-            <span>Audit a workflow with our lead engineer</span>
+            <span>Review your workflow with an engineer</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
           </Link>
         </div>

@@ -588,5 +588,36 @@ html.lenis, html.lenis body {
   pointer-events: none;
 }
 
+/* ─── Loading Screen Animations ────────────────────────────────────────────── */
+@keyframes spinSlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes indeterminateProgress {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-spin-slow {
+  animation: spinSlow 12s linear infinite;
+}
+
+.animate-indeterminate {
+  animation: indeterminateProgress 1.6s ease-in-out infinite;
+}
+
+
 
 

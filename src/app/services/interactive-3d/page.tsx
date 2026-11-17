@@ -89,7 +89,7 @@ export default function Interactive3DPage() {
         <div className="max-w-4xl mx-auto space-y-6">
           <div>
             <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-black/5 border border-black/10 text-neutral-800 font-mono text-xs uppercase tracking-wider font-semibold rounded-[2px]">
-              Services // Creative 3D &amp; WebGL
+              Services: Creative 3D &amp; WebGL
             </span>
           </div>
 
@@ -148,7 +148,7 @@ export default function Interactive3DPage() {
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="font-mono text-xs font-semibold text-[#FF3823] uppercase tracking-wider">
-                    MODULE // {cap.step}
+                    Module {cap.step}
                   </span>
                   <span className="font-serif text-2xl font-bold text-neutral-300">
                     {cap.step}

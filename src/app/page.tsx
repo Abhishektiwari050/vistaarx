@@ -91,7 +91,7 @@ const HOME_FAQ_ITEMS: QAPair[] = [
     category: "INVESTMENT & PRICING",
     question: "How does project pricing work?",
     answer:
-      "We quote fixed-scope milestone pricing upfront after our discovery discussion. Focused automation pilots typically start at ₹49,000 ($600 USD); comprehensive multi-user operational portals or custom web applications start from ₹1,49,000 ($1,800 USD). You never face unexpected billable hours, hidden cloud markups, or surprise change-order fees.",
+      "We quote fixed-scope milestone pricing upfront after our discovery discussion. Focused automation pilots typically start at ₹49,000 ($590 USD); comprehensive operational portals and custom systems start from ₹1,85,000 ($2,200 USD). You never face unexpected billable hours, hidden cloud markups, or surprise change-order fees.",
     keyPoints: [
       "Fixed-scope quotes with clear inclusions and exclusions",
       "Dual-currency invoicing in INR (₹) or USD ($)",

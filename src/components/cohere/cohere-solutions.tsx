@@ -31,8 +31,8 @@ const PRODUCTION_CARDS: ProductionCard[] = [
     slug: "3axisarc",
     pill: "Spatial 3D Engine",
     pillPosition: "top-8 right-[26%]",
-    tag: "SYSTEM 01 // ARCHITECTURE & REAL ESTATE",
-    category: "Spatial WebGL & Architectural Systems",
+    tag: "SYSTEM 01 — ARCHITECTURE & 3D",
+    category: "Client Project: Spatial 3D WebGL",
     title: "3axis Arc: High-Performance Spatial 3D Platform",
     shortDesc: "Interactive 3D architectural platform for developers and architects, rendering 60fps WebGL in-browser.",
     fullDesc:
@@ -44,7 +44,7 @@ const PRODUCTION_CARDS: ProductionCard[] = [
     metrics: [
       { label: "WebGL Rendering", value: "60 FPS" },
       { label: "Edge TTFB", value: "<100ms" },
-      { label: "Code Sovereignty", value: "100% Handover" },
+      { label: "Code Handover", value: "Private Git" },
     ],
     liveUrl: "https://3axisarc.vercel.app",
     displayUrl: "3axisarc.vercel.app",
@@ -53,25 +53,25 @@ const PRODUCTION_CARDS: ProductionCard[] = [
   {
     id: 2,
     slug: "autolead",
-    pill: "Sales Automation",
+    pill: "Lead Automation",
     pillPosition: "top-8 right-[22%]",
-    tag: "SYSTEM 02 // SALES & LEAD INGESTION",
-    category: "Indian SME Sales & Lead Capture",
-    title: "VISTAR AutoLead: IndiaMART & WhatsApp Pipeline",
-    shortDesc: "Automated lead intake engine ingesting inquiries from IndiaMART, JustDial, and web forms into instant WhatsApp alerts.",
+    tag: "SYSTEM 02 — SALES & LEAD CAPTURE",
+    category: "Internal Tool: Lead Capture & Qualification",
+    title: "VISTAR AutoLead: WhatsApp Lead Pipeline",
+    shortDesc: "Automated lead intake engine ingesting inquiries from web forms and WhatsApp into instant team alerts.",
     fullDesc:
-      "A deterministic lead routing and qualification engine for Indian SME business owners. Captures leads across multiple marketplaces, sends automated founder alerts on WhatsApp in under 10s, and syncs data to Google Sheets and PostgreSQL.",
+      "A deterministic lead routing and qualification engine for Indian SME business owners. Captures leads across multiple channels, sends automated team alerts on WhatsApp in seconds, and syncs data to an operations dashboard and database.",
     image: "/projects/competence-crm.png",
     alt: "VISTAR AutoLead Platform",
     bgGradient: "linear-gradient(135deg, #0A0F1D 0%, #141C33 50%, #0A0F1D 100%)",
     accentColor: "#22C55E",
     metrics: [
-      { label: "WhatsApp Alert", value: "<10s" },
-      { label: "Intake Source", value: "IndiaMART + JustDial" },
+      { label: "WhatsApp Alert", value: "<15s" },
+      { label: "Lead Pipeline", value: "Real-time Sync" },
       { label: "Lead Capture", value: "24/7 Automated" },
     ],
     liveUrl: "https://vistar.tech/contact",
-    displayUrl: "autolead.vistar.tech",
+    displayUrl: "vistar.tech/contact",
     caseStudyUrl: "/work",
   },
   {
@@ -79,8 +79,8 @@ const PRODUCTION_CARDS: ProductionCard[] = [
     slug: "vayu",
     pill: "Aviation GIS",
     pillPosition: "top-8 right-[16%]",
-    tag: "SYSTEM 03 // AVIATION & GEOSPATIAL",
-    category: "Aviation GIS & Situational Telemetry",
+    tag: "SYSTEM 03 — AVIATION & GIS",
+    category: "Open-Source Tool: Aviation GIS",
     title: "Project VAYU: Pre-Flight NOTAM & Weather Briefing",
     shortDesc: "Open-source situational awareness tool with vector GIS hazard layers and automated NOTAM flight briefing parsing.",
     fullDesc:
@@ -103,8 +103,8 @@ const PRODUCTION_CARDS: ProductionCard[] = [
     slug: "aura",
     pill: "ML Research",
     pillPosition: "top-8 right-[24%]",
-    tag: "SYSTEM 04 // MACHINE LEARNING RESEARCH",
-    category: "Autonomous Multi-Agent Telemetry",
+    tag: "SYSTEM 04 — RESEARCH PROTOTYPE",
+    category: "Research Prototype: Telemetry ML",
     title: "AURA: Multi-Agent Biometric Anomaly Detection",
     shortDesc: "Open-source research prototype testing unsupervised Isolation Forest ML algorithms over synthetic telemetry streams.",
     fullDesc:
@@ -279,7 +279,7 @@ export function CohereSolutions() {
       ref={sectionRef}
       id="solutions"
       className="relative w-full bg-white text-[#050A14] overflow-hidden select-none py-10 sm:py-14 lg:py-16"
-      aria-label="Built for what's next. Ready now."
+      aria-label="Software and solutions engineered by Vistar"
     >
       <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14">
         
@@ -289,7 +289,7 @@ export function CohereSolutions() {
           {/* 1. Header Column (Left): Crisp Editorial Framing */}
           <div className="lg:col-span-5 space-y-4 z-20">
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#F1F5F9] rounded-full text-xs font-semibold text-[#0F172A] uppercase tracking-wider">
-              <span>Verified Systems</span>
+              <span>Production Software</span>
             </div>
 
             <h2
@@ -299,9 +299,9 @@ export function CohereSolutions() {
                   'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
               }}
             >
-              Built for what&apos;s next.
+              Software built for
               <br />
-              Ready now.
+              everyday operations.
             </h2>
 
             <p
@@ -311,7 +311,7 @@ export function CohereSolutions() {
                   'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
               }}
             >
-              From mission-critical cockpit GIS and real-time biometric anomaly detection to high-throughput spatial 3D platforms, Vistar engineers production software with 100% private codebase ownership.
+              From WhatsApp lead qualification workflows and operations dashboards to spatial 3D tools and research software, Vistar builds reliable software with private repository handover.
             </p>
 
             <div className="pt-2">
@@ -319,7 +319,7 @@ export function CohereSolutions() {
                 href="/work"
                 className="inline-flex items-center justify-center px-6 py-3 bg-[#050A14] hover:bg-[#1E293B] text-white text-sm font-semibold rounded-none transition-colors shadow-xs gap-2"
               >
-                Inspect All Systems &rarr;
+                View Our Work &rarr;
               </Link>
             </div>
           </div>
@@ -558,7 +558,7 @@ export function CohereSolutions() {
                   href="/start"
                   className="w-full inline-flex items-center justify-center gap-2 py-3 bg-[#050A14] hover:bg-[#1E293B] text-white text-[14px] font-medium rounded-full shadow-md transition-all font-sans"
                 >
-                  <span>Commission System Like This</span>
+                  <span>Discuss a Similar Project</span>
                   <span>→</span>
                 </Link>
 
@@ -570,7 +570,7 @@ export function CohereSolutions() {
                       rel="noopener noreferrer"
                       className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 bg-[#F1F5F9] text-[#0B1320] text-xs font-semibold rounded-full hover:bg-[#E2E8F0] transition-colors"
                     >
-                      <span>Live Demo</span>
+                      <span>{activeModalCard.slug === "autolead" ? "Enquire About System" : "Live Demo"}</span>
                       <span>↗</span>
                     </a>
                   )}

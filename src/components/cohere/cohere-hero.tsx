@@ -108,10 +108,10 @@ export function CohereHero() {
             <div className="mb-5 break-words max-w-[780px] mx-auto overflow-hidden px-2">
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-normal leading-[1.05] tracking-tight text-balance">
                 <span className="gsap-hero-title-line block overflow-hidden will-change-transform bg-gradient-to-r from-[#000000] via-[#1A1A1A] to-[#555555] bg-clip-text text-transparent">
-                  Stop losing time
+                  Turn WhatsApp enquiries
                 </span>
                 <span className="gsap-hero-title-line block overflow-hidden will-change-transform bg-gradient-to-r from-[#000000] via-[#1A1A1A] to-[#555555] bg-clip-text text-transparent">
-                  to manual work.
+                  into qualified leads.
                 </span>
               </h1>
             </div>
@@ -119,7 +119,7 @@ export function CohereHero() {
             {/* 02: Polished Authoritative Subhead capped at 640px measure */}
             <div className="gsap-hero-subhead w-full max-w-[640px] px-4 mx-auto mb-7 will-change-transform">
               <p className="text-base sm:text-lg md:text-xl font-normal leading-[1.55] text-neutral-600 text-pretty">
-                Vistar builds practical software and automation to help growing businesses capture enquiries, automate operations, and scale with direct engineering involvement from discovery to production.
+                Vistar connects your WhatsApp inbox to automated qualification questions and a live operations dashboard, so your team can focus on closing ready buyers.
               </p>
             </div>
 
@@ -141,12 +141,6 @@ export function CohereHero() {
                 Chat on WhatsApp (+91 88601 10144)
                 <ArrowRight className="w-4 h-4" />
               </a>
-              <Link
-                href="/work"
-                className="inline-flex items-center justify-center px-6 py-3 border border-[#181818] text-[#181818] bg-transparent hover:bg-neutral-100 font-medium text-sm sm:text-base rounded-none transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#181818] focus-visible:ring-offset-2"
-              >
-                Explore our engineering work &rarr;
-              </Link>
             </div>
 
           </div>
@@ -169,14 +163,14 @@ export function CohereHero() {
               className="w-full h-full object-cover object-center block"
               width={1280}
               height={720}
-              aria-label="VISTAR Engineering Showreel — Stop losing time to manual work"
+              aria-label="VISTAR — WhatsApp lead intake and operations dashboards"
             >
               <source src="/videos/hero-showreel-loop.webm?v=2" type="video/webm" />
               <source src="/videos/hero-showreel-loop.mp4?v=2" type="video/mp4" />
               {/* Fallback image */}
               <img
                 src="/videos/hero-showreel-poster.webp?v=2"
-                alt="VISTAR — Stop losing time to manual work"
+                alt="VISTAR — WhatsApp lead intake and operations dashboards"
                 className="w-full h-full object-cover object-center"
                 loading="eager"
               />

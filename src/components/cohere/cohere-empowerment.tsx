@@ -27,7 +27,7 @@ export function CohereEmpowerment() {
 
           {/* Top Label */}
           <div className="relative z-10 text-xs font-mono tracking-wider uppercase text-white/70 font-medium">
-            Data Sovereignty
+            Code &amp; Data Ownership
           </div>
 
           {/* Bottom Content */}
@@ -35,15 +35,15 @@ export function CohereEmpowerment() {
             <h2
               className="text-4xl sm:text-5xl lg:text-6xl font-normal leading-[1.05] tracking-[-0.02em] text-white font-sans"
             >
-              Engineered for
+              Full ownership
               <br />
-              Sovereignty
+              of your systems
             </h2>
 
             <p
               className="text-base sm:text-lg text-white/90 leading-relaxed font-normal font-sans"
             >
-              Your data. Your cloud. Zero vendor lock-in. VISTAR delivers production autonomous software with 100% private repository handover from day one.
+              Your workflows run in your accounts and infrastructure. Vistar transfers private GitHub repositories, deployment configurations, and project documentation directly to your team.
             </p>
 
             <div className="pt-2">
@@ -51,7 +51,7 @@ export function CohereEmpowerment() {
                 href="/work"
                 className="inline-flex items-center justify-center px-6 py-2.5 rounded-full bg-white hover:bg-white/90 text-[#141413] text-[14px] font-medium transition-all active:scale-95 shadow-md"
               >
-                Explore Case Studies
+                Explore Our Work
               </Link>
             </div>
           </div>

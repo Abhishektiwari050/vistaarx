@@ -32,8 +32,8 @@ const ENGINEERING_PILLARS = [
   {
     icon: Code2,
     tag: "PILLAR 01",
-    title: "100% Source Code Sovereignty",
-    desc: "Every line of TypeScript, Python, Docker configurations, and PostgreSQL schemas is committed directly to your private GitHub repository. You own your IP completely—zero vendor lock-in, zero CMS hostage retainers.",
+    title: "Full Source Code Handover",
+    desc: "Every line of TypeScript, Python, Docker configurations, and PostgreSQL schemas is committed directly to your private GitHub repository. You own your IP completely—zero vendor lock-in, zero ongoing retainers.",
   },
   {
     icon: Shield,
@@ -45,7 +45,7 @@ const ENGINEERING_PILLARS = [
     icon: Sparkles,
     tag: "PILLAR 03",
     title: "Transparent Fixed Pricing",
-    desc: "Transparent scope and upfront dual-currency pricing starting at ₹49,000 ($600). No surprise invoices, no phantom hours, and no junior-developer telephone games.",
+    desc: "Transparent scope and upfront dual-currency pricing starting at ₹49,000 ($590). Clear milestone quotes without surprise invoices or hidden charges.",
   },
 ];
 
@@ -70,7 +70,7 @@ export default function AboutCompanyPage() {
           </h1>
 
           <p className="max-w-2xl mx-auto text-base sm:text-lg text-neutral-600 leading-relaxed font-normal">
-            We eliminate agency bloat and unmaintainable templates. VISTAR builds production WhatsApp sales automations, high-performance Next.js portals, and interactive 3D WebGL showcases with 100% private code ownership from day one.
+            Vistar builds practical software: WhatsApp lead qualification workflows, operational dashboards, and custom web applications with complete private repository handover from day one.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
@@ -78,7 +78,7 @@ export default function AboutCompanyPage() {
               href="/pricing"
               className="inline-flex items-center justify-center h-12 px-7 rounded-[4px] bg-[#FF3823] hover:bg-[#E0301C] text-white text-[14px] font-medium shadow-sm transition-all active:scale-95 gap-2"
             >
-              View Packages (from ₹49k / $600)
+              View Packages (from ₹49k / $590)
               <ArrowRight className="w-4 h-4" />
             </Link>
 
@@ -132,7 +132,7 @@ export default function AboutCompanyPage() {
                   Founder &amp; Lead Engineer
                 </span>
                 <h2 className="font-serif text-3xl sm:text-4xl font-normal text-[#0E1118] tracking-tight leading-tight">
-                  Direct engineering without junior telephone games.
+                  Direct engineering collaboration from discovery to launch.
                 </h2>
               </div>
 
@@ -203,7 +203,7 @@ export default function AboutCompanyPage() {
               Our Core Promises
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl font-normal text-[#0E1118]">
-              Engineered for Sovereignty &amp; Speed
+              Code Ownership &amp; Direct Delivery
             </h2>
           </div>
 

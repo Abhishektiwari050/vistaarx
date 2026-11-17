@@ -88,7 +88,7 @@ export function StartDiagnosticClient() {
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-[#FF3823]" />
             <span className="font-mono text-xs font-bold text-[#FF3823] uppercase tracking-wider">
-              PROJECT INITIATION // 24-HOUR EVALUATION
+              PROJECT INITIATION &bull; 24-HOUR SCOPING
             </span>
           </div>
           <h2 className="font-serif text-2xl sm:text-3xl font-semibold text-[#0E1118]">

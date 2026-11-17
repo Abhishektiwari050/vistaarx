@@ -54,7 +54,7 @@ export default function TermsPage() {
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-[2px] bg-white border border-black/15 shadow-2xs mb-8">
             <ShieldCheck className="w-3.5 h-3.5 text-[#FF3823]" />
             <span className="font-mono text-xs uppercase tracking-widest text-neutral-600">
-              Legal // Master Engagement Terms
+              Legal: Master Engagement Terms
             </span>
           </div>
 
@@ -88,7 +88,7 @@ export default function TermsPage() {
           {/* Card 1 */}
           <div className="bg-white/90 border border-black/10 rounded-[6px] p-8 sm:p-10 shadow-sm hover:border-black/15 transition-all">
             <div className="flex items-center gap-3 mb-4">
-              <span className="font-mono text-xs font-semibold text-[#FF3823] tracking-wider">01 //</span>
+              <span className="font-mono text-xs font-semibold text-[#FF3823] tracking-wider">01.</span>
               <span className="font-mono text-xs uppercase tracking-wider text-neutral-600">Scope &amp; Application</span>
             </div>
             <h2 className="text-2xl font-sans font-medium text-[#0E1118] mb-4">Engagement Scope</h2>
@@ -107,7 +107,7 @@ export default function TermsPage() {
               Guaranteed
             </div>
             <div className="flex items-center gap-3 mb-4">
-              <span className="font-mono text-xs font-semibold text-[#FF3823] tracking-wider">02 //</span>
+              <span className="font-mono text-xs font-semibold text-[#FF3823] tracking-wider">02.</span>
               <span className="font-mono text-xs uppercase tracking-wider text-[#0E1118] font-bold">The Sovereignty Axiom</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-sans font-medium text-[#0E1118] mb-4">
@@ -151,7 +151,7 @@ export default function TermsPage() {
           {/* Card 3 */}
           <div className="bg-white/90 border border-black/10 rounded-[6px] p-8 sm:p-10 shadow-sm hover:border-black/15 transition-all">
             <div className="flex items-center gap-3 mb-4">
-              <span className="font-mono text-xs font-semibold text-[#FF3823] tracking-wider">03 //</span>
+              <span className="font-mono text-xs font-semibold text-[#FF3823] tracking-wider">03.</span>
               <span className="font-mono text-xs uppercase tracking-wider text-neutral-600">Mutual Confidentiality</span>
             </div>
             <h2 className="text-2xl font-sans font-medium text-[#0E1118] mb-4">Bilateral Non-Disclosure Obligations</h2>
@@ -163,7 +163,7 @@ export default function TermsPage() {
           {/* Card 4 */}
           <div className="bg-white/90 border border-black/10 rounded-[6px] p-8 sm:p-10 shadow-sm hover:border-black/15 transition-all">
             <div className="flex items-center gap-3 mb-4">
-              <span className="font-mono text-xs font-semibold text-[#FF3823] tracking-wider">04 //</span>
+              <span className="font-mono text-xs font-semibold text-[#FF3823] tracking-wider">04.</span>
               <span className="font-mono text-xs uppercase tracking-wider text-neutral-600">Sprint Delivery &amp; Acceptance</span>
             </div>
             <h2 className="text-2xl font-sans font-medium text-[#0E1118] mb-4">Sprint Cycles &amp; Acceptance Milestones</h2>
@@ -193,7 +193,7 @@ export default function TermsPage() {
           {/* Card 5 */}
           <div className="bg-white/90 border border-black/10 rounded-[6px] p-8 sm:p-10 shadow-sm hover:border-black/15 transition-all">
             <div className="flex items-center gap-3 mb-4">
-              <span className="font-mono text-xs font-semibold text-[#FF3823] tracking-wider">05 //</span>
+              <span className="font-mono text-xs font-semibold text-[#FF3823] tracking-wider">05.</span>
               <span className="font-mono text-xs uppercase tracking-wider text-neutral-600">Commercial Terms &amp; Governing Law</span>
             </div>
             <h2 className="text-2xl font-sans font-medium text-[#0E1118] mb-4">Payment Schedule, Liability &amp; Jurisdiction</h2>
@@ -216,7 +216,7 @@ export default function TermsPage() {
           {/* Legal Office Contact Card */}
           <div className="bg-white border border-black/10 rounded-[6px] p-8 sm:p-10 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-6">
             <div>
-              <div className="font-mono text-xs uppercase tracking-wider text-neutral-600 mb-2">06 // Legal &amp; Commercial Contacts</div>
+              <div className="font-mono text-xs uppercase tracking-wider text-neutral-600 mb-2">06. Legal &amp; Commercial Contacts</div>
               <h3 className="text-xl font-sans font-medium text-[#0E1118] mb-1">Contract &amp; Vendor Inquiries</h3>
               <p className="text-sm text-neutral-600">Legal &amp; Engineering Operations &bull; Vistar Web Systems, New Delhi, India.</p>
               <p className="text-xs font-mono text-neutral-500 mt-1">Direct inquiries via WhatsApp (+91 88601 10144) or email below.</p>

@@ -191,7 +191,7 @@ export default function BuildPage() {
           {/* Overline & System Breadcrumb */}
           <div className="space-y-4 max-w-4xl">
             <div className="flex items-center gap-3">
-              <span className="type-label text-[#0284C7]">01 // LAYER 01: BUILD</span>
+              <span className="type-label text-[#0284C7]">LAYER 01: BUILD</span>
               <span className="text-xs text-[#94A3B8] font-mono">→ DISCOVER → GROW</span>
             </div>
             <h1 className="type-display">
@@ -224,7 +224,7 @@ export default function BuildPage() {
       <section id="capabilities" className="vistar-section border-b border-[rgba(56, 189, 248, 0.15)]">
         <div className="vistar-container space-y-12">
           <div className="space-y-3 max-w-3xl">
-            <p className="type-label text-[#0284C7]">02 // CAPABILITIES</p>
+            <p className="type-label text-[#0284C7]">CAPABILITIES</p>
             <h2 className="type-h2">Engineering Primitives</h2>
             <p className="type-body text-[#475569]">
               Every system is assembled from verified technological building blocks. We use typed languages, compiled runtimes, and resilient data structures.
@@ -236,7 +236,7 @@ export default function BuildPage() {
               <Card key={cap.number} className="p-6 md:p-8 flex flex-col justify-between space-y-6">
                 <div className="space-y-4">
                   <div className="flex items-baseline justify-between border-b border-[rgba(56, 189, 248, 0.15)] pb-3">
-                    <span className="font-mono text-xs text-[#0284C7] font-semibold">{cap.number} // ARCHITECTURE</span>
+                    <span className="font-mono text-xs text-[#0284C7] font-semibold">{cap.number} &bull; ARCHITECTURE</span>
                     <span className="font-mono text-[11px] text-[#94A3B8] truncate max-w-[200px]">{cap.stack}</span>
                   </div>
                   <h3 className="type-h3">{cap.title}</h3>
@@ -264,7 +264,7 @@ export default function BuildPage() {
       <section className="vistar-section border-b border-[rgba(56, 189, 248, 0.15)] bg-[#EBEAE5]">
         <div className="vistar-container space-y-12">
           <div className="space-y-3 max-w-3xl">
-            <p className="type-label text-[#0284C7]">03 // DELIVERABLES</p>
+            <p className="type-label text-[#0284C7]">DELIVERABLES</p>
             <h2 className="type-h2">The Sovereign Ownership Contract</h2>
             <p className="type-body text-[#475569]">
               Traditional development agencies thrive on dependency and vendor lock-in. Vistar delivers completely sovereign technology assets that remain permanently under your control.
@@ -287,7 +287,7 @@ export default function BuildPage() {
       <section className="vistar-section border-b border-[rgba(56, 189, 248, 0.15)]">
         <div className="vistar-container space-y-12">
           <div className="space-y-3 max-w-3xl">
-            <p className="type-label text-[#0284C7]">04 // METHODOLOGY</p>
+            <p className="type-label text-[#0284C7]">METHODOLOGY</p>
             <h2 className="type-h2">14–21 Day Production Sprint</h2>
             <p className="type-body text-[#475569]">
               We do not bill open-ended hourly retainers. We execute focused, fixed-scope engineering sprints designed to ship working software into production.
@@ -313,7 +313,7 @@ export default function BuildPage() {
       <section className="vistar-section border-b border-[rgba(56, 189, 248, 0.15)] bg-[#EBEAE5]">
         <div className="vistar-container flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
           <div className="space-y-3 max-w-2xl">
-            <span className="type-label text-[#0284C7]">SYSTEM CONTINUITY // LAYER HANDOFF</span>
+            <span className="type-label text-[#0284C7]">SYSTEM CONTINUITY: LAYER HANDOFF</span>
             <h3 className="type-h3">
               Code Without Distribution Is Static Potential.
             </h3>
@@ -332,7 +332,7 @@ export default function BuildPage() {
       {/* 6. FINAL ACTION */}
       <section className="vistar-section">
         <div className="vistar-container text-center space-y-8 max-w-3xl mx-auto">
-          <p className="type-label text-[#0284C7]">05 // START</p>
+          <p className="type-label text-[#0284C7]">START</p>
           <h2 className="type-h2">Ready to Engineer a Sovereign System?</h2>
           <p className="type-body text-[#475569]">
             Take our 6-step project diagnostic to evaluate technical requirements, timeline, and architectural scope.
