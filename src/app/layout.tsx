@@ -234,7 +234,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="min-h-screen antialiased">
+    <html lang="en" className="min-h-screen antialiased" suppressHydrationWarning>
       <head>
         {/* Machine-Readable AI & LLM Discovery Feeds */}
         <link rel="alternate" type="text/markdown" href="https://www.vistar.tech/llms.txt" title="LLM Summary" />
@@ -266,7 +266,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`min-h-screen bg-white text-[#181818] selection:bg-[#181818] selection:text-white antialiased font-sans ${display.variable} ${sans.variable} ${mono.variable}`}>
+      <body suppressHydrationWarning className={`min-h-screen bg-white text-[#181818] selection:bg-[#181818] selection:text-white antialiased font-sans ${display.variable} ${sans.variable} ${mono.variable}`}>
         <PageCurtain mark={<VistarLogo size={52} showText={false} className="text-white" />}>
           <MagneticCursor />
           <LenisProvider>

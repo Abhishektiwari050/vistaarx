@@ -163,7 +163,7 @@ export default function BlogClientPage() {
                 <div className="lg:col-span-6">
                   <TechnicalDiagram
                     type={getDiagramTypeForSlug(featuredPost.slug)}
-                    caption="FIG 1.0: AGENCY OVERHEAD VS. LEAN CELL COST & TIMELINE WATERFALL"
+                    caption="FIG 1.0: PRODUCTION ARCHITECTURE SPECIFICATION & STATE CONVERGENCE TOPOLOGY"
                     compact={true}
                   />
                 </div>
